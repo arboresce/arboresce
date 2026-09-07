@@ -9,3 +9,5 @@ This index covers the documentation supplied with the repository.
 - [Contribution guidance](../CONTRIBUTING.md)
 - [Security reporting](../SECURITY.md)
 - [Code of Conduct](../CODE_OF_CONDUCT.md)
+
+- [Open engine MVP v1 rolling implementation plan](execution/open-cli-mvp-v1-rcld.md)
