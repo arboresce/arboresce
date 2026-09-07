@@ -274,7 +274,7 @@ Definition of green: Unknown references fail; positive/negative vectors run; bre
 
 ### E015 — Enforce architecture and dependency policy
 
-Status: `not_started`. Prerequisites: E013. Verify lane: RUST + CONTRACT.
+Status: `not_started`. Prerequisites: E013, E013-coverage-runner. Verify lane: RUST + CONTRACT.
 
 Scope: Check inward domain/application dependencies, the workflow API matrix, license/advisory policy and source inventories. Workflows may use deterministic Temporal APIs; direct I/O, ambient time/randomness and adapter dependencies are forbidden.
 
@@ -284,7 +284,7 @@ Definition of green: Allow supported workflow APIs and legitimate SDK transitive
 
 ### E016 — Implement deterministic shared test support
 
-Status: `not_started`. Prerequisites: E013. Verify lane: RUST + CONTRACT.
+Status: `not_started`. Prerequisites: E013, E013-coverage-runner. Verify lane: RUST + CONTRACT.
 
 Scope: Add narrow clock, identity, fixture, barrier and disposable-service helpers without production bypasses. Inventory executable support and test it independently.
 
@@ -1494,7 +1494,7 @@ Definition of green: Clean installation reads exports; wrong hashes fail; unavai
 
 ### E134-restore — Implement and verify early D0 restoration
 
-Status: `not_started`. Prerequisites: E134, E112-retention-contract, E124. Verify lane: RUST + SERVICE + E2E.
+Status: `not_started`. Prerequisites: E134, E112-retention-contract, E124, E074. Verify lane: RUST + SERVICE + E2E.
 
 Scope: Add real public restoration tooling and runbook for database, sealed bytes, keys/trust and current independently retained post-backup revocation/deletion/hold journal. Restore in an isolated environment with serving disabled; prove journal completeness, reapply later restrictions, rebuild projections and only then permit qualified serving. Parameterize policy and require separately approved operational resources.
 
