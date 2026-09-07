@@ -20,5 +20,5 @@ Start with [the documentation index](docs/README.md) and [contribution guidance]
 
 ## License
 
-Original project material is available under the [Apache License 2.0](LICENSE).
+Original project material is available under either the [MIT License](LICENSE-MIT) or the [Apache License 2.0](LICENSE-APACHE), at your option.
 See [NOTICE](NOTICE) for attribution.

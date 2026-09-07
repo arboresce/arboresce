@@ -8,7 +8,7 @@ Keep each change coherent and reviewable. Explain the behavior it changes and ho
 Use a short, imperative commit subject that describes the change.
 
 Use material you have the right to contribute. Retain attribution for reused work.
-Contributions are licensed under the Apache License 2.0.
+Contributions are licensed under either the [MIT License](LICENSE-MIT) or the [Apache License 2.0](LICENSE-APACHE), at the recipient's option.
 
 ## Documentation and generated files
 
