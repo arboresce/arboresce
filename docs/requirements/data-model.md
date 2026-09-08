@@ -91,6 +91,10 @@ required/optional classification and exact version of every expected part.
 Foreign references fail. Processing readiness depends on this fixed revision,
 not on a mutable list assembled by a worker.
 
+The [acquisition contract](acquisition-contract.md) defines the wire identities,
+immutable attachment intents and separately observed sealed bindings and
+readiness. Its operation rules preserve these aggregate distinctions.
+
 ## Evidence and review identity
 
 Candidate fingerprints cover all consequential content, including scope,

@@ -123,6 +123,11 @@ command idempotency and remains a review suggestion.
 
 ## Acquisition and review operations
 
+The [acquisition contract](acquisition-contract.md) owns precise upload and
+capture routes, complete command variants, responses and semantic admission
+rules. Its parsed-value fixtures do not replace current authorization, expiry,
+cross-reference or sealed-storage verification.
+
 Upload allocation grants only a scoped staging destination, permitted headers,
 media and byte bounds. Finalization names the upload and expected byte length
 and digest. The service returns acceptance only for the binding required by

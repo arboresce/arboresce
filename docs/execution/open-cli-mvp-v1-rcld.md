@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001 is `complete`; E002 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Status: executing approved implementation design; E001–E002 are `complete`; E003 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -139,10 +139,9 @@ Definition of green: Independent rights and disclosure review; local links resol
 
 ### E002 — Freeze command and error semantics
 
-Status: `verified`. Prerequisites: E001. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `complete`. Prerequisites: E001. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
 
-Evidence: [Common contract checkpoint](e002-common-contract-evidence.md).
-The following completion record identifies the exact committed source revision.
+Checkpoint: 1eea8a99dd36eb90ca7c4823ad34b19d2e4103f8; Evidence: [Common contract checkpoint](e002-common-contract-evidence.md)
 
 Scope: Specify tenant and domain identifiers, independent revision types, command identity, typed errors, accepted operations and readiness. Define strict command parsing, extensible responses and cross-field validation.
 
@@ -161,11 +160,30 @@ Definition of green: Malformed commands fail; extra response fields remain toler
 
 ### E003 — Freeze acquisition and sealed-byte contracts
 
-Status: `not_started`. Prerequisites: E002. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `verified`. Prerequisites: E002. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+
+Evidence: [Acquisition checkpoint](e003-acquisition-contract-evidence.md).
+The following completion record identifies the exact committed source revision.
 
 Scope: Specify upload lifecycle, byte digests/lengths, capture revisions and ordered attachment roles. Separate immutable originals and representations from readiness and control state.
 
 Planned paths: `contracts/public/`, `docs/requirements/`.
+
+Use the existing source-free `contracts/validation/` project for independent
+acquisition cases and their expectation schema. Its guide, the repository and
+requirement indexes, and `docs/execution/e003-acquisition-contract-evidence.md`
+record supported checks and actual results. General reference, expiry, arithmetic
+and storage-race scenarios remain explicitly prospective runtime fixtures until
+their owning implementation executes them; shape checks cannot claim those
+effects.
+
+Two declarative entries at `contracts/common-v1.fixtures.schema.json` and
+`contracts/acquisition-v1.fixtures.schema.json` establish the local schema graph
+root for the pinned validator. Each selects one exact fixture family. This
+bounded path addition addresses an observed nested-reference failure without
+moving or copying owning contracts, changing their meaning, overriding base
+URIs or introducing an executable helper. Qualify both families, swapped-family
+rejection, broken references and standalone relocation before green.
 
 Definition of green: Foreign attachment rejected; required failure blocks readiness; optional failure is visible; expired upload cannot finalize.
 
