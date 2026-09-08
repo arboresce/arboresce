@@ -359,6 +359,22 @@ numeric token that underflows to zero. Canonicalization of supported numbers
 follows RFC 8785, including its treatment of negative zero. Monetary values
 remain governed by [financial records](financial-records.md#exact-monetary-values).
 
+Unsigned protocol integer fields have an additional raw-token rule on both
+emission and admission: use exactly `0` or a nonzero ASCII decimal digit followed
+by ASCII decimal digits. This applies to explicitly declared nonnegative integer
+counts, lengths, offsets, indices and integer status/enum fields. Reject signs
+(including `-0`), fractions, exponents, booleans and out-of-range values before
+coercion. A fractional token that rounds to an apparently integral binary64 value
+must not become an accepted counter. Inspect the original numeric token or use
+a qualified decoder that preserves the required distinction.
+
+This rule does not constrain arbitrary source JSON, general JSON values or JCS
+numbers to unsigned integers. Their existing signed/fractional binary64 semantics
+remain unchanged, and revisions remain exact decimal strings. JSON Schema's
+`integer` keyword tests mathematical values after parsing; it may accept `1.0`
+or `1e0`. A parsed-value fixture pass therefore cannot certify this raw protocol
+rule, and its expected outcomes must not be relabelled as lexical results.
+
 Reject malformed UTF-8, unpaired surrogates, duplicate object keys at every
 depth, non-finite tokens, trailing data and unsupported encodings. The initial
 control request is uncompressed UTF-8 `application/json`; unsupported content
@@ -400,6 +416,7 @@ by the parsed-value manifest and must not be reported as passing runtime evidenc
 | `RAW-03` | Exactly 1 MiB versus one byte more; enforce the streamed cap without trusting Content-Length or buffering an unlimited body. |
 | `RAW-04` | Depth 16 versus 17 with mixed objects/arrays; counts at and over 128 members and 256 elements; multi-byte string byte/scalar boundaries. |
 | `RAW-05` | Valid binary64 and exact string-number distinctions produce independent RFC 8785 bytes/digests, including UTF-16 property order and Unicode escape equivalence. |
+| `RAW-06` | For each declared unsigned protocol integer, `1` is distinct at admission from `1.0`, `1e0`, `-0` and `true`; test the exact maximum, overflow and a fractional token that rounds to an apparent integer. Verify original-token rejection before coercion and canonical integer emission. General source/JCS numbers retain their separate profile. |
 | `CMD-01` | Registered command/body variants accept only their complete closed shape; unknown names, nested intent fields, wrong revision types and overflow cannot mutate state. |
 | `CMD-02` | Method/path/purpose/body changes alter the fingerprint; object-key order and whitespace alone do not; alternate routing spellings fail. |
 | `CMD-03` | Same-key lost-response replay returns the recorded identity after current authorization; different fingerprint conflicts and expiry never silently repeats an effect. |

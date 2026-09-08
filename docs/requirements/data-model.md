@@ -127,6 +127,10 @@ retained provenance; mutable grants are not immutable content truth.
 
 ## Typed multimodal locators
 
+The [observation contract](observation-contract.md) owns the concrete v1 locator
+and source-kind shapes. Its wire schema does not replace validation against the
+actual authorized representation, source content and transformation profile.
+
 Locators bind to exact representation identity and digest, not just an artifact
 head or user-visible filename. Validate their units and bounds against that
 representation before accepting an observation.

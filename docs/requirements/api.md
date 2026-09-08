@@ -30,6 +30,10 @@ command metadata, problem/state consistency and readiness shapes. Each operation
 must add its own closed body and semantic admission rules. Passing the common
 metadata schema alone cannot validate or authorize a complete domain command.
 
+The [observation contract](observation-contract.md) owns grounding and source-kind
+values carried by the relevant operations. It adds no mutation route by itself;
+each operation still supplies its complete admission and response contract.
+
 Every operation must define:
 
 - Required and optional fields, complete discriminated variants, field bounds

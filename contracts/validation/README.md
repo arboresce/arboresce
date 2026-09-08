@@ -5,8 +5,9 @@ It contains tool configuration and declarative fixtures, with no first-party
 Python implementation. The engine contract runner will consume the same reviewed
 contracts and oracles when its implementation is available.
 
-The [common contract](../../docs/requirements/common-contract.md) and
-[acquisition contract](../../docs/requirements/acquisition-contract.md) own wire
+The [common contract](../../docs/requirements/common-contract.md),
+[acquisition contract](../../docs/requirements/acquisition-contract.md) and
+[observation contract](../../docs/requirements/observation-contract.md) own wire
 meaning. Each has a versioned schema, independently chosen parsed-value cases
 and a fixed expectation schema:
 
@@ -14,16 +15,18 @@ and a fixed expectation schema:
 | --- | --- | --- | --- |
 | Common | [Shared definitions](../public/v1/common.schema.json) | [Common cases](common-v1.cases.json) | [Common expectations](common-v1.expectations.schema.json) |
 | Acquisition | [Upload and capture definitions](../public/v1/acquisition.schema.json) | [Acquisition cases](acquisition-v1.cases.json) | [Acquisition expectations](acquisition-v1.expectations.schema.json) |
+| Observation | [Grounding and source definitions](../public/v1/observation.schema.json) | [Observation cases](observation-v1.cases.json) | [Observation expectations](observation-v1.expectations.schema.json) |
 
-The commands select the [common entry](../common-v1.fixtures.schema.json) and
-[acquisition entry](../acquisition-v1.fixtures.schema.json) at the contract
+The commands select the [common entry](../common-v1.fixtures.schema.json),
+[acquisition entry](../acquisition-v1.fixtures.schema.json) and
+[observation entry](../observation-v1.fixtures.schema.json) at the contract
 directory's root. Each entry references exactly its own expectation schema;
 swapping fixture families must fail. The entries contain no copied domain
 definitions or expected values.
 
 These parsed-value checks do not implement an HTTP service, raw JSON parser,
-authentication, command admission or sealed storage. The acquisition owner
-separately identifies semantic scenarios that need the later runtime suites.
+authentication, command admission or sealed storage. Each owner separately
+identifies semantic scenarios that need the later runtime suites.
 
 ## Preparation
 
@@ -54,7 +57,7 @@ uv sync --project contracts/validation --check --locked --offline
 
 ## Checks
 
-Run all three commands from this repository's root after preparation. Every
+Run all four commands from this repository's root after preparation. Every
 command must exit zero. Explicit file arguments prevent an empty glob from
 selecting no fixtures.
 
@@ -64,10 +67,13 @@ uv run --project contracts/validation --no-sync --offline \
   --regex-variant default --no-cache \
   contracts/common-v1.fixtures.schema.json \
   contracts/acquisition-v1.fixtures.schema.json \
+  contracts/observation-v1.fixtures.schema.json \
   contracts/public/v1/common.schema.json \
   contracts/validation/common-v1.expectations.schema.json \
   contracts/public/v1/acquisition.schema.json \
-  contracts/validation/acquisition-v1.expectations.schema.json
+  contracts/validation/acquisition-v1.expectations.schema.json \
+  contracts/public/v1/observation.schema.json \
+  contracts/validation/observation-v1.expectations.schema.json
 uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/common-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
@@ -76,6 +82,10 @@ uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/acquisition-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
   contracts/validation/acquisition-v1.cases.json
+uv run --project contracts/validation --no-sync --offline \
+  check-jsonschema --schemafile contracts/observation-v1.fixtures.schema.json \
+  --force-filetype json --regex-variant default --no-cache \
+  contracts/validation/observation-v1.cases.json
 ```
 
 The fixture manifest records independently chosen expected acceptance and
@@ -88,8 +98,8 @@ The finite inventory must reject missing, repeated and unknown case identities.
 Keep default format checking enabled and use the declared ECMAScript regex
 behavior. Do not fill defaults, transform data, substitute validators or override
 base URIs. The schema files omit `$id`; versioned repository paths and recorded
-digests identify them. Common definitions use internal fragments. Acquisition
-definitions additionally reference the adjacent common schema. The expectation
+digests identify them. Common definitions use internal fragments. Other domain
+definitions additionally reference the reviewed adjacent schemas. The expectation
 schemas use reviewed relative references to their owning versioned schemas.
 No nested identifier or dynamic/remote reference may change that resolution
 scope. Review the complete reference graph when changing any schema;

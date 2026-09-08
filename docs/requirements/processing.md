@@ -71,6 +71,10 @@ must reclaim owned resources and retain an honest operation outcome.
 
 ## Grounded proposals and disagreement
 
+The [observation contract](observation-contract.md) defines precise grounding,
+locator and source-kind representations. Processing must preserve those
+distinctions and revalidate the underlying source and reference semantics.
+
 Validate provider output as untrusted data. Reject incompatible shapes, invalid
 locators, overlong output and out-of-profile values before acceptance; Rust
 revalidates the resulting typed message rather than trusting Python's success

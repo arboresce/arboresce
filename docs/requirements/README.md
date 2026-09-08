@@ -21,6 +21,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [API](api.md) | Operation contracts, errors, revisions, idempotency, cancellation, exact resolution versus selection and interface compatibility |
 | [Common wire contract](common-contract.md) | Exact shared identifier/revision encodings, command metadata, problems, operation states and readiness shapes; schemas own structural constraints |
 | [Acquisition contract](acquisition-contract.md) | Complete upload and capture wire variants, immutable attachment intent, sealed-byte bindings, original/representation identities and readiness; storage owns actual sealing |
+| [Observation contract](observation-contract.md) | Exact representation-bound locators, grounding and source-kind variants, with explicit semantic validation and attribution boundaries |
 | [Data model](data-model.md) | Tenant-scoped identities, relationships, immutable content, controls and lifecycle meaning |
 | [Financial records](financial-records.md) | Reviewable expenses, exact monetary arithmetic, immutable reports and financial export |
 | [Processing](processing.md) | Grounded extraction, supported processing, deterministic orchestration and model gateway behavior |

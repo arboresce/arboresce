@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arboresce observation and locator v1 contract definitions",
+  "description": "Library only: select a named definition. Parsed-value checks do not establish interval ordering, selected bytes or JSON values, render geometry, provenance, current authorization or review approval.",
+  "not": {},
+  "$defs": {
+    "representation_reference": {
+      "type": "object",
+      "required": ["representation_id", "original", "bytes", "profile_digest"],
+      "properties": {
+        "representation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "original": {"$ref": "acquisition.schema.json#/$defs/original_reference"},
+        "bytes": {"$ref": "acquisition.schema.json#/$defs/byte_identity"},
+        "profile_digest": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "utf8_range": {
+      "type": "object",
+      "required": ["kind", "representation", "start_byte", "end_byte"],
+      "properties": {
+        "kind": {"const": "utf8_range"},
+        "representation": {"$ref": "#/$defs/representation_reference"},
+        "start_byte": {"type": "integer", "minimum": 0, "maximum": 9007199254740991},
+        "end_byte": {"type": "integer", "minimum": 1, "maximum": 9007199254740991}
+      },
+      "additionalProperties": false
+    },
+    "json_pointer": {
+      "type": "object",
+      "required": ["kind", "representation", "pointer", "canonicalization", "selected_value_sha256"],
+      "properties": {
+        "kind": {"const": "json_pointer"},
+        "representation": {"$ref": "#/$defs/representation_reference"},
+        "pointer": {"type": "string", "maxLength": 4096, "pattern": "^(?:/(?:[^~/]|~[01])*){0,64}(?![\\s\\S])"},
+        "canonicalization": {"const": "jcs_selection_v1"},
+        "selected_value_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "page_region": {
+      "type": "object",
+      "required": ["kind", "representation", "page_index", "render_sha256", "coordinate_space", "source_orientation", "x", "y", "width", "height"],
+      "properties": {
+        "kind": {"const": "page_region"},
+        "representation": {"$ref": "#/$defs/representation_reference"},
+        "page_index": {"type": "integer", "minimum": 0, "maximum": 65535},
+        "render_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "coordinate_space": {"const": "upright_pixels_v1"},
+        "source_orientation": {"type": "integer", "minimum": 1, "maximum": 8},
+        "x": {"type": "integer", "minimum": 0, "maximum": 2147483647},
+        "y": {"type": "integer", "minimum": 0, "maximum": 2147483647},
+        "width": {"type": "integer", "minimum": 1, "maximum": 2147483647},
+        "height": {"type": "integer", "minimum": 1, "maximum": 2147483647}
+      },
+      "additionalProperties": false
+    },
+    "transcript_segment": {
+      "type": "object",
+      "required": ["transcript", "segment_index"],
+      "properties": {
+        "transcript": {"$ref": "#/$defs/representation_reference"},
+        "segment_index": {"type": "integer", "minimum": 0, "maximum": 65535}
+      },
+      "additionalProperties": false
+    },
+    "audio_span": {
+      "type": "object",
+      "required": ["kind", "representation", "start_ms", "end_ms", "channel_index"],
+      "properties": {
+        "kind": {"const": "audio_span"},
+        "representation": {"$ref": "#/$defs/representation_reference"},
+        "start_ms": {"type": "integer", "minimum": 0, "maximum": 299999},
+        "end_ms": {"type": "integer", "minimum": 1, "maximum": 300000},
+        "channel_index": {"type": "integer", "minimum": 0, "maximum": 65535},
+        "transcript_segment": {"$ref": "#/$defs/transcript_segment"}
+      },
+      "additionalProperties": false
+    },
+    "locator": {
+      "oneOf": [
+        {"$ref": "#/$defs/utf8_range"},
+        {"$ref": "#/$defs/json_pointer"},
+        {"$ref": "#/$defs/page_region"},
+        {"$ref": "#/$defs/audio_span"}
+      ]
+    },
+    "capture_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "capture_id", "version"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "capture_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/content_revision"}
+      },
+      "additionalProperties": false
+    },
+    "observation_reference": {
+      "type": "object",
+      "required": ["organization_id", "observation_id"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "observation_id": {"$ref": "common.schema.json#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "document_source": {
+      "type": "object",
+      "required": ["original", "extractor_profile_digest"],
+      "properties": {
+        "original": {"$ref": "acquisition.schema.json#/$defs/original_reference"},
+        "extractor_profile_digest": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "assertion_source": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "capture", "audit_event_id"],
+          "properties": {
+            "kind": {"const": "capture_context"},
+            "capture": {"$ref": "#/$defs/capture_reference"},
+            "audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "capture", "representation", "audit_event_id"],
+          "properties": {
+            "kind": {"const": "supplied_representation"},
+            "capture": {"$ref": "#/$defs/capture_reference"},
+            "representation": {"$ref": "#/$defs/representation_reference"},
+            "audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "inference_source": {
+      "type": "object",
+      "required": ["profile_digest", "basis"],
+      "properties": {
+        "profile_digest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "basis": {"type": "array", "maxItems": 64, "uniqueItems": true, "items": {"$ref": "#/$defs/observation_reference"}}
+      },
+      "additionalProperties": false
+    },
+    "grounding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "locators"],
+          "properties": {
+            "kind": {"const": "located"},
+            "locators": {"type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": {"$ref": "#/$defs/locator"}}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "reason", "review_required"],
+          "properties": {
+            "kind": {"const": "ungrounded"},
+            "reason": {"enum": ["not_provided", "unsupported_format", "ambiguous", "context_only"]},
+            "review_required": {"const": true}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "observation_response": {
+      "description": "Shared response bounds only; select observation or one of its three complete source-kind variants for admission.",
+      "allOf": [{"$ref": "common.schema.json#/$defs/response_object"}],
+      "required": ["observation_id", "organization_id", "recorded_at", "kind", "statement", "source", "grounding"],
+      "properties": {
+        "observation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "recorded_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "kind": {"enum": ["document_observation", "user_assertion", "model_inference"]},
+        "statement": {"type": "string", "minLength": 1, "maxLength": 65536},
+        "grounding": {"$ref": "#/$defs/grounding"},
+        "state": false,
+        "status": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "accepted": false,
+        "approved": false,
+        "reviewed": false,
+        "review_required": false,
+        "confidence": false,
+        "result": false,
+        "operation": false
+      }
+    },
+    "document_observation": {
+      "allOf": [{"$ref": "#/$defs/observation_response"}],
+      "properties": {
+        "kind": {"const": "document_observation"},
+        "source": {"$ref": "#/$defs/document_source"},
+        "grounding": {"properties": {"reason": {"not": {"const": "context_only"}}}}
+      }
+    },
+    "user_assertion": {
+      "allOf": [{"$ref": "#/$defs/observation_response"}],
+      "properties": {
+        "kind": {"const": "user_assertion"},
+        "source": {"$ref": "#/$defs/assertion_source"}
+      },
+      "if": {"properties": {"source": {"properties": {"kind": {"const": "capture_context"}}}}},
+      "then": {"properties": {"grounding": {"properties": {"kind": {"const": "ungrounded"}, "reason": {"const": "context_only"}}}}},
+      "else": {"properties": {"grounding": {"properties": {"reason": {"not": {"const": "context_only"}}}}}}
+    },
+    "model_inference": {
+      "allOf": [{"$ref": "#/$defs/observation_response"}],
+      "properties": {
+        "kind": {"const": "model_inference"},
+        "source": {"$ref": "#/$defs/inference_source"},
+        "grounding": {"properties": {"reason": {"not": {"const": "context_only"}}}}
+      }
+    },
+    "observation": {
+      "oneOf": [
+        {"$ref": "#/$defs/document_observation"},
+        {"$ref": "#/$defs/user_assertion"},
+        {"$ref": "#/$defs/model_inference"}
+      ]
+    }
+  }
+}

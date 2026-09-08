@@ -1,0 +1,4756 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Observation v1 parsed-value fixture expectations",
+  "description": "A finite, ordered inventory of independently chosen parsed JSON values. Each position fixes identity, target and expected validity. Negative expectations negate only the value contract. Shape-only cases do not assert interval ordering, actual representation boundaries, pointer selection, orientation transforms, provenance or authorization.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "validation_scope": {
+      "type": "string",
+      "const": "parsed-json-values"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 168,
+      "maxItems": 168,
+      "prefixItems": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "representation-reference-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "representation_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/representation_reference"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "representation-reference-missing-profile"
+            },
+            "target": {
+              "type": "string",
+              "const": "representation_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/representation_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "representation-reference-missing-original-version"
+            },
+            "target": {
+              "type": "string",
+              "const": "representation_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/representation_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "representation-reference-unknown-url"
+            },
+            "target": {
+              "type": "string",
+              "const": "representation_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/representation_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "representation-reference-invalid-digest"
+            },
+            "target": {
+              "type": "string",
+              "const": "representation_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/representation_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-byte-interval"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-start-zero"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-equal-endpoints-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-reversed-endpoints-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-wire-maximum-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-negative-start"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-zero-end"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-fractional-start"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-boolean-end"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-end-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-unknown-unit-field"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "utf8-range-missing-representation"
+            },
+            "target": {
+              "type": "string",
+              "const": "utf8_range"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/utf8_range"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-empty-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-escaped-path"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-escaped-tilde"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-escaped-slash"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-single-decode-tilde-one"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-leading-zero-object-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-dash-object-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-literal-percent"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-space-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-unicode-composed-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-unicode-decomposed-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-nul-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-quote-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-backslash-key"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-missing-slash"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-fragment-form"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-terminal-tilde"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-invalid-escape-two"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-double-tilde"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-invalid-escape-letter"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-leading-whitespace"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-length-maximum"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-length-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-token-maximum"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-token-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-unsupported-canonicalization"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "json-pointer-missing-selected-digest"
+            },
+            "target": {
+              "type": "string",
+              "const": "json_pointer"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/json_pointer"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-1"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-2"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-3"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-4"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-5"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-6"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-7"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-8"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-page-index-maximum-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-dimension-maximum-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-negative-page"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-page-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-zero"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-orientation-degrees"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-boolean-orientation"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-negative-x"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-coordinate-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-zero-width"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-zero-height"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-fractional-width"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-unsupported-coordinate-space"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "page-region-missing-render-digest"
+            },
+            "target": {
+              "type": "string",
+              "const": "page_region"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/page_region"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "transcript-segment-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "transcript_segment"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/transcript_segment"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "transcript-segment-index-maximum-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "transcript_segment"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/transcript_segment"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "transcript-segment-index-negative"
+            },
+            "target": {
+              "type": "string",
+              "const": "transcript_segment"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/transcript_segment"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "transcript-segment-index-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "transcript_segment"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/transcript_segment"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "transcript-segment-index-boolean"
+            },
+            "target": {
+              "type": "string",
+              "const": "transcript_segment"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/transcript_segment"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "transcript-segment-unknown-speaker"
+            },
+            "target": {
+              "type": "string",
+              "const": "transcript_segment"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/transcript_segment"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-interval"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-profile-maximum"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-equal-endpoints-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-reversed-endpoints-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-channel-maximum-shape-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-transcript-segment"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-negative-start"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-start-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-zero-end"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-end-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-fractional-start"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-boolean-end"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-negative-channel"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-channel-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "audio-span-unknown-speaker"
+            },
+            "target": {
+              "type": "string",
+              "const": "audio_span"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/audio_span"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "locator-utf8-variant"
+            },
+            "target": {
+              "type": "string",
+              "const": "locator"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/locator"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "locator-json-variant"
+            },
+            "target": {
+              "type": "string",
+              "const": "locator"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/locator"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "locator-page-variant"
+            },
+            "target": {
+              "type": "string",
+              "const": "locator"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/locator"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "locator-audio-variant"
+            },
+            "target": {
+              "type": "string",
+              "const": "locator"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/locator"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "locator-unknown-kind"
+            },
+            "target": {
+              "type": "string",
+              "const": "locator"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/locator"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "locator-mixed-variants"
+            },
+            "target": {
+              "type": "string",
+              "const": "locator"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/locator"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "capture-reference-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "capture_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/capture_reference"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "capture-reference-wrong-revision"
+            },
+            "target": {
+              "type": "string",
+              "const": "capture_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/capture_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "capture-reference-missing-domain"
+            },
+            "target": {
+              "type": "string",
+              "const": "capture_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/capture_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "observation-reference-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "observation_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/observation_reference"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "observation-reference-unknown-content"
+            },
+            "target": {
+              "type": "string",
+              "const": "observation_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/observation_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-source-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/document_source"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-source-missing-profile"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-source-approval-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "assertion-source-capture-context"
+            },
+            "target": {
+              "type": "string",
+              "const": "assertion_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/assertion_source"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "assertion-source-supplied-representation"
+            },
+            "target": {
+              "type": "string",
+              "const": "assertion_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/assertion_source"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "assertion-source-missing-audit"
+            },
+            "target": {
+              "type": "string",
+              "const": "assertion_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/assertion_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "assertion-source-context-with-representation"
+            },
+            "target": {
+              "type": "string",
+              "const": "assertion_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/assertion_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "assertion-source-unknown-human-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "assertion_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/assertion_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "inference-source-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "inference_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/inference_source"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "inference-source-empty-basis"
+            },
+            "target": {
+              "type": "string",
+              "const": "inference_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/inference_source"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "inference-source-basis-maximum"
+            },
+            "target": {
+              "type": "string",
+              "const": "inference_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/inference_source"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "inference-source-basis-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "inference_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/inference_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "inference-source-duplicate-basis"
+            },
+            "target": {
+              "type": "string",
+              "const": "inference_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/inference_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "inference-source-unknown-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "inference_source"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/inference_source"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-located"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-ungrounded-not-provided"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-ungrounded-unsupported-format"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-ungrounded-ambiguous"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-ungrounded-context-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-locators-maximum"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-locators-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-empty-locators"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-duplicate-locators"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-mixed-kinds"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-review-false"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-review-integer"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-review-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "grounding-unknown-reason"
+            },
+            "target": {
+              "type": "string",
+              "const": "grounding"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/grounding"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-additive-extension"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-unknown-kind"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-empty-statement"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-missing-grounding"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-approval-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-confidence-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-additive-extension"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-unknown-kind"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-empty-statement"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-missing-grounding"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-approval-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-confidence-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-additive-extension"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-unknown-kind"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-empty-statement"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-missing-grounding"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-approval-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-confidence-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-explicit-ungrounded"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-context-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-context-located"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-context-wrong-reason"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-supplied-located"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-supplied-ungrounded"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-supplied-context-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-located"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-context-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-statement-maximum"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-statement-overflow"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "observation-document-variant"
+            },
+            "target": {
+              "type": "string",
+              "const": "observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/observation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "observation-assertion-variant"
+            },
+            "target": {
+              "type": "string",
+              "const": "observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/observation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "observation-inference-variant"
+            },
+            "target": {
+              "type": "string",
+              "const": "observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/observation.schema.json#/$defs/observation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "observation-source-kind-substitution"
+            },
+            "target": {
+              "type": "string",
+              "const": "observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "observation-unsupported-kind"
+            },
+            "target": {
+              "type": "string",
+              "const": "observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "document-observation-reviewed-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "document_observation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/document_observation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "model-inference-direct-review-override"
+            },
+            "target": {
+              "type": "string",
+              "const": "model_inference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/model_inference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "user-assertion-success-state"
+            },
+            "target": {
+              "type": "string",
+              "const": "user_assertion"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/observation.schema.json#/$defs/user_assertion"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "items": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "validation_scope",
+    "cases"
+  ],
+  "additionalProperties": false
+}

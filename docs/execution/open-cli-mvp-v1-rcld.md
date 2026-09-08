@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001–E002 are `complete`; E003 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Status: executing approved implementation design; E001–E003 are `complete`; E004 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -160,10 +160,9 @@ Definition of green: Malformed commands fail; extra response fields remain toler
 
 ### E003 — Freeze acquisition and sealed-byte contracts
 
-Status: `verified`. Prerequisites: E002. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `complete`. Prerequisites: E002. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
 
-Evidence: [Acquisition checkpoint](e003-acquisition-contract-evidence.md).
-The following completion record identifies the exact committed source revision.
+Checkpoint: 7149b621713b351feb8996391cc95964a3324050; Evidence: [Acquisition checkpoint](e003-acquisition-contract-evidence.md)
 
 Scope: Specify upload lifecycle, byte digests/lengths, capture revisions and ordered attachment roles. Separate immutable originals and representations from readiness and control state.
 
@@ -189,11 +188,34 @@ Definition of green: Foreign attachment rejected; required failure blocks readin
 
 ### E004 — Freeze grounded observation contracts
 
-Status: `not_started`. Prerequisites: E003. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `verified`. Prerequisites: E003. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+
+Evidence: [Observation checkpoint](e004-observation-contract-evidence.md).
+The following completion record identifies the exact committed source revision.
 
 Scope: Define half-open UTF-8 ranges, RFC6901 pointers, page coordinates and audio units bound to exact representations. Preserve assertion, observation and inference distinctions.
 
 Planned paths: `contracts/public/`, `contracts/internal/`, `docs/requirements/`.
+
+The bounded implementation uses `contracts/public/v1/observation.schema.json`
+and `docs/requirements/observation-contract.md`, independently authored fixtures
+and expectations under `contracts/validation/`, and the exact-family graph-root
+entry `contracts/observation-v1.fixtures.schema.json`. Update the owning guide,
+requirement/navigation indexes, data-model/processing/API links and actual
+`docs/execution/e004-observation-contract-evidence.md`. Reference existing
+versioned schemas without copying them. General interval ordering, actual
+representation bounds, pointer selection and provenance/authority remain
+explicit semantic tests for their owning implementations; parsed shape checks
+do not qualify these runtime behaviors.
+
+E004 also owns a bounded clarification in `docs/requirements/common-contract.md`:
+declared unsigned protocol integers use canonical unsigned integer tokens on
+emission/admission. JSON Schema's value-based integer check cannot establish
+that lexical property. Add a pending raw-decoder vector for integral float and
+exponent spellings, negative zero, booleans, range limits and precision-rounding
+inputs without relabelling parsed fixtures. General JSON/source-JCS numbers,
+schema semantics, revisions and dependencies remain unchanged. This reviewed
+clarification precedes the first consuming decoder implementation.
 
 Definition of green: Invalid boundaries/escapes/spans rejected; representation mismatches fail; absent grounding stays explicitly absent.
 
@@ -1609,7 +1631,7 @@ Definition of green: Dependency inventory matches image; controlled fixture sign
 
 ## Execution evidence and reconciliation
 
-All 141 numbered slices and four suffix slices remain unfinished; none is active. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
+Of 141 numbered slices and four suffix slices, E001–E003 are complete, E004 is verified pending its green commit, and the other 141 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
 
 Each checkpoint records source revision/dirty state, contracts, schemas, dependency locks, tool versions, feature/native profile, dataset/scorer identity, exact command, selected tests, raw coverage, duration, results/skips/failures, independent review and gate effect. Redact secrets and evidence content. Record the completed commit hash in subsequent or external evidence rather than recursively embedding its own hash. A local build, a mock, an unsigned candidate and an accepted request have distinct meanings and cannot stand in for live qualification, signed release or completed processing.
 
