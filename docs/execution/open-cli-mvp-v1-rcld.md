@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: approved implementation design; all slices `not_started`; active slice: none. This plan records work to perform. It does not claim implementation, tests, measurements, release or publication has occurred.
+Status: executing approved implementation design; E001 is `verified` and awaiting its committed checkpoint identity; no implementation slice is active. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, measurements, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -120,15 +120,18 @@ The packaged local profile plus G2 and D0 restore evidence precede private-user 
 
 ## Slice inventory
 
-Every slice below is `not_started`. The named tests are mandatory additions to its verification lane and universal green-state contract. Planned paths are bounded owner destinations; inspect actual layout before creating files and record any justified path amendment. Record actual command, selected test count, exits, source/lock/profile identity, coverage numerators/denominators, review and remaining evidence after execution.
+Each slice records its current status below. The named tests are mandatory additions to its verification lane and universal green-state contract. Planned paths are bounded owner destinations; inspect actual layout before creating files and record any justified path amendment. Record actual command, selected test count, exits, source/lock/profile identity, coverage numerators/denominators, review and remaining evidence after execution.
 
 ### E001 — Adopt the public implementation boundary
 
-Status: `not_started`. Prerequisites: approved public scope and refreshed repository status. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `verified`. Prerequisites: approved public scope and refreshed repository status. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
 
 Scope: Publish current-state and product-scope requirements, the architecture and testing policy, supported interfaces and deferred scope. Preserve notices and existing files; describe only available commands as available.
 
-Planned paths: `README.md`, `AGENTS.md`, `docs/README.md`, `docs/requirements/`.
+Planned paths: `README.md`, `AGENTS.md`, `docs/README.md`, `docs/requirements/`,
+and `docs/execution/e001-requirements-evidence.md` for actual owning checkpoint
+verification. The requirements index names the single owner of each topic;
+this plan records execution without becoming a competing specification.
 
 Definition of green: Independent rights and disclosure review; local links resolve; every requirement has one owner; prospective implementation is clearly labelled.
 

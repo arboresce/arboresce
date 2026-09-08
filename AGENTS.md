@@ -9,6 +9,11 @@ These instructions apply throughout this repository.
 
 Contributors and automated contributors follow this file and the nearest instructions for the files they edit.
 Use [the instruction index](docs/agents/README.md) to find directory guidance.
+Read the [requirement ownership index](docs/requirements/README.md) before
+implementing behavior. Those documents define the accepted target; the
+[rolling plan](docs/execution/open-cli-mvp-v1-rcld.md) records execution and evidence.
+The current checkout has no product implementation or product verification
+command. Introduce supported commands with their owning implementation guidance.
 
 ## Project voice
 
@@ -34,6 +39,12 @@ Ordinary use must rely on committed artifacts rather than requiring regeneration
 
 Use only documented commands.
 Run the documented formatting, checks, and tests for affected components.
+Source changes must satisfy [the testing and coverage contract](docs/requirements/testing-and-coverage.md),
+including deterministic independently reviewed fixtures, complete collection and
+strict coverage for each applicable source, package, repository and profile.
+Measure maintained fixture support and all exercised process boundaries. Record
+actual results and unresolved qualification inputs; do not treat planned tests
+or a successful unit double as service or product qualification.
 Review the final diff.
 A change that adds or changes a supported command must update its owning guidance in the same change.
 Report changed files, commands run, results, skipped checks, and remaining questions.
