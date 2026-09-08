@@ -2,8 +2,9 @@
 
 These documents define the accepted engine MVP and production qualification
 target. They do not assert that the runtime, API, libraries, processing service,
-distributions or tests are implemented. The current checkout supplies documentation
-and licensing. The [rolling plan](../execution/open-cli-mvp-v1-rcld.md) records
+distributions or runtime tests are implemented. The current checkout supplies
+documentation, licensing and the common contract's checked parsed-value fixtures.
+The [rolling plan](../execution/open-cli-mvp-v1-rcld.md) records
 the implementation sequence and actual checkpoint evidence.
 
 Each requirement has one normative owner. Links carry shared meaning across
@@ -18,6 +19,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [Product and scope](product-and-scope.md) | The two complete workflows, public capability parity, included outcomes and exclusions |
 | [Architecture](architecture.md) | Component boundaries, dependency direction and canonical versus derived responsibilities |
 | [API](api.md) | Operation contracts, errors, revisions, idempotency, cancellation, exact resolution versus selection and interface compatibility |
+| [Common wire contract](common-contract.md) | Exact shared identifier/revision encodings, command metadata, problems, operation states and readiness shapes; schemas own structural constraints |
 | [Data model](data-model.md) | Tenant-scoped identities, relationships, immutable content, controls and lifecycle meaning |
 | [Financial records](financial-records.md) | Reviewable expenses, exact monetary arithmetic, immutable reports and financial export |
 | [Processing](processing.md) | Grounded extraction, supported processing, deterministic orchestration and model gateway behavior |

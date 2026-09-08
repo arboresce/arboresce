@@ -12,8 +12,9 @@ Use [the instruction index](docs/agents/README.md) to find directory guidance.
 Read the [requirement ownership index](docs/requirements/README.md) before
 implementing behavior. Those documents define the accepted target; the
 [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md) records execution and evidence.
-The current checkout has no product implementation or product verification
-command. Introduce supported commands with their owning implementation guidance.
+The current checkout has no product runtime. Use the
+[public contract checks](contracts/validation/README.md) for the supplied
+schemas and fixtures. Introduce runtime commands with their owning guidance.
 
 ## Project voice
 

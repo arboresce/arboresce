@@ -10,9 +10,10 @@ versioned context builds, application consumption and feedback. See the
 [product requirements](docs/requirements/product-and-scope.md) for their complete
 scope and the [requirement owners](docs/requirements/README.md) for the contracts.
 
-This checkout currently supplies requirements, contribution guidance and licensing.
-The runtime, libraries, processing service, API and qualification suites are
-planned implementation. No product build, installation or runtime command is
+This checkout supplies requirements, contribution guidance, licensing and
+[checked public contract fixtures](contracts/validation/README.md).
+The runtime, libraries, processing service, API and runtime qualification suites
+are planned implementation. No product build, installation or runtime command is
 available here yet. The [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md)
 records implementation and verification separately from accepted requirements.
 

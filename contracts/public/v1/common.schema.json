@@ -1,0 +1,385 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arboresce common v1 contract definitions",
+  "description": "Library only: select a named $defs target. The root deliberately rejects every instance. See the common contract requirements for parser, transport, authorization and operation-specific obligations.",
+  "not": {},
+  "$defs": {
+    "identifier": {
+      "description": "Server-issued canonical lower-case UUIDv4. The string is not an authorization capability or an ordering key.",
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36,
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}(?![\\s\\S])"
+    },
+    "sha256": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "positive_revision_value": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 18,
+      "pattern": "^[1-9][0-9]{0,17}(?![\\s\\S])"
+    },
+    "generation_value": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 18,
+      "pattern": "^(?:0|[1-9][0-9]{0,17})(?![\\s\\S])"
+    },
+    "content_revision": {
+      "type": "object",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {"const": "content"},
+        "value": {"$ref": "#/$defs/positive_revision_value"}
+      },
+      "additionalProperties": false
+    },
+    "control_revision": {
+      "type": "object",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {"const": "control"},
+        "value": {"$ref": "#/$defs/positive_revision_value"}
+      },
+      "additionalProperties": false
+    },
+    "generation": {
+      "type": "object",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {"const": "generation"},
+        "value": {"$ref": "#/$defs/generation_value"}
+      },
+      "additionalProperties": false
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9_]{0,63}(?![\\s\\S])"
+    },
+    "command_name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)+(?![\\s\\S])"
+    },
+    "command_context": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "purpose"],
+      "properties": {
+        "organization_id": {"$ref": "#/$defs/identifier"},
+        "domain_id": {"$ref": "#/$defs/identifier"},
+        "purpose": {"$ref": "#/$defs/slug"}
+      },
+      "additionalProperties": false
+    },
+    "idempotency": {
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9_-]{32,128}(?![\\s\\S])"
+        }
+      },
+      "additionalProperties": false
+    },
+    "command_metadata": {
+      "description": "Closed common metadata only. This is not a complete command or a generic body-admission schema. Each operation supplies its own closed request contract.",
+      "type": "object",
+      "required": ["contract_version", "command", "context", "idempotency"],
+      "properties": {
+        "contract_version": {"const": "v1"},
+        "command": {"$ref": "#/$defs/command_name"},
+        "context": {"$ref": "#/$defs/command_context"},
+        "idempotency": {"$ref": "#/$defs/idempotency"}
+      },
+      "additionalProperties": false
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 24,
+      "maxLength": 24,
+      "format": "date-time",
+      "pattern": "^(?!0000)[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9]{3}Z(?![\\s\\S])"
+    },
+    "idempotency_receipt": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["key_digest", "request_fingerprint", "expires_at", "tombstone_expires_at", "replayed"],
+      "properties": {
+        "key_digest": {"$ref": "#/$defs/sha256"},
+        "request_fingerprint": {"$ref": "#/$defs/sha256"},
+        "expires_at": {"oneOf": [{"$ref": "#/$defs/timestamp"}, {"type": "null"}]},
+        "tombstone_expires_at": {"oneOf": [{"$ref": "#/$defs/timestamp"}, {"type": "null"}]},
+        "replayed": {"type": "boolean"},
+        "state": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false
+      },
+      "oneOf": [
+        {"properties": {"expires_at": {"type": "null"}, "tombstone_expires_at": {"type": "null"}}},
+        {"properties": {"expires_at": {"$ref": "#/$defs/timestamp"}, "tombstone_expires_at": {"$ref": "#/$defs/timestamp"}}}
+      ]
+    },
+    "json_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
+    },
+    "json_value": {
+      "description": "Per-value bounds only. Raw UTF-8 bytes, duplicate keys, Unicode validity, aggregate depth and finite binary64 parsing are separate mandatory admission checks.",
+      "oneOf": [
+        {"type": "null"},
+        {"type": "boolean"},
+        {"type": "number", "minimum": -9007199254740991, "maximum": 9007199254740991},
+        {"type": "string", "maxLength": 65536},
+        {"type": "array", "maxItems": 256, "items": {"$ref": "#/$defs/json_value"}},
+        {"$ref": "#/$defs/bounded_object"}
+      ]
+    },
+    "bounded_object": {
+      "type": "object",
+      "maxProperties": 128,
+      "propertyNames": {"$ref": "#/$defs/json_key"},
+      "additionalProperties": {"$ref": "#/$defs/json_value"}
+    },
+    "response_object": {
+      "description": "Documented additive protocol fields remain bounded and cannot override reserved outcome fields in a consuming definition.",
+      "type": "object",
+      "maxProperties": 32,
+      "propertyNames": {"$ref": "#/$defs/json_key"},
+      "additionalProperties": {"$ref": "#/$defs/json_value"}
+    },
+    "result_object": {
+      "allOf": [{"$ref": "#/$defs/bounded_object"}],
+      "properties": {
+        "state": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false
+      }
+    },
+    "problem": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["type", "title", "status", "code", "detail", "request_id"],
+      "properties": {
+        "type": {"type": "string", "maxLength": 96},
+        "title": {"type": "string", "minLength": 1, "maxLength": 128},
+        "status": {"type": "integer"},
+        "code": {"$ref": "#/$defs/slug"},
+        "detail": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "request_id": {"$ref": "#/$defs/identifier"},
+        "instance": {
+          "type": "string",
+          "minLength": 45,
+          "maxLength": 45,
+          "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}(?![\\s\\S])"
+        },
+        "state": false,
+        "result": false,
+        "failure": false,
+        "error": false,
+        "operation": false,
+        "operation_id": false,
+        "ready": false,
+        "accepted": false,
+        "success": false,
+        "failure_code": false
+      },
+      "oneOf": [
+        {"properties": {"code": {"const": "invalid_request"}, "status": {"const": 400}, "type": {"const": "urn:arboresce:problem:v1:invalid_request"}}},
+        {"properties": {"code": {"const": "unauthenticated"}, "status": {"const": 401}, "type": {"const": "urn:arboresce:problem:v1:unauthenticated"}}},
+        {"properties": {"code": {"const": "forbidden"}, "status": {"const": 403}, "type": {"const": "urn:arboresce:problem:v1:forbidden"}}},
+        {"properties": {"code": {"const": "not_found"}, "status": {"const": 404}, "type": {"const": "urn:arboresce:problem:v1:not_found"}}},
+        {"properties": {"code": {"const": "conflict"}, "status": {"const": 409}, "type": {"const": "urn:arboresce:problem:v1:conflict"}}},
+        {"properties": {"code": {"const": "request_too_large"}, "status": {"const": 413}, "type": {"const": "urn:arboresce:problem:v1:request_too_large"}}},
+        {"properties": {"code": {"const": "unsupported_media_type"}, "status": {"const": 415}, "type": {"const": "urn:arboresce:problem:v1:unsupported_media_type"}}},
+        {"properties": {"code": {"const": "invalid_command"}, "status": {"const": 422}, "type": {"const": "urn:arboresce:problem:v1:invalid_command"}}},
+        {"properties": {"code": {"const": "rate_limited"}, "status": {"const": 429}, "type": {"const": "urn:arboresce:problem:v1:rate_limited"}}},
+        {"properties": {"code": {"const": "internal_error"}, "status": {"const": 500}, "type": {"const": "urn:arboresce:problem:v1:internal_error"}}},
+        {"properties": {"code": {"const": "unavailable"}, "status": {"const": 503}, "type": {"const": "urn:arboresce:problem:v1:unavailable"}}}
+      ]
+    },
+    "operation": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["operation_id", "organization_id", "domain_id", "state"],
+      "properties": {
+        "operation_id": {"$ref": "#/$defs/identifier"},
+        "organization_id": {"$ref": "#/$defs/identifier"},
+        "domain_id": {"$ref": "#/$defs/identifier"},
+        "state": {"enum": ["queued", "running", "succeeded", "failed", "cancelled"]},
+        "result": {"$ref": "#/$defs/result_object"},
+        "problem": {"$ref": "#/$defs/problem"},
+        "code": false,
+        "status": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "operation": false
+      },
+      "oneOf": [
+        {"properties": {"state": {"enum": ["queued", "running", "cancelled"]}, "result": false, "problem": false}},
+        {"required": ["result"], "properties": {"state": {"const": "succeeded"}, "problem": false}},
+        {"required": ["problem"], "properties": {"state": {"const": "failed"}, "result": false}}
+      ]
+    },
+    "success_response": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["state", "request_id", "result"],
+      "properties": {
+        "state": {"const": "succeeded"},
+        "request_id": {"$ref": "#/$defs/identifier"},
+        "result": {"$ref": "#/$defs/result_object"},
+        "idempotency_receipt": {
+          "allOf": [{"$ref": "#/$defs/idempotency_receipt"}],
+          "properties": {"expires_at": {"$ref": "#/$defs/timestamp"}, "tombstone_expires_at": {"$ref": "#/$defs/timestamp"}}
+        },
+        "code": false,
+        "status": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "operation": false,
+        "operation_id": false
+      }
+    },
+    "accepted_response": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["state", "request_id", "operation", "idempotency_receipt"],
+      "properties": {
+        "state": {"const": "accepted"},
+        "request_id": {"$ref": "#/$defs/identifier"},
+        "operation": {
+          "allOf": [{"$ref": "#/$defs/operation"}],
+          "properties": {"state": {"enum": ["queued", "running"]}}
+        },
+        "idempotency_receipt": {
+          "allOf": [{"$ref": "#/$defs/idempotency_receipt"}],
+          "properties": {"expires_at": {"type": "null"}, "tombstone_expires_at": {"type": "null"}}
+        },
+        "result": false,
+        "code": false,
+        "status": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "operation_id": false
+      }
+    },
+    "health_check": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["required", "available"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "available": {"type": "boolean"},
+        "state": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false
+      }
+    },
+    "failed_required_check": {
+      "allOf": [{"$ref": "#/$defs/health_check"}],
+      "properties": {"required": {"const": true}, "available": {"const": false}}
+    },
+    "readiness": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["state", "ready", "role", "checks"],
+      "properties": {
+        "state": {"enum": ["ready", "unavailable"]},
+        "ready": {"type": "boolean"},
+        "role": {"$ref": "#/$defs/slug"},
+        "checks": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 16,
+          "propertyNames": {"$ref": "#/$defs/slug"},
+          "additionalProperties": {"$ref": "#/$defs/health_check"}
+        },
+        "code": false,
+        "status": false,
+        "result": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "accepted": false,
+        "operation": false,
+        "operation_id": false,
+        "live": false
+      },
+      "oneOf": [
+        {"properties": {"state": {"const": "ready"}, "ready": {"const": true}, "checks": {"additionalProperties": {"not": {"$ref": "#/$defs/failed_required_check"}}}}},
+        {"properties": {"state": {"const": "unavailable"}, "ready": {"const": false}, "checks": {"not": {"additionalProperties": {"not": {"$ref": "#/$defs/failed_required_check"}}}}}}
+      ]
+    },
+    "readiness_transport": {
+      "description": "Normalized status/body observation, not a raw HTTP parser or a running readiness endpoint.",
+      "type": "object",
+      "required": ["status", "body"],
+      "properties": {"status": {"enum": [200, 503]}, "body": {"$ref": "#/$defs/readiness"}},
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"status": {"const": 200}, "body": {"properties": {"ready": {"const": true}}}}},
+        {"properties": {"status": {"const": 503}, "body": {"properties": {"ready": {"const": false}}}}}
+      ]
+    },
+    "liveness": {
+      "allOf": [{"$ref": "#/$defs/response_object"}],
+      "required": ["state", "live"],
+      "properties": {
+        "state": {"const": "live"},
+        "live": {"const": true},
+        "code": false,
+        "status": false,
+        "result": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "accepted": false,
+        "operation": false,
+        "operation_id": false,
+        "ready": false,
+        "checks": false
+      }
+    }
+  }
+}

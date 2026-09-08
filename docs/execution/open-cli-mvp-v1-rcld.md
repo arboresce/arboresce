@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001 is `complete`; no implementation slice is active. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, measurements, release or publication has occurred.
+Status: executing approved implementation design; E001 is `complete`; E002 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -139,11 +139,23 @@ Definition of green: Independent rights and disclosure review; local links resol
 
 ### E002 — Freeze command and error semantics
 
-Status: `not_started`. Prerequisites: E001. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `verified`. Prerequisites: E001. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+
+Evidence: [Common contract checkpoint](e002-common-contract-evidence.md).
+The following completion record identifies the exact committed source revision.
 
 Scope: Specify tenant and domain identifiers, independent revision types, command identity, typed errors, accepted operations and readiness. Define strict command parsing, extensible responses and cross-field validation.
 
 Planned paths: `contracts/public/`, `docs/requirements/`.
+
+Standalone contract validation is owned by `contracts/validation/`: exact
+prepared upstream tool/interpreter pins and a public lock, with declarative
+expectation schemas and independent fixtures. It adds no first-party Python
+runtime or hidden validator helper. Parsed-value checks precede the Rust
+contract runner; raw parser, authorization and HTTP runtime cases remain
+explicitly pending their owning implementation. The documentation index,
+repository README and guidance link the supported contract check and its actual
+evidence.
 
 Definition of green: Malformed commands fail; extra response fields remain tolerable; success cannot carry a failure code; unavailable readiness returns 503.
 

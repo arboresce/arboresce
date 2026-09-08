@@ -7,6 +7,11 @@ targets are normative; implementation and measured acceptance remain separate.
 The [rolling implementation plan](execution/open-cli-mvp-v1-rcld.md) tracks
 each checkpoint and its actual evidence.
 
+The [common wire contract](requirements/common-contract.md) defines the first
+shared schema family. Its [standalone checks](../contracts/validation/README.md)
+validate independent parsed-value fixtures; runtime qualification follows its
+own implementation slices.
+
 - [Instruction index](agents/README.md)
 - [Documentation ownership](ownership.md)
 - [Release and compatibility policy](release-policy.md)

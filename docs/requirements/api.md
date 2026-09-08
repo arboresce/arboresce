@@ -25,6 +25,11 @@ owns capability parity, and [architecture](architecture.md) owns dependency
 boundaries. Version and capability discovery must identify only implemented,
 supported behavior without disclosing confidential deployment configuration.
 
+The [common wire contract](common-contract.md) now freezes shared encodings,
+command metadata, problem/state consistency and readiness shapes. Each operation
+must add its own closed body and semantic admission rules. Passing the common
+metadata schema alone cannot validate or authorize a complete domain command.
+
 Every operation must define:
 
 - Required and optional fields, complete discriminated variants, field bounds
@@ -64,6 +69,7 @@ conditional headers requires a later explicit precedence and status contract.
 | `415` | Unsupported content or media type. |
 | `422` | Syntax is valid but the domain command is invalid. |
 | `429` | Shared admission or quota limit prevents acceptance; provide bounded retry guidance. |
+| `500` | Unexpected server failure; use the common contract's safe `internal_error` problem without exposing internal details or assuming the effect was absent. |
 | `503` | A dependency required for the requested work is unavailable. |
 
 The problem contract must keep its HTTP status, machine code and domain state

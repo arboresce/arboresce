@@ -57,6 +57,11 @@ and never order simultaneous updates by wall-clock timestamp. Content changes
 create immutable revisions; availability or grants must not rewrite content
 identity. Current privilege checks accompany the revision comparison.
 
+The [common wire contract](common-contract.md) owns the exact tagged revision
+encoding and bounded canonical decimal strings used to transport these integer
+values without JSON numeric precision loss. Wire encoding does not merge their
+independent domain types or replace the owning command's precondition.
+
 Store server `recorded_at` in UTC using an injected clock. Preserve optional
 source/user `observed_at` with attribution and precision. A date-only receipt
 remains a date. An ambiguous local instant requires explicit timezone handling;
