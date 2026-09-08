@@ -169,6 +169,12 @@ variant does not itself promise support for every media format.
 
 ## Canonical builds
 
+The [context contract](context-contract.md) owns the exact v1 manifest/compiler
+preimages, complete candidate/direct-observation projection, evaluation and
+approval records, signed payload, trusted keys and channel state variants.
+Its independently frozen signing vectors establish their recorded bounded
+agreement only; current authority and runtime qualification remain separate.
+
 A Context Build freezes a nonempty bounded selection of exact eligible asset
 versions, their relevant content/qualifications, compiler version and compilation
 configuration. The contract freezes the complete manifest, canonical preimage

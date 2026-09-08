@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arboresce context v1 fixed signing-vector data",
+  "description": "Exact finite public fixture inventory and parsed field encodings. This check does not perform cryptography, canonicalization, current trust checks or E10 qualification.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "protocol",
+    "fixture_key",
+    "vectors"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "protocol": {
+      "const": "context-attestation-v1"
+    },
+    "fixture_key": {
+      "type": "object",
+      "required": [
+        "classification",
+        "source",
+        "vector",
+        "seed",
+        "public_key"
+      ],
+      "properties": {
+        "classification": {
+          "const": "published-test-fixture"
+        },
+        "source": {
+          "const": "https://www.rfc-editor.org/rfc/rfc8032#section-7.1"
+        },
+        "vector": {
+          "const": "TEST 1"
+        },
+        "seed": {
+          "const": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60"
+        },
+        "public_key": {
+          "const": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a"
+        }
+      },
+      "additionalProperties": false
+    },
+    "vectors": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-valid"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": true
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-attestation-kind"
+            },
+            "payload": {
+              "$ref": "#/$defs/unsupported_kind_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-build-digest"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-domain-id"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-expires-at"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-issued-at"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-issuer-key-id"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-organization-id"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-subject-profile-digest"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-prefix"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-remove-nul"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-printable-nul"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-message-byte"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vector"
+            }
+          ],
+          "properties": {
+            "id": {
+              "const": "context-attestation-change-signature-bit"
+            },
+            "payload": {
+              "$ref": "public/v1/context.schema.json#/$defs/signed_payload"
+            },
+            "expected_primitive_valid": {
+              "const": false
+            }
+          }
+        }
+      ],
+      "items": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "vector": {
+      "type": "object",
+      "required": [
+        "id",
+        "payload",
+        "canonical_payload_utf8",
+        "signing_input_hex",
+        "signing_input_sha256",
+        "signature",
+        "expected_primitive_valid"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "payload": {
+          "type": "object"
+        },
+        "canonical_payload_utf8": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2048,
+          "pattern": "^[\\x20-\\x7e]+(?![\\s\\S])"
+        },
+        "signing_input_hex": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 8192,
+          "pattern": "^(?:[0-9a-f]{2})+(?![\\s\\S])"
+        },
+        "signing_input_sha256": {
+          "$ref": "public/v1/common.schema.json#/$defs/sha256"
+        },
+        "signature": {
+          "type": "string",
+          "minLength": 128,
+          "maxLength": 128,
+          "pattern": "^[0-9a-f]{128}(?![\\s\\S])"
+        },
+        "expected_primitive_valid": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "unsupported_kind_payload": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "domain_id",
+        "build_digest",
+        "attestation_kind",
+        "subject_profile_digest",
+        "issuer_key_id",
+        "issued_at",
+        "expires_at"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "public/v1/common.schema.json#/$defs/identifier"
+        },
+        "domain_id": {
+          "$ref": "public/v1/common.schema.json#/$defs/identifier"
+        },
+        "build_digest": {
+          "$ref": "public/v1/common.schema.json#/$defs/sha256"
+        },
+        "subject_profile_digest": {
+          "$ref": "public/v1/common.schema.json#/$defs/sha256"
+        },
+        "issuer_key_id": {
+          "$ref": "public/v1/common.schema.json#/$defs/identifier"
+        },
+        "issued_at": {
+          "$ref": "public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "attestation_kind": {
+          "const": "evaluation"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

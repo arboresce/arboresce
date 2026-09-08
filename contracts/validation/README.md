@@ -8,8 +8,9 @@ contracts and oracles when its implementation is available.
 The [common contract](../../docs/requirements/common-contract.md),
 [acquisition contract](../../docs/requirements/acquisition-contract.md),
 [observation contract](../../docs/requirements/observation-contract.md),
-[candidate review contract](../../docs/requirements/candidate-review-contract.md) and
-[financial contract](../../docs/requirements/financial-records.md) own wire
+[candidate review contract](../../docs/requirements/candidate-review-contract.md),
+[financial contract](../../docs/requirements/financial-records.md) and
+[context contract](../../docs/requirements/context-contract.md) own wire
 meaning. Each has a versioned schema, independently chosen parsed-value cases
 and a fixed expectation schema:
 
@@ -20,15 +21,24 @@ and a fixed expectation schema:
 | Observation | [Grounding and source definitions](../public/v1/observation.schema.json) | [Observation cases](observation-v1.cases.json) | [Observation expectations](observation-v1.expectations.schema.json) |
 | Candidate review | [Candidate and review definitions](../public/v1/candidate-review.schema.json) | [Candidate review cases](candidate-review-v1.cases.json) | [Candidate review expectations](candidate-review-v1.expectations.schema.json) |
 | Financial records | [Expense, report and export definitions](../public/v1/financial-records.schema.json) | [Financial cases](financial-records-v1.cases.json) | [Financial expectations](financial-records-v1.expectations.schema.json) |
+| Context | [Build, evaluation and attestation definitions](../public/v1/context.schema.json) | [Context cases](context-v1.cases.json) | [Context expectations](context-v1.expectations.schema.json) |
 
 The commands select the [common entry](../common-v1.fixtures.schema.json),
 [acquisition entry](../acquisition-v1.fixtures.schema.json),
 [observation entry](../observation-v1.fixtures.schema.json),
-[candidate review entry](../candidate-review-v1.fixtures.schema.json) and
-[financial entry](../financial-records-v1.fixtures.schema.json) at the contract
+[candidate review entry](../candidate-review-v1.fixtures.schema.json),
+[financial entry](../financial-records-v1.fixtures.schema.json) and
+[context entry](../context-v1.fixtures.schema.json) at the contract
 directory's root. Each entry references exactly its own expectation schema;
 swapping fixture families must fail. The entries contain no copied domain
 definitions or expected values.
+
+The separate [signing-vector fixture](context-v1.signing-vectors.json) and
+[vector schema](../context-v1.signing-vectors.schema.json) retain a finite exact
+inventory of published-key test messages and expected primitive outcomes. Their
+parsed check validates declarative structure; it does not execute a signer,
+compute canonical bytes or establish current issuer trust. The context owner
+defines the separate actual vector verification and later runtime qualifications.
 
 These parsed-value checks do not implement an HTTP service, raw JSON parser,
 authentication, command admission or sealed storage. Each owner separately
@@ -63,11 +73,12 @@ uv sync --project contracts/validation --check --locked --offline
 
 ## Checks
 
-Run all six commands from this repository's root after preparation. Every
+Run all eight commands from this repository's root after preparation. Every
 command must exit zero. Explicit file arguments prevent an empty glob from
 selecting no fixtures. Together with the two synchronization checks above,
-these are eight required verification commands. The metaschema command names
-all 15 schema files; the other five commands each select one exact family.
+these are ten required verification commands. The metaschema command names
+all 19 schema files; six commands each select one exact family and the final
+command checks the separate literal signing-vector structure.
 
 ```sh
 uv run --project contracts/validation --no-sync --offline \
@@ -87,7 +98,11 @@ uv run --project contracts/validation --no-sync --offline \
   contracts/validation/candidate-review-v1.expectations.schema.json \
   contracts/financial-records-v1.fixtures.schema.json \
   contracts/public/v1/financial-records.schema.json \
-  contracts/validation/financial-records-v1.expectations.schema.json
+  contracts/validation/financial-records-v1.expectations.schema.json \
+  contracts/context-v1.fixtures.schema.json \
+  contracts/public/v1/context.schema.json \
+  contracts/validation/context-v1.expectations.schema.json \
+  contracts/context-v1.signing-vectors.schema.json
 uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/common-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
@@ -108,6 +123,14 @@ uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/financial-records-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
   contracts/validation/financial-records-v1.cases.json
+uv run --project contracts/validation --no-sync --offline \
+  check-jsonschema --schemafile contracts/context-v1.fixtures.schema.json \
+  --force-filetype json --regex-variant default --no-cache \
+  contracts/validation/context-v1.cases.json
+uv run --project contracts/validation --no-sync --offline \
+  check-jsonschema --schemafile contracts/context-v1.signing-vectors.schema.json \
+  --force-filetype json --regex-variant default --no-cache \
+  contracts/validation/context-v1.signing-vectors.json
 ```
 
 The fixture manifest records independently chosen expected acceptance and

@@ -1,0 +1,1039 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arboresce context, evaluation, attestation and channel v1 contract definitions",
+  "description": "Library only: select a named definition. Parsed-value constraints do not establish canonical hashes, exact reference/count joins, current authority, signature validity, transactional transitions, token counts or complete delivery.",
+  "not": {},
+  "$defs": {
+    "build_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "build_digest"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "build_digest": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "observation_core": {
+      "description": "Exactly the seven canonical observation fields; the complete existing observation definition retains all source-kind and grounding constraints.",
+      "allOf": [{"$ref": "observation.schema.json#/$defs/observation"}],
+      "type": "object",
+      "required": ["observation_id", "organization_id", "recorded_at", "kind", "statement", "source", "grounding"],
+      "properties": {
+        "observation_id": {},
+        "organization_id": {},
+        "recorded_at": {},
+        "kind": {},
+        "statement": {},
+        "source": {},
+        "grounding": {}
+      },
+      "additionalProperties": false
+    },
+    "asset_snapshot": {
+      "type": "object",
+      "required": ["reference", "content", "observations"],
+      "properties": {
+        "reference": {"$ref": "candidate-review.schema.json#/$defs/accepted_asset_reference"},
+        "content": {"$ref": "candidate-review.schema.json#/$defs/candidate_content"},
+        "observations": {"type": "array", "maxItems": 192, "uniqueItems": true, "items": {"$ref": "#/$defs/observation_core"}}
+      },
+      "additionalProperties": false
+    },
+    "compiler_profile": {
+      "type": "object",
+      "required": ["name", "version", "configuration"],
+      "properties": {
+        "name": {"const": "context_jcs_v1"},
+        "version": {"const": "1"},
+        "configuration": {
+          "type": "object",
+          "required": ["input_order", "observation_order", "content"],
+          "properties": {
+            "input_order": {"const": "asset_version_ascii_v1"},
+            "observation_order": {"const": "organization_observation_ascii_v1"},
+            "content": {"const": "complete_candidate_and_direct_observations_v1"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "compiler_descriptor": {
+      "type": "object",
+      "required": ["profile", "profile_sha256"],
+      "properties": {
+        "profile": {"$ref": "#/$defs/compiler_profile"},
+        "profile_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "context_document": {
+      "type": "object",
+      "required": ["kind", "contract_version", "organization_id", "domain_id", "compiler", "assets"],
+      "properties": {
+        "kind": {"const": "arboresce.context-document.v1"},
+        "contract_version": {"const": "v1"},
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "compiler": {"$ref": "#/$defs/compiler_descriptor"},
+        "assets": {"type": "array", "minItems": 1, "maxItems": 100, "uniqueItems": true, "items": {"$ref": "#/$defs/asset_snapshot"}}
+      },
+      "additionalProperties": false
+    },
+    "compiled_identity": {
+      "type": "object",
+      "required": ["sha256", "byte_length", "media_type", "encoding"],
+      "properties": {
+        "sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "byte_length": {"type": "integer", "minimum": 1, "maximum": 262144},
+        "media_type": {"const": "application/json"},
+        "encoding": {"const": "utf-8"}
+      },
+      "additionalProperties": false
+    },
+    "build_manifest": {
+      "type": "object",
+      "required": ["kind", "contract_version", "organization_id", "domain_id", "compiler", "assets", "compiled"],
+      "properties": {
+        "kind": {"const": "arboresce.context-build.v1"},
+        "contract_version": {"const": "v1"},
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "compiler": {"$ref": "#/$defs/compiler_descriptor"},
+        "assets": {"type": "array", "minItems": 1, "maxItems": 100, "uniqueItems": true, "items": {"$ref": "#/$defs/asset_snapshot"}},
+        "compiled": {"$ref": "#/$defs/compiled_identity"}
+      },
+      "additionalProperties": false
+    },
+    "compiled_content": {
+      "description": "Chunk scalar bounds only. Canonical UTF-8 segmentation, actual byte caps, concatenation and digest equality require semantic verification.",
+      "type": "object",
+      "required": ["encoding", "chunks"],
+      "properties": {
+        "encoding": {"const": "utf8_chunks_v1"},
+        "chunks": {"type": "array", "minItems": 1, "maxItems": 5, "items": {"type": "string", "minLength": 1, "maxLength": 65536}}
+      },
+      "additionalProperties": false
+    },
+    "principal_reference": {
+      "type": "object",
+      "required": ["principal_id", "kind"],
+      "properties": {
+        "principal_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "kind": {"enum": ["human", "agent", "service"]}
+      },
+      "additionalProperties": false
+    },
+    "policy_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "policy_id", "version", "content_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "policy_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/content_revision"},
+        "content_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "execution_attribution": {
+      "type": "object",
+      "required": ["executor", "delegation_id", "authority_audit_event_id", "command_id"],
+      "properties": {
+        "executor": {"$ref": "#/$defs/principal_reference"},
+        "delegation_id": {"oneOf": [{"$ref": "common.schema.json#/$defs/identifier"}, {"type": "null"}]},
+        "authority_audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "command_id": {"$ref": "common.schema.json#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "profile_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "profile_id", "version", "content_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "profile_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/content_revision"},
+        "content_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "tokenizer_reference": {"$ref": "#/$defs/profile_reference"},
+    "resolve_limits": {
+      "type": "object",
+      "required": ["max_compiled_bytes", "tokenizer", "max_tokens"],
+      "properties": {
+        "max_compiled_bytes": {"type": "integer", "minimum": 1, "maximum": 262144},
+        "tokenizer": {"$ref": "#/$defs/tokenizer_reference"},
+        "max_tokens": {"type": "integer", "minimum": 1, "maximum": 1048576}
+      },
+      "additionalProperties": false
+    },
+    "token_admission": {
+      "type": "object",
+      "required": ["limits", "actual_tokens"],
+      "properties": {
+        "limits": {"$ref": "#/$defs/resolve_limits"},
+        "actual_tokens": {"type": "integer", "minimum": 1, "maximum": 1048576}
+      },
+      "additionalProperties": false
+    },
+    "usage_receipt": {
+      "type": "object",
+      "required": ["usage_id", "build", "compiled", "asset_versions", "purpose", "executor", "delegation_id", "policy", "authority_audit_event_id", "token_admission", "admitted_at", "transfer_expires_at", "delivery", "channel"],
+      "properties": {
+        "usage_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "build": {"$ref": "#/$defs/build_reference"},
+        "compiled": {"$ref": "#/$defs/compiled_identity"},
+        "asset_versions": {"type": "array", "minItems": 1, "maxItems": 100, "uniqueItems": true, "items": {"$ref": "candidate-review.schema.json#/$defs/accepted_asset_reference"}},
+        "purpose": {"$ref": "common.schema.json#/$defs/slug"},
+        "executor": {"$ref": "#/$defs/principal_reference"},
+        "delegation_id": {"oneOf": [{"$ref": "common.schema.json#/$defs/identifier"}, {"type": "null"}]},
+        "policy": {"$ref": "#/$defs/policy_reference"},
+        "authority_audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "token_admission": {"$ref": "#/$defs/token_admission"},
+        "admitted_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "transfer_expires_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "delivery": {"const": "admitted"},
+        "channel": {"oneOf": [{"$ref": "#/$defs/channel_observation"}, {"type": "null"}]}
+      },
+      "additionalProperties": false
+    },
+    "suite_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "suite_id", "version", "manifest_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "suite_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/content_revision"},
+        "manifest_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "dataset_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "dataset_id", "version", "manifest_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "dataset_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/content_revision"},
+        "manifest_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "case_declaration": {
+      "type": "object",
+      "required": ["case_id", "input_sha256", "oracle_sha256", "required"],
+      "properties": {
+        "case_id": {"$ref": "common.schema.json#/$defs/slug"},
+        "input_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "oracle_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "required": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "suite_manifest": {
+      "type": "object",
+      "required": ["kind", "organization_id", "domain_id", "suite_id", "version", "class", "evaluator", "dataset", "cases"],
+      "properties": {
+        "kind": {"const": "arboresce.context-evaluation-suite.v1"},
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "suite_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/content_revision"},
+        "class": {"enum": ["deterministic", "live_quality"]},
+        "evaluator": {"$ref": "#/$defs/profile_reference"},
+        "dataset": {"$ref": "#/$defs/dataset_reference"},
+        "cases": {
+          "type": "array", "minItems": 1, "maxItems": 256, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/case_declaration"},
+          "contains": {"required": ["required"], "properties": {"required": {"const": true}}}
+        }
+      },
+      "additionalProperties": false
+    },
+    "case_result": {
+      "type": "object",
+      "required": ["case_id", "input_sha256", "oracle_sha256", "outcome", "observed_result_sha256", "diagnostic"],
+      "properties": {
+        "case_id": {"$ref": "common.schema.json#/$defs/slug"},
+        "input_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "oracle_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "outcome": {"enum": ["passed", "failed", "error", "not_run"]},
+        "observed_result_sha256": {"oneOf": [{"$ref": "common.schema.json#/$defs/sha256"}, {"type": "null"}]},
+        "diagnostic": {"enum": [null, "case_error", "case_timeout", "result_invalid", "suite_deadline", "dependency_unavailable"]}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"outcome": {"enum": ["passed", "failed"]}, "observed_result_sha256": {"$ref": "common.schema.json#/$defs/sha256"}, "diagnostic": {"type": "null"}}},
+        {"properties": {"outcome": {"const": "error"}, "observed_result_sha256": {"type": "null"}, "diagnostic": {"enum": ["case_error", "case_timeout", "result_invalid", "dependency_unavailable"]}}},
+        {"properties": {"outcome": {"const": "not_run"}, "observed_result_sha256": {"type": "null"}, "diagnostic": {"enum": ["suite_deadline", "dependency_unavailable"]}}}
+      ]
+    },
+    "evaluation_counts": {
+      "type": "object",
+      "required": ["passed", "failed", "error", "not_run"],
+      "properties": {
+        "passed": {"type": "integer", "minimum": 0, "maximum": 256},
+        "failed": {"type": "integer", "minimum": 0, "maximum": 256},
+        "error": {"type": "integer", "minimum": 0, "maximum": 256},
+        "not_run": {"type": "integer", "minimum": 0, "maximum": 256}
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {"properties": {"passed": {"minimum": 1}}},
+        {"properties": {"failed": {"minimum": 1}}},
+        {"properties": {"error": {"minimum": 1}}},
+        {"properties": {"not_run": {"minimum": 1}}}
+      ]
+    },
+    "evaluation_core": {
+      "description": "Finite validity/outcome constraints are structural. Complete suite/result identity joins, exact length/count arithmetic and required-case policy remain semantic checks.",
+      "type": "object",
+      "required": ["kind", "evaluation_id", "build", "context", "policy", "suite", "class", "evaluator", "dataset", "expected_case_count", "results", "counts", "validity", "outcome", "started_at", "finished_at", "execution"],
+      "properties": {
+        "kind": {"const": "arboresce.context-evaluation.v1"},
+        "evaluation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "build": {"$ref": "#/$defs/build_reference"},
+        "context": {"$ref": "common.schema.json#/$defs/command_context"},
+        "policy": {"$ref": "#/$defs/policy_reference"},
+        "suite": {"$ref": "#/$defs/suite_reference"},
+        "class": {"enum": ["deterministic", "live_quality"]},
+        "evaluator": {"$ref": "#/$defs/profile_reference"},
+        "dataset": {"$ref": "#/$defs/dataset_reference"},
+        "expected_case_count": {"type": "integer", "minimum": 1, "maximum": 256},
+        "results": {"type": "array", "minItems": 1, "maxItems": 256, "uniqueItems": true, "items": {"$ref": "#/$defs/case_result"}},
+        "counts": {"$ref": "#/$defs/evaluation_counts"},
+        "validity": {"enum": ["valid", "invalid"]},
+        "outcome": {"enum": ["passed", "failed", "invalid"]},
+        "started_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "finished_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "execution": {"$ref": "#/$defs/execution_attribution"}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "validity": {"const": "valid"}, "outcome": {"const": "passed"},
+            "counts": {"properties": {"passed": {"minimum": 1}, "error": {"const": 0}, "not_run": {"const": 0}}},
+            "results": {"items": {"properties": {"outcome": {"enum": ["passed", "failed"]}}}, "contains": {"properties": {"outcome": {"const": "passed"}}}}
+          }
+        },
+        {
+          "properties": {
+            "validity": {"const": "valid"}, "outcome": {"const": "failed"},
+            "counts": {"properties": {"failed": {"minimum": 1}, "error": {"const": 0}, "not_run": {"const": 0}}},
+            "results": {"items": {"properties": {"outcome": {"enum": ["passed", "failed"]}}}, "contains": {"properties": {"outcome": {"const": "failed"}}}}
+          }
+        },
+        {
+          "properties": {
+            "validity": {"const": "invalid"}, "outcome": {"const": "invalid"},
+            "counts": {"anyOf": [{"properties": {"error": {"minimum": 1}}}, {"properties": {"not_run": {"minimum": 1}}}]},
+            "results": {"contains": {"properties": {"outcome": {"enum": ["error", "not_run"]}}}}
+          }
+        }
+      ]
+    },
+    "evaluation_record": {
+      "type": "object",
+      "required": ["core", "evaluation_sha256"],
+      "properties": {
+        "core": {"$ref": "#/$defs/evaluation_core"},
+        "evaluation_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "evaluation_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "evaluation_id", "evaluation_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "evaluation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "evaluation_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "build_approval_event": {
+      "type": "object",
+      "required": ["kind", "approval_event_id", "build", "context", "policy", "reviewer", "assurance", "executor", "delegation_id", "evaluations", "decision", "reason", "authenticated_at", "expires_at", "authentication_audit_event_id"],
+      "properties": {
+        "kind": {"const": "arboresce.context-build-approval-event.v1"},
+        "approval_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "build": {"$ref": "#/$defs/build_reference"},
+        "context": {"$ref": "common.schema.json#/$defs/command_context"},
+        "policy": {"$ref": "#/$defs/policy_reference"},
+        "reviewer": {"allOf": [{"$ref": "#/$defs/principal_reference"}], "properties": {"kind": {"const": "human"}}},
+        "assurance": {"$ref": "#/$defs/profile_reference"},
+        "executor": {"$ref": "#/$defs/principal_reference"},
+        "delegation_id": {"oneOf": [{"$ref": "common.schema.json#/$defs/identifier"}, {"type": "null"}]},
+        "evaluations": {"type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": {"$ref": "#/$defs/evaluation_reference"}},
+        "decision": {"const": "approve_build"},
+        "reason": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "authenticated_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "expires_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "authentication_audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"}
+      },
+      "additionalProperties": false,
+      "if": {"properties": {"delegation_id": {"type": "null"}}},
+      "then": {"properties": {"executor": {"properties": {"kind": {"const": "human"}}}}}
+    },
+    "approval_event_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "approval_event_id", "event_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "approval_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "event_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "approval_core": {
+      "type": "object",
+      "required": ["kind", "approval_id", "build", "context", "policy", "event", "reviewer", "assurance", "evaluations", "execution"],
+      "properties": {
+        "kind": {"const": "arboresce.context-build-approval.v1"},
+        "approval_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "build": {"$ref": "#/$defs/build_reference"},
+        "context": {"$ref": "common.schema.json#/$defs/command_context"},
+        "policy": {"$ref": "#/$defs/policy_reference"},
+        "event": {"$ref": "#/$defs/approval_event_reference"},
+        "reviewer": {"allOf": [{"$ref": "#/$defs/principal_reference"}], "properties": {"kind": {"const": "human"}}},
+        "assurance": {"$ref": "#/$defs/profile_reference"},
+        "evaluations": {"type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": {"$ref": "#/$defs/evaluation_reference"}},
+        "execution": {"$ref": "#/$defs/execution_attribution"}
+      },
+      "additionalProperties": false,
+      "if": {"properties": {"execution": {"properties": {"delegation_id": {"type": "null"}}}}},
+      "then": {"properties": {"execution": {"properties": {"executor": {"properties": {"kind": {"const": "human"}}}}}}}
+    },
+    "approval_record": {
+      "type": "object",
+      "required": ["core", "approval_sha256"],
+      "properties": {
+        "core": {"$ref": "#/$defs/approval_core"},
+        "approval_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "approval_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "approval_id", "approval_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "approval_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "approval_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "subject_profile": {
+      "type": "object",
+      "required": ["kind", "build", "context", "policy", "approval", "evaluations"],
+      "properties": {
+        "kind": {"const": "arboresce.context-human-approval-profile.v1"},
+        "build": {"$ref": "#/$defs/build_reference"},
+        "context": {"$ref": "common.schema.json#/$defs/command_context"},
+        "policy": {"$ref": "#/$defs/policy_reference"},
+        "approval": {"$ref": "#/$defs/approval_reference"},
+        "evaluations": {"type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": {"$ref": "#/$defs/evaluation_reference"}}
+      },
+      "additionalProperties": false
+    },
+    "signed_payload": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "build_digest", "attestation_kind", "subject_profile_digest", "issuer_key_id", "issued_at", "expires_at"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "build_digest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "attestation_kind": {"const": "human_approval"},
+        "subject_profile_digest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "issuer_key_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "issued_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "expires_at": {"$ref": "common.schema.json#/$defs/timestamp"}
+      },
+      "additionalProperties": false
+    },
+    "attestation_core": {
+      "description": "Signature encoding only. Canonical point/scalar decoding, subgroup checks, exact signing bytes, trusted registration and current eligibility require qualified semantic verification.",
+      "type": "object",
+      "required": ["kind", "attestation_id", "payload", "subject_profile", "algorithm", "signature"],
+      "properties": {
+        "kind": {"const": "arboresce.context-attestation-record.v1"},
+        "attestation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "payload": {"$ref": "#/$defs/signed_payload"},
+        "subject_profile": {"$ref": "#/$defs/subject_profile"},
+        "algorithm": {"const": "ed25519"},
+        "signature": {"type": "string", "minLength": 128, "maxLength": 128, "pattern": "^[0-9a-f]{128}(?![\\s\\S])"}
+      },
+      "additionalProperties": false
+    },
+    "attestation_record": {
+      "type": "object",
+      "required": ["core", "attestation_sha256"],
+      "properties": {
+        "core": {"$ref": "#/$defs/attestation_core"},
+        "attestation_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "attestation_reference": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "attestation_id", "attestation_sha256"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "attestation_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "attestation_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "trusted_key_core": {
+      "type": "object",
+      "required": ["kind", "issuer_key_id", "organization_id", "domain_id", "attestation_kind", "algorithm", "public_key", "not_before", "not_after"],
+      "properties": {
+        "kind": {"const": "arboresce.context-attestation-key.v1"},
+        "issuer_key_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "attestation_kind": {"const": "human_approval"},
+        "algorithm": {"const": "ed25519"},
+        "public_key": {"type": "string", "minLength": 64, "maxLength": 64, "pattern": "^[0-9a-f]{64}(?![\\s\\S])"},
+        "not_before": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "not_after": {"$ref": "common.schema.json#/$defs/timestamp"}
+      },
+      "additionalProperties": false
+    },
+    "key_control": {
+      "type": "object",
+      "required": ["issuer_key_id", "control_revision", "state", "revoked_at"],
+      "properties": {
+        "issuer_key_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
+        "state": {"enum": ["active", "revoked"]},
+        "revoked_at": {"oneOf": [{"$ref": "common.schema.json#/$defs/timestamp"}, {"type": "null"}]}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"state": {"const": "active"}, "revoked_at": {"type": "null"}}},
+        {"properties": {"state": {"const": "revoked"}, "revoked_at": {"$ref": "common.schema.json#/$defs/timestamp"}, "control_revision": {"properties": {"value": {"not": {"const": "1"}}}}}}
+      ]
+    },
+    "positive_duration_ms": {"type": "integer", "minimum": 1, "maximum": 9007199254740991},
+    "channel_key": {
+      "type": "object",
+      "required": ["organization_id", "domain_id", "name"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "name": {"$ref": "common.schema.json#/$defs/slug"}
+      },
+      "additionalProperties": false
+    },
+    "positive_generation": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/generation"}],
+      "properties": {"value": {"$ref": "common.schema.json#/$defs/positive_revision_value"}}
+    },
+    "generation_at_least_two": {
+      "allOf": [{"$ref": "#/$defs/positive_generation"}],
+      "properties": {"value": {"not": {"const": "1"}}}
+    },
+    "generation_at_least_three": {
+      "allOf": [{"$ref": "#/$defs/positive_generation"}],
+      "properties": {"value": {"not": {"enum": ["1", "2"]}}}
+    },
+    "generation_at_least_four": {
+      "allOf": [{"$ref": "#/$defs/positive_generation"}],
+      "properties": {"value": {"not": {"enum": ["1", "2", "3"]}}}
+    },
+    "channel_core": {
+      "type": "object",
+      "required": ["channel", "generation", "state", "target", "last_event_id"],
+      "properties": {
+        "channel": {"$ref": "#/$defs/channel_key"},
+        "generation": {"$ref": "#/$defs/positive_generation"},
+        "state": {"enum": ["empty", "active", "suspended"]},
+        "target": {"oneOf": [{"$ref": "#/$defs/build_reference"}, {"type": "null"}]},
+        "last_event_id": {"$ref": "common.schema.json#/$defs/identifier"}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"state": {"const": "empty"}, "target": {"type": "null"}, "generation": {"properties": {"value": {"const": "1"}}}}},
+        {"properties": {"state": {"const": "active"}, "target": {"$ref": "#/$defs/build_reference"}, "generation": {"$ref": "#/$defs/generation_at_least_two"}}},
+        {"properties": {"state": {"const": "suspended"}, "target": {"$ref": "#/$defs/build_reference"}, "generation": {"$ref": "#/$defs/generation_at_least_three"}}}
+      ]
+    },
+    "channel_event": {
+      "description": "Static reachable-state minima are enforced. Exact generation increment, previous-event linkage, target preservation, historical rollback ordering and all identity joins remain semantic checks.",
+      "type": "object",
+      "required": ["event_id", "channel", "generation", "previous_generation", "action", "previous_state", "previous_target", "state", "target", "rollback_generation", "reason", "executor", "delegation_id", "authority_audit_event_id", "recorded_at"],
+      "properties": {
+        "event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "channel": {"$ref": "#/$defs/channel_key"},
+        "generation": {"$ref": "#/$defs/positive_generation"},
+        "previous_generation": {"$ref": "common.schema.json#/$defs/generation"},
+        "action": {"enum": ["create", "promote", "suspend", "rollback"]},
+        "previous_state": {"enum": [null, "empty", "active", "suspended"]},
+        "previous_target": {"oneOf": [{"$ref": "#/$defs/build_reference"}, {"type": "null"}]},
+        "state": {"enum": ["empty", "active", "suspended"]},
+        "target": {"oneOf": [{"$ref": "#/$defs/build_reference"}, {"type": "null"}]},
+        "rollback_generation": {"oneOf": [{"$ref": "#/$defs/positive_generation"}, {"type": "null"}]},
+        "reason": {"oneOf": [{"type": "string", "minLength": 1, "maxLength": 2048}, {"type": "null"}]},
+        "executor": {"$ref": "#/$defs/principal_reference"},
+        "delegation_id": {"oneOf": [{"$ref": "common.schema.json#/$defs/identifier"}, {"type": "null"}]},
+        "authority_audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "recorded_at": {"$ref": "common.schema.json#/$defs/timestamp"}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "action": {"const": "create"},
+            "generation": {"properties": {"value": {"const": "1"}}},
+            "previous_generation": {"properties": {"value": {"const": "0"}}},
+            "previous_state": {"type": "null"}, "previous_target": {"type": "null"},
+            "state": {"const": "empty"}, "target": {"type": "null"},
+            "rollback_generation": {"type": "null"}, "reason": {"type": "null"}
+          }
+        },
+        {
+          "properties": {
+            "action": {"const": "promote"},
+            "generation": {"$ref": "#/$defs/generation_at_least_two"},
+            "previous_generation": {"$ref": "#/$defs/positive_generation"},
+            "state": {"const": "active"}, "target": {"$ref": "#/$defs/build_reference"},
+            "rollback_generation": {"type": "null"}, "reason": {"type": "string"}
+          },
+          "oneOf": [
+            {"properties": {"previous_state": {"const": "empty"}, "previous_target": {"type": "null"}, "previous_generation": {"properties": {"value": {"const": "1"}}}, "generation": {"properties": {"value": {"const": "2"}}}}},
+            {"properties": {"previous_state": {"const": "active"}, "previous_target": {"$ref": "#/$defs/build_reference"}, "previous_generation": {"$ref": "#/$defs/generation_at_least_two"}, "generation": {"$ref": "#/$defs/generation_at_least_three"}}},
+            {"properties": {"previous_state": {"const": "suspended"}, "previous_target": {"$ref": "#/$defs/build_reference"}, "previous_generation": {"$ref": "#/$defs/generation_at_least_three"}, "generation": {"$ref": "#/$defs/generation_at_least_four"}}}
+          ]
+        },
+        {
+          "properties": {
+            "action": {"const": "suspend"},
+            "generation": {"$ref": "#/$defs/generation_at_least_three"},
+            "previous_generation": {"$ref": "#/$defs/generation_at_least_two"},
+            "previous_state": {"const": "active"}, "previous_target": {"$ref": "#/$defs/build_reference"},
+            "state": {"const": "suspended"}, "target": {"$ref": "#/$defs/build_reference"},
+            "rollback_generation": {"type": "null"}, "reason": {"type": "string"}
+          }
+        },
+        {
+          "properties": {
+            "action": {"const": "rollback"},
+            "generation": {"$ref": "#/$defs/generation_at_least_four"},
+            "previous_generation": {"$ref": "#/$defs/generation_at_least_three"},
+            "previous_state": {"enum": ["active", "suspended"]}, "previous_target": {"$ref": "#/$defs/build_reference"},
+            "state": {"const": "active"}, "target": {"$ref": "#/$defs/build_reference"},
+            "rollback_generation": {"$ref": "#/$defs/generation_at_least_two"}, "reason": {"type": "string"}
+          }
+        }
+      ]
+    },
+    "channel_observation": {
+      "type": "object",
+      "required": ["channel", "generation"],
+      "properties": {
+        "channel": {"$ref": "#/$defs/channel_key"},
+        "generation": {"$ref": "#/$defs/positive_generation"}
+      },
+      "additionalProperties": false
+    },
+    "resolve_selection": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "build"],
+          "properties": {"kind": {"const": "build"}, "build": {"$ref": "#/$defs/build_reference"}},
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "channel", "expected_generation"],
+          "properties": {
+            "kind": {"const": "channel"},
+            "channel": {"$ref": "#/$defs/channel_key"},
+            "expected_generation": {"$ref": "#/$defs/positive_generation"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "read_context": {
+      "description": "Decoded exact GET query context only. Route equality, duplicate/unknown raw query keys and single percent-decoding require transport admission.",
+      "$ref": "common.schema.json#/$defs/command_context"
+    },
+    "build_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "context.build"}}},
+        "body": {
+          "type": "object",
+          "required": ["inputs", "compiler"],
+          "properties": {
+            "inputs": {"type": "array", "minItems": 1, "maxItems": 100, "uniqueItems": true, "items": {"$ref": "candidate-review.schema.json#/$defs/accepted_asset_reference"}},
+            "compiler": {"$ref": "#/$defs/compiler_descriptor"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "evaluate_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "context.evaluate"}}},
+        "body": {
+          "type": "object",
+          "required": ["build", "suite"],
+          "properties": {"build": {"$ref": "#/$defs/build_reference"}, "suite": {"$ref": "#/$defs/suite_reference"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "approve_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "context.approve"}}},
+        "body": {
+          "type": "object",
+          "required": ["build", "approval_event_id"],
+          "properties": {"build": {"$ref": "#/$defs/build_reference"}, "approval_event_id": {"$ref": "common.schema.json#/$defs/identifier"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "resolve_request": {
+      "type": "object",
+      "required": ["context", "selection", "limits"],
+      "properties": {
+        "context": {"$ref": "common.schema.json#/$defs/command_context"},
+        "selection": {"$ref": "#/$defs/resolve_selection"},
+        "limits": {"$ref": "#/$defs/resolve_limits"}
+      },
+      "additionalProperties": false
+    },
+    "channel_create_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "channel.create"}}},
+        "body": {
+          "type": "object",
+          "required": ["name", "expected_generation"],
+          "properties": {
+            "name": {"$ref": "common.schema.json#/$defs/slug"},
+            "expected_generation": {"allOf": [{"$ref": "common.schema.json#/$defs/generation"}], "properties": {"value": {"const": "0"}}}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "channel_promote_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "channel.promote"}}},
+        "body": {
+          "type": "object",
+          "required": ["name", "expected_generation", "build", "reason"],
+          "properties": {
+            "name": {"$ref": "common.schema.json#/$defs/slug"},
+            "expected_generation": {"$ref": "#/$defs/positive_generation"},
+            "build": {"$ref": "#/$defs/build_reference"},
+            "reason": {"type": "string", "minLength": 1, "maxLength": 2048}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "channel_suspend_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "channel.suspend"}}},
+        "body": {
+          "type": "object",
+          "required": ["name", "expected_generation", "reason"],
+          "properties": {
+            "name": {"$ref": "common.schema.json#/$defs/slug"},
+            "expected_generation": {"$ref": "#/$defs/positive_generation"},
+            "reason": {"type": "string", "minLength": 1, "maxLength": 2048}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "channel_rollback_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "channel.rollback"}}},
+        "body": {
+          "type": "object",
+          "required": ["name", "expected_generation", "target_generation", "build", "reason"],
+          "properties": {
+            "name": {"$ref": "common.schema.json#/$defs/slug"},
+            "expected_generation": {"$ref": "#/$defs/positive_generation"},
+            "target_generation": {"$ref": "#/$defs/positive_generation"},
+            "build": {"$ref": "#/$defs/build_reference"},
+            "reason": {"type": "string", "minLength": 1, "maxLength": 2048}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "resource_response": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/response_object"}],
+      "properties": {
+        "state": false, "status": false, "code": false, "problem": false,
+        "error": false, "failure": false, "failure_code": false, "success": false,
+        "accepted": false, "approved": false, "human_approved": false,
+        "authorized": false, "confidence": false, "result": false, "operation": false,
+        "ready": false, "operation_id": false
+      }
+    },
+    "result_response": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/result_object"}],
+      "maxProperties": 32,
+      "properties": {
+        "state": false, "status": false, "code": false, "problem": false,
+        "error": false, "failure": false, "failure_code": false, "success": false,
+        "accepted": false, "approved": false, "human_approved": false,
+        "authorized": false, "confidence": false, "result": false, "operation": false,
+        "ready": false, "operation_id": false
+      }
+    },
+    "context_problem": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/problem"}],
+      "properties": {"approved": false, "human_approved": false, "authorized": false, "confidence": false}
+    },
+    "context_idempotency_receipt": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/idempotency_receipt"}],
+      "properties": {
+        "status": false, "approved": false, "human_approved": false, "authorized": false,
+        "confidence": false, "result": false, "operation": false, "operation_id": false
+      }
+    },
+    "success_envelope": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/success_response"}],
+      "properties": {
+        "approved": false, "human_approved": false, "authorized": false, "confidence": false,
+        "idempotency_receipt": {"$ref": "#/$defs/context_idempotency_receipt"}
+      }
+    },
+    "build_resource": {
+      "allOf": [{"$ref": "#/$defs/resource_response"}],
+      "required": ["reference", "control_revision", "availability", "manifest"],
+      "properties": {
+        "reference": {"$ref": "#/$defs/build_reference"},
+        "control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
+        "availability": {"enum": ["available", "unavailable", "purged"]},
+        "manifest": {"oneOf": [{"$ref": "#/$defs/build_manifest"}, {"type": "null"}]}
+      },
+      "oneOf": [
+        {"properties": {"availability": {"const": "available"}, "manifest": {"$ref": "#/$defs/build_manifest"}}},
+        {"properties": {"availability": {"enum": ["unavailable", "purged"]}, "manifest": {"type": "null"}, "control_revision": {"properties": {"value": {"not": {"const": "1"}}}}}}
+      ]
+    },
+    "channel_resource": {
+      "allOf": [{"$ref": "#/$defs/resource_response"}],
+      "required": ["core"],
+      "properties": {"core": {"$ref": "#/$defs/channel_core"}}
+    },
+    "build_result": {
+      "allOf": [{"$ref": "#/$defs/result_response"}],
+      "required": ["command", "build"],
+      "properties": {"command": {"const": "context.build"}, "build": {"$ref": "#/$defs/build_reference"}}
+    },
+    "evaluate_result": {
+      "allOf": [{"$ref": "#/$defs/result_response"}],
+      "required": ["command", "evaluation"],
+      "properties": {"command": {"const": "context.evaluate"}, "evaluation": {"$ref": "#/$defs/evaluation_reference"}}
+    },
+    "approve_result": {
+      "allOf": [{"$ref": "#/$defs/result_response"}],
+      "required": ["command", "build", "approval", "attestation"],
+      "properties": {
+        "command": {"const": "context.approve"},
+        "build": {"$ref": "#/$defs/build_reference"},
+        "approval": {"$ref": "#/$defs/approval_reference"},
+        "attestation": {"$ref": "#/$defs/attestation_reference"}
+      }
+    },
+    "context_operation": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/operation"}],
+      "required": ["command"],
+      "properties": {
+        "command": {"enum": ["context.build", "context.evaluate", "context.approve"]},
+        "problem": {"$ref": "#/$defs/context_problem"},
+        "approved": false, "human_approved": false, "authorized": false, "confidence": false,
+        "idempotency_receipt": false
+      },
+      "oneOf": [
+        {"properties": {"command": {"const": "context.build"}, "result": {"$ref": "#/$defs/build_result"}}},
+        {"properties": {"command": {"const": "context.evaluate"}, "result": {"$ref": "#/$defs/evaluate_result"}}},
+        {"properties": {"command": {"const": "context.approve"}, "result": {"$ref": "#/$defs/approve_result"}}}
+      ]
+    },
+    "build_operation": {
+      "allOf": [{"$ref": "#/$defs/context_operation"}],
+      "properties": {"command": {"const": "context.build"}}
+    },
+    "evaluate_operation": {
+      "allOf": [{"$ref": "#/$defs/context_operation"}],
+      "properties": {"command": {"const": "context.evaluate"}}
+    },
+    "approve_operation": {
+      "allOf": [{"$ref": "#/$defs/context_operation"}],
+      "properties": {"command": {"const": "context.approve"}}
+    },
+    "context_accepted_response": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/accepted_response"}],
+      "properties": {
+        "operation": {"$ref": "#/$defs/context_operation"},
+        "idempotency_receipt": {"$ref": "#/$defs/context_idempotency_receipt"},
+        "approved": false, "human_approved": false, "authorized": false, "confidence": false
+      }
+    },
+    "build_accepted_response": {
+      "allOf": [{"$ref": "#/$defs/context_accepted_response"}],
+      "properties": {"operation": {"$ref": "#/$defs/build_operation"}}
+    },
+    "evaluate_accepted_response": {
+      "allOf": [{"$ref": "#/$defs/context_accepted_response"}],
+      "properties": {"operation": {"$ref": "#/$defs/evaluate_operation"}}
+    },
+    "approve_accepted_response": {
+      "allOf": [{"$ref": "#/$defs/context_accepted_response"}],
+      "properties": {"operation": {"$ref": "#/$defs/approve_operation"}}
+    },
+    "context_operation_read_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "properties": {
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [{"$ref": "common.schema.json#/$defs/result_object"}],
+          "maxProperties": 32,
+          "required": ["operation", "idempotency_receipt"],
+          "properties": {
+            "operation": {"$ref": "#/$defs/context_operation"},
+            "idempotency_receipt": {"$ref": "#/$defs/context_idempotency_receipt"},
+            "status": false, "approved": false, "human_approved": false, "authorized": false,
+            "confidence": false, "result": false, "operation_id": false
+          },
+          "oneOf": [
+            {"properties": {"operation": {"properties": {"state": {"enum": ["queued", "running"]}}}, "idempotency_receipt": {"properties": {"expires_at": {"type": "null"}, "tombstone_expires_at": {"type": "null"}}}}},
+            {"properties": {"operation": {"properties": {"state": {"enum": ["succeeded", "failed", "cancelled"]}}}, "idempotency_receipt": {"properties": {"expires_at": {"$ref": "common.schema.json#/$defs/timestamp"}, "tombstone_expires_at": {"$ref": "common.schema.json#/$defs/timestamp"}}}}}
+          ]
+        }
+      }
+    },
+    "build_get_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "properties": {
+        "idempotency_receipt": false,
+        "result": {"allOf": [{"$ref": "#/$defs/result_response"}], "required": ["build"], "properties": {"build": {"$ref": "#/$defs/build_resource"}}}
+      }
+    },
+    "evaluation_get_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "properties": {
+        "idempotency_receipt": false,
+        "result": {"allOf": [{"$ref": "#/$defs/result_response"}], "required": ["evaluation"], "properties": {"evaluation": {"$ref": "#/$defs/evaluation_record"}}}
+      }
+    },
+    "approval_get_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "properties": {
+        "idempotency_receipt": false,
+        "result": {"allOf": [{"$ref": "#/$defs/result_response"}], "required": ["approval"], "properties": {"approval": {"$ref": "#/$defs/approval_record"}}}
+      }
+    },
+    "attestation_get_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "properties": {
+        "idempotency_receipt": false,
+        "result": {"allOf": [{"$ref": "#/$defs/result_response"}], "required": ["attestation"], "properties": {"attestation": {"$ref": "#/$defs/attestation_record"}}}
+      }
+    },
+    "resolve_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "properties": {
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [{"$ref": "#/$defs/result_response"}],
+          "required": ["build", "compiled", "content", "usage"],
+          "properties": {
+            "build": {"$ref": "#/$defs/build_reference"},
+            "compiled": {"$ref": "#/$defs/compiled_identity"},
+            "content": {"$ref": "#/$defs/compiled_content"},
+            "usage": {"$ref": "#/$defs/usage_receipt"}
+          }
+        }
+      }
+    },
+    "channel_get_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "properties": {
+        "idempotency_receipt": false,
+        "result": {"allOf": [{"$ref": "#/$defs/result_response"}], "required": ["channel"], "properties": {"channel": {"$ref": "#/$defs/channel_resource"}}}
+      }
+    },
+    "channel_response": {
+      "allOf": [{"$ref": "#/$defs/success_envelope"}],
+      "required": ["idempotency_receipt"],
+      "properties": {
+        "result": {
+          "allOf": [{"$ref": "#/$defs/result_response"}],
+          "required": ["command", "channel", "event"],
+          "properties": {
+            "command": {"enum": ["channel.create", "channel.promote", "channel.suspend", "channel.rollback"]},
+            "channel": {"$ref": "#/$defs/channel_resource"},
+            "event": {"$ref": "#/$defs/channel_event"}
+          },
+          "oneOf": [
+            {"properties": {"command": {"const": "channel.create"}, "channel": {"properties": {"core": {"properties": {"state": {"const": "empty"}}}}}, "event": {"properties": {"action": {"const": "create"}}}}},
+            {"properties": {"command": {"const": "channel.promote"}, "channel": {"properties": {"core": {"properties": {"state": {"const": "active"}}}}}, "event": {"properties": {"action": {"const": "promote"}}}}},
+            {"properties": {"command": {"const": "channel.suspend"}, "channel": {"properties": {"core": {"properties": {"state": {"const": "suspended"}}}}}, "event": {"properties": {"action": {"const": "suspend"}}}}},
+            {"properties": {"command": {"const": "channel.rollback"}, "channel": {"properties": {"core": {"properties": {"state": {"const": "active"}, "generation": {"$ref": "#/$defs/generation_at_least_four"}}}}}, "event": {"properties": {"action": {"const": "rollback"}}}}}
+          ]
+        }
+      }
+    },
+    "channel_create_response": {
+      "allOf": [{"$ref": "#/$defs/channel_response"}],
+      "properties": {"result": {"properties": {"command": {"const": "channel.create"}}}}
+    },
+    "channel_promote_response": {
+      "allOf": [{"$ref": "#/$defs/channel_response"}],
+      "properties": {"result": {"properties": {"command": {"const": "channel.promote"}}}}
+    },
+    "channel_suspend_response": {
+      "allOf": [{"$ref": "#/$defs/channel_response"}],
+      "properties": {"result": {"properties": {"command": {"const": "channel.suspend"}}}}
+    },
+    "channel_rollback_response": {
+      "allOf": [{"$ref": "#/$defs/channel_response"}],
+      "properties": {"result": {"properties": {"command": {"const": "channel.rollback"}}}}
+    }
+  }
+}

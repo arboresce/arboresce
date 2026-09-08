@@ -10,8 +10,9 @@ each checkpoint and its actual evidence.
 The [common wire contract](requirements/common-contract.md),
 [acquisition contract](requirements/acquisition-contract.md),
 [observation contract](requirements/observation-contract.md),
-[candidate review contract](requirements/candidate-review-contract.md) and
-[financial records contract](requirements/financial-records.md) define versioned
+[candidate review contract](requirements/candidate-review-contract.md),
+[financial records contract](requirements/financial-records.md) and
+[context contract](requirements/context-contract.md) define versioned
 schema families. Their [standalone checks](../contracts/validation/README.md)
 validate independent parsed-value fixtures; runtime qualification follows its
 own implementation slices.

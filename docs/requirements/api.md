@@ -190,6 +190,13 @@ current report access and delivery authority remain separate from its identity.
 
 ## Exact snapshot resolution and search selection
 
+The [context contract](context-contract.md) freezes complete build/evaluation/
+approval commands and operation reads, exact build and channel resolution,
+current authority, bounded content chunks and usage receipts. Its immutable
+build content is separate from evaluation, human approval, signatures and
+current availability. Channel changes compare generation and never restore
+eligibility merely by naming an older signed build.
+
 Exact resolution serves the complete selected content of one immutable Context
 Build after current authorization, source eligibility and byte/token bounds.
 Any unavailable or revoked required component makes the build unavailable.
