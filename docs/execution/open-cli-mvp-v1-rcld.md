@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001–E006 are `complete`, and E007 is the sole `in_progress` slice. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Status: executing approved implementation design; E001–E007 are `complete`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -289,7 +289,9 @@ source-coverage result is claimed here.
 
 ### E007 — Freeze context and attestation contracts
 
-Status: `in_progress`. Prerequisites: E005. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `complete`. Prerequisites: E005. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+
+Checkpoint: feafa9a927453a8f9d471c5370c470677abdb941; Evidence: [Context contract checkpoint](e007-context-contract-evidence.md)
 
 Scope: Specify canonical build preimage, ordering, numeric profile and exact content references; keep receipts outside content identity. Define domain-separated signatures, trusted keys and channel generations.
 
@@ -1695,7 +1697,7 @@ Definition of green: Dependency inventory matches image; controlled fixture sign
 
 ## Execution evidence and reconciliation
 
-Of 141 numbered slices and four suffix slices, E001–E006 are complete, E007 is `in_progress`, and the other 138 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
+Of 141 numbered slices and four suffix slices, E001–E007 are complete and the other 138 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
 
 Each checkpoint records source revision/dirty state, contracts, schemas, dependency locks, tool versions, feature/native profile, dataset/scorer identity, exact command, selected tests, raw coverage, duration, results/skips/failures, independent review and gate effect. Redact secrets and evidence content. Record the completed commit hash in subsequent or external evidence rather than recursively embedding its own hash. A local build, a mock, an unsigned candidate and an accepted request have distinct meanings and cannot stand in for live qualification, signed release or completed processing.
 
