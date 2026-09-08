@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001 is `verified` and awaiting its committed checkpoint identity; no implementation slice is active. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, measurements, release or publication has occurred.
+Status: executing approved implementation design; E001 is `complete`; no implementation slice is active. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, measurements, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -124,7 +124,9 @@ Each slice records its current status below. The named tests are mandatory addit
 
 ### E001 — Adopt the public implementation boundary
 
-Status: `verified`. Prerequisites: approved public scope and refreshed repository status. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `complete`. Prerequisites: approved public scope and refreshed repository status. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+
+Checkpoint: 60dccaa76e5acfcba80243a0e1c90c123561c9fd; Evidence: [Checkpoint evidence](e001-requirements-evidence.md)
 
 Scope: Publish current-state and product-scope requirements, the architecture and testing policy, supported interfaces and deferred scope. Preserve notices and existing files; describe only available commands as available.
 
