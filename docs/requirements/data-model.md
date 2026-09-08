@@ -80,7 +80,7 @@ Each aggregate has its own state machine:
 | Attachment readiness | `incomplete`, `ready`, `failed`, independently of submission or processing state. Required failure blocks eligibility; optional failure remains a visible warning. |
 | Processing | `queued → running → succeeded`, `failed` or `cancelled`; retry/wait details and partial attachment results belong to stage records. |
 | Candidate revision | `pending`, then an explicit `accepted`, `rejected`, `contested` or `superseded` transition. Revision creates new pending content; permitted reconsideration preserves prior verdicts. |
-| Expense | `proposed → confirmed → superseded` or `voided`, subject to the financial confirmation and correction rules. |
+| Expense | Proposed or confirmed heads can be revised into new proposed content while retaining a superseded predecessor; confirmation is explicit and void is terminal under the financial owner. |
 | Asset availability | `active`, `deprecated`, `revoked`, `purged`; content hashes remain stable across control changes. |
 | Build availability | `available`, `unavailable`, `purged`; current release eligibility is computed separately from policy, source restrictions and valid receipts. |
 | Channel | `empty`, `active`, `suspended`; active requires a build. An empty channel may omit it. |
@@ -94,6 +94,15 @@ not on a mutable list assembled by a worker.
 The [acquisition contract](acquisition-contract.md) defines the wire identities,
 immutable attachment intents and separately observed sealed bindings and
 readiness. Its operation rules preserve these aggregate distinctions.
+
+The [financial contract](financial-records.md#field-attribution-and-content-identity)
+owns complete expense identity and effective field attribution, including
+authenticated command assertions without a new observation route. Its exact
+financial review records human reviewer and actual executor separately.
+[Immutable reports](financial-records.md#immutable-report-selections) retain
+selected references and observed controls; later corrections or availability
+changes cannot rewrite their bytes. Report and export-payload digests have
+separate preimages from financial content and transport/artifact digests.
 
 ## Evidence and review identity
 

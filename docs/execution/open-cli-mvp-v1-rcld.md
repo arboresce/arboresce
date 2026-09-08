@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001–E005 are `complete`. All other slices remain `not_started`; none is active. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Status: executing approved implementation design; E001–E005 are `complete`; E006 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -250,7 +250,7 @@ Definition of green: Replacement on accept fails; incomplete revise fails; scope
 
 ### E006 — Freeze expense and report semantics
 
-Status: `not_started`. Prerequisites: E003, E004, E005. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `verified`. Prerequisites: E003, E004, E005. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
 
 The prerequisite amendment retains E003 and adds the immutable observation
 attribution defined by E004 and the shared common `calendar_date` definition
@@ -261,7 +261,29 @@ Scope: Require reviewed total, currency and date before confirmation. Preserve u
 
 Planned paths: `contracts/public/`, `docs/requirements/`.
 
+The bounded implementation owns `contracts/public/v1/financial-records.schema.json`
+and the existing `docs/requirements/financial-records.md`. Independent parsed-value
+cases and expectations belong to `contracts/validation/`, with the exact-family
+entry `contracts/financial-records-v1.fixtures.schema.json`. Update the validator
+guide, documentation/requirement navigation and API/data-model links, plus
+`docs/execution/e006-financial-contract-evidence.md`. Reuse common encodings and
+immutable observation references without changing their existing definitions
+or fixture meanings. Actual arithmetic, source joins, current authorization,
+transaction races, immutable selection and independent export-consumer behavior
+remain required semantic/runtime qualifications for their owning later slices.
+
 Definition of green: Missing required fields remain proposed; unknown tax differs from zero; no cross-currency total; refunds preserve purchase history; authorized exclusions remain explicit.
+
+Actual verification: the 57-definition financial library and 519 independently
+fixed expectations passed with all 870 existing expectations. All eight
+documented commands, 15 metaschemas, 42 deliberate failure diagnostics, five
+relocated families and the restored financial input check passed. The 22
+machine inputs and six guidance files remained unchanged. Independent design,
+schema, fixture and documentation reviews passed. See the
+[financial contract evidence](e006-financial-contract-evidence.md). Arithmetic,
+authority/history joins, selection races, emitted exports and the 32 named
+semantic groups remain required later qualification; no runtime or numerical
+source-coverage result is claimed here.
 
 ### E007 — Freeze context and attestation contracts
 
@@ -1655,7 +1677,7 @@ Definition of green: Dependency inventory matches image; controlled fixture sign
 
 ## Execution evidence and reconciliation
 
-Of 141 numbered slices and four suffix slices, E001–E005 are complete and the other 140 remain `not_started`; none is active. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
+Of 141 numbered slices and four suffix slices, E001–E005 are complete, E006 is `verified` and the other 139 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
 
 Each checkpoint records source revision/dirty state, contracts, schemas, dependency locks, tool versions, feature/native profile, dataset/scorer identity, exact command, selected tests, raw coverage, duration, results/skips/failures, independent review and gate effect. Redact secrets and evidence content. Record the completed commit hash in subsequent or external evidence rather than recursively embedding its own hash. A local build, a mock, an unsigned candidate and an accepted request have distinct meanings and cannot stand in for live qualification, signed release or completed processing.
 

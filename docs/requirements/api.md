@@ -34,6 +34,12 @@ The [observation contract](observation-contract.md) owns grounding and source-ki
 values carried by the relevant operations. It adds no mutation route by itself;
 each operation still supplies its complete admission and response contract.
 
+The [financial contract](financial-records.md#complete-commands-and-reads) owns
+the complete expense revise/confirm/void and report create/export variants,
+their current/exact reads and report availability-control precondition.
+Its financial review event is distinct from candidate acceptance. The common
+admission and reauthorization rules still apply to every financial effect.
+
 Every operation must define:
 
 - Required and optional fields, complete discriminated variants, field bounds
@@ -177,6 +183,10 @@ Current-state queues are moving eligible sets: state changes may remove rows
 between pages, even with a fixed upper watermark. Document this behavior.
 A financial report uses the separate immutable selection operation specified
 by [financial records](financial-records.md), not a traversal of that queue.
+The [financial compilation fences](financial-records.md#compilation-and-permission-fences)
+cover inserted or newly visible records and current authority before the
+complete manifest commits. Financial export keeps the exact frozen report;
+current report access and delivery authority remain separate from its identity.
 
 ## Exact snapshot resolution and search selection
 

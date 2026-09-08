@@ -1,0 +1,1387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arboresce financial records and reports v1 contract definitions",
+  "description": "Library only: select a named definition. Parsed-value checks do not establish exact arithmetic, canonical bytes, attribution and original-history joins, current review authority, immutable selection or emitted export behavior.",
+  "not": {},
+  "$defs": {
+    "currency": {"enum":["AUD","CAD","CHF","EUR","GBP","USD","JPY","KWD"]},
+    "amount_0": {"type":"string","pattern":"^(?:0|[1-9][0-9]{0,13})(?![\\s\\S])"},
+    "gross_0": {"allOf":[{"$ref":"#/$defs/amount_0"},{"not":{"const":"0"}}]},
+    "aggregate_0": {"type":"string","pattern":"^-?(?:0|[1-9][0-9]{0,17})(?![\\s\\S])","not":{"const":"-0"}},
+    "amount_2": {"type":"string","pattern":"^(?:0|[1-9][0-9]{0,13})\\.[0-9]{2}(?![\\s\\S])"},
+    "gross_2": {"allOf":[{"$ref":"#/$defs/amount_2"},{"not":{"const":"0.00"}}]},
+    "aggregate_2": {"type":"string","pattern":"^-?(?:0|[1-9][0-9]{0,17})\\.[0-9]{2}(?![\\s\\S])","not":{"const":"-0.00"}},
+    "amount_3": {"type":"string","pattern":"^(?:0|[1-9][0-9]{0,13})\\.[0-9]{3}(?![\\s\\S])"},
+    "gross_3": {"allOf":[{"$ref":"#/$defs/amount_3"},{"not":{"const":"0.000"}}]},
+    "aggregate_3": {"type":"string","pattern":"^-?(?:0|[1-9][0-9]{0,17})\\.[0-9]{3}(?![\\s\\S])","not":{"const":"-0.000"}},
+    "amount": {"oneOf":[{"$ref":"#/$defs/amount_0"},{"$ref":"#/$defs/amount_2"},{"$ref":"#/$defs/amount_3"}]},
+    "gross": {"oneOf":[{"$ref":"#/$defs/gross_0"},{"$ref":"#/$defs/gross_2"},{"$ref":"#/$defs/gross_3"}]},
+    "aggregate": {"oneOf":[{"$ref":"#/$defs/aggregate_0"},{"$ref":"#/$defs/aggregate_2"},{"$ref":"#/$defs/aggregate_3"}]},
+    "expense_reference": {
+      "type": "object",
+      "required": ["organization_id","domain_id","expense_id","version","content_sha256"],
+      "properties": {
+        "organization_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "expense_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "version": {"$ref":"common.schema.json#/$defs/content_revision"},
+        "content_sha256": {"$ref":"common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "component_item": {
+      "type": "object",
+      "required": ["label","amount"],
+      "properties": {
+        "label": {"oneOf":[{"type":"string","minLength":1,"maxLength":128},{"type":"null"}]},
+        "amount": {"oneOf":[{"$ref":"#/$defs/amount"},{"type":"null"}]}
+      },
+      "additionalProperties": false
+    },
+    "components": {
+      "type": "object",
+      "required": ["subtotal","tax_components","gratuity","service_charges","discount"],
+      "properties": {
+        "subtotal": {"oneOf":[{"$ref":"#/$defs/amount"},{"type":"null"}]},
+        "tax_components": {
+          "oneOf": [
+            {"type":"array","minItems":0,"maxItems":16,"items":{"$ref":"#/$defs/component_item"}},
+            {"type":"null"}
+          ]
+        },
+        "gratuity": {"oneOf":[{"$ref":"#/$defs/amount"},{"type":"null"}]},
+        "service_charges": {
+          "oneOf": [
+            {"type":"array","minItems":0,"maxItems":16,"items":{"$ref":"#/$defs/component_item"}},
+            {"type":"null"}
+          ]
+        },
+        "discount": {"oneOf":[{"$ref":"#/$defs/amount"},{"type":"null"}]}
+      },
+      "additionalProperties": false
+    },
+    "allocation": {
+      "type": "object",
+      "required": ["amount","reason"],
+      "properties": {
+        "amount": {"oneOf":[{"$ref":"#/$defs/amount"},{"type":"null"}]},
+        "reason": {"type":"string","minLength":1,"maxLength":2048}
+      },
+      "additionalProperties": false
+    },
+    "reconciliation": {
+      "type": "object",
+      "required": ["state","reason"],
+      "properties": {
+        "state": {"enum":["unresolved","balanced","accepted_incomplete","accepted_discrepancy"]},
+        "reason": {"oneOf":[{"type":"string","minLength":1,"maxLength":2048},{"type":"null"}]}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties":{"state":{"enum":["accepted_incomplete","accepted_discrepancy"]}}},
+          "then": {"properties":{"reason":{"type":"string","minLength":1,"maxLength":2048}}}
+        }
+      ]
+    },
+    "field_target": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^/(?:kind|currency|gross|expense_date|source_observed_at|merchant|original|business_purpose|business_allocation|reconciliation|components/(?:subtotal|gratuity|discount|(?:tax_components|service_charges)(?:/(?:[0-9]|1[0-5])/(?:label|amount))?))(?![\\s\\S])"
+    },
+    "field_binding": {
+      "type": "object",
+      "required": ["kind","target","basis","source_lexeme"],
+      "properties": {
+        "kind": {"enum":["source_derived","command_assertion"]},
+        "target": {"$ref":"#/$defs/field_target"},
+        "basis": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref":"observation.schema.json#/$defs/observation_reference"}
+        },
+        "source_lexeme": {"oneOf":[{"type":"string","minLength":0,"maxLength":1024},{"type":"null"}]}
+      },
+      "additionalProperties": false,
+      "allOf": [{"if":{"properties":{"kind":{"const":"source_derived"}}},"then":{"properties":{"basis":{"minItems":1}}}}]
+    },
+    "financial_content": {
+      "type": "object",
+      "required": [
+        "kind",
+        "currency",
+        "gross",
+        "expense_date",
+        "source_observed_at",
+        "merchant",
+        "components",
+        "original",
+        "business_purpose",
+        "business_allocation",
+        "field_attribution",
+        "reconciliation"
+      ],
+      "properties": {
+        "kind": {"enum":["expense","refund","credit"]},
+        "currency": {"oneOf":[{"$ref":"#/$defs/currency"},{"type":"null"}]},
+        "gross": {"oneOf":[{"$ref":"#/$defs/gross"},{"type":"null"}]},
+        "expense_date": {"oneOf":[{"$ref":"common.schema.json#/$defs/calendar_date"},{"type":"null"}]},
+        "source_observed_at": {"oneOf":[{"$ref":"common.schema.json#/$defs/timestamp"},{"type":"null"}]},
+        "merchant": {"oneOf":[{"type":"string","minLength":1,"maxLength":2048},{"type":"null"}]},
+        "components": {"$ref":"#/$defs/components"},
+        "original": {"oneOf":[{"$ref":"#/$defs/expense_reference"},{"type":"null"}]},
+        "business_purpose": {"oneOf":[{"type":"string","minLength":1,"maxLength":2048},{"type":"null"}]},
+        "business_allocation": {"oneOf":[{"$ref":"#/$defs/allocation"},{"type":"null"}]},
+        "field_attribution": {"type":"array","minItems":0,"maxItems":96,"uniqueItems":true,"items":{"$ref":"#/$defs/field_binding"}},
+        "reconciliation": {"$ref":"#/$defs/reconciliation"}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties":{"kind":{"const":"expense"}}},
+          "then": {"properties":{"original":{"type":"null"}}},
+          "else": {"properties":{"original":{"type":"object"}}}
+        },
+        {
+          "if": {"properties":{"currency":{"const":null}}},
+          "then": {
+            "properties": {
+              "gross": {"type":"null"},
+              "components": {
+                "properties": {
+                  "subtotal": {"type":"null"},
+                  "gratuity": {"type":"null"},
+                  "discount": {"type":"null"},
+                  "tax_components": {"anyOf":[{"type":"null"},{"type":"array","items":{"properties":{"amount":{"type":"null"}}}}]},
+                  "service_charges": {"anyOf":[{"type":"null"},{"type":"array","items":{"properties":{"amount":{"type":"null"}}}}]}
+                }
+              },
+              "business_allocation": {"anyOf":[{"type":"null"},{"type":"object","properties":{"amount":{"type":"null"}}}]}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"currency":{"const":"JPY"}}},
+          "then": {
+            "properties": {
+              "gross": {"oneOf":[{"$ref":"#/$defs/gross_0"},{"type":"null"}]},
+              "components": {
+                "properties": {
+                  "subtotal": {"oneOf":[{"$ref":"#/$defs/amount_0"},{"type":"null"}]},
+                  "gratuity": {"oneOf":[{"$ref":"#/$defs/amount_0"},{"type":"null"}]},
+                  "discount": {"oneOf":[{"$ref":"#/$defs/amount_0"},{"type":"null"}]},
+                  "tax_components": {
+                    "anyOf": [
+                      {"type":"null"},
+                      {
+                        "type": "array",
+                        "items": {"properties":{"amount":{"oneOf":[{"$ref":"#/$defs/amount_0"},{"type":"null"}]}}}
+                      }
+                    ]
+                  },
+                  "service_charges": {
+                    "anyOf": [
+                      {"type":"null"},
+                      {
+                        "type": "array",
+                        "items": {"properties":{"amount":{"oneOf":[{"$ref":"#/$defs/amount_0"},{"type":"null"}]}}}
+                      }
+                    ]
+                  }
+                }
+              },
+              "business_allocation": {
+                "anyOf": [
+                  {"type":"null"},
+                  {
+                    "type": "object",
+                    "properties": {"amount":{"oneOf":[{"$ref":"#/$defs/amount_0"},{"type":"null"}]}}
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties":{"currency":{"const":"KWD"}}},
+          "then": {
+            "properties": {
+              "gross": {"oneOf":[{"$ref":"#/$defs/gross_3"},{"type":"null"}]},
+              "components": {
+                "properties": {
+                  "subtotal": {"oneOf":[{"$ref":"#/$defs/amount_3"},{"type":"null"}]},
+                  "gratuity": {"oneOf":[{"$ref":"#/$defs/amount_3"},{"type":"null"}]},
+                  "discount": {"oneOf":[{"$ref":"#/$defs/amount_3"},{"type":"null"}]},
+                  "tax_components": {
+                    "anyOf": [
+                      {"type":"null"},
+                      {
+                        "type": "array",
+                        "items": {"properties":{"amount":{"oneOf":[{"$ref":"#/$defs/amount_3"},{"type":"null"}]}}}
+                      }
+                    ]
+                  },
+                  "service_charges": {
+                    "anyOf": [
+                      {"type":"null"},
+                      {
+                        "type": "array",
+                        "items": {"properties":{"amount":{"oneOf":[{"$ref":"#/$defs/amount_3"},{"type":"null"}]}}}
+                      }
+                    ]
+                  }
+                }
+              },
+              "business_allocation": {
+                "anyOf": [
+                  {"type":"null"},
+                  {
+                    "type": "object",
+                    "properties": {"amount":{"oneOf":[{"$ref":"#/$defs/amount_3"},{"type":"null"}]}}
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties":{"currency":{"enum":["AUD","CAD","CHF","EUR","GBP","USD"]}}},
+          "then": {
+            "properties": {
+              "gross": {"oneOf":[{"$ref":"#/$defs/gross_2"},{"type":"null"}]},
+              "components": {
+                "properties": {
+                  "subtotal": {"oneOf":[{"$ref":"#/$defs/amount_2"},{"type":"null"}]},
+                  "gratuity": {"oneOf":[{"$ref":"#/$defs/amount_2"},{"type":"null"}]},
+                  "discount": {"oneOf":[{"$ref":"#/$defs/amount_2"},{"type":"null"}]},
+                  "tax_components": {
+                    "anyOf": [
+                      {"type":"null"},
+                      {
+                        "type": "array",
+                        "items": {"properties":{"amount":{"oneOf":[{"$ref":"#/$defs/amount_2"},{"type":"null"}]}}}
+                      }
+                    ]
+                  },
+                  "service_charges": {
+                    "anyOf": [
+                      {"type":"null"},
+                      {
+                        "type": "array",
+                        "items": {"properties":{"amount":{"oneOf":[{"$ref":"#/$defs/amount_2"},{"type":"null"}]}}}
+                      }
+                    ]
+                  }
+                }
+              },
+              "business_allocation": {
+                "anyOf": [
+                  {"type":"null"},
+                  {
+                    "type": "object",
+                    "properties": {"amount":{"oneOf":[{"$ref":"#/$defs/amount_2"},{"type":"null"}]}}
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "reconciliation": {"properties":{"state":{"enum":["balanced","accepted_discrepancy","accepted_incomplete"]}}}
+            }
+          },
+          "then": {"properties":{"currency":{"type":"string"},"gross":{"type":"string"}}}
+        },
+        {
+          "if": {
+            "properties": {"reconciliation":{"properties":{"state":{"enum":["balanced","accepted_discrepancy"]}}}}
+          },
+          "then": {
+            "properties": {
+              "components": {
+                "properties": {
+                  "subtotal": {"type":"string"},
+                  "gratuity": {"type":"string"},
+                  "discount": {"type":"string"},
+                  "tax_components": {"type":"array","items":{"properties":{"amount":{"type":"string"}}}},
+                  "service_charges": {"type":"array","items":{"properties":{"amount":{"type":"string"}}}}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties":{"reconciliation":{"properties":{"state":{"const":"accepted_incomplete"}}}}},
+          "then": {
+            "properties": {
+              "components": {
+                "not": {
+                  "properties": {
+                    "subtotal": {"type":"string"},
+                    "gratuity": {"type":"string"},
+                    "discount": {"type":"string"},
+                    "tax_components": {"type":"array","items":{"properties":{"amount":{"type":"string"}}}},
+                    "service_charges": {"type":"array","items":{"properties":{"amount":{"type":"string"}}}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "confirmable_content": {
+      "allOf": [
+        {"$ref":"#/$defs/financial_content"},
+        {
+          "properties": {
+            "currency": {"type":"string"},
+            "gross": {"type":"string"},
+            "expense_date": {"type":"string"},
+            "reconciliation": {"properties":{"state":{"enum":["balanced","accepted_incomplete","accepted_discrepancy"]}}}
+          }
+        }
+      ]
+    },
+    "principal_reference": {
+      "type": "object",
+      "required": ["principal_id","kind"],
+      "properties": {
+        "principal_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "kind": {"enum":["human","agent","service"]}
+      },
+      "additionalProperties": false
+    },
+    "attribution_origin": {
+      "type": "object",
+      "required": [
+        "association_id",
+        "source_revision",
+        "target",
+        "value_sha256",
+        "executor",
+        "authority_audit_event_id",
+        "delegation_id",
+        "command_id",
+        "recorded_at"
+      ],
+      "properties": {
+        "association_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "source_revision": {"$ref":"#/$defs/expense_reference"},
+        "target": {"$ref":"#/$defs/field_target"},
+        "value_sha256": {"$ref":"common.schema.json#/$defs/sha256"},
+        "executor": {"$ref":"#/$defs/principal_reference"},
+        "authority_audit_event_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "delegation_id": {"oneOf":[{"$ref":"common.schema.json#/$defs/identifier"},{"type":"null"}]},
+        "command_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "recorded_at": {"$ref":"common.schema.json#/$defs/timestamp"}
+      },
+      "additionalProperties": false
+    },
+    "attribution_snapshot": {
+      "type": "object",
+      "required": ["captured_for","target","origin","prior_association_id"],
+      "properties": {
+        "captured_for": {"$ref":"#/$defs/expense_reference"},
+        "target": {"$ref":"#/$defs/field_target"},
+        "origin": {"$ref":"#/$defs/attribution_origin"},
+        "prior_association_id": {"oneOf":[{"$ref":"common.schema.json#/$defs/identifier"},{"type":"null"}]}
+      },
+      "additionalProperties": false
+    },
+    "confirmation": {
+      "type": "object",
+      "required": [
+        "financial_review_event_id",
+        "reference",
+        "control_revision",
+        "reviewer",
+        "executor",
+        "authority_audit_event_id",
+        "delegation_id",
+        "recorded_at",
+        "audit_event_id"
+      ],
+      "properties": {
+        "financial_review_event_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "reference": {"$ref":"#/$defs/expense_reference"},
+        "control_revision": {
+          "allOf": [
+            {"$ref":"common.schema.json#/$defs/control_revision"},
+            {"properties":{"value":{"not":{"enum":["1"]}}}}
+          ]
+        },
+        "reviewer": {"allOf":[{"$ref":"#/$defs/principal_reference"},{"properties":{"kind":{"const":"human"}}}]},
+        "executor": {"$ref":"#/$defs/principal_reference"},
+        "authority_audit_event_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "delegation_id": {"oneOf":[{"$ref":"common.schema.json#/$defs/identifier"},{"type":"null"}]},
+        "recorded_at": {"$ref":"common.schema.json#/$defs/timestamp"},
+        "audit_event_id": {"$ref":"common.schema.json#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "financial_revision": {
+      "type": "object",
+      "required": ["reference","content","recorded_at","audit_event_id","attribution"],
+      "properties": {
+        "reference": {"$ref":"#/$defs/expense_reference"},
+        "content": {"$ref":"#/$defs/financial_content"},
+        "recorded_at": {"$ref":"common.schema.json#/$defs/timestamp"},
+        "audit_event_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "attribution": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 96,
+          "uniqueItems": true,
+          "items": {"$ref":"#/$defs/attribution_snapshot"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_snapshot": {
+      "type": "object",
+      "required": ["revision","control_revision","revision_state","confirmation","superseded_by"],
+      "properties": {
+        "revision": {"$ref":"#/$defs/financial_revision"},
+        "control_revision": {"$ref":"common.schema.json#/$defs/control_revision"},
+        "revision_state": {"enum":["proposed","confirmed","superseded","voided"]},
+        "confirmation": {"oneOf":[{"$ref":"#/$defs/confirmation"},{"type":"null"}]},
+        "superseded_by": {"oneOf":[{"$ref":"#/$defs/expense_reference"},{"type":"null"}]}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {"revision_state":{"const":"proposed"},"confirmation":{"type":"null"},"superseded_by":{"type":"null"}}
+        },
+        {
+          "properties": {
+            "revision_state": {"const":"confirmed"},
+            "confirmation": {"type":"object"},
+            "superseded_by": {"type":"null"},
+            "control_revision": {
+              "allOf": [
+                {"$ref":"common.schema.json#/$defs/control_revision"},
+                {"properties":{"value":{"not":{"enum":["1"]}}}}
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "revision_state": {"const":"superseded"},
+            "superseded_by": {
+              "allOf": [
+                {"$ref":"#/$defs/expense_reference"},
+                {
+                  "properties": {
+                    "version": {
+                      "allOf": [
+                        {"$ref":"common.schema.json#/$defs/content_revision"},
+                        {"properties":{"value":{"not":{"enum":["1"]}}}}
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "control_revision": {
+              "allOf": [
+                {"$ref":"common.schema.json#/$defs/control_revision"},
+                {"properties":{"value":{"not":{"enum":["1"]}}}}
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "revision_state": {"const":"voided"},
+            "superseded_by": {"type":"null"},
+            "control_revision": {
+              "allOf": [
+                {"$ref":"common.schema.json#/$defs/control_revision"},
+                {"properties":{"value":{"not":{"enum":["1"]}}}}
+              ]
+            }
+          }
+        }
+      ],
+      "allOf": [
+        {
+          "if": {"properties":{"confirmation":{"type":"object"}}},
+          "then": {"properties":{"revision":{"properties":{"content":{"$ref":"#/$defs/confirmable_content"}}}}}
+        },
+        {
+          "if": {"properties":{"revision_state":{"enum":["superseded","voided"]},"confirmation":{"type":"object"}}},
+          "then": {
+            "properties": {
+              "control_revision": {
+                "allOf": [
+                  {"$ref":"common.schema.json#/$defs/control_revision"},
+                  {"properties":{"value":{"not":{"enum":["1","2"]}}}}
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "revision": {
+                "properties": {"reference":{"properties":{"version":{"properties":{"value":{"not":{"const":"1"}}}}}}}
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "control_revision": {
+                "allOf": [
+                  {"$ref":"common.schema.json#/$defs/control_revision"},
+                  {"properties":{"value":{"not":{"enum":["1"]}}}}
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "date_policy": {
+      "type": "object",
+      "required": ["policy_id","version","timezone"],
+      "properties": {
+        "policy_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "version": {"$ref":"common.schema.json#/$defs/content_revision"},
+        "timezone": {"type":"string","minLength":1,"maxLength":128}
+      },
+      "additionalProperties": false
+    },
+    "period_end": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind","value"],
+          "properties": {"kind":{"const":"date"},"value":{"$ref":"common.schema.json#/$defs/calendar_date"}},
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {"kind":{"const":"after_maximum_date"}},
+          "additionalProperties": false
+        }
+      ]
+    },
+    "period": {
+      "type": "object",
+      "required": ["start_date","end_exclusive"],
+      "properties": {
+        "start_date": {"$ref":"common.schema.json#/$defs/calendar_date"},
+        "end_exclusive": {"$ref":"#/$defs/period_end"}
+      },
+      "additionalProperties": false
+    },
+    "selected_record": {
+      "type": "object",
+      "required": ["reference","observed_control_revision","confirmation"],
+      "properties": {
+        "reference": {"$ref":"#/$defs/expense_reference"},
+        "observed_control_revision": {
+          "allOf": [
+            {"$ref":"common.schema.json#/$defs/control_revision"},
+            {"properties":{"value":{"not":{"enum":["1"]}}}}
+          ]
+        },
+        "confirmation": {"$ref":"#/$defs/confirmation"}
+      },
+      "additionalProperties": false
+    },
+    "exclusion": {
+      "type": "object",
+      "required": ["reference","observed_control_revision","revision_state","reason"],
+      "properties": {
+        "reference": {"$ref":"#/$defs/expense_reference"},
+        "observed_control_revision": {"$ref":"common.schema.json#/$defs/control_revision"},
+        "revision_state": {"enum":["proposed","confirmed","voided"]},
+        "reason": {"enum":["unassigned_date","voided","unresolved","proposed","ineligible"]}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties":{"reason":{"const":"unassigned_date"},"revision_state":{"enum":["proposed","voided"]}}},
+        {"properties":{"reason":{"const":"voided"},"revision_state":{"const":"voided"}}},
+        {"properties":{"reason":{"enum":["unresolved","proposed"]},"revision_state":{"const":"proposed"}}},
+        {"properties":{"reason":{"const":"ineligible"},"revision_state":{"const":"confirmed"}}}
+      ],
+      "allOf": [
+        {
+          "if": {"properties":{"revision_state":{"enum":["confirmed","voided"]}}},
+          "then": {
+            "properties": {
+              "observed_control_revision": {
+                "allOf": [
+                  {"$ref":"common.schema.json#/$defs/control_revision"},
+                  {"properties":{"value":{"not":{"enum":["1"]}}}}
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "scalar_bucket": {
+      "type": "object",
+      "required": ["known_net","complete","unknown_record_count","unknown_list_record_count","known_null_component_count"],
+      "properties": {
+        "known_net": {"$ref":"#/$defs/aggregate"},
+        "complete": {"type":"boolean"},
+        "unknown_record_count": {"type":"integer","minimum":0,"maximum":256},
+        "unknown_list_record_count": {"const":0},
+        "known_null_component_count": {"type":"integer","minimum":0,"maximum":256}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "complete": {"const":true},
+            "unknown_record_count": {"const":0},
+            "unknown_list_record_count": {"const":0},
+            "known_null_component_count": {"const":0}
+          }
+        },
+        {
+          "properties": {"complete":{"const":false},"unknown_record_count":{"minimum":1}},
+          "anyOf": [
+            {"properties":{"unknown_list_record_count":{"minimum":1}}},
+            {"properties":{"known_null_component_count":{"minimum":1}}}
+          ]
+        }
+      ]
+    },
+    "list_bucket": {
+      "type": "object",
+      "required": ["known_net","complete","unknown_record_count","unknown_list_record_count","known_null_component_count"],
+      "properties": {
+        "known_net": {"$ref":"#/$defs/aggregate"},
+        "complete": {"type":"boolean"},
+        "unknown_record_count": {"type":"integer","minimum":0,"maximum":256},
+        "unknown_list_record_count": {"type":"integer","minimum":0,"maximum":256},
+        "known_null_component_count": {"type":"integer","minimum":0,"maximum":4096}
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "complete": {"const":true},
+            "unknown_record_count": {"const":0},
+            "unknown_list_record_count": {"const":0},
+            "known_null_component_count": {"const":0}
+          }
+        },
+        {
+          "properties": {"complete":{"const":false},"unknown_record_count":{"minimum":1}},
+          "anyOf": [
+            {"properties":{"unknown_list_record_count":{"minimum":1}}},
+            {"properties":{"known_null_component_count":{"minimum":1}}}
+          ]
+        }
+      ]
+    },
+    "currency_totals": {
+      "type": "object",
+      "required": [
+        "currency",
+        "record_count",
+        "gross",
+        "subtotal",
+        "tax",
+        "gratuity",
+        "service_charges",
+        "discount",
+        "business_allocation"
+      ],
+      "properties": {
+        "currency": {"$ref":"#/$defs/currency"},
+        "record_count": {"type":"integer","minimum":1,"maximum":256},
+        "gross": {"allOf":[{"$ref":"#/$defs/scalar_bucket"},{"properties":{"complete":{"const":true}}}]},
+        "subtotal": {"$ref":"#/$defs/scalar_bucket"},
+        "tax": {"$ref":"#/$defs/list_bucket"},
+        "gratuity": {"$ref":"#/$defs/scalar_bucket"},
+        "service_charges": {"$ref":"#/$defs/list_bucket"},
+        "discount": {"$ref":"#/$defs/scalar_bucket"},
+        "business_allocation": {"$ref":"#/$defs/scalar_bucket"}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties":{"currency":{"const":"JPY"}}},
+          "then": {
+            "properties": {
+              "gross": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_0"}}},
+              "subtotal": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_0"}}},
+              "tax": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_0"}}},
+              "gratuity": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_0"}}},
+              "service_charges": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_0"}}},
+              "discount": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_0"}}},
+              "business_allocation": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_0"}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"currency":{"const":"KWD"}}},
+          "then": {
+            "properties": {
+              "gross": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_3"}}},
+              "subtotal": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_3"}}},
+              "tax": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_3"}}},
+              "gratuity": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_3"}}},
+              "service_charges": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_3"}}},
+              "discount": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_3"}}},
+              "business_allocation": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_3"}}}
+            }
+          }
+        },
+        {
+          "if": {"properties":{"currency":{"enum":["AUD","CAD","CHF","EUR","GBP","USD"]}}},
+          "then": {
+            "properties": {
+              "gross": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_2"}}},
+              "subtotal": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_2"}}},
+              "tax": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_2"}}},
+              "gratuity": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_2"}}},
+              "service_charges": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_2"}}},
+              "discount": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_2"}}},
+              "business_allocation": {"properties":{"known_net":{"$ref":"#/$defs/aggregate_2"}}}
+            }
+          }
+        }
+      ]
+    },
+    "report_manifest": {
+      "type": "object",
+      "required": [
+        "profile",
+        "context",
+        "date_basis",
+        "date_policy",
+        "period",
+        "include_undated",
+        "selection_cutoff",
+        "calculation_version",
+        "selected",
+        "exclusions",
+        "totals"
+      ],
+      "properties": {
+        "profile": {"const":"financial-report-v1"},
+        "context": {"$ref":"common.schema.json#/$defs/command_context"},
+        "date_basis": {"const":"expense_date"},
+        "date_policy": {"$ref":"#/$defs/date_policy"},
+        "period": {"$ref":"#/$defs/period"},
+        "include_undated": {"type":"boolean"},
+        "selection_cutoff": {"$ref":"common.schema.json#/$defs/timestamp"},
+        "calculation_version": {"const":"financial-calculation-v1"},
+        "selected": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "uniqueItems": true,
+          "items": {"$ref":"#/$defs/selected_record"}
+        },
+        "exclusions": {"type":"array","minItems":0,"maxItems":256,"uniqueItems":true,"items":{"$ref":"#/$defs/exclusion"}},
+        "totals": {"type":"array","minItems":0,"maxItems":8,"uniqueItems":true,"items":{"$ref":"#/$defs/currency_totals"}}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties":{"selected":{"maxItems":0}}},
+          "then": {"properties":{"totals":{"maxItems":0}}},
+          "else": {"properties":{"totals":{"minItems":1}}}
+        }
+      ]
+    },
+    "report_reference": {
+      "type": "object",
+      "required": ["organization_id","domain_id","report_id","content_sha256"],
+      "properties": {
+        "organization_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "domain_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "report_id": {"$ref":"common.schema.json#/$defs/identifier"},
+        "content_sha256": {"$ref":"common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "report_snapshot": {
+      "type": "object",
+      "required": ["reference","manifest"],
+      "properties": {"reference":{"$ref":"#/$defs/report_reference"},"manifest":{"$ref":"#/$defs/report_manifest"}},
+      "additionalProperties": false
+    },
+    "report_resource": {
+      "type": "object",
+      "required": ["report","control_revision"],
+      "properties": {
+        "report": {"$ref":"#/$defs/report_snapshot"},
+        "control_revision": {"$ref":"common.schema.json#/$defs/control_revision"}
+      },
+      "additionalProperties": false
+    },
+    "source_status": {
+      "type": "object",
+      "required": ["original","state"],
+      "properties": {
+        "original": {"$ref":"acquisition.schema.json#/$defs/original_reference"},
+        "state": {"enum":["available","unavailable","purged"]}
+      },
+      "additionalProperties": false
+    },
+    "observation_availability": {
+      "type": "object",
+      "required": ["reference","observation_kind","observation_state","sources_state","sources"],
+      "properties": {
+        "reference": {"$ref":"observation.schema.json#/$defs/observation_reference"},
+        "observation_kind": {"oneOf":[{"enum":["document_observation","user_assertion","model_inference"]},{"type":"null"}]},
+        "observation_state": {"enum":["available","unavailable","purged"]},
+        "sources_state": {"enum":["complete","unavailable"]},
+        "sources": {"type":"array","minItems":0,"maxItems":33,"uniqueItems":true,"items":{"$ref":"#/$defs/source_status"}}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties":{"observation_state":{"const":"available"}}},
+          "then": {"properties":{"observation_kind":{"type":"string"},"sources_state":{"const":"complete"}}}
+        },
+        {
+          "if": {"properties":{"sources_state":{"const":"unavailable"}}},
+          "then": {"properties":{"sources":{"maxItems":0}}}
+        }
+      ]
+    },
+    "source_availability": {
+      "type": "object",
+      "required": ["observed_at","observations"],
+      "properties": {
+        "observed_at": {"$ref":"common.schema.json#/$defs/timestamp"},
+        "observations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 16384,
+          "uniqueItems": true,
+          "items": {"$ref":"#/$defs/observation_availability"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "export_record": {
+      "type": "object",
+      "required": ["selected","revision"],
+      "properties": {
+        "selected": {"$ref":"#/$defs/selected_record"},
+        "revision": {
+          "allOf": [
+            {"$ref":"#/$defs/financial_revision"},
+            {"properties":{"content":{"$ref":"#/$defs/confirmable_content"}}}
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "export_payload": {
+      "type": "object",
+      "required": ["profile","report","records","source_availability"],
+      "properties": {
+        "profile": {"const":"financial-export-payload-v1"},
+        "report": {"$ref":"#/$defs/report_snapshot"},
+        "records": {"type":"array","minItems":0,"maxItems":256,"uniqueItems":true,"items":{"$ref":"#/$defs/export_record"}},
+        "source_availability": {"$ref":"#/$defs/source_availability"}
+      },
+      "additionalProperties": false
+    },
+    "expense_revise_command": {
+      "type": "object",
+      "required": ["metadata","body"],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {"$ref":"common.schema.json#/$defs/command_metadata"},
+            {"properties":{"command":{"const":"expense.revise"}}}
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "expense_id",
+            "expected_version",
+            "expected_content_sha256",
+            "expected_control_revision",
+            "replacement",
+            "reason"
+          ],
+          "properties": {
+            "expense_id": {"$ref":"common.schema.json#/$defs/identifier"},
+            "expected_version": {"$ref":"common.schema.json#/$defs/content_revision"},
+            "expected_content_sha256": {"$ref":"common.schema.json#/$defs/sha256"},
+            "expected_control_revision": {"$ref":"common.schema.json#/$defs/control_revision"},
+            "replacement": {"$ref":"#/$defs/financial_content"},
+            "reason": {"type":"string","minLength":1,"maxLength":2048}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_confirm_command": {
+      "type": "object",
+      "required": ["metadata","body"],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {"$ref":"common.schema.json#/$defs/command_metadata"},
+            {"properties":{"command":{"const":"expense.confirm"}}}
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "expense_id",
+            "expected_version",
+            "expected_content_sha256",
+            "expected_control_revision",
+            "financial_review_event_id"
+          ],
+          "properties": {
+            "expense_id": {"$ref":"common.schema.json#/$defs/identifier"},
+            "expected_version": {"$ref":"common.schema.json#/$defs/content_revision"},
+            "expected_content_sha256": {"$ref":"common.schema.json#/$defs/sha256"},
+            "expected_control_revision": {"$ref":"common.schema.json#/$defs/control_revision"},
+            "financial_review_event_id": {"$ref":"common.schema.json#/$defs/identifier"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_void_command": {
+      "type": "object",
+      "required": ["metadata","body"],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {"$ref":"common.schema.json#/$defs/command_metadata"},
+            {"properties":{"command":{"const":"expense.void"}}}
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": ["expense_id","expected_version","expected_content_sha256","expected_control_revision","reason"],
+          "properties": {
+            "expense_id": {"$ref":"common.schema.json#/$defs/identifier"},
+            "expected_version": {"$ref":"common.schema.json#/$defs/content_revision"},
+            "expected_content_sha256": {"$ref":"common.schema.json#/$defs/sha256"},
+            "expected_control_revision": {"$ref":"common.schema.json#/$defs/control_revision"},
+            "reason": {"type":"string","minLength":1,"maxLength":2048}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_report_create_command": {
+      "type": "object",
+      "required": ["metadata","body"],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {"$ref":"common.schema.json#/$defs/command_metadata"},
+            {"properties":{"command":{"const":"expense_report.create"}}}
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": ["date_policy","period","include_undated"],
+          "properties": {
+            "date_policy": {"$ref":"#/$defs/date_policy"},
+            "period": {"$ref":"#/$defs/period"},
+            "include_undated": {"type":"boolean"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_report_export_command": {
+      "type": "object",
+      "required": ["metadata","body"],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {"$ref":"common.schema.json#/$defs/command_metadata"},
+            {"properties":{"command":{"const":"expense_report.export"}}}
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": ["report","expected_control_revision","format"],
+          "properties": {
+            "report": {"$ref":"#/$defs/report_reference"},
+            "expected_control_revision": {"$ref":"common.schema.json#/$defs/control_revision"},
+            "format": {"enum":["financial-json-v1","financial-csv-v1"]}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_revise_response": {
+      "allOf": [{"$ref":"common.schema.json#/$defs/success_response"}],
+      "required": ["idempotency_receipt"],
+      "properties": {
+        "status": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "reviewer": false,
+        "executor": false,
+        "metadata": false,
+        "body": false,
+        "revision_state": false,
+        "operation": false,
+        "operation_id": false,
+        "expense": false,
+        "report": false,
+        "control_revision": false,
+        "superseded": false,
+        "command": false,
+        "result": {
+          "allOf": [{"$ref":"common.schema.json#/$defs/result_object"}],
+          "required": ["command","expense","superseded"],
+          "properties": {
+            "status": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "reviewer": false,
+            "executor": false,
+            "metadata": false,
+            "body": false,
+            "revision_state": false,
+            "result": false,
+            "operation": false,
+            "operation_id": false,
+            "report": false,
+            "control_revision": false,
+            "command": {"const":"expense.revise"},
+            "expense": {
+              "allOf": [
+                {"$ref":"#/$defs/expense_snapshot"},
+                {
+                  "properties": {
+                    "revision_state": {"const":"proposed"},
+                    "control_revision": {
+                      "allOf": [
+                        {"$ref":"common.schema.json#/$defs/control_revision"},
+                        {"properties":{"value":{"not":{"enum":["1"]}}}}
+                      ]
+                    },
+                    "revision": {
+                      "properties": {
+                        "reference": {
+                          "properties": {
+                            "version": {
+                              "allOf": [
+                                {"$ref":"common.schema.json#/$defs/content_revision"},
+                                {"properties":{"value":{"not":{"enum":["1"]}}}}
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "superseded": {"$ref":"#/$defs/expense_reference"}
+          }
+        }
+      }
+    },
+    "expense_confirm_response": {
+      "allOf": [{"$ref":"common.schema.json#/$defs/success_response"}],
+      "required": ["idempotency_receipt"],
+      "properties": {
+        "status": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "reviewer": false,
+        "executor": false,
+        "metadata": false,
+        "body": false,
+        "revision_state": false,
+        "operation": false,
+        "operation_id": false,
+        "expense": false,
+        "report": false,
+        "control_revision": false,
+        "superseded": false,
+        "command": false,
+        "result": {
+          "allOf": [{"$ref":"common.schema.json#/$defs/result_object"}],
+          "required": ["command","expense"],
+          "properties": {
+            "status": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "reviewer": false,
+            "executor": false,
+            "metadata": false,
+            "body": false,
+            "revision_state": false,
+            "result": false,
+            "operation": false,
+            "operation_id": false,
+            "report": false,
+            "control_revision": false,
+            "superseded": false,
+            "command": {"const":"expense.confirm"},
+            "expense": {
+              "allOf": [{"$ref":"#/$defs/expense_snapshot"},{"properties":{"revision_state":{"const":"confirmed"}}}]
+            }
+          }
+        }
+      }
+    },
+    "expense_void_response": {
+      "allOf": [{"$ref":"common.schema.json#/$defs/success_response"}],
+      "required": ["idempotency_receipt"],
+      "properties": {
+        "status": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "reviewer": false,
+        "executor": false,
+        "metadata": false,
+        "body": false,
+        "revision_state": false,
+        "operation": false,
+        "operation_id": false,
+        "expense": false,
+        "report": false,
+        "control_revision": false,
+        "superseded": false,
+        "command": false,
+        "result": {
+          "allOf": [{"$ref":"common.schema.json#/$defs/result_object"}],
+          "required": ["command","expense"],
+          "properties": {
+            "status": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "reviewer": false,
+            "executor": false,
+            "metadata": false,
+            "body": false,
+            "revision_state": false,
+            "result": false,
+            "operation": false,
+            "operation_id": false,
+            "report": false,
+            "control_revision": false,
+            "superseded": false,
+            "command": {"const":"expense.void"},
+            "expense": {"allOf":[{"$ref":"#/$defs/expense_snapshot"},{"properties":{"revision_state":{"const":"voided"}}}]}
+          }
+        }
+      }
+    },
+    "expense_report_create_response": {
+      "allOf": [{"$ref":"common.schema.json#/$defs/success_response"}],
+      "required": ["idempotency_receipt"],
+      "properties": {
+        "status": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "reviewer": false,
+        "executor": false,
+        "metadata": false,
+        "body": false,
+        "revision_state": false,
+        "operation": false,
+        "operation_id": false,
+        "expense": false,
+        "report": false,
+        "control_revision": false,
+        "superseded": false,
+        "command": false,
+        "result": {
+          "allOf": [{"$ref":"common.schema.json#/$defs/result_object"}],
+          "required": ["command","report","control_revision"],
+          "properties": {
+            "status": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "reviewer": false,
+            "executor": false,
+            "metadata": false,
+            "body": false,
+            "revision_state": false,
+            "result": false,
+            "operation": false,
+            "operation_id": false,
+            "expense": false,
+            "superseded": false,
+            "command": {"const":"expense_report.create"},
+            "report": {"$ref":"#/$defs/report_snapshot"},
+            "control_revision": {
+              "allOf": [{"$ref":"common.schema.json#/$defs/control_revision"},{"properties":{"value":{"const":"1"}}}]
+            }
+          }
+        }
+      }
+    },
+    "expense_report_export_response": {
+      "allOf": [{"$ref":"common.schema.json#/$defs/accepted_response"}],
+      "properties": {
+        "status": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "reviewer": false,
+        "executor": false,
+        "metadata": false,
+        "body": false,
+        "revision_state": false,
+        "result": false,
+        "operation_id": false,
+        "expense": false,
+        "report": false,
+        "control_revision": false,
+        "superseded": false,
+        "command": false
+      }
+    },
+    "expense_resource_response": {
+      "allOf": [{"$ref":"common.schema.json#/$defs/success_response"}],
+      "properties": {
+        "status": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "reviewer": false,
+        "executor": false,
+        "metadata": false,
+        "body": false,
+        "revision_state": false,
+        "operation": false,
+        "operation_id": false,
+        "expense": false,
+        "report": false,
+        "control_revision": false,
+        "superseded": false,
+        "command": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [{"$ref":"common.schema.json#/$defs/result_object"}],
+          "required": ["expense"],
+          "properties": {
+            "status": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "reviewer": false,
+            "executor": false,
+            "metadata": false,
+            "body": false,
+            "revision_state": false,
+            "result": false,
+            "operation": false,
+            "operation_id": false,
+            "report": false,
+            "control_revision": false,
+            "superseded": false,
+            "command": false,
+            "expense": {"$ref":"#/$defs/expense_snapshot"}
+          }
+        }
+      }
+    },
+    "report_resource_response": {
+      "allOf": [{"$ref":"common.schema.json#/$defs/success_response"}],
+      "properties": {
+        "status": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "reviewer": false,
+        "executor": false,
+        "metadata": false,
+        "body": false,
+        "revision_state": false,
+        "operation": false,
+        "operation_id": false,
+        "expense": false,
+        "report": false,
+        "control_revision": false,
+        "superseded": false,
+        "command": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [{"$ref":"common.schema.json#/$defs/result_object"}],
+          "required": ["report","control_revision"],
+          "properties": {
+            "status": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "reviewer": false,
+            "executor": false,
+            "metadata": false,
+            "body": false,
+            "revision_state": false,
+            "result": false,
+            "operation": false,
+            "operation_id": false,
+            "expense": false,
+            "superseded": false,
+            "command": false,
+            "report": {"$ref":"#/$defs/report_snapshot"},
+            "control_revision": {"$ref":"common.schema.json#/$defs/control_revision"}
+          }
+        }
+      }
+    }
+  }
+}

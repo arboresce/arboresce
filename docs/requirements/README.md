@@ -24,7 +24,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [Observation contract](observation-contract.md) | Exact representation-bound locators, grounding and source-kind variants, with explicit semantic validation and attribution boundaries |
 | [Candidate review contract](candidate-review-contract.md) | Complete candidate content and identity, discriminated review commands, immutable verdict/mapping references and exact revision/current-authority boundaries |
 | [Data model](data-model.md) | Tenant-scoped identities, relationships, immutable content, controls and lifecycle meaning |
-| [Financial records](financial-records.md) | Reviewable expenses, exact monetary arithmetic, immutable reports and financial export |
+| [Financial records](financial-records.md) | Complete financial content and identity, exact money and attributable confirmation, closed commands, immutable report selections and lossless JSON/reversible CSV export profiles |
 | [Processing](processing.md) | Grounded extraction, supported processing, deterministic orchestration and model gateway behavior |
 | [Storage and search](storage-and-search.md) | Persistence invariants, outbox/projections, sealing and bounded retrieval mechanics |
 | [Security and privacy](security-and-privacy.md) | Identity, authorization, human assurance, acquisition, egress and lifecycle protection |
