@@ -961,8 +961,11 @@ build_manifest; unavailable/purged return null manifest. An initial successfully
 sealed/bound build starts available/control1. Unavailable/purged control is at
 least2. Current read authorization must allow every disclosed field; null never
 stands for a secret partial manifest. Restored availability and other control
-transitions remain E008/later application owners; historical immutable identities
-cannot change. Availability does not claim approval or current release eligibility.
+transitions use the [lifecycle control contract](lifecycle-contract.md#6-lifecycle-subjects-controls-and-commands)
+and its later qualified application. The build reuses this same availability
+control row/counter; there is no parallel lifecycle counter. Historical immutable
+identities cannot change. Revoked builds are unavailable even while bytes remain.
+Availability does not claim approval or current release eligibility.
 
 All core objects remain closed. Canonical observation cores compose the existing
 complete observation definition with exactly its seven named properties and
@@ -1007,8 +1010,25 @@ these context commands. Authorized POST replay also returns this form with the
 current recorded operation state, even when pending. It does not repeat effects,
 renew expiry, invent a new receipt or force a terminal resource back into 202.
 Retrieving a failed/cancelled operation successfully is not command success.
-Generic progress, committed-effect details, cancellation and their races remain
-the operation/lifecycle owner's responsibility; listing remains the listing owner.
+Every producer additionally conforms to the
+[lifecycle operation_resource](lifecycle-contract.md#3-shared-operation-plan-clocks-and-evidence):
+required origin/cause/actual attribution, control, complete immutable plan,
+stage/attempt clocks and complete effect/exposure ledgers. The context schema
+retains its reader floor and exact immutable results. These required additions
+cannot be omitted as arbitrary extensions, and full records fit the complete
+serialization budget or fail. Lifecycle fields reserved for purge/propagation
+are forbidden on context operations.
+
+The [lifecycle transport matrix](lifecycle-contract.md#2-capability-origin-and-transport-matrix)
+generalizes this command-origin wrapper without changing it. Internal
+lifecycle-event-origin operations have their separate receipt-free result;
+neither wrapper puts a receipt inside the operation. Exact immutable plans are
+read at GET /v1/operation-plans/{plan_id} as {plan}, without a command receipt
+and with the same required current-context selectors. The
+[retention contract](lifecycle-contract.md#11-retention-recognition-and-independent-continuity)
+governs replay versus fresh GET after expiry and complete unavailable-detail
+conflicts. [Cancellation](lifecycle-contract.md#4-cancellation) owns dispositions
+and races; listing remains the listing owner.
 
 The exact authorized reads are GET `/v1/context-builds/{build_digest}`,
 `/v1/context-evaluations/{evaluation_id}`,

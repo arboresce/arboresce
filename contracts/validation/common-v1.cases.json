@@ -4644,6 +4644,55 @@
           }
         }
       }
+    },
+    {
+      "id": "problem-reserved-problem-null",
+      "target": "problem",
+      "valid": false,
+      "value": {
+        "type": "urn:arboresce:problem:v1:conflict",
+        "title": "Request could not be completed",
+        "status": 409,
+        "code": "conflict",
+        "detail": "The request cannot be completed under the declared contract.",
+        "request_id": "8f3f45e0-8e74-4a18-9b41-3cac1e6bb825",
+        "problem": null
+      }
+    },
+    {
+      "id": "problem-reserved-problem-false",
+      "target": "problem",
+      "valid": false,
+      "value": {
+        "type": "urn:arboresce:problem:v1:conflict",
+        "title": "Request could not be completed",
+        "status": 409,
+        "code": "conflict",
+        "detail": "The request cannot be completed under the declared contract.",
+        "request_id": "8f3f45e0-8e74-4a18-9b41-3cac1e6bb825",
+        "problem": false
+      }
+    },
+    {
+      "id": "problem-reserved-problem-object",
+      "target": "problem",
+      "valid": false,
+      "value": {
+        "type": "urn:arboresce:problem:v1:conflict",
+        "title": "Request could not be completed",
+        "status": 409,
+        "code": "conflict",
+        "detail": "The request cannot be completed under the declared contract.",
+        "request_id": "8f3f45e0-8e74-4a18-9b41-3cac1e6bb825",
+        "problem": {
+          "type": "urn:arboresce:problem:v1:invalid_request",
+          "title": "Request could not be completed",
+          "status": 400,
+          "code": "invalid_request",
+          "detail": "The request cannot be completed under the declared contract.",
+          "request_id": "8f3f45e0-8e74-4a18-9b41-3cac1e6bb825"
+        }
+      }
     }
   ]
 }

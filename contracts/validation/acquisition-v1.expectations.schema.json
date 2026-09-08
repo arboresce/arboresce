@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 217,
-      "maxItems": 217,
+      "minItems": 249,
+      "maxItems": 249,
       "prefixItems": [
         {
           "type": "object",
@@ -6139,6 +6139,906 @@
             "value": {
               "not": {
                 "$ref": "../public/v1/acquisition.schema.json#/$defs/capture_revise_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-https-control"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-percent-escapes"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-encoded-unicode"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-ipv6-compressed"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-ipv6-full-port"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-userinfo-syntax-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-fragment-syntax-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-percent-lone"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-percent-short"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-percent-nonhex"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-query-percent-nonhex"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-ipv6-unclosed"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-ipv6-extra-close"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-bracket-non-ip"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-path-brackets"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "staging-grant-uri-raw-unicode"
+            },
+            "target": {
+              "type": "string",
+              "const": "staging_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/staging_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-https-control"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-percent-escapes"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-encoded-unicode"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-ipv6-compressed"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-ipv6-full-port"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-userinfo-syntax-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-fragment-syntax-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-percent-lone"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-percent-short"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-percent-nonhex"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-query-percent-nonhex"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-ipv6-unclosed"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-ipv6-extra-close"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-bracket-non-ip"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-path-brackets"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "upload-allocation-response-uri-raw-unicode"
+            },
+            "target": {
+              "type": "string",
+              "const": "upload_allocation_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/acquisition.schema.json#/$defs/upload_allocation_response"
               }
             }
           },

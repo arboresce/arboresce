@@ -40,9 +40,10 @@ Only server-issued opaque identities appear in accepted original references.
 No public sealed binding contains backend bucket names, object keys, storage
 credentials or a client-selected canonical destination. Original and derived
 byte identity is independent of mutable grants, holds and availability.
-Their control and cancellation operations belong to the later lifecycle
-contract; this document does not advertise an undefined mutation or download
-route.
+The [lifecycle acquisition specialization](lifecycle-contract.md#5-acquisition-and-analysis)
+owns required upload control, abort, explicit analysis, complete operation
+results and exact current/revision reads. It composes these definitions without
+changing their immutable leaves or enabling an unqualified download route.
 
 ## Complete commands and routes
 
@@ -63,7 +64,7 @@ returns `not_found`/404 without revealing its actual organization or storage.
 | Command and method/route | Exact body | Accepted result |
 | --- | --- | --- |
 | `upload.allocate` — `POST /v1/uploads` | `source: declared_original`. | HTTP 201, `upload_allocation_response`: a recorded created-upload snapshot, generation 1 and scoped staging grant. |
-| `upload.finalize` — `POST /v1/uploads/{upload_id}/finalize` | `upload_id`, `expected_generation: upload_generation`, `expected_source: declared_original`. | HTTP 202, `upload_finalize_accepted_response`, after durable admission of sealing. If the recorded work is already successfully complete, HTTP 200 and `upload_finalize_completed_response`. |
+| `upload.finalize` — `POST /v1/uploads/{upload_id}/finalize` | `upload_id`, `expected_generation: upload_generation`, `expected_source: declared_original`. | HTTP 202 after durable admission of sealing; the lifecycle specialization owns complete operation/upload fields, nonterminal replay, direct successful 200, failed/cancelled replay and fresh-key existing-binding lookup. |
 | `capture.create` — `POST /v1/captures` | `user_context` and the complete ordered `attachments` list. | HTTP 201, `capture_create_response`: draft, content revision 1, control revision 1. |
 | `capture.revise` — `POST /v1/captures/{capture_id}/revisions` | `capture_id`, `expected_version: content_revision`, `expected_control_revision: control_revision`, replacement `user_context` and complete ordered `attachments`. | HTTP 200, `capture_revise_response`: a new draft content revision and advanced control revision. |
 | `capture.submit` — `POST /v1/captures/{capture_id}/submit` | `capture_id`, `expected_version: content_revision`, `expected_control_revision: control_revision`. | HTTP 200, `capture_submit_response`: durable fixation of that revision's intent, with an advanced control revision. |
@@ -92,9 +93,10 @@ domain vocabulary without inventing a universal customer purpose list here.
 
 The 202 response contains a public operation and `Location` identifying that
 same operation, with applicable bounded `Retry-After`. Its additional `upload`
-field is a sealing snapshot, not a canonical original. The later operation
-contract defines polling and cancellation transport and current-resource read
-routes before those routes are implemented. Stopping client waiting or losing
+field is a sealing snapshot, not a canonical original. The
+[lifecycle acquisition contract](lifecycle-contract.md#5-acquisition-and-analysis)
+defines polling, abort/cancellation and current/exact-resource read routes.
+Stopping client waiting or losing
 the connection does not abort an upload or cancel accepted work.
 
 ## Declared media and byte identity
@@ -232,8 +234,9 @@ does not silently declare an incomplete transfer canonical. The qualified
 adapter must define how it observes transfer completion before it exposes this
 state, including the direct staging-grant path.
 
-Unsealed states can expire, be explicitly aborted by the later cancellation
-contract, or be rejected by controlled validation. There is no backward state
+Unsealed states can expire or be rejected under their qualified rules.
+The lifecycle owner's upload.abort command handles created/uploading/uploaded;
+sealing instead requires operation.cancel and its final binding fence. There is no backward state
 transition that silently replaces intent. A retried or recovered finalizer
 remains sealing until it binds, expires, is explicitly aborted or reaches its
 terminal rejection policy. The resource's accepted original cannot disappear
@@ -397,11 +400,46 @@ order, role, requiredness, source, generation or user context require a new
 content revision even if bytes happen to match.
 
 New draft creation cannot cancel, replace or retarget work already bound to an
-earlier submitted revision. Preserve the old content, submission receipt,
-results and references. Continuing work still requires current authorization;
+earlier submitted revision. Preserve the old immutable content, submission
+command/audit association, results and references under their qualified retention;
+detailed command receipts have their separately bounded retention. Receipt expiry
+or garbage collection cannot erase the attribution needed by retained submitted
+work. Continuing work still requires current authorization;
 stopping it requires the explicit operation/lifecycle cancellation rules.
-The later processing contract owns admitted processing work and its deadlines;
-this synchronous submission result is not an implicit accepted model job.
+The [lifecycle analysis contract](lifecycle-contract.md#5-acquisition-and-analysis)
+owns separately admitted processing and its fixed input/deadlines. Submission
+starts no processing operation on admission, replay or later readiness. Retain
+its exact immutable command ID, submitted control and actual attribution
+independently of detailed command receipts; receipt garbage collection cannot
+erase the association required by later analysis.
+
+### Required lifecycle acquisition producer
+
+Every new upload consumer uses the lifecycle upload_resource specialization,
+including allocation, GET, accepted/completed finalization and abort snapshots.
+Its required control_revision starts at one and advances once per actual state
+transition; polling, progress and duplicate delivery do not increment it.
+The existing upload_generation remains a distinct type. The lifecycle owner
+defines reachable minima, irreversible terminal states and all exact wrappers.
+Final original binding also initializes material control and commits the exact
+operation effect/success under the current-authority fence and qualified
+independent continuity. A fresh-key already-sealed lookup creates no new
+operation, original, material control or business effect and owns its own receipt.
+
+capture.analyze requires the current exact submitted capture and expected control,
+required readiness and a qualified profile; it freezes ordered input eligibility
+and the retained submission association without advancing capture control.
+There is at most one live analysis for that exact capture. Optional omitted
+parts remain explicit and cannot be appended when readiness later changes.
+Success binds the complete immutable analysis record and exact created outputs;
+failed partial effects remain observable without a false success manifest.
+GET capture revision never substitutes its current head. Complete reads and
+current authority apply after command receipt expiry as well as before it.
+
+E010 qualifies concrete stage/result bytes; E063 provides the earliest actual
+shared operation, sealing, GET/cancel and upload-specialized consumer. E072–E074
+qualify deterministic test Activities and orchestration histories. Actual
+capture.analyze support requires E086's qualified real processing integration.
 
 ## Readiness and visible optional failure
 

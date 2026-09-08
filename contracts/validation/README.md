@@ -9,8 +9,9 @@ The [common contract](../../docs/requirements/common-contract.md),
 [acquisition contract](../../docs/requirements/acquisition-contract.md),
 [observation contract](../../docs/requirements/observation-contract.md),
 [candidate review contract](../../docs/requirements/candidate-review-contract.md),
-[financial contract](../../docs/requirements/financial-records.md) and
-[context contract](../../docs/requirements/context-contract.md) own wire
+[financial contract](../../docs/requirements/financial-records.md),
+[context contract](../../docs/requirements/context-contract.md) and
+[lifecycle contract](../../docs/requirements/lifecycle-contract.md) own wire
 meaning. Each has a versioned schema, independently chosen parsed-value cases
 and a fixed expectation schema:
 
@@ -22,16 +23,29 @@ and a fixed expectation schema:
 | Candidate review | [Candidate and review definitions](../public/v1/candidate-review.schema.json) | [Candidate review cases](candidate-review-v1.cases.json) | [Candidate review expectations](candidate-review-v1.expectations.schema.json) |
 | Financial records | [Expense, report and export definitions](../public/v1/financial-records.schema.json) | [Financial cases](financial-records-v1.cases.json) | [Financial expectations](financial-records-v1.expectations.schema.json) |
 | Context | [Build, evaluation and attestation definitions](../public/v1/context.schema.json) | [Context cases](context-v1.cases.json) | [Context expectations](context-v1.expectations.schema.json) |
+| Lifecycle | [Public operation/lifecycle definitions](../public/v1/lifecycle.schema.json) and [internal continuity definitions](../internal/v1/lifecycle-continuity.schema.json) | [Lifecycle cases](lifecycle-v1.cases.json) | [Lifecycle expectations](lifecycle-v1.expectations.schema.json) |
 
 The commands select the [common entry](../common-v1.fixtures.schema.json),
 [acquisition entry](../acquisition-v1.fixtures.schema.json),
 [observation entry](../observation-v1.fixtures.schema.json),
 [candidate review entry](../candidate-review-v1.fixtures.schema.json),
-[financial entry](../financial-records-v1.fixtures.schema.json) and
-[context entry](../context-v1.fixtures.schema.json) at the contract
+[financial entry](../financial-records-v1.fixtures.schema.json),
+[context entry](../context-v1.fixtures.schema.json) and
+[lifecycle entry](../lifecycle-v1.fixtures.schema.json) at the contract
 directory's root. Each entry references exactly its own expectation schema;
 swapping fixture families must fail. The entries contain no copied domain
 definitions or expected values.
+
+Lifecycle is one family with two explicit target namespaces:
+public.<definition> maps exactly to
+../public/v1/lifecycle.schema.json#/$defs/<definition>, and
+internal.<definition> maps exactly to
+../internal/v1/lifecycle-continuity.schema.json#/$defs/<definition> from the
+expectation schema. No fallback, arbitrary URI or same-name ambiguity is allowed.
+Its fixed ordered oracle records strict boolean acceptance independently of
+schema execution. Internal references may import ../../public/v1 definitions;
+public libraries never import internal definitions. Every transitive reference
+remains within this checkout's contracts directory.
 
 The separate [signing-vector fixture](context-v1.signing-vectors.json) and
 [vector schema](../context-v1.signing-vectors.schema.json) retain a finite exact
@@ -73,11 +87,11 @@ uv sync --project contracts/validation --check --locked --offline
 
 ## Checks
 
-Run all eight commands from this repository's root after preparation. Every
+Run all nine commands from this repository's root after preparation. Every
 command must exit zero. Explicit file arguments prevent an empty glob from
 selecting no fixtures. Together with the two synchronization checks above,
-these are ten required verification commands. The metaschema command names
-all 19 schema files; six commands each select one exact family and the final
+these are eleven required verification commands. The metaschema command names
+all 23 schema files; seven commands each select one exact family and the final
 command checks the separate literal signing-vector structure.
 
 ```sh
@@ -102,7 +116,11 @@ uv run --project contracts/validation --no-sync --offline \
   contracts/context-v1.fixtures.schema.json \
   contracts/public/v1/context.schema.json \
   contracts/validation/context-v1.expectations.schema.json \
-  contracts/context-v1.signing-vectors.schema.json
+  contracts/context-v1.signing-vectors.schema.json \
+  contracts/lifecycle-v1.fixtures.schema.json \
+  contracts/public/v1/lifecycle.schema.json \
+  contracts/internal/v1/lifecycle-continuity.schema.json \
+  contracts/validation/lifecycle-v1.expectations.schema.json
 uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/common-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
@@ -128,6 +146,10 @@ uv run --project contracts/validation --no-sync --offline \
   --force-filetype json --regex-variant default --no-cache \
   contracts/validation/context-v1.cases.json
 uv run --project contracts/validation --no-sync --offline \
+  check-jsonschema --schemafile contracts/lifecycle-v1.fixtures.schema.json \
+  --force-filetype json --regex-variant default --no-cache \
+  contracts/validation/lifecycle-v1.cases.json
+uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/context-v1.signing-vectors.schema.json \
   --force-filetype json --regex-variant default --no-cache \
   contracts/validation/context-v1.signing-vectors.json
@@ -141,7 +163,17 @@ schema-resolution and other infrastructure errors also produce a nonzero exit.
 The finite inventory must reject missing, repeated and unknown case identities.
 
 Keep default format checking enabled and use the declared ECMAScript regex
-behavior. Do not fill defaults, transform data, substitute validators or override
+behavior. The direct pin `rfc3986-validator==0.1.1` supplies the upstream
+jsonschema URI and URI-reference implementation. The effective CLI registry
+must contain `date`, `date-time`, `uri`, `uri-reference` and `regex`, including
+the check-jsonschema date-time override and default ECMAScript regex checker.
+An absent optional format checker silently accepts values; a successful generic
+validation is insufficient proof that the required checker is available.
+Freeze the actual installed package, interpreter and callback identities before
+qualification and confirm they remain unchanged afterward. Qualify newly used
+formats when the schema or metaschema graph changes.
+
+Do not fill defaults, transform data, substitute validators or override
 base URIs. The schema files omit `$id`; versioned repository paths and recorded
 digests identify them. Common definitions use internal fragments. Other domain
 definitions additionally reference the reviewed adjacent schemas. The expectation
@@ -172,6 +204,52 @@ non-finite tokens, byte/depth admission, malformed encoding, transport headers,
 current authorization and transactional effects need the owning runtime tests.
 Their contract scenarios remain requirements until those tests execute. This
 fixture pass cannot substitute for runtime or source-coverage evidence.
+
+Freeze the actual complete machine inventory before qualification: 23 schemas,
+seven literal case manifests, the separate signing-vector manifest, validator
+project and lock (33 inputs). Freeze actual per-target/namespace/case counts and
+input digests after independent authoring; no count or positive outcome may be
+inferred from an earlier family. Run all eleven commands against those exact
+bytes. Relocation must copy/re-hash every input into a path with spaces and
+Unicode and exercise all seven family entries plus signing structure.
+
+Independently review finite oracle-integrity mutations for metadata, missing or
+duplicated identities, order, strict booleans, target substitution across the
+public/internal namespace, and positive/negative value replacement in both
+namespaces. Break actually consumed references under both positive refs and
+negative not branches; require their missing-reference diagnostics, never a
+successful negation. Remove each actually consumed application library and
+observe the exact missing-path diagnostic. All 42 off-diagonal family pairings
+must fail ordinary validation on the complete manifests. Restore and re-hash
+every input and rerun positive guards. Tool/timeout/environment or unrelated
+schema-resolution failure is not a negative value oracle.
+
+The current complete protocol has 93 commands: eleven direct checks, eight
+relocated checks, eighteen oracle mutations, four consumed broken references,
+eight consumed missing libraries, 42 off-diagonal pairings and two restored
+positive guards. A changed primary validator profile requires this complete
+protocol afresh on the newly frozen inputs; results from an older profile cannot
+be combined into a current pass.
+
+The URI regression inventory contains sixteen variants in each of staging
+grant, acquisition allocation response and lifecycle allocation response:
+48 complete values with 21 positive and 27 negative expectations. Preserve
+every earlier case and expectation. Independently freeze the literal outcomes
+before checking them, then validate every new complete value directly against
+its actual owning definition. Every negative must report the URI-format error
+at its actual URL field. One invalid URI per target must additionally accept
+with only URI checking disabled, as a separately labeled diagnostic control;
+that acceptance is not conformance. These controls do not replace the complete
+manifest checks. Valid generic URI syntax for userinfo and fragments does not
+override the acquisition owner's runtime client restrictions, origin checks or
+current authorization requirements.
+
+The lifecycle owner separately requires current authority and disclosure,
+exact JCS bytes/hashes and cross-record joins, complete actual serialization,
+finite clocks, cancellation/handoff races, retained recognition after receipt
+expiry, independent journal crash/abort/restore proof, real sealed delivery,
+immutable feedback attribution and actual multi-batch repair/service coverage.
+These are consuming runtime obligations, not results of parsed-value checks.
 
 Tool packages and their notices are obtained from the locked upstream artifacts;
 their sources and bundled example schemas are not copied into these contracts.

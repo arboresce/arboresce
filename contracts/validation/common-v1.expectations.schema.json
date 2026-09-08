@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 248,
-      "maxItems": 248,
+      "minItems": 251,
+      "maxItems": 251,
       "prefixItems": [
         {
           "type": "object",
@@ -7066,6 +7066,93 @@
             "value": {
               "not": {
                 "$ref": "../public/v1/common.schema.json#/$defs/readiness"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "problem-reserved-problem-null"
+            },
+            "target": {
+              "type": "string",
+              "const": "problem"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/common.schema.json#/$defs/problem"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "problem-reserved-problem-false"
+            },
+            "target": {
+              "type": "string",
+              "const": "problem"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/common.schema.json#/$defs/problem"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "problem-reserved-problem-object"
+            },
+            "target": {
+              "type": "string",
+              "const": "problem"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/common.schema.json#/$defs/problem"
               }
             }
           },

@@ -11,11 +11,18 @@ The [common wire contract](requirements/common-contract.md),
 [acquisition contract](requirements/acquisition-contract.md),
 [observation contract](requirements/observation-contract.md),
 [candidate review contract](requirements/candidate-review-contract.md),
-[financial records contract](requirements/financial-records.md) and
-[context contract](requirements/context-contract.md) define versioned
+[financial records contract](requirements/financial-records.md),
+[context contract](requirements/context-contract.md) and
+[lifecycle and operation contract](requirements/lifecycle-contract.md) define versioned
 schema families. Their [standalone checks](../contracts/validation/README.md)
 validate independent parsed-value fixtures; runtime qualification follows its
 own implementation slices.
+
+Lifecycle uses a [public definition library](../contracts/public/v1/lifecycle.schema.json)
+and a separate [internal continuity library](../contracts/internal/v1/lifecycle-continuity.schema.json)
+in one checked family. Public contracts remain independent of internal imports;
+internal schemas may reuse public definitions. Specified repair/evidence hooks
+require complete qualified producers before runtime activation.
 
 - [Instruction index](agents/README.md)
 - [Documentation ownership](ownership.md)

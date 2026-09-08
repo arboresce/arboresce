@@ -12,6 +12,15 @@ owns byte, time, memory, concurrency, queue and cost limits.
 
 ## One processing boundary
 
+The [lifecycle analysis contract](lifecycle-contract.md#5-acquisition-and-analysis)
+defines capture.analyze as a separately authorized command over an exact current
+submitted revision/control. capture.submit remains atomic and never starts work
+on admission, replay or later readiness. Analysis freezes the qualified profile,
+ordered input eligibility and immutable submission attribution retained beyond
+detailed receipt expiry. Later drafts or optional readiness cannot retarget it.
+Its complete success record accounts for every submitted part and created output;
+empty outputs may be explicit abstention, while required work must complete.
+
 Begin with one coarse-grained Python gRPC service whose modules separate
 normalization, extraction, transcription, field validation and claim synthesis.
 A module does not imply a separately deployed service. Rust owns canonical
@@ -128,6 +137,18 @@ providers retain their own rights and qualification requirements.
 
 ## Durable operations and fencing
 
+The [shared operation contract](lifecycle-contract.md#3-shared-operation-plan-clocks-and-evidence)
+owns exact immutable plans, required stage states, distinct attempts and accepted
+results, injected UTC/monotonic deadlines, sampled progress, actual worker
+attribution and complete append-only effect/exposure ledgers. Select all finite
+profile limits and combined serialized headroom before admission. Replays,
+takeover, retry, polls and receipt delivery never reset deadlines or counters.
+Cancellation closes new business work under its final fence; it preserves all
+effects, source restriction, cleanup responsibility and conservative liability.
+[Late confirmation](lifecycle-contract.md#9-late-confirmation-and-cancellation-races)
+uses only already admitted actions and qualified current evidence authority;
+it cannot change terminal outcomes, issue new actions or renew expired probes.
+
 Use Temporal for long-running analysis, builds, repair, lifecycle propagation,
 exports and notification work. Simple reads, ordinary transactions and current
 authorization do not need a workflow merely to access the application boundary.
@@ -220,6 +241,17 @@ an Arboresce entitlement is not a prerequisite. Concrete data-exposure and
 spend permission remains necessary for the selected live run.
 
 ## Verification and qualification
+
+E010 qualifies complete stage/input/output/result and exposure-byte profiles.
+E063 supplies the earliest actual shared operation GET/cancel and upload
+specialization using E046 persistence, E068's qualified server and E071's
+Temporal dispatcher.
+E072/E073 extend that orchestration with deterministic explicitly test-only
+Activities; E074 uses synthetic histories and actual registered Temporal service
+tests. They do not enable real capture.analyze. E086 must qualify and wire the
+selected real processing adapters, gateway and profiles before advertising that
+capability. No second operation store/scheduler or reverse dependency on later
+real processing is introduced by the earlier source gates.
 
 Deterministic recorded processing resolves a response only by the exact
 canonical request fingerprint and profile digest, with explicit fixture

@@ -44,6 +44,9 @@ organization's evidence merely by naming its ID or digest.
 | Usage receipt | Exact input/assembly digest, purpose, current policy context and any allowed selection limits. |
 | Feedback and outcome | Exact subject version, author/source, observed event time and receipt time; assertions remain distinguishable from independently observed results. |
 | Revocation, hold and purge obligation | Separate control/policy records, actor/scope and propagation receipts; preserve recovery-relevant restrictions. |
+| Operation and execution plan | Immutable origin/cause and exact plan, separate operation control, fixed stage/attempt identities and complete effect/exposure ledgers. |
+| Material action and confirmation | Exact registered physical version, actual executing service, immutable action intent and at most one affirmative outcome; uncertainty is retained. |
+| Propagation obligation and repair | One source revoke and frozen complete inventory; immutable initial operation, preserved failure, linked repair history and unique complete coverage. |
 
 Keep knowledge and recordkeeping as separate branches. A receipt does not need
 to become an intelligence asset to support a confirmed expense and report.
@@ -235,10 +238,34 @@ have one winner.
 
 ## Feedback and lifecycle references
 
-Feedback and outcome records use a constrained subject variant with exact
-version and tenant-safe referential validation, not arbitrary URLs. Preserve
-the asserted event time separately from receipt time. New feedback is evidence
-for later review, not automatic approval, supersession or completed processing.
+The [lifecycle contract](lifecycle-contract.md#6-lifecycle-subjects-controls-and-commands)
+owns the finite exact lifecycle subject union and control/event/hold/purge
+states. Original versions, representations and observations remain organization
+scoped; the invoking domain does not become their owner. Other subjects bind
+their exact domain/revision or existing owner reference. Builds and reports reuse
+their availability row/counter. Candidate and expense exact-revision lifecycle
+controls remain distinct from aggregate review/content controls. Immutable bytes
+never acquire a mutable head or control value in their content identity.
+
+The [operation owner](lifecycle-contract.md#3-shared-operation-plan-clocks-and-evidence)
+defines immutable plan hashes, stage results, actual admitted command/worker
+attribution and complete append-only business-effect/exposure records. The
+[propagation owner](lifecycle-contract.md#8-revocation-obligation-bounded-cleanup-and-exact-material-actions)
+defines source event/obligation/inventory/plan/action/proof/completion associations
+and retained linked repairs. Immediate restriction is distinct from cleanup
+satisfaction; an incomplete or cancelled operation cannot erase responsibility.
+Every retained association resolves exact immutable records under current
+authority, including after the originating detailed command receipt expires.
+
+The [feedback contract](lifecycle-contract.md#12-immutable-attributed-feedback)
+owns closed note/decision/experiment/action/outcome variants and exact asset-version
+or context-build subjects. Preserve reported event precision separately from
+server receipt time. Unknown, none and known-empty remain distinct. Public
+feedback is an immutable author report; reported actors and outcomes do not
+prove identity, causality, independent measurement or actual consumption.
+An independent observation producer must qualify separately before that source
+variant is enabled. New feedback is evidence for later review, not automatic
+approval, supersession or completed processing.
 
 When version-linked evidence describes a decision, retain its alternatives,
 rejected options, responsible actor and assumptions. When it describes an

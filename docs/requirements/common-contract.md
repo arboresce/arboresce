@@ -192,8 +192,8 @@ Both expiry fields are null for pending durable work; neither key retention
 nor a new effect starts merely because client waiting ended. Both become exact
 timestamps when terminal policy applies. Mixed null/timestamp pairs are invalid.
 `expires_at` precedes `tombstone_expires_at`; the server must enforce their
-relationship to the original terminal time and the completed-key/tombstone
-retention policy owned by [API](api.md#idempotent-command-admission). A receipt
+relationship to the original terminal time and the
+[lifecycle retention policy](lifecycle-contract.md#11-retention-recognition-and-independent-continuity). A receipt
 does not shorten that policy. Replay does not restart retention. A null pair
 does not authorize unlimited job execution: operation lifetime, reconciliation
 and retry limits must be selected by the owning execution profile before it
@@ -266,13 +266,33 @@ Each operation's endpoint contract must define this resource-read/replay variant
 and terminal receipt, or its equivalent direct recorded result/problem variant,
 before implementation. No replay repeats effects to obtain a new response shape.
 
-The operation/lifecycle contract must define typed progress, stage/attempt
-distinctions, committed-effect references, cancellation races and reconciliation.
-Those fields are not invented as arbitrary extension payloads here. In
-particular, a cancelled operation needs its independently retained committed
-effect record; absence of a `result` does not mean absence of effects.
-Cancellation requests and their revision preconditions belong to that later
-contract, not to a generic common command.
+The [lifecycle operation contract](lifecycle-contract.md#3-shared-operation-plan-clocks-and-evidence)
+requires immutable plans, typed stage/attempt clocks and results, actual execution
+attribution and complete effects/exposures. Lifecycle operations also expose
+complete material-action associations. Those producer specializations preserve
+this common reader floor. A cancelled operation retains its committed effects;
+absence of a result never means absence of effects. The
+[cancellation contract](lifecycle-contract.md#4-cancellation) owns its exact
+request, control precondition, three dispositions and final success/handoff race.
+
+Common command-name syntax does not register a capability. The
+[lifecycle capability matrix](lifecycle-contract.md#2-capability-origin-and-transport-matrix)
+separately fixes eight operation kinds, seven command origins and the receipt-free
+internal lifecycle-event origin. It preserves existing requests, adds eight
+closed public commands and reserves repair contracts for their qualified owner.
+No public command or historical command cause may be named lifecycle.propagate.
+
+The [retention owner](lifecycle-contract.md#11-retention-recognition-and-independent-continuity)
+fixes terminal-relative replay and longer diagnostic deadlines, permanent minimal
+recognition while the organization/principal scope can admit commands, and the
+independently durable irreversible retirement barrier required before recognition
+removal. Regrant, credential rotation or a changed domain never creates a fresh
+scope. Expired POST replay uses its exact idempotency_expired conflict; an
+authorized GET may return all genuinely retained details and original receipt
+with replayed=false after either deadline. Known removed required details use
+operation_details_unavailable/409; no partial ledger, fabricated receipt or new
+effect fills that gap. Current disclosure and continuity checks still precede
+claim existence or detail disclosure.
 
 ## Bounded response compatibility
 

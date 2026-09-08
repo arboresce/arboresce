@@ -6664,6 +6664,886 @@
           "replayed": false
         }
       }
+    },
+    {
+      "id": "staging-grant-uri-https-control",
+      "target": "staging_grant",
+      "valid": true,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/uri-control",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-percent-escapes",
+      "target": "staging_grant",
+      "valid": true,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/a%20b%2Fc%2fd%25%5Be%5D?token=x%2By%3Dz",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-encoded-unicode",
+      "target": "staging_grant",
+      "valid": true,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/caf%C3%A9",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-ipv6-compressed",
+      "target": "staging_grant",
+      "valid": true,
+      "value": {
+        "method": "PUT",
+        "url": "https://[2001:db8::7]/staging/test-object",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-ipv6-full-port",
+      "target": "staging_grant",
+      "valid": true,
+      "value": {
+        "method": "PUT",
+        "url": "https://[2001:0db8:0000:0000:0000:0000:0000:0007]:443/staging/test-object",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-userinfo-syntax-only",
+      "target": "staging_grant",
+      "valid": true,
+      "value": {
+        "method": "PUT",
+        "url": "https://fixture@uploads.example.invalid/staging/test-object",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-fragment-syntax-only",
+      "target": "staging_grant",
+      "valid": true,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/test-object#fixture",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-percent-lone",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/test-object%",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-percent-short",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/test-object%2",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-percent-nonhex",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/test-object%2G",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-query-percent-nonhex",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/test-object?token=%GG",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-ipv6-unclosed",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://[2001:db8::7/staging/test-object",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-ipv6-extra-close",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://[2001:db8::7]]/staging/test-object",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-bracket-non-ip",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://[uploads.example.invalid]/staging/test-object",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-path-brackets",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/[test-object]",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "staging-grant-uri-raw-unicode",
+      "target": "staging_grant",
+      "valid": false,
+      "value": {
+        "method": "PUT",
+        "url": "https://uploads.example.invalid/staging/café",
+        "required_headers": {
+          "content-type": "text/plain"
+        },
+        "expires_at": "2026-09-08T12:30:45.123Z"
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-https-control",
+      "target": "upload_allocation_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/uri-control",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-percent-escapes",
+      "target": "upload_allocation_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/a%20b%2Fc%2fd%25%5Be%5D?token=x%2By%3Dz",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-encoded-unicode",
+      "target": "upload_allocation_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/caf%C3%A9",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-ipv6-compressed",
+      "target": "upload_allocation_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://[2001:db8::7]/staging/test-object",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-ipv6-full-port",
+      "target": "upload_allocation_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://[2001:0db8:0000:0000:0000:0000:0000:0007]:443/staging/test-object",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-userinfo-syntax-only",
+      "target": "upload_allocation_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://fixture@uploads.example.invalid/staging/test-object",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-fragment-syntax-only",
+      "target": "upload_allocation_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/test-object#fixture",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-percent-lone",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/test-object%",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-percent-short",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/test-object%2",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-percent-nonhex",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/test-object%2G",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-query-percent-nonhex",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/test-object?token=%GG",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-ipv6-unclosed",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://[2001:db8::7/staging/test-object",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-ipv6-extra-close",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://[2001:db8::7]]/staging/test-object",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-bracket-non-ip",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://[uploads.example.invalid]/staging/test-object",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-path-brackets",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/[test-object]",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "upload-allocation-response-uri-raw-unicode",
+      "target": "upload_allocation_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "679fa5bf-8e97-42f7-82b1-09a0b7c026e0",
+        "result": {
+          "upload": {
+            "upload_id": "bf429ed1-5104-4f2e-93f3-e0d97f02b051",
+            "organization_id": "c4142af6-64b2-4d9d-aa9b-3cf0639d8c3e",
+            "generation": {
+              "kind": "upload_generation",
+              "value": "1"
+            },
+            "source": {
+              "format": "plain_text",
+              "media_type": "text/plain",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "byte_length": 3
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z",
+            "state": "created"
+          },
+          "staging_grant": {
+            "method": "PUT",
+            "url": "https://uploads.example.invalid/staging/café",
+            "required_headers": {
+              "content-type": "text/plain"
+            },
+            "expires_at": "2026-09-08T12:30:45.123Z"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expires_at": "2026-09-15T12:30:45.123Z",
+          "tombstone_expires_at": "2026-10-08T12:30:45.123Z",
+          "replayed": false
+        }
+      }
     }
   ]
 }

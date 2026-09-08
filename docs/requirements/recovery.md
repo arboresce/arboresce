@@ -41,13 +41,50 @@ lost or rolled-back canonical database cannot also erase all proof of later
 restrictions. Its access and integrity controls must preserve minimized lifecycle
 evidence without duplicating full customer content.
 
-The concrete journal contract must define event identity, policy/subject revision,
-durable recording, authenticated ordering or completeness proof, checkpoints,
-retention and gap detection. Qualify that proof before allowing restored serving.
+The [lifecycle continuity contract](lifecycle-contract.md#11-retention-recognition-and-independent-continuity)
+defines the six closed intent/resolution families, exact event/admission ordering,
+recognition and irreversible scope-retirement barriers, bounded batches and
+authenticated checkpoints. E050 must qualify complete inventory interpretation,
+prepared/committed binding and abort evidence bytes, independent retention,
+actual integrity/service authority and cutoff before the first consuming writer.
+E054 provisioning and E058 admission require that support; a later purge or
+retention gate cannot retroactively justify missing continuity. Qualify the full
+proof before allowing restored serving.
 A journal recovered only from the same old backup is insufficient. The highest
 allocated outbox or sequence ID is not proof of committed completeness: concurrent
 transactions can commit in another order or leave gaps. Do not infer an intact
 tail from a locally observed maximum or from successful replay of available rows.
+
+Prepared event recorded_at is a construction observation, not committed admission.
+Independently acknowledge immutable prepared bytes outside canonical locks; the
+final fence must precede their fixed preparation expiry. Retain the actual
+canonical admission record and complete committed associations independently
+after commit. Missing response, expired lease/intent, sequence gap or absence from
+an older backup never proves abort. An abort requires authentic proof that the
+exact fenced transaction did not and cannot commit; contradictory resolutions
+are corruption. Unknown tail, unresolved intent or absent binding evidence keeps
+the affected scope closed.
+
+Restore minimized admitted-key recognition even when detailed receipts expired.
+Regrant or credential changes cannot make an old identity new. A permanently
+retired organization/principal barrier and its non-reuse evidence must survive
+per-key garbage collection, restore and provisioning. Bootstrap independently
+prepares candidate namespace, actual operator/enrollment binding, immutable policy,
+integrity profile and stream before tenant rows; unknown inputs cannot enable
+first-owner admission or invent an ordinary membership-authorized bootstrap API.
+
+The [propagation and repair graph](lifecycle-contract.md#8-revocation-obligation-bounded-cleanup-and-exact-material-actions)
+is part of the required recovery set: original source event/admission, complete
+inventory and interpretation, obligation, initial operation/plan/manifest/proof,
+all actions/confirmations and every repair predecessor/operation/batch/range and
+coverage node, including failed or cancelled attempts with no coverage. E124
+adds exact closed lifecycle-pair payload/binding variants for repair admission,
+progress and completion using the same six-family stream and operation store.
+There is no additional journal family or disposable failed-attempt ledger.
+Restore actual cause/control/effect/exposure/audit/outbox associations as well
+as hashes. Verify the complete authentic contiguous coverage graph or exact empty
+proof in bounded phases before reopening. Missing/reordered/gapped/overlapping
+proof, wrong root, unverified predecessor or max-ordinal-only claims fail closed.
 
 Prove both the intended recovery cutoff and all applicable restrictions through
 that cutoff against an independently retained record. Apply later policy before
@@ -105,6 +142,14 @@ missing/corrupt blobs, missing keys, journal gaps and unknown tail/cutoff negati
 each must keep serving closed. Corrupt or remove a derived store and reconstruct
 it from canonical state with restrictions intact.
 
+E134-restore also restores later initial-enumeration failure, multiple actual
+authorized repair batches, interrupted/failed/cancelled partial actions, passive
+confirmations, receipt garbage collection and unique global completion after
+the older backup. Recover the entire authentic operation/action/coverage history,
+preserving original terminal outcomes and blocking duplicate uncertain deletions.
+E124's real multi-batch SERVICE and RUST/Qdrant qualification precedes this gate;
+schema references or a component fake cannot establish the restore result.
+
 Repeat that drill through the packaged local profile after packaging exists.
 Packaged G2 security and this actual D0 recovery proof precede independent-user
 qualification. A successful unit fake or a pre-packaging component drill alone is
@@ -158,8 +203,10 @@ and revisions, permitted original/derived bytes, relationships, evidence locator
 corrections, attribution, context builds and relevant evaluations, with digests and
 explicit authorized unavailable/purged markers. Do not expose inaccessible objects
 or counts through omissions. Pin an authorized selection, bound temporary storage
-and expiry, and reauthorize delivery; mid-export revocation must block affected
-delivery. Duplicate requests retain their original intent and result semantics.
+and expiry, and reauthorize delivery; mid-export revocation blocks every new
+affected delivery admission, while an already admitted bounded transfer retains
+only its fixed grant under the security owner. Duplicate requests retain their
+original intent and result semantics.
 Cancellation cleans up controlled temporary work without deleting user exports.
 
 Prove usefulness with an independent reader/import validator or a specified
@@ -175,7 +222,12 @@ traversal, absolute paths, symlinks, special files, overwrite hazards, extractio
 bombs and executable content; import must not execute content. Preserve encryption
 and access requirements in transit and temporary storage. Financial exports follow
 [financial records](financial-records.md), including a lossless structured form
-and safe spreadsheet form. A downloaded file alone is not portability evidence.
+and safe spreadsheet form, and the
+[sealed delivery contract](lifecycle-contract.md#10-sealed-financial-export-and-bounded-delivery).
+That financial format is not a complete customer archive. E113/E114 and the
+later exit/restore owners must qualify their distinct complete versioned archive,
+streaming operation/result and independent reader before capability support.
+A downloaded file alone is not portability evidence.
 
 ## Required operational evidence
 

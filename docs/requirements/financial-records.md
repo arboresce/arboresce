@@ -282,7 +282,7 @@ tokens, grants, policy bodies or unrelated identity metadata.
 
 The public revision states are `proposed`, `confirmed`, `superseded` and
 `voided`. The proposal owner initializes content 1/control 1. This contract adds no
-manual-create endpoint. Each new mutation targets the current head and compares
+manual-create endpoint. Each new financial content/review mutation targets the current head and compares
 its expense ID, expected content version, content digest and aggregate control.
 Typed counters increment without overflow or wrap; any overflow fails atomically.
 
@@ -294,8 +294,15 @@ Typed counters increment without overflow or wrap; any overflow fails atomically
 | Proposed head | Void | Same content becomes voided; control increments once; no confirmation is invented. |
 | Confirmed head | Void | Same content becomes voided; control increments once and prior confirmation is retained. |
 | Confirmed head | Confirm | Conflict for a fresh command. Original idempotent replay retains its prior success. |
-| Voided head | Any mutation | Conflict for a fresh command; void is terminal. |
-| Historical superseded revision | Any mutation | Conflict; no historical-head mutation or resurrection. |
+| Voided head | Financial content/review mutation | Conflict for a fresh command; void is terminal. |
+| Historical superseded revision | Financial content/review mutation | Conflict; no historical-head mutation or resurrection. |
+
+The [lifecycle subject/control contract](lifecycle-contract.md#6-lifecycle-subjects-controls-and-commands)
+permits independent restriction, hold and purge of these exact revisions without
+rewriting financial content or review state. Exact expense lifecycle control is
+distinct from aggregate financial control. Reports reuse the existing report
+availability control row/counter, so export observes the same lifecycle counter.
+All relevant writers still share the final current-authority/material fence.
 
 A superseded revision names the exact immediate successor. Other states have
 no successor. Proposed content has no confirmation; confirmed content requires
@@ -541,8 +548,10 @@ supply a new resource ID, actor, approval flag, fingerprint or server timestamp.
 The 200 results use the common success envelope and terminal idempotency receipt.
 Revise/void reasons are 1–2,048 scalars. Format is exactly `financial-json-v1`
 or `financial-csv-v1`. Export 202 means durable admission, not completed output.
-The lifecycle/operation contract owns terminal artifact delivery, cancellation,
-expiry and availability; these financial identities/format semantics remain fixed.
+The [sealed financial export contract](lifecycle-contract.md#10-sealed-financial-export-and-bounded-delivery)
+owns the exact financial_export_result, artifact core/reference/resource,
+cancellation, fixed expiry, observed availability and complete bounded delivery.
+These financial request, payload and format semantics remain fixed.
 
 GET `/v1/expenses/{id}` returns a current expense snapshot. GET
 `/v1/expenses/{id}/revisions/{version}` resolves exact historical content and
@@ -552,6 +561,12 @@ envelope without a command receipt. Report availability control starts at 1
 and supplies the export precondition. A create replay retains its originally
 observed control; current GET supplies current control. This control stays
 outside report/export payload identity; its transitions belong to lifecycle.
+Every current or exact historical financial GET returns the complete required
+snapshot or an error under current disclosure. Retention loss never becomes a
+null/truncated immutable snapshot or a substituted current revision. Known
+authorized missing retained details conflict; required unavailable policy,
+infrastructure or continuity fails with 503, and undisclosable resources remain
+404. The lifecycle owner defines exact selectors and complete-or-error transport.
 
 Canonical content, references, snapshots and export domain values are closed.
 Outward resources and success results use the existing bounded additive
@@ -653,6 +668,18 @@ loss cannot produce a falsely completed artifact or silently partial output.
 An already admitted bounded delivery follows the security owner's grant rules.
 Client installation/export rules own exact destination validation, atomic
 protected writes and preservation of existing files/unsent edits.
+
+The [delivery owner](lifecycle-contract.md#10-sealed-financial-export-and-bounded-delivery)
+requires sealing the full artifact before binding, distinct payload/emitted/core
+digests, fixed exclusive expiry and a finite selected generation/staging/transfer
+profile with shared slots. Content uses a fresh current-authorized read-only POST
+with expected artifact control, exact byte/header agreement and no Range/resume,
+redirect, compression, presigned URL or multipart variant. Its retained delivery
+receipt proves admission only. After response bytes begin, an error aborts the
+transport; it never appends JSON or claims completion. E096 must qualify actual
+full 64 MiB transfer, lost-response replay, expiry/revocation and safe client
+length/digest verification. Financial delivery does not define complete customer
+exit; that archive and restoration capability remains separately required.
 
 ### JSON profile
 

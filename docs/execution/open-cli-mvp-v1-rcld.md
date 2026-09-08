@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001–E007 are `complete`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Status: executing approved implementation design; E001–E007 are `complete`; E008 is the sole `in_progress` implementation slice. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -317,13 +317,17 @@ Definition of green: No self-hash; unknown/revoked keys denied; partial snapshot
 
 ### E008 — Freeze lifecycle and operation contracts
 
-Status: `not_started`. Prerequisites: E007, E006. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `in_progress`. Prerequisites: E007, E006. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
 
-Scope: Define revoke, hold, purge, export availability, cancellation and feedback attribution; distinguish current authorization, immutable history and idempotency expiry.
+Scope: Freeze the [lifecycle owner](../requirements/lifecycle-contract.md): complete immutable plans and eight operation kinds, actual command/worker causes, bounded stage/attempt/effect/exposure/action ledgers, cancellation races, upload control/abort/finalize replay and explicit analysis, exact revoke/hold/purge/propagation controls, sealed financial delivery, attributed feedback, retained recognition/retirement and six-family independent continuity. Preserve earlier request/immutable-content contracts; reserve complete repair producers for E124 without enabling an unspecified command.
 
-Planned paths: `contracts/public/`, `docs/requirements/`.
+Planned paths: `docs/requirements/lifecycle-contract.md`, `contracts/public/v1/lifecycle.schema.json`, `contracts/internal/v1/lifecycle-continuity.schema.json`, `contracts/lifecycle-v1.fixtures.schema.json`, `contracts/validation/lifecycle-v1.expectations.schema.json`, `contracts/validation/lifecycle-v1.cases.json`, `contracts/validation/README.md`, the existing common/API/acquisition/context/financial/data-model/security/storage/recovery/processing/resource owners and documentation indexes, this bounded plan refinement, and `docs/execution/e008-lifecycle-contract-evidence.md` only after actual qualification. Reuse the six existing application libraries by reference, with the explicit shared-rule repair below; add no executable support.
 
-Definition of green: Hold grants no read; cancellation may lose to completion; purged bytes remain unavailable; expired request identity cannot silently repeat a financial action.
+Bounded shared-rule repair: `contracts/public/v1/common.schema.json` must reject a direct `problem` member inside `common.problem`, including null and false, as already required by the common reserved-outcome rule. The omitted property prohibition also affects inherited lifecycle problems and other existing consumers. Add independently authored regressions in `contracts/validation/common-v1.cases.json` and its matching expectation schema. Preserve all earlier fixture entries, legitimate typed outer problem fields, unreserved additive extensions, the other five existing application libraries, request/immutable-content contracts and historical evidence. This repairs an existing requirement; it introduces no new capability, reader floor or prerequisite. The combined freeze and full qualification must include these changed shared inputs.
+
+Bounded validator-profile repair: add the direct upstream pin `rfc3986-validator==0.1.1` in `contracts/validation/pyproject.toml` and its lock, and independently authored URI regressions in `contracts/validation/acquisition-v1.cases.json`, its expectation schema, and the two already scoped lifecycle oracle files. The existing acquisition URI constraint applies to staging grants and both allocation-response targets. Missing optional format support currently permits malformed URIs; preserve the schema's URI meaning, all earlier cases and all other dependency versions. The 48 appended literals comprise 21 positive and 27 negative expectations. URI syntax-positive userinfo and fragment controls do not waive the owning runtime client prohibition. Update validation guidance and qualify the actual effective format registry, all 93 existing checks on the newly frozen complete inputs, all 48 direct real-definition URI cases and three separately labeled disabled-URI controls. Earlier tool-profile results remain historical and cannot qualify the repaired lock or corpus. This adds no capability, prerequisite or executable first-party support; E008 remains in progress until actual reviewed results exist.
+
+Definition of green: Independent owner/schema and literal-oracle freezes; complete 23-schema/seven-family/eleven-command catalogue, exact public/internal target routing and actual parsed-value, relocation, oracle-integrity, consumed-reference and swapped-family diagnostics with preserved raw results. Complete records never become hidden/truncated/empty success; holds grant no read, cancellation preserves irreversible effects, purged bytes stay unavailable and expired identities cannot repeat effects. Record actual input/count/hash/command outcomes and limits only after checks. This source gate does not qualify HTTP, JCS/hash joins, authorization, Temporal, actual storage/provider/exposure bytes, continuity/restore, full export throughput or E124 repair.
 
 ### E009 — Freeze bounded selection and listing
 
@@ -759,11 +763,11 @@ Definition of green: Stale promotion conflicts; reactivation is explicit; receip
 
 Status: `not_started`. Prerequisites: E049, E048. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Store feedback, retention/holds, revocation/purge obligations and deletion-aware recovery records. Design independent journal retention and completeness tracking for later recovery.
+Scope: Implement [lifecycle continuity](../requirements/lifecycle-contract.md#11-retention-recognition-and-independent-continuity) before its first consuming mutation: independently retained complete inventory interpretation, closed prepared/committed binding and abort-proof producer/verifier bytes, actual integrity/service authority, six-family authenticated intent/resolution/checkpoint/cutoff, recognition and retirement fences. Persist exact events/admissions/holds/purge/actions/confirmations, operation/effect/exposure/audit/outbox associations and feedback. Reuse E046's operation store. Own durable repair/batch/range/coverage and failed-attempt history when E124 introduces its concrete lifecycle-pair variants; no seventh journal family or second scheduler/store.
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/lifecycle/`.
+Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/lifecycle/`, `contracts/internal/`, `tests/integration/lifecycle/`, owning lifecycle/recovery guidance.
 
-Definition of green: Hold blocks physical purge without restoring reads; minimal tombstones persist; feedback does not rewrite content; journal gaps are detectable.
+Definition of green: Actual independently durable acknowledgement before canonical commit and committed resolution afterward, current shared fences, finite preparation, authentic abort proof, exact complete retained bindings and old-backup cutoff recovery qualify before first-owner/admission/material initialization. Missing tail, unresolved intent, absent inventory/association, contradictory resolution or unknown policy keeps affected admission/serving closed. Hold blocks physical purge without restoring reads; minimal recognition/retirement barriers survive detailed receipt GC; immutable feedback does not rewrite content. E112 later policy qualification cannot retroactively supply missing early proof.
 
 ### E051 — Add evidence-driven database indexes
 
@@ -797,13 +801,13 @@ Definition of green: Readiness distinguishes 200/503; unknown routes return 404;
 
 ### E054 — Implement first-owner provisioning
 
-Status: `not_started`. Prerequisites: E039, E042. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: E039, E042, E050. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Add a thin administrative binary and scoped bootstrap/recovery use cases requiring actual operator possession; ship no default password.
+Scope: Add a thin administrative binary and scoped bootstrap/recovery use cases requiring actual operator possession; ship no default password. Qualify the actual registered bootstrap command and immutable attribution. Prepare stable candidate organization/principal IDs, expiring one-use enrollment/actor binding, immutable organization retention policy, integrity profile and independent stream namespace before tenant rows under the [continuity bootstrap contract](../requirements/lifecycle-contract.md#11-retention-recognition-and-independent-continuity).
 
 Planned paths: `crates/arboresce-admin/`, `crates/arboresce-application/src/identity/`, `crates/arboresce-postgres/src/identity/`, `Cargo.toml`, `Cargo.lock`.
 
-Definition of green: One concurrent owner wins; protected credential delivery; existing identity is not overwritten; replacement revokes superseded credentials.
+Definition of green: One concurrent owner wins; protected credential delivery; existing identity is not overwritten; replacement revokes superseded credentials. The first short transaction atomically binds policy/owner/recognition/claim/effect/audit/outbox/intents under namespace and admission fences. Unknown actual operator, namespace, policy, stream or capability denies provisioning; no nonexistent-tenant membership or invented attribution substitutes for bootstrap authority.
 
 ### E055 — Implement scoped service authentication
 
@@ -837,13 +841,13 @@ Definition of green: No service self-promotion; inactive owner denied; resources
 
 ### E058 — Compose command admission and errors
 
-Status: `not_started`. Prerequisites: E057, E042. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: E057, E042, E050. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Wire fingerprints, current admission, idempotency and typed status handling. Install shared atomic rate/backlog reservations with bounded retry guidance at first use.
+Scope: Wire fingerprints, current admission, exact read/replay wrappers and typed status handling. Implement [retained recognition](../requirements/lifecycle-contract.md#11-retention-recognition-and-independent-continuity), terminal-relative replay/diagnostic deadlines and irreversible retirement barriers with E050 independent continuity. Install shared atomic rate/backlog reservations with bounded retry guidance at first use.
 
 Planned paths: `crates/arboresce-api/src/`, `crates/arboresce-application/src/commands/`.
 
-Definition of green: 400/401/404/409/422/429 are distinct; unknown state fails safely; parallel instances cannot bypass reservations; rejected work is not falsely accepted.
+Definition of green: 400/401/404/409/422/429 remain distinct; unknown state fails safely; parallel instances cannot bypass reservations; rejected work is not falsely accepted. Current authority precedes claim/detail disclosure. Expired POST replay conflicts; genuinely retained complete GET can succeed after expiry, while missing required details conflict without fabricated receipts. Regrant/domain/credential changes never reset identity; recognition storage exhaustion denies effects. Actual crash/abort/retirement races preserve claims and closed-serving continuity.
 
 ### E059 — Verify independent CLI identity behavior
 
@@ -885,15 +889,15 @@ Planned paths: `crates/arboresce-application/src/captures/`, `crates/arboresce-a
 
 Definition of green: Required absence blocks; optional failure remains; retries create one capture; edits after submission create a revision.
 
-### E063 — Implement fenced streaming sealing
+### E063 — Implement fenced sealing and shared operations
 
-Status: `not_started`. Prerequisites: E062. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: E062, E046, E068, E071. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Read staged content into a server-only object once, checking digest/length and resource caps, then bind in a short fenced transaction.
+Scope: Read staged content into a server-only object once, checking digest/length and resource caps, then bind in a short fenced transaction. Implement the earliest real shared operation/plan GET and operation.cancel with complete plans/ledgers/current authority, plus the [upload specialization](../requirements/lifecycle-contract.md#5-acquisition-and-analysis), abort and exact direct-finalize replay. Reuse E046 persistence, E068's qualified Temporal server and E071 dispatcher; atomically bind original/material initialization/continuity/effect/result under the final fence.
 
-Planned paths: `crates/arboresce-application/src/uploads/`, `crates/arboresce-postgres/src/artifacts/`, `tests/integration/storage/`.
+Planned paths: `crates/arboresce-application/src/uploads/`, `crates/arboresce-application/src/operations/`, `crates/arboresce-api/src/routes/operations.rs`, `crates/arboresce-api/src/routes/uploads.rs`, `crates/arboresce-postgres/src/artifacts/`, `tests/integration/storage/`, `tests/integration/operations/`.
 
-Definition of green: Concurrent overwrite cannot change accepted bytes; crashes on either side of binding recover; stale lease cannot replace reference; bounded cleanup respects ownership.
+Definition of green: Concurrent overwrite cannot change accepted bytes; crashes on either side of binding recover; stale lease cannot replace reference; bounded cleanup respects ownership. Real server/Temporal tests prove current complete GET/plan/cancel, stale-control and success/handoff races, own originating receipts, upload control and terminal states, retained direct result after lost 202 and fresh-key existing binding without a second operation/effect. Cancellation and expiry preserve exact uncertain liabilities and independent continuity. No model analysis is part of sealing.
 
 ### E064 — Implement orphan reconciliation
 
@@ -979,31 +983,31 @@ Definition of green: Crash after start before delivery receipt is safe; concurre
 
 Status: `not_started`. Prerequisites: E071, E066, E046. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Sequence sealed readiness, normalization and extraction through Activities using bounded references and accepted-result fencing.
+Scope: Sequence explicit exact-revision capture.analyze admission, frozen submitted eligibility/profile/attribution, normalization and extraction through Activities with accepted-result fencing. Extend E063's shared operation store/dispatcher using deterministic explicitly test-only Activities for this orchestration gate.
 
 Planned paths: `crates/arboresce-workflows/src/capture.rs`, `crates/arboresce-activities/src/capture.rs`.
 
-Definition of green: Required failure blocks; optional results remain; retry yields one result; history contains neither blob bytes nor secrets.
+Definition of green: Required failure blocks; optional omissions/results remain explicit; retry yields one result; histories contain neither blob bytes nor secrets. Submit/replay/later readiness creates no analysis operation and receipt expiry cannot erase submission attribution. Actual registered Temporal tests qualify orchestration source; runnable real processing stays disabled until E086 qualifies its selected adapters/gateway.
 
-### E073 — Expose operation status and cancellation
+### E073 — Extend operation status and cancellation for analysis
 
 Status: `not_started`. Prerequisites: E072. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Serve typed state/result/progress, expiry and retry metadata under current permission; model cancellation-versus-effect races explicitly.
+Scope: Extend E063's existing shared operation GET/cancel and plan/ledger handling for capture analysis with typed state/result/progress, expiry and retry metadata under current permission. Qualify cancellation-versus-effect races using deterministic test Activities; do not introduce a second operation endpoint implementation, store or scheduler.
 
 Planned paths: `crates/arboresce-api/src/routes/operations.rs`, `crates/arboresce-application/src/operations/`.
 
-Definition of green: Success has no failure code; actual committed effects survive cancellation races; foreign status stays hidden; stale revision conflicts.
+Definition of green: Success has no failure code; complete actual effects/exposures survive cancellation, required ledgers never truncate, foreign status stays hidden and stale revision conflicts. Original cancellation replay retains its observed snapshot; current GET is distinct. Synthetic Activity success does not enable real capture.analyze before E086.
 
 ### E074 — Verify replay restarts and fencing
 
 Status: `not_started`. Prerequisites: E072, E073, E068. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Commit deterministic synthetic histories for success, retry, cancellation and failure points, then exercise worker restarts and accepted-result fencing.
+Scope: Commit deterministic explicitly synthetic histories for success, retry, cancellation and failure points, then exercise worker restarts and accepted-result fencing against the registered real Temporal service. Preserve complete plans/ledgers and fixed deadlines across replay and takeover.
 
 Planned paths: `tests/temporal-replay/`, `tests/integration/temporal/`, `tools/xtask/`.
 
-Definition of green: Replay across code changes passes; duplicated completion cannot duplicate effects; unknown variants fail safely; no live provider is needed.
+Definition of green: Replay across code changes passes; duplicated completion cannot duplicate effects; unknown variants fail safely; no live provider is needed for this orchestration qualification. Test-only Activities/histories never establish actual processing support; E086 owns real adapter activation and all existing native server/environment gates remain required.
 
 ### E075 — Implement Python gRPC service validation
 
@@ -1119,11 +1123,11 @@ Definition of green: No fabricated source or approval; negative evidence retaine
 
 Status: `not_started`. Prerequisites: E085, E072, E081, E018-process-coverage. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Add gRPC adapter with deadlines, heartbeat/cancellation, typed revalidation, receipts and reservation settlement. Instrument Rust-launched Python service lifetimes.
+Scope: Add gRPC adapter with deadlines, heartbeat/cancellation, exact stage/input/output/profile revalidation, complete exposure evidence and reservation settlement. Wire and qualify the selected real processing adapters/gateway/profiles end-to-end before enabling actual capture.analyze. Instrument Rust-launched Python service lifetimes.
 
 Planned paths: `crates/arboresce-intelligence-grpc/`, `crates/arboresce-activities/src/processing/`, `tests/integration/processing/`, `Cargo.toml`, `Cargo.lock`.
 
-Definition of green: Retry reuses accepted result; timeout retains uncertain cost; invalid outputs cannot become canonical; no approval side channel; cross-language process coverage is complete.
+Definition of green: Retry reuses accepted result; timeout retains uncertain cost; invalid outputs cannot become canonical; no approval side channel; cross-language process coverage is complete. Required/optional part and analysis/effect joins, actual service attribution, finite combined serialization/counter limits and current-authority fences pass with the selected real adapters. Earlier deterministic Activities and synthetic replay are retained evidence of their narrower source scope.
 
 ### E087 — Verify synthetic processing across processes
 
@@ -1219,11 +1223,11 @@ Definition of green: Date-only and time-zone boundaries are tested; void/proposa
 
 Status: `not_started`. Prerequisites: E095. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Provide lossless structured reports and separately specified safe CSV with permission-checked source references and bounded streaming.
+Scope: Preserve complete financial JSON/reversible CSV payload semantics and implement the [sealed financial artifact/delivery contract](../requirements/lifecycle-contract.md#10-sealed-financial-export-and-bounded-delivery): exact result/core/reference, full staged-byte verification, fixed exclusive expiry, current control/authority, finite generation/staging/transfer/shared-slot profile and exact authenticated content/delivery reads.
 
-Planned paths: `crates/arboresce-application/src/exports/`, `crates/arboresce-api/src/routes/reports.rs`.
+Planned paths: `crates/arboresce-application/src/exports/`, `crates/arboresce-api/src/routes/reports.rs`, `crates/arboresce-api/src/routes/exports.rs`, `tests/integration/exports/`.
 
-Definition of green: Formula injection escaped without altering canonical data; no mixed-currency sum; unresolved eligible exclusions explicit; no tax-certification claim.
+Definition of green: Formula safety preserves reversible values; no mixed-currency sum; unresolved eligible exclusions stay explicit; no tax-certification claim. Actual complete 64 MiB JSON/CSV artifacts and downloads satisfy full digest/length/header/throughput/finite-budget tests, safe client destination verification, replay/lost-response and fixed-expiry/current-authority/midstream-failure races. No unsealed partial stream or receipt claims completion; already admitted delivery has only its fixed grant. This is not complete customer-exit qualification.
 
 ### E097 — Verify the financial user journey
 
@@ -1369,31 +1373,31 @@ Definition of green: Cycles and foreign links fail; deprecation preserves bytes;
 
 Status: `not_started`. Prerequisites: E109, E106, E041. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Apply control revision and current admission locks to revoke evidence and persist dependent invalidation/cleanup obligations atomically.
+Scope: Implement [canonical revoke and initial propagation](../requirements/lifecycle-contract.md#8-revocation-obligation-bounded-cleanup-and-exact-material-actions): current subject/control admission, shared read/materializing-writer fence, immutable complete inventory snapshot/head comparison, immediate canonical restriction and atomic event/admission/obligation/one initial operation/plan/continuity association. Implement complete initial enumeration/manifest/action/proof/completion and exact obligation/action/evidence reads.
 
-Planned paths: `crates/arboresce-application/src/revocation/`, `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-api/src/routes/artifacts.rs`.
+Planned paths: `crates/arboresce-application/src/revocation/`, `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-api/src/routes/artifacts.rs`, `crates/arboresce-api/src/routes/lifecycle.rs`, `crates/arboresce-workflows/src/lifecycle.rs`, `tests/integration/lifecycle/`.
 
-Definition of green: Download/revoke barriers prove admission boundary; stale control conflicts; required components block new resolution; hold cannot broaden reads.
+Definition of green: Download/revoke barriers prove immediate admission denial; stale control conflicts; required components block new resolution; hold cannot broaden reads. Complete empty inventory is proved. Over-cap/unknown/transient initial enumeration fails before action admission and preserves durable directly readable repairable obligation and original failed/cancelled operation, including null manifest. Exact targets/actions/authentic performed proof and late-confirmation fences prevent fake cleanup success. E124 must qualify mandatory finite multi-batch repair; E111 cannot substitute repeated revoke, truncation or a global cardinality cap.
 
 ### E112-retention-contract — Define generic lifecycle policy
 
 Status: `not_started`. Prerequisites: E111, E050. Verify lane: DOC + CONTRACT; add applicable language lanes for executable validators.
 
-Scope: Freeze parameterized retention, hold, expiry, reference accounting, purge obligations, key/trust recovery and independent journal completeness semantics. Provide synthetic test policy values with explicit fixture status. Actual deployment policy remains X-DEPLOYMENT-POLICY and gates private-data/purge qualification rather than unrelated synthetic implementation.
+Scope: Refine the [lifecycle contract](../requirements/lifecycle-contract.md) with actual parameterized retention/hold/reference/purge policy interpretation, exact complete physical-copy manifest/receipt profiles, key/trust recovery and finite passive-receipt producer/verifier semantics. E050 independent continuity already qualifies the first consumer; extend its exact retained repair/coverage associations when E124 adds producers. Synthetic policy remains explicitly fixture-only; actual deployment policy is X-DEPLOYMENT-POLICY and gates real-data/purge qualification.
 
 Planned paths: `docs/requirements/security-and-privacy.md`, `docs/requirements/recovery.md`, `contracts/public/`, `contracts/internal/`, `tests/fixtures/scenarios/`.
 
-Definition of green: no unsupported retention promise; unknown actual policy cannot enable real purge; held-but-revoked cases deny read while retaining bytes; policy version and journal gap behavior have independent oracle approval.
+Definition of green: No unsupported retention promise; unknown actual policy cannot enable purge; held-but-revoked cases deny read while retaining bytes; exact policy/version/copy/evidence interpretation and all finite lifetime/capacity bounds have independent oracle approval. Recognition after receipt expiry and retired-scope non-reuse remain intact; prepared bytes contain no future canonical observations and committed bindings retain actual cause/control/effect relations.
 
 ### E112 — Implement bounded purge and holds
 
 Status: `not_started`. Prerequisites: E111, E064, E112-retention-contract. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Execute policy-driven deletion of controlled raw/derived/projection/export/cache copies with rechecked holds/reference counts and durable receipts. Synthetic tests use the generic lifecycle policy contract.
+Scope: Implement [bounded holds and purge](../requirements/lifecycle-contract.md#6-lifecycle-subjects-controls-and-commands) over complete fixed exact physical-copy obligations and qualified scoped policy. Recheck holds/references/leases/versions/continuity before each irreversible handoff; retain full action/exposure/confirmation ledgers and finite passive-ingress evidence. Synthetic tests use the generic policy; actual policy and storage evidence qualify before real purge.
 
-Planned paths: `crates/arboresce-workflows/src/purge.rs`, `crates/arboresce-activities/src/purge.rs`, `crates/arboresce-application/src/lifecycle/`.
+Planned paths: `crates/arboresce-workflows/src/purge.rs`, `crates/arboresce-activities/src/purge.rs`, `crates/arboresce-application/src/lifecycle/`, `crates/arboresce-api/src/routes/lifecycle.rs`, `tests/integration/lifecycle/`.
 
-Definition of green: Held bytes remain while reads are denied; retries cannot delete shared references; partial purge is explicit; tombstones survive recovery; remote-copy recall is not promised.
+Definition of green: Held bytes remain while reads deny; surviving references/replacement versions are protected; unresolved handoffs block protected hold/reference success and duplicate action. Partial purge and conservative cost are explicit; expiry is not not_performed proof. Current-authorized late confirmation may truthfully advance old exact obligations only within current shared/newer-control fences, with terminal operation/result/deadlines unchanged. Complete copy receipts and independent continuity survive recovery; external recall is never promised.
 
 ### E113 — Define complete customer exports
 
@@ -1509,11 +1513,11 @@ Definition of green: Concurrent writers follow documented pause/queue policy; co
 
 Status: `not_started`. Prerequisites: E123, E112. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
 
-Scope: Deliver high-priority derived invalidation/deletion and generation-aware cache changes while canonical admission already denies.
+Scope: Implement mandatory [finite propagation repair and authentic complete coverage](../requirements/lifecycle-contract.md#required-bounded-repair-and-complete-coverage-at-e124) while canonical admission already denies. Before first repair mutation, add its actual registered closed command, operation kind/result, immutable repair/predecessor/batch/range/coverage records, exact plans/stage results, current-authorized reads and complete prepared/committed lifecycle-pair payload/binding schemas. Reuse E046/E050 operation/lifecycle persistence and E071 dispatcher. Each repair operation handles one complete bounded contiguous range over the original immutable inventory under a finite authorized grant, with one live batch and preserved prior failed/cancelled history.
 
-Planned paths: `crates/arboresce-projector/`, `crates/arboresce-activities/src/purge.rs`, `tests/integration/qdrant/`.
+Planned paths: `crates/arboresce-projector/`, `crates/arboresce-activities/src/purge.rs`, `crates/arboresce-application/src/lifecycle/`, `crates/arboresce-api/src/routes/lifecycle.rs`, `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-workflows/src/lifecycle.rs`, `contracts/public/`, `contracts/internal/`, `tests/integration/lifecycle/`, `tests/integration/qdrant/`, owning lifecycle/recovery guidance.
 
-Definition of green: Paused projector cannot broaden reads; old add events cannot resurrect authority; shared bytes remain; repeated deletion is safe.
+Definition of green: Actual RUST and SERVICE/Qdrant multi-batch tests cover 0/254/255/256/257+ inventory, escaped near-byte limits, failed initial enumeration/null manifest, empty repair, interrupted/failed/cancelled ranges and worker loss at every boundary. Reuse authentic earlier performed evidence without a new effect; unknown handoffs block duplicates; only affirmative not_performed permits a new exact authorized action. Current holds/references/version/policy/authority/continuity and predecessor/head fences hold. Reject gaps/overlaps/duplicates/extras/wrong roots, unverified predecessors and max-ordinal-only coverage. Non-final batch result is distinct from whole-obligation success. Final coverage/head/completion/satisfaction and successful terminal result bind atomically; late final confirmation preserves failed/cancelled terminal outcomes and older receipts remain on original ledgers. Exact repair/batch/coverage/history reads and independent complete graph retention pass before activation, including receipt-GC and old-backup recovery inputs. Paused projection, old add events and failed repair cannot resurrect authority; no whole-obligation cap, hidden continuation, seventh journal family or second scheduler/store. This gate already precedes E134-restore.
 
 ### E125 — Verify retrieval disorder through CLI
 
@@ -1619,11 +1623,11 @@ Definition of green: Clean installation reads exports; wrong hashes fail; unavai
 
 Status: `not_started`. Prerequisites: E134, E112-retention-contract, E124, E074. Verify lane: RUST + SERVICE + E2E.
 
-Scope: Add real public restoration tooling and runbook for database, sealed bytes, keys/trust and current independently retained post-backup revocation/deletion/hold journal. Restore in an isolated environment with serving disabled; prove journal completeness, reapply later restrictions, rebuild projections and only then permit qualified serving. Parameterize policy and require separately approved operational resources.
+Scope: Add real public restoration tooling and runbook for database, sealed bytes, keys/trust and current independently retained six-family post-backup lifecycle/recognition/retirement history. Restore initial operations and all later repair predecessors/batches/ranges/actions/confirmations/coverage/completion plus exact cause/control/effect/exposure/audit/outbox associations. Authenticate the complete inventory interpretation and coverage graph in bounded phases with serving disabled; reapply restrictions, reconstruct projections, then permit qualified serving. Parameterize policy and require separately approved operational resources.
 
 Planned paths: `crates/arboresce-admin/`, `tests/integration/recovery/`, `tests/e2e/recovery/`, `docs/runbooks/recovery.md`, `tools/xtask/`.
 
-Definition of green: D0 backup followed by revocation/deletion/hold changes restores without resurrected access; missing blobs/keys/journal tail or unknown completeness keeps serving closed; derived corruption rebuilds from canonical state. Packaged repetition after E137 is required for G4/private-user qualification; full D1 E09 remains required for G6.
+Definition of green: Actual D0 old-backup restore followed by later revocation/deletion/holds, failed initial enumeration/null manifest, multiple authorized ranges, interrupted/failed/cancelled repair, passive confirmations and receipt GC preserves every immutable terminal outcome and prevents duplicate uncertain deletion or resurrected access. Missing blobs/keys/tail/cutoff/binding/predecessor/range/action/coverage bytes or altered/gapped/wrong-root proof keeps affected serving closed. Derived corruption rebuilds from canonical state. Packaged repetition after E137 remains required for G4/independent-user qualification; full D1 E09 remains required for G6. Existing E124 prerequisite already ensures complete repair precedes this gate.
 
 ### E135 — Build minimal Rust service images
 
@@ -1697,7 +1701,7 @@ Definition of green: Dependency inventory matches image; controlled fixture sign
 
 ## Execution evidence and reconciliation
 
-Of 141 numbered slices and four suffix slices, E001–E007 are complete and the other 138 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
+Of 141 numbered slices and four suffix slices, E001–E007 are complete; E008 is `in_progress` and the other 137 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
 
 Each checkpoint records source revision/dirty state, contracts, schemas, dependency locks, tool versions, feature/native profile, dataset/scorer identity, exact command, selected tests, raw coverage, duration, results/skips/failures, independent review and gate effect. Redact secrets and evidence content. Record the completed commit hash in subsequent or external evidence rather than recursively embedding its own hash. A local build, a mock, an unsigned candidate and an accepted request have distinct meanings and cannot stand in for live qualification, signed release or completed processing.
 

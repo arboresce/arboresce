@@ -123,13 +123,27 @@ multi-table RLS predicates alone do not serialize concurrent revocation. The
 persistence. No provider request, parsing or byte stream runs while these
 database locks are held.
 
-The initial pilot policy retains completed keys for at least seven days and
-key tombstones for 30 days. Responses disclose the applicable expiry. These
-are idempotency defaults for qualification, not customer legal-retention
-promises. A client that loses a response retries the same intent with the
-same key. Expiry requires an explicit new operation; it must not silently
-repeat a financial effect. Business duplicate detection is independent of
-command idempotency and remains a review suggestion.
+The [lifecycle retention contract](lifecycle-contract.md#11-retention-recognition-and-independent-continuity)
+owns selected terminal-relative replay and diagnostic durations, their exact
+bounds, minimized recognition and independently durable scope retirement. Replay
+retention is at least seven days; diagnostic retention is at least thirty days
+and strictly longer than replay. These minima do not select actual deployment
+policy or promise legal retention. Pending operations retain null deadlines;
+terminalization fixes both once. A lost-response retry keeps its original key.
+Expired POST replay returns idempotency_expired/409 and cannot repeat an effect.
+GET uses fresh current authorization and can return genuinely retained complete
+details with the original receipt after expiry; removed required details return
+operation_details_unavailable/409. Unknown required infrastructure or continuity
+uses 503, and inaccessible identity remains 404.
+
+Before a new claim can commit, independently acknowledge its exact prepared
+recognition intent outside canonical locks. The short transaction atomically
+binds recognition, claim, operation or effect, reservations, audit and outbox;
+the independently retained committed resolution binds actual admission and
+relations afterward. The lifecycle owner defines finite preparation, abort proof,
+retired-scope races and closed-serving recovery. No old-backup absence or expired
+receipt makes an admitted identity new. Business duplicate detection remains a
+separate review suggestion.
 
 ## Acquisition and review operations
 
@@ -142,8 +156,12 @@ Upload allocation grants only a scoped staging destination, permitted headers,
 media and byte bounds. Finalization names the upload and expected byte length
 and digest. The service returns acceptance only for the binding required by
 [sealed storage](storage-and-search.md#sealed-objects-and-finalization).
-Capture submission fixes an ordered required/optional attachment set; upload
-completion alone does not imply capture readiness or successful processing.
+Capture submission fixes an ordered required/optional attachment set and remains
+atomic 200. It starts no processing operation, including on replay or later
+attachment readiness. The separately authorized
+[capture.analyze command](lifecycle-contract.md#5-acquisition-and-analysis)
+binds the exact submitted revision/control and immutable submission attribution.
+Upload completion alone does not imply capture readiness or successful processing.
 
 Review commands are distinct variants. `revise` requires a complete replacement
 of candidate content, including statement, scope, assumptions, all evidence
@@ -216,16 +234,83 @@ Current access restrictions apply even to content with a valid signature.
 
 ## Operations, lifecycle and exports
 
-An operation resource exposes typed progress, terminal result or failure,
-retry/expiry metadata and actual committed effects under current permission.
-Operation identity, workflow/run identity, stage result and attempt are distinct;
-[processing](processing.md) owns their durable execution semantics.
+The [lifecycle contract](lifecycle-contract.md#3-shared-operation-plan-clocks-and-evidence)
+owns complete plans, operation controls, stage/attempt clocks, actual effects,
+exposures and material-action ledgers. Operation identity, workflow/run identity,
+stage result and attempt are distinct; [processing](processing.md) owns durable
+orchestration. Every exact record or ledger read is complete or fails, with no
+hidden entries, fabricated empty set or pagination of one operation ledger.
 
-Cancellation is an explicit command. Stopping client-side waiting detaches by
-default. Completion may win the cancellation race; report the actual final
-state. Cancellation neither deletes completed immutable results nor implies
-that an external effect was undone. Compensation requires its own authorized
-operation where necessary.
+The [operation.cancel contract](lifecycle-contract.md#4-cancellation) compares the
+expected control before terminal state and atomically returns requested,
+already_requested or already_terminal with its own immutable record/receipt.
+Replay retains its original observed target snapshot. Success and cancellation
+share the final fence; stale cancellation conflicts even if completion just won.
+Client waiting detaches by default. Cancellation preserves irreversible work,
+source restriction, purge responsibility and uncertainty; bounded authenticated
+[late confirmation](lifecycle-contract.md#9-late-confirmation-and-cancellation-races)
+never changes a terminal result or starts hidden replacement work.
+
+### Exact lifecycle transport inventory
+
+Every mutation below uses closed {metadata,body}; the lifecycle owner defines
+every field, precondition and result. All exact GETs require organization_id,
+domain_id and purpose query selectors, reject extra/duplicate selectors, decode
+once and match route/reference scope. Read-only POSTs use their exact closed
+body and carry no command receipt. These are specified capabilities; actual
+support begins only after the owning implementation qualifies them.
+
+| Command | POST route | Initial success |
+| --- | --- | --- |
+| upload.abort | /v1/uploads/{upload_id}/abort | Atomic 200, aborted upload and own terminal receipt. |
+| capture.analyze | /v1/captures/{capture_id}/analyses | 202, operation and originating pending receipt. |
+| operation.cancel | /v1/operations/{operation_id}/cancel | Atomic 200, cancellation and observed target, own receipt. |
+| lifecycle.revoke | /v1/lifecycle/revocations | Atomic 200, immediate restriction, event, initial propagation and obligation. |
+| lifecycle.hold.place | /v1/lifecycle/holds | Atomic 200, control/event/hold and own receipt. |
+| lifecycle.hold.release | /v1/lifecycle/holds/{hold_id}/release | Atomic 200, exact release/control and own receipt. |
+| lifecycle.purge | /v1/lifecycle/purges | 202 with durable purge-request effect. |
+| feedback.record | /v1/feedback | Atomic 200, immutable attributed record and own receipt. |
+
+The [origin/transport matrix](lifecycle-contract.md#2-capability-origin-and-transport-matrix)
+preserves all twenty-one earlier public requests. Command-origin operation GET
+and eligible ordinary POST replay use common 200 result {operation,
+idempotency_receipt} with no top-level receipt. Internal lifecycle.propagate GET
+uses {operation,origin_event}, with no command receipt at either level and no
+public propagation command. Failed/cancelled resource reads retain their actual
+work outcome. The [upload.finalize exceptions](lifecycle-contract.md#5-acquisition-and-analysis)
+retain 202 nonterminal replay with sealing upload, direct 200 successful result
+with original finalization reference and own terminal receipt, and the fresh-key
+sealed-binding lookup without a new operation. Failed/cancelled replay and every
+finalizer operation GET use the command-origin 200 operation wrapper.
+
+| Exact read | Required result or content |
+| --- | --- |
+| GET /v1/operations/{operation_id} | Origin-selected operation wrapper above. |
+| GET /v1/operation-plans/{plan_id} | {plan}, complete immutable plan. |
+| GET /v1/uploads/{upload_id} | {upload}, required lifecycle control specialization. |
+| GET /v1/captures/{capture_id} | {capture}, current resource. |
+| GET /v1/captures/{capture_id}/revisions/{version} | {capture}, exact immutable revision. |
+| GET /v1/capture-analyses/{analysis_id} | {analysis}, complete success record. |
+| POST /v1/lifecycle/resolve | {control}; body {context,subject}. |
+| GET /v1/lifecycle/events/{event_id} | {event,obligation}; revoke has obligation, other events null. |
+| GET /v1/lifecycle/holds/{hold_id} | {hold}. |
+| GET /v1/lifecycle-propagation-obligations/{obligation_id} | {obligation}, including original operation and retained repair head. |
+| GET /v1/lifecycle-propagation-manifests/{manifest_id} | {manifest}. |
+| GET /v1/lifecycle-propagation-proofs/{proof_id} | {proof}. |
+| GET /v1/lifecycle-propagations/{propagation_id} | {propagation}. |
+| GET /v1/lifecycle-actions/{action_id} | {action}, complete action record and current control. |
+| GET /v1/lifecycle-confirmations/{confirmation_id} | {confirmation}. |
+| GET /v1/export-artifacts/{export_id} | {artifact}, exact sealed identity and observed availability. |
+| POST /v1/export-artifacts/{export_id}/content | Complete bounded binary content; body {context,artifact,expected_control_revision}. |
+| GET /v1/export-deliveries/{delivery_id} | {delivery}, admission receipt without a reusable grant. |
+| GET /v1/feedback/{feedback_id} | {feedback}. |
+
+Except the origin-selected operation wrapper, these JSON reads use additive
+common 200 results without a command receipt; nested canonical records remain
+closed. The [repair contract obligations](lifecycle-contract.md#required-bounded-repair-and-complete-coverage-at-e124)
+reserve exact repair/batch/coverage reads for E124, which must define complete
+records and registered mutation/result/operation transport before activation.
+E008 does not enable a ninth operation or an unspecified repair command.
 
 The public surface must cover identity and membership; upload/capture and
 authorized download; processing and cancellation; candidates/reviews/assets;

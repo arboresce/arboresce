@@ -1,0 +1,1468 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arboresce internal lifecycle and command continuity v1 contract definitions",
+  "description": "Library only: select a named $defs target. The root rejects all instances. Structural validation does not establish exact hashes, cross-record joins, current authority, time arithmetic, inventory completeness, authentic evidence, continuity or runtime qualification.",
+  "not": {},
+  "$defs": {
+    "recognition_scope": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "principal_id"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "principal_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "recognition_identity": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "principal_id",
+        "command",
+        "key_digest"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "principal_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "command": {
+          "allOf": [
+            {
+              "$ref": "../../public/v1/common.schema.json#/$defs/command_name"
+            },
+            {
+              "not": {
+                "const": "lifecycle.propagate"
+              }
+            }
+          ]
+        },
+        "key_digest": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "recognition_reference": {
+      "type": "object",
+      "required": [
+        "scope",
+        "recognition_sha256"
+      ],
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/recognition_scope"
+        },
+        "recognition_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "continuity_intent_reference": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "intent_id"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "recognition_entry": {
+      "type": "object",
+      "required": [
+        "recognition",
+        "admitted_at",
+        "intent"
+      ],
+      "properties": {
+        "recognition": {
+          "$ref": "#/$defs/recognition_reference"
+        },
+        "admitted_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "intent": {
+          "$ref": "#/$defs/continuity_intent_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "origin_candidate": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "command_id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "command"
+            },
+            "command_id": {
+              "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "operation"
+          ],
+          "properties": {
+            "kind": {
+              "const": "operation"
+            },
+            "operation": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/operation_reference"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "command_origin_candidate": {
+      "type": "object",
+      "required": [
+        "kind",
+        "command_id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "command"
+        },
+        "command_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "command_admission_reference": {
+      "$ref": "../../public/v1/lifecycle.schema.json#/$defs/historical_command_cause"
+    },
+    "continuity_abort_reference": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "intent_id",
+        "abort_id",
+        "proof_reference"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "abort_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "proof_reference": {
+          "type": "object",
+          "required": [
+            "sha256",
+            "byte_length"
+          ],
+          "properties": {
+            "sha256": {
+              "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+            },
+            "byte_length": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65536
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "recognition_intent": {
+      "type": "object",
+      "required": [
+        "intent_id",
+        "organization_id",
+        "prepared_at",
+        "origin",
+        "recognition",
+        "policy"
+      ],
+      "properties": {
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "prepared_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "origin": {
+          "$ref": "#/$defs/command_origin_candidate"
+        },
+        "recognition": {
+          "$ref": "#/$defs/recognition_reference"
+        },
+        "policy": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/organization_policy_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "recognition_resolution": {
+      "type": "object",
+      "required": [
+        "intent_id",
+        "organization_id",
+        "resolved_at",
+        "outcome"
+      ],
+      "properties": {
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "resolved_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "outcome": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "recognition",
+                "admission"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "committed"
+                },
+                "recognition": {
+                  "$ref": "#/$defs/recognition_reference"
+                },
+                "admission": {
+                  "$ref": "#/$defs/command_admission_reference"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "abort"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "aborted"
+                },
+                "abort": {
+                  "$ref": "#/$defs/continuity_abort_reference"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "retirement_scope": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "organization_id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "organization"
+            },
+            "organization_id": {
+              "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "organization_id",
+            "principal_id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "principal"
+            },
+            "organization_id": {
+              "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+            },
+            "principal_id": {
+              "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "scope_retirement_reference": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "retirement_id",
+        "retirement_sha256"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "retirement_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "retirement_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope_retirement_core": {
+      "type": "object",
+      "required": [
+        "kind",
+        "retirement_id",
+        "scope",
+        "retired_at",
+        "policy",
+        "cause",
+        "intent"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.command-scope-retirement.v1"
+        },
+        "retirement_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "scope": {
+          "$ref": "#/$defs/retirement_scope"
+        },
+        "retired_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "policy": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/organization_policy_reference"
+        },
+        "cause": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/historical_cause_snapshot"
+        },
+        "intent": {
+          "$ref": "#/$defs/continuity_intent_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope_retirement_record": {
+      "type": "object",
+      "required": [
+        "core",
+        "retirement_sha256"
+      ],
+      "properties": {
+        "core": {
+          "$ref": "#/$defs/scope_retirement_core"
+        },
+        "retirement_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope_retirement_intent": {
+      "type": "object",
+      "required": [
+        "intent_id",
+        "organization_id",
+        "prepared_at",
+        "origin",
+        "retirement_id",
+        "scope",
+        "policy"
+      ],
+      "properties": {
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "prepared_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin_candidate"
+        },
+        "retirement_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "scope": {
+          "$ref": "#/$defs/retirement_scope"
+        },
+        "policy": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/organization_policy_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope_retirement_resolution": {
+      "type": "object",
+      "required": [
+        "intent_id",
+        "organization_id",
+        "resolved_at",
+        "outcome"
+      ],
+      "properties": {
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "resolved_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "outcome": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "retirement"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "committed"
+                },
+                "retirement": {
+                  "$ref": "#/$defs/scope_retirement_reference"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "abort"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "aborted"
+                },
+                "abort": {
+                  "$ref": "#/$defs/continuity_abort_reference"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "upload_session_journal_subject": {
+      "type": "object",
+      "required": [
+        "kind",
+        "organization_id",
+        "upload_id",
+        "generation"
+      ],
+      "properties": {
+        "kind": {
+          "const": "upload_session"
+        },
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "upload_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "generation": {
+          "$ref": "../../public/v1/acquisition.schema.json#/$defs/upload_generation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "upload_session_event_core": {
+      "type": "object",
+      "required": [
+        "kind",
+        "event_id",
+        "subject",
+        "previous_control_revision",
+        "control_revision",
+        "action",
+        "state",
+        "problem",
+        "policy",
+        "execution",
+        "recorded_at",
+        "journal_intent_id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.upload-session-terminal.v1"
+        },
+        "event_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "subject": {
+          "$ref": "#/$defs/upload_session_journal_subject"
+        },
+        "previous_control_revision": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/control_revision"
+        },
+        "control_revision": {
+          "allOf": [
+            {
+              "$ref": "../../public/v1/common.schema.json#/$defs/control_revision"
+            },
+            {
+              "properties": {
+                "value": {
+                  "not": {
+                    "enum": [
+                      "1"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "action": {
+          "enum": [
+            "abort",
+            "expire",
+            "reject"
+          ]
+        },
+        "state": {
+          "enum": [
+            "aborted",
+            "expired",
+            "rejected"
+          ]
+        },
+        "problem": {
+          "oneOf": [
+            {
+              "$ref": "../../public/v1/common.schema.json#/$defs/problem"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "policy": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/scoped_policy_reference"
+        },
+        "execution": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/event_action_attribution"
+        },
+        "recorded_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "journal_intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "action": {
+              "const": "abort"
+            },
+            "state": {
+              "const": "aborted"
+            },
+            "problem": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "action": {
+              "const": "expire"
+            },
+            "state": {
+              "const": "expired"
+            },
+            "problem": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "action": {
+              "const": "reject"
+            },
+            "state": {
+              "const": "rejected"
+            },
+            "problem": {
+              "$ref": "../../public/v1/common.schema.json#/$defs/problem"
+            }
+          }
+        }
+      ]
+    },
+    "upload_session_event_record": {
+      "type": "object",
+      "required": [
+        "core",
+        "event_sha256",
+        "admission"
+      ],
+      "properties": {
+        "core": {
+          "$ref": "#/$defs/upload_session_event_core"
+        },
+        "event_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "admission": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/event_admission_record"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "core": {
+                "properties": {
+                  "execution": {
+                    "properties": {
+                      "kind": {
+                        "const": "command"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "admission": {
+                "properties": {
+                  "core": {
+                    "properties": {
+                      "execution": {
+                        "properties": {
+                          "kind": {
+                            "const": "command"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "core": {
+                "properties": {
+                  "execution": {
+                    "properties": {
+                      "kind": {
+                        "const": "worker"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "admission": {
+                "properties": {
+                  "core": {
+                    "properties": {
+                      "execution": {
+                        "properties": {
+                          "kind": {
+                            "const": "worker"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "continuity_binding_reference": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "binding_id",
+        "profile",
+        "content_sha256",
+        "byte_length"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "binding_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "profile": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/integrity_profile_reference"
+        },
+        "content_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65536
+        }
+      },
+      "additionalProperties": false,
+      "description": "Exact independently retained integrity-profile binding bytes. Both complete prepared and committed producer/verifier contracts and authentic continuity interpretation are required before mutation."
+    },
+    "initial_propagation_binding": {
+      "type": "object",
+      "required": [
+        "obligation",
+        "inventory",
+        "operation",
+        "plan"
+      ],
+      "properties": {
+        "obligation": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_obligation_record"
+        },
+        "inventory": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_inventory_snapshot_reference"
+        },
+        "operation": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "plan": {
+          "allOf": [
+            {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/execution_plan_record"
+            },
+            {
+              "properties": {
+                "core": {
+                  "properties": {
+                    "command": {
+                      "const": "lifecycle.propagate"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "journal_prepared_payload": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "core",
+            "propagation"
+          ],
+          "properties": {
+            "kind": {
+              "const": "material_event"
+            },
+            "core": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/lifecycle_event_core"
+            },
+            "propagation": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/initial_propagation_binding"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "core": {
+                    "properties": {
+                      "action": {
+                        "const": "revoke"
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "propagation": {
+                    "$ref": "#/$defs/initial_propagation_binding"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "propagation": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "core"
+          ],
+          "properties": {
+            "kind": {
+              "const": "upload_session_event"
+            },
+            "core": {
+              "$ref": "#/$defs/upload_session_event_core"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "material_action"
+            },
+            "record": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/lifecycle_material_action_record"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "material_confirmation"
+            },
+            "record": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/lifecycle_material_confirmation_record"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "propagation_manifest"
+            },
+            "record": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_manifest_record"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "proof",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "propagation_completion"
+            },
+            "proof": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_proof_record"
+            },
+            "record": {
+              "allOf": [
+                {
+                  "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_record"
+                },
+                {
+                  "properties": {
+                    "core": {
+                      "properties": {
+                        "repair": {
+                          "type": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "coverage",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "propagation_repair_completion"
+            },
+            "coverage": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_coverage_reference"
+            },
+            "record": {
+              "allOf": [
+                {
+                  "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_record"
+                },
+                {
+                  "properties": {
+                    "core": {
+                      "properties": {
+                        "repair": {
+                          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_repair_reference"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "journal_committed_payload": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "event",
+            "admission"
+          ],
+          "properties": {
+            "kind": {
+              "const": "material_event"
+            },
+            "event": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/lifecycle_event_reference"
+            },
+            "admission": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/event_admission_record"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "event",
+            "admission"
+          ],
+          "properties": {
+            "kind": {
+              "const": "upload_session_event"
+            },
+            "event": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/lifecycle_event_reference"
+            },
+            "admission": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/event_admission_record"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "action"
+          ],
+          "properties": {
+            "kind": {
+              "const": "material_action"
+            },
+            "action": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/lifecycle_material_action_reference"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "confirmation"
+          ],
+          "properties": {
+            "kind": {
+              "const": "material_confirmation"
+            },
+            "confirmation": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/lifecycle_material_confirmation_reference"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "manifest"
+          ],
+          "properties": {
+            "kind": {
+              "const": "propagation_manifest"
+            },
+            "manifest": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_manifest_reference"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "proof",
+            "propagation"
+          ],
+          "properties": {
+            "kind": {
+              "const": "propagation_completion"
+            },
+            "proof": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_proof_reference"
+            },
+            "propagation": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_record_reference"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "repair",
+            "coverage",
+            "propagation"
+          ],
+          "properties": {
+            "kind": {
+              "const": "propagation_repair_completion"
+            },
+            "repair": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_repair_reference"
+            },
+            "coverage": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_coverage_reference"
+            },
+            "propagation": {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/propagation_record_reference"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "journal_intent": {
+      "type": "object",
+      "required": [
+        "intent_id",
+        "organization_id",
+        "origin",
+        "prepared_at",
+        "prepare_expires_at",
+        "policy",
+        "payloads",
+        "prepared_binding"
+      ],
+      "properties": {
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin_candidate"
+        },
+        "prepared_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "prepare_expires_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "policy": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/scoped_policy_reference"
+        },
+        "payloads": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/journal_prepared_payload"
+          },
+          "uniqueItems": true
+        },
+        "prepared_binding": {
+          "$ref": "#/$defs/continuity_binding_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "journal_resolution": {
+      "type": "object",
+      "required": [
+        "intent_id",
+        "organization_id",
+        "resolved_at",
+        "outcome"
+      ],
+      "properties": {
+        "intent_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "resolved_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "outcome": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "admitted_at",
+                "payloads",
+                "committed_binding"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "committed"
+                },
+                "admitted_at": {
+                  "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+                },
+                "payloads": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 256,
+                  "items": {
+                    "$ref": "#/$defs/journal_committed_payload"
+                  },
+                  "uniqueItems": true
+                },
+                "committed_binding": {
+                  "$ref": "#/$defs/continuity_binding_reference"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "abort"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "aborted"
+                },
+                "abort": {
+                  "$ref": "#/$defs/continuity_abort_reference"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "continuity_record": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "lifecycle_intent"
+            },
+            "value": {
+              "$ref": "#/$defs/journal_intent"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "lifecycle_resolution"
+            },
+            "value": {
+              "$ref": "#/$defs/journal_resolution"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "recognition_intent"
+            },
+            "value": {
+              "$ref": "#/$defs/recognition_intent"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "recognition_resolution"
+            },
+            "value": {
+              "$ref": "#/$defs/recognition_resolution"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "scope_retirement_intent"
+            },
+            "value": {
+              "$ref": "#/$defs/scope_retirement_intent"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "value"
+          ],
+          "properties": {
+            "kind": {
+              "const": "scope_retirement_resolution"
+            },
+            "value": {
+              "$ref": "#/$defs/scope_retirement_resolution"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "continuity_entry": {
+      "type": "object",
+      "required": [
+        "ordinal",
+        "record"
+      ],
+      "properties": {
+        "ordinal": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/positive_revision_value"
+        },
+        "record": {
+          "$ref": "#/$defs/continuity_record"
+        }
+      },
+      "additionalProperties": false
+    },
+    "journal_checkpoint": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "stream_id",
+        "checkpoint_id",
+        "first_ordinal",
+        "last_ordinal",
+        "previous_checkpoint_sha256",
+        "records_sha256",
+        "integrity_profile",
+        "proof_reference"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "stream_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "checkpoint_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "first_ordinal": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/positive_revision_value"
+        },
+        "last_ordinal": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/positive_revision_value"
+        },
+        "previous_checkpoint_sha256": {
+          "oneOf": [
+            {
+              "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "records_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "integrity_profile": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/integrity_profile_reference"
+        },
+        "proof_reference": {
+          "type": "object",
+          "required": [
+            "sha256",
+            "byte_length"
+          ],
+          "properties": {
+            "sha256": {
+              "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+            },
+            "byte_length": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65536
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "continuity_batch": {
+      "type": "object",
+      "required": [
+        "entries",
+        "checkpoint"
+      ],
+      "properties": {
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/continuity_entry"
+          },
+          "uniqueItems": true
+        },
+        "checkpoint": {
+          "$ref": "#/$defs/journal_checkpoint"
+        }
+      },
+      "additionalProperties": false,
+      "description": "A complete finite batch of the six continuity families. Exact contiguous ordinals, authenticated cutoff, retained binding bytes and raw encoded size require separate semantic and storage qualification."
+    }
+  }
+}

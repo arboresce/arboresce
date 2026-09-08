@@ -26,6 +26,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [Data model](data-model.md) | Tenant-scoped identities, relationships, immutable content, controls and lifecycle meaning |
 | [Financial records](financial-records.md) | Complete financial content and identity, exact money and attributable confirmation, closed commands, immutable report selections and lossless JSON/reversible CSV export profiles |
 | [Context contract](context-contract.md) | Complete immutable builds and delivery, independent evaluation receipts, authenticated build approval, exact attestation/trust profiles and generation-checked channel transitions |
+| [Lifecycle and operation contract](lifecycle-contract.md) | Exact operations/plans, cancellation, explicit capture analysis, subject controls, action/propagation/repair obligations, sealed financial delivery, immutable feedback and internal recognition/retirement/continuity records |
 | [Processing](processing.md) | Grounded extraction, supported processing, deterministic orchestration and model gateway behavior |
 | [Storage and search](storage-and-search.md) | Persistence invariants, outbox/projections, sealing and bounded retrieval mechanics |
 | [Security and privacy](security-and-privacy.md) | Identity, authorization, human assurance, acquisition, egress and lifecycle protection |
@@ -43,6 +44,15 @@ independent CLI owns command parsing, terminal presentation, installed process
 behavior and its own distributions; compatible public API behavior is governed
 here. Neither repository needs another checkout's directory layout or unpublished
 context for ordinary contribution and use.
+
+The [lifecycle public library](../../contracts/public/v1/lifecycle.schema.json)
+and [internal continuity library](../../contracts/internal/v1/lifecycle-continuity.schema.json)
+form one fixture family with explicit public and internal target namespaces.
+Internal contracts may import public definitions; public contracts never import
+internal ones. Deferred concrete evidence/repair producers must qualify before
+their first consuming capability. The
+[validation catalogue](../../contracts/validation/README.md) distinguishes these
+parsed-value checks from actual services, canonical hashes, storage and restore.
 
 Missing issuer/provider selections, authorized evaluation material, environment
 capacity, operational policies or approved signing inputs remain explicit

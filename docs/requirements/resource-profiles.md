@@ -47,6 +47,45 @@ profile amendment that preserves the earlier criterion and its result. Local
 inference has its own hardware/context envelope; hosted-inference memory does not
 qualify a local model. Unsupported format or scale is rejected and documented.
 
+## Lifecycle and operation profile qualification
+
+The [shared operation contract](lifecycle-contract.md#3-shared-operation-plan-clocks-and-evidence)
+owns finite wire capacities, execution_limits and clock arithmetic. A selected
+profile must preflight the entire permitted combined execution: stage/attempt
+counts, all effects/exposures/material actions, sampled progress, complete encoded
+responses and reserved late-confirmation/control headroom. Individual maxima are
+not operational defaults and may not fit together. Every operation/stage/attempt,
+reconciliation and cancellation-observation lifetime is finite; retries, lease
+takeover and reads never reset its fixed deadline. Bound actual adapter memory,
+scratch, concurrency, costs and all temporary copies as well as wire records.
+
+The [continuity contract](lifecycle-contract.md#11-retention-recognition-and-independent-continuity)
+requires a positive finite intent_prepare_lifetime_ms in the qualified integrity
+profile, actual retained recognition/storage quotas, bounded complete evidence
+records/batches, and selected terminal-relative replay/diagnostic durations.
+All UTC arithmetic must remain representable. Expired preparation is not abort
+proof; unknown outcomes cannot release consumed capacity. Passive authenticated
+receipt ingestion needs its own finite request/transaction/authority and concrete
+producer/verifier before use; it grants no fresh outbound business action.
+
+The [financial delivery profile](lifecycle-contract.md#10-sealed-financial-export-and-bounded-delivery)
+requires every generation, retry, staging, artifact lifetime, transfer total/idle,
+buffer, organization/global slot and temporary-byte field before support. Qualify
+actual complete 64 MiB artifacts and throughput within those limits. This exact
+financial download has no Range/resume or presigned variant; its fixed bulk
+deadline is separate from the ten-second control-request deadline and preserves
+the ordinary two-second transaction budget. A new delivery never extends the
+artifact's fixed expiry. Later complete customer archives need their own profile.
+
+The [repair owner](lifecycle-contract.md#required-bounded-repair-and-complete-coverage-at-e124)
+requires finite grants and one bounded complete contiguous range per operation,
+including byte-sensitive range sizing, existing/late confirmation headroom and
+all retained failed-attempt history. An inventory larger than one operation is
+handled by separately admitted bounded batches; no arbitrary whole-organization
+or whole-obligation cardinality cap, truncation or hidden continuation is allowed.
+These profile duties preserve the existing shared model/backlog/global-slot and
+USD 1-per-capture qualification ceiling without providing spending authority.
+
 ## Shared admission from the first adapter
 
 Essential admission arrives with the first model, transfer and parser adapters,

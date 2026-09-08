@@ -150,6 +150,16 @@ remain subject to their owners' rights and policies.
 
 ## Revocation and lifecycle policy
 
+The [lifecycle contract](lifecycle-contract.md#6-lifecycle-subjects-controls-and-commands)
+owns exact subjects, controls, scoped policy references, commands and immutable
+attribution. Organization-scoped material requires authority over the whole exact
+shared subject/global restriction; membership in one consuming domain is
+insufficient. Current authorization precedes disclosure of every referenced
+identity, ledger, count or historical association. Return complete authorized
+records or deny the entire read; lifecycle hashes and historical causes grant no
+access. Actual workers retain their own service/audit attribution with null
+delegation and never impersonate the historical human command.
+
 Revocation is measured at canonical admission. A new operation admitted after the
 revocation commits must fail for the revoked scope. An in-flight operation rechecks
 before each new external exposure and stage transition. An already admitted bounded
@@ -165,6 +175,27 @@ the incomplete snapshot instead of silently serving its remaining components.
 Physical deletion must recheck current holds, policy and all authorized references;
 a content hash alone is not a deletion scope. Retain minimal tombstones and
 independently recoverable lifecycle evidence sufficient to prevent restored access.
+
+Revoke atomically denies current use and binds the exact frozen dependency
+inventory, obligation and one bounded initial propagation operation under the
+shared writer fence. Over-cap or unavailable cleanup never undoes or prevents
+the restriction. The [finite repair contract](lifecycle-contract.md#required-bounded-repair-and-complete-coverage-at-e124)
+requires new current authority and qualified finite grants over the original
+inventory, preserving all earlier actions and uncertain handoffs. Automation may
+invoke explicitly authorized repairs within its bounded grant without a fresh
+human prompt each time. Holds and new references cannot claim protected success
+while an earlier irreversible destructive handoff is unresolved. Recheck current
+hold/reference/lease/version/policy/continuity at every consequential boundary.
+
+The [recognition and retirement contract](lifecycle-contract.md#11-retention-recognition-and-independent-continuity)
+separates finite detailed replay/diagnostic retention from minimal admitted-key
+recognition. Membership revoke/regrant, credential rotation and a changed domain
+do not reset its organization/principal scope. Removal requires an independently
+durable irreversible retirement and non-reuse barrier plus actual retention
+permission. The concrete independent continuity, policy interpreter and bootstrap
+namespace must qualify before the first consuming admission. Unknown policy,
+tail, binding or cutoff denies work; a later retention gate cannot justify it
+retroactively.
 
 The lifecycle policy is versioned and parameterized by data class, purpose,
 jurisdiction, hold state, retention trigger, expiry and controlled-copy obligations.

@@ -154,7 +154,8 @@ broaden access, become a cross-tenant existence oracle or authorize deletion
 of bytes another reference still needs.
 
 Authorized downloads bind exact digest/length and current control state, use
-bounded transfer deadlines, and release resources for slow or cancelled clients.
+bounded transfer deadlines, and release only resources proved no longer consumed
+by slow or cancelled clients. Uncertain outcomes retain capacity responsibility.
 [Security and privacy](security-and-privacy.md) owns admission and direct/proxy
 grant policy; search state cannot grant or deny canonical object ownership.
 
@@ -293,6 +294,52 @@ revocation remains effective despite stale caches, old generations or delayed
 invalidation. Verify bounded eviction and no cross-tenant hash oracle.
 
 ## Retention, purge and recovery
+
+The [lifecycle material contract](lifecycle-contract.md#8-revocation-obligation-bounded-cleanup-and-exact-material-actions)
+owns exact registered material identities, inventory snapshots, actions,
+affirmative confirmations and complete obligation/proof relationships. Bind
+organization, owning subject, storage class, opaque physical object/version and
+full byte digest; a hash alone never selects deletion. Actual adapters qualify
+conditional exact-version actions and complete evidence producer/verifier bytes
+before use. Local projection invalidation records its authentic canonical barrier
+proof without a fabricated external exposure. Deletion pre-reserves a real
+storage exposure bound to its exact action hash and actual scoped policy/service.
+
+Revoke prepares a complete immutable inventory snapshot outside database locks,
+then compares its head/version and current authority at the shared final fence.
+All serving and materializing writers enforce restriction immediately. Initial
+enumeration returns the whole exact bounded manifest or fails before action
+admission; unknown/oversized inventory cannot become empty or first-page success.
+The obligation remains durable and directly readable after failure/cancellation.
+
+The [required bounded repair](lifecycle-contract.md#required-bounded-repair-and-complete-coverage-at-e124)
+handles larger inventories through explicitly admitted contiguous ranges over
+that original snapshot, with one live batch, exact predecessor/control CAS and
+complete range/coverage reads. No whole-obligation item cap or hidden continuation
+is permitted. Reuse authentic prior performed evidence without creating a new
+effect; unresolved handoffs block duplicates and only affirmative not_performed
+permits a newly authorized replacement. All failed/cancelled repair history stays
+retained. Complete global coverage proves every contiguous range and authenticated
+inventory end/root or positively verified empty scope. Final coverage, unique
+completion and obligation satisfaction bind atomically. This is mandatory E124
+storage/API/operation/continuity work, including actual Qdrant multi-batch tests.
+
+At every irreversible handoff recheck current holds, surviving references,
+leases, exact physical version, policy and independently established continuity
+inside a short fence; slow I/O stays outside locks. Hold/reference writers must
+conflict or wait boundedly outside locks while a destructive outcome is unresolved.
+Expiry is not abort proof and replacement generations never inherit an old delete.
+[Late confirmation](lifecycle-contract.md#9-late-confirmation-and-cancellation-races)
+uses current evidence-recording authority and preallocated capacity; it preserves
+terminal operation outcomes and never restarts old work or its reconciliation.
+
+E050 must qualify independently retained full inventory interpretation,
+prepared/committed binding and abort proof bytes, six-family authenticated
+continuity and cutoff recovery before the first consuming mutation. Reuse the
+existing operation/lifecycle store for repair/batch/coverage associations; E124
+adds their exact typed lifecycle-pair payloads before their first write. Missing
+relations, history or proof cannot be hidden behind a reference hash. E112 later
+strengthens policy/purge qualification and does not replace this first-use gate.
 
 Account for write amplification across originals, representations, transcripts,
 chunks, vectors, dependency edges, traces, exports, events and backups in the
