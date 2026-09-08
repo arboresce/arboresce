@@ -30,7 +30,7 @@ authority to a syntactically valid request, or replace each operation's contract
 | `identifier`, `sha256` | Canonical opaque UUIDv4 and SHA-256 text. |
 | `content_revision`, `control_revision`, `generation` | Noninterchangeable tagged integer values on the wire. |
 | `command_context`, `idempotency`, `command_metadata` | Closed request metadata with no domain body or client authority claim. |
-| `timestamp`, `idempotency_receipt` | Exact UTC receipt time representation and pending/terminal expiry distinction. |
+| `calendar_date`, `timestamp`, `idempotency_receipt` | Distinct Gregorian dates and exact UTC receipt times, with pending/terminal expiry distinction. |
 | `problem` | Typed RFC 9457 failure with correlated type, code and status. |
 | `result_object`, `success_response`, `operation`, `accepted_response` | Common outcome distinctions and reserved protocol fields. |
 | `health_check`, `readiness`, `readiness_transport`, `liveness` | Role-dependent health values and normalized readiness status/body pairs. |
@@ -91,6 +91,23 @@ rounding and recycling a deleted name's counter are forbidden. Wall-clock time
 does not resolve competing updates. Each operation chooses its exact typed
 body `expected_version` or `expected_generation` and compares it atomically
 with current authority and state. Schema validation cannot perform that check.
+
+## Calendar dates
+
+`calendar_date` is exactly ten ASCII characters in `YYYY-MM-DD` form, with a
+Gregorian year from 0001 through 9999. Require a real calendar date, including
+month lengths and Gregorian leap-year rules. The lexical pattern is paired
+with the enabled `date` format assertion; the pattern alone cannot reject
+February 30. Reject omitted padding, timestamps, offsets, whitespace, year zero
+and impossible dates. Do not coerce a date into midnight or infer a timezone.
+
+The owning domain separately defines date sources, period endpoint ordering,
+reporting policy and comparisons to instants. A date's valid wire shape does
+not establish any of those semantics. The independently authored candidate
+review fixture family exercises this primitive through its named alias;
+the earlier common fixture inventory retains its historical targets and values.
+Later date-consuming domains reference this common definition without depending
+on candidate review or copying a second date grammar.
 
 ## Closed metadata and actor authority
 

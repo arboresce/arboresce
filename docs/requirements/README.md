@@ -19,9 +19,10 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [Product and scope](product-and-scope.md) | The two complete workflows, public capability parity, included outcomes and exclusions |
 | [Architecture](architecture.md) | Component boundaries, dependency direction and canonical versus derived responsibilities |
 | [API](api.md) | Operation contracts, errors, revisions, idempotency, cancellation, exact resolution versus selection and interface compatibility |
-| [Common wire contract](common-contract.md) | Exact shared identifier/revision encodings, command metadata, problems, operation states and readiness shapes; schemas own structural constraints |
+| [Common wire contract](common-contract.md) | Exact shared identifier/revision/date encodings, command metadata, problems, operation states and readiness shapes; schemas own structural constraints |
 | [Acquisition contract](acquisition-contract.md) | Complete upload and capture wire variants, immutable attachment intent, sealed-byte bindings, original/representation identities and readiness; storage owns actual sealing |
 | [Observation contract](observation-contract.md) | Exact representation-bound locators, grounding and source-kind variants, with explicit semantic validation and attribution boundaries |
+| [Candidate review contract](candidate-review-contract.md) | Complete candidate content and identity, discriminated review commands, immutable verdict/mapping references and exact revision/current-authority boundaries |
 | [Data model](data-model.md) | Tenant-scoped identities, relationships, immutable content, controls and lifecycle meaning |
 | [Financial records](financial-records.md) | Reviewable expenses, exact monetary arithmetic, immutable reports and financial export |
 | [Processing](processing.md) | Grounded extraction, supported processing, deterministic orchestration and model gateway behavior |

@@ -97,6 +97,10 @@ readiness. Its operation rules preserve these aggregate distinctions.
 
 ## Evidence and review identity
 
+The [candidate review contract](candidate-review-contract.md) owns the complete
+candidate v1 content, fingerprint and review variants. Its parsed-value schema
+does not replace canonical hashing, current authority or transactional checks.
+
 Candidate fingerprints cover all consequential content, including scope,
 assumptions, qualifications, all evidence roles and invalidation conditions.
 A scope-only edit must change identity. Define deterministic ordering for

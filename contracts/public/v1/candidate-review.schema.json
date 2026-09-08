@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arboresce candidate and review v1 contract definitions",
+  "description": "Select a named definition. Parsed-value checks do not establish canonical content hashes, current authority, revision comparisons, approval provenance or transactional review uniqueness.",
+  "not": {},
+  "$defs": {
+    "knowledge_kind": {"enum": ["reported_fact", "thesis", "heuristic", "method", "exception", "policy", "evaluation", "negative_lesson"]},
+    "calendar_date": {"$ref": "common.schema.json#/$defs/calendar_date"},
+    "content_items": {"type": "array", "maxItems": 32, "items": {"type": "string", "minLength": 1, "maxLength": 2048}},
+    "candidate_scope": {
+      "type": "object",
+      "required": ["summary", "applies_to", "excludes"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1, "maxLength": 8192},
+        "applies_to": {"allOf": [{"$ref": "#/$defs/content_items"}], "minItems": 1},
+        "excludes": {"$ref": "#/$defs/content_items"}
+      },
+      "additionalProperties": false
+    },
+    "applicability": {
+      "oneOf": [
+        {"type": "object", "required": ["kind"], "properties": {"kind": {"const": "unspecified"}}, "additionalProperties": false},
+        {"type": "object", "required": ["kind"], "properties": {"kind": {"const": "unbounded"}}, "additionalProperties": false},
+        {
+          "type": "object",
+          "required": ["kind", "start_date", "end_date"],
+          "properties": {
+            "kind": {"const": "date_period"},
+            "start_date": {"oneOf": [{"$ref": "#/$defs/calendar_date"}, {"type": "null"}]},
+            "end_date": {"oneOf": [{"$ref": "#/$defs/calendar_date"}, {"type": "null"}]}
+          },
+          "additionalProperties": false,
+          "not": {"properties": {"start_date": {"type": "null"}, "end_date": {"type": "null"}}}
+        },
+        {
+          "type": "object",
+          "required": ["kind", "start_at", "end_at"],
+          "properties": {
+            "kind": {"const": "instant_period"},
+            "start_at": {"oneOf": [{"$ref": "common.schema.json#/$defs/timestamp"}, {"type": "null"}]},
+            "end_at": {"oneOf": [{"$ref": "common.schema.json#/$defs/timestamp"}, {"type": "null"}]}
+          },
+          "additionalProperties": false,
+          "not": {"properties": {"start_at": {"type": "null"}, "end_at": {"type": "null"}}}
+        }
+      ]
+    },
+    "review_due": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "object", "required": ["kind", "value"], "properties": {"kind": {"const": "date"}, "value": {"$ref": "#/$defs/calendar_date"}}, "additionalProperties": false},
+        {"type": "object", "required": ["kind", "value"], "properties": {"kind": {"const": "instant"}, "value": {"$ref": "common.schema.json#/$defs/timestamp"}}, "additionalProperties": false}
+      ]
+    },
+    "evidence_set": {
+      "type": "array",
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {"$ref": "observation.schema.json#/$defs/observation_reference"}
+    },
+    "evidence_roles": {
+      "type": "object",
+      "required": ["supporting", "refuting", "qualifying"],
+      "properties": {
+        "supporting": {"$ref": "#/$defs/evidence_set"},
+        "refuting": {"$ref": "#/$defs/evidence_set"},
+        "qualifying": {"$ref": "#/$defs/evidence_set"}
+      },
+      "additionalProperties": false
+    },
+    "candidate_content": {
+      "type": "object",
+      "required": ["knowledge_kind", "statement", "scope", "applicability", "assumptions", "qualifications", "evidence", "invalidation_conditions", "review_due"],
+      "properties": {
+        "knowledge_kind": {"$ref": "#/$defs/knowledge_kind"},
+        "statement": {"type": "string", "minLength": 1, "maxLength": 16384},
+        "scope": {"$ref": "#/$defs/candidate_scope"},
+        "applicability": {"$ref": "#/$defs/applicability"},
+        "assumptions": {"$ref": "#/$defs/content_items"},
+        "qualifications": {"$ref": "#/$defs/content_items"},
+        "evidence": {"$ref": "#/$defs/evidence_roles"},
+        "invalidation_conditions": {"$ref": "#/$defs/content_items"},
+        "review_due": {"$ref": "#/$defs/review_due"}
+      },
+      "additionalProperties": false
+    },
+    "candidate_reference": {
+      "type": "object",
+      "required": ["context", "candidate_id", "version", "content_sha256"],
+      "properties": {
+        "context": {"$ref": "common.schema.json#/$defs/command_context"},
+        "candidate_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/content_revision"},
+        "content_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "resource_response": {
+      "allOf": [{"$ref": "common.schema.json#/$defs/response_object"}],
+      "properties": {
+        "state": false,
+        "status": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "result": false,
+        "operation": false
+      }
+    },
+    "candidate_revision": {
+      "allOf": [{"$ref": "#/$defs/resource_response"}],
+      "required": ["reference", "content", "recorded_at", "audit_event_id"],
+      "properties": {
+        "reference": {"$ref": "#/$defs/candidate_reference"},
+        "content": {"$ref": "#/$defs/candidate_content"},
+        "recorded_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"}
+      }
+    },
+    "accepted_asset_reference": {
+      "type": "object",
+      "required": ["organization_id", "asset_id", "version_id", "candidate", "review_id"],
+      "properties": {
+        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "asset_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "candidate": {"$ref": "#/$defs/candidate_reference"},
+        "review_id": {"$ref": "common.schema.json#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "review_record": {
+      "allOf": [{"$ref": "#/$defs/resource_response"}],
+      "required": ["review_id", "candidate", "control_revision", "verdict", "reason", "recorded_at", "audit_event_id"],
+      "properties": {
+        "review_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "candidate": {"$ref": "#/$defs/candidate_reference"},
+        "control_revision": {"allOf": [{"$ref": "common.schema.json#/$defs/control_revision"}], "properties": {"value": {"not": {"const": "1"}}}},
+        "verdict": {"enum": ["accepted", "rejected", "contested"]},
+        "reason": {"type": "string", "minLength": 1, "maxLength": 8192},
+        "recorded_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "approval_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "asset": {"$ref": "#/$defs/accepted_asset_reference"}
+      },
+      "oneOf": [
+        {"required": ["approval_event_id", "asset"], "properties": {"verdict": {"const": "accepted"}}},
+        {"properties": {"verdict": {"enum": ["rejected", "contested"]}, "approval_event_id": false, "asset": false}}
+      ]
+    },
+    "candidate_resource": {
+      "allOf": [
+        {"$ref": "#/$defs/resource_response"},
+        {
+          "if": {"properties": {"revision_state": {"const": "superseded"}, "review": {"type": "object"}}},
+          "then": {"properties": {"control_revision": {"properties": {"value": {"not": {"enum": ["1", "2"]}}}}}}
+        },
+        {
+          "if": {"properties": {"revision": {"properties": {"reference": {"properties": {"version": {"properties": {"value": {"not": {"const": "1"}}}}}}}}}},
+          "then": {"properties": {"control_revision": {"properties": {"value": {"not": {"const": "1"}}}}}}
+        }
+      ],
+      "required": ["revision", "control_revision", "revision_state", "review", "superseded_by"],
+      "properties": {
+        "revision": {"$ref": "#/$defs/candidate_revision"},
+        "control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
+        "revision_state": {"enum": ["pending", "accepted", "rejected", "contested", "superseded"]},
+        "review": {"oneOf": [{"$ref": "#/$defs/review_record"}, {"type": "null"}]},
+        "superseded_by": {"oneOf": [{"$ref": "#/$defs/candidate_reference"}, {"type": "null"}]}
+      },
+      "oneOf": [
+        {"properties": {"revision_state": {"const": "pending"}, "review": {"type": "null"}, "superseded_by": {"type": "null"}}},
+        {"properties": {"revision_state": {"const": "accepted"}, "review": {"allOf": [{"$ref": "#/$defs/review_record"}], "properties": {"verdict": {"const": "accepted"}}}, "superseded_by": {"type": "null"}}},
+        {"properties": {"revision_state": {"const": "rejected"}, "review": {"allOf": [{"$ref": "#/$defs/review_record"}], "properties": {"verdict": {"const": "rejected"}}}, "superseded_by": {"type": "null"}}},
+        {"properties": {"revision_state": {"const": "contested"}, "review": {"allOf": [{"$ref": "#/$defs/review_record"}], "properties": {"verdict": {"const": "contested"}}}, "superseded_by": {"type": "null"}}},
+        {"properties": {"revision_state": {"const": "superseded"}, "superseded_by": {"allOf": [{"$ref": "#/$defs/candidate_reference"}], "properties": {"version": {"properties": {"value": {"not": {"const": "1"}}}}}}}}
+      ],
+      "if": {"properties": {"revision_state": {"not": {"const": "pending"}}}},
+      "then": {"properties": {"control_revision": {"properties": {"value": {"not": {"const": "1"}}}}}}
+    },
+    "candidate_revise_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "candidate.revise"}}},
+        "body": {
+          "type": "object",
+          "required": ["candidate_id", "expected_version", "expected_content_sha256", "expected_control_revision", "reason", "replacement"],
+          "properties": {
+            "candidate_id": {"$ref": "common.schema.json#/$defs/identifier"},
+            "expected_version": {"$ref": "common.schema.json#/$defs/content_revision"},
+            "expected_content_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+            "expected_control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
+            "reason": {"type": "string", "minLength": 1, "maxLength": 8192},
+            "replacement": {"$ref": "#/$defs/candidate_content"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate_accept_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "candidate.accept"}}},
+        "body": {
+          "type": "object",
+          "required": ["candidate_id", "expected_version", "expected_content_sha256", "expected_control_revision", "reason", "approval_event_id"],
+          "properties": {
+            "candidate_id": {"$ref": "common.schema.json#/$defs/identifier"},
+            "expected_version": {"$ref": "common.schema.json#/$defs/content_revision"},
+            "expected_content_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+            "expected_control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
+            "reason": {"type": "string", "minLength": 1, "maxLength": 8192},
+            "approval_event_id": {"$ref": "common.schema.json#/$defs/identifier"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate_reject_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "candidate.reject"}}},
+        "body": {
+          "type": "object",
+          "required": ["candidate_id", "expected_version", "expected_content_sha256", "expected_control_revision", "reason"],
+          "properties": {
+            "candidate_id": {"$ref": "common.schema.json#/$defs/identifier"},
+            "expected_version": {"$ref": "common.schema.json#/$defs/content_revision"},
+            "expected_content_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+            "expected_control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
+            "reason": {"type": "string", "minLength": 1, "maxLength": 8192}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate_contest_request": {
+      "type": "object",
+      "required": ["metadata", "body"],
+      "properties": {
+        "metadata": {"allOf": [{"$ref": "common.schema.json#/$defs/command_metadata"}], "properties": {"command": {"const": "candidate.contest"}}},
+        "body": {
+          "type": "object",
+          "required": ["candidate_id", "expected_version", "expected_content_sha256", "expected_control_revision", "reason"],
+          "properties": {
+            "candidate_id": {"$ref": "common.schema.json#/$defs/identifier"},
+            "expected_version": {"$ref": "common.schema.json#/$defs/content_revision"},
+            "expected_content_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+            "expected_control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
+            "reason": {"type": "string", "minLength": 1, "maxLength": 8192}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate_response": {
+      "description": "Shared completed-command response; select the command-specific response to establish its resulting revision state.",
+      "allOf": [{"$ref": "common.schema.json#/$defs/success_response"}],
+      "required": ["idempotency_receipt"],
+      "properties": {"result": {"required": ["candidate"], "properties": {"candidate": {"$ref": "#/$defs/candidate_resource"}}}}
+    },
+    "candidate_revise_response": {
+      "allOf": [{"$ref": "#/$defs/candidate_response"}],
+      "properties": {
+        "result": {
+          "properties": {
+            "candidate": {
+              "properties": {
+                "revision_state": {"const": "pending"},
+                "control_revision": {"properties": {"value": {"not": {"const": "1"}}}},
+                "revision": {"properties": {"reference": {"properties": {"version": {"properties": {"value": {"not": {"const": "1"}}}}}}}}
+              }
+            }
+          }
+        }
+      }
+    },
+    "candidate_accept_response": {
+      "allOf": [{"$ref": "#/$defs/candidate_response"}],
+      "properties": {"result": {"properties": {"candidate": {"properties": {"revision_state": {"const": "accepted"}}}}}}
+    },
+    "candidate_reject_response": {
+      "allOf": [{"$ref": "#/$defs/candidate_response"}],
+      "properties": {"result": {"properties": {"candidate": {"properties": {"revision_state": {"const": "rejected"}}}}}}
+    },
+    "candidate_contest_response": {
+      "allOf": [{"$ref": "#/$defs/candidate_response"}],
+      "properties": {"result": {"properties": {"candidate": {"properties": {"revision_state": {"const": "contested"}}}}}}
+    }
+  }
+}

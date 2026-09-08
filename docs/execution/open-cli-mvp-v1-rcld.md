@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001–E003 are `complete`; E004 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Status: executing approved implementation design; E001–E004 are `complete`; E005 is `verified`. All other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -188,10 +188,9 @@ Definition of green: Foreign attachment rejected; required failure blocks readin
 
 ### E004 — Freeze grounded observation contracts
 
-Status: `verified`. Prerequisites: E003. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `complete`. Prerequisites: E003. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
 
-Evidence: [Observation checkpoint](e004-observation-contract-evidence.md).
-The following completion record identifies the exact committed source revision.
+Checkpoint: c0cd459a34b6effc922f8a9e1f8d003379f22e4f; Evidence: [Observation checkpoint](e004-observation-contract-evidence.md)
 
 Scope: Define half-open UTF-8 ranges, RFC6901 pointers, page coordinates and audio units bound to exact representations. Preserve assertion, observation and inference distinctions.
 
@@ -221,11 +220,32 @@ Definition of green: Invalid boundaries/escapes/spans rejected; representation m
 
 ### E005 — Freeze candidate review variants
 
-Status: `not_started`. Prerequisites: E004. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `verified`. Prerequisites: E004. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+
+Evidence: [Candidate review checkpoint](e005-candidate-review-contract-evidence.md).
+The following completion record identifies the exact committed source revision.
 
 Scope: Specify complete candidate identity and digest; only revise accepts a complete replacement and produces a new pending revision. Acceptance pins the reviewed content and current authority.
 
 Planned paths: `contracts/public/`, `docs/requirements/`.
+
+The bounded implementation uses `contracts/public/v1/candidate-review.schema.json`
+and `docs/requirements/candidate-review-contract.md`. Independently authored
+parsed-value fixtures and expectations live under `contracts/validation/`, with
+the exact-family entry `contracts/candidate-review-v1.fixtures.schema.json`.
+Update the validator guide, owning documentation/navigation and API/data-model
+links, plus `docs/execution/e005-candidate-review-contract-evidence.md`.
+Complete revise/accept/reject/contest variants use existing common and observation
+definitions. Exact content identity, current authority, revision conflicts and
+transactional uniqueness remain mandatory semantic tests for their later owners;
+parsed shapes do not qualify those runtime effects.
+
+This slice also adds the reusable `calendar_date` definition to
+`contracts/public/v1/common.schema.json` and its owning common-contract document.
+The candidate's named alias preserves its independent fixture targets. This
+keeps date encoding shared without making financial records depend on candidate
+review. Existing common fixtures and historical evidence remain unchanged;
+the full schema graph and all current families must pass before the checkpoint.
 
 Definition of green: Replacement on accept fails; incomplete revise fails; scope-only changes alter identity; stale review conflicts.
 
@@ -1631,7 +1651,7 @@ Definition of green: Dependency inventory matches image; controlled fixture sign
 
 ## Execution evidence and reconciliation
 
-Of 141 numbered slices and four suffix slices, E001–E003 are complete, E004 is verified pending its green commit, and the other 141 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
+Of 141 numbered slices and four suffix slices, E001–E004 are complete, E005 is verified pending its green commit, and the other 140 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
 
 Each checkpoint records source revision/dirty state, contracts, schemas, dependency locks, tool versions, feature/native profile, dataset/scorer identity, exact command, selected tests, raw coverage, duration, results/skips/failures, independent review and gate effect. Redact secrets and evidence content. Record the completed commit hash in subsequent or external evidence rather than recursively embedding its own hash. A local build, a mock, an unsigned candidate and an accepted request have distinct meanings and cannot stand in for live qualification, signed release or completed processing.
 

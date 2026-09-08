@@ -141,7 +141,9 @@ completion alone does not imply capture readiness or successful processing.
 
 Review commands are distinct variants. `revise` requires a complete replacement
 of candidate content, including statement, scope, assumptions, all evidence
-roles and invalidation conditions; it creates a new pending revision. `accept`
+roles and invalidation conditions; it creates a new pending revision. The
+[candidate review contract](candidate-review-contract.md) owns their exact v1
+routes, closed command bodies and response variants. `accept`
 pins the exact reviewed revision and digest and rejects replacement fields.
 Reject, contest and subsequent revision preserve attributable history.
 Evidence references require current permission to read and use those exact

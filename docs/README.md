@@ -8,8 +8,9 @@ The [rolling implementation plan](execution/open-cli-mvp-v1-rcld.md) tracks
 each checkpoint and its actual evidence.
 
 The [common wire contract](requirements/common-contract.md),
-[acquisition contract](requirements/acquisition-contract.md) and
-[observation contract](requirements/observation-contract.md) define versioned
+[acquisition contract](requirements/acquisition-contract.md),
+[observation contract](requirements/observation-contract.md) and
+[candidate review contract](requirements/candidate-review-contract.md) define versioned
 schema families. Their [standalone checks](../contracts/validation/README.md)
 validate independent parsed-value fixtures; runtime qualification follows its
 own implementation slices.

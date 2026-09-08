@@ -6,8 +6,9 @@ Python implementation. The engine contract runner will consume the same reviewed
 contracts and oracles when its implementation is available.
 
 The [common contract](../../docs/requirements/common-contract.md),
-[acquisition contract](../../docs/requirements/acquisition-contract.md) and
-[observation contract](../../docs/requirements/observation-contract.md) own wire
+[acquisition contract](../../docs/requirements/acquisition-contract.md),
+[observation contract](../../docs/requirements/observation-contract.md) and
+[candidate review contract](../../docs/requirements/candidate-review-contract.md) own wire
 meaning. Each has a versioned schema, independently chosen parsed-value cases
 and a fixed expectation schema:
 
@@ -16,10 +17,12 @@ and a fixed expectation schema:
 | Common | [Shared definitions](../public/v1/common.schema.json) | [Common cases](common-v1.cases.json) | [Common expectations](common-v1.expectations.schema.json) |
 | Acquisition | [Upload and capture definitions](../public/v1/acquisition.schema.json) | [Acquisition cases](acquisition-v1.cases.json) | [Acquisition expectations](acquisition-v1.expectations.schema.json) |
 | Observation | [Grounding and source definitions](../public/v1/observation.schema.json) | [Observation cases](observation-v1.cases.json) | [Observation expectations](observation-v1.expectations.schema.json) |
+| Candidate review | [Candidate and review definitions](../public/v1/candidate-review.schema.json) | [Candidate review cases](candidate-review-v1.cases.json) | [Candidate review expectations](candidate-review-v1.expectations.schema.json) |
 
 The commands select the [common entry](../common-v1.fixtures.schema.json),
-[acquisition entry](../acquisition-v1.fixtures.schema.json) and
-[observation entry](../observation-v1.fixtures.schema.json) at the contract
+[acquisition entry](../acquisition-v1.fixtures.schema.json),
+[observation entry](../observation-v1.fixtures.schema.json) and
+[candidate review entry](../candidate-review-v1.fixtures.schema.json) at the contract
 directory's root. Each entry references exactly its own expectation schema;
 swapping fixture families must fail. The entries contain no copied domain
 definitions or expected values.
@@ -57,7 +60,7 @@ uv sync --project contracts/validation --check --locked --offline
 
 ## Checks
 
-Run all four commands from this repository's root after preparation. Every
+Run all five commands from this repository's root after preparation. Every
 command must exit zero. Explicit file arguments prevent an empty glob from
 selecting no fixtures.
 
@@ -68,12 +71,15 @@ uv run --project contracts/validation --no-sync --offline \
   contracts/common-v1.fixtures.schema.json \
   contracts/acquisition-v1.fixtures.schema.json \
   contracts/observation-v1.fixtures.schema.json \
+  contracts/candidate-review-v1.fixtures.schema.json \
   contracts/public/v1/common.schema.json \
   contracts/validation/common-v1.expectations.schema.json \
   contracts/public/v1/acquisition.schema.json \
   contracts/validation/acquisition-v1.expectations.schema.json \
   contracts/public/v1/observation.schema.json \
-  contracts/validation/observation-v1.expectations.schema.json
+  contracts/validation/observation-v1.expectations.schema.json \
+  contracts/public/v1/candidate-review.schema.json \
+  contracts/validation/candidate-review-v1.expectations.schema.json
 uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/common-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
@@ -86,6 +92,10 @@ uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/observation-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
   contracts/validation/observation-v1.cases.json
+uv run --project contracts/validation --no-sync --offline \
+  check-jsonschema --schemafile contracts/candidate-review-v1.fixtures.schema.json \
+  --force-filetype json --regex-variant default --no-cache \
+  contracts/validation/candidate-review-v1.cases.json
 ```
 
 The fixture manifest records independently chosen expected acceptance and

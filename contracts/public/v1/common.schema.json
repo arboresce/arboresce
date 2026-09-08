@@ -103,6 +103,14 @@
       },
       "additionalProperties": false
     },
+    "calendar_date": {
+      "description": "Canonical Gregorian calendar date with no implicit time, timezone or instant conversion.",
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 10,
+      "format": "date",
+      "pattern": "^(?!0000)[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])(?![\\s\\S])"
+    },
     "timestamp": {
       "type": "string",
       "minLength": 24,
