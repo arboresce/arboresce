@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "scope": "Exact consumed signatures and selected object identities of the pinned upstream API",
+  "cases": [
+    {
+      "action": "Inspect SchemaChecker.__init__ and bind the exact command call without invoking it.",
+      "expected": {
+        "fill_defaults_default": false,
+        "keyword_only": [
+          "format_opts",
+          "regex_impl",
+          "traceback_mode",
+          "fill_defaults"
+        ],
+        "positional": [
+          "self",
+          "schema_loader",
+          "instance_loader",
+          "reporter"
+        ],
+        "traceback_default": "short",
+        "variadic_parameters": false
+      },
+      "id": "schema-checker-call-binding",
+      "kind": "signature",
+      "setup": {}
+    },
+    {
+      "action": "Inspect SchemaLoader.__init__ and both loader get_validator signatures.",
+      "expected": {
+        "get_schema_returns_dictionary": true,
+        "get_validator_returns_protocol": true,
+        "init_defaults": {
+          "base_uri": null,
+          "disable_cache": true,
+          "validator_class": null
+        },
+        "init_keyword_only": [
+          "base_uri",
+          "validator_class",
+          "disable_cache"
+        ],
+        "init_positional": [
+          "self",
+          "schemafile"
+        ],
+        "retrieval_uri_returns_string_or_none": true,
+        "validator_positional": [
+          "self",
+          "path",
+          "instance_doc",
+          "format_opts",
+          "regex_impl",
+          "fill_defaults"
+        ]
+      },
+      "id": "schema-loader-call-binding",
+      "kind": "signature",
+      "setup": {}
+    },
+    {
+      "action": "Inspect InstanceLoader.__init__ and bind streams/default_filetype/force_filetype.",
+      "expected": {
+        "defaults": {
+          "default_filetype": "json",
+          "force_filetype": null
+        },
+        "positional_prefix": [
+          "self",
+          "files",
+          "default_filetype",
+          "force_filetype"
+        ],
+        "unrepresented_optional_data_transform_omitted": true
+      },
+      "id": "instance-loader-call-binding",
+      "kind": "signature",
+      "setup": {
+        "subset": "normal binary streams; no CustomLazyFile or transform argument"
+      }
+    },
+    {
+      "action": "Inspect ParserSet construction and parse_data_with_path.",
+      "expected": {
+        "force_filetype_default": null,
+        "parse_positional": [
+          "self",
+          "data",
+          "path",
+          "default_filetype",
+          "force_filetype"
+        ],
+        "untyped_json_result_is_explicit_Any": true,
+        "zero_argument_construction_supported": true
+      },
+      "id": "parser-call-binding",
+      "kind": "signature",
+      "setup": {
+        "subset": "zero-argument constructor and byte or binary-stream parse"
+      }
+    },
+    {
+      "action": "Inspect FormatOptions.__init__; instantiate under the bounded suite with one actual default RegexImplementation.",
+      "expected": {
+        "attributes": [
+          "enabled",
+          "regex_impl",
+          "disabled_formats"
+        ],
+        "disabled_formats_default": [],
+        "enabled_default": true,
+        "keyword_only": [
+          "regex_impl",
+          "enabled",
+          "disabled_formats"
+        ],
+        "positional": [
+          "self"
+        ],
+        "same_regex_object": true
+      },
+      "id": "format-options-call-binding",
+      "kind": "signature",
+      "setup": {}
+    },
+    {
+      "action": "Read real enum member names/values and inspect RegexImplementation.__init__.",
+      "expected": {
+        "constructor_positional": [
+          "self",
+          "variant"
+        ],
+        "members": {
+          "default": "default",
+          "nonunicode": "nonunicode",
+          "python": "python"
+        },
+        "same_variant_object": true
+      },
+      "id": "regex-enum-call-binding",
+      "kind": "signature",
+      "setup": {}
+    },
+    {
+      "action": "Inspect REPORTER_BY_NAME and bind verbosity to each selected real class.",
+      "expected": {
+        "Reporter_is_abstract": true,
+        "classes": {
+          "json": "JsonReporter",
+          "text": "TextReporter"
+        },
+        "keys": [
+          "json",
+          "text"
+        ],
+        "keyword_verbosity_supported": true,
+        "report_result_parameter": "result",
+        "subclasses_of_Reporter": true
+      },
+      "id": "reporter-call-binding",
+      "kind": "signature",
+      "setup": {}
+    }
+  ]
+}

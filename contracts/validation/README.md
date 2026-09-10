@@ -69,7 +69,7 @@ ambient plugins into it.
 From this repository's root, prepare the isolated project explicitly:
 
 ```sh
-uv sync --project contracts/validation --locked --python 3.14.7
+uv sync --project contracts/validation --locked --no-dev --python 3.14.7
 ```
 
 On workstations with a required build-output router, first run its diagnostic
@@ -82,7 +82,7 @@ Verify exact synchronization before running the checks:
 
 ```sh
 uv lock --project contracts/validation --check --offline
-uv sync --project contracts/validation --check --locked --offline
+uv sync --project contracts/validation --check --locked --no-dev --offline
 ```
 
 ## Checks
@@ -259,3 +259,220 @@ The CLI behavior and validation options are documented by
 [check-jsonschema](https://check-jsonschema.readthedocs.io/en/latest/usage.html).
 The contract uses the
 [JSON Schema 2020-12 validation vocabulary](https://json-schema.org/draft/2020-12/json-schema-validation).
+
+## Local validator component
+
+The repository also supplies a tested local validator at
+`contracts/validation/src/arboresce_contract_validation/cli.py`. The corpus
+commands above retain their upstream entrypoints. Full-corpus adoption of this
+component and its operational timeout qualification remain pending.
+
+From the repository root, the component accepts one local schema and one or
+more explicit local JSON instance paths beneath `contracts/`:
+
+```text
+uv run --project contracts/validation --no-sync --offline python -I -B \
+  contracts/validation/src/arboresce_contract_validation/cli.py \
+  --schemafile SCHEMA_PATH --force-filetype json --regex-variant default \
+  --no-cache INSTANCE_PATH [INSTANCE_PATH ...]
+```
+
+Replace the uppercase arguments with explicit local paths. Optional output
+controls are `--output-format text|json`, `--traceback-mode short|full`,
+`--verbose` and `--quiet`. Success exits zero. Nonzero results include invalid
+values, usage and infrastructure failures; a nonzero exit alone never proves
+a negative fixture. Metaschema and URI diagnostic checks retain the upstream
+commands and their separate qualification. The deterministic development suite
+exercises real instances of this component without requiring a product service.
+
+The local command loads the current contract schemas into a fresh invocation
+registry, retaining its crawled result. Each resource has its canonical file URI
+and an entry-relative alias. This avoids repeated traversal of the complete
+resource graph while preserving the upstream resolver, fragments and effective
+format/regex callbacks. Invoke the named entries; every transitive application
+reference remains within `contracts/`. No extra base URI, schema identifier,
+private resolver state or replacement keyword is used to make a fixture pass.
+
+One descriptor reader admits entry schemas, referenced schemas and instances.
+It rejects symlinks, special files and paths outside the current contract root.
+It opens without following links or blocking on special files, checks regular
+file identity before payload reads, and rejects growth, shrinkage, replacement
+or parent substitution. Stable snapshots allow at most 64 MiB of payload per
+file, 1,280 unique files and 512 MiB of requested reads per invocation. The
+one-byte EOF probe counts against requested reads, including for an exactly
+64 MiB payload. Discovery admits at most 1,280 directories and 2,560 total
+directory entries, counting entries before sorting. The contract root is depth
+zero; descent beyond depth 64 fails before opening the next directory. Required
+filesystem capabilities are checked before opening the invocation root; their
+absence identifies that root. File-specific admission failures identify the
+actual file. Every descriptor closes on success or failure.
+
+Instance arguments receive ordered descriptor-only preflight before parsing.
+Preflight reads no payload and retains no snapshot. A statically missing or
+unreadable later argument therefore fails before any instance is parsed. Each
+lazy first read reopens and fully admits the actual file; disappearance after
+preflight remains a separate first-read error. Instances parse before the entry
+schema is loaded. If all instances fail to parse, the schema is never loaded.
+For a parsed instance, upstream entry metaschema validation precedes reference
+preloading and value validation.
+
+Retrieval consumes only already admitted immutable snapshots. It never opens a
+file, downloads a resource or consults another invocation. An interpretation
+error while preloading a referenced schema discards the partial registry and
+uses a fresh lazy registry over those same snapshots. Unconsumed malformed
+references do not become new schema failures; consuming them preserves actual
+upstream errors, including under `not`. Admission failures, exhausted deadlines,
+memory exhaustion and process-control exceptions never select that fallback.
+Operational adoption of the committed corpus must separately prove the optimized path. Preserve complete error
+order and text/JSON reports; infrastructure failures cannot become ordinary
+negative-value acceptance. Changes require actual resolution, swapped-family,
+missing-reference and relocation checks.
+
+The loader/checker integration is explicitly pinned to check-jsonschema 0.38.0.
+Dependency changes require source and behavioral requalification. Preserve its
+ECMAScript `pattern`/`patternProperties` behavior and the pinned jsonschema
+additional-property discovery behavior; these do not use identical regex rules
+for every Unicode property name. Independently reviewed regression literals
+record that compatibility boundary.
+
+The declaration subset in `typings/check_jsonschema/` describes only the
+check-jsonschema 0.38.0 interfaces consumed by this project. Pyright discovers
+it through the default project-relative `typings` directory. Keep strict
+diagnostics enabled. The default loader returns a concrete jsonschema validator
+with an instance `format_checker`; the upstream `Validator` protocol omits that
+attribute. A local type-only protocol records this pinned boundary. Integration
+tests must verify the actual concrete class, schema and format-checker identity
+as well as the effective keyword functions and semantic outcomes. A type cast
+does not establish those results. Review the declarations and coupling tests
+whenever either dependency changes. These nine declaration files are static,
+non-executable artifacts; their inventory is separate from executable coverage.
+
+Tests keep warnings-as-errors enabled. The pinned check-jsonschema release
+accesses Click 8.5's deprecated `LazyFile` compatibility alias during its first
+import. Test initialization positively asserts that one exact upstream warning,
+including its category and source location, and retains the actual diagnostic
+in the suite receipt. Missing, duplicate or unexpected warnings fail. Review this
+assertion when either dependency changes; do not add an ignore filter.
+
+
+## Development tests
+
+Use the repository-owned pytest tests and explicit coverage collection below. Prepare tools and external resources before verification; apply required workstation build-output routing to the commands. These commands exercise deterministic local fixtures and do not establish unrelated runtime or platform qualification.
+
+The fixture set includes exact upstream API signatures and real validator behavior, source-copy integrity, measurement-file integrity, and pipe barriers around actual CLI reads. Guard tests mutate disposable files at explicit I/O boundaries and retain original bytes. Two prelaunch collision tests retain deliberate error receipts without creating a child; keep those receipts separate from actual child-process coverage. Constructed coverage databases test the integrity checks and never enter measured coverage aggregation. Reusable fixture and observation code is maintained source and must satisfy the same strict coverage and type-checking requirements.
+
+Set `PYTHONDONTWRITEBYTECODE=1` when running Pyright with the prepared Python interpreter. This also applies to Pyright's interpreter-discovery child and preserves the qualified environment's file inventory.
+
+Prepare the dev dependencies separately in a dedicated external environment, using the README's exact uv 0.12.10 and Python 3.14.7 selections:
+
+```sh
+UV_PROJECT_ENVIRONMENT="$REGISTRY_DEV_ENV" uv sync \
+  --project contracts/validation --locked --group dev --python 3.14.7
+```
+
+Run formatting, lint and strict typing from this project's directory before tests. Use the locked Ruff 0.16.6 and Pyright 1.1.411 packages with a separately prepared Node 26.8.1 executable. Prepare and qualify that exact Node distribution and its native dependencies under [dependency qualification](../../docs/requirements/dependency-qualification.md); verification never installs Node, changes a host default or obtains a different Pyright version.
+
+For the prepared POSIX Python 3.14 environment, set REGISTRY_PROJECT to the absolute contracts/validation directory, REGISTRY_PYTHON to REGISTRY_DEV_ENV/bin/python, REGISTRY_NODE to the absolute prepared Node executable, and REGISTRY_ARTIFACTS to an approved external output parent. The bundled entrypoint below belongs to the pinned Pyright wheel. A different installation layout needs its actual entrypoint identified during preparation.
+
+```sh
+umask 077
+REGISTRY_STATIC=$(mktemp -d "$REGISTRY_ARTIFACTS/registry-static.XXXXXXXX")
+mkdir "$REGISTRY_STATIC/home" "$REGISTRY_STATIC/tmp" "$REGISTRY_STATIC/cache"
+REGISTRY_PYRIGHT_JS="$REGISTRY_DEV_ENV/lib/python3.14/site-packages/pyright/dist/index.js"
+env -i PATH=/usr/bin:/bin LANG=C LC_ALL=C TZ=UTC \
+  HOME="$REGISTRY_STATIC/home" TMPDIR="$REGISTRY_STATIC/tmp" \
+  XDG_CACHE_HOME="$REGISTRY_STATIC/cache" PYTHONDONTWRITEBYTECODE=1 \
+  /bin/sh -c '
+    set -euC
+    cd "$1"
+    test "$("$2" --version)" = "ruff 0.16.6"
+    test "$("$3" --version)" = "v26.8.1"
+    test "$("$3" "$4" --version)" = "pyright 1.1.411"
+    "$2" format --check --no-cache . >"$6/ruff-format.stdout" 2>"$6/ruff-format.stderr"
+    "$2" check --no-cache . >"$6/ruff-check.stdout" 2>"$6/ruff-check.stderr"
+    "$3" "$4" --project "$1/pyproject.toml" --pythonpath "$5" --outputjson \
+      >"$6/pyright.json" 2>"$6/pyright.stderr"
+  ' registry-static "$REGISTRY_PROJECT" "$REGISTRY_DEV_ENV/bin/ruff" \
+  "$REGISTRY_NODE" "$REGISTRY_PYRIGHT_JS" "$REGISTRY_PYTHON" "$REGISTRY_STATIC"
+```
+
+Keep the exit status and all outputs; a failed command stops this sequence. Ruff uses the owning project's configuration and import classification, with [format --check](https://docs.astral.sh/ruff/formatter/) leaving source unchanged. Pyright reads the strict include list and local declaration stubs from pyproject.toml; review its complete JSON diagnostics and summary, requiring zero errors, warnings and information. Its [documented flags](https://github.com/microsoft/pyright/blob/1.1.411/docs/command-line.md) select the project and prepared interpreter explicitly.
+
+The [pinned Python wrapper](https://github.com/RobertCraigie/pyright-python/blob/v1.1.411/src/pyright/_utils.py) can resolve another version or install an npm package, and its Node launcher can fall back to nodeenv. This command enters the wheel's existing index.js directly through the selected Node executable. The closed environment omits wrapper overrides, NODE_OPTIONS, NODE_PATH, PYTHONPATH, PYTHONHOME and automatic coverage-startup settings. PYTHONDONTWRITEBYTECODE preserves the prepared Python inventory when Pyright discovers interpreter paths. Apply the repository's required output routing and prepared resource limits; these ordinary commands do not by themselves certify process profiles or runtime coverage.
+
+Verification uses that environment's direct bin/python and the explicitly prepared GNU coreutils 9.11 timeout; it does not install, resolve or fetch tools. Retain pytest 9.1.1, coverage 7.16.0 and Hypothesis 6.167.1. REGISTRY_PROJECT is this checkout's absolute contracts/validation path, REGISTRY_PYTHON is the development environment's bin/python, REGISTRY_TIMEOUT is the qualified timeout executable, and REGISTRY_ARTIFACTS is an already approved external output parent. The selected suite requires at least 2 GiB available RAM capacity, 8 GiB disk capacity and 256 descriptors; these are preparation requirements, not a claimed hard RSS/disk quota.
+
+Create a fresh owner-only run root and each directory explicitly, outside contracts and the source checkout:
+
+```sh
+umask 077
+REGISTRY_RUN=$(mktemp -d "$REGISTRY_ARTIFACTS/registry-tests.XXXXXXXX")
+mkdir "$REGISTRY_RUN/home" "$REGISTRY_RUN/tmp" "$REGISTRY_RUN/cache" \
+  "$REGISTRY_RUN/hypothesis" "$REGISTRY_RUN/base" \
+  "$REGISTRY_RUN/profiles" "$REGISTRY_RUN/reports"
+```
+
+The following selects all eight test modules, including the process observation guard fixtures in test_support.py. The real /bin/sh process records its own $$ and execs timeout with that same PID. The only transient prepared Python command inspects inherited limits and publishes the original monotonic deadline/current-UID encoding before timeout starts. There is no uv or other process left between timeout and the measured pytest process. Current support then checks the actual parent/group/session and retains every actual CLI child/profile.
+
+```sh
+cd "$REGISTRY_PROJECT/../.."
+env -i PATH=/usr/bin:/bin LANG=C LC_ALL=C TZ=UTC \
+  HOME="$REGISTRY_RUN/home" TMPDIR="$REGISTRY_RUN/tmp" \
+  XDG_CACHE_HOME="$REGISTRY_RUN/cache" \
+  HYPOTHESIS_STORAGE_DIRECTORY="$REGISTRY_RUN/hypothesis" \
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONDONTWRITEBYTECODE=1 \
+  COVERAGE_DEBUG=core COVERAGE_DEBUG_FILE="$REGISTRY_RUN/reports/coverage-core.log" \
+  ARBORESCE_TEST_SUITE_RECEIPT="$REGISTRY_RUN/reports/suite.json" \
+  /bin/sh -c '
+    set -euC
+    registry_python=$1
+    registry_timeout=$2
+    registry_run=$3
+    shift 3
+    exec >"$registry_run/reports/stdout" 2>"$registry_run/reports/stderr"
+    ulimit -S -c 0
+    ulimit -H -c 0
+    ulimit -S -f 131072
+    ulimit -H -f 131072
+    registry_binding=$("$registry_python" -I -S -B -c \
+      "import os,resource,time; assert resource.getrlimit(resource.RLIMIT_FSIZE)==(134217728,134217728); assert resource.getrlimit(resource.RLIMIT_CORE)==(0,0); assert resource.getrlimit(resource.RLIMIT_NOFILE)[0]>=256; print(time.monotonic()+320.0, f\"0x{os.getuid():X}:0x0:0x0\")")
+    ARBORESCE_TEST_DEADLINE=${registry_binding%% *}
+    __CF_USER_TEXT_ENCODING=${registry_binding#* }
+    ARBORESCE_TEST_TIMEOUT_PID=$$
+    export ARBORESCE_TEST_DEADLINE ARBORESCE_TEST_TIMEOUT_PID __CF_USER_TEXT_ENCODING
+    exec "$registry_timeout" --signal=TERM --kill-after=5s 300s \
+      "$registry_python" "$@"
+  ' registry-tests "$REGISTRY_PYTHON" "$REGISTRY_TIMEOUT" "$REGISTRY_RUN" \
+  -I -B -m coverage run --rcfile "$REGISTRY_PROJECT/tests/coverage.ini" \
+  --data-file "$REGISTRY_RUN/profiles/.coverage" --context registry-selected-sysmon-v1 \
+  -m pytest -c "$REGISTRY_PROJECT/pyproject.toml" --rootdir "$REGISTRY_PROJECT" \
+  -p no:cacheprovider -p _hypothesis_pytestplugin --hypothesis-seed=0 \
+  --basetemp "$REGISTRY_RUN/base" --junitxml "$REGISTRY_RUN/reports/junit.xml" \
+  -vv --trace-config \
+  "$REGISTRY_PROJECT/tests/test_cli.py" "$REGISTRY_PROJECT/tests/test_discovery.py" \
+  "$REGISTRY_PROJECT/tests/test_properties.py" "$REGISTRY_PROJECT/tests/test_races.py" \
+  "$REGISTRY_PROJECT/tests/test_references.py" "$REGISTRY_PROJECT/tests/test_snapshot.py" \
+  "$REGISTRY_PROJECT/tests/test_support.py" "$REGISTRY_PROJECT/tests/test_validation.py"
+```
+
+The shell uses noclobber for stdout/stderr and a fresh owner-only output tree. Test support exclusively creates the suite receipt. The shown shell profile uses 1024-byte file-limit units; the pre-exec checks require actual soft/hard 134217728-byte file limits, zero core limits and at least 256 descriptors. A different platform unit convention fails before pytest starts and needs an explicitly qualified command adjustment. The standard platform encoding is derived from the current UID. Keep these actual bindings; do not copy a historical host UID.
+
+HYPOTHESIS_STORAGE_DIRECTORY is required even with database=None: Hypothesis also writes constants. Explicit fresh storage keeps that runtime state outside the checkout. No ambient import, coverage-startup, plugin or pytest-option hooks are admitted. Keep the current exact positive pytest.warns assertion for one Click LazyFile DeprecationWarning at check-jsonschema/cli/param_types.py:126; do not suppress or pre-import around it. Its actual diagnostic remains in the suite receipt. The observation child imports only standard-library code before runpy executes the owned CLI and does not import parent support/conftest.
+
+Before measurement, perform complete collection with another newly created run root using the same bridge, changing only the published original window to 45.0, the timeout to 30s, and the final Python vector to the following (same closed environment, limits, encoding and exclusive outputs):
+
+```text
+-I -B -m pytest -c PROJECT/pyproject.toml --rootdir PROJECT
+-p no:cacheprovider -p _hypothesis_pytestplugin --hypothesis-seed=0
+--collect-only -q --trace-config --basetemp RUN/base
+PROJECT/tests/test_cli.py PROJECT/tests/test_discovery.py
+PROJECT/tests/test_properties.py PROJECT/tests/test_races.py
+PROJECT/tests/test_references.py PROJECT/tests/test_snapshot.py
+PROJECT/tests/test_support.py PROJECT/tests/test_validation.py
+```
+
+These preserve the reviewed 320s/45s original observation/reconciliation windows and the separate 300+5/30+5 timeout behavior. Never replace the original deadline with a per-barrier allowance. The shell is a real entered process, not a parenthesized shell subshell that borrows another process's $$; include its one transient clock/limit inspection process in the full launch inventory. The bridge does not independently reconcile a timed-out group's terminal status or certify raw profiles: preserve a failed timeout and all artifacts. Existing qualification observation/reconciliation remains required for a qualification claim.
+
+Optional diagnosis may replace the explicit module list with PROJECT/tests/test_cli.py::test_process_barriers, which selects exactly the five added process rows. That subset is not the default or a complete checkpoint. Collect and reconcile exact node and child/profile identities for the current source and fixture inventory. A changed source, config or dependency profile requires a new run; do not merge incompatible results.
+
+Use standard coverage combine --keep, json and report with the complete accepted current raw profile list, a fresh combined data path and the reviewed configuration. Run these reporting commands from the same canonical engine root. Parent and copied child profiles then use the same contracts/validation/src and contracts/validation/tests paths; no additional path aliases or coverage configuration changes are needed. Keep every child profile/core log and complete process receipt. Measure the maintained observation helper with support/production code; assertion-only test files do not inflate those denominators. Apply total>0 and 10*covered>9*total independently to every applicable file/module/package metric. Neither a five-node diagnostic nor a successful standard-tool command proves complete qualification or coverage.

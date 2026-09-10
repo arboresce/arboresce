@@ -1,0 +1,688 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "barrier-ack-eof",
+      "setup": {
+        "kind": "real-os-pipe",
+        "writer": "close before receive",
+        "deadline": "original current suite deadline"
+      },
+      "action": "receive one required ACK byte from the live read endpoint",
+      "expected": {
+        "exception": "ValueError",
+        "message": "barrier token mismatch",
+        "observed_read": "",
+        "target_launches": 0,
+        "endpoints_closed": true
+      }
+    },
+    {
+      "id": "barrier-ack-wrong-token",
+      "setup": {
+        "kind": "real-os-pipe",
+        "writer_bytes_utf8": "X",
+        "deadline": "original current suite deadline"
+      },
+      "action": "receive one required ACK byte from the live read endpoint",
+      "expected": {
+        "exception": "ValueError",
+        "message": "barrier token mismatch",
+        "writer_bytes_consumed": 1,
+        "target_launches": 0,
+        "endpoints_closed": true
+      }
+    },
+    {
+      "id": "barrier-original-deadline-expired",
+      "setup": {
+        "kind": "real-os-pipe",
+        "writer_bytes_utf8": "A",
+        "deadline": 0.0
+      },
+      "action": "attempt ACK receive with expired original deadline",
+      "expected": {
+        "exception": "TimeoutError",
+        "message": "barrier original deadline expired",
+        "queued_byte_after_failure_utf8": "A",
+        "target_launches": 0,
+        "endpoints_closed": true
+      }
+    },
+    {
+      "id": "barrier-parent-mutation-failure",
+      "setup": {
+        "kind": "real-directory",
+        "target": "missing/second.json",
+        "target_exists": false
+      },
+      "action": "perform the one required remove mutation",
+      "expected": {
+        "exception": "FileNotFoundError",
+        "target_still_absent": true,
+        "acknowledgments_written": 0,
+        "target_launches": 0
+      }
+    },
+    {
+      "id": "observation-write-failure-preserves-target-error",
+      "setup": {
+        "kind": "real-files",
+        "output_utf8": "retained",
+        "missing_target": "missing.json"
+      },
+      "action": "capture actual missing-file read exception, then exclusively write observation to already existing output",
+      "expected": {
+        "exception": "ExceptionGroup",
+        "member_types_in_order": [
+          "FileNotFoundError",
+          "FileExistsError"
+        ],
+        "first_member_is_actual_caught_exception": true,
+        "output_utf8_unchanged": "retained",
+        "target_launches": 0
+      }
+    }
+  ],
+  "boundary_cases": [
+    {
+      "id": "source-record-exact-1mib",
+      "operation": "source_record",
+      "setup": {
+        "file": {
+          "byte": "a",
+          "repeat": 1048576
+        }
+      },
+      "expected": {
+        "bytes": 1048576,
+        "content_unchanged": true,
+        "record_keys": [
+          "path",
+          "bytes",
+          "sha256"
+        ],
+        "record_path": "exact actual input path",
+        "read_closed": true
+      },
+      "independent_payload_identity": {
+        "bytes": 1048576,
+        "sha256": "9bc1b2a288b26af7257a36277ae3816a7d4f16e89c1e7e77d0a5c48bad62b360"
+      }
+    },
+    {
+      "id": "source-record-one-byte-over",
+      "operation": "source_record",
+      "setup": {
+        "file": {
+          "byte": "a",
+          "repeat": 1048577
+        }
+      },
+      "expected": {
+        "exception": "ValueError",
+        "message": "observation source exceeds limit",
+        "content_unchanged": true,
+        "record_returned": false,
+        "read_closed": true
+      },
+      "independent_payload_identity": {
+        "bytes": 1048577,
+        "sha256": "4a3f0c0c213adea174f9a3d4c13177315b588bdb2e9c1012d3d0bf0453ca0f6a"
+      }
+    },
+    {
+      "id": "event-cap-last-and-first-rejected",
+      "operation": "emit_event",
+      "setup": {
+        "constructed_state_only": true,
+        "event_count": 1023,
+        "event_rows": {
+          "event": "fixture",
+          "monotonic": 0
+        },
+        "errors": []
+      },
+      "actions": [
+        {
+          "event": "boundary",
+          "fields": {
+            "path": "fixture-path"
+          }
+        },
+        {
+          "event": "overflow",
+          "fields": {}
+        }
+      ],
+      "expected": {
+        "first_count": 1024,
+        "first_appended_keys": [
+          "event",
+          "monotonic",
+          "path"
+        ],
+        "first_event": "boundary",
+        "first_path": "fixture-path",
+        "first_monotonic": "actual finite nondecreasing clock observation",
+        "second_exception": "ValueError",
+        "second_message": "observation event limit",
+        "second_count": 1024,
+        "prior_records_unchanged": true
+      }
+    },
+    {
+      "id": "failure-log-sixteen-and-overflow",
+      "operation": "record_observation_failure",
+      "setup": {
+        "events": [],
+        "errors": [],
+        "real_missing_files": 17
+      },
+      "expected": {
+        "recorded_errors": 16,
+        "types": [
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError",
+          "FileNotFoundError"
+        ],
+        "messages": "exact corresponding actual caught error text, including each actual missing path",
+        "first_sixteen_preserved_in_order": true,
+        "error_overflow": true,
+        "events_unchanged": true
+      }
+    },
+    {
+      "id": "ipc-close-two-owned-endpoints",
+      "operation": "close_ipc",
+      "setup": {
+        "real_pipe": true,
+        "transfer_both_endpoints": true
+      },
+      "expected": {
+        "ipc_closed": "both actual transferred descriptor identities in supplied order",
+        "errors": [],
+        "all_transferred_endpoints_closed": true,
+        "no_descriptor_requery": true
+      }
+    },
+    {
+      "id": "ipc-close-invalid-then-owned-writer",
+      "operation": "close_ipc",
+      "setup": {
+        "real_pipe": true,
+        "fds": [
+          "constant -1, never an owned or retired host descriptor",
+          "actual owned write endpoint"
+        ],
+        "retain_reader_for_eof": true
+      },
+      "expected": {
+        "ipc_closed": "only actual transferred writer identity",
+        "errors": [
+          {
+            "type": "OSError",
+            "message": "[Errno 9] Bad file descriptor"
+          }
+        ],
+        "reader_observation": "real EOF after writer closure",
+        "remaining_reader_cleanup": true,
+        "continues_after_error": true,
+        "no_descriptor_requery": true
+      }
+    },
+    {
+      "id": "observation-save-exact-64kib",
+      "operation": "save_observation",
+      "setup": {
+        "data": {
+          "x": {
+            "byte": "a",
+            "repeat": 65526
+          }
+        },
+        "original": null,
+        "output_absent": true
+      },
+      "expected": {
+        "encoded_bytes": 65536,
+        "serialization": "default json.dumps separators, allow_nan=False, final newline",
+        "exact_bytes_preserved": true,
+        "return_value": null
+      },
+      "independent_encoded_identity": {
+        "bytes": 65536,
+        "sha256": "2fd96bb694f96a17b184dc729992700c32d90406078313ac478c0e8f809dacea"
+      }
+    },
+    {
+      "id": "observation-save-one-byte-over",
+      "operation": "save_observation",
+      "setup": {
+        "data": {
+          "x": {
+            "byte": "a",
+            "repeat": 65527
+          }
+        },
+        "original": null,
+        "output_absent": true
+      },
+      "expected": {
+        "encoded_bytes": 65537,
+        "exception": "ValueError",
+        "message": "observation exceeds 64 KiB",
+        "output_stays_absent": true
+      },
+      "independent_encoded_identity": {
+        "bytes": 65537,
+        "sha256": "008246f0a6a66cc2af5e96aa4f33836000b24502574d72614b97edbeb5563b4a"
+      }
+    },
+    {
+      "id": "observation-save-collision-no-original",
+      "operation": "save_observation",
+      "setup": {
+        "data": {
+          "observed": true
+        },
+        "original": null,
+        "output_utf8": "retained"
+      },
+      "expected": {
+        "exception": "FileExistsError",
+        "filename": "exact existing output path",
+        "output_utf8": "retained",
+        "grouped": false
+      }
+    },
+    {
+      "id": "mutation-grow-last-admitted-byte",
+      "operation": "mutate_and_acknowledge",
+      "setup": {
+        "kind": "grow",
+        "target": {
+          "byte": "a",
+          "repeat": 65535
+        },
+        "real_ack_pipe": true
+      },
+      "expected": {
+        "target_bytes": 65536,
+        "mutation_suffix_utf8": " ",
+        "result_keys": [
+          "bytes",
+          "sha256"
+        ],
+        "ack_utf8": "A",
+        "ack_bytes": 1,
+        "all_endpoints_closed": true
+      },
+      "independent_expected_after_identity": {
+        "bytes": 65536,
+        "sha256": "f1f74b38d4e1b2f8419846958aca10e84b109a805ab97f09620fbdeb9cc51a9f"
+      }
+    },
+    {
+      "id": "mutation-grow-first-overflow",
+      "operation": "mutate_and_acknowledge",
+      "setup": {
+        "kind": "grow",
+        "target": {
+          "byte": "a",
+          "repeat": 65536
+        },
+        "real_ack_pipe": true
+      },
+      "expected": {
+        "exception": "ValueError",
+        "message": "mutation evidence exceeds limit",
+        "target_bytes": 65537,
+        "mutation_suffix_utf8": " ",
+        "acknowledgments_written": 0,
+        "reader_observation_after_writer_close": "EOF",
+        "all_endpoints_closed": true
+      },
+      "independent_expected_after_identity": {
+        "bytes": 65537,
+        "sha256": "c5cf15beaa1e00b1bcd6ba475e974247d86d0d83e2ccf78e5f5694f87054f360"
+      }
+    },
+    {
+      "id": "mutation-unknown-kind",
+      "operation": "mutate_and_acknowledge",
+      "setup": {
+        "kind": "unknown",
+        "target_utf8": "retained",
+        "real_ack_pipe": true
+      },
+      "expected": {
+        "exception": "ValueError",
+        "message": "unknown process observation mutation",
+        "target_utf8": "retained",
+        "acknowledgments_written": 0,
+        "reader_observation_after_writer_close": "EOF",
+        "all_endpoints_closed": true
+      }
+    },
+    {
+      "id": "empty-pipe-receive-deadline",
+      "operation": "receive_token",
+      "setup": {
+        "real_empty_pipe": true,
+        "writer_remains_open_during_wait": true,
+        "token_utf8": "A",
+        "unit_deadline": "One observed absolute monotonic deadline, setup time +0.25 seconds, capped by the existing suite deadline; record once and never renew it. This is a unit invocation deadline, not replacement qualification evidence."
+      },
+      "expected": {
+        "exception": "TimeoutError",
+        "message": "barrier original deadline expired",
+        "queued_bytes": 0,
+        "all_endpoints_closed": true,
+        "no_clock_or_select_mock": true,
+        "no_retry": true
+      }
+    },
+    {
+      "id": "existing-trace-owner-rejected",
+      "operation": "run_observed admission only",
+      "setup": {
+        "install_scoped_real_trace_callable": true,
+        "existing_profile_preserved": true,
+        "args": "empty Namespace, deliberately proving rejection before target path/source access"
+      },
+      "expected": {
+        "exception": "RuntimeError",
+        "message": "process observations require the sys.monitoring core",
+        "target_launches": 0,
+        "prior_trace_and_profile_restored": true,
+        "helper_source_reads": 0
+      }
+    },
+    {
+      "id": "existing-profile-owner-rejected",
+      "operation": "run_observed admission only",
+      "setup": {
+        "install_scoped_real_profile_callable": true,
+        "existing_trace_preserved": true,
+        "args": "empty Namespace, deliberately proving rejection before target path/source access"
+      },
+      "expected": {
+        "exception": "RuntimeError",
+        "message": "process observations require the sys.monitoring core",
+        "target_launches": 0,
+        "prior_trace_and_profile_restored": true,
+        "helper_source_reads": 0
+      }
+    },
+    {
+      "id": "main-requires-command-separator",
+      "operation": "main argparse admission only",
+      "setup": {
+        "all_required_flags_present": true,
+        "cli_path": "fresh missing unit target",
+        "observation_path": "fresh absent output",
+        "fd_arguments": "two actual borrowed pipe endpoints, never consumed because parser admission fails",
+        "deadline": "recorded current suite deadline",
+        "command": []
+      },
+      "expected": {
+        "exception": "SystemExit",
+        "code": 2,
+        "stderr_contains": "complete CLI arguments must follow --",
+        "target_launches": 0,
+        "target_and_observation_paths_stay_absent": true,
+        "argv_restored": true,
+        "borrowed_pipes_cleaned_by_test": true
+      }
+    },
+    {
+      "id": "nonfinite-observation-payload",
+      "operation": "save_observation",
+      "setup": {
+        "data": {
+          "value": "construct float nan only inside the unit, never nonstandard JSON fixture bytes"
+        },
+        "original": null,
+        "output_absent": true
+      },
+      "expected": {
+        "exception": "ValueError",
+        "message_contains": "Out of range float values are not JSON compliant",
+        "output_stays_absent": true
+      }
+    },
+    {
+      "id": "remove-target-reappears",
+      "operation": "mutate_and_acknowledge",
+      "setup": {
+        "kind": "remove",
+        "target_utf8": "original",
+        "coordination": "A scoped forwarding actual unlink or lstat barrier recreates the task-owned target after actual unlink and before actual lstat; preserve original return values and status.",
+        "real_ack_pipe": true
+      },
+      "expected": {
+        "exception": "ValueError",
+        "message": "removed mutation target remains present",
+        "target_utf8": "replacement",
+        "acknowledgments_written": 0
+      }
+    }
+  ],
+  "dispatch_cases": [
+    {
+      "id": "dispatch-unadmitted-real-frame",
+      "setup": {
+        "frame": "actual current unit frame",
+        "admitted_names": [],
+        "callback": "actual file reader with an initially empty invocation log",
+        "file_utf8": "observed\n",
+        "continuation": "a retained actual callable"
+      },
+      "expected": {
+        "result": null,
+        "callback_calls": 0,
+        "state_errors": [],
+        "state_events_unchanged": true,
+        "file_unchanged": true
+      }
+    },
+    {
+      "id": "dispatch-admitted-real-read",
+      "setup": {
+        "frame": "actual current unit frame",
+        "admitted_names": "exact set containing that actual frame.f_code.co_filename",
+        "event": "call (direct unit argument, not a target-event claim)",
+        "arg": "actual Path of the real file",
+        "callback": "actual file reader retaining received frame/event/arg and bytes",
+        "file_utf8": "observed\n",
+        "continuation": "a retained actual callable"
+      },
+      "expected": {
+        "callback_calls": 1,
+        "frame_identity_preserved": true,
+        "event_value_preserved": true,
+        "arg_identity_preserved": true,
+        "read_utf8": "observed\n",
+        "result_is_exact_continuation": true,
+        "state_errors": [],
+        "file_unchanged": true
+      }
+    },
+    {
+      "id": "dispatch-admitted-missing-file",
+      "setup": {
+        "frame": "actual current unit frame",
+        "admitted_names": "that exact current filename",
+        "arg": "actual absent task-owned path",
+        "callback": "actual Path.read_bytes attempt",
+        "continuation": "a retained actual callable"
+      },
+      "expected": {
+        "callback_calls": 1,
+        "result_is_exact_continuation": true,
+        "errors_count": 1,
+        "error_type": "FileNotFoundError",
+        "error_message": "exact text of the actual caught filesystem error including the requested path",
+        "error_propagated": false,
+        "target_stays_absent": true
+      }
+    },
+    {
+      "id": "dispatch-python-raised-fatal-specimen",
+      "setup": {
+        "frame": "actual current unit frame",
+        "admitted_names": "that exact current filename",
+        "callback": "explicitly Python-raise one retained KeyboardInterrupt object",
+        "fatal_message": "unit dispatch fatal specimen; no signal attempted",
+        "continuation": null
+      },
+      "expected": {
+        "callback_calls": 1,
+        "errors_count": 1,
+        "error_type": "KeyboardInterrupt",
+        "error_message": "unit dispatch fatal specimen; no signal attempted",
+        "raised_object_is_exact_original": true,
+        "signal_or_process_operation": false
+      }
+    }
+  ],
+  "descriptor_close_cases": [
+    {
+      "id": "descriptor-close-unrecognized",
+      "operation": "record_descriptor_close",
+      "setup": {
+        "kind": "real-os-pipe",
+        "initial_events": [],
+        "initial_errors": [],
+        "live_occurrence": 7,
+        "live_descriptor": "actual owned read endpoint",
+        "actual_operation": "close the actual owned write endpoint once",
+        "direct_fd": null,
+        "direct_event": "c_return",
+        "event_provenance": "Constructed direct unit input; no sys.setprofile event claim."
+      },
+      "expected": {
+        "actual_close_result": null,
+        "exception": null,
+        "return_value": null,
+        "events": [],
+        "errors": [],
+        "live_unchanged": true,
+        "owned_read_endpoint_retained": true,
+        "remaining_owned_endpoints_closed_once": true,
+        "target_launches": 0
+      }
+    },
+    {
+      "id": "descriptor-close-owned-success",
+      "operation": "record_descriptor_close",
+      "setup": {
+        "kind": "real-os-pipe",
+        "initial_events": [],
+        "initial_errors": [],
+        "live_occurrence": 7,
+        "live_descriptor": "actual owned read endpoint",
+        "actual_operation": "close the actual owned read endpoint once, retaining the real None result",
+        "direct_fd": "the same actual read descriptor value",
+        "direct_event": "c_return",
+        "event_provenance": "Constructed direct unit input after an actual successful close; not a captured profile event."
+      },
+      "expected": {
+        "actual_close_result": null,
+        "exception": null,
+        "return_value": null,
+        "live": {},
+        "errors": [],
+        "event_count": 1,
+        "event_keys": [
+          "event",
+          "monotonic",
+          "fd",
+          "occurrence"
+        ],
+        "event": "descriptor-close",
+        "event_fd": "the actual just-closed read descriptor value",
+        "event_occurrence": 7,
+        "event_monotonic": "actual finite value between immediately surrounding monotonic observations, before the unchanged original suite deadline",
+        "remaining_owned_endpoints_closed_once": true,
+        "closed_descriptor_not_requeried": true,
+        "target_launches": 0
+      }
+    },
+    {
+      "id": "descriptor-close-error-event",
+      "operation": "record_descriptor_close",
+      "setup": {
+        "kind": "actual-invalid-descriptor-close",
+        "descriptor": -1,
+        "actual_operation": "os.close(-1), with the real exception captured and its except scope left before helper invocation",
+        "initial_events": [],
+        "initial_errors": [],
+        "initial_live": {},
+        "direct_fd": -1,
+        "direct_event": "c_exception",
+        "event_provenance": "Constructed direct c_exception unit input after the actual invalid-descriptor error. The constant -1 is never an owned or retired host descriptor; no real profile-event or owned-process claim."
+      },
+      "expected": {
+        "actual_exception": "OSError",
+        "actual_errno_symbol": "EBADF",
+        "actual_errno": 9,
+        "helper_exception": "OSError",
+        "helper_message": "owned descriptor close failed",
+        "helper_errno": null,
+        "helper_cause": null,
+        "helper_context": null,
+        "helper_exception_is_actual_close_exception": false,
+        "events": [],
+        "errors": [],
+        "live": {},
+        "no_numeric_requery": true,
+        "target_launches": 0
+      }
+    },
+    {
+      "id": "descriptor-close-missing-live-occurrence",
+      "operation": "record_descriptor_close",
+      "setup": {
+        "kind": "real-os-pipe",
+        "initial_events": [],
+        "initial_errors": [],
+        "initial_live": {},
+        "actual_operation": "close the actual owned read endpoint once, retaining the real None result",
+        "direct_fd": "the same actual read descriptor value",
+        "direct_event": "c_return",
+        "event_provenance": "Constructed direct unit input with an intentionally empty bookkeeping map after an actual successful close; not captured process evidence."
+      },
+      "expected": {
+        "actual_close_result": null,
+        "helper_exception": "KeyError",
+        "helper_args": [
+          "the actual just-closed read descriptor value"
+        ],
+        "helper_message": "str of that exact actual integer descriptor value",
+        "helper_cause": null,
+        "helper_context": null,
+        "events": [],
+        "errors": [],
+        "live": {},
+        "remaining_owned_endpoints_closed_once": true,
+        "closed_descriptor_not_requeried": true,
+        "target_launches": 0
+      }
+    }
+  ]
+}

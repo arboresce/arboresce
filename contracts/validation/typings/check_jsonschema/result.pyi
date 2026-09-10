@@ -1,0 +1,3 @@
+"""Consumed interfaces for check-jsonschema 0.38.0; review when its pin changes."""
+
+class CheckResult: ...

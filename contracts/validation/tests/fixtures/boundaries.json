@@ -1,0 +1,4804 @@
+{
+  "version": 1,
+  "description": "Independently reviewed synthetic filesystem, ordering, reference and command cases. ROOT denotes each disposable invocation root.",
+  "cases": [
+    {
+      "id": "snapshot-empty",
+      "area": "snapshot",
+      "setup": {
+        "path": "contracts/value.json",
+        "utf8": ""
+      },
+      "action": "snapshot",
+      "expected": {
+        "payload_utf8": "",
+        "payload_bytes": 0,
+        "requested_read_charge": 1,
+        "unique_files": 1,
+        "eof": true,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-small",
+      "area": "snapshot",
+      "setup": {
+        "path": "contracts/value.json",
+        "utf8": "abc"
+      },
+      "action": "snapshot",
+      "expected": {
+        "payload_utf8": "abc",
+        "payload_bytes": 3,
+        "requested_read_charge": 4,
+        "unique_files": 1,
+        "eof": true,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-exact-file-limit",
+      "area": "snapshot",
+      "setup": {
+        "path": "contracts/value.json",
+        "repeat_ascii": "x",
+        "count": 67108864
+      },
+      "action": "snapshot",
+      "expected": {
+        "payload_bytes": 67108864,
+        "all_payload_bytes_ascii": "x",
+        "requested_read_charge": 67108865,
+        "eof": true,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-file-limit-plus-one",
+      "area": "snapshot",
+      "setup": {
+        "path": "contracts/value.json",
+        "repeat_ascii": "x",
+        "count": 67108865
+      },
+      "action": "snapshot",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "file-limit",
+          "contracts/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "read_syscalls": 0
+      }
+    },
+    {
+      "id": "snapshot-exact-aggregate",
+      "area": "snapshot",
+      "setup": {
+        "files": [
+          {
+            "path": "contracts/budget-1.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-2.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-3.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-4.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-5.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-6.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-7.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-8.json",
+            "repeat_ascii": "x",
+            "count": 67108856
+          }
+        ]
+      },
+      "action": "snapshot every listed file in order",
+      "expected": {
+        "payload_bytes": 536870904,
+        "requested_read_charge": 536870912,
+        "unique_files": 8,
+        "eof_for_every_file": true,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-aggregate-plus-one",
+      "area": "snapshot",
+      "setup": {
+        "files": [
+          {
+            "path": "contracts/budget-1.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-2.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-3.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-4.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-5.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-6.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-7.json",
+            "repeat_ascii": "x",
+            "count": 67108864
+          },
+          {
+            "path": "contracts/budget-8.json",
+            "repeat_ascii": "x",
+            "count": 67108857
+          }
+        ]
+      },
+      "action": "snapshot every listed file in order",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "aggregate-limit",
+          "contracts/budget-8.json"
+        ],
+        "requested_read_charge_max": 536870912,
+        "last_payload_not_returned": true,
+        "no_syscall_if_requested_charge_would_exceed_cap": true,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-file-count-exact",
+      "area": "snapshot",
+      "setup": {
+        "path_template": "contracts/count-{index}.json",
+        "index_start": 1,
+        "index_end": 1280,
+        "utf8": ""
+      },
+      "action": "snapshot each of the 1280 distinct real files",
+      "expected": {
+        "unique_files": 1280,
+        "requested_read_charge": 1280,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-file-count-plus-one",
+      "area": "snapshot",
+      "setup": {
+        "path_template": "contracts/count-{index}.json",
+        "index_start": 1,
+        "index_end": 1281,
+        "utf8": ""
+      },
+      "action": "snapshot each file in ascending index order",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "file-count",
+          "contracts/count-1281.json"
+        ],
+        "last_file_read_syscalls": 0,
+        "unique_files": 1280,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-repeat-identity",
+      "area": "snapshot",
+      "setup": {
+        "path": "contracts/value.json",
+        "utf8": "abc"
+      },
+      "action": "request same canonical snapshot twice in one invocation",
+      "expected": {
+        "both_payloads_utf8": "abc",
+        "unique_files": 1,
+        "requested_read_charge": 4,
+        "second_filesystem_reads": 0
+      }
+    },
+    {
+      "id": "snapshot-race-growth",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/sub/value.json",
+        "repeat_ascii": "x",
+        "count": 8192,
+        "barrier": "real read-boundary synchronization; no sleep; mutations occur only at the described event"
+      },
+      "action": "append UTF-8 d to the real opened file after opened fstat and before the first payload read",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "unstable_payload_returned": false,
+        "oversize_payload_to_parser": false,
+        "requested_read_charge_max": 8193
+      }
+    },
+    {
+      "id": "snapshot-race-growth-after-read",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/sub/value.json",
+        "repeat_ascii": "x",
+        "count": 8192,
+        "barrier": "real read-boundary synchronization; no sleep; mutations occur only at the described event"
+      },
+      "action": "after the first real payload read returns nonempty bytes, before EOF/final stability observations, append one ASCII y byte through a distinct writable descriptor",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "unstable_payload_returned": false,
+        "oversize_payload_to_parser": false,
+        "requested_read_charge_max": 8193
+      }
+    },
+    {
+      "id": "snapshot-race-shrink",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/sub/value.json",
+        "repeat_ascii": "x",
+        "count": 8192,
+        "barrier": "real read-boundary synchronization; no sleep; mutations occur only at the described event"
+      },
+      "action": "truncate the real opened file to zero after opened fstat and before first payload read",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "unstable_payload_returned": false,
+        "oversize_payload_to_parser": false,
+        "requested_read_charge_max": 8193
+      }
+    },
+    {
+      "id": "snapshot-race-same-size-write",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/sub/value.json",
+        "repeat_ascii": "x",
+        "count": 8192,
+        "barrier": "real read-boundary synchronization; no sleep; mutations occur only at the described event"
+      },
+      "action": "overwrite first byte with ASCII y through a second descriptor after the first real payload read returns nonempty bytes and before EOF/final stability observations",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "unstable_payload_returned": false,
+        "oversize_payload_to_parser": false,
+        "requested_read_charge_max": 8193
+      }
+    },
+    {
+      "id": "snapshot-race-replace-final",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/sub/value.json",
+        "repeat_ascii": "x",
+        "count": 8192,
+        "barrier": "real read-boundary synchronization; no sleep; mutations occur only at the described event"
+      },
+      "action": "rename the admitted final path aside and replace it with a different regular inode containing the same bytes after opened fstat and before first read",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "unstable_payload_returned": false,
+        "oversize_payload_to_parser": false,
+        "requested_read_charge_max": 8193
+      }
+    },
+    {
+      "id": "snapshot-race-replace-parent",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/sub/value.json",
+        "repeat_ascii": "x",
+        "count": 8192,
+        "barrier": "real read-boundary synchronization; no sleep; mutations occur only at the described event"
+      },
+      "action": "rename contracts/sub aside and replace contracts/sub with a different real directory containing equal file bytes after the final file is opened",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "unstable_payload_returned": false,
+        "oversize_payload_to_parser": false,
+        "requested_read_charge_max": 8193
+      }
+    },
+    {
+      "id": "snapshot-race-parent-symlink-substitution",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/sub/value.json",
+        "repeat_ascii": "x",
+        "count": 8192,
+        "barrier": "real read-boundary synchronization; no sleep; mutations occur only at the described event"
+      },
+      "action": "rename contracts/sub aside and replace it with a symlink to the renamed directory after the final file is opened",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "unstable_payload_returned": false,
+        "oversize_payload_to_parser": false,
+        "requested_read_charge_max": 8193
+      }
+    },
+    {
+      "id": "snapshot-directory",
+      "area": "snapshot",
+      "setup": {
+        "kind": "directory",
+        "path": "contracts/value.json"
+      },
+      "action": "attempt snapshot",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "not-regular",
+          "contracts/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "read_syscalls": 0,
+        "no_blocking_open": true
+      }
+    },
+    {
+      "id": "snapshot-fifo",
+      "area": "snapshot",
+      "setup": {
+        "kind": "fifo-with-no-writer",
+        "path": "contracts/value.json"
+      },
+      "action": "attempt snapshot",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "not-regular",
+          "contracts/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "read_syscalls": 0,
+        "no_blocking_open": true
+      }
+    },
+    {
+      "id": "snapshot-final-symlink",
+      "area": "snapshot",
+      "setup": {
+        "kind": "symlink",
+        "path": "contracts/value.json",
+        "target": "real.json",
+        "target_utf8": "7"
+      },
+      "action": "attempt snapshot",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "symlink",
+          "contracts/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "read_syscalls": 0,
+        "no_blocking_open": true
+      }
+    },
+    {
+      "id": "snapshot-parent-symlink",
+      "area": "snapshot",
+      "setup": {
+        "kind": "parent-symlink",
+        "path": "contracts/sub/value.json",
+        "target_parent": "contracts/real",
+        "target_utf8": "7"
+      },
+      "action": "attempt snapshot",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "symlink",
+          "contracts/sub/value.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "read_syscalls": 0,
+        "no_blocking_open": true
+      }
+    },
+    {
+      "id": "snapshot-outside-root",
+      "area": "snapshot",
+      "setup": {
+        "kind": "regular-outside-invocation-root",
+        "path": "../outside.json",
+        "utf8": "7"
+      },
+      "action": "attempt snapshot",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "outside-root",
+          "../outside.json"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "read_syscalls": 0,
+        "no_blocking_open": true
+      }
+    },
+    {
+      "id": "snapshot-missing-capability",
+      "area": "snapshot",
+      "setup": {
+        "capability_absence_each": [
+          "O_NOFOLLOW",
+          "O_NONBLOCK",
+          "O_DIRECTORY",
+          "O_CLOEXEC",
+          "callable open",
+          "callable stat",
+          "callable fstat",
+          "callable read",
+          "callable close",
+          "callable scandir",
+          "dir_fd open",
+          "dir_fd stat",
+          "follow_symlinks stat",
+          "fd scandir"
+        ],
+        "real_regular_file": {
+          "path": "contracts/value.json",
+          "utf8": "7"
+        },
+        "invocation_root": "ROOT, the exact fresh real directory supplied to SnapshotStore"
+      },
+      "action": "For each named absent capability, exercise the actual invocation-root constructor admission before acquiring its root descriptor; the regular value file remains untouched. These are explicit capability-branch injections, not actual platform-availability or process qualification.",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "capability",
+          "ROOT"
+        ],
+        "parser_calls": 0,
+        "all_opened_descriptors_closed": true,
+        "read_syscalls": 0,
+        "weaker_fallback_calls": 0,
+        "root_or_child_descriptor_acquisitions": 0,
+        "file_specific_failures_still_name_actual_path": true
+      }
+    },
+    {
+      "id": "snapshot-role-entry",
+      "area": "snapshot-integration",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$ref": "library.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/library.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ],
+        "target": "contracts/entry.schema.json",
+        "mutation": "grow the target after admitted fstat using a real read boundary"
+      },
+      "action": "run ordinary owned CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed"
+        ],
+        "unstable_target_reaches_parser": false,
+        "old_local_schema_reader_calls": 0,
+        "no_schema_fallback": true,
+        "all_opened_descriptors_closed": true,
+        "validation_marker_absent": true
+      }
+    },
+    {
+      "id": "snapshot-role-reference",
+      "area": "snapshot-integration",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$ref": "library.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/library.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ],
+        "target": "contracts/library.schema.json",
+        "mutation": "grow the target after admitted fstat using a real read boundary"
+      },
+      "action": "run ordinary owned CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed"
+        ],
+        "unstable_target_reaches_parser": false,
+        "old_local_schema_reader_calls": 0,
+        "no_schema_fallback": true,
+        "all_opened_descriptors_closed": true,
+        "validation_marker_absent": true
+      }
+    },
+    {
+      "id": "snapshot-role-instance",
+      "area": "snapshot-integration",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$ref": "library.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/library.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ],
+        "target": "contracts/value.json",
+        "mutation": "grow the target after admitted fstat using a real read boundary"
+      },
+      "action": "run ordinary owned CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed"
+        ],
+        "unstable_target_reaches_parser": false,
+        "old_local_schema_reader_calls": 0,
+        "no_schema_fallback": true,
+        "all_opened_descriptors_closed": true,
+        "validation_marker_absent": true
+      }
+    },
+    {
+      "id": "entry-invalid-json",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          },
+          "contracts/value.json": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile could not be parsed as JSON",
+          "SchemaParseError",
+          "contracts/entry.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "snapshot:entry",
+          "parse:entry",
+          "schema-error; no preload; no instance-validation"
+        ]
+      }
+    },
+    {
+      "id": "entry-array",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "utf8": "[]"
+          },
+          "contracts/value.json": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile could not be parsed as JSON",
+          "SchemaParseError",
+          "contracts/entry.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "snapshot:entry",
+          "parse:entry",
+          "schema-error; no preload; no instance-validation"
+        ]
+      }
+    },
+    {
+      "id": "entry-boolean",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "utf8": "true"
+          },
+          "contracts/value.json": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile could not be parsed as JSON",
+          "SchemaParseError",
+          "contracts/entry.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "snapshot:entry",
+          "parse:entry",
+          "schema-error; no preload; no instance-validation"
+        ]
+      }
+    },
+    {
+      "id": "entry-number",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "utf8": "7"
+          },
+          "contracts/value.json": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile could not be parsed as JSON",
+          "SchemaParseError",
+          "contracts/entry.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "snapshot:entry",
+          "parse:entry",
+          "schema-error; no preload; no instance-validation"
+        ]
+      }
+    },
+    {
+      "id": "entry-null",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "utf8": "null"
+          },
+          "contracts/value.json": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile could not be parsed as JSON",
+          "SchemaParseError",
+          "contracts/entry.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "snapshot:entry",
+          "parse:entry",
+          "schema-error; no preload; no instance-validation"
+        ]
+      }
+    },
+    {
+      "id": "entry-invalid-schema",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": 7
+            }
+          },
+          "contracts/value.json": {
+            "json": "x"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile was not valid",
+          "SchemaError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "snapshot:entry",
+          "parse:entry",
+          "meta-validation-error; no preload; no instance-validation"
+        ]
+      }
+    },
+    {
+      "id": "all-invalid-instance-entry-invalid-json",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/value.json": {
+            "utf8": "{"
+          },
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI --output-format json --verbose",
+      "expected": {
+        "exit": 1,
+        "classification": "instance-parse",
+        "json_stdout": {
+          "status": "fail",
+          "successes": [],
+          "errors": [],
+          "parse_errors": [
+            {
+              "filename": "contracts/value.json",
+              "message": "Failed to parse contracts/value.json"
+            }
+          ]
+        },
+        "stderr": "",
+        "schema_snapshots": 0,
+        "meta_validation_calls": 0,
+        "preload_calls": 0,
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "close:value",
+          "report:parse-error"
+        ]
+      }
+    },
+    {
+      "id": "all-invalid-instance-entry-missing",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/value.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI --output-format json --verbose",
+      "expected": {
+        "exit": 1,
+        "classification": "instance-parse",
+        "json_stdout": {
+          "status": "fail",
+          "successes": [],
+          "errors": [],
+          "parse_errors": [
+            {
+              "filename": "contracts/value.json",
+              "message": "Failed to parse contracts/value.json"
+            }
+          ]
+        },
+        "stderr": "",
+        "schema_snapshots": 0,
+        "meta_validation_calls": 0,
+        "preload_calls": 0,
+        "events": [
+          "preflight:value",
+          "parse:value",
+          "close:value",
+          "report:parse-error"
+        ]
+      }
+    },
+    {
+      "id": "all-two-instances-parse-invalid",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "{"
+          },
+          "contracts/second.json": {
+            "utf8": "["
+          },
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ]
+      },
+      "action": "run CLI --output-format json --verbose",
+      "expected": {
+        "exit": 1,
+        "json_stdout": {
+          "status": "fail",
+          "successes": [],
+          "errors": [],
+          "parse_errors": [
+            {
+              "filename": "contracts/first.json",
+              "message": "Failed to parse contracts/first.json"
+            },
+            {
+              "filename": "contracts/second.json",
+              "message": "Failed to parse contracts/second.json"
+            }
+          ]
+        },
+        "stderr": "",
+        "schema_snapshots": 0,
+        "meta_validation_calls": 0,
+        "preload_calls": 0,
+        "events": [
+          "preflight:first",
+          "preflight:second",
+          "parse:first",
+          "close:first",
+          "parse:second",
+          "close:second",
+          "report:parse-errors"
+        ]
+      }
+    },
+    {
+      "id": "parse-error-then-invalid-entry",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "{"
+          },
+          "contracts/second.json": {
+            "utf8": "7"
+          },
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile was not valid",
+          "SchemaError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:first",
+          "preflight:second",
+          "parse:first-error",
+          "close:first",
+          "parse:second",
+          "close:second",
+          "snapshot:entry",
+          "meta-validation-error; no report of earlier result"
+        ]
+      }
+    },
+    {
+      "id": "parsed-first-invalid-entry-later-untouched",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "7"
+          },
+          "contracts/second.json": {
+            "utf8": "["
+          },
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "schemafile could not be parsed as JSON",
+          "SchemaParseError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "events": [
+          "preflight:first",
+          "preflight:second",
+          "parse:first",
+          "close:first",
+          "snapshot:entry",
+          "schema-parse-error; no read or snapshot of second"
+        ]
+      }
+    },
+    {
+      "id": "preflight-later-missing",
+      "area": "cli-preflight",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "{"
+          },
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ]
+      },
+      "action": "run CLI; second is unavailable before argument conversion",
+      "expected": {
+        "exit": 1,
+        "classification": "argument-filesystem-admission",
+        "stdout": "",
+        "stderr_contains": [
+          "FileNotFoundError",
+          "contracts/second.json"
+        ],
+        "output_forbids": [
+          "Several files failed to parse.",
+          "Schema validation errors were encountered.",
+          "schemafile could not be parsed"
+        ],
+        "payload_reads": 0,
+        "schema_snapshots": 0,
+        "events": [
+          "preflight:first-open-close",
+          "preflight:second-error",
+          "no parser/checker invocation"
+        ],
+        "upstream_source": "check_jsonschema/cli/param_types.py:126-170; click/core.py:1571-1577"
+      }
+    },
+    {
+      "id": "preflight-later-unreadable",
+      "area": "cli-preflight",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "{"
+          },
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          },
+          "contracts/second.json": {
+            "utf8": "7",
+            "mode": "000; verify actual no read access under qualified non-root identity"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ]
+      },
+      "action": "run CLI; second is unavailable before argument conversion",
+      "expected": {
+        "exit": 1,
+        "classification": "argument-filesystem-admission",
+        "stdout": "",
+        "stderr_contains": [
+          "PermissionError",
+          "contracts/second.json"
+        ],
+        "output_forbids": [
+          "Several files failed to parse.",
+          "Schema validation errors were encountered.",
+          "schemafile could not be parsed"
+        ],
+        "payload_reads": 0,
+        "schema_snapshots": 0,
+        "events": [
+          "preflight:first-open-close",
+          "preflight:second-error",
+          "no parser/checker invocation"
+        ],
+        "upstream_source": "check_jsonschema/cli/param_types.py:126-170; click/core.py:1571-1577"
+      }
+    },
+    {
+      "id": "post-preflight-later-disappears-after-parse-invalid",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "{"
+          },
+          "contracts/second.json": {
+            "utf8": "7"
+          },
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "integer"
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ],
+        "barrier": "after both argument preflights and after first read closes, remove the second real path before its first-read admission"
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "first-read-filesystem-admission",
+        "stdout": "",
+        "stderr_contains": [
+          "FileNotFoundError",
+          "contracts/second.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "Several files failed to parse.",
+          "ok -- validation done"
+        ],
+        "schema_snapshots": 0,
+        "first_instance_validation_error_count": 0,
+        "events": [
+          "preflight:first-open-close",
+          "preflight:second-open-close",
+          "parse:first",
+          "close:first",
+          "second-read-error; no report of accumulated result"
+        ]
+      }
+    },
+    {
+      "id": "post-preflight-later-disappears-after-validation-invalid",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "\"x\""
+          },
+          "contracts/second.json": {
+            "utf8": "7"
+          },
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "integer"
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ],
+        "barrier": "after both argument preflights and after first read closes, remove the second real path before its first-read admission"
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "first-read-filesystem-admission",
+        "stdout": "",
+        "stderr_contains": [
+          "FileNotFoundError",
+          "contracts/second.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "Several files failed to parse.",
+          "ok -- validation done"
+        ],
+        "schema_snapshots": 1,
+        "first_instance_validation_error_count": 1,
+        "events": [
+          "preflight:first-open-close",
+          "preflight:second-open-close",
+          "parse:first",
+          "close:first",
+          "schema-load-and-meta-check",
+          "validate:first-error",
+          "second-read-error; no report of accumulated result"
+        ]
+      }
+    },
+    {
+      "id": "forced-json-extension",
+      "area": "parser-order",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "type": "integer"
+            }
+          },
+          "contracts/value.txt": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.txt"
+        ]
+      },
+      "action": "run CLI --force-filetype json",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "parsed_value": 7,
+        "parser_filetype": "json"
+      }
+    },
+    {
+      "id": "output-complete-text-errors",
+      "area": "output",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "type": "object",
+              "properties": {
+                "left": {
+                  "type": "integer"
+                },
+                "right": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": {
+              "left": "x",
+              "right": 2
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI --verbose",
+      "expected": {
+        "exit": 1,
+        "classification": "ordinary-invalid",
+        "stdout": "Schema validation errors were encountered.\n  contracts/value.json::$.left: 'x' is not of type 'integer'\n  contracts/value.json::$.right: 2 is not of type 'boolean'\n",
+        "stderr": "",
+        "error_keywords": [
+          "type",
+          "type"
+        ],
+        "error_paths": [
+          [
+            "left"
+          ],
+          [
+            "right"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "output-complete-json-errors",
+      "area": "output",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "type": "object",
+              "properties": {
+                "left": {
+                  "type": "integer"
+                },
+                "right": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": {
+              "left": "x",
+              "right": 2
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI --output-format json --verbose",
+      "expected": {
+        "exit": 1,
+        "classification": "ordinary-invalid",
+        "json_stdout": {
+          "status": "fail",
+          "successes": [],
+          "errors": [
+            {
+              "filename": "contracts/value.json",
+              "path": "$.left",
+              "message": "'x' is not of type 'integer'",
+              "has_sub_errors": false
+            },
+            {
+              "filename": "contracts/value.json",
+              "path": "$.right",
+              "message": "2 is not of type 'boolean'",
+              "has_sub_errors": false
+            }
+          ],
+          "parse_errors": []
+        },
+        "stderr": ""
+      }
+    },
+    {
+      "id": "output-json-success",
+      "area": "output",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "type": "integer"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI --output-format json --verbose",
+      "expected": {
+        "exit": 0,
+        "json_stdout": {
+          "status": "ok",
+          "errors": [],
+          "checked_paths": [
+            "contracts/value.json"
+          ]
+        },
+        "stderr": ""
+      }
+    },
+    {
+      "id": "output-multiple-instance-order",
+      "area": "output",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "type": "integer"
+            }
+          },
+          "contracts/first.json": {
+            "utf8": "\"x\""
+          },
+          "contracts/second.json": {
+            "utf8": "7"
+          },
+          "contracts/third.json": {
+            "utf8": "false"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json",
+          "contracts/third.json"
+        ]
+      },
+      "action": "run CLI --output-format json --verbose",
+      "expected": {
+        "exit": 1,
+        "json_stdout": {
+          "status": "fail",
+          "successes": [
+            "contracts/second.json"
+          ],
+          "errors": [
+            {
+              "filename": "contracts/first.json",
+              "path": "$",
+              "message": "'x' is not of type 'integer'",
+              "has_sub_errors": false
+            },
+            {
+              "filename": "contracts/third.json",
+              "path": "$",
+              "message": "False is not of type 'integer'",
+              "has_sub_errors": false
+            }
+          ],
+          "parse_errors": []
+        },
+        "stderr": "",
+        "schema_snapshots": 1
+      }
+    },
+    {
+      "id": "output-traceback-short",
+      "area": "output",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          },
+          "contracts/value.json": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI --traceback-mode short",
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile could not be parsed as JSON",
+          "SchemaParseError",
+          "FailedFileLoadError",
+          "JSONDecodeError",
+          "contracts/entry.schema.json"
+        ],
+        "stderr_contains_additional": [
+          "caused by"
+        ],
+        "normalized_only": [
+          "actual absolute disposable root",
+          "owned/upstream stack-frame source locations"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered."
+        ]
+      }
+    },
+    {
+      "id": "output-traceback-full",
+      "area": "output",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "utf8": "{"
+          },
+          "contracts/value.json": {
+            "utf8": "7"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI --traceback-mode full",
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr_contains": [
+          "Error: schemafile could not be parsed as JSON",
+          "SchemaParseError",
+          "FailedFileLoadError",
+          "JSONDecodeError",
+          "contracts/entry.schema.json"
+        ],
+        "stderr_contains_additional": [
+          "Traceback (most recent call last)"
+        ],
+        "normalized_only": [
+          "actual absolute disposable root",
+          "owned/upstream stack-frame source locations"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered."
+        ]
+      }
+    },
+    {
+      "id": "reference-unconsumed-missing-file",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7,
+              "$defs": {
+                "unused": {
+                  "$ref": "missing.schema.json"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "optimized",
+        "reference_consumed": false
+      }
+    },
+    {
+      "id": "reference-consumed-missing-file-positive",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "missing.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "missing.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-consumed-missing-file-not",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "not": {
+                "$ref": "missing.schema.json"
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "missing.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-unconsumed-malformed-json",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7,
+              "$defs": {
+                "unused": {
+                  "$ref": "bad.schema.json"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "lazy",
+        "eager_cause_type": "FailedFileLoadError",
+        "eager_cause_retained": true,
+        "reference_consumed": false
+      }
+    },
+    {
+      "id": "reference-consumed-malformed-json-positive",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "bad.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "FailedFileLoadError",
+          "bad.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "lazy",
+        "eager_cause_type": "FailedFileLoadError",
+        "eager_cause_retained": true,
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-consumed-malformed-json-not",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "not": {
+                "$ref": "bad.schema.json"
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "FailedFileLoadError",
+          "bad.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "lazy",
+        "eager_cause_type": "FailedFileLoadError",
+        "eager_cause_retained": true,
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-unconsumed-invalid-resource-root",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7,
+              "$defs": {
+                "unused": {
+                  "$ref": "bad.schema.json"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "lazy",
+        "eager_cause_type": "AttributeError",
+        "eager_cause_retained": true,
+        "reference_consumed": false
+      }
+    },
+    {
+      "id": "reference-consumed-invalid-resource-root-positive",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "bad.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "TypeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "lazy",
+        "eager_cause_type": "AttributeError",
+        "eager_cause_retained": true,
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-consumed-invalid-resource-root-not",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "not": {
+                "$ref": "bad.schema.json"
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "TypeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "lazy",
+        "eager_cause_type": "AttributeError",
+        "eager_cause_retained": true,
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-unconsumed-invalid-schema",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7,
+              "$defs": {
+                "unused": {
+                  "$ref": "bad.schema.json"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "type": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "optimized",
+        "reference_consumed": false
+      }
+    },
+    {
+      "id": "reference-consumed-invalid-schema-positive",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "bad.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "type": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "TypeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-consumed-invalid-schema-not",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "not": {
+                "$ref": "bad.schema.json"
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "type": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "TypeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-unconsumed-invalid-subresource",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7,
+              "$defs": {
+                "unused": {
+                  "$ref": "bad.schema.json#/$defs/bad"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "$defs": {
+                "bad": {
+                  "type": 7
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "optimized",
+        "reference_consumed": false
+      }
+    },
+    {
+      "id": "reference-consumed-invalid-subresource-positive",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "bad.schema.json#/$defs/bad"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "$defs": {
+                "bad": {
+                  "type": 7
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "TypeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-consumed-invalid-subresource-not",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "not": {
+                "$ref": "bad.schema.json#/$defs/bad"
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "$defs": {
+                "bad": {
+                  "type": 7
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "TypeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-unconsumed-missing-fragment",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7,
+              "$defs": {
+                "unused": {
+                  "$ref": "bad.schema.json#/$defs/absent"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "$defs": {
+                "present": {
+                  "const": 7
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "optimized",
+        "reference_consumed": false
+      }
+    },
+    {
+      "id": "reference-consumed-missing-fragment-positive",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "bad.schema.json#/$defs/absent"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "$defs": {
+                "present": {
+                  "const": 7
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "PointerToNowhere",
+          "absent"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-consumed-missing-fragment-not",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "not": {
+                "$ref": "bad.schema.json#/$defs/absent"
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "$defs": {
+                "present": {
+                  "const": 7
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "PointerToNowhere",
+          "absent"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "optimized",
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-unconsumed-crawl-error",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7,
+              "$defs": {
+                "unused": {
+                  "$ref": "bad.schema.json"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "properties": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "lazy",
+        "eager_cause_type": "AttributeError",
+        "eager_cause_retained": true,
+        "reference_consumed": false
+      }
+    },
+    {
+      "id": "reference-consumed-crawl-error-positive",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "bad.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": {}
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "properties": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "AttributeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "lazy",
+        "eager_cause_type": "AttributeError",
+        "eager_cause_retained": true,
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "reference-consumed-crawl-error-not",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "not": {
+                "$ref": "bad.schema.json"
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": {}
+          },
+          "contracts/bad.schema.json": {
+            "json": {
+              "properties": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "AttributeError"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "registry_path": "lazy",
+        "eager_cause_type": "AttributeError",
+        "eager_cause_retained": true,
+        "reference_consumed": true
+      }
+    },
+    {
+      "id": "lazy-valid-reference",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "good.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/good.schema.json": {
+            "json": {
+              "const": 7
+            }
+          },
+          "contracts/unconsumed-bad.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "lazy",
+        "eager_cause_type": "FailedFileLoadError",
+        "retrieved": [
+          "good.schema.json"
+        ],
+        "bad_reference_consumed": false
+      }
+    },
+    {
+      "id": "lazy-valid-reference-rejects-value",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "good.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 8
+          },
+          "contracts/good.schema.json": {
+            "json": {
+              "const": 7
+            }
+          },
+          "contracts/unconsumed-bad.schema.json": {
+            "utf8": "{"
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "ordinary-invalid",
+        "registry_path": "lazy",
+        "stdout_contains": [
+          "Schema validation errors were encountered.",
+          "contracts/value.json::$: 7 was expected"
+        ],
+        "stderr": "",
+        "keyword": "const"
+      }
+    },
+    {
+      "id": "reference-unconsumed-symlink-fatal",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/unused.schema.json": {
+            "symlink": "good.schema.json"
+          },
+          "contracts/good.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "symlink",
+          "contracts/unused.schema.json"
+        ],
+        "schema_fallback": false,
+        "ordinary_validation_started": false
+      }
+    },
+    {
+      "id": "reference-unconsumed-oversize-fatal",
+      "area": "reference",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/unused.schema.json": {
+            "repeat_ascii": "x",
+            "count": 67108865
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run normal CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "file-limit",
+          "contracts/unused.schema.json"
+        ],
+        "schema_fallback": false,
+        "oversize_read_syscalls": 0
+      }
+    },
+    {
+      "id": "preload-no-fallback-MemoryError",
+      "area": "fallback-boundary",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/good.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "raise the exact named control/failure at the eager referenced-resource parser call while wrapping its real upstream call; this is an injection-specific helper test, not CLI/validator qualification",
+      "expected": {
+        "propagated": "MemoryError",
+        "schema_fallback_calls": 0,
+        "ordinary_validation_started": false,
+        "all_snapshot_descriptors_closed": true,
+        "qualification_scope": "control propagation only; other rows require real files/parsers/registry/evaluation"
+      }
+    },
+    {
+      "id": "preload-no-fallback-deadline-exhausted",
+      "area": "fallback-boundary",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/good.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "raise the exact named control/failure at the eager referenced-resource parser call while wrapping its real upstream call; this is an injection-specific helper test, not CLI/validator qualification",
+      "expected": {
+        "propagated": "deadline-exhausted",
+        "schema_fallback_calls": 0,
+        "ordinary_validation_started": false,
+        "all_snapshot_descriptors_closed": true,
+        "qualification_scope": "control propagation only; other rows require real files/parsers/registry/evaluation"
+      }
+    },
+    {
+      "id": "preload-no-fallback-KeyboardInterrupt",
+      "area": "fallback-boundary",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/good.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "raise the exact named control/failure at the eager referenced-resource parser call while wrapping its real upstream call; this is an injection-specific helper test, not CLI/validator qualification",
+      "expected": {
+        "propagated": "KeyboardInterrupt",
+        "schema_fallback_calls": 0,
+        "ordinary_validation_started": false,
+        "all_snapshot_descriptors_closed": true,
+        "qualification_scope": "control propagation only; other rows require real files/parsers/registry/evaluation"
+      }
+    },
+    {
+      "id": "preload-no-fallback-SystemExit",
+      "area": "fallback-boundary",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "const": 7
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          },
+          "contracts/good.schema.json": {
+            "json": {
+              "const": 7
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "raise the exact named control/failure at the eager referenced-resource parser call while wrapping its real upstream call; this is an injection-specific helper test, not CLI/validator qualification",
+      "expected": {
+        "propagated": "SystemExit",
+        "schema_fallback_calls": 0,
+        "ordinary_validation_started": false,
+        "all_snapshot_descriptors_closed": true,
+        "qualification_scope": "control propagation only; other rows require real files/parsers/registry/evaluation"
+      }
+    },
+    {
+      "id": "resolution-same-name-separation",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "left": {
+                  "$ref": "a/same.schema.json#/$defs/value"
+                },
+                "right": {
+                  "$ref": "b/same.schema.json#/$defs/value"
+                }
+              },
+              "required": [
+                "left",
+                "right"
+              ]
+            }
+          },
+          "contracts/value.json": {
+            "json": {
+              "left": 11,
+              "right": 22
+            }
+          },
+          "contracts/a/same.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "const": 11
+                }
+              }
+            }
+          },
+          "contracts/b/same.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "const": 22
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI at original and relocated root",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destinations": [
+          [
+            "left",
+            "contracts/a/same.schema.json",
+            [
+              "$defs",
+              "value"
+            ],
+            11
+          ],
+          [
+            "right",
+            "contracts/b/same.schema.json",
+            [
+              "$defs",
+              "value"
+            ],
+            22
+          ]
+        ],
+        "registry_path": "optimized"
+      }
+    },
+    {
+      "id": "resolution-same-name-swapped",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "left": {
+                  "$ref": "a/same.schema.json#/$defs/value"
+                },
+                "right": {
+                  "$ref": "b/same.schema.json#/$defs/value"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": {
+              "left": 22,
+              "right": 11
+            }
+          },
+          "contracts/a/same.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "const": 11
+                }
+              }
+            }
+          },
+          "contracts/b/same.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "const": 22
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "ordinary-invalid",
+        "error_keywords": [
+          "const",
+          "const"
+        ],
+        "error_paths": [
+          [
+            "left"
+          ],
+          [
+            "right"
+          ]
+        ],
+        "error_messages": [
+          "11 was expected",
+          "22 was expected"
+        ],
+        "stderr": ""
+      }
+    },
+    {
+      "id": "resolution-nested-sibling-chain",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "validation/a.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 17
+          },
+          "contracts/validation/a.schema.json": {
+            "json": {
+              "$ref": "nested/b.schema.json"
+            }
+          },
+          "contracts/validation/nested/b.schema.json": {
+            "json": {
+              "$ref": "../../public/v1/lib.schema.json#/$defs/value"
+            }
+          },
+          "contracts/public/v1/lib.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "$ref": "common.schema.json#/$defs/value"
+                }
+              }
+            }
+          },
+          "contracts/public/v1/common.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "const": 17
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI at original and relocated root",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "registry_path": "optimized",
+        "destination": "contracts/public/v1/common.schema.json",
+        "pointer": [
+          "$defs",
+          "value"
+        ],
+        "resolved_const": 17
+      }
+    },
+    {
+      "id": "resolution-lifecycle-namespaces",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "properties": {
+                "public": {
+                  "$ref": "public/v1/lifecycle.schema.json#/$defs/value"
+                },
+                "internal": {
+                  "$ref": "internal/v1/lifecycle-continuity.schema.json#/$defs/value"
+                }
+              }
+            }
+          },
+          "contracts/value.json": {
+            "json": {
+              "public": 41,
+              "internal": 42
+            }
+          },
+          "contracts/public/v1/lifecycle.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "const": 41
+                }
+              }
+            }
+          },
+          "contracts/internal/v1/lifecycle-continuity.schema.json": {
+            "json": {
+              "$defs": {
+                "value": {
+                  "const": 42
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI in both roots",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destinations": [
+          [
+            "public",
+            "contracts/public/v1/lifecycle.schema.json",
+            41
+          ],
+          [
+            "internal",
+            "contracts/internal/v1/lifecycle-continuity.schema.json",
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "id": "resolution-fragment-slash",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "defs.schema.json#/$defs/a~1b"
+            }
+          },
+          "contracts/value.json": {
+            "json": 31
+          },
+          "contracts/defs.schema.json": {
+            "json": {
+              "$defs": {
+                "a/b": {
+                  "const": 31
+                },
+                "a%2Fb": {
+                  "const": 32
+                },
+                "a~b": {
+                  "const": 33
+                },
+                "space é": {
+                  "const": 34
+                },
+                "a": {
+                  "b": {
+                    "const": 35
+                  }
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run real registry/validator",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/defs.schema.json",
+        "pointer": [
+          "$defs",
+          "a/b"
+        ],
+        "resolved_const": 31,
+        "other_definition_values_forbidden": [
+          32,
+          33,
+          34,
+          35
+        ]
+      }
+    },
+    {
+      "id": "resolution-fragment-literal-percent",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "defs.schema.json#/$defs/a%252Fb"
+            }
+          },
+          "contracts/value.json": {
+            "json": 32
+          },
+          "contracts/defs.schema.json": {
+            "json": {
+              "$defs": {
+                "a/b": {
+                  "const": 31
+                },
+                "a%2Fb": {
+                  "const": 32
+                },
+                "a~b": {
+                  "const": 33
+                },
+                "space é": {
+                  "const": 34
+                },
+                "a": {
+                  "b": {
+                    "const": 35
+                  }
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run real registry/validator",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/defs.schema.json",
+        "pointer": [
+          "$defs",
+          "a%2Fb"
+        ],
+        "resolved_const": 32,
+        "other_definition_values_forbidden": [
+          31,
+          33,
+          34,
+          35
+        ]
+      }
+    },
+    {
+      "id": "resolution-fragment-tilde",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "defs.schema.json#/$defs/a~0b"
+            }
+          },
+          "contracts/value.json": {
+            "json": 33
+          },
+          "contracts/defs.schema.json": {
+            "json": {
+              "$defs": {
+                "a/b": {
+                  "const": 31
+                },
+                "a%2Fb": {
+                  "const": 32
+                },
+                "a~b": {
+                  "const": 33
+                },
+                "space é": {
+                  "const": 34
+                },
+                "a": {
+                  "b": {
+                    "const": 35
+                  }
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run real registry/validator",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/defs.schema.json",
+        "pointer": [
+          "$defs",
+          "a~b"
+        ],
+        "resolved_const": 33,
+        "other_definition_values_forbidden": [
+          31,
+          32,
+          34,
+          35
+        ]
+      }
+    },
+    {
+      "id": "resolution-fragment-unicode-space",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "defs.schema.json#/$defs/space%20%C3%A9"
+            }
+          },
+          "contracts/value.json": {
+            "json": 34
+          },
+          "contracts/defs.schema.json": {
+            "json": {
+              "$defs": {
+                "a/b": {
+                  "const": 31
+                },
+                "a%2Fb": {
+                  "const": 32
+                },
+                "a~b": {
+                  "const": 33
+                },
+                "space é": {
+                  "const": 34
+                },
+                "a": {
+                  "b": {
+                    "const": 35
+                  }
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run real registry/validator",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/defs.schema.json",
+        "pointer": [
+          "$defs",
+          "space é"
+        ],
+        "resolved_const": 34,
+        "other_definition_values_forbidden": [
+          31,
+          32,
+          33,
+          35
+        ]
+      }
+    },
+    {
+      "id": "resolution-fragment-encoded-slash-is-pointer-separator",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "defs.schema.json#/$defs/a%2Fb"
+            }
+          },
+          "contracts/value.json": {
+            "json": 35
+          },
+          "contracts/defs.schema.json": {
+            "json": {
+              "$defs": {
+                "a/b": {
+                  "const": 31
+                },
+                "a%2Fb": {
+                  "const": 32
+                },
+                "a~b": {
+                  "const": 33
+                },
+                "space é": {
+                  "const": 34
+                },
+                "a": {
+                  "b": {
+                    "const": 35
+                  }
+                }
+              }
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run real registry/validator",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/defs.schema.json",
+        "pointer": [
+          "$defs",
+          "a",
+          "b"
+        ],
+        "resolved_const": 35,
+        "other_definition_values_forbidden": [
+          31,
+          32,
+          33,
+          34
+        ]
+      }
+    },
+    {
+      "id": "resolution-uri-directory",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "a/b.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 51
+          },
+          "contracts/a/b.schema.json": {
+            "json": {
+              "const": 51
+            }
+          },
+          "contracts/a%2Fb.schema.json": {
+            "json": {
+              "const": 52
+            }
+          },
+          "contracts/100%.schema.json": {
+            "json": {
+              "const": 53
+            }
+          },
+          "contracts/100%25.schema.json": {
+            "json": {
+              "const": 54
+            }
+          },
+          "contracts/space é.schema.json": {
+            "json": {
+              "const": 55
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI at original and relocated root; also retrieve exact canonical absolute file URI from prepared real registry",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/a/b.schema.json",
+        "resolved_const": 51,
+        "alias_pair": [
+          "a/b.schema.json",
+          "<ROOT_FILE_URI>/contracts/a/b.schema.json"
+        ],
+        "registry_path": "optimized"
+      }
+    },
+    {
+      "id": "resolution-uri-literal-encoded-slash",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "a%252Fb.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 52
+          },
+          "contracts/a/b.schema.json": {
+            "json": {
+              "const": 51
+            }
+          },
+          "contracts/a%2Fb.schema.json": {
+            "json": {
+              "const": 52
+            }
+          },
+          "contracts/100%.schema.json": {
+            "json": {
+              "const": 53
+            }
+          },
+          "contracts/100%25.schema.json": {
+            "json": {
+              "const": 54
+            }
+          },
+          "contracts/space é.schema.json": {
+            "json": {
+              "const": 55
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI at original and relocated root; also retrieve exact canonical absolute file URI from prepared real registry",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/a%2Fb.schema.json",
+        "resolved_const": 52,
+        "alias_pair": [
+          "a%252Fb.schema.json",
+          "<ROOT_FILE_URI>/contracts/a%252Fb.schema.json"
+        ],
+        "registry_path": "optimized"
+      }
+    },
+    {
+      "id": "resolution-uri-percent",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "100%25.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 53
+          },
+          "contracts/a/b.schema.json": {
+            "json": {
+              "const": 51
+            }
+          },
+          "contracts/a%2Fb.schema.json": {
+            "json": {
+              "const": 52
+            }
+          },
+          "contracts/100%.schema.json": {
+            "json": {
+              "const": 53
+            }
+          },
+          "contracts/100%25.schema.json": {
+            "json": {
+              "const": 54
+            }
+          },
+          "contracts/space é.schema.json": {
+            "json": {
+              "const": 55
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI at original and relocated root; also retrieve exact canonical absolute file URI from prepared real registry",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/100%.schema.json",
+        "resolved_const": 53,
+        "alias_pair": [
+          "100%25.schema.json",
+          "<ROOT_FILE_URI>/contracts/100%25.schema.json"
+        ],
+        "registry_path": "optimized"
+      }
+    },
+    {
+      "id": "resolution-uri-double-percent",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "100%2525.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 54
+          },
+          "contracts/a/b.schema.json": {
+            "json": {
+              "const": 51
+            }
+          },
+          "contracts/a%2Fb.schema.json": {
+            "json": {
+              "const": 52
+            }
+          },
+          "contracts/100%.schema.json": {
+            "json": {
+              "const": 53
+            }
+          },
+          "contracts/100%25.schema.json": {
+            "json": {
+              "const": 54
+            }
+          },
+          "contracts/space é.schema.json": {
+            "json": {
+              "const": 55
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI at original and relocated root; also retrieve exact canonical absolute file URI from prepared real registry",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/100%25.schema.json",
+        "resolved_const": 54,
+        "alias_pair": [
+          "100%2525.schema.json",
+          "<ROOT_FILE_URI>/contracts/100%2525.schema.json"
+        ],
+        "registry_path": "optimized"
+      }
+    },
+    {
+      "id": "resolution-uri-space-unicode",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "space%20%C3%A9.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 55
+          },
+          "contracts/a/b.schema.json": {
+            "json": {
+              "const": 51
+            }
+          },
+          "contracts/a%2Fb.schema.json": {
+            "json": {
+              "const": 52
+            }
+          },
+          "contracts/100%.schema.json": {
+            "json": {
+              "const": 53
+            }
+          },
+          "contracts/100%25.schema.json": {
+            "json": {
+              "const": 54
+            }
+          },
+          "contracts/space é.schema.json": {
+            "json": {
+              "const": 55
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI at original and relocated root; also retrieve exact canonical absolute file URI from prepared real registry",
+      "expected": {
+        "exit": 0,
+        "stdout": "ok -- validation done\n",
+        "stderr": "",
+        "validation_errors": [],
+        "destination": "contracts/space é.schema.json",
+        "resolved_const": 55,
+        "alias_pair": [
+          "space%20%C3%A9.schema.json",
+          "<ROOT_FILE_URI>/contracts/space%20%C3%A9.schema.json"
+        ],
+        "registry_path": "optimized"
+      }
+    },
+    {
+      "id": "resolution-encoded-slash-does-not-name-directory",
+      "area": "resolution",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "a%2Fb.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 51
+          },
+          "contracts/a/b.schema.json": {
+            "json": {
+              "const": 51
+            }
+          },
+          "contracts/a%2Fb.schema.json": {
+            "json": {
+              "const": 52
+            }
+          },
+          "contracts/100%.schema.json": {
+            "json": {
+              "const": 53
+            }
+          },
+          "contracts/100%25.schema.json": {
+            "json": {
+              "const": 54
+            }
+          },
+          "contracts/space é.schema.json": {
+            "json": {
+              "const": 55
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "a%2Fb.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "callback_exception": "NoSuchResource",
+        "opened_by_retrieve": 0
+      }
+    },
+    {
+      "id": "retrieval-closed-remote",
+      "area": "retrieval",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "https://example.test/remote.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI; real outside file contains {const:7}; externally observe no socket/connect and no filesystem open inside retrieve callback",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "https://example.test/remote.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "callback_exception": "NoSuchResource",
+        "callback_opens": 0,
+        "callback_network_calls": 0
+      }
+    },
+    {
+      "id": "retrieval-closed-network-relative",
+      "area": "retrieval",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "//example.test/remote.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI; real outside file contains {const:7}; externally observe no socket/connect and no filesystem open inside retrieve callback",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "//example.test/remote.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "callback_exception": "NoSuchResource",
+        "callback_opens": 0,
+        "callback_network_calls": 0
+      }
+    },
+    {
+      "id": "retrieval-closed-escape",
+      "area": "retrieval",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "../outside.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI; real outside file contains {const:7}; externally observe no socket/connect and no filesystem open inside retrieve callback",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "../outside.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "callback_exception": "NoSuchResource",
+        "callback_opens": 0,
+        "callback_network_calls": 0
+      }
+    },
+    {
+      "id": "retrieval-closed-encoded-escape",
+      "area": "retrieval",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "%2e%2e/outside.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI; real outside file contains {const:7}; externally observe no socket/connect and no filesystem open inside retrieve callback",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "%2e%2e/outside.schema.json"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "callback_exception": "NoSuchResource",
+        "callback_opens": 0,
+        "callback_network_calls": 0
+      }
+    },
+    {
+      "id": "retrieval-closed-fragment-not-file",
+      "area": "retrieval",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "missing.schema.json#/$defs/value"
+            }
+          },
+          "contracts/value.json": {
+            "json": 7
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run CLI; real outside file contains {const:7}; externally observe no socket/connect and no filesystem open inside retrieve callback",
+      "expected": {
+        "exit": 1,
+        "classification": "infrastructure",
+        "stdout": "",
+        "stderr_contains": [
+          "Unresolvable",
+          "missing.schema.json#/$defs/value"
+        ],
+        "output_forbids": [
+          "Schema validation errors were encountered.",
+          "ok -- validation done"
+        ],
+        "negated_into_success": false,
+        "callback_exception": "NoSuchResource",
+        "callback_opens": 0,
+        "callback_network_calls": 0
+      }
+    },
+    {
+      "id": "alias-collision",
+      "area": "alias-admission",
+      "setup": {
+        "files": {
+          "contracts/a.schema.json": {
+            "json": {
+              "const": 11
+            }
+          },
+          "contracts/b.schema.json": {
+            "json": {
+              "const": 22
+            }
+          }
+        },
+        "registrations": [
+          {
+            "alias": "a.schema.json",
+            "snapshot": "contracts/a.schema.json"
+          },
+          {
+            "alias": "a.schema.json",
+            "snapshot": "contracts/b.schema.json"
+          }
+        ]
+      },
+      "action": "register two real admitted snapshots under the same exact alias",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "alias-collision",
+          "a.schema.json"
+        ],
+        "registry_with_resources_calls": 0,
+        "silent_overwrites": 0
+      }
+    },
+    {
+      "id": "invocation-fresh-mirror-bytes",
+      "area": "freshness",
+      "setup": {
+        "files": {
+          "contracts/entry.schema.json": {
+            "json": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "$ref": "lib.schema.json"
+            }
+          },
+          "contracts/value.json": {
+            "json": 17
+          },
+          "contracts/lib.schema.json": {
+            "json": {
+              "const": 17
+            }
+          }
+        },
+        "entry": "contracts/entry.schema.json",
+        "instances": [
+          "contracts/value.json"
+        ]
+      },
+      "action": "run three fresh invocations on same disposable mirror: original; change lib const to 18; restore exact original bytes",
+      "expected": {
+        "exits": [
+          0,
+          1,
+          0
+        ],
+        "middle_classification": "ordinary-invalid",
+        "middle_keyword": "const",
+        "middle_message": "18 was expected",
+        "old_pristine_opens": 0,
+        "reused_invocation_contexts": 0,
+        "final_hashes_equal_initial": true
+      }
+    },
+    {
+      "id": "cli-usage-missing-instances",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-missing-schema",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--force-filetype",
+          "json",
+          "contracts/value.json"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-remote-schema",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "https://example.test/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-yaml",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "yaml",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-python-regex",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "python",
+          "--no-cache",
+          "contracts/value.json"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-custom-validator",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--validator-class",
+          "jsonschema:Draft202012Validator"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-base-override",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--base-uri",
+          "file:///other/"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-defaults",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--fill-defaults"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-transform",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--data-transform",
+          "gitlab-ci"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-disabled-format",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--disable-formats",
+          "uri"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-metaschema",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--check-metaschema"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-unknown-option",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--unknown"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-repeated-schema",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "contracts/value.json",
+          "--schemafile",
+          "contracts/other.schema.json"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "cli-usage-stdin-instance",
+      "area": "cli-usage",
+      "setup": {
+        "argv": [
+          "--schemafile",
+          "contracts/entry.schema.json",
+          "--force-filetype",
+          "json",
+          "--regex-variant",
+          "default",
+          "--no-cache",
+          "-"
+        ]
+      },
+      "action": "invoke owned CLI argument parser",
+      "expected": {
+        "exit": 2,
+        "classification": "usage",
+        "stdout": "",
+        "stderr_contains": [
+          "Error:"
+        ],
+        "validation_marker_absent": true,
+        "validator_calls": 0,
+        "payload_reads": 0,
+        "network_calls": 0
+      }
+    },
+    {
+      "id": "snapshot-root-symlink",
+      "area": "snapshot",
+      "setup": {
+        "root_kind": "symlink to task-owned real tree",
+        "path": "contracts/value.json",
+        "utf8": "7"
+      },
+      "action": "attempt invocation-root admission",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "symlink"
+        ],
+        "payload_reads": 0,
+        "no_blocking_open": true,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-before-open-replacement",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/value.json",
+        "utf8": "abc",
+        "barrier": "after initial no-follow path stat but before final open"
+      },
+      "action": "replace with a distinct inode containing abc",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/value.json"
+        ],
+        "payload_reads": 0,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "snapshot-small-grown-over-cap",
+      "area": "snapshot-race",
+      "setup": {
+        "path": "contracts/value.json",
+        "utf8": "abc",
+        "barrier": "after opened fstat before first read"
+      },
+      "action": "grow same real inode to 67108865 bytes",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "changed",
+          "contracts/value.json"
+        ],
+        "requested_read_charge_max": 4,
+        "payload_to_parser": false,
+        "all_opened_descriptors_closed": true
+      }
+    },
+    {
+      "id": "preflight-special-file-safe",
+      "area": "cli-preflight",
+      "setup": {
+        "files": {
+          "contracts/first.json": {
+            "utf8": "{"
+          },
+          "contracts/second.json": {
+            "kind": "fifo-with-no-writer"
+          }
+        },
+        "instances": [
+          "contracts/first.json",
+          "contracts/second.json"
+        ]
+      },
+      "action": "run owned descriptor-only preflight without invoking upstream unsafe special-file open",
+      "expected": {
+        "exit": 1,
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "not-regular",
+          "contracts/second.json"
+        ],
+        "payload_reads": 0,
+        "blocking_open_calls": 0,
+        "snapshot_reuse_from_preflight": false
+      }
+    },
+    {
+      "id": "discovery-exact-directory-cap",
+      "setup": {
+        "root_depth": 0,
+        "directories": [
+          {
+            "parent": "ROOT",
+            "name_template": "d{index:04d}",
+            "index_start": 1,
+            "index_end": 1279
+          }
+        ],
+        "files": []
+      },
+      "action": "Call real schema_paths in a SnapshotStore context and then close the store.",
+      "expected": {
+        "returned_paths": [],
+        "entered_directories_including_root": 1280,
+        "enumerated_entries": 1279,
+        "maximum_depth": 1,
+        "payload_read_calls": 0,
+        "all_opened_descriptors_closed": true
+      },
+      "area": "discovery"
+    },
+    {
+      "id": "discovery-directory-cap-plus-one",
+      "setup": {
+        "root_depth": 0,
+        "directories": [
+          {
+            "parent": "ROOT",
+            "name_template": "d{index:04d}",
+            "index_start": 1,
+            "index_end": 1280
+          }
+        ],
+        "files": []
+      },
+      "action": "Call real schema_paths; retain lexically ordered directory traversal and close every descriptor on rejection.",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "file-count",
+          "ROOT/d1280"
+        ],
+        "scandir_calls": 1280,
+        "refused_directory_scandir_calls": 0,
+        "payload_read_calls": 0,
+        "all_opened_descriptors_closed": true
+      },
+      "area": "discovery"
+    },
+    {
+      "id": "discovery-exact-entry-cap",
+      "setup": {
+        "root_depth": 0,
+        "directories": [],
+        "files": [
+          {
+            "parent": "ROOT",
+            "name_template": "ignored-{index:04d}.txt",
+            "index_start": 1,
+            "index_end": 2560,
+            "utf8": ""
+          }
+        ]
+      },
+      "action": "Call real schema_paths without payload reads and then close the store.",
+      "expected": {
+        "returned_paths": [],
+        "entered_directories_including_root": 1,
+        "enumerated_entries": 2560,
+        "buffered_names_max": 2560,
+        "payload_read_calls": 0,
+        "all_opened_descriptors_closed": true
+      },
+      "area": "discovery"
+    },
+    {
+      "id": "discovery-entry-cap-plus-one",
+      "setup": {
+        "root_depth": 0,
+        "directories": [],
+        "files": [
+          {
+            "parent": "ROOT",
+            "name_template": "ignored-{index:04d}.txt",
+            "index_start": 1,
+            "index_end": 2561,
+            "utf8": ""
+          }
+        ]
+      },
+      "action": "Call real schema_paths; count each real scandir entry before adding its name to the sort buffer.",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "file-count",
+          "ROOT"
+        ],
+        "enumerated_entries": 2561,
+        "buffered_names_max": 2560,
+        "names_sort_calls": 0,
+        "payload_read_calls": 0,
+        "all_opened_descriptors_closed": true
+      },
+      "area": "discovery"
+    },
+    {
+      "id": "discovery-exact-depth-cap",
+      "setup": {
+        "root_depth": 0,
+        "chain_component": "d",
+        "chain_directory_count": 64,
+        "leaf_file": {
+          "name": "leaf.schema.json",
+          "utf8": "{}"
+        }
+      },
+      "action": "Create the exact 64-level real d/d/... chain and leaf schema; call schema_paths, preserving its exact returned path, then close.",
+      "expected": {
+        "returned_relative_paths": [
+          "d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/leaf.schema.json"
+        ],
+        "entered_directories_including_root": 65,
+        "enumerated_entries": 65,
+        "maximum_depth": 64,
+        "payload_read_calls": 0,
+        "all_opened_descriptors_closed": true
+      },
+      "area": "discovery"
+    },
+    {
+      "id": "discovery-depth-cap-plus-one",
+      "setup": {
+        "root_depth": 0,
+        "chain_component": "d",
+        "chain_directory_count": 65,
+        "leaf_file": {
+          "name": "leaf.schema.json",
+          "utf8": "{}"
+        }
+      },
+      "action": "Create the exact 65-level real chain. Reject descent at the child at depth65 before acquiring its directory descriptor or scanning it.",
+      "expected": {
+        "classification": "admission",
+        "diagnostic_contains": [
+          "Input admission failed",
+          "depth-limit",
+          "ROOT/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d/d"
+        ],
+        "entered_directories_including_root": 65,
+        "enumerated_entries": 65,
+        "refused_level_descriptor_acquisitions": 0,
+        "refused_level_scandir_calls": 0,
+        "leaf_stat_calls": 0,
+        "payload_read_calls": 0,
+        "all_opened_descriptors_closed": true
+      },
+      "area": "discovery"
+    }
+  ],
+  "property_profile": {
+    "name": "contract_validation_bounded_v1",
+    "hypothesis_version": "6.167.1",
+    "max_examples": 64,
+    "deadline_ms": 200,
+    "database": null,
+    "print_blob": true,
+    "seed_option": "--hypothesis-seed=0",
+    "alphabet": "abXY09_- é%",
+    "segments_min": 1,
+    "segments_max": 4,
+    "segment_characters_min": 1,
+    "segment_characters_max": 12,
+    "payload_bytes_min": 0,
+    "payload_bytes_max": 4096,
+    "construction": "Build segments directly from the explicit alphabet; distinct source/destination names use disjoint first characters a/b and at most 11 following characters. Never assume/filter, suppress health checks, retry for green or recompute expectations through production helpers.",
+    "properties": [
+      {
+        "id": "property-alias-roundtrip-separation",
+        "oracle": "A URI produced for each real relative path identifies that same file and immutable authored byte payload; distinct a/b paths remain distinct, including percent and Unicode. Compare to separately retained original Path and bytes; never production roundtrip output as expected."
+      },
+      {
+        "id": "property-relocation",
+        "oracle": "Copy the identical complete declared tree to the second named root; relative destinations and selected exact const/instance values are unchanged, while the canonical absolute URI carries the second root."
+      },
+      {
+        "id": "property-snapshot-conservation",
+        "oracle": "For a stable real binary file of N bytes, returned content equals independent input bytes, payload length N, one unique file, EOF observed, and sum of requested reads N+1. Repeating retrieval in the invocation creates no new read charge."
+      }
+    ],
+    "failure_retention": [
+      "profile",
+      "seed",
+      "tool/source identities",
+      "failure blob",
+      "minimized case as fixed regression"
+    ]
+  }
+}

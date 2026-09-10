@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "scope": "Constructed deterministic report-unit fixtures, not actual measurement evidence or sysmon qualification",
+  "source_filename": "branch-report-fixture.py",
+  "source_utf8": "def choose(flag):\n    if flag:\n        return 1\n    return 2\n",
+  "profile_filename": "branch-report-fixture.db",
+  "config_rule": {
+    "exclude_also": [],
+    "exclude_lines": [],
+    "partial_branches": [
+      "(?!)"
+    ],
+    "partial_branches_always": []
+  },
+  "cases": [
+    {
+      "constructed_arcs": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          -1
+        ]
+      ],
+      "expected": {
+        "covered_branches": 1,
+        "covered_lines": 3,
+        "excluded_lines": [],
+        "executed_branches": [
+          [
+            2,
+            3
+          ]
+        ],
+        "missing_branches": [
+          [
+            2,
+            4
+          ]
+        ],
+        "missing_lines": [
+          4
+        ],
+        "num_branches": 2,
+        "num_statements": 4,
+        "percent_branches_covered": 50.0
+      },
+      "id": "one-arm-remains-missing"
+    },
+    {
+      "constructed_arcs": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          -1
+        ]
+      ],
+      "expected": {
+        "covered_branches": 2,
+        "covered_lines": 4,
+        "excluded_lines": [],
+        "executed_branches": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "missing_branches": [],
+        "missing_lines": [],
+        "num_branches": 2,
+        "num_statements": 4,
+        "percent_branches_covered": 100.0
+      },
+      "id": "both-arms-positive-control"
+    }
+  ]
+}

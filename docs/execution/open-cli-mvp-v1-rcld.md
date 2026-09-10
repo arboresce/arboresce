@@ -1,6 +1,6 @@
 # Open engine MVP v1 rolling implementation plan
 
-Status: executing approved implementation design; E001–E008 are `complete`; all other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Status: executing approved implementation design; E001–E008 are `complete`; E009 is `in_progress`; all other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
 
 This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
 
@@ -333,13 +333,87 @@ Definition of green: Independent owner/schema and literal-oracle freezes; comple
 
 ### E009 — Freeze bounded selection and listing
 
-Status: `not_started`. Prerequisites: E005. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `in_progress`. Prerequisites: E005, E006, E007, E008. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
 
 Scope: Specify filter grammar, authenticated cursors, stable ordering and independent selection receipts. Search permits k=1..20, two total retrieval rounds and 200 cumulative pre-dedup candidates across all sources.
 
-Planned paths: `contracts/public/`, `docs/requirements/`.
+Freeze the single planned selection owner at `docs/requirements/selection-contract.md` for
+ten listing GETs, seven exact companion GETs and synchronous search. Include
+complete asset/supersession resources, exact actor/filter/key bindings, fixed
+cursor lifetime, selector-specific historical membership, current disclosure,
+complete-read headroom and unsigned selection/exposure receipts. Reconcile every
+existing owning requirement and the future consumer scopes without enabling a
+runtime capability. Preserve the earlier schema identities and historical evidence.
+
+Planned paths: `docs/requirements/selection-contract.md`,
+`contracts/public/v1/selection.schema.json`,
+`contracts/selection-v1.fixtures.schema.json`,
+`contracts/validation/selection-v1.cases.json`,
+`contracts/validation/selection-v1.expectations.schema.json`,
+`contracts/validation/selection-v1.cursor-vectors.json`,
+`contracts/selection-v1.cursor-vectors.schema.json`,
+`docs/execution/e009-selection-contract-evidence.md`; bounded existing
+`docs/requirements/`, `docs/README.md`, `contracts/validation/README.md` and this
+plan receive the owning amendments, indexes and exact supported check inventory.
+
+Freeze every named target/helper and finite positive/negative branch before
+independent schema and literal-oracle author comparison. Qualify the complete
+existing/new family graph, reference consumption, exact infrastructure-versus-
+invalid outcomes and standalone consumers using the locked contract checks.
+Fixed synthetic cursor vectors require separately observed prepared HMAC
+implementations and exact independent preimages; they establish no operational
+key, runtime JCS/cursor, SQL, gateway or source-coverage qualification.
+
+Repair the full-family validation timeouts with one local command at
+`contracts/validation/src/arboresce_contract_validation/cli.py` and an empty
+package initializer. Compose the pinned upstream parser, loader, effective
+validator, checker and reporters with a fresh local resource registry. Preserve
+all schema and literal bytes, format and regex behavior, complete case collection,
+invalid-versus-infrastructure outcomes and existing time limits. Keep metaschema
+and URI diagnostics on their upstream command paths. Do not fork dependencies,
+replace schema evaluation or add a subprocess supervisor.
+
+Update `contracts/validation/README.md`, the project and lock together with the
+command and independently reviewed tests under `contracts/validation/tests/`.
+Keep runtime dependencies unchanged and prepare development tools separately.
+Maintain the consumed pinned API declaration subset under
+`contracts/validation/typings/check_jsonschema/` with strict type checking and
+actual default-validator class/schema/format-checker coupling tests. Inventory
+declarations separately from executable source; no executable coverage exemption
+or diagnostic suppression is introduced.
+Require bounded stable descriptor snapshots for every schema and instance,
+ordered descriptor-only instance preflight, lazy payload reads, closed reference
+retrieval, exact source copying and current owner/mirror/configuration evidence.
+Retain historical input freezes; record reviewed project/lock changes separately.
+Requalify affected command routes and the final configuration, including the
+complete URI diagnostics. Cover maintained command and test support with the
+owning strict Python line/branch gates and complete process collection before
+claiming this repair green. The original full-family failures remain historical
+failures until fresh complete checks pass within the unchanged limits.
 
 Definition of green: Changed filter/purpose invalidates cursor; unknown filters fail; inaccessible counts stay hidden; budget exhaustion is explicit and cannot trigger unbounded refill.
+
+Checkpoint boundary: the validator foundation introduces the complete local
+component, deterministic development suite and pinned declarations. Its
+[foundation evidence](e009-validator-foundation-evidence.md) records the measured
+source profile. The dependent operational/selection integration checkpoint keeps
+the affected command-route, complete configuration and URI qualifications above,
+all current guard and reference/relocation checks, complete selection and
+lifecycle families, independent cursor/native checks and final consumers. The
+foundation does not switch the ordinary corpus command catalogue or declare
+the full-family timeout repair, selection contract or E009 complete.
+
+Current verification: complete collection and execution passed all 293 tests,
+including all five real CLI barriers. Independent review reconciled all 96 real
+child processes and 97 raw coverage profiles. Every applicable maintained file
+exceeds both strict Python coverage thresholds. The process-observation helper
+has 256/272 covered lines and 116/128 covered branches; test support has 496/509
+lines and 133/144 branches; the command has 302/310 lines and 82/86 branches.
+Formatting, lint and strict typing also passed for the measured source. Earlier
+failed runs and matching source snapshots remain preserved. All ten current URI
+process-method cases passed with independent review; full URI qualification is
+still required. Contract, native and cross-repository integration qualification
+remain open. This slice remains in progress.
 
 ### E010 — Freeze intelligence transport
 
@@ -1703,7 +1777,7 @@ Definition of green: Dependency inventory matches image; controlled fixture sign
 
 ## Execution evidence and reconciliation
 
-Of 141 numbered slices and four suffix slices, E001–E008 are complete; the other 137 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
+Of 141 numbered slices and four suffix slices, E001–E008 are complete, E009 is `in_progress`, and the other 136 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
 
 Each checkpoint records source revision/dirty state, contracts, schemas, dependency locks, tool versions, feature/native profile, dataset/scorer identity, exact command, selected tests, raw coverage, duration, results/skips/failures, independent review and gate effect. Redact secrets and evidence content. Record the completed commit hash in subsequent or external evidence rather than recursively embedding its own hash. A local build, a mock, an unsigned candidate and an accepted request have distinct meanings and cannot stand in for live qualification, signed release or completed processing.
 

@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "description": "Independently reviewed synthetic validation and format cases.",
+  "cases": [
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "integer-positive",
+      "instance": 7,
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "integer"
+      }
+    },
+    {
+      "expected_keyword": "type",
+      "expected_valid": false,
+      "id": "integer-negative",
+      "instance": "7",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "integer"
+      }
+    },
+    {
+      "expected_keyword": "required",
+      "expected_valid": false,
+      "id": "required-member",
+      "instance": {},
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "required": [
+          "value"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "expected_keyword": "type",
+      "expected_valid": false,
+      "id": "complete-error-order",
+      "instance": {
+        "left": "x",
+        "right": 2
+      },
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "left": {
+            "type": "integer"
+          },
+          "right": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "left",
+          "right"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "date-leap-day",
+      "instance": "2024-02-29",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "date",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": "format",
+      "expected_valid": false,
+      "id": "date-invalid-day",
+      "instance": "2024-02-30",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "date",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "date-time-leap-day",
+      "instance": "2024-02-29T12:34:56Z",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "date-time",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": "format",
+      "expected_valid": false,
+      "id": "date-time-invalid-day",
+      "instance": "2024-02-30T12:34:56Z",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "date-time",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "uri-absolute",
+      "instance": "https://example.test/items/1",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "uri",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": "format",
+      "expected_valid": false,
+      "id": "uri-space",
+      "instance": "https://example.test/a b",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "uri",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "uri-reference-relative",
+      "instance": "../items/1",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "uri-reference",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": "format",
+      "expected_valid": false,
+      "id": "uri-reference-space",
+      "instance": "../items/a b",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "uri-reference",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "regex-valid",
+      "instance": "^a+$",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "regex",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": "format",
+      "expected_valid": false,
+      "id": "regex-invalid",
+      "instance": "[",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "format": "regex",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "pattern-ascii",
+      "instance": "ascii9",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "pattern": "^\\w+$",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": "pattern",
+      "expected_valid": false,
+      "id": "pattern-unicode-word-rejected",
+      "instance": "é",
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "pattern": "^\\w+$",
+        "type": "string"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "pattern-properties-ascii",
+      "instance": {
+        "ascii9": 1
+      },
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "patternProperties": {
+          "^\\w+$": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "pattern-properties-unicode-upstream-parity",
+      "instance": {
+        "é": 1
+      },
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "patternProperties": {
+          "^\\w+$": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "expected_keyword": "type",
+      "expected_valid": false,
+      "id": "pattern-properties-ascii-type-rejection",
+      "instance": {
+        "ascii9": "x"
+      },
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "patternProperties": {
+          "^\\w+$": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "expected_keyword": null,
+      "expected_valid": true,
+      "id": "pattern-properties-unicode-value-upstream-parity",
+      "instance": {
+        "é": "x"
+      },
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "patternProperties": {
+          "^\\w+$": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "expected_keyword": "additionalProperties",
+      "expected_valid": false,
+      "id": "pattern-properties-additional-hyphen-rejection",
+      "instance": {
+        "a-b": 1
+      },
+      "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "patternProperties": {
+          "^\\w+$": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  ]
+}

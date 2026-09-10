@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "common_fixture": {
+    "changed_evidence_utf8": "None\n",
+    "config": {
+      "changed_utf8": "[run]\nbranch = False\n",
+      "path": "contracts/validation/tests/coverage.ini",
+      "utf8": "[run]\nbranch = True\n"
+    },
+    "evidence_utf8": "pass\n",
+    "receipt_collision_utf8": "{\"sentinel\":\"retained\"}\n",
+    "source_files": [
+      {
+        "bytes": 0,
+        "path": "contracts/validation/src/arboresce_contract_validation/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utf8": ""
+      },
+      {
+        "bytes": 5,
+        "path": "contracts/validation/src/arboresce_contract_validation/cli.py",
+        "sha256": "9f56e761d79bfdb34304a012586cb04d16b435ef6130091a97702e559260a2f2",
+        "utf8": "pass\n"
+      }
+    ],
+    "stdout_collision_utf8": "retained stdout\n"
+  },
+  "cases": [
+    {
+      "barrier": {
+        "matching_open_ordinal": 1,
+        "mode": "rb",
+        "mutation": "Rename TARGET to a fresh sibling retained-original; create TARGET with None\\n.",
+        "path": "TARGET",
+        "position": "After read_evidence's initial lstat and before forwarding its actual open"
+      },
+      "expected": {
+        "child_processes": 0,
+        "exception_type": "ValueError",
+        "forwarded_matching_opens": 1,
+        "message": "changed evidence file: TARGET",
+        "mutations": 1,
+        "permission_change": false,
+        "retained_original_utf8": "pass\n",
+        "target_utf8": "None\n"
+      },
+      "id": "support-evidence-replaced-before-read",
+      "setup": {
+        "target_utf8": "pass\n"
+      }
+    },
+    {
+      "expected": {
+        "child_processes": 0,
+        "exception_type": "ValueError",
+        "message": "original suite deadline expired"
+      },
+      "id": "support-expired-original-deadline",
+      "setup": {
+        "clock": "Use the actual already-qualified monotonic clock; do not patch it"
+      }
+    },
+    {
+      "barrier": {
+        "matching_open_ordinal": 2,
+        "mode": "rb",
+        "mutation": "Rename the main source to a fresh retained-original sibling, then create the original source path with None\\n.",
+        "path": "OWNER/contracts/validation/src/arboresce_contract_validation/cli.py",
+        "position": "After the first complete file_record, before the second real source read"
+      },
+      "expected": {
+        "child_processes": 0,
+        "empty_initializer_may_already_be_copied": true,
+        "exception_type": "ValueError",
+        "forwarded_matching_opens": 2,
+        "message": "canonical source changed during copy",
+        "mirror_main_absent": true,
+        "mutations": 1,
+        "owner_main_utf8": "None\n",
+        "retained_original_utf8": "pass\n"
+      },
+      "id": "support-canonical-source-replaced-during-copy",
+      "setup": {
+        "mirror": "Empty root",
+        "owner": "Common source files"
+      }
+    },
+    {
+      "barrier": {
+        "matching_open_ordinal": 1,
+        "mode": "rb",
+        "mutation": "Replace the mirror main source with fixed None\\n bytes, retaining the original copied file at a fresh sibling.",
+        "path": "MIRROR/contracts/validation/src/arboresce_contract_validation/cli.py",
+        "position": "After the actual mirror write, before forwarding its comparison read"
+      },
+      "expected": {
+        "child_processes": 0,
+        "exception_type": "RuntimeError",
+        "forwarded_matching_opens": 1,
+        "message": "source copy changed",
+        "mirror_main_utf8": "None\n",
+        "mutations": 1,
+        "owner_main_utf8": "pass\n",
+        "retained_original_utf8": "pass\n"
+      },
+      "id": "support-mirror-source-changed-before-copy-comparison",
+      "setup": {
+        "mirror": "Empty root",
+        "owner": "Common source files"
+      }
+    },
+    {
+      "expected": {
+        "child_processes": 0,
+        "config_unchanged": true,
+        "exception_type": "ValueError",
+        "message": "copied source changed during execution",
+        "owner_sources_unchanged": true
+      },
+      "id": "support-recorded-mirror-source-changed",
+      "mutation": {
+        "path": "MIRROR/contracts/validation/src/arboresce_contract_validation/cli.py",
+        "position": "After original records and before verifier call",
+        "utf8": "None\n"
+      },
+      "setup": {
+        "mirror": "Exact independently materialized common sources",
+        "original_records": "Fixed original source/config identities",
+        "owner": "Common sources and config"
+      }
+    },
+    {
+      "expected": {
+        "child_processes": 0,
+        "config_unchanged": true,
+        "exception_type": "ValueError",
+        "message": "canonical source changed during execution",
+        "mirror_sources_unchanged": true
+      },
+      "id": "support-recorded-canonical-source-changed",
+      "mutation": {
+        "path": "OWNER/contracts/validation/src/arboresce_contract_validation/cli.py",
+        "position": "After original records and before verifier call",
+        "utf8": "None\n"
+      },
+      "setup": {
+        "mirror": "Exact independently materialized common sources",
+        "original_records": "Fixed original source/config identities",
+        "owner": "Common sources and config"
+      }
+    },
+    {
+      "expected": {
+        "all_source_bytes_unchanged": true,
+        "child_processes": 0,
+        "exception_type": "ValueError",
+        "message": "coverage configuration changed during execution"
+      },
+      "id": "support-recorded-config-changed",
+      "mutation": {
+        "path": "OWNER/contracts/validation/tests/coverage.ini",
+        "position": "After original records and before verifier call",
+        "utf8": "[run]\nbranch = False\n"
+      },
+      "setup": {
+        "mirror": "Exact independently materialized common sources",
+        "original_records": "Fixed original source/config identities",
+        "owner": "Common sources and config"
+      }
+    },
+    {
+      "barrier": {
+        "matching_open_ordinal": 1,
+        "mode": "xb",
+        "mutation": "Create stdout with the fixed retained stdout marker using the saved original open; then forward the original requested xb open.",
+        "path": "EVIDENCE/stdout",
+        "position": "Immediately before forwarding the actual exclusive open"
+      },
+      "expected": {
+        "absent_files": [
+          "EVIDENCE/stderr",
+          "EVIDENCE/created.json",
+          "EVIDENCE/before-wait.json",
+          "EVIDENCE/wait.json",
+          "EVIDENCE/coverage-core.log"
+        ],
+        "actual_raw_profiles": 0,
+        "child_absence_basis": "Actual exclusive-open exception occurs before the unchanged Popen statement; the retained receipt contains no process identity. Do not substitute a Popen mock or query a PID.",
+        "child_processes": 0,
+        "exception_filename": "EVIDENCE/stdout",
+        "exception_type": "FileExistsError",
+        "process_receipt": {
+          "absent_fields": [
+            "pid",
+            "parent_pid",
+            "pgid",
+            "sid",
+            "created_monotonic",
+            "context_returncode",
+            "context_reaped_and_retired",
+            "evidence_accepted"
+          ],
+          "error_message_contains": "EVIDENCE/stdout",
+          "error_type": "FileExistsError",
+          "present": true
+        },
+        "stdout_utf8": "retained stdout\n"
+      },
+      "id": "support-stdout-collision-before-child",
+      "setup": {
+        "evidence": "Absent until created by run_cli",
+        "root": "A test-owned ordinary valid CLI fixture; canonical public sources are read only"
+      }
+    },
+    {
+      "barrier": {
+        "matching_open_ordinal": 1,
+        "mode": "xb",
+        "mutation": "Create stdout and process.json with their fixed collision markers using the saved original open; then forward stdout xb.",
+        "path": "EVIDENCE/stdout",
+        "position": "Immediately before forwarding the actual exclusive open"
+      },
+      "expected": {
+        "absent_files": [
+          "EVIDENCE/stderr",
+          "EVIDENCE/created.json",
+          "EVIDENCE/before-wait.json",
+          "EVIDENCE/wait.json",
+          "EVIDENCE/coverage-core.log"
+        ],
+        "actual_raw_profiles": 0,
+        "child_processes": 0,
+        "exception_type": "ExceptionGroup",
+        "message": "process and receipt failures",
+        "ordered_exceptions": [
+          {
+            "filename": "EVIDENCE/stdout",
+            "type": "FileExistsError"
+          },
+          {
+            "filename": "EVIDENCE/process.json",
+            "type": "FileExistsError"
+          }
+        ],
+        "overwrites": 0,
+        "process_receipt_utf8": "{\"sentinel\":\"retained\"}\n",
+        "stdout_utf8": "retained stdout\n"
+      },
+      "id": "support-primary-and-receipt-collisions",
+      "setup": {
+        "evidence": "Absent until created by run_cli",
+        "root": "A test-owned ordinary valid CLI fixture; canonical public sources are read only"
+      }
+    },
+    {
+      "barrier": {
+        "matching_open_ordinal": 1,
+        "mode": "rb",
+        "mutation": "Use a real explicitly closed SQLite connection to add meta key fixture_marker with value changed; commit. Leave has_arcs, file/context/arc records, core-log bytes and filename unchanged.",
+        "path": "CORE_LOG",
+        "position": "After the actual original profile file_record, before forwarding the core-log read"
+      },
+      "expected": {
+        "actual_raw_profiles": 0,
+        "all_databases_closed": true,
+        "child_processes": 0,
+        "exception_type": "ValueError",
+        "message": "process coverage changed during inspection",
+        "profile_bytes_changed": true,
+        "profile_filename_unchanged": true,
+        "profile_integrity": "ok",
+        "semantic_source_context_arcs_unchanged": true
+      },
+      "id": "support-valid-profile-metadata-changed-during-inspection",
+      "setup": {
+        "actual_measurement": false,
+        "construction_api": "Owned CoverageData.add_arcs/touch_file/write inside closing",
+        "core_log_utf8": "core.py: Using core=sysmon\n",
+        "initial_metadata_rule": "No fixture_marker row",
+        "profile_name": "constructed-valid-profile.db",
+        "source_arcs": {
+          "contracts/validation/src/arboresce_contract_validation/__init__.py": [],
+          "contracts/validation/src/arboresce_contract_validation/cli.py": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              -1
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "expected": {
+        "all_owned_fds_closed": true,
+        "child_processes": 0,
+        "exception_type": "ValueError",
+        "message": "unknown mutation: snapshot-unknown-control",
+        "original_io_callbacks_restored": true,
+        "real_payload_reads": 0,
+        "target_utf8": "pass\n"
+      },
+      "id": "support-unknown-mutation-control-rejected",
+      "setup": {
+        "case_id": "snapshot-unknown-control",
+        "file": "contracts/value.json",
+        "utf8": "pass\n"
+      }
+    },
+    {
+      "expected": {
+        "all_owned_fds_closed": true,
+        "child_processes": 0,
+        "original_io_callbacks_restored": true,
+        "other_read_utf8": "other\n",
+        "other_utf8": "other\n",
+        "retained_original_utf8": "pass\n",
+        "target_exception_type": "InputAdmissionError",
+        "target_mutations": 1,
+        "target_reason_contains": [
+          "changed",
+          "value.json"
+        ],
+        "target_unchanged_until_its_open": true
+      },
+      "id": "support-before-open-unrelated-path-passes-through",
+      "setup": {
+        "case_id": "snapshot-before-open-replacement",
+        "other": "contracts/other.json",
+        "other_utf8": "other\n",
+        "target": "contracts/value.json",
+        "target_utf8": "pass\n"
+      }
+    }
+  ]
+}
