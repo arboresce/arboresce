@@ -18,7 +18,7 @@ lockfile or executable command is introduced by this requirements document.
 
 | Component | Required selection |
 | --- | --- |
-| Rust toolchain | Exactly `1.97.1`. Use an exact pin, not a floating channel or an implicit minor-line upgrade. |
+| Rust toolchain | Exactly `1.98.0`. Use an exact pin, not a floating channel or an implicit minor-line upgrade. |
 | Rust language edition | `2024`. |
 | Cargo dependency resolver | `3`. The lockfile format number is a separate setting. |
 | Temporal Rust SDK | `temporalio-sdk` exactly `1.0.0`. |
