@@ -10,10 +10,11 @@ The [common contract](../../docs/requirements/common-contract.md),
 [observation contract](../../docs/requirements/observation-contract.md),
 [candidate review contract](../../docs/requirements/candidate-review-contract.md),
 [financial contract](../../docs/requirements/financial-records.md),
-[context contract](../../docs/requirements/context-contract.md) and
-[lifecycle contract](../../docs/requirements/lifecycle-contract.md) own wire
-meaning. Each has a versioned schema, independently chosen parsed-value cases
-and a fixed expectation schema:
+[context contract](../../docs/requirements/context-contract.md),
+[lifecycle contract](../../docs/requirements/lifecycle-contract.md) and
+[workspace/project workflow contract](../../docs/requirements/project-workflow.md)
+own wire meaning. Each has a versioned schema, independently chosen parsed-value
+cases and a fixed expectation schema:
 
 | Family | Contract schema | Case manifest | Expectation schema |
 | --- | --- | --- | --- |
@@ -24,15 +25,18 @@ and a fixed expectation schema:
 | Financial records | [Expense, report and export definitions](../public/v1/financial-records.schema.json) | [Financial cases](financial-records-v1.cases.json) | [Financial expectations](financial-records-v1.expectations.schema.json) |
 | Context | [Build, evaluation and attestation definitions](../public/v1/context.schema.json) | [Context cases](context-v1.cases.json) | [Context expectations](context-v1.expectations.schema.json) |
 | Lifecycle | [Public operation/lifecycle definitions](../public/v1/lifecycle.schema.json) and [internal continuity definitions](../internal/v1/lifecycle-continuity.schema.json) | [Lifecycle cases](lifecycle-v1.cases.json) | [Lifecycle expectations](lifecycle-v1.expectations.schema.json) |
+| Project workflow | [Workspace, Party, project record and change-item definitions](../public/v1/project-workflow.schema.json) | [Project workflow cases](project-workflow-v1.cases.json) | [Project workflow expectations](project-workflow-v1.expectations.schema.json) |
 
 The commands select the [common entry](../common-v1.fixtures.schema.json),
 [acquisition entry](../acquisition-v1.fixtures.schema.json),
 [observation entry](../observation-v1.fixtures.schema.json),
 [candidate review entry](../candidate-review-v1.fixtures.schema.json),
 [financial entry](../financial-records-v1.fixtures.schema.json),
-[context entry](../context-v1.fixtures.schema.json) and
-[lifecycle entry](../lifecycle-v1.fixtures.schema.json) at the contract
-directory's root. Each entry references exactly its own expectation schema;
+[context entry](../context-v1.fixtures.schema.json),
+[lifecycle entry](../lifecycle-v1.fixtures.schema.json) and
+[project workflow entry](../project-workflow-v1.fixtures.schema.json) at the
+contract directory's root. Each entry references exactly its own expectation
+schema;
 swapping fixture families must fail. The entries contain no copied domain
 definitions or expected values.
 
@@ -90,8 +94,8 @@ uv sync --project contracts/validation --check --locked --no-dev --offline
 Run all nine commands from this repository's root after preparation. Every
 command must exit zero. Explicit file arguments prevent an empty glob from
 selecting no fixtures. Together with the two synchronization checks above,
-these are eleven required verification commands. The metaschema command names
-all 23 schema files; seven commands each select one exact family and the final
+these are twelve required verification commands. The metaschema command names
+all 26 schema files; eight commands each select one exact family and the final
 command checks the separate literal signing-vector structure.
 
 ```sh
@@ -120,7 +124,10 @@ uv run --project contracts/validation --no-sync --offline \
   contracts/lifecycle-v1.fixtures.schema.json \
   contracts/public/v1/lifecycle.schema.json \
   contracts/internal/v1/lifecycle-continuity.schema.json \
-  contracts/validation/lifecycle-v1.expectations.schema.json
+  contracts/validation/lifecycle-v1.expectations.schema.json \
+  contracts/project-workflow-v1.fixtures.schema.json \
+  contracts/public/v1/project-workflow.schema.json \
+  contracts/validation/project-workflow-v1.expectations.schema.json
 uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/common-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
@@ -149,6 +156,10 @@ uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/lifecycle-v1.fixtures.schema.json \
   --force-filetype json --regex-variant default --no-cache \
   contracts/validation/lifecycle-v1.cases.json
+uv run --project contracts/validation --no-sync --offline \
+  check-jsonschema --schemafile contracts/project-workflow-v1.fixtures.schema.json \
+  --force-filetype json --regex-variant default --no-cache \
+  contracts/validation/project-workflow-v1.cases.json
 uv run --project contracts/validation --no-sync --offline \
   check-jsonschema --schemafile contracts/context-v1.signing-vectors.schema.json \
   --force-filetype json --regex-variant default --no-cache \
@@ -207,7 +218,7 @@ fixture pass cannot substitute for runtime or source-coverage evidence.
 
 Freeze the actual complete machine inventory before qualification: 23 schemas,
 seven literal case manifests, the separate signing-vector manifest, validator
-project and lock (33 inputs). Freeze actual per-target/namespace/case counts and
+project and lock (37 inputs). Freeze actual per-target/namespace/case counts and
 input digests after independent authoring; no count or positive outcome may be
 inferred from an earlier family. Run all eleven commands against those exact
 bytes. Relocation must copy/re-hash every input into a path with spaces and
@@ -224,10 +235,17 @@ must fail ordinary validation on the complete manifests. Restore and re-hash
 every input and rerun positive guards. Tool/timeout/environment or unrelated
 schema-resolution failure is not a negative value oracle.
 
-The current complete protocol has 93 commands: eleven direct checks, eight
+The pre-extension complete protocol has 93 commands: eleven direct checks, eight
 relocated checks, eighteen oracle mutations, four consumed broken references,
 eight consumed missing libraries, 42 off-diagonal pairings and two restored
-positive guards. A changed primary validator profile requires this complete
+positive guards. The project workflow family extends the inventory to 26 schemas
+and eight literal case manifests, so the complete protocol must be recomputed and
+re-run on the extended inputs before a complete-corpus qualification. For the new
+family the direct metaschema command, its family fixtures command and its
+off-diagonal pairings were actually run; the relocated, oracle-mutation,
+broken-reference and missing-library protocol remains pending on the extended
+inventory. The pre-extension 93-command result is retained only for its own
+historical inputs. A changed primary validator profile requires this complete
 protocol afresh on the newly frozen inputs; results from an older profile cannot
 be combined into a current pass.
 
