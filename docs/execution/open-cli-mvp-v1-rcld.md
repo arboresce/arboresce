@@ -1,1784 +1,1068 @@
-# Open engine MVP v1 rolling implementation plan
+# Engine MVP project-workflow rolling plan
 
-Status: executing approved implementation design; E001–E008 are `complete`; E009 is `in_progress`; all other slices remain `not_started`. This plan records work to perform and actual checkpoint evidence separately. It does not claim product implementation, release or publication has occurred.
+Plan version: 2
 
-This is the single governing rolling plan for the engine in this repository. It is independently usable with the public capabilities listed below. Keep one implementation slice active; a coordinated execution also keeps one active implementation slice across its selected repositories. Independent read-only review may run concurrently. Plan text never grants standing authority to commit, push, sign, deploy or spend.
+Status: owner-approved target; all 68 implementation slices remain
+`not_started`. The previous sequence is superseded, not completed. Earlier
+adoption/contract evidence keeps its historical scope; it does not qualify new
+project/identity wire variants or runtime. Current available behavior remains
+separately described by the repository guidance.
 
-## Baseline and authority
+## Scope and milestones
 
-The observed starting revision is `48b9d6cbaf664ccceeaafc105e16d3227c841c07`. The repository contains documentation, instructions and licensing, without a product manifest or product implementation. Re-observe status before starting; preserve unrelated work and the independent Git history. Existing material remains `MIT OR Apache-2.0` with notices retained.
+The first delivery is a workspace-scoped project workflow through the public
+HTTP API and independently built CLI: signup-free Nostr identity, project/Party
+context, receipt plus short voice capture, contextual independently revisable
+proposals, reviewed project updates, separate exact financial confirmation,
+source-linked readback/export and actual packaged restoration.
 
-[Repository guidance](../../AGENTS.md), [documentation ownership](../ownership.md), [release policy](../release-policy.md) and [generated artifact guidance](../generated-artifacts.md) remain applicable. The first slice adopts the owning public requirements. Later contract slices freeze precise wire and domain details before dependent code. This execution plan does not silently amend an owning specification. Record intentional contract changes, compatibility impact and replacement relationships before implementing them.
+Workspace uses the Organization tenant plus default Domain; a local connection
+profile is not a tenant. Scoped agents use their own keys and explicit grants.
+Project acceptance does not confer human financial review. Source/context/default/
+inference distinctions, current authorization and exact revision identity persist
+through corrections, reanalysis, conflicts, retries and recovery.
 
-A normal clone must build, test, document, package and run using committed public resources and explicitly documented external dependencies. No sibling checkout, undisclosed endpoint or paid Arboresce entitlement is required. Users may choose paid third-party inference providers through the published gateway contract; provider terms, credentials, cost and qualified limits remain explicit. A credential-free local model is not an implied supported profile.
+P1-P8 delivers G3-project; G2 and actual D0-project recovery precede private
+evidence/users and expand before every newly enabled capability. P9 retains
+full knowledge build/evaluate/promote/resolve/feedback/search and its broader
+recovery. P10 retains full original experiments and production qualification,
+native supported artifacts and independent signed-byte verification. Initial
+context uses bounded canonical reads; search/build/purge-repair capabilities
+not yet qualified are explicitly unavailable. The focused result never claims
+old full G3/D0, G5/G6 or released status.
 
-All implementation destinations in the slice inventory are planned destinations. Some ancestor directories and documentation files already exist; a listed destination is not a claim that its product code or command currently exists. New files receive the nearest directory guidance. Read that guidance before creating them.
+Exact resolution/delivery and usage receipts, complete customer exit archive
+production/delivery and optional SMTP notifications each have an engine-owned
+checkpoint below. Optional SMTP stays unavailable until its actual profile and
+controlled-mail uncertainty tests qualify; it is not inferred from a project note.
 
-## Adopted specification bundle
+## Normative owners
 
-E001 introduces public specifications under the prospective `docs/requirements/` boundary, indexed from the documentation index: product/scope, architecture, API, data model, financial records, processing, storage/search, security/privacy, resource profiles, testing/coverage, dependency qualification and acceptance/recovery. Contracts under `contracts/public/` and `contracts/internal/` own machine-readable wire details. The testing owner is prospective `docs/requirements/testing-and-coverage.md`, with validated machine contracts at `contracts/quality/coverage.toml`, `contracts/quality/coverage-profiles.toml` and `contracts/quality/source-inventory.json`. Existing release and generated-artifact documents retain their authority and receive deliberate compatible amendments.
+Use [the requirement ownership index](../requirements/README.md). Product behavior
+belongs to those requirements, not to this plan. Exact versioned wire/command
+variants and literal negative fixtures are frozen before their consumers; later
+service/model/codec/assurance choices do not block unrelated synthetic work.
 
-Every operation family must freeze request/response variants, fields and units, preconditions, actor/purpose authorization, errors, state transitions, idempotency, concurrency, limits, pagination and positive/negative fixtures before its first dependent implementation. Generated indexes may derive from this plan but cannot become a second editable requirement authority. Every requirement maps to one owner, slice, oracle, verification lane, gate and evidence record; keep specified, implemented, verified and accepted states distinct.
+Only one implementation slice is active across a coordinated delivery. Each
+slice declares its true prerequisites, owning paths, green behavior and applicable
+verification. External public capability receipt/compatibility prerequisites
+remain explicit; a missing issuer/profile/corpus is not silently assumed.
 
-Included scope covers capture and sealed originals; bounded image/audio/text processing; grounded observations; attributable review and asset history; exact expense recordkeeping and per-currency reports; canonical context builds, evaluations, signatures and channels; exact resolve and bounded search; version-linked feedback; revocation/holds/purge/export; deterministic recovery; independent CLI compatibility; supported native/container distributions and production qualification.
 
-Deferred scope includes paid applications, broad integrations, language bindings, graph databases, universal PDF/video, multi-region writes, tracked context, custom model training, tax filing/certification and unsupported platforms. They require an explicit later specification and acceptance decision; none substitutes for completing the included scope.
+## Owning verification and state
 
-## Universal green-state and fixture contract
+Use documented commands from this independent checkout. New command/profile
+contracts are introduced with their first consumers. Exact toolchain and
+dependency qualification precedes that consumer, not all future capabilities.
 
-Every source checkpoint must be a useful complete unit, with no advertised stub, `todo!`, `unimplemented!` or test-only red checkpoint. Inspect authority/status, implement the smallest coherent scope, run the applicable lane, repair a failure, independently review behavior and record evidence. Commit only under the active authorization. Source/contract changes and their verification are delivered together. Dependency preparation is explicit; tests never install tools or silently contact providers.
+```text
+cargo fmt --all -- --check
+cargo check --locked --workspace --all-targets
+cargo test --locked --workspace
+cargo clippy --locked --workspace --all-targets -- -D warnings
+```
 
-Coverage is strictly greater than 90%, using raw integer counts: `total > 0 && 10 * covered > 9 * total`. Exactly 90% fails. Gate executable lines separately for this repository/language, each Rust crate, each Python package and each executable source file; gate Rust regions for repository/language and each crate/binary, and Python branches for repository/language, each package and each applicable executable file. A proven non-executable or branchless denominator is documented as not applicable, never invented as 100%. No broad exclusions, averaged cross-repository success or percentage rounding waivers are allowed.
+Strict coverage is above 90% for every applicable executable source, package,
+repository and supported profile: Rust lines/regions and Python lines/branches.
+Actual subprocess/native boundaries and maintained fixture support belong to the
+source closure. Required collections have nonzero tests and zero skips. Exact
+source, dependencies, fixtures and run/profile identities accompany evidence.
+Recorded models prove deterministic integration, not live-provider quality.
+Keep implemented, verified, committed/complete and independently accepted states
+separate. A verified uncommitted candidate is not a committed checkpoint. No
+source commit, publication, signing, deployment or new spend follows from this
+plan alone. Use the configured build-output router where enabled.
 
-Inventory all first-party runtime libraries, binaries, adapters, build scripts, generators, tools, reusable fixture helpers and generated executable code, including declared generated outputs not discoverable solely from Git tracking. Assertion bodies cannot inflate production/support coverage. Missing/unimported modules, source/profile/lock/tool mismatch, empty suites, absent subprocess profiles and unexplained zero denominators fail. Combine observations only for identical sources, tools and qualified feature/native profiles. Report each supported platform/profile independently. Do not publish reports containing host paths, credentials or evidence content.
+### E200 — Freeze focused public project and identity contract extensions
 
-Use prepared `cargo-llvm-cov` for stable Rust line/region measurement, nextest for suitable test execution plus separate Cargo/doctests, property testing and actual executable-process assertions. Use pytest/coverage for Python line/branch measurement with explicit async/service-process startup and shutdown. Do not introduce a nightly requirement solely for these gates. E012 and E018 use direct collection before runners exist; E013-coverage-runner and E018-process-coverage then implement measured strict orchestration. Cross-language changes run both language lanes, including Python launched by Rust and the independently built CLI where applicable.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Fixtures have versioned scenarios, source rights, independent expected-value review, digests, fixed clocks/entropy and explicit service identity. Use disposable isolated resources, bounded readiness polling and synchronization barriers; arbitrary sleeps do not establish race ordering. Recorded providers fail on missing input and never fall back to live calls. Failed/denied/cancelled/expired/error paths are required regardless of percentage. Property tests complement independently fixed examples; output generated by the implementation cannot approve its own oracle.
+Stage: P1.
 
-The minimum semantic oracle inventory includes: exact 40.00 + 2.00 + 8.00 = 50.00 components; unknown tax remaining unknown with unresolved reconciliation; CAD/USD totals kept separate; forbidden accept replacement; required complete revise replacement; stale control conflict; succeeded-with-failure rejection; unavailable readiness; active channel requiring a build; revoked-and-held denying reads while preventing purge; revoked required snapshot source preventing partial serving; evidence-audience intersection; required failed attachment preventing readiness; interrupted wait causing neither cancellation nor success claim; reversed text range rejection; invalid JSON-pointer escape rejection. Extend these with required missing total/currency/date, refund/void, locale/date boundaries, negative amounts, shared search budgets, replay, concurrency and cross-language identity cases.
+Scope: Freeze focused public project and identity contract extensions; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-## Verification lanes
+Planned paths: `contracts/public/`, `docs/requirements/`
 
-These are interfaces to implement and document, not commands claimed to exist at the baseline. Before the first source mutation, verify local preparation, tool versions and any applicable repository build-output routing. Early documentation uses bounded link/contract/disclosure review with exact commands recorded. Never invent an existing check.
+External prerequisite capabilities: Adopt the approved specifications and versioned catalogue. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-| Lane | Required verification |
-| --- | --- |
-| DOC | Owning specification/compatibility review, local link and structural checks, exact inventory/dependency validation and independent public-content/rights review; no product pass claimed. |
-| RUST | `cargo fmt --all -- --check`; `cargo check --locked --workspace --all-targets`; `cargo test --locked --workspace`; `cargo clippy --locked --workspace --all-targets -- -D warnings`; applicable raw coverage gate and explicit supported features/targets. |
-| PYTHON | In `python/`: `uv run --locked ruff format --check .`; `uv run --locked ruff check .`; `uv run --locked pyright`; `uv run --locked pytest`; raw line/branch coverage and declared subprocess collection. |
-| CONTRACT | RUST/PYTHON for changed executable code, schema/semantic/generation drift tests and source inventory. Before E013/E014, use explicitly recorded bounded manual or prepared standalone validation; no absent runner is required. E014 implements `cargo run --locked -p xtask -- contracts`; E015 implements `cargo run --locked -p xtask -- architecture-check`. Run those commands once implemented, including verification of the implementing slice. |
-| SERVICE | Applicable RUST/PYTHON plus prospective `cargo run --locked -p xtask -- integration --suite <registered-name> --require-services`; pinned explicitly prepared disposable services, nonzero test count and actual integration coverage. |
-| E2E | Applicable language lanes plus prospective `cargo run --locked -p xtask -- e2e --scenario <registered-name> --cli-binary <verified-artifact>`; independently built compatible CLI, actual API/services and process-level measurements. |
-| IMAGE | Exact declared Docker Bake target from prospective `docker/docker-bake.hcl`, digest/config/license review, startup/shutdown/resource smoke on supported native profile; applicable language lanes for source changes. |
-| RELEASE | Exact source/locks/toolchains/contracts/artifacts, full required gates and experiments, actual authorized artifact signing and independent verification, incident/recovery/support evidence. |
+Definition of green: Closed workspace/Party/project/change-item/auth/review-event variants, errors, bounds and compatibility vectors agree with owning requirements; old wire families are not silently repurposed.
 
-The prospective coverage interface is `cargo run --locked -p xtask -- coverage --profile <registered-profile> --require-complete`; profile declarations select actual prepared collection tools, source inventories, raw metrics and supported platform/features. E013-coverage-runner and E018-process-coverage implement and test that interface before dependent use. Direct-bootstrap collection must document exact installed-tool commands and prove the same raw-count rules. A future `just` entry point delegates to tested Rust xtask logic. Every required suite is registered when introduced; unknown or empty selection, missing services and missing evidence are failures. Use explicit supported feature sets rather than indiscriminate all-features. Default tests use no commercial credentials. Live qualification uses separately authorized resources and recorded limits; unavailable resources mean blocked, never passed. E019 delivery of local act orchestration is mandatory. Using that convenience wrapper is optional because the underlying direct commands remain supported; hosted GitHub Actions are outside this plan. Qualification needs an independently operated verifier using the same public checks, separated from privileged signing.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-## Resource and quality acceptance
+### E201 — Bootstrap measured Rust types on the accepted toolchain
 
-These are qualification targets, not measured performance or service promises. Initial bounds are: 1 MiB JSON commands with nesting/collection caps; 10 MiB text/Markdown/JSON originals; JPEG/PNG at 25 MiB encoded and 40 million decoded pixels; WAV or qualified non-DRM M4A at 20 MiB and five decoded minutes; eight attachments and 100 MiB per capture; 100 streamed manifest entries with two CLI transfers by default. Remote acquisition uses HTTPS, zero redirects, five-second connect and 120-second total deadlines with streamed byte limits. API work has a ten-second deadline and two-second ordinary transaction budget. Internal gRPC controls default to 1 MiB; bulk bytes use authorized blob references. Context builds cap 100 asset versions and 256 KiB compiled text.
+Status: `not_started`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Search uses k=1..20, two total retrieval rounds and 200 cumulative candidates before deduplication across hybrid sources. Canonical batched authorization precedes reranking; no denied counts, unbounded refill or N+1 authorization. Essential shared admission arrives with the first adapter: two model jobs and 100 pending jobs per organization initially, explicit global worker slots and cost reservations, bounded retries and all parser scratch/CPU/memory/time budgets. Consolidation later hardens the same controls. The initial live-profile reservation is $1 per capture as a cost ceiling to qualify, not a price promise or permission to spend.
+Stage: P1.
 
-D0 is two synthetic organizations and 100 scenarios. D1 is ten organizations, 100,000 captures, 200,000 artifact versions, 1,000,000 observations, 100,000 asset versions, 500,000 1,024-dimensional vectors and 30 GiB original/derived bytes. D2 is ten times D1 and deferred growth qualification. H0 is native macOS with 16 GiB host memory, Docker capped at four vCPU/eight GiB and 50 GiB free disk; hosted inference memory is separate. H1 uses two API instances at two vCPU/two GiB each, Python four/four, application PostgreSQL four/eight, Qdrant four/eight and Temporal two/two with a separate PostgreSQL two/four. Record actual versions, hardware, region, RTT, cold/warm state and costs. Emulation is not native capacity evidence.
+Scope: Bootstrap measured Rust types on the accepted toolchain; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Connection budgets explicitly sum maximum instances times per-role pool size plus administration, migration and reserve. No pool per tenant/request. Measure rebuild overlap, queue age, pool wait, model reservations/actual cost, parser memory, admission/denial, exact resolution, search exhaustion, projection lag, orphan bytes and restoration. Operational labels exclude content and unbounded identifiers.
+Planned paths: `Cargo.toml`, `Cargo.lock`, `rust-toolchain.toml`, `crates/arboresce-domain/`
 
-| Experiment | Mandatory target and evidence |
-| --- | --- |
-| E01 | Exact native builds and 1,000 compatibility vectors; supported pairs work and unsupported pairs fail explicitly from independent public builds. |
-| E02 | 64 clients/10,000 commands; zero tenant/session leakage; H1 pool-wait p95 <= 50 ms. Qualify each claimed production pooling profile separately. |
-| E03 | 1,000 jobs/32 active Activities; controlled crashes at 25% of tested boundaries; no lost accepted commands or duplicate transitions; terminal state within ten minutes after recovery. |
-| E04 | D1 at 100 requests/s, 64 clients, 30 minutes with 70% reads/20% commands/10% conflicts; p95 <= 300 ms, p99 <= 800 ms; exactly one same-revision winner. |
-| E05 | 100 transfers of 20 MiB, 16 concurrent, 20% interrupted; no unsafe egress/unverified bytes; added API RSS < 512 MiB and parser RSS < 3 GiB. |
-| E06 | D1/1,000 ground-truth queries at 20 queries/s and 32 clients; declared ACL selectivities, top 20, shared 200-candidate/two-round budget; zero leakage, recall >= 0.95, p95 <= 750 ms, p99 <= 2 s, Qdrant RSS < 7 GiB. |
-| E07 | 100,000 reordered/duplicate events; canonical reconciliation and D1 rebuild <= 15 minutes with explicit scoped write pause. |
-| E08 | 10,000 revoke/promote/download races and 1,000 credential-profile cases; no post-commit new admissions/quota bypass; denial p99 <= 1 s. |
-| E09 | D1 restoration plus 500 later revocations/deletions; RPO <= 15 minutes, RTO <= 60 minutes; no resurrected serving; required residency qualified. |
-| E10 | 10,000 canonicalization cases, 1,000 invalid signatures and 250 financial cases; exact cross-language agreement and safe rejection. |
-| E11 | 300 held-out receipts and 100 voice notes of 30–300 s; readable total-and-currency accuracy >= 98%, with abstention/coverage separately reported; image p95 <= 60 s and audio p95 <= twice duration + 30 s; approved cost ceiling. |
-| E12 | Three independent users, target task completion within 30 minutes after prerequisites; 72-hour soak at 25% of E04 with bursts; 100 agent/human tasks; idle memory growth <= 10%; independently usable exports. |
+External prerequisite capabilities: Approve the focused synthetic corpus and independent oracles. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Before media implementation qualification, approve target languages/codecs, corpus rights, readability labels, normalized scoring, denominators and numerical ASR lexical and consequential semantic thresholds (negation, amount, date, attribution). Do not invent missing values. Readable-case abstention counts as unsuccessful for the accuracy denominator and is also reported separately. Separate development corpora from untouched final holdout; tuning against a holdout invalidates its independence. Recorded responses cannot satisfy live quality. Real provider runs require approved data exposure and spending authority.
+Definition of green: Exact Rust 1.98.0 builds useful opaque identities; independent formats/roundtrips and strict source/region coverage pass; the binding proof is not treated as an API runtime.
 
-## Capability gates and external prerequisites
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Public capabilities are versioned evidence requirements, not references to another checkout. Record an immutable CLI artifact/digest and compatibility version wherever CLI behavior is required. External blocking evidence does not prevent unrelated dependency-ready synthetic work. Within ready work, prefer the lowest numeric slice; preserve semantic prerequisites and explicit suffix ordering. No implicit previous-number dependency replaces the listed dependencies.
+### E202 — Introduce repository-owned verification and dependency guards
 
-| Capability | Required evidence |
-| --- | --- |
-| X-ENVIRONMENT | Approved concrete dependency/profile selections, prepared tooling and disposable environments. Actual credentials, spend and deployment policy are supplied only to operations that need them. |
-| X-CLI-IDENTITY | Compatible native CLI supports scoped service identity, pinned-issuer PKCE login, safe profile storage, offline logout, cleanup failure reporting and refresh/logout fencing. |
-| X-CLI-CAPTURE | CLI supports bounded local/HTTPS acquisition, secure destination/origin handling, interruption and resume. Human paths are explicit; autonomous agents initially use stdin or trusted granted descriptors unless an actual external confinement boundary is qualified. |
-| X-MEDIA-PROFILE | One concrete OCR/ASR profile with approved languages/codecs, gateway route, corpus/oracle, numeric ASR thresholds, regions/terms and spend controls. Paid user-selected providers are permitted; no Arboresce entitlement required. |
-| X-CLI-PROCESSING | CLI shows accepted versus completed processing, typed state, warnings, evidence and cancellation semantics. |
-| X-CLI-REVIEW | CLI renders attributable review, complete safe editor replacement and revision-safe verdicts without assuming human status from a flag. |
-| X-CLI-REPORT | CLI provides financial correction/report/export with atomic safe output and exact currency semantics. |
-| X-CONSUMER-RESOLVE | Provider-neutral public consumer resolves the exact eligible build and records version/receipt; initial example does not require feedback. |
-| X-CONSUMER-FEEDBACK | Extended public consumer submits feedback after feedback API/CLI exist, retaining exact consumed version and retry intent without claiming human approval or processing success. |
-| X-CLI-FEEDBACK | CLI supports exact-subject feedback/outcomes and explicit reviewed supersession. |
-| X-CLI-EXIT | CLI supports control-revision revocation, export, safe downloads and clean exit. |
-| X-CLI-SEARCH | CLI supports bounded filters/search and honest selected-context receipts. |
-| X-CLI-DOCUMENTATION | Supported human/agent/noninteractive journeys, native install/uninstall and credential cleanup are documented and verified independently. |
-| X-IDENTITY-ARITHMETIC | Experiment E10 passes against exact code/contracts and independent oracles. |
-| X-DEPLOYMENT-POLICY | Actual identity/provider/retention/residency/hold/recovery policies are approved for the selected environment before private evidence or real purge. |
-| X-PRODUCTION-EVIDENCE | Independently measured mandatory experiments, supported environment, incident/recovery ownership, support limits and exact native CLI compatibility. |
-| X-ARTIFACT-SIGNING | Actual authorized signing binds source, locks, manifest, digest, length, architecture and trusted signer; trust rotation/revocation and independent verification of distributed bytes pass. No unsigned candidate is called released. |
+Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-| Gate | Required closure |
-| --- | --- |
-| G0 | Current independent source state and approved public requirements/rights are recorded without contradictory active authority. |
-| G1 | Exact toolchains, independent builds, complete contracts, compatibility, negative fixtures and applicable coverage gates pass. |
-| G2 | Packaged actual identity, current authorization, tenant policy, sealed upload, acquisition/media limits, shared quotas and audit pass before private evidence. Synthetic capture/processing and approved non-sensitive provider tests do not satisfy this gate. |
-| G3 | Real CLI record/report and evidence/review/build/evaluate/promote/resolve/feedback journeys pass; accepted submission never substitutes for completion. |
-| G4 | Deterministic real-service races, failures/replay, revocation, export, D0 restoration and projection rebuild pass. Recovery requires current independently retained post-backup revocation/deletion/hold journal; incomplete proof keeps serving closed. |
-| G5 | Independently scored live holdout, independent users and required quality/capacity/soak experiments pass. |
-| G6 | All required experiments including full D1 E09, exact production profile, independent verifier, signed native distributions/images and operational obligations pass. Content attestations do not prove artifact signing. |
+Stage: P1.
 
-The packaged local profile plus G2 and D0 restore evidence precede private-user qualification. An early D0 restore must recover canonical PostgreSQL, sealed original/derived bytes, keys/trust and current independently retained lifecycle journal, then rebuild derived stores. A journal recovered only from the old backup or the maximum allocated outbox ID is insufficient. Full E09 remains mandatory later.
+Scope: Introduce repository-owned verification and dependency guards; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-## Slice inventory
+Planned paths: `tools/xtask/`, `tests/architecture/`, `docs/requirements/testing-and-coverage.md`
 
-Each slice records its current status below. The named tests are mandatory additions to its verification lane and universal green-state contract. Planned paths are bounded owner destinations; inspect actual layout before creating files and record any justified path amendment. Record actual command, selected test count, exits, source/lock/profile identity, coverage numerators/denominators, review and remaining evidence after execution.
+Definition of green: Actual formatting/check/test/Clippy/coverage commands cover all selected packages/processes; forbidden domain imports and permitted deterministic workflow boundaries are independently tested.
 
-### E001 — Adopt the public implementation boundary
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `complete`. Prerequisites: approved public scope and refreshed repository status. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+### E203 — Implement independent revisions, clocks, dates and locators
 
-Checkpoint: 60dccaa76e5acfcba80243a0e1c90c123561c9fd; Evidence: [Checkpoint evidence](e001-requirements-evidence.md)
+Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Publish current-state and product-scope requirements, the architecture and testing policy, supported interfaces and deferred scope. Preserve notices and existing files; describe only available commands as available.
+Stage: P1.
 
-Planned paths: `README.md`, `AGENTS.md`, `docs/README.md`, `docs/requirements/`,
-and `docs/execution/e001-requirements-evidence.md` for actual owning checkpoint
-verification. The requirements index names the single owner of each topic;
-this plan records execution without becoming a competing specification.
+Scope: Implement independent revisions, clocks, dates and locators; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Independent rights and disclosure review; local links resolve; every requirement has one owner; prospective implementation is clearly labelled.
+Planned paths: `crates/arboresce-domain/`, `tests/contract/`
 
-### E002 — Freeze command and error semantics
+Definition of green: Content/control revisions, overflow, observed versus recorded time, timezone ambiguity and typed pixel/audio locators pass independent boundary vectors.
 
-Status: `complete`. Prerequisites: E001. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Checkpoint: 1eea8a99dd36eb90ca7c4823ad34b19d2e4103f8; Evidence: [Common contract checkpoint](e002-common-contract-evidence.md)
+### E204 — Create focused application ports and migration harness
 
-Scope: Specify tenant and domain identifiers, independent revision types, command identity, typed errors, accepted operations and readiness. Define strict command parsing, extensible responses and cross-field validation.
+Status: `not_started`. Prerequisites: E203. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `contracts/public/`, `docs/requirements/`.
+Stage: P1.
 
-Standalone contract validation is owned by `contracts/validation/`: exact
-prepared upstream tool/interpreter pins and a public lock, with declarative
-expectation schemas and independent fixtures. It adds no first-party Python
-runtime or hidden validator helper. Parsed-value checks precede the Rust
-contract runner; raw parser, authorization and HTTP runtime cases remain
-explicitly pending their owning implementation. The documentation index,
-repository README and guidance link the supported contract check and its actual
-evidence.
+Scope: Create focused application ports and migration harness; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Malformed commands fail; extra response fields remain tolerable; success cannot carry a failure code; unavailable readiness returns 503.
+Planned paths: `crates/arboresce-application/`, `crates/arboresce-postgres/`, `tests/integration/postgres/`
 
-### E003 — Freeze acquisition and sealed-byte contracts
+Admission boundary: The useful record is an isolated synthetic migration-harness write. Admitted canonical product and bootstrap writers remain disabled until independently retained lifecycle continuity is qualified. Schema preparation cannot admit user effects.
 
-Status: `complete`. Prerequisites: E002. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Definition of green: A real isolated PostgreSQL migration persists a useful typed record; compatible migration/retry/rollback limits and transaction outcome boundaries pass without requiring later build/search tables.
 
-Checkpoint: 7149b621713b351feb8996391cc95964a3324050; Evidence: [Acquisition checkpoint](e003-acquisition-contract-evidence.md)
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Specify upload lifecycle, byte digests/lengths, capture revisions and ordered attachment roles. Separate immutable originals and representations from readiness and control state.
+### E205 — Enforce tenant roles, RLS and first-adapter admission
 
-Planned paths: `contracts/public/`, `docs/requirements/`.
+Status: `not_started`. Prerequisites: E204. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Use the existing source-free `contracts/validation/` project for independent
-acquisition cases and their expectation schema. Its guide, the repository and
-requirement indexes, and `docs/execution/e003-acquisition-contract-evidence.md`
-record supported checks and actual results. General reference, expiry, arithmetic
-and storage-race scenarios remain explicitly prospective runtime fixtures until
-their owning implementation executes them; shape checks cannot claim those
-effects.
+Stage: P1.
 
-Two declarative entries at `contracts/common-v1.fixtures.schema.json` and
-`contracts/acquisition-v1.fixtures.schema.json` establish the local schema graph
-root for the pinned validator. Each selects one exact fixture family. This
-bounded path addition addresses an observed nested-reference failure without
-moving or copying owning contracts, changing their meaning, overriding base
-URIs or introducing an executable helper. Qualify both families, swapped-family
-rejection, broken references and standalone relocation before green.
+Scope: Enforce tenant roles, RLS and first-adapter admission; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Foreign attachment rejected; required failure blocks readiness; optional failure is visible; expired upload cannot finalize.
+Planned paths: `crates/arboresce-postgres/`, `crates/arboresce-application/src/policy/`, `tests/security/`
 
-### E004 — Freeze grounded observation contracts
+Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
-Status: `complete`. Prerequisites: E003. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Checkpoint: c0cd459a34b6effc922f8a9e1f8d003379f22e4f; Evidence: [Observation checkpoint](e004-observation-contract-evidence.md)
+### E206 — Implement independent lifecycle continuity before first writers
 
-Scope: Define half-open UTF-8 ranges, RFC6901 pointers, page coordinates and audio units bound to exact representations. Preserve assertion, observation and inference distinctions.
+Status: `not_started`. Prerequisites: E205. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `contracts/public/`, `contracts/internal/`, `docs/requirements/`.
+Stage: P1.
 
-The bounded implementation uses `contracts/public/v1/observation.schema.json`
-and `docs/requirements/observation-contract.md`, independently authored fixtures
-and expectations under `contracts/validation/`, and the exact-family graph-root
-entry `contracts/observation-v1.fixtures.schema.json`. Update the owning guide,
-requirement/navigation indexes, data-model/processing/API links and actual
-`docs/execution/e004-observation-contract-evidence.md`. Reference existing
-versioned schemas without copying them. General interval ordering, actual
-representation bounds, pointer selection and provenance/authority remain
-explicit semantic tests for their owning implementations; parsed shape checks
-do not qualify these runtime behaviors.
+Scope: Implement independent lifecycle continuity before first writers; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-E004 also owns a bounded clarification in `docs/requirements/common-contract.md`:
-declared unsigned protocol integers use canonical unsigned integer tokens on
-emission/admission. JSON Schema's value-based integer check cannot establish
-that lexical property. Add a pending raw-decoder vector for integral float and
-exponent spellings, negative zero, booleans, range limits and precision-rounding
-inputs without relabelling parsed fixtures. General JSON/source-JCS numbers,
-schema semantics, revisions and dependencies remain unchanged. This reviewed
-clarification precedes the first consuming decoder implementation.
+Planned paths: `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-application/src/lifecycle/`, `tests/integration/recovery/`
 
-Definition of green: Invalid boundaries/escapes/spans rejected; representation mismatches fail; absent grounding stays explicitly absent.
+Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 
-### E005 — Freeze candidate review variants
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `complete`. Prerequisites: E004. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+### E207 — Persist idempotent commands, audit and durable outbox
 
-Checkpoint: bd1392e11c84fbac27f4d1937c6a88edeee3a216; Evidence: [Candidate review checkpoint](e005-candidate-review-contract-evidence.md)
+Status: `not_started`. Prerequisites: E206. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Specify complete candidate identity and digest; only revise accepts a complete replacement and produces a new pending revision. Acceptance pins the reviewed content and current authority.
+Stage: P1.
 
-Planned paths: `contracts/public/`, `docs/requirements/`.
+Scope: Persist idempotent commands, audit and durable outbox; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-The bounded implementation uses `contracts/public/v1/candidate-review.schema.json`
-and `docs/requirements/candidate-review-contract.md`. Independently authored
-parsed-value fixtures and expectations live under `contracts/validation/`, with
-the exact-family entry `contracts/candidate-review-v1.fixtures.schema.json`.
-Update the validator guide, owning documentation/navigation and API/data-model
-links, plus `docs/execution/e005-candidate-review-contract-evidence.md`.
-Complete revise/accept/reject/contest variants use existing common and observation
-definitions. Exact content identity, current authority, revision conflicts and
-transactional uniqueness remain mandatory semantic tests for their later owners;
-parsed shapes do not qualify those runtime effects.
+Planned paths: `crates/arboresce-postgres/`, `crates/arboresce-application/src/commands/`, `tests/integration/concurrency/`
 
-This slice also adds the reusable `calendar_date` definition to
-`contracts/public/v1/common.schema.json` and its owning common-contract document.
-The candidate's named alias preserves its independent fixture targets. This
-keeps date encoding shared without making financial records depend on candidate
-review. Existing common fixtures and historical evidence remain unchanged;
-the full schema graph and all current families must pass before the checkpoint.
+Definition of green: Identical retries return one currently authorized result, changed input conflicts, durable audit/result/outbox bind atomically and real lease/crash races retain uncertainty without duplicate canonical transitions.
 
-Definition of green: Replacement on accept fails; incomplete revise fails; scope-only changes alter identity; stale review conflicts.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E006 — Freeze expense and report semantics
+### E208 — Start the public HTTP service and capability envelope
 
-Status: `complete`. Prerequisites: E003, E004, E005. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `not_started`. Prerequisites: E207. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Checkpoint: e29c60c80c7ba198ab51b599c833591864e2526e; Evidence: [Financial contract evidence](e006-financial-contract-evidence.md)
+Stage: P1.
 
-The prerequisite amendment retains E003 and adds the immutable observation
-attribution defined by E004 and the shared common `calendar_date` definition
-introduced during E005. These are source-definition prerequisites. Expense
-confirmation and reporting remain independent of candidate or knowledge approval.
+Scope: Start the public HTTP service and capability envelope; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Require reviewed total, currency and date before confirmation. Preserve unknown optional components, reconciliation and date precision. Refunds/credits carry positive magnitudes, explicit kind and original-record links; reports pin exact eligible revisions.
+Planned paths: `crates/arboresce-api/`, `tests/integration/api/`
 
-Planned paths: `contracts/public/`, `docs/requirements/`.
+Definition of green: Actual selected local API starts/stops, reports readiness/capabilities and discriminated errors, bounds requests, hides foreign identities and negotiates supported client contracts.
 
-The bounded implementation owns `contracts/public/v1/financial-records.schema.json`
-and the existing `docs/requirements/financial-records.md`. Independent parsed-value
-cases and expectations belong to `contracts/validation/`, with the exact-family
-entry `contracts/financial-records-v1.fixtures.schema.json`. Update the validator
-guide, documentation/requirement navigation and API/data-model links, plus
-`docs/execution/e006-financial-contract-evidence.md`. Reuse common encodings and
-immutable observation references without changing their existing definitions
-or fixture meanings. Actual arithmetic, source joins, current authorization,
-transaction races, immutable selection and independent export-consumer behavior
-remain required semantic/runtime qualifications for their owning later slices.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Missing required fields remain proposed; unknown tax differs from zero; no cross-currency total; refunds preserve purchase history; authorized exclusions remain explicit.
+### E209 — Qualify Nostr request authentication and replay profile
 
-Actual verification: the 57-definition financial library and 519 independently
-fixed expectations passed with all 870 existing expectations. All eight
-documented commands, 15 metaschemas, 42 deliberate failure diagnostics, five
-relocated families and the restored financial input check passed. The 22
-machine inputs and six guidance files remained unchanged. Independent design,
-schema, fixture and documentation reviews passed. See the
-[financial contract evidence](e006-financial-contract-evidence.md). Arithmetic,
-authority/history joins, selection races, emitted exports and the 32 named
-semantic groups remain required later qualification; no runtime or numerical
-source-coverage result is claimed here.
+Status: `not_started`. Prerequisites: E208. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E007 — Freeze context and attestation contracts
+Stage: P2.
 
-Status: `complete`. Prerequisites: E005. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Scope: Qualify Nostr request authentication and replay profile; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Checkpoint: feafa9a927453a8f9d471c5370c470677abdb941; Evidence: [Context contract checkpoint](e007-context-contract-evidence.md)
+Planned paths: `crates/arboresce-api/src/auth/`, `crates/arboresce-application/src/auth/`, `tests/contract/identity/`
 
-Scope: Specify canonical build preimage, ordering, numeric profile and exact content references; keep receipts outside content identity. Define domain-separated signatures, trusted keys and channel generations.
+Definition of green: Exact pinned NIP-98 URL/method/body/time/signature vectors, malformed events, replay and idempotency interaction pass; Nostr key control never supplies human assurance or replaces Ed25519 attestations.
 
-Planned paths: `contracts/public/`, `docs/requirements/`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-The bounded contract work owns `contracts/public/v1/context.schema.json` and
-`docs/requirements/context-contract.md`, an independent context fixture family
-and expectation schema in `contracts/validation/`, and the graph-root entry
-`contracts/context-v1.fixtures.schema.json`. A separate literal signing-vector
-file at `contracts/validation/context-v1.signing-vectors.json` and its entry
-`contracts/context-v1.signing-vectors.schema.json` freeze independently agreed
-published-key fixture signatures; this does not qualify operational trust or
-general cryptographic implementation. Update the validation guide,
-requirement/navigation indexes, data-model/API links and actual
-`docs/execution/e007-context-contract-evidence.md`. Freeze complete build and
-delivery identity, evaluation/approval authority, exact signing input and trust,
-and channel transitions before schema implementation. Parsed-value checks do
-not execute canonicalization, signatures, authenticated review, transactions or
-complete transfers; those independent semantic oracles remain explicit for the
-owning runtime slices and qualification experiments.
-
-Definition of green: No self-hash; unknown/revoked keys denied; partial snapshots forbidden; revoked inputs cannot become eligible through rollback.
-
-### E008 — Freeze lifecycle and operation contracts
-
-Status: `complete`. Prerequisites: E007, E006. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
-
-Checkpoint: fafce4ea016ac4d78d4d45b549df80449a1f0e45; Evidence: [Checkpoint evidence](e008-lifecycle-contract-evidence.md)
-
-Scope: Freeze the [lifecycle owner](../requirements/lifecycle-contract.md): complete immutable plans and eight operation kinds, actual command/worker causes, bounded stage/attempt/effect/exposure/action ledgers, cancellation races, upload control/abort/finalize replay and explicit analysis, exact revoke/hold/purge/propagation controls, sealed financial delivery, attributed feedback, retained recognition/retirement and six-family independent continuity. Preserve earlier request/immutable-content contracts; reserve complete repair producers for E124 without enabling an unspecified command.
-
-Planned paths: `docs/requirements/lifecycle-contract.md`, `contracts/public/v1/lifecycle.schema.json`, `contracts/internal/v1/lifecycle-continuity.schema.json`, `contracts/lifecycle-v1.fixtures.schema.json`, `contracts/validation/lifecycle-v1.expectations.schema.json`, `contracts/validation/lifecycle-v1.cases.json`, `contracts/validation/README.md`, the existing common/API/acquisition/context/financial/data-model/security/storage/recovery/processing/resource owners and documentation indexes, this bounded plan refinement, and `docs/execution/e008-lifecycle-contract-evidence.md` only after actual qualification. Reuse the six existing application libraries by reference, with the explicit shared-rule repair below; add no executable support.
-
-Bounded shared-rule repair: `contracts/public/v1/common.schema.json` must reject a direct `problem` member inside `common.problem`, including null and false, as already required by the common reserved-outcome rule. The omitted property prohibition also affects inherited lifecycle problems and other existing consumers. Add independently authored regressions in `contracts/validation/common-v1.cases.json` and its matching expectation schema. Preserve all earlier fixture entries, legitimate typed outer problem fields, unreserved additive extensions, the other five existing application libraries, request/immutable-content contracts and historical evidence. This repairs an existing requirement; it introduces no new capability, reader floor or prerequisite. The combined freeze and full qualification must include these changed shared inputs.
+### E210 — Provision the first owner through the protected operator boundary
 
-Bounded validator-profile repair: add the direct upstream pin `rfc3986-validator==0.1.1` in `contracts/validation/pyproject.toml` and its lock, and independently authored URI regressions in `contracts/validation/acquisition-v1.cases.json`, its expectation schema, and the two already scoped lifecycle oracle files. The existing acquisition URI constraint applies to staging grants and both allocation-response targets. Missing optional format support currently permits malformed URIs; preserve the schema's URI meaning, all earlier cases and all other dependency versions. The 48 appended literals comprise 21 positive and 27 negative expectations. URI syntax-positive userinfo and fragment controls do not waive the owning runtime client prohibition. Update validation guidance and qualify the actual effective format registry, all 93 existing checks on the newly frozen complete inputs, all 48 direct real-definition URI cases and three separately labeled disabled-URI controls. Earlier tool-profile results remain historical and cannot qualify the repaired lock or corpus. This adds no capability, prerequisite or executable first-party support. The actual reviewed E008 results are recorded in the checkpoint evidence.
+Status: `not_started`. Prerequisites: E209, E206. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Independent owner/schema and literal-oracle freezes; complete 23-schema/seven-family/eleven-command catalogue, exact public/internal target routing and actual parsed-value, relocation, oracle-integrity, consumed-reference and swapped-family diagnostics with preserved raw results. Complete records never become hidden/truncated/empty success; holds grant no read, cancellation preserves irreversible effects, purged bytes stay unavailable and expired identities cannot repeat effects. Record actual input/count/hash/command outcomes and limits only after checks. This source gate does not qualify HTTP, JCS/hash joins, authorization, Temporal, actual storage/provider/exposure bytes, continuity/restore, full export throughput or E124 repair.
+Stage: P2.
 
-### E009 — Freeze bounded selection and listing
+Scope: Provision the first owner through the protected operator boundary; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `in_progress`. Prerequisites: E005, E006, E007, E008. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Planned paths: `crates/arboresce-admin/`, `crates/arboresce-application/src/identity/`, `tests/security/bootstrap/`
 
-Scope: Specify filter grammar, authenticated cursors, stable ordering and independent selection receipts. Search permits k=1..20, two total retrieval rounds and 200 cumulative pre-dedup candidates across all sources.
+Definition of green: Actual configured operator/namespace/policy/stream provisioning admits one owner under races, securely delivers credentials and cannot overwrite or resurrect recognized/retired identities.
 
-Freeze the single planned selection owner at `docs/requirements/selection-contract.md` for
-ten listing GETs, seven exact companion GETs and synchronous search. Include
-complete asset/supersession resources, exact actor/filter/key bindings, fixed
-cursor lifetime, selector-specific historical membership, current disclosure,
-complete-read headroom and unsigned selection/exposure receipts. Reconcile every
-existing owning requirement and the future consumer scopes without enabling a
-runtime capability. Preserve the earlier schema identities and historical evidence.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `docs/requirements/selection-contract.md`,
-`contracts/public/v1/selection.schema.json`,
-`contracts/selection-v1.fixtures.schema.json`,
-`contracts/validation/selection-v1.cases.json`,
-`contracts/validation/selection-v1.expectations.schema.json`,
-`contracts/validation/selection-v1.cursor-vectors.json`,
-`contracts/selection-v1.cursor-vectors.schema.json`,
-`docs/execution/e009-selection-contract-evidence.md`; bounded existing
-`docs/requirements/`, `docs/README.md`, `contracts/validation/README.md` and this
-plan receive the owning amendments, indexes and exact supported check inventory.
+### E211 — Provision workspaces, default domains and memberships
 
-Freeze every named target/helper and finite positive/negative branch before
-independent schema and literal-oracle author comparison. Qualify the complete
-existing/new family graph, reference consumption, exact infrastructure-versus-
-invalid outcomes and standalone consumers using the locked contract checks.
-Fixed synthetic cursor vectors require separately observed prepared HMAC
-implementations and exact independent preimages; they establish no operational
-key, runtime JCS/cursor, SQL, gateway or source-coverage qualification.
+Status: `not_started`. Prerequisites: E210. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Repair the full-family validation timeouts with one local command at
-`contracts/validation/src/arboresce_contract_validation/cli.py` and an empty
-package initializer. Compose the pinned upstream parser, loader, effective
-validator, checker and reporters with a fresh local resource registry. Preserve
-all schema and literal bytes, format and regex behavior, complete case collection,
-invalid-versus-infrastructure outcomes and existing time limits. Keep metaschema
-and URI diagnostics on their upstream command paths. Do not fork dependencies,
-replace schema evaluation or add a subprocess supervisor.
+Stage: P2.
 
-Update `contracts/validation/README.md`, the project and lock together with the
-command and independently reviewed tests under `contracts/validation/tests/`.
-Keep runtime dependencies unchanged and prepare development tools separately.
-Maintain the consumed pinned API declaration subset under
-`contracts/validation/typings/check_jsonschema/` with strict type checking and
-actual default-validator class/schema/format-checker coupling tests. Inventory
-declarations separately from executable source; no executable coverage exemption
-or diagnostic suppression is introduced.
-Require bounded stable descriptor snapshots for every schema and instance,
-ordered descriptor-only instance preflight, lazy payload reads, closed reference
-retrieval, exact source copying and current owner/mirror/configuration evidence.
-Retain historical input freezes; record reviewed project/lock changes separately.
-Requalify affected command routes and the final configuration, including the
-complete URI diagnostics. Cover maintained command and test support with the
-owning strict Python line/branch gates and complete process collection before
-claiming this repair green. The original full-family failures remain historical
-failures until fresh complete checks pass within the unchanged limits.
+Scope: Provision workspaces, default domains and memberships; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Changed filter/purpose invalidates cursor; unknown filters fail; inaccessible counts stay hidden; budget exhaustion is explicit and cannot trigger unbounded refill.
+Planned paths: `crates/arboresce-application/src/workspaces/`, `crates/arboresce-postgres/src/workspaces/`, `crates/arboresce-api/src/routes/`
 
-Checkpoint boundary: the validator foundation introduces the complete local
-component, deterministic development suite and pinned declarations. Its
-[foundation evidence](e009-validator-foundation-evidence.md) records the measured
-source profile. The dependent operational/selection integration checkpoint keeps
-the affected command-route, complete configuration and URI qualifications above,
-all current guard and reference/relocation checks, complete selection and
-lifecycle families, independent cursor/native checks and final consumers. The
-foundation does not switch the ordinary corpus command catalogue or declare
-the full-family timeout repair, selection contract or E009 complete.
+Definition of green: A workspace uses the Organization tenant plus default Domain; creation/read/membership/last-owner constraints work through real API transactions, with explicit bootstrap exceptions and exactly one workspace per content command.
 
-Current verification: complete collection and execution passed all 293 tests,
-including all five real CLI barriers. Independent review reconciled all 96 real
-child processes and 97 raw coverage profiles. Every applicable maintained file
-exceeds both strict Python coverage thresholds. The process-observation helper
-has 256/272 covered lines and 116/128 covered branches; test support has 496/509
-lines and 133/144 branches; the command has 302/310 lines and 82/86 branches.
-Formatting, lint and strict typing also passed for the measured source. Earlier
-failed runs and matching source snapshots remain preserved. All ten current URI
-process-method cases passed with independent review; full URI qualification is
-still required. Contract, native and cross-repository integration qualification
-remain open. This slice remains in progress.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E010 — Freeze intelligence transport
+### E212 — Enforce scoped agent grants and current authorization
 
-Status: `not_started`. Prerequisites: E004, E008. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Status: `not_started`. Prerequisites: E211. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Version gRPC input, stage and processing-profile identity, immutable blob references, typed outputs, locators, uncertainty, exposure and cost receipts. Keep credentials outside messages.
+Stage: P2.
 
-Planned paths: `contracts/internal/proto/`, `docs/requirements/`.
+Scope: Enforce scoped agent grants and current authorization; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Oversize messages fail; incompatible versions fail explicitly; malformed locators fail; no output can approve canonical knowledge.
+Planned paths: `crates/arboresce-application/src/auth/`, `crates/arboresce-api/src/auth/`, `tests/security/delegation/`
 
-### E011 — Approve deterministic semantic oracles
+Definition of green: Own-key agent grants bind action/resource/workspace/purpose/lifetime; expiry/revocation/chain-switch/regrant races deny new effects and replay disclosure; no owner-key lending or service self-promotion.
 
-Status: `not_started`. Prerequisites: E006, E007, E010, E009. Verify lane: DOC + CONTRACT (executable validators use applicable language lanes).
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Create D0 scenario inventory and independently review expected financial, review, control, capture, policy and context outcomes. Register fixture rights, provenance, digests, deterministic seeds and mutation controls. Freeze live-media scoring criteria separately.
+### E213 — Prove CLI identity and two-workspace isolation
 
-Planned paths: `tests/fixtures/scenarios/`, `docs/requirements/`.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Validate every fixture reference; contradictory expectations fail; minimum scenario inventory below is complete; affected acceptance stays blocked until independent oracle approval exists.
+Stage: P2.
 
-### E012 — Bootstrap a measured Rust workspace
+Scope: Prove CLI identity and two-workspace isolation; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E011. Verify lane: RUST + CONTRACT.
+Planned paths: `tests/e2e/identity/`, `tests/security/`
 
-Scope: Pin Rust 1.97.1, edition 2024 and resolver 3 with reviewed dependency locks and central lints. Introduce a useful opaque identifier type; use prepared coverage tools directly before a custom runner exists.
+External prerequisite capabilities: Expose identity, workspace and delegated project actions. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Planned paths: `Cargo.toml`, `Cargo.lock`, `rust-toolchain.toml`, `.cargo/config.toml`, `crates/arboresce-domain/`.
+Definition of green: Actual CLI/API cases cover outsiders and an actor authorized in both workspaces; forged references, replay, revocation and key changes never cross scope or broaden authority.
 
-Definition of green: Equality, invalid formats and roundtrips pass; every target compiles; raw line/region gates pass including executable support/build code; no placeholder members.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E013 — Implement the verification dispatcher
+### E214 — Define typed Party and project changes
 
-Status: `not_started`. Prerequisites: E012. Verify lane: RUST + CONTRACT.
+Status: `not_started`. Prerequisites: E203, E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Add a real xtask workspace package and thin just recipes. Dispatch existing formatting/check/test/lint commands with exact exit propagation and measured execution counts; unsupported operations fail.
+Stage: P3.
 
-Planned paths: `tools/xtask/`, `justfile`, `.cargo/config.toml`, `Cargo.toml`, `Cargo.lock`.
+Scope: Define typed Party and project changes; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Child failures propagate; empty required selection fails; setup is explicit; no hidden installation; dispatcher source itself meets coverage gates.
+Planned paths: `crates/arboresce-domain/src/project/`, `contracts/public/`, `tests/contract/project/`
 
-### E013-coverage-runner — Enforce measured source checkpoints
+Definition of green: Stable external Party/alias/principal distinctions and project participants/decision/work/assignment/date/status/fact create-revise-associate variants have exact bounds, versions, provenance and literal negative vectors.
 
-Status: `not_started`. Prerequisites: E013. Verify lane: RUST + CONTRACT.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Implement tested source/package/file inventory and strict Rust coverage collection/aggregation with direct-bootstrap equivalence; prepare the Python inventory contract without claiming Python service collection. Reject incomplete generated/support inventories, stale identities, missing native/subprocess profiles, empty suites and rounded 90% success. Keep the runner and gate implementation inside their own coverage denominator.
+### E215 — Persist authorized project records and revisions
 
-Planned paths: `tools/xtask/`, `contracts/quality/`, `tests/contract/coverage/`, `docs/requirements/testing-and-coverage.md`.
+Status: `not_started`. Prerequisites: E214, E212, E207. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: boundary fixtures at 0, exactly 90%, just above 90%, missing source, wrong lock/profile, branchless/non-executable justified N/A and lost subprocess profile all produce the specified outcome; useful bootstrap code and runner satisfy gates with independent fixtures.
+Stage: P3.
 
-### E014 — Verify contracts and generated code
+Scope: Persist authorized project records and revisions; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E013, E013-coverage-runner. Verify lane: RUST + CONTRACT.
+Planned paths: `crates/arboresce-postgres/src/project/`, `crates/arboresce-application/src/project/`, `crates/arboresce-api/src/routes/project.rs`
 
-Scope: Integrate pinned local schema and Protobuf tools, semantic fixtures and generation locks. Commit required generated output; check drift without fetching schemas from the network.
+Definition of green: Real CLI-addressable project/Party CRUD records immutable attributable revisions; current workspace/reference permissions and target CAS are transactional, attendance/assignment never grants authority.
 
-Planned paths: `tools/xtask/`, `contracts/`, `tests/contract/`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Unknown references fail; positive/negative vectors run; breaking changes require explicit versions; regeneration is reproducible; generated executable code is included in coverage.
+### E216 — Resolve bounded exact prior project context
 
-### E015 — Enforce architecture and dependency policy
+Status: `not_started`. Prerequisites: E215. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E013, E013-coverage-runner. Verify lane: RUST + CONTRACT.
+Stage: P3.
 
-Scope: Check inward domain/application dependencies, the workflow API matrix, license/advisory policy and source inventories. Workflows may use deterministic Temporal APIs; direct I/O, ambient time/randomness and adapter dependencies are forbidden.
+Scope: Resolve bounded exact prior project context; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `tools/xtask/`, `deny.toml`, `crates/README.md`, `tests/contract/`.
+Planned paths: `crates/arboresce-application/src/context/`, `tests/integration/project/`
 
-Definition of green: Allow supported workflow APIs and legitimate SDK transitives; reject direct domain SQL and workflow network edges; unsafe paths and unknown checks fail; scanner limits are documented.
+Definition of green: Explicit project and alias resolution returns only current-authorized exact versions under bounded reads; omitted established facts are attributable, ambiguous names/dates remain alternatives or unknown, and unrelated changes do not invalidate every target.
 
-### E016 — Implement deterministic shared test support
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E013, E013-coverage-runner. Verify lane: RUST + CONTRACT.
+### E217 — Qualify project and context fixtures against real persistence
 
-Scope: Add narrow clock, identity, fixture, barrier and disposable-service helpers without production bypasses. Inventory executable support and test it independently.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `crates/arboresce-testkit/`, `Cargo.toml`, `Cargo.lock`.
+Stage: P3.
 
-Definition of green: Repeated seeds produce identical values; barriers replace timing guesses; isolation prevents cross-test state; deterministic mode denies unexpected network; helper code exceeds coverage gates.
+Scope: Qualify project and context fixtures against real persistence; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E017 — Generate isolated intelligence DTO packages
+Planned paths: `tests/fixtures/project/`, `tests/integration/project/`, `tests/e2e/project/`
 
-Status: `not_started`. Prerequisites: E014, E016. Verify lane: RUST + CONTRACT.
+External prerequisite capabilities: Expose project context creation, revision and readback. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Scope: Add a non-published transport package from locked Protobuf and preserve domain independence. Commit generated runtime DTOs and their source/version contract.
+Definition of green: Independent seed/read/revision/CAS/alias/clock/negative fixtures prove contextual blanks and workspace disclosure through real CLI/API/PG, with expected answers outside runtime inputs.
 
-Planned paths: `crates/arboresce-intelligence-proto/`, `contracts/internal/`, `tools/xtask/`, `Cargo.toml`, `Cargo.lock`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Roundtrip vectors pass; removed tags remain reserved; breaking changes detected; domain has no transport dependency; generated source is measured.
+### E218 — Freeze typed intelligence and durable stage messages
 
-### E018 — Bootstrap measured Python processing
+Status: `not_started`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E017. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Stage: P4.
 
-Scope: Use an isolated src-layout package, pinned Python/uv dependencies, strict lint/type/test configuration and useful validated configuration/health behavior. Measure directly before service-process collection exists.
+Scope: Freeze typed intelligence and durable stage messages; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `python/pyproject.toml`, `python/uv.lock`, `python/.python-version`, `python/src/arboresce_intelligence/`, `python/tests/`.
+Planned paths: `contracts/internal/proto/`, `contracts/internal/`, `tests/contract/intelligence/`
 
-Definition of green: Unknown or unbounded configuration fails; imports work outside source directory; all source modules are measured even if never imported; package and file line/branch gates pass.
+Definition of green: Versioned source/context/change-item/profile/stage/exposure/cost messages are bounded and credential-free; target/version/dependency/locator errors fail before canonical effects.
 
-### E018-process-coverage — Collect cross-process Python execution
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E018, E013-coverage-runner. Verify lane: RUST + PYTHON + CONTRACT.
+### E219 — Bootstrap measured Python processing and generated transport
 
-Scope: Implement Python package/file line and branch inventory with explicit child/async process coverage lifecycle, bounded flush/merge and exact source/profile matching. Prove isolated launched-process collection now and extend to actual gRPC, Activities and E2E processes when introduced. No invented coverage for processes not yet implemented.
+Status: `not_started`. Prerequisites: E218, E202. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `tools/xtask/`, `python/tests/`, `python/pyproject.toml`, `contracts/quality/`.
+Stage: P4.
 
-Definition of green: unimported module, abrupt child exit, missing profile, mismatched source and stale report fail; deterministic spawned/async work is measured; both language lanes and all existing source gates pass.
+Scope: Bootstrap measured Python processing and generated transport; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E019 — Add local orchestration for established checks
+Planned paths: `python/`, `contracts/internal/proto/`, `tests/contract/`
 
-Status: `not_started`. Prerequisites: E018, E015, E018-process-coverage. Verify lane: DOC + CONTRACT.
+Definition of green: Independently pinned Python environment and generated DTO drift checks pass; maintained processors/helpers and actual subprocess boundaries meet strict line/branch coverage without DB write credentials.
 
-Scope: Place optional local act definitions outside hosted workflow discovery, invoking the same public commands. Pin image and explicit architecture; preserve direct-command use.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `tools/act/`, `.actrc`, `docs/contributing.md`.
+### E220 — Persist operations, stage ledgers, leases and cancellation
 
-Definition of green: Workflow parsing passes; direct and orchestrated commands match; unsupported runner configuration fails; absent tools report preparation requirements.
+Status: `not_started`. Prerequisites: E207, E218. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E020 — Implement tenant and principal identities
+Stage: P4.
 
-Status: `not_started`. Prerequisites: E016. Verify lane: RUST + CONTRACT.
+Scope: Persist operations, stage ledgers, leases and cancellation; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Add validated organization/domain/principal identifiers, human/service distinctions and active membership. Personal organizations use the same rules.
+Planned paths: `crates/arboresce-application/src/operations/`, `crates/arboresce-postgres/src/operations/`, `tests/integration/operations/`
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Definition of green: Real immutable plans/attempts/results/effects/exposures bind origin and current authority; cancellation preserves committed/uncertain effects, concurrent leases cannot double-commit.
 
-Definition of green: Cross-organization references fail; email is never identity authority; disabled membership cannot authorize.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E021 — Implement independent revision types
+### E221 — Implement bounded object storage and sealed identities
 
-Status: `not_started`. Prerequisites: E020. Verify lane: RUST + CONTRACT.
+Status: `not_started`. Prerequisites: E220, E208. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Separate content revision, control revision and channel generation with validated comparisons and increments.
+Stage: P4.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Scope: Implement bounded object storage and sealed identities; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Overflow rejected; timestamps confer no concurrency authority; stale control revision conflicts.
+Planned paths: `crates/arboresce-blob-s3/`, `crates/arboresce-application/src/blob/`, `tests/integration/storage/`
 
-### E022 — Implement source date and event-time values
+Definition of green: Actual selected storage profile isolates staging/sealed roles and tenants, checks digest/length, denies overwrite substitution, bounds streams and retains uncertain storage outcomes.
 
-Status: `not_started`. Prerequisites: E021. Verify lane: RUST + CONTRACT.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Preserve source precision and zone independently from injected server recording time.
+### E222 — Implement captures, attachment roles and fenced sealing
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Status: `not_started`. Prerequisites: E221, E212. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Date-only values stay dates; ambiguous instants require a zone; canonical UTC encoding is stable.
+Stage: P4.
 
-### E023 — Implement evidence locator values
+Scope: Implement captures, attachment roles and fenced sealing; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E022. Verify lane: RUST + CONTRACT.
+Planned paths: `crates/arboresce-application/src/captures/`, `crates/arboresce-api/src/routes/captures.rs`, `tests/integration/acquisition/`
 
-Scope: Validate each locator against an exact representation and its bounds, retaining typed units.
+Definition of green: Required/optional ordered sources and capture revisions remain exact; staged bytes seal once under final fences, lost responses/retries/cancellation do not create duplicate sources or silently drop attachments.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Invalid UTF-8 boundaries, pointer escapes, regions and audio ranges fail; digest substitution fails.
+### E223 — Qualify the selected Temporal runtime and separate persistence
 
-### E024 — Implement capture readiness
+Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E023. Verify lane: RUST + CONTRACT.
+Stage: P4.
 
-Scope: Represent fixed ordered submitted attachments, required/optional roles and amendment through a new capture revision.
+Scope: Qualify the selected Temporal runtime and separate persistence; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Planned paths: `docker/temporal/`, `crates/arboresce-workflows/`, `tests/integration/temporal/`
 
-Definition of green: Foreign attachments fail; required failure blocks; optional failure remains visible; no silent attachment removal.
+Definition of green: Exact SDK 1.0.0/Core-compatible0.9.0/server/admin/schema pins and actual dedicated PostgreSQL profile start/replay/restart correctly; managed application DB qualification and later search are not prerequisites.
 
-### E025 — Implement sealing state transitions
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E024. Verify lane: RUST + CONTRACT.
+### E224 — Wire deterministic workflows, workers and outbox dispatch
 
-Scope: Model upload creation through sealing plus expiry, abortion and rejection. An accepted sealed reference is immutable.
+Status: `not_started`. Prerequisites: E223, E220, E218. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Stage: P4.
 
-Definition of green: Retries cannot rewind state; expired sessions cannot finalize; sealed byte identity cannot change.
+Scope: Wire deterministic workflows, workers and outbox dispatch; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E026 — Implement complete candidate identity
+Planned paths: `crates/arboresce-workflows/`, `crates/arboresce-activities/`, `crates/arboresce-worker/`, `tests/integration/temporal/`
 
-Status: `not_started`. Prerequisites: E025. Verify lane: RUST + CONTRACT.
+Definition of green: Actual dispatch/workers use stable operation/workflow IDs and deterministic histories; crash/retry/lease/cancel boundaries retain results and prevent duplicate canonical transitions.
 
-Scope: Represent statement, scope, assumptions, supporting/refuting/qualifying evidence and invalidation conditions with explicit revision identity.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+### E225 — Implement deterministic recorded processing providers
 
-Definition of green: Scope-only change changes digest; evidence set ordering follows contract; model provenance cannot constitute approval.
+Status: `not_started`. Prerequisites: E219. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E027 — Implement review transition invariants
+Stage: P4.
 
-Status: `not_started`. Prerequisites: E026. Verify lane: RUST + CONTRACT.
+Scope: Implement deterministic recorded processing providers; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Model accept/reject/contest/revise as distinct operations. Revision creates pending content and acceptance pins exact content/revision.
+Planned paths: `python/src/`, `python/tests/`, `tests/fixtures/project/`
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+External prerequisite capabilities: Approve the focused synthetic corpus and independent oracles. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Definition of green: Accept cannot replace content; stale revisions fail; contested history is preserved; unique accepted mapping is represented.
+Definition of green: Pinned recording inputs/outputs and independent schema/locator/context expectations produce multiple typed changes; recording identity is explicit and never reported as live model qualification.
 
-### E028 — Implement asset content and availability
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E027. Verify lane: RUST + CONTRACT.
+### E226 — Integrate the recorded capture-to-proposal workflow
 
-Scope: Separate immutable reviewed asset versions from active, deprecated, revoked and purged controls.
+Status: `not_started`. Prerequisites: E224, E225, E222, E216. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Stage: P4.
 
-Definition of green: Control changes preserve content identity; purged bytes are unavailable; no asset exists without its valid review mapping.
+Scope: Integrate the recorded capture-to-proposal workflow; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E029 — Implement exact monetary values
+Planned paths: `crates/arboresce-activities/`, `python/src/`, `tests/integration/processing/`
 
-Status: `not_started`. Prerequisites: E028. Verify lane: RUST + CONTRACT.
+Definition of green: Real API/PG/object/Temporal/gRPC pipeline produces bounded grounded proposals for the exact capture/context; target mismatches, partial source failures and worker interruption remain truthful.
 
-Scope: Parse bounded decimal strings and currency scales without floating point; preserve component uncertainty.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+### E227 — Enforce first-provider and media resource admission
 
-Definition of green: Scale/overflow failures are explicit; unknown is distinct from zero; positive magnitude and explicit kind rules are enforced.
+Status: `not_started`. Prerequisites: E226, E205. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E030 — Implement expense state and refunds
+Stage: P4.
 
-Status: `not_started`. Prerequisites: E029. Verify lane: RUST + CONTRACT.
+Scope: Enforce first-provider and media resource admission; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Model proposed, confirmed, superseded and void revisions plus linked refund/credit records. Enforce required-field and reconciliation policy.
+Planned paths: `crates/arboresce-application/src/admission/`, `python/src/`, `tests/security/resources/`
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Definition of green: Current workspace/provider/exposure grants and shared slot/cost/bytes/time/process limits reserve before effects; concurrent/slow/malformed inputs fail without unbounded work or private-data egress.
 
-Definition of green: Unresolved total/currency/date cannot confirm; optional unknowns remain unknown; void/refund retain original history and exact arithmetic.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E031 — Implement deterministic report arithmetic
+### E228 — Apply current source restrictions and holds
 
-Status: `not_started`. Prerequisites: E030. Verify lane: RUST + CONTRACT.
+Status: `not_started`. Prerequisites: E212, E221, E206. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Calculate exact eligible revision selections, per-currency totals, known components and authorized exclusions with immutable identity.
+Stage: P4.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Scope: Apply current source restrictions and holds; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: No mixed-currency sum; proposals stay outside default totals; missing components are not guessed; input ordering does not alter set results.
+Planned paths: `crates/arboresce-application/src/lifecycle/`, `tests/security/lifecycle/`
 
-### E032 — Implement durable operation values
+Definition of green: Revoke/restrict/hold effects deny new reads/processing/exports and preserve independent continuity; disabled physical purge/repair cannot execute or fabricate confirmation, held content never expands access.
 
-Status: `not_started`. Prerequisites: E031. Verify lane: RUST + CONTRACT.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Separate command, operation, attempt and accepted-result identities with explicit cancellation races.
+### E229 — Package the minimal local profile and real restore tooling
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Status: `not_started`. Prerequisites: E228, E227, E223. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Terminal invariants hold; success cannot include failure; detached wait does not cancel work; completed effects remain reported.
+Stage: P4.
 
-### E033 — Implement build and channel value types
+Scope: Package the minimal local profile and real restore tooling; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E032. Verify lane: RUST + CONTRACT.
+Planned paths: `docker/`, `crates/arboresce-admin/`, `docs/runbooks/`, `tests/integration/recovery/`
 
-Scope: Represent exact build content, external receipts and explicit availability; channels have monotonic generations and empty/active/suspended states.
+External prerequisite capabilities: Expose operation status, polling and cancellation. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Definition of green: Actual declared API/worker/Python/CLI/service profile starts securely and restores all enabled canonical/derived bytes, identities/keys/trust/operations and independent journal; missing/corrupt/unknown proof keeps serving closed.
 
-Definition of green: Active requires a build; empty may omit one; receipts never enter content digest; counters cannot be recycled.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E034 — Implement feedback and lifecycle subjects
+### E230 — Qualify bounded image decoding and orientation provenance
 
-Status: `not_started`. Prerequisites: E033. Verify lane: RUST + CONTRACT.
+Status: `not_started`. Prerequisites: E219, E227. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Bind feedback/outcome assertions to exact subject versions and actor kinds; distinguish hold, revoke and purge.
+Stage: P5.
 
-Planned paths: `crates/arboresce-domain/src/`, `crates/arboresce-domain/tests/`.
+Scope: Qualify bounded image decoding and orientation provenance; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Feedback cannot approve; outcome assertions are not independent proof; hold cannot broaden access.
+Planned paths: `python/src/`, `python/tests/`, `tests/fixtures/media/`
 
-### E035 — Qualify canonical content encoding
+Definition of green: Actual JPEG/PNG profile bounds pixel/byte/CPU/memory/process behavior and preserves normalized-to-original mappings; HEIC is unsupported unless separately qualified or explicit preserved-original derivative conversion is reviewed.
 
-Status: `not_started`. Prerequisites: E033, E014. Verify lane: RUST + CONTRACT.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Use vetted JCS with explicit numeric/Unicode restrictions and set ordering. Reject duplicate keys and unsupported values.
+### E231 — Qualify actual audio formats and time mappings
 
-Planned paths: `crates/arboresce-domain/`, `crates/arboresce-contracts/`, `tests/contract/canonicalization/`, `Cargo.toml`, `Cargo.lock`.
+Status: `not_started`. Prerequisites: E219, E227. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: RFC and cross-language vectors agree; UTF-16 key ordering is correct; duplicates fail; receipts and self-hash are excluded.
+Stage: P5.
 
-### E036 — Implement content attestation signatures
+Scope: Qualify actual audio formats and time mappings; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E035. Verify lane: RUST + CONTRACT.
+Planned paths: `python/src/`, `python/tests/`, `tests/fixtures/media/`
 
-Scope: Use vetted Ed25519 over the specified domain-separated envelope with injected trust metadata; keep key I/O outside domain code.
+Definition of green: Actual selected iPhone WAV/M4A codec profile enforces duration/size/resource limits and sample/time provenance; unsupported/corrupt inputs and incomplete decoding are typed outcomes.
 
-Planned paths: `crates/arboresce-domain/src/attestation.rs`, `tests/contract/signing/`, `Cargo.toml`, `Cargo.lock`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Wrong domain/build/issuer, malformed/expired/revoked/unknown keys fail; rotation overlap works; signature never bypasses current policy.
+### E232 — Implement and qualify actual receipt extraction
 
-### E037 — Define focused application ports
+Status: `not_started`. Prerequisites: E230. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E034, E036. Verify lane: RUST + CONTRACT.
+Stage: P5.
 
-Scope: Introduce transaction results and focused persistence, policy, blob, projection, intelligence, signer, clock and identity ports. Keep transport/infrastructure outside application logic.
+Scope: Implement and qualify actual receipt extraction; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `crates/arboresce-application/`, `Cargo.toml`, `Cargo.lock`.
+Planned paths: `python/src/`, `python/tests/`, `tests/integration/media/`
 
-Definition of green: In-memory conformance tests cover transaction outcomes and cancellation; dependency direction remains inward; no gratuitous helper interfaces.
+External prerequisite capabilities: Freeze real media and semantic provider profiles. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-### E038 — Implement PostgreSQL migration harness
+Definition of green: Actual detector/recognizer/dictionary expected hashes validate; OCR readiness is independent, truncation/skips are warnings, locators are source-valid and raw confidence never establishes financial correctness.
 
-Status: `not_started`. Prerequisites: E037. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Add SQLx adapter, ordered migrations, direct versus pooled configuration and committed offline metadata. Prepare pinned disposable database/pooler/storage fixtures explicitly.
+### E233 — Implement and qualify actual transcription
 
-Planned paths: `crates/arboresce-postgres/`, `tools/xtask/`, `Cargo.toml`, `Cargo.lock`, `docker/compose/core.yaml`, `docs/testing.md`.
+Status: `not_started`. Prerequisites: E231. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Empty and upgrade migrations pass; invalid roles fail; offline compilation works; tests cannot select a production database; real integration coverage is collected.
+Stage: P5.
 
-### E039 — Persist tenant and membership identities
+Scope: Implement and qualify actual transcription; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E038. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Planned paths: `python/src/`, `python/tests/`, `tests/integration/media/`
 
-Scope: Use composite tenant keys, canonical issuer/subject identity and serialized initial-owner creation.
+External prerequisite capabilities: Freeze real media and semantic provider profiles. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/identity/`.
+Definition of green: Actual ASR route retains exact audio/transcript/profile identity and time maps; supplied Whisper output is an explicit recording distinct from human truth, live word/content scoring and latency.
 
-Definition of green: Duplicate identity and foreign-tenant references fail; simultaneous bootstrap produces one owner.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E040 — Enforce application roles and RLS
+### E234 — Generate contextual project interpretations
 
-Status: `not_started`. Prerequisites: E039. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: E216, E232, E233. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Use non-owner application roles, forced RLS and transaction-local tenant context with uniform inaccessible-object behavior.
+Stage: P5.
 
-Planned paths: `crates/arboresce-postgres/roles/`, `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/tests/security/`.
+Scope: Generate contextual project interpretations; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: No BYPASSRLS; missing context fails; pooled reuse cannot leak tenant/session state; referential errors do not expose foreign data.
+Planned paths: `python/src/`, `python/tests/`, `tests/fixtures/project/`
 
-### E041 — Implement canonical admission locking
+External prerequisite capabilities: Freeze real media and semantic provider profiles. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Status: `not_started`. Prerequisites: E040. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Definition of green: Actual separately versioned semantic route uses authorized prior context, labels source/context/default/inference, preserves alternatives/unknowns and abstains from invented monetary facts, assent, attendance or completion.
 
-Scope: Compose current permission and evidence audience intersections using short transactions, policy epochs and consistent lock order. Keep streaming/model calls outside locks.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `crates/arboresce-application/src/policy/`, `crates/arboresce-postgres/src/policy/`, `crates/arboresce-postgres/tests/concurrency/`.
+### E235 — Validate multimodal disagreement and typed change dependencies
 
-Definition of green: Barrier-driven revoke/read tests prove admission point; bounded deadlock retry; stale caches cannot grant access; source audiences intersect.
+Status: `not_started`. Prerequisites: E234, E214. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E042 — Persist idempotent command results
+Stage: P5.
 
-Status: `not_started`. Prerequisites: E041. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Scope: Validate multimodal disagreement and typed change dependencies; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Scope key fingerprint, expiry and tombstone state; atomically claim work and replay results only after current authorization.
+Planned paths: `python/src/`, `crates/arboresce-application/src/project/`, `tests/contract/project/`
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/commands/`.
+Definition of green: Receipt/note/context disagreements and relative dates yield bounded valid typed items or explicit uncertainty; missing financial fields remain incomplete and all target/dependency/reference joins validate.
 
-Definition of green: Same key/body returns original result; changed body conflicts; lost-response retry is safe; expiry never silently repeats financial effects.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E043 — Persist atomic audit and outbox
+### E236 — Integrate qualified live processors into Activities
 
-Status: `not_started`. Prerequisites: E042. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: E235, E226. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Write command/domain/audit/outbox effects together with bounded metadata and stable event identity.
+Stage: P5.
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/outbox/`, `crates/arboresce-postgres/src/audit/`.
+Scope: Integrate qualified live processors into Activities; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Rollback leaves none; replay cannot duplicate effects; event allocation is not treated as commit order; audit avoids unrestricted content.
+Planned paths: `crates/arboresce-activities/`, `python/src/`, `tests/integration/processing/`
 
-### E044 — Implement fenced outbox leasing
+Definition of green: Actual approved OCR/ASR/synthesis route executes through authorized gateways and durable stages; retries/cost/exposure/partial failure retain uncertainty without approval or duplicate canonical updates.
 
-Status: `not_started`. Prerequisites: E043. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Lease bounded due batches, reclaim expired ownership with fencing and track each consumer independently.
+### E237 — Persist change plans and exact review lineage
 
-Planned paths: `crates/arboresce-postgres/src/outbox/`, `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/tests/concurrency/`.
+Status: `not_started`. Prerequisites: E226, E214. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Concurrent dispatchers cannot share a live lease; stale owner cannot finish; retries/dead letters are bounded; maximum event ID is not completion proof.
+Stage: P6.
 
-### E045 — Persist captures and sealed references
+Scope: Persist change plans and exact review lineage; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E043. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Planned paths: `crates/arboresce-postgres/src/project/`, `crates/arboresce-application/src/review/`, `tests/integration/review/`
 
-Scope: Store uploads, captures, attachment roles, artifact versions and sealed byte identities with tenant-safe foreign keys and separate controls.
+Definition of green: Each typed item names capture/evidence/context/target/base revision/dependencies and uses existing candidate/review/asset identity; presentation grouping does not create indivisible verdicts or competing approvals.
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/artifacts/`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: One accepted finalization; immutable submitted set; foreign references fail; unreferenced objects never become canonical automatically.
+### E238 — Apply item edits, verdicts and partial dependencies atomically
 
-### E046 — Persist processing representations and results
+Status: `not_started`. Prerequisites: E237, E215, E228. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E045. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Stage: P6.
 
-Scope: Store stage, operation, representation and observation identity by exact input/profile, including typed locators and accepted-result fencing.
+Scope: Apply item edits, verdicts and partial dependencies atomically; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/processing/`.
+Planned paths: `crates/arboresce-application/src/review/`, `crates/arboresce-api/src/routes/review.rs`, `tests/integration/concurrency/`
 
-Definition of green: Retries yield one canonical result; stale attempts fail; source revision is mandatory; processing cannot persist approval.
+Definition of green: Accept/edit/reject/pending preserves exact content attribution, new pending revisions invalidate old approvals, dependent holds and current CAS prevent invalid effects while independent items remain actionable.
 
-### E047 — Persist candidates reviews and assets
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E046. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+### E239 — Preserve corrections across reanalysis and follow-up revisions
 
-Scope: Store immutable revisions and reviews, current heads, unique accepted mappings and reverse evidence dependencies.
+Status: `not_started`. Prerequisites: E238. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/knowledge/`.
+Stage: P6.
 
-Definition of green: Concurrent accepts create one mapping; stale acceptance conflicts; reverse dependencies remain tenant-scoped.
+Scope: Preserve corrections across reanalysis and follow-up revisions; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E048 — Persist expenses and report selections
+Planned paths: `crates/arboresce-application/src/project/`, `python/src/`, `tests/integration/reanalysis/`
 
-Status: `not_started`. Prerequisites: E045, E031. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Definition of green: Reanalysis matches prior targets, preserves manual/accepted/rejected decisions and offers attributable new suggestions; later corrections link superseded exact versions without duplicate actions or silent overwrites.
 
-Scope: Use exact numeric storage, immutable financial revisions and reports, linked refunds and workload indexes.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/expenses/`.
+### E240 — Qualify review races and correction persistence
 
-Definition of green: Scale/overflow guards hold; report pins exact revisions; void/refund preserve history; inaccessible exclusions/counts never leak.
+Status: `not_started`. Prerequisites: E239. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E049 — Persist builds attestations and channels
+Stage: P6.
 
-Status: `not_started`. Prerequisites: E047, E033. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Scope: Qualify review races and correction persistence; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Separate immutable bytes/input edges from execution/approval receipts and mutable channel generations.
+Planned paths: `tests/integration/concurrency/`, `tests/e2e/review/`, `tests/fixtures/project/`
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/releases/`.
+External prerequisite capabilities: Expose readable and composable machine review commands. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Definition of green: Stale promotion conflicts; reactivation is explicit; receipts preserve content hash; generations are never reused.
+Definition of green: Real contention has one canonical winner, revocation denies new effects, retries preserve results and restart/follow-up/manual override fixtures retain exact history; recorded-model review can proceed before live provider readiness.
 
-### E050 — Persist lifecycle obligations and journal
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E049, E048. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+### E241 — Expand packaged recovery for accepted project changes
 
-Scope: Implement [lifecycle continuity](../requirements/lifecycle-contract.md#11-retention-recognition-and-independent-continuity) before its first consuming mutation: independently retained complete inventory interpretation, closed prepared/committed binding and abort-proof producer/verifier bytes, actual integrity/service authority, six-family authenticated intent/resolution/checkpoint/cutoff, recognition and retirement fences. Persist exact events/admissions/holds/purge/actions/confirmations, operation/effect/exposure/audit/outbox associations and feedback. Reuse E046's operation store. Own durable repair/batch/range/coverage and failed-attempt history when E124 introduces its concrete lifecycle-pair variants; no seventh journal family or second scheduler/store.
+Status: `not_started`. Prerequisites: E240, E229. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/src/lifecycle/`, `contracts/internal/`, `tests/integration/lifecycle/`, owning lifecycle/recovery guidance.
+Stage: P6.
 
-Definition of green: Actual independently durable acknowledgement before canonical commit and committed resolution afterward, current shared fences, finite preparation, authentic abort proof, exact complete retained bindings and old-backup cutoff recovery qualify before first-owner/admission/material initialization. Missing tail, unresolved intent, absent inventory/association, contradictory resolution or unknown policy keeps affected admission/serving closed. Hold blocks physical purge without restoring reads; minimal recognition/retirement barriers survive detailed receipt GC; immutable feedback does not rewrite content. E112 later policy qualification cannot retroactively supply missing early proof.
+Scope: Expand packaged recovery for accepted project changes; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E051 — Add evidence-driven database indexes
+Planned paths: `crates/arboresce-admin/`, `tests/integration/recovery/`
 
-Status: `not_started`. Prerequisites: E050. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Definition of green: Actual packaged old-backup restore preserves every newly enabled project/review/supersession state and current restrictions before private project-review capability is enabled.
 
-Scope: Build composite, partial and reverse indexes from required access patterns and deterministic representative D1 data.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `crates/arboresce-postgres/migrations/`, `crates/arboresce-postgres/tests/query_plans/`, `tests/fixtures/`.
+### E242 — Implement exact financial types and reviewed project association
 
-Definition of green: Keyset review queue, reverse revocation and due-work queries use bounded plans; representative selectivities are measured; no blanket JSON index policy.
+Status: `not_started`. Prerequisites: E203, E200, E215. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E052 — Qualify local pooling and tenant isolation
+Stage: P7.
 
-Status: `not_started`. Prerequisites: E051. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Scope: Implement exact financial types and reviewed project association; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Prepare a pinned PostgreSQL/PgBouncer topology with explicit connection allocation and pooled/direct settings. Exercise the local pooling experiment.
+Planned paths: `crates/arboresce-domain/src/financial/`, `contracts/public/`, `tests/contract/financial/`
 
-Planned paths: `docker/compose/`, `tools/xtask/`, `tests/integration/postgres/`.
+Definition of green: Existing exact-money/currency/date/reconciliation rules and typed same-workspace project association remain revision/hash-bound; unknown required values cannot be confirmable or enter confirmed reports.
 
-Definition of green: 64 clients and 10,000 commands show no tenant/session leakage; prepared-statement compatibility recorded; H1 pool-wait target measured separately.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E053 — Compose bounded API health behavior
+### E243 — Persist grounded expense proposals and corrections
 
-Status: `not_started`. Prerequisites: E041, E037. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: E242, E226. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Add validated configuration, bounded parsing and uniform Problem mapping with liveness/readiness and implemented-only capabilities. Install initial JSON/request deadlines here.
+Stage: P7.
 
-Planned paths: `crates/arboresce-api/`, `Cargo.toml`, `Cargo.lock`.
+Scope: Persist grounded expense proposals and corrections; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Readiness distinguishes 200/503; unknown routes return 404; health reveals no secrets; oversize/deep inputs fail before expensive processing.
+Planned paths: `crates/arboresce-postgres/src/financial/`, `crates/arboresce-application/src/financial/`, `tests/integration/financial/`
 
-### E054 — Implement first-owner provisioning
+Definition of green: Capture-linked proposal/revise history, components and reviewed project linkage persist as separate financial records; project verdicts/model assertions do not create financial review.
 
-Status: `not_started`. Prerequisites: E039, E042, E050. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Add a thin administrative binary and scoped bootstrap/recovery use cases requiring actual operator possession; ship no default password. Qualify the actual registered bootstrap command and immutable attribution. Prepare stable candidate organization/principal IDs, expiring one-use enrollment/actor binding, immutable organization retention policy, integrity profile and independent stream namespace before tenant rows under the [continuity bootstrap contract](../requirements/lifecycle-contract.md#11-retention-recognition-and-independent-continuity).
+### E244 — Issue and verify trusted exact-content financial review events
 
-Planned paths: `crates/arboresce-admin/`, `crates/arboresce-application/src/identity/`, `crates/arboresce-postgres/src/identity/`, `Cargo.toml`, `Cargo.lock`.
+Status: `not_started`. Prerequisites: E243, E212. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: One concurrent owner wins; protected credential delivery; existing identity is not overwritten; replacement revokes superseded credentials. The first short transaction atomically binds policy/owner/recognition/claim/effect/audit/outbox/intents under namespace and admission fences. Unknown actual operator, namespace, policy, stream or capability denies provisioning; no nonexistent-tenant membership or invented attribution substitutes for bootstrap authority.
+Stage: P7.
 
-### E055 — Implement scoped service authentication
+Scope: Issue and verify trusted exact-content financial review events; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E054, E053. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Planned paths: `crates/arboresce-application/src/financial/`, `crates/arboresce-api/src/routes/financial.rs`, `tests/security/financial-review/`
 
-Scope: Store suitable credential verifiers, explicit scopes and expiry/revocation; enforce actor kind at the server without commercial entitlement.
+External prerequisite capabilities: Select and qualify the actual human review assurance mechanism. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Planned paths: `crates/arboresce-application/src/auth/`, `crates/arboresce-postgres/src/auth/`, `crates/arboresce-api/src/auth/`.
+Definition of green: Actual trusted flow binds qualified reviewer/assurance/expense/version/digest/tenant/purpose/expiry/executor; forged, revoked, stale or mismatched events and general grants cannot manufacture human decisions.
 
-Definition of green: Expired/revoked/foreign tokens fail; service credentials cannot claim human approval; logs never expose credentials/verifiers.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E056 — Implement pinned-issuer OIDC validation
+### E245 — Confirm, void and revise financial records transactionally
 
-Status: `not_started`. Prerequisites: E053, E039. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: E244, E207. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Validate issuer, signature, audience, time and canonical subject using bounded JWKS caching and approved issuer configuration.
+Stage: P7.
 
-Planned paths: `crates/arboresce-oidc/`, `crates/arboresce-api/src/auth/`, `Cargo.toml`, `Cargo.lock`.
+Scope: Confirm, void and revise financial records transactionally; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Wrong issuer/audience/claim fails; rotation works; tokens cannot choose key-fetch URLs; issuer limits and cache expiry are tested.
+Planned paths: `crates/arboresce-application/src/financial/`, `crates/arboresce-postgres/src/financial/`, `tests/integration/concurrency/`
 
-### E057 — Expose identity and membership operations
+Definition of green: Exact confirmation, one-use review consumption/result/audit/outbox bind atomically; delegated executor has own current scope, idempotent replay is safe and void/refund/correction preserve original lineage.
 
-Status: `not_started`. Prerequisites: E055, E056, E041. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Implement authorized organization/domain discovery, ownership and membership changes with last-owner recovery controls.
+### E246 — Compile source-linked financial reports and exports
 
-Planned paths: `crates/arboresce-api/src/routes/`, `crates/arboresce-application/src/identity/`.
+Status: `not_started`. Prerequisites: E245, E228. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: No service self-promotion; inactive owner denied; resources are hidden uniformly; concurrent changes conflict.
+Stage: P7.
 
-### E058 — Compose command admission and errors
+Scope: Compile source-linked financial reports and exports; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E057, E042, E050. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Planned paths: `crates/arboresce-application/src/financial/`, `tests/integration/export/`
 
-Scope: Wire fingerprints, current admission, exact read/replay wrappers and typed status handling. Implement [retained recognition](../requirements/lifecycle-contract.md#11-retention-recognition-and-independent-continuity), terminal-relative replay/diagnostic deadlines and irreversible retirement barriers with E050 independent continuity. Install shared atomic rate/backlog reservations with bounded retry guidance at first use.
+Definition of green: Immutable per-currency report selections and closed JSON/CSV exports independently reconstruct exact arithmetic, project links and source revisions; incomplete/denied records and current lifecycle changes remain disclosure-safe.
 
-Planned paths: `crates/arboresce-api/src/`, `crates/arboresce-application/src/commands/`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: 400/401/404/409/422/429 remain distinct; unknown state fails safely; parallel instances cannot bypass reservations; rejected work is not falsely accepted. Current authority precedes claim/detail disclosure. Expired POST replay conflicts; genuinely retained complete GET can succeed after expiry, while missing required details conflict without fabricated receipts. Regrant/domain/credential changes never reset identity; recognition storage exhaustion denies effects. Actual crash/abort/retirement races preserve claims and closed-serving continuity.
+### E247 — Qualify financial one-use, race and independent export oracles
 
-### E059 — Verify independent CLI identity behavior
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: X-CLI-IDENTITY, E058. Verify lane: E2E + RUST; PYTHON when exercised.
+Stage: P7.
 
-Scope: Run an independently built CLI artifact against the real API and controlled issuer/service identities; register a nonempty identity scenario with subprocess coverage.
+Scope: Qualify financial one-use, race and independent export oracles; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `tests/e2e/identity/`, `tools/xtask/`, `docs/requirements/`.
+Planned paths: `tests/integration/financial/`, `tests/e2e/financial/`, `tests/fixtures/financial/`
 
-Definition of green: Authentication challenges, organization isolation and capabilities agree; response extensions remain compatible; both service and CLI failures are observable.
+External prerequisite capabilities: Expose expense correction, exact review and verified export. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-### E060 — Implement streaming object storage
+Definition of green: Actual races allow one exact review consumption, stale approvals/current permission loss fail, missing fields remain proposed and separate literal oracles reconstruct exported records.
 
-Status: `not_started`. Prerequisites: E037, E045. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Add bounded streaming S3-compatible operations with separate staging/sealed roles, actual SHA-256 and scoped grants. Register real storage tests and their prepared fixture.
+### E248 — Expand packaged recovery for financial and export state
 
-Planned paths: `crates/arboresce-blob-s3/`, `crates/arboresce-application/src/blob/`, `Cargo.toml`, `Cargo.lock`.
+Status: `not_started`. Prerequisites: E247, E241. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Unknown length stays bounded; digest mismatch fails; tenant substitution fails; ETag is not digest authority; signed URLs remain redacted.
+Stage: P7.
 
-### E061 — Implement bounded upload allocation
+Scope: Expand packaged recovery for financial and export state; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E060, E058. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Planned paths: `crates/arboresce-admin/`, `tests/integration/recovery/`
 
-Scope: Authorize staging-only sessions and allowlisted destinations/headers with shared quota, media and size admission.
+Definition of green: Actual packaged restore conserves confirmed/proposed/void/superseded history, review consumption, immutable reports and current restrictions; missing bytes/keys/journal proofs keep serving closed before private finance enablement.
 
-Planned paths: `crates/arboresce-application/src/uploads/`, `crates/arboresce-api/src/routes/uploads.rs`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Clients cannot write sealed prefixes; unsupported type/oversize/quota fail clearly; concurrent allocations cannot exceed reservations.
+### E249 — Run the complete deterministic real-service CLI scenario
 
-### E062 — Implement captures and attachment submission
+Status: `not_started`. Prerequisites: E247, E240, E217. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E061. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Stage: P8.
 
-Scope: Create drafts, ordered authorized attachments and immutable submitted sets with explicit readiness.
+Scope: Run the complete deterministic real-service CLI scenario; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `crates/arboresce-application/src/captures/`, `crates/arboresce-api/src/routes/captures.rs`.
+Planned paths: `tests/e2e/project-workflow/`, `tests/fixtures/project/`
 
-Definition of green: Required absence blocks; optional failure remains; retries create one capture; edits after submission create a revision.
+External prerequisite capabilities: Expose operation status, polling and cancellation. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-### E063 — Implement fenced sealing and shared operations
+Definition of green: Actual independent CLI/API/PG/object/Temporal/Python with recorded models proves seed/capture/multiple items/manual edits/partial verdicts/confirmed expense/project readback/JSON-CSV export and every required negative without answer leakage.
 
-Status: `not_started`. Prerequisites: E062, E046, E068, E071. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Read staged content into a server-only object once, checking digest/length and resource caps, then bind in a short fenced transaction. Implement the earliest real shared operation/plan GET and operation.cancel with complete plans/ledgers/current authority, plus the [upload specialization](../requirements/lifecycle-contract.md#5-acquisition-and-analysis), abort and exact direct-finalize replay. Reuse E046 persistence, E068's qualified Temporal server and E071 dispatcher; atomically bind original/material initialization/continuity/effect/result under the final fence.
+### E250 — Prove whole-workflow replay, restart and scoped readback
 
-Planned paths: `crates/arboresce-application/src/uploads/`, `crates/arboresce-application/src/operations/`, `crates/arboresce-api/src/routes/operations.rs`, `crates/arboresce-api/src/routes/uploads.rs`, `crates/arboresce-postgres/src/artifacts/`, `tests/integration/storage/`, `tests/integration/operations/`.
+Status: `not_started`. Prerequisites: E249, E248. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Concurrent overwrite cannot change accepted bytes; crashes on either side of binding recover; stale lease cannot replace reference; bounded cleanup respects ownership. Real server/Temporal tests prove current complete GET/plan/cancel, stale-control and success/handoff races, own originating receipts, upload control and terminal states, retained direct result after lost 202 and fresh-key existing binding without a second operation/effect. Cancellation and expiry preserve exact uncertain liabilities and independent continuity. No model analysis is part of sealing.
+Stage: P8.
 
-### E064 — Implement orphan reconciliation
+Scope: Prove whole-workflow replay, restart and scoped readback; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E063, E050. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Planned paths: `tests/e2e/project-workflow/`, `tests/integration/recovery/`
 
-Scope: Track unreferenced staging/sealed objects with safety delays, active leases, shared-reference/hold checks, dry-run reporting and separately authorized deletion.
+Definition of green: Accepted changes and financial history survive actual restarts/retries, cancellation retains uncertain effects, later corrections compose and actor-in-both-workspaces tests never leak or move content.
 
-Planned paths: `crates/arboresce-application/src/reconciliation/`, `crates/arboresce-postgres/src/lifecycle/`, `tests/integration/storage/`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Live finalizers and shared references survive; held bytes survive; wrong-tenant paths are untouched; interrupted cleanup is recoverable.
+### E251 — Harden the complete focused packaged profile
 
-### E065 — Implement authorized bounded downloads
+Status: `not_started`. Prerequisites: E250, E227, E228. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E063, E041. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Stage: P8.
 
-Scope: Expose immutable content/current controls and proxy exact bytes after canonical admission with transfer deadlines and cancellation.
+Scope: Harden the complete focused packaged profile; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `crates/arboresce-api/src/routes/artifacts.rs`, `crates/arboresce-application/src/artifacts/`.
+Planned paths: `docker/`, `docs/runbooks/`, `tests/security/`, `tests/e2e/`
 
-Definition of green: Foreign objects hidden; revoked new admission denied; digest/length verified; slow/cancelled clients release resources; index outage does not affect exact access.
+Definition of green: All enabled profile components have actual current-auth/resource/codec/cost/startup/shutdown/secret/failure behavior, human-readable and machine flows; disabled future capabilities fail explicitly.
 
-### E066 — Verify capture and sealing through CLI
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E065, X-CLI-CAPTURE. Verify lane: E2E + RUST; PYTHON when exercised.
+### E252 — Qualify full bounded selection and listing consumers
 
-Scope: Run real API/storage with a verified CLI, deterministic local inputs and controlled HTTPS endpoint; keep private evidence out of this stage.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `tests/e2e/capture/`, `tools/xtask/`, `docker/compose/`.
+Stage: P9.
 
-Definition of green: Complete receipt/note capture, missing parts, tenant substitution, overwrite and interrupted-transfer cases assert actual object bytes; nonempty scenario and subprocess coverage recorded.
+Scope: Qualify full bounded selection and listing consumers; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E067 — Qualify the Temporal dependency set
+Planned paths: `contracts/public/`, `tests/contract/selection/`, `tests/integration/selection/`, `docs/requirements/selection-contract.md`
 
-Status: `not_started`. Prerequisites: E012, X-ENVIRONMENT. Verify lane: DOC + RUST + CONTRACT.
+External prerequisite capabilities: Record focused MVP completion and the remaining milestones. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Scope: Pin Rust SDK 1.0.0 and Core 0.9.0 with selected compatible server/admin/schema/UI/CLI versions. Verify test/replay APIs and disable unqualified downloads or experimental behavior.
+Definition of green: Retained selection/listing obligations and useful unfinished prior qualification work are integrated against actual consumers; all cursor/disclosure/serialization/reservation/transport vectors pass without lowering coverage or accepting old incomplete evidence.
 
-Planned paths: `docs/architecture/`, `contracts/internal/`, `Cargo.toml`, `Cargo.lock`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: Exact graph and licenses recorded; no latest tags; production uses supported SDK surfaces; selected server family is qualified before supported claims.
+### E253 — Complete full reviewed asset versions and supersession
 
-### E068 — Package Temporal server and administration
+Status: `not_started`. Prerequisites: E252, E238. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E067. Verify lane: IMAGE + SERVICE; applicable language lanes for source changes.
+Stage: P9.
 
-Scope: Build owned images from reviewed rights-cleared releases; separate schema administration from server startup and keep credentials out of images.
+Scope: Complete full reviewed asset versions and supersession; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `docker/images/temporal/`, `docker/docker-bake.hcl`, `docs/runbooks/temporal.md`.
+Planned paths: `crates/arboresce-application/src/assets/`, `tests/integration/assets/`
 
-Definition of green: Native target build/config smoke passes; no exposed administration by default; schema-version mismatch fails; dry-run administration is safe.
+Definition of green: Exact asset/review/version/control/supersession lineage and current eligibility agree across full historical reads; focused project materialization does not substitute for broader knowledge semantics.
 
-### E069 — Implement deterministic workflow boundaries
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E067, E017, E037. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+### E254 — Implement exact snapshot compilation and persistence
 
-Scope: Create workflow and Activity packages using the accepted dependency matrix and application ports. A representative real workflow has deterministic fake Activities only in tests.
+Status: `not_started`. Prerequisites: E253. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `crates/arboresce-workflows/`, `crates/arboresce-activities/`, `Cargo.toml`, `Cargo.lock`.
+Stage: P9.
 
-Definition of green: Allowed SDK calls pass architecture check; direct I/O/time/randomness fail; IDs derive from operations; pinned replay API compiles and runs.
+Scope: Implement exact snapshot compilation and persistence; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E070 — Compose bounded durable workers
+Planned paths: `crates/arboresce-application/src/builds/`, `crates/arboresce-workflows/`, `tests/integration/builds/`
 
-Status: `not_started`. Prerequisites: E069. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Definition of green: Exact authorized asset versions compile canonical bytes/digests and sealed references through durable workflows, preserving qualifications and refusing partial or revoked-source snapshots.
 
-Scope: Wire SDK runtime, validated configuration, poller/slot limits and graceful shutdown without moving policy into the binary.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `crates/arboresce-worker/`, `Cargo.toml`, `Cargo.lock`.
+### E255 — Implement evaluation, attestations and channel promotion
 
-Definition of green: Unavailable runtime/server reports clearly; shutdown drains/recoverable work; task queue IDs reveal no user content; memory/slots stay bounded.
+Status: `not_started`. Prerequisites: E254. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E071 — Dispatch operations to stable workflows
+Stage: P9.
 
-Status: `not_started`. Prerequisites: E070, E044. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Scope: Implement evaluation, attestations and channel promotion; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Use operation-derived workflow identity with duplicate/conflict handling and separate fenced outbox receipts. Enforce admitted backlog/slots here and register real Temporal tests.
+Planned paths: `crates/arboresce-application/src/builds/`, `crates/arboresce-application/src/channels/`, `tests/integration/channels/`
 
-Planned paths: `crates/arboresce-activities/`, `crates/arboresce-worker/`, `crates/arboresce-postgres/src/outbox/`.
+Definition of green: Independent evaluation suites, exact approval/Ed25519 trust receipts and CAS promotion/suspend/rollback qualify with current source eligibility; signing never bypasses policy.
 
-Definition of green: Crash after start before delivery receipt is safe; concurrent dispatch converges; terminal work is not restarted incorrectly; missing service fails qualification.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E072 — Implement capture-analysis orchestration
+### E256 — Implement version-linked feedback and full lifecycle outcomes
 
-Status: `not_started`. Prerequisites: E071, E066, E046. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Sequence explicit exact-revision capture.analyze admission, frozen submitted eligibility/profile/attribution, normalization and extraction through Activities with accepted-result fencing. Extend E063's shared operation store/dispatcher using deterministic explicitly test-only Activities for this orchestration gate.
+Stage: P9.
 
-Planned paths: `crates/arboresce-workflows/src/capture.rs`, `crates/arboresce-activities/src/capture.rs`.
+Scope: Implement version-linked feedback and full lifecycle outcomes; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Required failure blocks; optional omissions/results remain explicit; retry yields one result; histories contain neither blob bytes nor secrets. Submit/replay/later readiness creates no analysis operation and receipt expiry cannot erase submission attribution. Actual registered Temporal tests qualify orchestration source; runnable real processing stays disabled until E086 qualifies its selected adapters/gateway.
+Planned paths: `crates/arboresce-application/src/feedback/`, `crates/arboresce-application/src/lifecycle/`, `tests/integration/feedback/`
 
-### E073 — Extend operation status and cancellation for analysis
+External prerequisite capabilities: Expose exact knowledge resolution and consumption. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Status: `not_started`. Prerequisites: E072. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Definition of green: Feedback/outcomes bind exact versions/author/source/event time; reviewed supersession and canonical dependency restrictions preserve prior assertions and current authority without automatic truth claims.
 
-Scope: Extend E063's existing shared operation GET/cancel and plan/ledger handling for capture analysis with typed state/result/progress, expiry and retry metadata under current permission. Qualify cancellation-versus-effect races using deterministic test Activities; do not introduce a second operation endpoint implementation, store or scheduler.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `crates/arboresce-api/src/routes/operations.rs`, `crates/arboresce-application/src/operations/`.
+### E257 — Implement qualified Qdrant and embedding projections
 
-Definition of green: Success has no failure code; complete actual effects/exposures survive cancellation, required ledgers never truncate, foreign status stays hidden and stale revision conflicts. Original cancellation replay retains its observed snapshot; current GET is distinct. Synthetic Activity success does not enable real capture.analyze before E086.
+Status: `not_started`. Prerequisites: E252, E253. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E074 — Verify replay restarts and fencing
+Stage: P9.
 
-Status: `not_started`. Prerequisites: E072, E073, E068. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Scope: Implement qualified Qdrant and embedding projections; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Commit deterministic explicitly synthetic histories for success, retry, cancellation and failure points, then exercise worker restarts and accepted-result fencing against the registered real Temporal service. Preserve complete plans/ledgers and fixed deadlines across replay and takeover.
+Planned paths: `crates/arboresce-projector/`, `python/src/`, `docker/qdrant/`, `tests/integration/qdrant/`
 
-Planned paths: `tests/temporal-replay/`, `tests/integration/temporal/`, `tools/xtask/`.
+Definition of green: Actual pinned embedding dimensions/models and Qdrant generation membership/filtering/budgets qualify as rebuildable derived state; cached ACLs never authorize or redefine canonical assets.
 
-Definition of green: Replay across code changes passes; duplicated completion cannot duplicate effects; unknown variants fail safely; no live provider is needed for this orchestration qualification. Test-only Activities/histories never establish actual processing support; E086 owns real adapter activation and all existing native server/environment gates remain required.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E075 — Implement Python gRPC service validation
+### E258 — Implement bounded authorized search and selection receipts
 
-Status: `not_started`. Prerequisites: E018, E010, E018-process-coverage. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Status: `not_started`. Prerequisites: E257, E255. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Generate locked bindings and strict request/profile/response validation with deadline propagation; Python has no canonical database credentials.
+Stage: P9.
 
-Planned paths: `python/src/arboresce_intelligence/server.py`, `python/src/arboresce_intelligence/_generated/`, `python/tests/contract/`.
+Scope: Implement bounded authorized search and selection receipts; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Malformed/oversize/incompatible messages fail; locators are validated; service-process coverage includes async and generated execution.
+Planned paths: `crates/arboresce-application/src/search/`, `crates/arboresce-api/src/routes/search.rs`, `tests/integration/search/`
 
-### E076 — Implement deterministic recorded processing
+Definition of green: Two total rounds and200 cumulative candidates include every branch before dedupe, authorize before rerank and report exact budgets/receipts/uncertainty with no hidden refills or post-revoke exposure.
 
-Status: `not_started`. Prerequisites: E075, E011. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Resolve synthetic responses by canonical request fingerprint and profile digest with explicit fixture selection and no live fallback.
+### E259 — Qualify actual propagation repair and multi-batch recovery
 
-Planned paths: `python/src/arboresce_intelligence/providers/recorded/`, `python/tests/golden/`, `tests/fixtures/scenarios/`.
+Status: `not_started`. Prerequisites: E256, E228. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Repeated input is identical; missing recording/profile mismatch fails; unexpected network is denied; fixture identity is recorded.
+Stage: P9.
 
-### E077 — Implement text and structured normalization
+Scope: Qualify actual propagation repair and multi-batch recovery; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E076. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Planned paths: `crates/arboresce-application/src/lifecycle/`, `crates/arboresce-projector/`, `tests/integration/recovery/`, `tests/integration/qdrant/`
 
-Scope: Create new text/Markdown/JSON representations with exact original digests, UTF-8 offsets and JSON pointer semantics.
+External prerequisite capabilities: Complete search, broad command matrices and transport negatives. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Planned paths: `python/src/arboresce_intelligence/pipelines/normalization/`, `python/tests/unit/`.
+Definition of green: Original real E124 SERVICE/RUST/Qdrant inventory/binding/repair/action/coverage negatives and actual multi-batch old-backup continuity pass; unknown effects never repeat and complete current restriction proof precedes activation.
 
-Definition of green: Invalid encoding/duplicate keys fail; newline normalization changes representation identity; no fabricated offsets.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E078 — Implement bounded image decoding
+### E260 — Repeat broader D0 restore before knowledge/search activation
 
-Status: `not_started`. Prerequisites: E077. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Status: `not_started`. Prerequisites: E259, E254, E248. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Qualify JPEG/PNG decoder and isolate processing under encoded/pixel/CPU/memory/time/scratch budgets with correct orientation mapping.
+Stage: P9.
 
-Planned paths: `python/src/arboresce_intelligence/pipelines/images/`, `python/tests/unit/`, `python/pyproject.toml`, `python/uv.lock`.
+Scope: Repeat broader D0 restore before knowledge/search activation; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Bombs, truncation and unsupported animation fail; orientation locators remain valid; metadata is minimized; timeouts reclaim resources.
+Planned paths: `crates/arboresce-admin/`, `tests/integration/recovery/`, `docs/runbooks/recovery.md`
 
-### E079 — Implement bounded audio normalization
+Definition of green: Actual packaged recovery restores full builds/projections/feedback/repair state and current restrictions, corrupt derived stores rebuild canonically, and initial focused proof is not relabeled as full old D0.
 
-Status: `not_started`. Prerequisites: E077. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Scope: Qualify WAV and supported non-DRM M4A codecs, channels and duration; isolate subprocesses and create immutable normalized audio/time mappings.
+### E261 — Qualify real managed PostgreSQL and pooling E02
 
-Planned paths: `python/src/arboresce_intelligence/pipelines/audio/`, `python/tests/unit/`, `python/pyproject.toml`, `python/uv.lock`.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Definition of green: Unsupported/truncated media and duration overflow fail; no shell interpolation; channel/time mapping is accurate; subprocess cleanup is measured.
+Stage: P10.
 
-### E080 — Implement provider policy and reservations
+Scope: Qualify real managed PostgreSQL and pooling E02; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Status: `not_started`. Prerequisites: E041, E042, E017. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Planned paths: `tests/experiments/postgres/`, `docs/runbooks/`
 
-Scope: Define generic provider profiles and gateway admission over purpose, data class, region, terms expiry and scope. Reserve shared slots and spend before invocation.
+External prerequisite capabilities: Accept the retained broader G3 knowledge journey. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Planned paths: `crates/arboresce-application/src/model_gateway/`, `crates/arboresce-postgres/src/model_gateway/`, `contracts/internal/`.
+Definition of green: Actual selected permitted provider/region/non-owner roles/pool/session/failure/capacity matrix meets original isolation and latency allocations; local tests are not relabeled cloud evidence.
 
-Definition of green: Expired/unapproved profile denies; concurrent reservations cannot overspend; unauthorized text is never sent; query embeddings use the same policy.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-### E081 — Implement the controlled intelligence gateway
+### E262 — Qualify full workflow durability and upgrade E03
 
-Status: `not_started`. Prerequisites: E080, E075. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Scope: Provide bounded authenticated internal invocation with job/stage/purpose identity, cancellation and safe exposure/cost receipts; prevent uncontrolled provider egress.
+Stage: P10.
 
-Planned paths: `crates/arboresce-api/src/internal/`, `crates/arboresce-intelligence-grpc/`, `contracts/internal/`, `tests/contract/`.
+Scope: Qualify full workflow durability and upgrade E03; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Definition of green: Wrong purpose/stage fails; retries are idempotent; secrets stay outside RPC; output/deadline budgets enforced; denied requests make no provider call.
+Planned paths: `tests/experiments/temporal/`, `docs/runbooks/`
 
-### E082 — Implement the selected receipt adapter
+External prerequisite capabilities: Accept the retained broader G3 knowledge journey. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Status: `not_started`. Prerequisites: E081, X-MEDIA-PROFILE. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Definition of green: Actual dedicated persistence/worker-loss/cancellation/retry/replay/upgrade workload meets original counts/time bounds and retains uncertain external effects without duplicate canonical transitions.
 
-Scope: Implement the approved OCR/extraction profile through the gateway with structured fields, original/representation references and explicit abstention.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Planned paths: `python/src/arboresce_intelligence/providers/`, `python/src/arboresce_intelligence/resources/prompts/`, `python/tests/`.
+### E263 — Qualify full D1 restoration and operating integrity E09
 
-Definition of green: Recorded low-quality/conflicting totals remain unresolved; invalid or absent grounding is explicit; no automatic expense confirmation; generic prompts ship with the package.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-### E083 — Implement the selected transcription adapter
+Stage: P10.
 
-Status: `not_started`. Prerequisites: E081, X-MEDIA-PROFILE. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+Scope: Qualify full D1 restoration and operating integrity E09; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Scope: Implement the approved ASR profile with bounded transcript and exact temporal grounding. Speaker labels never establish identity.
+Planned paths: `tests/experiments/recovery/`, `docs/runbooks/recovery.md`
 
-Planned paths: `python/src/arboresce_intelligence/providers/`, `python/src/arboresce_intelligence/pipelines/transcription/`, `python/tests/`.
+External prerequisite capabilities: Qualify retrieval, context and resource experiments E06-E08. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Definition of green: Noise may abstain; spans stay in bounds; unknown speaker retained; output/time caps and redaction pass; semantic scoring cases are registered.
+Definition of green: Actual original D1 later-restriction/repair/workflow/object/key/journal restoration meets selected RPO/RTO/residency commitments and fails closed on absent/corrupt/incomplete evidence.
 
-### E084 — Validate fields and multimodal disagreement
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Status: `not_started`. Prerequisites: E082, E083. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+### E264 — Qualify production native service distributions
 
-Scope: Convert provider output to typed proposals with exact decimal parsing and revalidated locators; retain observation/assertion/inference distinctions.
+Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
-Planned paths: `python/src/arboresce_intelligence/pipelines/fields/`, `python/tests/golden/`.
+Stage: P10.
 
-Definition of green: Photo/voice disagreements persist; unknown tax is not zero; invalid location fails; claimed purpose does not become proven fact.
+Scope: Qualify production native service distributions; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-### E085 — Propose scoped claims and counter-evidence
+Planned paths: `docker/`, `docs/runbooks/`, `tests/experiments/distribution/`
 
-Status: `not_started`. Prerequisites: E084. Verify lane: PYTHON + CONTRACT; SERVICE when a process/provider boundary is exercised.
+External prerequisite capabilities: Accept the retained broader G3 knowledge journey. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Scope: Implement bounded candidate synthesis with support/refutation, qualifications and invalidation evidence; preserve uncertain/confounding interpretations.
+Definition of green: Actual supported native Linux AMD64 image/runtime/resource/startup/shutdown/provenance profiles and clean independent builds meet original E01/G6; cross-compilation or architecture labels alone do not qualify.
 
-Planned paths: `python/src/arboresce_intelligence/pipelines/claims/`, `python/src/arboresce_intelligence/resources/prompts/`, `python/tests/golden/`.
+Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Definition of green: No fabricated source or approval; negative evidence retained; cross-document work avoids global all-pairs comparison; output count cap enforced.
+### E265 — Implement and qualify optional SMTP notifications
 
-### E086 — Integrate durable intelligence Activities
+Status: `not_started`. Prerequisites: E224, E228. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (applicable sources and actual consumers; no waived required lane).
 
-Status: `not_started`. Prerequisites: E085, E072, E081, E018-process-coverage. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Stage: P10.
 
-Scope: Add gRPC adapter with deadlines, heartbeat/cancellation, exact stage/input/output/profile revalidation, complete exposure evidence and reservation settlement. Wire and qualify the selected real processing adapters/gateway/profiles end-to-end before enabling actual capture.analyze. Instrument Rust-launched Python service lifetimes.
+Scope: Implement and qualify optional SMTP notifications under its owning normative requirements; independently green code, contract and real-service evidence qualify this capability before use.
 
-Planned paths: `crates/arboresce-intelligence-grpc/`, `crates/arboresce-activities/src/processing/`, `tests/integration/processing/`, `Cargo.toml`, `Cargo.lock`.
+Planned paths: `crates/arboresce-application/src/notifications/`, `crates/arboresce-infrastructure/src/smtp/`, `crates/arboresce-worker/src/activities/notifications.rs`, `tests/integration/mail/`
 
-Definition of green: Retry reuses accepted result; timeout retains uncertain cost; invalid outputs cannot become canonical; no approval side channel; cross-language process coverage is complete. Required/optional part and analysis/effect joins, actual service attribution, finite combined serialization/counter limits and current-authority fences pass with the selected real adapters. Earlier deterministic Activities and synthetic replay are retained evidence of their narrower source scope.
+Definition of green: The bounded engine notification port, SMTP adapter and Temporal Activities enforce exact authorized intents, current restrictions, qualified destinations/TLS/credentials, resource reservations and durable uncertain outcomes. Independent literal injection/retry/cancellation/delivery vectors and actual controlled Mailpit acceptance/failure/uncertainty tests pass. No email is sent from an inferred project update; an optional operational route stays disabled until its actual profile qualifies.
 
-### E087 — Verify synthetic processing across processes
+Verification: Independent literal fixture/oracle truth, exact owning format/static/build/test and strict coverage, actual process/service integration and the existing qualification limits. Optional unqualified routes remain disabled.
 
-Status: `not_started`. Prerequisites: X-CLI-PROCESSING, E086. Verify lane: E2E + RUST; PYTHON when exercised.
+### E266 — Produce and deliver complete customer exit archives
 
-Scope: Exercise actual API/Temporal/Python/CLI with recorded synthetic inputs and protected originals; register nonempty processing E2E and all process profiles.
+Status: `not_started`. Prerequisites: E256. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (applicable sources and actual consumers; no waived required lane).
 
-Planned paths: `tests/e2e/processing/`, `tools/xtask/`.
+Stage: P9.
 
-Definition of green: Receipt/voice remain separate assertions; worker restart and policy revocation are safe; no unauthorized provider call; selected suites and subprocess coverage are verified.
+Scope: Produce and deliver complete customer exit archives under its owning normative requirements; independently green code, contract and real-service evidence qualify this capability before use.
 
-### E088 — List authorized candidates and evidence
+Planned paths: `crates/arboresce-application/src/export/`, `crates/arboresce-infrastructure/src/export/`, `crates/arboresce-api/src/routes/export.rs`, `tests/integration/export/`
 
-Status: `not_started`. Prerequisites: E047, E087, E009. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Definition of green: The engine selects the complete chosen authorized customer scope, durably produces a bounded versioned archive of required canonical records, source bytes, relationships and revision/receipt/profile history, and fences publication and every download with current authority/restrictions. Independent parsers verify actual archive bytes, manifests/digests and completeness; missing required bytes, fake completeness, cross-scope data, stale authority, retry/restart and interrupted download fail truthfully. Secrets are excluded.
 
-Scope: Implement current heads/history with typed filters, authenticated keyset cursors and bounded batch authorization.
+Verification: Independent literal fixture/oracle truth, exact owning format/static/build/test and strict coverage, actual process/service integration and the existing qualification limits. Optional unqualified routes remain disabled.
 
-Planned paths: `crates/arboresce-application/src/knowledge/`, `crates/arboresce-api/src/routes/knowledge.rs`.
+### E267 — Resolve exact context snapshots and complete authorized delivery
 
-Definition of green: Filter/purpose mismatch fails; no hidden counts or N+1 policy queries; current-state pagination semantics are explicit.
+Status: `not_started`. Prerequisites: E255. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (applicable sources and actual consumers; no waived required lane).
 
-### E089 — Implement complete candidate replacement
+Stage: P9.
 
-Status: `not_started`. Prerequisites: E088, E027. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
+Scope: Resolve exact context snapshots and complete authorized delivery under its owning normative requirements; independently green code, contract and real-service evidence qualify this capability before use.
 
-Scope: Create a new pending revision using expected revision/digest and current evidence permissions while preserving history.
+Planned paths: `crates/arboresce-application/src/resolve/`, `crates/arboresce-api/src/routes/context.rs`, `tests/integration/context/resolve/`
 
-Planned paths: `crates/arboresce-application/src/knowledge/`, `crates/arboresce-api/src/routes/reviews.rs`.
+Definition of green: Actual engine resolution returns the exact qualified snapshot/channel generation and attributable usage receipt; current authorization and every required source/control/profile/trust reference remain valid at resolution and complete bounded delivery. Independent literal identity/receipt/preimage/byte expectations and real-service races prove stale generation, revoked or unknown authority, partial delivery and mismatched source identity cannot masquerade as a usable complete context.
 
-Definition of green: Incomplete/unreadable replacement fails; stale revisions conflict; revise never autoaccepts; changed scope alters identity.
-
-### E090 — Implement attributable review verdicts
-
-Status: `not_started`. Prerequisites: E089, E041. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Lock candidate and current policy, persist verdict and unique accepted asset mapping atomically with audit/outbox.
-
-Planned paths: `crates/arboresce-application/src/reviews/`, `crates/arboresce-postgres/src/knowledge/`.
-
-Definition of green: Fifty contenders yield one mapping; retries reauthorize; conflicting verdict is 409; service actors cannot impersonate humans.
-
-### E091 — Expose reviewed assets and applicability
-
-Status: `not_started`. Prerequisites: E090. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Serve exact immutable content with current control, availability, review and supersession metadata.
-
-Planned paths: `crates/arboresce-api/src/routes/assets.rs`, `crates/arboresce-application/src/assets/`.
-
-Definition of green: Pending candidates cannot appear as assets; revoked metadata remains access-safe; scope/qualifiers survive; revision orders history.
-
-### E092 — Verify CLI review attribution
-
-Status: `not_started`. Prerequisites: X-CLI-REVIEW, E091. Verify lane: E2E + RUST; PYTHON when exercised.
-
-Scope: Exercise human/service pending/contested/revised/accepted flows and cross-organization evidence with the actual CLI.
-
-Planned paths: `tests/e2e/review/`, `tools/xtask/`.
-
-Definition of green: Human approval succeeds; service impersonation fails; concurrent review creates one mapping; scope-only revision works; unapproved content cannot be served.
-
-### E093 — Create grounded expense proposals
-
-Status: `not_started`. Prerequisites: E084, E048, E086. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Map validated extraction to proposed financial revisions with evidence and separately attributed user context.
-
-Planned paths: `crates/arboresce-application/src/expenses/`, `crates/arboresce-activities/src/expenses/`.
-
-Definition of green: No model auto-confirmation; unknown components persist; stage retry creates one proposal; duplicate detection remains a suggestion.
-
-### E094 — Implement financial corrections and confirmation
-
-Status: `not_started`. Prerequisites: E093. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Apply expected revision/current authority to correction, confirmation, void and linked positive-magnitude refund/credit commands.
-
-Planned paths: `crates/arboresce-application/src/expenses/`, `crates/arboresce-api/src/routes/expenses.rs`.
-
-Definition of green: Required unknowns block confirmation; currency changes create revisions; concurrent confirm has one winner; exact refund arithmetic and history pass.
-
-### E095 — Compile immutable period reports
-
-Status: `not_started`. Prerequisites: E094, E048, E031. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Select currently authorized confirmed revisions using explicit date/zone policy, currency grouping and authorized exclusions; freeze calculation version.
-
-Planned paths: `crates/arboresce-application/src/reports/`, `crates/arboresce-postgres/src/expenses/`.
-
-Definition of green: Date-only and time-zone boundaries are tested; void/proposal exclusions visible only if authorized; changed expense creates a different report.
-
-### E096 — Export lossless and spreadsheet-safe reports
-
-Status: `not_started`. Prerequisites: E095. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Preserve complete financial JSON/reversible CSV payload semantics and implement the [sealed financial artifact/delivery contract](../requirements/lifecycle-contract.md#10-sealed-financial-export-and-bounded-delivery): exact result/core/reference, full staged-byte verification, fixed exclusive expiry, current control/authority, finite generation/staging/transfer/shared-slot profile and exact authenticated content/delivery reads.
-
-Planned paths: `crates/arboresce-application/src/exports/`, `crates/arboresce-api/src/routes/reports.rs`, `crates/arboresce-api/src/routes/exports.rs`, `tests/integration/exports/`.
-
-Definition of green: Formula safety preserves reversible values; no mixed-currency sum; unresolved eligible exclusions stay explicit; no tax-certification claim. Actual complete 64 MiB JSON/CSV artifacts and downloads satisfy full digest/length/header/throughput/finite-budget tests, safe client destination verification, replay/lost-response and fixed-expiry/current-authority/midstream-failure races. No unsealed partial stream or receipt claims completion; already admitted delivery has only its fixed grant. This is not complete customer-exit qualification.
-
-### E097 — Verify the financial user journey
-
-Status: `not_started`. Prerequisites: X-CLI-REPORT, E096. Verify lane: E2E + RUST; PYTHON when exercised.
-
-Scope: Run actual CLI/API/processing from receipt/note through correction, confirmation, report and export without requiring knowledge publication.
-
-Planned paths: `tests/e2e/expenses/`, `tests/fixtures/scenarios/`, `tools/xtask/`.
-
-Definition of green: Refund, void, multicurrency and malicious CSV cases pass; no paid Arboresce entitlement; real result semantics and process coverage recorded.
-
-### E098 — Select exact eligible build inputs
-
-Status: `not_started`. Prerequisites: E091, E049, E035. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Resolve bounded requested asset versions under current tenant/domain/purpose and evidence permission; preserve qualifications and reject unauthorized required inputs.
-
-Planned paths: `crates/arboresce-application/src/context/`, `tests/integration/context/`.
-
-Definition of green: No partial build or truncation; cross-domain selection follows policy; deprecation explicit; asset/byte caps enforced.
-
-### E099 — Compile canonical build content
-
-Status: `not_started`. Prerequisites: E098. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Generate deterministic exact bytes and manifest with compiler version, canonical set ordering and preserved ordered content; exclude mutable receipts.
-
-Planned paths: `crates/arboresce-application/src/context/`, `crates/arboresce-domain/src/context/`, `tests/contract/context/`.
-
-Definition of green: Set permutations are stable; ordered content stays ordered; signature/self-hash excluded; empty/oversize inputs rejected.
-
-### E100 — Persist sealed build bytes and receipts
-
-Status: `not_started`. Prerequisites: E099, E063. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Seal compiler output then bind immutable build edges and operation result once, with separate execution receipts.
-
-Planned paths: `crates/arboresce-application/src/context/`, `crates/arboresce-postgres/src/releases/`, `tests/integration/context/`.
-
-Definition of green: Identical retry reuses identity; crashes leave recoverable orphans; execution time cannot alter digest; foreign hashes are not existence oracles.
-
-### E101 — Orchestrate durable context builds
-
-Status: `not_started`. Prerequisites: E100, E069. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Use stable workflow identity and Activities for selection, sealing, persistence and evaluation; recheck eligibility at effect boundaries.
-
-Planned paths: `crates/arboresce-workflows/src/context.rs`, `crates/arboresce-activities/src/context.rs`, `tests/temporal-replay/`.
-
-Definition of green: Success/retry histories replay; mid-build revocation blocks release; cancellation accurately reports committed effects.
-
-### E102 — Implement versioned evaluation suites
-
-Status: `not_started`. Prerequisites: E099, E011. Verify lane: RUST + CONTRACT.
-
-Scope: Define suite/case identity, expected assertions, validity, exact counts and separate deterministic versus live quality classes.
-
-Planned paths: `crates/arboresce-domain/src/evaluations/`, `contracts/public/`, `tests/fixtures/scenarios/`.
-
-Definition of green: Counts and failures agree; unknown versions fail; evaluation cannot silently rewrite oracle expectations; malformed results fail.
-
-### E103 — Execute evaluations and attach receipts
-
-Status: `not_started`. Prerequisites: E102, E101. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Evaluate an exact build using bounded deterministic suites and persist immutable profile/dataset/result identity outside build content.
-
-Planned paths: `crates/arboresce-application/src/evaluations/`, `crates/arboresce-activities/src/evaluations/`, `crates/arboresce-postgres/src/releases/`.
-
-Definition of green: Correct build pinned; duplicate result idempotent; overlimit work fails; failed evaluation cannot confer eligibility.
-
-### E104 — Issue accountable approval receipts
-
-Status: `not_started`. Prerequisites: E103, E036, E041. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Check principal/purpose, current evidence and required suites before signing the exact content-attestation envelope through an injected key service.
-
-Planned paths: `crates/arboresce-application/src/approvals/`, `crates/arboresce-postgres/src/releases/`, `tests/integration/releases/`.
-
-Definition of green: Wrong actor/purpose and revoked/expired key fail; service cannot claim human approval; signature binds exact build; confirmation flags grant no authority.
-
-### E105 — Implement channel transitions
-
-Status: `not_started`. Prerequisites: E104, E049. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Apply create/promote/suspend/rollback with expected monotonically increasing generation and current eligibility in one transaction.
-
-Planned paths: `crates/arboresce-application/src/channels/`, `crates/arboresce-postgres/src/releases/`.
-
-Definition of green: Fifty concurrent promotions have one winner; revoked rollback fails; suspended history persists; generations never reset.
-
-### E106 — Resolve exact authorized snapshots
-
-Status: `not_started`. Prerequisites: E105, E065. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Serve complete exact build content under current canonical admission and bounded transfer, issuing accurate usage receipts independently of search.
-
-Planned paths: `crates/arboresce-application/src/resolve/`, `crates/arboresce-api/src/routes/context.rs`.
-
-Definition of green: Any revoked required source blocks; unavailable bytes remain unavailable; no silent filtering; previously delivered content cannot be recalled by assertion.
-
-### E107 — Expose context operation families
-
-Status: `not_started`. Prerequisites: E106, E101. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Bind implemented build/evaluation/attestation/channel operations to typed API contracts, operation resources and honest capabilities.
-
-Planned paths: `crates/arboresce-api/src/routes/releases.rs`, `contracts/public/`, `tests/contract/http/`.
-
-Definition of green: Accepted differs from completed; stale revisions conflict; approvals are enforced; optional index outage leaves exact readiness; extensions remain tolerable.
-
-### E108 — Verify the resolve-only context journey
-
-Status: `not_started`. Prerequisites: X-CONSUMER-RESOLVE, E107, E092. Verify lane: E2E + RUST; PYTHON when exercised.
-
-Scope: Run actual capture/process/review/build/evaluate/promote/resolve and changed-evidence cases with fixed fixtures and an independently built resolve-only consumer. Feedback is added only after its capabilities exist.
-
-Planned paths: `tests/e2e/context/`, `tools/xtask/`.
-
-Definition of green: Qualifications preserved; invalid review cannot release; exact digest and tenant boundaries hold; suite executes real runtime and nonzero assertions.
-
-### E109 — Implement exact-version feedback
-
-Status: `not_started`. Prerequisites: E107, E050. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Persist feedback/outcome assertions with author/source identity and exact subject version without rewriting content or approval.
-
-Planned paths: `crates/arboresce-application/src/feedback/`, `crates/arboresce-api/src/routes/feedback.rs`.
-
-Definition of green: Unknown/foreign versions fail safely; retry returns original result; asserted outcomes remain assertions; pending feedback is not completed processing.
-
-### E110 — Implement reviewed supersession
-
-Status: `not_started`. Prerequisites: E109, E090. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Move current asset heads only through explicit reviewed scope rules, preserving evidence/history and channel impact visibility.
-
-Planned paths: `crates/arboresce-application/src/assets/`, `crates/arboresce-postgres/src/knowledge/`.
-
-Definition of green: Cycles and foreign links fail; deprecation preserves bytes; channel never moves silently; replacement knowledge requires review.
-
-### E111 — Implement canonical revocation
-
-Status: `not_started`. Prerequisites: E109, E106, E041. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Implement [canonical revoke and initial propagation](../requirements/lifecycle-contract.md#8-revocation-obligation-bounded-cleanup-and-exact-material-actions): current subject/control admission, shared read/materializing-writer fence, immutable complete inventory snapshot/head comparison, immediate canonical restriction and atomic event/admission/obligation/one initial operation/plan/continuity association. Implement complete initial enumeration/manifest/action/proof/completion and exact obligation/action/evidence reads.
-
-Planned paths: `crates/arboresce-application/src/revocation/`, `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-api/src/routes/artifacts.rs`, `crates/arboresce-api/src/routes/lifecycle.rs`, `crates/arboresce-workflows/src/lifecycle.rs`, `tests/integration/lifecycle/`.
-
-Definition of green: Download/revoke barriers prove immediate admission denial; stale control conflicts; required components block new resolution; hold cannot broaden reads. Complete empty inventory is proved. Over-cap/unknown/transient initial enumeration fails before action admission and preserves durable directly readable repairable obligation and original failed/cancelled operation, including null manifest. Exact targets/actions/authentic performed proof and late-confirmation fences prevent fake cleanup success. E124 must qualify mandatory finite multi-batch repair; E111 cannot substitute repeated revoke, truncation or a global cardinality cap.
-
-### E112-retention-contract — Define generic lifecycle policy
-
-Status: `not_started`. Prerequisites: E111, E050. Verify lane: DOC + CONTRACT; add applicable language lanes for executable validators.
-
-Scope: Refine the [lifecycle contract](../requirements/lifecycle-contract.md) with actual parameterized retention/hold/reference/purge policy interpretation, exact complete physical-copy manifest/receipt profiles, key/trust recovery and finite passive-receipt producer/verifier semantics. E050 independent continuity already qualifies the first consumer; extend its exact retained repair/coverage associations when E124 adds producers. Synthetic policy remains explicitly fixture-only; actual deployment policy is X-DEPLOYMENT-POLICY and gates real-data/purge qualification.
-
-Planned paths: `docs/requirements/security-and-privacy.md`, `docs/requirements/recovery.md`, `contracts/public/`, `contracts/internal/`, `tests/fixtures/scenarios/`.
-
-Definition of green: No unsupported retention promise; unknown actual policy cannot enable purge; held-but-revoked cases deny read while retaining bytes; exact policy/version/copy/evidence interpretation and all finite lifetime/capacity bounds have independent oracle approval. Recognition after receipt expiry and retired-scope non-reuse remain intact; prepared bytes contain no future canonical observations and committed bindings retain actual cause/control/effect relations.
-
-### E112 — Implement bounded purge and holds
-
-Status: `not_started`. Prerequisites: E111, E064, E112-retention-contract. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Implement [bounded holds and purge](../requirements/lifecycle-contract.md#6-lifecycle-subjects-controls-and-commands) over complete fixed exact physical-copy obligations and qualified scoped policy. Recheck holds/references/leases/versions/continuity before each irreversible handoff; retain full action/exposure/confirmation ledgers and finite passive-ingress evidence. Synthetic tests use the generic policy; actual policy and storage evidence qualify before real purge.
-
-Planned paths: `crates/arboresce-workflows/src/purge.rs`, `crates/arboresce-activities/src/purge.rs`, `crates/arboresce-application/src/lifecycle/`, `crates/arboresce-api/src/routes/lifecycle.rs`, `tests/integration/lifecycle/`.
-
-Definition of green: Held bytes remain while reads deny; surviving references/replacement versions are protected; unresolved handoffs block protected hold/reference success and duplicate action. Partial purge and conservative cost are explicit; expiry is not not_performed proof. Current-authorized late confirmation may truthfully advance old exact obligations only within current shared/newer-control fences, with terminal operation/result/deadlines unchanged. Complete copy receipts and independent continuity survive recovery; external recall is never promised.
-
-### E113 — Define complete customer exports
-
-Status: `not_started`. Prerequisites: E110, E111. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Export authorized records, versions, relationships, evidence, corrections, context and evaluations with digests and explicit unavailable/purged markers in public formats.
-
-Planned paths: `crates/arboresce-application/src/export/`, `contracts/public/`, `tests/integration/export/`.
-
-Definition of green: References roundtrip; inaccessible entries/counts stay hidden; purged bytes are not fabricated; original attribution remains intact.
-
-### E114 — Produce durable bounded exports
-
-Status: `not_started`. Prerequisites: E113, E101. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Pin an authorized selection, stream bounded temporary output with expiry, reauthorize download and persist operation results.
-
-Planned paths: `crates/arboresce-workflows/src/export.rs`, `crates/arboresce-activities/src/export.rs`, `crates/arboresce-api/src/routes/export.rs`.
-
-Definition of green: Mid-export revocation blocks affected delivery; cancellation cleans controlled temporary work; duplicate requests share result; large exports remain bounded.
-
-### E115 — Verify feedback correction and exit
-
-Status: `not_started`. Prerequisites: X-CLI-FEEDBACK, X-CLI-EXIT, E112, E108, E109, X-CONSUMER-FEEDBACK. Verify lane: E2E + RUST; PYTHON when exercised.
-
-Scope: Run a second learning iteration with actual CLI feedback/lifecycle commands and the extended consumer, then interpret export in a clean independent consumer.
-
-Planned paths: `tests/e2e/lifecycle/`, `tests/e2e/export/`, `tools/xtask/`.
-
-Definition of green: Consumed version and retry intent exact; feedback stays pending until reviewed; new build changes correctly; revoked sources deny; usable export preserves attribution.
-
-### E116 — Define projection identity
-
-Status: `not_started`. Prerequisites: E044, E091. Verify lane: RUST + CONTRACT.
-
-Scope: Version immutable tenant/content/chunk/embedding-profile identities and generations with explicit delivery metadata; derived status never grants authority.
-
-Planned paths: `contracts/internal/`, `crates/arboresce-application/src/projections/`, `docs/architecture/`.
-
-Definition of green: Dimension/profile mismatch cannot collide; delayed events cannot redefine current heads; identity is deterministic.
-
-### E117 — Package a protected Qdrant profile
-
-Status: `not_started`. Prerequisites: E013. Verify lane: IMAGE + SERVICE; applicable language lanes for source changes.
-
-Scope: Pin image digest/config/license with authentication, protected bindings, durable volume and explicit smoke checks.
-
-Planned paths: `docker/images/qdrant/`, `docker/compose/retrieval.yaml`, `docker/docker-bake.hcl`.
-
-Definition of green: Unauthenticated access denied; no startup plugin fetch; reported version accurate; target image starts safely.
-
-### E118 — Implement typed projection adapter
-
-Status: `not_started`. Prerequisites: E116, E117. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Use compatible-profile collections, indexed tenant/filter fields, bounded query controls and strict filter construction. Register real search fixture/service suite.
-
-Planned paths: `crates/arboresce-qdrant/`, `Cargo.toml`, `Cargo.lock`, `tests/integration/qdrant/`.
-
-Definition of green: Tenant constraint mandatory; unindexed or oversized query rejected; dimensions checked; delayed delivery cannot overwrite immutable versions.
-
-### E119 — Generate policy-controlled embeddings
-
-Status: `not_started`. Prerequisites: E081, E118. Verify lane: RUST + PYTHON + SERVICE.
-
-Scope: Key embeddings by exact text/profile and permitted scope, reserve cost and persist reproducible references; query embeddings use identical exposure controls.
-
-Planned paths: `crates/arboresce-activities/src/embedding.rs`, `python/src/arboresce_intelligence/providers/`, `tests/integration/embedding/`.
-
-Definition of green: Unchanged content/profile reuses work; denied text never sent; changed dimensions require new profile; shared spend reservation enforced.
-
-### E120 — Compose bounded projection delivery
-
-Status: `not_started`. Prerequisites: E119, E044. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Consume leased outbox work into Qdrant with fenced receipts and bounded retry/backpressure; do not infer commit completeness from event IDs.
-
-Planned paths: `crates/arboresce-projector/`, `crates/arboresce-postgres/src/outbox/`, `Cargo.toml`, `Cargo.lock`.
-
-Definition of green: Reordered/duplicate events converge; stale owners cannot acknowledge; restart resumes safely; maximum allocated ID is never a watermark.
-
-### E121 — Implement authorized hybrid search
-
-Status: `not_started`. Prerequisites: E120, E041, E009. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Allocate k=1..20, two total rounds and 200 cumulative candidates before dedup across retrieval sources; batch canonical authorization before reranking permitted content.
-
-Planned paths: `crates/arboresce-application/src/search/`, `crates/arboresce-api/src/routes/search.rs`.
-
-Definition of green: Restrictive ACLs do not leak; no N+1 checks; hybrid branches share one budget; stable ties/exhaustion are tested; limits cannot be bypassed by refill.
-
-### E122 — Record honest selection receipts
-
-Status: `not_started`. Prerequisites: E121, E106. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Bind actual selected IDs, profile, generation, limits and freshness to output; do not reuse a full-build attestation for different selected bytes.
-
-Planned paths: `crates/arboresce-application/src/search/`, `contracts/public/`, `tests/contract/search/`.
-
-Definition of green: Qualifiers cannot vanish silently; receipt matches actual output; partial selection makes no whole-snapshot approval claim.
-
-### E123 — Rebuild projections with a maintenance barrier
-
-Status: `not_started`. Prerequisites: E120, E122. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Pause scoped writes explicitly, snapshot canonical state, reuse versioned embeddings, reconcile a new generation and switch atomically with rollback receipts.
-
-Planned paths: `crates/arboresce-workflows/src/rebuild.rs`, `crates/arboresce-activities/src/rebuild.rs`, `crates/arboresce-application/src/projections/`.
-
-Definition of green: Concurrent writers follow documented pause/queue policy; counts/digests agree; failure retains old generation; no maximum-ID shortcut.
-
-### E124 — Propagate revocation to derived stores
-
-Status: `not_started`. Prerequisites: E123, E112. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Implement mandatory [finite propagation repair and authentic complete coverage](../requirements/lifecycle-contract.md#required-bounded-repair-and-complete-coverage-at-e124) while canonical admission already denies. Before first repair mutation, add its actual registered closed command, operation kind/result, immutable repair/predecessor/batch/range/coverage records, exact plans/stage results, current-authorized reads and complete prepared/committed lifecycle-pair payload/binding schemas. Reuse E046/E050 operation/lifecycle persistence and E071 dispatcher. Each repair operation handles one complete bounded contiguous range over the original immutable inventory under a finite authorized grant, with one live batch and preserved prior failed/cancelled history.
-
-Planned paths: `crates/arboresce-projector/`, `crates/arboresce-activities/src/purge.rs`, `crates/arboresce-application/src/lifecycle/`, `crates/arboresce-api/src/routes/lifecycle.rs`, `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-workflows/src/lifecycle.rs`, `contracts/public/`, `contracts/internal/`, `tests/integration/lifecycle/`, `tests/integration/qdrant/`, owning lifecycle/recovery guidance.
-
-Definition of green: Actual RUST and SERVICE/Qdrant multi-batch tests cover 0/254/255/256/257+ inventory, escaped near-byte limits, failed initial enumeration/null manifest, empty repair, interrupted/failed/cancelled ranges and worker loss at every boundary. Reuse authentic earlier performed evidence without a new effect; unknown handoffs block duplicates; only affirmative not_performed permits a new exact authorized action. Current holds/references/version/policy/authority/continuity and predecessor/head fences hold. Reject gaps/overlaps/duplicates/extras/wrong roots, unverified predecessors and max-ordinal-only coverage. Non-final batch result is distinct from whole-obligation success. Final coverage/head/completion/satisfaction and successful terminal result bind atomically; late final confirmation preserves failed/cancelled terminal outcomes and older receipts remain on original ledgers. Exact repair/batch/coverage/history reads and independent complete graph retention pass before activation, including receipt-GC and old-backup recovery inputs. Paused projection, old add events and failed repair cannot resurrect authority; no whole-obligation cap, hidden continuation, seventh journal family or second scheduler/store. This gate already precedes E134-restore.
-
-### E125 — Verify retrieval disorder through CLI
-
-Status: `not_started`. Prerequisites: X-CLI-SEARCH, E124. Verify lane: E2E + RUST; PYTHON when exercised.
-
-Scope: Exercise actual CLI search with delayed/duplicate projections, restrictive authorization, outage and rebuilt generations.
-
-Planned paths: `tests/e2e/search/`, `tools/xtask/`.
-
-Definition of green: Exact resolution stays safe during search failure; no unauthorized results/counts; total budgets hold; actual selection receipts match results; nonempty suite registered.
-
-### E126 — Consolidate shared resource admission
-
-Status: `not_started`. Prerequisites: E080, E073. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Strengthen and stress the existing shared admission/reservation code from initial adapters across capture, processing and model work. Do not create a parallel quota system.
-
-Planned paths: `crates/arboresce-application/src/budgets/`, `crates/arboresce-postgres/src/budgets/`, `crates/arboresce-api/`.
-
-Definition of green: Parallel instances cannot exceed 100 pending jobs or two organization model slots; leases recover; rejected work is explicit; accepted work is not dropped.
-
-### E127 — Consolidate transfer and parser budgets
-
-Status: `not_started`. Prerequisites: E126, E065, E079. Verify lane: RUST + PYTHON + SERVICE.
-
-Scope: Apply the same per-route wire/decode/CPU/memory/time/scratch policy through API, Activities and Python, independent of extractor defaults.
-
-Planned paths: `crates/arboresce-api/src/limits/`, `crates/arboresce-activities/`, `python/src/arboresce_intelligence/`.
-
-Definition of green: Chunked oversize and slow streams fail; 40-million-pixel/five-minute limits enforced; cancellation reclaims resources; no unbounded read remains.
-
-### E128 — Add measured bounded caches
-
-Status: `not_started`. Prerequisites: E121, E111. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Cache only demonstrated repeated work with tenant/principal/delegation/purpose/policy/content/profile/generation keys; every new admission remains canonical.
-
-Planned paths: `crates/arboresce-application/src/cache/`, `tests/security/cache/`.
-
-Definition of green: Revocation is effective regardless of cache; no cross-tenant hash oracle; changed profile misses; eviction and memory bounded.
-
-### E129 — Instrument content-minimizing telemetry
-
-Status: `not_started`. Prerequisites: E127, E128. Verify lane: RUST + PYTHON + SERVICE.
-
-Scope: Measure queue, pool, bytes, cost, stage/retry, authorization and projection behavior with bounded labels and safe correlations; keep audit/exposure separately governed.
-
-Planned paths: `crates/arboresce-observability/`, `crates/arboresce-api/`, `crates/arboresce-worker/`, `python/src/arboresce_intelligence/observability/`, `Cargo.toml`, `Cargo.lock`.
-
-Definition of green: Redaction fixtures catch secrets/documents/URLs; no unbounded tenant/content labels; disabled telemetry is safe; Python/Rust behavior covered.
-
-### E130 — Implement graceful shutdown and recovery
-
-Status: `not_started`. Prerequisites: E129. Verify lane: RUST + PYTHON + SERVICE.
-
-Scope: Stop new admission, bound HTTP draining and manage Activity/projector leases and heartbeats with recoverable operation state.
-
-Planned paths: `crates/arboresce-api/`, `crates/arboresce-worker/`, `crates/arboresce-projector/`, `python/src/arboresce_intelligence/server.py`.
-
-Definition of green: Signals at synchronized stages lose no accepted work; restart recovers; cancellation propagates; unfinished work cannot report success.
-
-### E131 — Implement optional notifications
-
-Status: `not_started`. Prerequisites: E130, E042. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Add a generic mail port and optional SMTP adapter with versioned templates, stable Message-ID and durable attempts. Deterministic integration uses Mailpit.
-
-Planned paths: `crates/arboresce-smtp/`, `crates/arboresce-activities/src/notifications.rs`, `Cargo.toml`, `Cargo.lock`, `tests/integration/smtp/`.
-
-Definition of green: TLS/temporary failure visible; accept-then-crash is reported as ambiguous; duplicate policy tested; no production mail/admin credentials needed.
-
-### E132 — Add bounded fuzz verification
-
-Status: `not_started`. Prerequisites: E014, E127. Verify lane: RUST + CONTRACT.
-
-Scope: Fuzz command JSON, locators, cursors, canonicalization and media metadata using deterministic seeds and explicit time/memory/network restrictions.
-
-Planned paths: `tests/fuzz/`, `tools/xtask/`, `docs/security-testing.md`.
-
-Definition of green: Crash cases reproduce; invalid states reject safely; seed inventory is nonempty; no provider/network calls; harness source is measured where executable.
-
-### E133 — Verify synchronized authorization races
-
-Status: `not_started`. Prerequisites: E111, E126, E105. Verify lane: RUST + SERVICE; CONTRACT for wire/schema changes.
-
-Scope: Exercise membership/revoke/promote/download and shared quota races at explicit barriers, distinguishing already admitted transfers.
-
-Planned paths: `tests/security/`, `tests/integration/concurrency/`, `tools/xtask/`.
-
-Definition of green: 10,000 controlled races show no new post-commit admission or quota bypass; one CAS winner; confirmation flags confer no privilege.
-
-### E134 — Verify clean customer exit
-
-Status: `not_started`. Prerequisites: E114, X-CLI-EXIT. Verify lane: E2E + RUST; PYTHON when exercised.
-
-Scope: Implement a public export reader/import validator or explicitly specified restoration entry point preserving identities, references and rights without executing imported content.
-
-Planned paths: `tests/e2e/exit/`, `crates/arboresce-admin/`, `docs/runbooks/export.md`, `tools/xtask/`.
-
-Definition of green: Clean installation reads exports; wrong hashes fail; unavailable content explicit; import cannot grant permissions; actual exit scenario is registered.
-
-### E134-restore — Implement and verify early D0 restoration
-
-Status: `not_started`. Prerequisites: E134, E112-retention-contract, E124, E074. Verify lane: RUST + SERVICE + E2E.
-
-Scope: Add real public restoration tooling and runbook for database, sealed bytes, keys/trust and current independently retained six-family post-backup lifecycle/recognition/retirement history. Restore initial operations and all later repair predecessors/batches/ranges/actions/confirmations/coverage/completion plus exact cause/control/effect/exposure/audit/outbox associations. Authenticate the complete inventory interpretation and coverage graph in bounded phases with serving disabled; reapply restrictions, reconstruct projections, then permit qualified serving. Parameterize policy and require separately approved operational resources.
-
-Planned paths: `crates/arboresce-admin/`, `tests/integration/recovery/`, `tests/e2e/recovery/`, `docs/runbooks/recovery.md`, `tools/xtask/`.
-
-Definition of green: Actual D0 old-backup restore followed by later revocation/deletion/holds, failed initial enumeration/null manifest, multiple authorized ranges, interrupted/failed/cancelled repair, passive confirmations and receipt GC preserves every immutable terminal outcome and prevents duplicate uncertain deletion or resurrected access. Missing blobs/keys/tail/cutoff/binding/predecessor/range/action/coverage bytes or altered/gapped/wrong-root proof keeps affected serving closed. Derived corruption rebuilds from canonical state. Packaged repetition after E137 remains required for G4/independent-user qualification; full D1 E09 remains required for G6. Existing E124 prerequisite already ensures complete repair precedes this gate.
-
-### E135 — Build minimal Rust service images
-
-Status: `not_started`. Prerequisites: E130, E131. Verify lane: IMAGE + SERVICE; applicable language lanes for source changes.
-
-Scope: Package API, worker, projector and admin from pinned multistage inputs with nonroot runtime, configuration validation and OCI identity.
-
-Planned paths: `docker/images/arboresce/`, `docker/docker-bake.hcl`, `.dockerignore`.
-
-Definition of green: Required target builds; no credentials or build caches in final image; each binary starts and stops correctly; read-only filesystem supported where qualified.
-
-### E136 — Build bounded Python runtime image
-
-Status: `not_started`. Prerequisites: E135, E085. Verify lane: IMAGE + SERVICE; applicable language lanes for source changes.
-
-Scope: Package pinned Python/uv/codec dependencies, prompts and generated resources with the selected processing profile; avoid startup installation or unqualified model weights.
-
-Planned paths: `docker/images/intelligence/`, `docker/docker-bake.hcl`, `python/`.
-
-Definition of green: Required target health passes; resources present; no credentials/runtime downloads; parser budgets hold in the actual image.
-
-### E137 — Provide the supported local stack
-
-Status: `not_started`. Prerequisites: E136, E068, E117, E052, E126, E127, E133. Verify lane: IMAGE + SERVICE; applicable language lanes for source changes.
-
-Scope: Compose owned API/worker/Python/database/pooler/storage/Temporal images with optional retrieval/mail. Use protected bindings and explicit setup; require no paid Arboresce entitlement.
-
-Planned paths: `docker/compose/`, `docs/getting-started.md`, `tools/xtask/`.
-
-Definition of green: Clean documented startup works; administration not exposed; readiness accurate; H0 resources measured; selected third-party inference requirements clearly disclosed.
-
-### E138 — Document verified installation and limits
-
-Status: `not_started`. Prerequisites: E137, E108, E097. Verify lane: DOC + E2E.
-
-Scope: Publish implemented operations, dependencies, supported model/media limits, review semantics, exports and independently built CLI compatibility. Distinguish tested support from target behavior.
-
-Planned paths: `README.md`, `docs/`, `CONTRIBUTING.md`, `SECURITY.md`.
-
-Definition of green: Every command exists; public clone is self-contained; no hidden entitlement; no legal/tax-certification claims; committed generated assets work without regeneration.
-
-### E139 — Verify API and CLI parity
-
-Status: `not_started`. Prerequisites: X-CLI-DOCUMENTATION, E138, E125. Verify lane: E2E + RUST; PYTHON when exercised.
-
-Scope: Maintain executable public capability-to-command conformance for authorization, record/report, review/context, lifecycle and export; mark operator-only commands explicitly.
-
-Planned paths: `contracts/public/`, `tests/conformance/`, `tools/xtask/`, `docs/compatibility.md`.
-
-Definition of green: Same input/permissions yield same semantics; every shipped capability has coverage or documented operator distinction; no undocumented essential endpoint.
-
-### E140 — Verify credential and signing-key rotation
-
-Status: `not_started`. Prerequisites: X-IDENTITY-ARITHMETIC, E055, E104. Verify lane: RUST + CONTRACT.
-
-Scope: Test supported credential replacement, trust overlap/revocation and restoration-safe historical trust interpretation without inventing cryptography.
-
-Planned paths: `crates/arboresce-application/src/auth/`, `crates/arboresce-application/src/approvals/`, `tests/security/`.
-
-Definition of green: Revoked authentication fails; historical signatures remain interpretable; unknown keys deny; backup restore cannot expand trust unexpectedly.
-
-### E141 — Prepare verifiable engine distributions
-
-Status: `not_started`. Prerequisites: E135, E136, E140. Verify lane: RUST + IMAGE + CONTRACT; actual release acceptance remains gated below.
-
-Scope: Produce reproducible SBOM, checksums and signing inputs tied to exact source, locks, images and supported platforms. Provide artifact verification tooling distinct from content-attestation verification.
-
-Planned paths: `tools/xtask/`, `docker/`, `docs/release-policy.md`.
-
-Definition of green: Dependency inventory matches image; controlled fixture signatures exercise digest/length/platform/build mismatch and revoked/unknown signer rejection; unpinned bases fail; unsigned candidates are labelled accurately. This tooling checkpoint can complete before actual release signing; X-ARTIFACT-SIGNING and X-PRODUCTION-EVIDENCE remain mandatory for G6 and full-plan completion.
-
-## Execution evidence and reconciliation
-
-Of 141 numbered slices and four suffix slices, E001–E008 are complete, E009 is `in_progress`, and the other 136 remain `not_started`. Coverage, generic lifecycle policy and early restore additions are part of this plan. Preserve exact IDs when splitting further; a split records replacement relationships, prerequisites, source boundaries and its own green-state criteria. Reconcile against actual code after each checkpoint rather than marking a whole phase complete from documentation alone.
-
-Each checkpoint records source revision/dirty state, contracts, schemas, dependency locks, tool versions, feature/native profile, dataset/scorer identity, exact command, selected tests, raw coverage, duration, results/skips/failures, independent review and gate effect. Redact secrets and evidence content. Record the completed commit hash in subsequent or external evidence rather than recursively embedding its own hash. A local build, a mock, an unsigned candidate and an accepted request have distinct meanings and cannot stand in for live qualification, signed release or completed processing.
-
-Actual identity/media selections, independent oracle approval including numeric ASR thresholds, environment/budget authority, deployment retention/recovery policy, independent-user evidence and signing trust must close before their dependent gates. Do not invent missing facts. Stop only dependent work; continue other eligible work under the active authorization. No failing security/integrity check or required gate is waived. At interruption, name the last green checkpoint, current changes, exact blocked evidence and all remaining slices.
+Verification: Independent literal fixture/oracle truth, exact owning format/static/build/test and strict coverage, actual process/service integration and the existing qualification limits. Optional unqualified routes remain disabled.

@@ -27,6 +27,14 @@ of knowledge publication and has no dependency on context approval.
 
 ## Exact reusable identities
 
+The [project workflow](project-workflow.md) uses a bounded authorized snapshot of
+exact project/Party/work/context revisions for analysis. That snapshot is not this
+compiled Context Build, an evaluation/approval, or a search/usage receipt. Direct
+canonical context reads may support the first workflow without this family's full
+build/evaluate/promote/resolve/feedback machinery. Complete knowledge capability
+remains a later retained milestone, with every identity, approval and current-use
+requirement here unchanged. A context reference never grants continued source use.
+
 All shapes below are closed unless expressly described as outer response readers. IDs, hashes, timestamps, revisions and raw unsigned-integer admission reuse the common owner. No financial-family import is needed.
 
 - `build_reference = {organization_id:identifier, domain_id:identifier, build_digest:sha256}`. The build is already content-addressed; no additional mutable build UUID is needed. Tenant/domain/path equality and current access are semantic checks.
@@ -56,6 +64,16 @@ Every asset and observation must belong to the target organization. Input candid
 Sort assets by ASCII `(organization_id, asset_id, version_id)` after duplicate rejection. Normalize each candidate evidence-role set by the E005 `(organization_id, observation_id)` rule. Sort each asset's observation union by that same ASCII pair. Preserve scope/prose list order, statement text, applicability, assumptions, qualifications, invalidation conditions, review due, locator order and all other semantically ordered arrays. No trimming, Unicode normalization, heading rewrites, inference, evidence-role reassignment or hidden defaults occur. A different normalized consequential value changes identity; a permitted set permutation does not.
 
 Availability remains mutable state outside the snapshot. The compiler cannot freeze a boolean that declares a source forever eligible. Deprecated versions require explicit current trusted policy permitting that exact version and purpose; there is no caller allow-deprecated flag. Revocation/purge and missing required source authority always deny. Non-head or active status alone cannot establish eligibility; no silent fallback or newer-version substitution is permitted.
+
+The [selection contract](selection-contract.md) separately defines synchronous
+search over either eligible current heads or one exact source build. A selected
+source build retains the exact historical-version set above and must remain
+wholly eligible; one denied required source fails the search rather than silently
+reducing that universe. Search may return an empty bounded selection, while this
+complete build remains nonempty and complete-or-error. Its unsigned selection
+receipt and retrieval chunks are distinct from usage_id, compiled_content and
+build approval/signature. Neither asset supersession nor selection rewrites a
+build's exact references or transfers approval to different selected bytes.
 
 ## Fixed compiler and canonical bytes
 
@@ -826,6 +844,13 @@ An active channel can refer to an ineligible build after a source/key/policy
 revocation; exact resolution must deny it. Reads do not silently change generation
 or rewrite history. Lifecycle control may explicitly suspend it through the same
 transition authority; read-time denial needs no successful background suspension.
+
+Channel discovery and generation-history lists, plus the complete exact
+generation-event GET, use the selection wire owner. They reuse channel_core and
+the complete channel_event unchanged, including every previous/target build,
+reason and attribution field under current disclosure. A generation path is an
+exact positive checked decimal selector, not a moving-head alias. These reads
+do not change the existing current-channel GET or authorize rollback.
 
 ## Commands and transition matrix
 

@@ -20,6 +20,7 @@ local and remotely operated instances.
 
 | Profile | Required behavior and evidence |
 | --- | --- |
+| D0-project focused local | Package actual API/worker/Python, canonical PostgreSQL, object storage, Temporal and separate PostgreSQL persistence plus independent lifecycle continuity/key resources. Nostr/bootstrap, own-key grants and all enabled project/financial capabilities pass packaged G2-project and actual D0-project restore before personal evidence/users. Declare finite local resources and preparation; full Qdrant/search/build/physical-purge/repair and mail are unavailable until their consumers qualify. |
 | Local development and qualification | Provide explicit setup for pinned API, worker, Python, application PostgreSQL/pooler, object storage and Temporal components. Bind local interfaces safely and start with synthetic data. A local mail sink and retrieval service are enabled when their tests require them. Real inference is an explicit selected route. Measure the H0 profile; a development startup alone is not real-data acceptance. |
 | Pilot qualification | Use exact Linux AMD64 image digests, an explicitly protected service network and the selected database, object-storage, identity, inference and mail profiles. Qualify direct and pooled database connections, Temporal's separate persistence and the retrieval generation. Record actual regions, access, resource allocation, costs and failure behavior. |
 | Production | Claim only the topology and scale that passed the mandatory gates and experiments. Required recovery, security, budgets, supported client compatibility, signed distributions, incident ownership and support commitments must describe that same profile. |
@@ -29,6 +30,14 @@ use a disclosed, user-selected external inference service under its own terms.
 Document preparation separately from startup. Missing credentials, images or
 processing resources must produce an actionable unavailable result rather than
 triggering an implicit installation or substituting recorded processing.
+
+Focused package/startup/admin diagnostics cover its complete enabled service and
+capability closure without requiring cloud database selection, optional mail,
+Qdrant, later complete corpus or repair administration. This is an explicit early
+profile amendment, not production qualification. Every enabled prerequisite and
+security control remains actual; no component fake closes packaged acceptance.
+Later capability activation needs the expanded package, propagation and restoration
+under [recovery](recovery.md) before it is advertised or consumes private evidence.
 
 Single-region operation is permitted when its accepted obligations are met.
 Do not advertise high availability solely because the API has multiple replicas.

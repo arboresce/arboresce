@@ -24,7 +24,26 @@ listing, asset supersession, revocation or channel mutation route. Those later
 owners must consume the identities and invariants here without treating a
 schema pass as authenticated approval.
 
+The [selection contract](selection-contract.md) owns complete current/exact
+candidate reads, discovery summaries and complete accepted-asset reads. Its
+immutable accepted-review projection retains every required accepted fact and
+excludes transport-only extensions from canonical identity. Historical accepted
+reviews remain accepted history even after candidate revision supersession.
+Read context never rewrites the original candidate context or fingerprint.
+
 ## Complete content and ownership
+
+The focused [project workflow](project-workflow.md) requires a versioned typed
+project-change family composed with this review/evidence semantics. Its create,
+revise and associate effects name targets/base revisions, explicit acyclic item
+dependencies and field lineage. It does not add fields to closed v1 content or
+hide effects in the statement. Qualify complete hashes/requests/records/readbacks
+before consumers. One exact verdict/accepted mapping and project revision effect
+bind atomically under current authority; no second project approval ledger exists.
+Own-key agents may accept project items only under an explicit qualified grant;
+legacy human-required knowledge review retains its current stronger policy.
+Pending edit, partial accept/reject, dependency holds, reanalysis/manual overrides
+and early project supersession preserve all prior revisions and verdicts.
 
 `candidate_content` is a closed object. Every row below is required, including
 explicit empty lists and a null review-due value when applicable. A replacement
@@ -49,6 +68,17 @@ apply even when each individual field is within its own maximum. The canonical
 candidate preimage is also limited to 1048576 UTF-8 bytes. A processor must
 respect its qualified output budget before proposing content; never truncate
 the statement, scope, opposing evidence or later entries to make a proposal fit.
+
+Before initial content, revision, review or mapping persistence, preflight every
+mandatory complete current/exact candidate and asset GET representation against
+the 1048576-byte response cap. The candidate preimage cap alone is insufficient.
+Reserve maximum required later review/reason, successor, revision-width,
+head/control and fixed immediate supersession-reference overhead, including the
+asset head's introduced_by. Use the actual qualified serializer and independent
+escaped-UTF-8/depth/boundary cases. Per-field maxima are upper bounds, not an
+admissible Cartesian product. Reject an oversized proposed composition before
+effects; never clip a future review reason or consequential content to recover
+readability. Optional transport extensions must fit remaining actual capacity.
 
 Scope and applicability describe the claim's intended use. They are not access
 policies, grants or an instruction to execute an action. Empty evidence sets are
@@ -321,6 +351,16 @@ candidate revision. A failure at any required write cannot leave an accepted ver
 without its mapping, a mapping without its valid review, a consumed approval
 without its committed outcome, or a falsely successful receipt. Preserve reverse
 evidence dependencies so later restrictions can affect current eligibility.
+
+Under candidate.accept, the unique mapping creates a newly issued asset with
+immutable version_order 1, head control 1, creation/recording time equal to the
+accepted review's recording observation and null immediate relationship links.
+The [asset model](data-model.md#asset-ordering-head-control-and-reviewed-supersession)
+owns those separate discovery/control fields. Existing four command shapes,
+review identity and candidate fingerprint are unchanged. Later replacement of
+an existing asset requires a separately qualified acceptance-plus-supersession
+writer with independent replacement acceptance and human relationship approval;
+it cannot reinterpret candidate.accept or reattach its committed mapping.
 
 Reauthorization precedes both new work and replay disclosure. Once an existing
 matching idempotency claim is found, return its authorized recorded result before

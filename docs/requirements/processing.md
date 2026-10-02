@@ -12,6 +12,27 @@ owns byte, time, memory, concurrency, queue and cost limits.
 
 ## One processing boundary
 
+Focused contextual processing follows [project workflow](project-workflow.md).
+Freeze exact capture/project and bounded authorized prior-context revision inputs,
+event date/timezone, field lineage and typed per-item proposal outputs in the
+internal transport before consumers. Normal short audio need not restate established
+context. Preserve ambiguity, negation, planned/completed meaning and reported-party
+qualifications; no invented receipt facts, attendance, assent or completion.
+Reanalysis has distinct input/profile identity and respects manual/reviewed history.
+Recorded adapters support deterministic integration; live OCR, ASR and synthesis
+each need independently qualified actual routes, not the same output as oracle.
+
+OCR profiles verify expected detector/recognizer and dictionary hashes before
+loading, expose truncation/skipped-output warnings, and have readiness independent
+of unrelated models. Raw detector scores retain their defined meaning and cannot
+serve as calibrated financial accuracy. Preserve orientation/pixel maps. ASR
+preserves channel/time maps, unknown speakers and supplied transcript provenance.
+Contextual synthesis has separate exact model/prompt/parser/schema, abstention,
+maximum output, provider exposure and cost identity. All decoder/worker memory,
+CPU/wall time/process/network/scratch/cancellation limits qualify in the actual
+supported native service image. Library defaults or an in-process test cannot
+prove containment. Unsupported codec/profile returns an explicit failure.
+
 The [lifecycle analysis contract](lifecycle-contract.md#5-acquisition-and-analysis)
 defines capture.analyze as a separately authorized command over an exact current
 submitted revision/control. capture.submit remains atomic and never starts work
@@ -211,11 +232,33 @@ instances. Apply admission with the first live adapter; a later consolidation
 step cannot excuse unbounded early effects.
 
 All model, embedding and reranking traffic passes the controlled gateway.
-Internal invocation is authenticated and bound to job, stage and purpose;
+Internal invocation is authenticated and bound either to its actual job/stage
+or to the exact finite search read run, always with current purpose and scope;
 wrong scope fails before a provider call. Do not place an unrestricted vendor
 key in Python as a replacement for gateway enforcement. Any Python-owned
 invocation design requires equivalent verified scoped authorization and egress
 control. Unknown, unapproved or expired policy fails closed for restricted data.
+
+The [selection contract](selection-contract.md) owns synchronous search's
+server-issued selection_id and finite query-embedding/reranking observations.
+Before the first search consumer, qualify the complete typed authenticated
+read-run invocation, producer/verifier bytes and actual ledger joins: executor,
+exact delegation, organization/domain/purpose, input/profile/policy/authority,
+feature, original deadline and shared reservation identity. A read run creates
+no job, stage or durable operation merely to reuse an exposure reference.
+Existing job/stage message semantics remain intact; the concrete gateway
+specialization must exist and qualify before use.
+
+Reuse the lifecycle exposure_reference and its actual state/settlement/receipt
+meaning. Record every admitted external invocation, including earlier uncertain
+attempts before any independently permissible retry. Local and retained feature
+results require exact qualified profile/provenance and current reuse authority;
+unknown provenance cannot become a claim of no exposure. The complete finite
+public observation is at most eight references/invocations per feature. Missing
+data, unsafe disclosure or excess work fails preflight, never truncates the
+ledger. Success requires complete validated feature output; a completed attempt
+does not imply settled billing. Late authenticated reconciliation can settle
+existing reservations without starting new work or rewriting an inline receipt.
 
 Query text has the same exposure obligations as source content. Retrieval
 candidates must pass canonical authorization before their text reaches an

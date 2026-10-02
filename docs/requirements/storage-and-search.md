@@ -29,6 +29,18 @@ changing these invariants.
 
 ## Tenant-safe relational enforcement
 
+Focused project persistence enforces same-tenant project/Party/participant/work/
+assignment/decision/item/context and financial-association foreign keys. Retain
+immutable revisions, exact input context/profile identities, pending/accepted
+mapping relationships, field lineage and dependency edges. Final item acceptance
+uses target/dependency CAS plus current authorization and binds review/mapping,
+domain effect, audit/outbox/idempotent result atomically. Independent item commands
+are separate transitions; no whole-project revision conflict or second canonical
+project store. New writers extend authentic independent continuity before use.
+Current/exact context and project reads are bounded SQL, independent of Qdrant.
+All enabled persistence is included in packaged D0-project restoration; later
+search/propagation/physical-purge/repair requires actual expanded restore first.
+
 Use `organization_id` in canonical tenant keys and consequential relationships.
 An artifact-version reference, capture attachment, evidence dependency, report
 selection or build edge must have a same-tenant foreign key or equally explicit
@@ -36,11 +48,11 @@ validated constraint. IDs and content hashes are not access grants.
 
 | Record family | Required persistence boundaries |
 | --- | --- |
-| Principals, memberships, domains | Unique canonical issuer/subject mapping independent of email; organization/principal membership uniqueness, active state, policy epoch and membership revision; serialized initial-owner creation. |
+| Principals, memberships, domains | Unique canonical identity-profile/key mapping under [identity](identity-contract.md), independent of email/Party aliases; organization/principal membership uniqueness, active state, policy epoch and membership revision; serialized initial-owner creation. Optional later issuer profiles retain distinct mappings. |
 | Uploads and captures | Separate session/generation, sealed object binding, immutable submitted capture revision and ordered required/optional attachment association. |
 | Artifacts and objects | Distinguish user-facing artifact identity, immutable versions and server-owned object identity; account for every authorized reference and hold. |
 | Processing | Separate operation, attempt and accepted result, with source revision, exact input/profile identity and current fencing token. |
-| Candidates, reviews, assets | Immutable content revisions, mutable current heads/availability, exact review links, one accepted mapping per candidate revision and reverse evidence dependencies. |
+| Candidates, reviews, assets | Immutable content revisions, discovery creation metadata, exact review links, one accepted mapping per candidate revision, unique asset-local ordinals, separate aggregate head/deprecation and exact-version lifecycle controls, reviewed supersession records/links and reverse evidence dependencies. |
 | Expenses and reports | Exact reviewed component types, immutable expense revisions and report selections, original refund/credit links and current eligibility; no requirement to publish knowledge. |
 | Builds, receipts, channels | Separate payload bytes/input edges, evaluations/approvals/signatures, domain association and mutable monotonic channel generation. |
 | Audit and deliveries | Stable canonical event identity and separate per-consumer delivery state, bounded metadata, leases and fencing. |
@@ -52,6 +64,17 @@ referential and deletion behavior. JSONB is appropriate for bounded extensible
 metadata and schema-shaped documents. Ownership, lifecycle state, dates, money,
 ordering/filter keys and important references need typed relational enforcement;
 they cannot exist only in unvalidated JSON.
+
+Persist the [asset model](data-model.md#asset-ordering-head-control-and-reviewed-supersession)
+with unique organization/asset/version_order and exact version-ID association,
+immutable complete supersession cores/digests, same-asset endpoint foreign keys
+and unique immediate incoming/outgoing edges. Allocate ordinals and increment
+head/deprecation control under the aggregate lock. The replacement's new accepted
+mapping, separate acceptance/relationship approvals, old deprecation, links, head,
+audit and outbox bind atomically; lifecycle counters remain independently owned.
+Bound exact read joins to the selected version, head and immediate records. Do
+not walk the relationship history or copy missing old content to read metadata.
+Producer preflight and fixed future read headroom precede immutable content writes.
 
 Use non-owner application roles without `BYPASSRLS`, forced RLS on tenant
 relations, and transaction-local tenant context. Missing context fails closed.
@@ -168,12 +191,15 @@ query shapes include:
 | Access pattern | Key or index shape |
 | --- | --- |
 | Canonical principal/membership | Unique `(issuer, subject)` and `(organization_id, principal_id)`. |
-| Recent domain captures | Tenant/domain followed by immutable recorded time and ID in the declared descending order. |
+| Capture/candidate/asset/expense heads | Tenant/domain followed by immutable aggregate created_at and ID in the declared descending order, with typed state/filter/disclosure predicates. |
 | Pending review queue | Tenant/domain, creation time and ID, with an appropriate pending-state partial predicate or state key selected from the workload. |
 | Immutable revisions | Unique `(organization_id, aggregate_id, revision)`. |
+| Asset version history | Unique `(organization_id, asset_id, version_order)` with exact version-ID binding and checked numeric descending order. |
+| Immediate asset relationships | Same-asset exact endpoint indexes and unique incoming/outgoing associations; complete record/hash joins and current aggregate control. |
 | Evidence impact/revocation | Tenant, artifact version and dependent kind/identity, with reverse traversal support. |
 | Current eligible expenses | Tenant, expense date and expense identity on a bounded current-head relation; additional eligibility/currency fields require plan evidence. |
 | Channel CAS | Unique `(organization_id, domain_id, channel_name)`. |
+| Channel discovery/history | Tenant/domain/name ASCII keyset and unique exact key/generation relation with checked numeric descending history. |
 | Build dependencies | Tenant/build/asset-version association and its asset-to-build reverse index. |
 | Idempotency | Unique organization/principal/command-kind/key-digest claim. |
 | Due outbox work | Partial index on due time/event identity for pending deliveries, with a separate bounded expired-lease query. |
@@ -184,7 +210,18 @@ Index foreign-key referencing columns when required joins/deletes need them;
 declaring a foreign key does not supply those indexes. Representative high-volume
 queries require actual `EXPLAIN (ANALYZE, BUFFERS)` evidence with realistic
 selectivities and maintenance costs. [API](api.md#listing-and-filters) owns
-keyset cursor semantics.
+route registration. The [selection contract](selection-contract.md) owns exact
+family key/filter/cursor and complete read/receipt wire semantics.
+
+Listing queries combine current authorized selection, required retained predicate
+and summary joins, and one permitted-row lookahead in bounded batches before
+LIMIT. Fix duplicate-producing joins; never repair them with client deduplication.
+Watermark/after keys come only from actually disclosed rows. Never use OFFSET,
+hidden scan keys or one policy call per row. Missing authorized required retained
+details fail as resource_details_unavailable/409; unavailable SQL/policy is 503,
+not apparent page exhaustion. Recheck the prepared page's current authority,
+selected revision/control/visibility and complete wire capacity at the final
+short fence. A changed observation conflicts without a server refill loop.
 
 Do not add blanket JSON GIN indexes, standalone low-selectivity Boolean indexes,
 redundant composite-prefix indexes, trigram indexes on all text, unneeded
@@ -220,6 +257,15 @@ delivery. Delayed additions cannot resurrect authority after revocation.
 Prioritize invalidation/deletion delivery, but canonical admission already
 enforces the restriction when the projector is paused.
 
+The qualified generation membership includes eligible exact historical versions
+needed by source builds within its declared source-domain/profile scope, with
+all profile-defined statement chunks. Head movement alone cannot remove them.
+Null-source search separately applies a current-head predicate; exact-build
+search uses the build's exact version set. A current-head-only membership profile
+cannot qualify that selector or hide unsupported membership as empty success.
+Delivery and rebuild preserve the same interpretation, subject to current source
+restrictions and physical purge; this grants no extra retention or exposure.
+
 ## Bounded search
 
 MVP search requests `k` from **1 through 20**. One operation has at most
@@ -227,23 +273,40 @@ MVP search requests `k` from **1 through 20**. One operation has at most
 deduplication across all retrieval sources**. The initial retrieval consumes
 one round; at most one refill remains. Hybrid fan-out, duplicates and refills
 share these counters, rather than receiving independent per-source budgets.
-Allocate and enforce the remaining budget before dispatching each branch.
+Allocate and enforce the remaining budget before dispatching each branch. One
+server-issued selection_id binds this finite synchronous read run, its original
+ten-second deadline and shared reservations; it is not a durable operation.
+Each round reserves at most 100 slots: 100 dense, or 50 dense plus 50 sparse.
+Commit all branch reservations and the round charge before dispatch. Once a
+branch may have dispatched, its whole reservation remains charged despite short,
+duplicate or uncertain outcomes. This profile never retries a dispatched source
+branch; a third round, recycled capacity or hidden continuation is forbidden.
 
 The search pipeline is:
 
 1. Authorize the request and validate typed filters, purpose, requested result
    count and the shared retrieval budget.
-2. Retrieve bounded candidates from the active permitted generation with
-   mandatory tenant/filter constraints.
-3. Fetch candidate canonical metadata and authorization dependencies in one
-   bounded SQL batch. Drop inaccessible, superseded or unavailable candidates
-   before their content reaches a reranker.
+2. Pin one active permitted projection/profile generation and retrieve within
+   mandatory tenant/filter constraints. For source_build=null, select eligible
+   current asset heads. For an exact source build, use its exact reference set,
+   including independently eligible retained non-head versions and multiple
+   versions of one asset. Require the whole build's current source eligibility;
+   one denied required source fails the request before exposure, rather than
+   silently selecting the rest.
+3. Fetch canonical metadata and authorization dependencies in bounded SQL
+   batches. Drop inaccessible or unavailable returned candidates before rerank.
+   Apply current-head exclusion only to null-source search; candidate superseded
+   state alone cannot discard an eligible exact accepted version in a source
+   build. Preserve its original accepted review and mapping.
 4. Rerank only permitted content, then deduplicate exact asset-version/chunk
    identities with stable ties. Query text sent externally also requires
    gateway authorization.
-5. If short, refill only within the remaining shared round/candidate allowance.
-   Return permitted results and explicit safe freshness/incompleteness or
-   budget-exhaustion indicators.
+5. If short, use the one remaining refill under the same generation, deadline and
+   reservations, unless complete qualified source-end evidence establishes no
+   further contribution. A short approximate response alone is not that evidence.
+   Required source/gateway/tokenizer/database failure is an error, not empty or
+   short success. Return only complete permitted results with truthful safe
+   freshness, incompleteness and budget-exhaustion observations.
 
 Never loop until a result page fills under restrictive permissions. Avoid N+1
 authorization, count candidates before deduplication, and do not expose denied
@@ -253,10 +316,33 @@ must precede external reranking, not merely final response formatting.
 A selection receipt binds actual selected version/chunk identities, output
 identity, source build when applicable, retrieval/profile version, generation,
 purpose/policy context, limits and truncation/incompleteness. Preserve relevant
-qualifications and make any omission explicit within authorized disclosure.
+qualifications and every other consequential candidate field; the requested
+direct-observation view contains the complete exact evidence-role union.
+Deduplicate exact asset-version/chunk keys with consistent canonical bytes,
+maximum integer score and the selection owner's deterministic occurrence/tie
+order. Choose the largest fitting ranked prefix by testing at most 21 complete
+canonical documents against actual bytes and the qualified exact tokenizer;
+token counts need not be monotonic. Whole-match reduction is explicit and cannot
+clip fields or trigger retrieval for smaller replacements.
 It is not an approval over an exact snapshot and cannot reuse a full-build
 attestation for different bytes. [API](api.md#exact-snapshot-resolution-and-search-selection)
 owns the separate snapshot/selection operation boundary.
+
+Persist the immutable unsigned selection receipt, output/request identities,
+actual executor/delegation/policy, whole gateway observation and authority-audit
+link before emission. Preflight complete bytes outside locks; finalize bounded
+time/hash/framing fields inside the final two-second transaction and recheck
+current source-build/returned-source authority, selected controls, supported
+profiles, active generation and original deadline. No provider, tokenizer or
+client stream runs under locks. Generation change conflicts without automatic
+restart. Admission is not delivery; incomplete transport cannot earn success or
+automatic HTTP replay. Search activates only with both execution and complete
+receipt qualification, and finite protected audit/query/receipt retention quotas.
+
+Freshness=current_at_observation needs complete canonical delivery/barrier
+evidence for the admitted scope. Safe observed lag is lagging; unavailable
+complete freshness evidence is unknown. Neither permits a required backend
+failure to become success, nor exposes hidden counts or a max-event-ID shortcut.
 
 These retrieval limits are accepted constraints requiring benchmark evidence,
 not measured performance promises. [Acceptance](acceptance.md) owns quality,
@@ -271,7 +357,8 @@ MVP rebuild uses an explicit scoped mutation barrier:
    reads from the old generation.
 2. Pause or explicitly queue all writes that can affect it, and drain/record
    prior accepted projection work under a documented completeness boundary.
-3. Read a consistent canonical snapshot and construct a new generation,
+3. Read a consistent canonical snapshot preserving eligible source-build exact
+   historical-version membership and construct a new generation,
    reusing unchanged content/profile embeddings without a transaction spanning
    a model call.
 4. Reconcile membership, counts and per-record digests. Reject mixed model,
@@ -287,9 +374,12 @@ designed/tested online algorithm must define a real capture boundary before use.
 Generation rollback never bypasses current lifecycle restrictions.
 
 Caches are bounded and justified by measured repeated work. Keys include
-organization, principal/delegation, purpose, policy epoch, exact selected
-content, processing/retrieval profile and projection generation. Query text
-alone is insufficient. Cache hits never replace current canonical admission;
+organization, principal/delegation, purpose, policy epoch/content, complete
+normalized request/filters/fields/limits, exact source build/selected content,
+all processing/retrieval/tokenizer profiles and active projection generation.
+Query text or output digest alone is insufficient. Cache hits receive fresh
+authority admission and an honest new receipt; they cannot replay another
+principal's receipt or authority event. Cache hits never replace current canonical admission;
 revocation remains effective despite stale caches, old generations or delayed
 invalidation. Verify bounded eviction and no cross-tenant hash oracle.
 

@@ -28,6 +28,14 @@ limits; increasing one global request size does not qualify multimodal ingestion
 | Internal gRPC control message | At most 1 MiB by default; bulk content uses authorized blob references. Each stage declares its own deadline. |
 | Context build | At most 100 asset versions and 256 KiB compiled text. |
 | Search | Apply the single retrieval budget defined by [storage and search](storage-and-search.md); fan-out and retries cannot create new budgets. |
+| Listing page | 1–100 entries, default 20; each complete summary item at most 4096 UTF-8 bytes. |
+| Listing/exact companion GET target | At most 8192 raw origin-relative bytes and 32 query pairs, checked before allocation; invalid_request/400 on overflow. |
+| Listing cursor | At most 4096 ASCII token bytes and 2048 decoded payload bytes; fixed nonrenewing lifetime 900000 ms, at most four accepted key selectors and one issuer. Defensive caps do not imply a canonical value can reach them. |
+| Search query/request | Query 1–4096 Unicode scalars and at most 16384 decoded UTF-8 bytes; complete POST request at most 65536 UTF-8 bytes before parsing. |
+| Search output | Complete canonical selection document at most 262144 bytes, also bounded by explicit caller byte/token limits and an exact qualified tokenizer; requested token limit 1–1048576. |
+| Listing/search response | Complete encoded response at most 524288 UTF-8 bytes, retaining common depth 16 and collection/additive-reader bounds. |
+| Complete content GET | Complete current/exact response at most 1048576 UTF-8 bytes; no omitted consequential content. |
+| Exact asset supersession GET | Complete record response at most 65536 UTF-8 bytes, with bounded endpoint references and no inline endpoint content/history chain. |
 | Active model work | Initially two active jobs per organization, also subject to explicit global worker slots and cost reservations. |
 | Admitted backlog | At most 100 pending jobs per organization. Reject additional work with retry guidance instead of accumulating an unbounded queue. |
 | Initial live-processing reservation | USD 1 per capture is the qualification cost ceiling. It is neither a price promise nor spending authority. |
@@ -46,6 +54,34 @@ changing a qualification commitment requires measured evidence and a reviewed
 profile amendment that preserves the earlier criterion and its result. Local
 inference has its own hardware/context envelope; hosted-inference memory does not
 qualify a local model. Unsupported format or scale is rejected and documented.
+
+## Listing and selection profile qualification
+
+The [selection contract](selection-contract.md) owns exact wire compositions and
+separate listing/search semantics for the bounds above. These ceilings select
+protocol capacity, not operational defaults or measured throughput. Actual
+profiles must supply narrower finite byte/token/model input/output, timeout,
+retry, concurrency, scratch, cost, storage and retention limits before admission.
+No provider/key/tokenizer selection is implied. Search reserves the original
+two-round/200-slot budget across sources and shares organization/global admission.
+An uncertain dispatch cannot return charged capacity or reset its deadline.
+
+Preflight the actual combined serializer, including escaped Unicode, required
+content/review/attribution, full receipt and emitted extensions. Candidate/asset
+producers reserve maximum fixed future review/successor/head/control and immediate
+relationship-reference overhead before content writes. The supersession producer
+also preflights the complete record and each affected required asset-read
+composition without reconstructing unavailable old content or walking history.
+No individual field or preimage limit proves that these compositions fit.
+
+All preparation, bounded SQL, output-prefix tokenization and delivery share the
+original ten-second request deadline; each ordinary transaction remains at most
+two seconds. Do variable-size preparation outside locks, finalize only qualified
+bounded framing/time/hash fields and fence admission inside the short transaction,
+and stream after commit. Search evaluates at most 21 complete ranked prefixes
+without assuming monotonic token counts; no field truncation or hidden refill.
+Read-run audit/query/receipt and gateway records need explicit finite quotas and
+retention policy, without borrowing durable-command replay/recognition lifetime.
 
 ## Lifecycle and operation profile qualification
 
@@ -116,6 +152,7 @@ for controlled resources; cleanup cannot delete another job's data.
 
 | Profile | Exact qualification content |
 | --- | --- |
+| D0-project focused | Versioned synthetic receipt/approximately 30-second audio/context and review scenarios under [project fixtures](project-fixtures.md); two workspaces including an actor admitted to both, parties/projects, ambiguity/unknowns, per-item dependencies/manual/follow-up revisions, financial review separation, races/failure and old-backup restriction restore. Exact inventory/count/seed/sizes/hashes are frozen before consumers; no personal data. |
 | D0 functional | Two synthetic organizations and 100 captures/scenarios, including text, receipt-image/voice-note pairs, conflicting values, Unicode, timezones, duplicate submissions, refunds and malicious files. No real personal data. |
 | D1 pilot | Ten organizations; 100,000 captures; 200,000 artifact versions; 1,000,000 observations; 100,000 asset versions; 500,000 vectors with 1,024 float32 components each; 30 GiB original and derived bytes. |
 | D1 authorization selectivity | Test 0%, 0.1%, 1%, 10% and 100% eligible evidence under declared policies. Ground truth includes the authorized set and source identities. |
@@ -125,6 +162,17 @@ Version generators, scenario identities, seed, sizes, digests and ground-truth
 selection. The D0 scenario inventory and real holdout are different assets with
 different evidence purposes; [testing and coverage](testing-and-coverage.md)
 governs deterministic fixtures, and [acceptance](acceptance.md) governs live scoring.
+
+D0-project is the first focused capability profile, not a reduction of retained
+full D0/D1 or a population-quality dataset. Declare its actual service allocations,
+database connections, codecs, finite context/item/dependency/lineage sizes and
+combined serialization/model/worker/cost budgets before admission. Existing initial
+resource ceilings remain applicable; missing limits cannot mean unlimited. Full
+Qdrant/search/build/physical-purge/repair envelopes are not required for disabled
+capabilities; actual expanded propagation and restore precede later enablement.
+Existing shared admission, global slots and the per-capture qualification ceiling
+remain enforced from the first expensive adapter. H0 resources are measured for
+the exact enabled local service set, including separate Temporal persistence.
 
 ## Hardware definitions
 

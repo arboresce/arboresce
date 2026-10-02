@@ -73,7 +73,8 @@ prepares candidate namespace, actual operator/enrollment binding, immutable poli
 integrity profile and stream before tenant rows; unknown inputs cannot enable
 first-owner admission or invent an ordinary membership-authorized bootstrap API.
 
-The [propagation and repair graph](lifecycle-contract.md#8-revocation-obligation-bounded-cleanup-and-exact-material-actions)
+When propagation/repair capabilities are enabled, their
+[graph](lifecycle-contract.md#8-revocation-obligation-bounded-cleanup-and-exact-material-actions)
 is part of the required recovery set: original source event/admission, complete
 inventory and interpretation, obligation, initial operation/plan/manifest/proof,
 all actions/confirmations and every repair predecessor/operation/batch/range and
@@ -132,10 +133,44 @@ reconstructed required snapshot. Repeat/repair must remain idempotent and preser
 the failed attempt's evidence. A recovery mechanism cannot quietly skip a required
 check to meet a time target.
 
-## Early D0 and later D1 qualification
+## Early D0-project and later full recovery
 
-Implement and exercise actual D0 restoration before independent users rely on
-their own evidence. Back up the [D0 corpus](resource-profiles.md), then perform
+The first focused profile restores the [D0-project corpus](resource-profiles.md)
+through the actual packaged local engine and independently built CLI before any
+personal evidence or independent user. Independently retained authentic recognition,
+lifecycle intents/resolutions/cutoff and their current-policy interpreter precede
+the first consuming writer/bootstrap. These prerequisites are not deferred by
+limiting the enabled capability set.
+
+Back up every enabled canonical project/party/context/candidate/review/asset/expense
+and association record, operations/stages/uncertain effects, audit/outbox, sealed
+originals/representations and required key/trust/profile resources. Make later
+restriction/revocation/hold and authorized update changes, then restore the older
+snapshot with the current independent journal. Prove exact relationships, current
+restrictions and no duplicate effects before serving. Missing/corrupt bytes or keys,
+wrong backup identities, incomplete journal tail/cutoff, unsupported current policy,
+unknown outcome and inconsistent accepted mappings keep affected serving closed.
+Repeat with real packaged services, worker loss/replay and controlled interruptions;
+a unit double or pre-packaging drill cannot establish this result.
+
+D0-project explicitly disables full search, builds, physical purge and propagation
+repair until qualified. Canonical project context is read directly with current
+authority. Its restore does not require nonexistent Qdrant generations, E124 repair
+batches or their administration commands. This expressly replaces the earlier
+universal E124-before-early-D0 prerequisite with enabled-capability qualification.
+Never report disabled component cleanup/repair as performed or globally complete.
+Current restrictive fences and retention accounting still apply to enabled state.
+
+Before later enabling search/build/physical-purge/repair, qualify actual propagation,
+all concrete producers/reads and expanded packaged restoration of the full enabled
+closure. Restore earlier failure and every repair/operation/action/coverage history
+when those capabilities exist; unknown continuity keeps serving closed. Full D0,
+D1 E09, measured RPO/RTO/residency and G6 remain retained obligations.
+
+## Later complete D0 and D1 qualification
+
+Implement and exercise complete D0 restoration before users rely on the later
+complete capabilities. Back up the [D0 corpus](resource-profiles.md), then perform
 later revocation, deletion and hold changes. Restore the older canonical snapshot
 with the current independent journal and prove no access is resurrected. Include
 missing/corrupt blobs, missing keys, journal gaps and unknown tail/cutoff negatives;
@@ -147,12 +182,12 @@ authorized repair batches, interrupted/failed/cancelled partial actions, passive
 confirmations, receipt garbage collection and unique global completion after
 the older backup. Recover the entire authentic operation/action/coverage history,
 preserving original terminal outcomes and blocking duplicate uncertain deletions.
-E124's real multi-batch SERVICE and RUST/Qdrant qualification precedes this gate;
+E124's real multi-batch SERVICE and RUST/Qdrant qualification precedes this later complete gate;
 schema references or a component fake cannot establish the restore result.
 
 Repeat that drill through the packaged local profile after packaging exists.
-Packaged G2 security and this actual D0 recovery proof precede independent-user
-qualification. A successful unit fake or a pre-packaging component drill alone is
+Packaged full G2 security and this complete D0 recovery proof precede independent-user
+qualification of those expanded capabilities. A successful unit fake or a pre-packaging component drill alone is
 insufficient. Full D1 restoration, the later restriction workload, measured RPO/RTO
 and actual residency qualification remain required by [E09 and G6](acceptance.md).
 Early D0 does not waive them.

@@ -222,12 +222,17 @@ network schema or a deployed documentation endpoint.
 | `forbidden` | 403 | Denied action where policy permits disclosure. |
 | `not_found` | 404 | Unknown route or inaccessible resource identity. |
 | `conflict` | 409 | Revision, generation, transition or idempotency conflict. |
-| `request_too_large` | 413 | Enforced request size exceeded. |
+| `request_too_large` | 413 | Enforced request-body wire-byte limit exceeded. |
 | `unsupported_media_type` | 415 | Unsupported content or media type. |
 | `invalid_command` | 422 | Valid request syntax with invalid domain meaning. |
 | `rate_limited` | 429 | Shared admission prevents acceptance. |
 | `internal_error` | 500 | Unexpected server failure, with a safe bounded diagnostic. |
 | `unavailable` | 503 | A dependency required for the work is unavailable. |
+
+The [selection contract](selection-contract.md) separately classifies its
+bodyless GET request-target limit (8192 bytes) and query-pair limit (32) as
+invalid_request/400, before decoding/allocation. Those target limits are not
+request-body size failures and do not change any common problem definition.
 
 `internal_error` is the common v1 fallback for an unexpected failure; it does
 not expose internal exception classes or suggest retrying an uncertain effect

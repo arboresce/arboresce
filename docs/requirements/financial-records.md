@@ -324,6 +324,12 @@ record with kind and positive magnitude. It cannot delete or rewrite the purchas
 
 ### Trusted financial review
 
+The [identity contract](identity-contract.md#trusted-financial-review-event-issuance)
+owns the concrete challenge, exact readable review, actual-human proof and event
+issuance flow required before this consumer. Nostr key control or a project grant
+does not qualify human financial assurance. The actual review/signer policy remains
+an explicit qualification input; absent qualification disables confirmation.
+
 `expense.confirm` requires `financial_review_event_id`, a server-issued
 reference to a distinct authenticated financial decision. It is not a candidate
 acceptance event, model label or boolean flag. No candidate or asset mapping
@@ -366,6 +372,29 @@ A stale precondition, invalid fresh transition or consumed/mismatched event
 conflicts without a partial effect or disclosure of foreign resources.
 
 ## Dates, corrections and history
+
+### Project-linked expense composition
+
+The focused [project workflow](project-workflow.md) requires a typed same-workspace
+project association to an exact expense revision. Define its stable ID, immutable
+association revisions/digest, expected head/control, exact expense ID/version/content
+digest, selected project ID and attributable association provenance before consumers.
+Do not add a project field to closed expense v1 money content, use arbitrary metadata,
+or treat business-purpose text as a validated project relationship. A separate
+versioned financial composition and complete commands/reads/report/export references
+must preserve unchanged v1 money, arithmetic and content preimages.
+
+Financial review presents both exact expense and association and binds their
+identities under the qualified review policy. Association changes invalidate a
+fresh pending exact review; after confirmation a correction creates a new proposed
+composition and needs new review without rewriting old confirmations/reports.
+Final confirmation, one-use review consumption and association binding are atomic
+under current project/expense/source authority and exact preconditions. Project
+item acceptance never confirms the expense. Required missing financial values
+remain proposed and excluded from confirmed reports; neither retained project
+context nor inference can manufacture source monetary facts. Independent reports
+and lossless JSON/reversible CSV retain exact selected financial and association
+versions, per-currency totals, provenance and current disclosure controls.
 
 `expense_date` uses the common calendar date and preserves date-only precision.
 `source_observed_at` is a separately attributed nullable source instant;
@@ -567,6 +596,17 @@ null/truncated immutable snapshot or a substituted current revision. Known
 authorized missing retained details conflict; required unavailable policy,
 infrastructure or continuity fails with 503, and undisclosable resources remain
 404. The lifecycle owner defines exact selectors and complete-or-error transport.
+
+The [selection contract](selection-contract.md) owns expense-head and revision
+discovery lists. Immutable aggregate created_at remains outside financial content
+identity; historical summaries use their exact revision's recorded_at and state.
+Date browsing reuses the financial half-open terminal-date representation without
+turning source_observed_at into expense_date. Currency omission includes unknown
+currency; selecting every known currency still excludes null. Discovery pages
+remain moving authorized sets and cannot compile or certify an immutable report.
+The existing expense snapshots, aggregate controls, separate exact-revision
+lifecycle controls, financial commands and complete report/export semantics
+remain unchanged.
 
 Canonical content, references, snapshots and export domain values are closed.
 Outward resources and success results use the existing bounded additive

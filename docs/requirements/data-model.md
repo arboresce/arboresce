@@ -11,10 +11,12 @@ expense confirmation, money, reports and financial export.
 
 ## Identity and ownership
 
-Use `organization_id` consistently as the tenant identity. A personal
-deployment is an organization with one user. A client workspace is a named
-connection/profile selecting an organization and domain, not another tenant
-model. An opaque resource ID is never a bearer capability.
+Use `organization_id` consistently as the tenant identity. A server Workspace is
+this Organization aggregate with an initially configured default Domain. A personal
+deployment is an organization with one user. A local connection profile selects
+origin, identity, workspace and domain; it is not another tenant or authorization
+grant. [Project workflow](project-workflow.md) owns this public terminology and
+same-workspace project boundaries. An opaque resource ID is never a bearer capability.
 
 Use server-issued opaque UUIDs or another explicitly qualified
 collision-resistant identity. UUID ordering or embedded time is not commit
@@ -25,7 +27,10 @@ organization's evidence merely by naming its ID or digest.
 | Record | Identity and invariant |
 | --- | --- |
 | Organization | Security and policy boundary with explicit lifecycle state. |
-| Principal | Canonical OIDC `(issuer, subject)` or independently issued service identity; mutable email is not identity authority. Human/service kind is separate from roles. |
+| Principal | First profile: exact Nostr public key plus qualified profile/version mapping under [identity](identity-contract.md); key control is separate from human assurance. Optional future issuer/subject mappings need their own qualified profile. |
+| Party | Stable same-workspace person/business reference with attributed aliases/details; external or unverified parties need no account and are distinct from principals, memberships and tenant Organizations. |
+| Project and project records | Stable same-workspace IDs, immutable content revisions and separate controls for participants, decisions, work, responsibility, dates/status and contextual facts; exact accepted candidate/asset mappings preserve changes. |
+| Project change item | Typed create/revise/associate candidate revision with target/base versions, explicit dependencies, source/context/default/inference lineage and one attributable review history. |
 | Membership and domain | Active same-organization ownership, explicit purposes and review policy; disabled membership overrides cached roles. |
 | Capture revision | Organization/capture identity and content revision; ordered attachment roles and attributed user context. |
 | Upload | Organization, principal, upload identity and generation, expected length/digest, expiry and finalization state. |
@@ -37,7 +42,8 @@ organization's evidence merely by naming its ID or digest.
 | Candidate revision | Complete statement, scope, assumptions, supporting/refuting/qualifying evidence and invalidation conditions; every edit changes revision. |
 | Review | Attributable verdict bound to exact candidate revision and fingerprint; acceptance has one linked asset mapping. |
 | Expense revision and report | Separate recordkeeping lineage with evidence, reviewed revisions and immutable report selections, governed by the financial owner. |
-| Asset version | Immutable reviewed content, exact review link and applicability; mutable availability is separate. |
+| Asset version | Immutable reviewed content, exact review link and applicability; unique asset-local version order is separate from candidate revision and content identity. |
+| Asset head and supersession | Separate aggregate head/deprecation control, immutable same-asset reviewed transitions and at most one immediate incoming/outgoing relationship per version. |
 | Context Build | Organization-scoped SHA-256 content identity for exact selected asset versions and compiler output. |
 | Evaluation, approval, signature | Separate append-only receipts bound to exact build, suite/profile, policy, actor or signing envelope. |
 | Channel | Organization/domain/name with monotonically increasing generation and explicit state. |
@@ -51,6 +57,20 @@ organization's evidence merely by naming its ID or digest.
 Keep knowledge and recordkeeping as separate branches. A receipt does not need
 to become an intelligence asset to support a confirmed expense and report.
 Likewise, an observation or model output is not a review or approval.
+Project context snapshots pin authorized input revisions, not a second Context
+Build or canonical database. Accepted project records retain exact mapping lineage;
+financial project association remains a separate qualified financial composition.
+New closed project variants must qualify before consumers; unchanged legacy v1
+schemas do not silently acquire fields, routes or approval authority.
+
+Capture, candidate, asset and expense discovery aggregates retain immutable
+created_at from their initial canonical creation transaction's injected clock.
+Candidate/expense creation equals the initial revision's recorded_at; asset
+creation equals the first accepted mapping's recorded_at. Capture creation
+metadata stays outside its existing immutable content shape. Revision, review,
+readiness and head/control movement never reset aggregate creation time. The
+[selection contract](selection-contract.md) owns exact list/read wire shapes and
+ordering; these metadata fields do not claim commit chronology or completeness.
 
 ## Revisions, time and state
 
@@ -131,8 +151,60 @@ and explicit review-due or invalidation conditions where the content requires th
 [API review semantics](api.md#acquisition-and-review-operations) own the command
 variants. Acceptance pins one exact revision/digest; replacement creates a new
 pending revision and cannot auto-approve. Supersession requires an explicit
-reviewed relationship, rejects cycles and foreign links, preserves old content,
-and never silently promotes a channel.
+reviewed relationship as defined below, preserves old content and never silently
+promotes a channel. Candidate-head succession and asset-head supersession remain
+different relationships.
+
+### Asset ordering, head control and reviewed supersession
+
+Each asset version has one positive version_order using common content-revision
+encoding. Allocate the next never-used ordinal under the asset aggregate lock,
+starting at 1; enforce unique (organization_id, asset_id, version_order) and its
+immutable version_id association. Reject overflow before effects. Candidate
+counters, UUIDs and timestamps cannot replace this order or move an asset head.
+All versions retain the asset's same organization/domain and each candidate's
+original intended-use context. The ordinal and discovery metadata remain outside
+the unchanged accepted_asset_reference and candidate content fingerprint.
+
+Initial candidate acceptance issues a new asset with order 1 and aggregate head
+control 1 atomically with the exact review/mapping. The existing accept command
+has no target-asset/head selector. A separate aggregate asset control advances
+once per admitted head/deprecation transaction; exact-version lifecycle control
+advances only for its own lifecycle events. Reads increment neither. Required
+content/review producers preflight complete eventual reads and reserve fixed
+future control/head/relationship overhead before persisting immutable content.
+
+The selected supersession replaces one exact current head with one newly reviewed
+version of the same asset. Its writer requires an exact current pending candidate
+with no accepted mapping, separate trusted acceptance and human relationship
+approval, current source-use authority and expected head/aggregate/candidate
+controls. It creates the new unique mapping/ordinal, immutable transition,
+explicit old-version deprecation, immediate links and new head atomically with
+audit/outbox. An already accepted mapping cannot be reattached. The complete
+writer command and approval binding must qualify before use; the read contract
+does not add a mutation route.
+
+Retain the complete transition core and its SHA-256 over exact JCS, both accepted
+endpoint references/ordinals, previous/resulting aggregate controls/deprecation,
+reason, distinct human relationship approval, policy and actual execution/audit
+attribution. Its historical controls never become current aggregate observations.
+Strictly increasing same-asset ordinals and unique endpoint constraints prevent
+self-links, cycles, branches, cross-asset links, reused mappings and backward head
+movement. Each version has at most one introduced_by and one superseded_by exact
+record reference. Null means canonical absence, never hidden or missing metadata.
+Current links and aggregate control are one fenced observation; the current head
+has no outgoing link. No transitive graph or implicit successor following exists.
+
+Supersession/deprecation preserves both endpoints' immutable content, acceptance
+and lifecycle restrictions. It transfers no permission or approval and changes
+no channel or build references. Direct asset classification is purged first,
+otherwise revoked, otherwise explicitly deprecated, otherwise active. This
+classification does not establish full dependency eligibility. A fresh complete
+asset read requires own unrestricted/available lifecycle state and active or
+deprecated classification; retained discovery metadata may independently disclose
+revoked/purged state. Historical versions remain usable only under explicit
+current policy. Relationship identity, complete record and endpoint content each
+require current disclosure under the security owner and actual retention policy.
 
 Derived content retains the source restrictions required by
 [security and privacy](security-and-privacy.md). Evidence dependency records

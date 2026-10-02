@@ -3,15 +3,22 @@
 **Authority:** normative requirements. **Status:** accepted targets; no experiment,
 runtime workflow or production release is certified by this specification.
 
-This document owns G0–G6, experiment workloads E01–E12, pass/fail thresholds and
-completion evidence. [Resource profiles](resource-profiles.md) owns D0/D1/D2,
+This document owns G0–G6, focused project gates, experiment workloads E01–E12,
+pass/fail thresholds and completion evidence. [Resource profiles](resource-profiles.md) owns D0-project/D0/D1/D2,
 H0/H1 and admission budgets. [Testing and coverage](testing-and-coverage.md) owns
 fixture and measurement integrity. Requirements, implementation, runtime verification
 and user acceptance have separate recorded states.
 
 ## Product outcome and ordering
 
-An independent user must complete the public workflow with their own permitted
+The focused first CLI milestone follows [project workflow](project-workflow.md):
+Nostr identity, one workspace/project, authorized prior context, receipt photo and
+approximately 30-second note, multiple independently reviewable changes, manual
+correction/partial acceptance, separate actual-human expense review/confirmation,
+source-linked current state/export and follow-up revision. This is G3-project.
+It does not certify old full G3, complete knowledge breadth or production.
+
+For the retained complete milestone an independent user must complete the public workflow with their own permitted
 evidence: capture, inspect/correct, produce reviewed expense records and an exact
 source-linked report/export; and evidence, review, asset, exact context build,
 evaluation, promotion, consumer resolution, feedback and revision. The review
@@ -25,8 +32,10 @@ it does not promise that paid third-party inference becomes free or that a
 credential-free local model is qualified. Record required prerequisites and costs.
 
 Essential shared admission and isolation must ship with their first adapters.
-Packaged G2 precedes restricted or personal evidence. Actual D0 restoration,
-repeated through the packaged local profile, precedes independent-user evaluation.
+Packaged G2-project and actual D0-project restoration, repeated through the actual
+packaged local profile, precede restricted/personal evidence and independent users
+of the focused workflow. They verify every enabled component and current restriction;
+no full search/build/repair capability is enabled by those focused results.
 Approved synthetic and non-sensitive provider tests can advance earlier work but
 cannot stand in for those gates. Full D1 E09 remains required for production.
 
@@ -36,6 +45,9 @@ cannot stand in for those gates. Full D1 E09 remains required for production.
 | --- | --- |
 | G0 — Adopted intent | Current independent engine and CLI source identities, approved self-contained public requirements, preserved rights and notices, no contradictory active ownership, and an auditable requirement-to-owner/verification mapping. |
 | G1 — Build and contracts | Exact qualified toolchains/dependencies, independent public builds, complete discriminated operation contracts, supported compatibility pairs, negative semantic fixtures, deterministic generation and every applicable source-coverage gate. |
+| G2-project — Focused secure admission | Actual packaged Nostr/bootstrap/key lifecycle and own-key grants, exact workspace isolation/current authority, authentic independent continuity before first writer, sealing, bounded media/egress/shared reservations and audit for every enabled project capability; actual human assurance qualifies separately before financial confirmation. |
+| G3-project — Focused functional CLI MVP | Actual compatible independently built CLI and engine complete the project/photo/short-audio/context workflow, per-item edit/accept/reject/pending, follow-up supersession, separately reviewed expense association/confirmation and independently interpreted readback/export. At least one actual route for each of OCR, ASR and contextual synthesis qualifies; recordings alone are insufficient. |
+| G4-project — Focused recovery and integrity | Actual service races, retries/replay/cancellation/worker failure and packaged D0-project old-backup restoration of all enabled state, originals, keys/trust, operations/effects/outbox and current independent post-backup restrictions; no duplicate actions or resurrected access; unknown proof closes serving. |
 | G2 — Secure evidence admission | Actual packaged first-owner provisioning, scoped credentials, current authorization/tenant policy, upload sealing, source/destination restrictions, bounded media, shared quotas/cost reservations and audit. These checks pass before restricted evidence is admitted; synthetic processing alone cannot close G2. |
 | G3 — Functional MVP | Both full user journeys run through the actual compatible CLI and engine, including report/export and context evaluation/promotion/resolve/feedback. Accepted submission is not processing completion; failed, denied, unavailable and interrupted outcomes remain truthful. |
 | G4 — Recovery and integrity | Real-service idempotency/conflict races, worker failure/replay, revocation, export, projection rebuild and packaged D0 restoration pass without duplicate canonical transitions or unauthorized access. Current independently retained post-backup restrictions are reapplied before serving; incomplete proof keeps serving closed. |
@@ -50,7 +62,14 @@ separated from privileged signing. [Release policy](../release-policy.md) and
 
 ## Experiment protocol
 
-All twelve experiments are required; D2 is separately deferred growth qualification.
+All twelve experiments remain required for G6; D2 is separately deferred growth
+qualification. Focused G3-project uses the D0-project scenarios and relevant real
+service/security/recovery evidence without claiming missing E01–E12 results.
+Required component behavior qualifies before its first consumer. Enable complete
+knowledge/search/physical-purge/repair only after their concrete contracts,
+propagation and expanded packaged restoration pass; full G3/G4 and D1 E09 retain
+their original broader evidence. Approved older evidence retains its historical
+scope and unfinished work is not made complete by this milestone amendment.
 Use the exact corpus/hardware definitions in [resource profiles](resource-profiles.md),
 pin dependencies and record the actual region, RTT, configuration, image, cache
 state, clocks, workload generator, dataset/scorer and authorized spend. An emulated

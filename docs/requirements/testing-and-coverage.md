@@ -10,6 +10,16 @@ Documentation adoption is not a build, runtime, live-quality or release result.
 
 ## Every source checkpoint
 
+[Project fixtures](project-fixtures.md) owns the focused deterministic JSON/photo/
+short-audio/prior-context corpus and independent review trace. D0-project integration
+uses actual CLI/API/DB/object-store/workflow/gRPC with recorded inference; live
+OCR/ASR/synthesis and actual-user utility are separate qualification lanes. The
+strict arithmetic, complete process collection, measured fixture support and
+no-skipped-check obligations below apply unchanged to every introduced source.
+An enabled-capability profile narrows what is built, not the coverage denominator
+or required behavior of source that exists. Packaged security and actual focused
+restoration precede personal evidence; later full experiments remain retained.
+
 Each Rust or Python source checkpoint includes a useful complete change, its owning
 contract update, independent expected-value review, applicable formatting/static/
 type/build/tests, raw coverage and independent behavioral review. Repair a required

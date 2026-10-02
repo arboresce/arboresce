@@ -22,7 +22,26 @@ record is neither an authenticated command nor permission to persist, expose,
 approve or promote its contents. The later operation owner supplies the complete
 closed command and its preconditions before implementing such an operation.
 
+The [selection contract](selection-contract.md) owns the bodyless exact
+GET /v1/observations/{observation_id} response carrying this complete three-kind
+observation union. Candidate evidence and analysis results supply exact
+references; there is no global observation listing or writable observation API.
+The read's domain/purpose selects current source disclosure policy without
+inventing an immutable observation domain. All original, capture, basis,
+transcript and attribution dependencies retain their own current checks.
+Retrieval statement chunks are separate features of exact accepted content;
+they cannot create observation grounding or original-media locators.
+
 ## Definition boundaries
+
+[Project workflow](project-workflow.md) adds typed field lineage over these exact
+source kinds: located source/assertion, retained exact context, versioned deterministic
+rule/default and explicit inference. Contextual completion cannot fabricate an audio
+span or document locator. Preserve ambiguity/unknowns, raw model score meaning,
+source disagreements and date precision. A processor's confidence is not calibrated
+financial correctness or human assent. New context/lineage representations require
+their own qualified versioned contract, with exact context IDs/revisions and basis;
+the closed legacy observation union and its hashes stay unchanged.
 
 | Definition | Meaning |
 | --- | --- |

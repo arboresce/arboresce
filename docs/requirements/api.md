@@ -6,12 +6,41 @@ must freeze exact OpenAPI, JSON Schema and transport objects before dependent
 implementation. A named operation here is a required interface, not an available
 command or endpoint unless separately documented as implemented.
 
-This document owns command admission, HTTP behavior, idempotency, listing and
-the distinction between exact resolution and selection. [Data model](data-model.md)
+This document owns command admission, HTTP behavior, idempotency, route registration
+and the distinction between exact resolution and selection. The
+[selection contract](selection-contract.md) owns the finite listing, exact
+companion-read and search wire profiles. [Data model](data-model.md)
 owns domain values and states; [storage and search](storage-and-search.md) owns
 persistence, sealing and retrieval mechanics.
 
 ## Shared operation contract
+
+The focused first surface follows [project workflow](project-workflow.md) and
+[Nostr identity](identity-contract.md). Freeze complete versioned contracts for
+identity/bootstrap, workspace membership/grants, Party/project/context reads and
+mutations, capture/analysis/status/cancel, typed item edit/verdict/application,
+follow-up supersession, exact financial review challenge/issuance/confirmation,
+project readback and independently interpretable exports before their consumers.
+Each mutation names one workspace and exact domain/purpose, target/base versions
+and idempotency intent. Exceptions are explicitly controlled identity/workspace
+bootstrap. Same-actor access to multiple workspaces never authorizes cross-tenant
+links. Define disclosure-safe typed ambiguous/dependency/stale-target outcomes.
+
+Project schemas extend candidate/review/asset mappings through an explicit version;
+financial association/review extends a separate financial composition. Unchanged
+closed v1 schemas/commands are not broadened by prose. Preserve exact legacy hashes
+and fixtures. Register each new command, result, operation and evidence read with
+actual admission/continuity support. No generic executable mutation or financial
+approval inferred from project verdicts is allowed. Capability discovery advertises
+only implemented variants; disabled search/build/physical-purge/repair return an
+explicit unavailable/unsupported outcome without claiming completed work.
+
+Provide complete current/exact project, Party, item and association reads with
+bounded pagination and source/context/review lineage. Agent JSON contracts require
+stable typed outcomes, canonical IDs/revisions and truthful processing/partial
+results. Human review must expose consequential complete content readably. Parsing,
+stdout/stderr/process outcomes and terminal editing are independently owned by
+the CLI; canonical transition and financial rules remain engine-owned.
 
 Provide a bounded, versioned v1 HTTP surface with stable public operation
 identifiers and versioned request/response contracts. Long-running work exposes
@@ -70,12 +99,12 @@ conditional headers requires a later explicit precedence and status contract.
 | Status | Meaning |
 | --- | --- |
 | `202 Accepted` | Work was durably admitted; return an operation resource, not a success claim. `Location` identifies that operation. Supply `Retry-After` where polling/backoff guidance applies. |
-| `400` | Malformed input or unsupported command shape. |
+| `400` | Malformed input or unsupported request shape, including the selected GET request-target byte and query-pair limits. |
 | `401` | Authentication is absent or invalid; include the applicable challenge. |
 | `403` | The action is forbidden and policy permits revealing the resource. |
 | `404` | Unknown route or inaccessible resource identity; do not reveal another tenant's ownership. |
 | `409` | Conflicting revision, generation, competing transition or idempotency payload. |
-| `413` | Request exceeds its size limit. |
+| `413` | Request body exceeds its wire-byte limit; the selected bodyless GET target/pair limits use 400. |
 | `415` | Unsupported content or media type. |
 | `422` | Syntax is valid but the domain command is invalid. |
 | `429` | Shared admission or quota limit prevents acceptance; provide bounded retry guidance. |
@@ -181,16 +210,55 @@ revision, including under simultaneous review.
 
 ## Listing and filters
 
+The selection contract registers the following eighteen operations and exact
+response associations. Each GET returns common HTTP 200 success without a command
+receipt. These are required interfaces; support requires actual route, identity,
+key/time, persistence and compatible consumer qualification.
+
+| Operation | Method and route | Named response |
+| --- | --- | --- |
+| capture.list | GET /v1/captures | listing_response_capture_heads |
+| capture.revisions.list | GET /v1/captures/{capture_id}/revisions | listing_response_capture_revisions |
+| candidate.list | GET /v1/candidates | listing_response_candidate_heads |
+| candidate.revisions.list | GET /v1/candidates/{candidate_id}/revisions | listing_response_candidate_revisions |
+| asset.list | GET /v1/assets | listing_response_asset_heads |
+| asset.versions.list | GET /v1/assets/{asset_id}/versions | listing_response_asset_versions |
+| expense.list | GET /v1/expenses | listing_response_expense_heads |
+| expense.revisions.list | GET /v1/expenses/{expense_id}/revisions | listing_response_expense_revisions |
+| channel.list | GET /v1/domains/{domain_id}/channels | listing_response_channel_heads |
+| channel.generations.list | GET /v1/domains/{domain_id}/channels/{name}/generations | listing_response_channel_generations |
+| candidate.read | GET /v1/candidates/{candidate_id} | candidate_current_get_response |
+| candidate.revision.read | GET /v1/candidates/{candidate_id}/revisions/{version} | candidate_revision_get_response |
+| observation.read | GET /v1/observations/{observation_id} | observation_get_response |
+| asset.read | GET /v1/assets/{asset_id} | asset_current_get_response |
+| asset.version.read | GET /v1/assets/{asset_id}/versions/{version_id} | asset_version_get_response |
+| asset.supersession.read | GET /v1/assets/{asset_id}/supersessions/{supersession_id} | asset_supersession_get_response |
+| channel.generation.read | GET /v1/domains/{domain_id}/channels/{name}/generations/{generation} | channel_generation_get_response |
+| search.select.v1 | POST /v1/context/search | search_response |
+
+All seventeen GETs are bodyless and reject a nonempty body. Require exactly one
+organization_id, domain_id and purpose; route scope must match. Only listing
+families accept their declared page_size, cursor and family filters. Exact
+companions accept no listing selector. Typed request observations are decoded
+route/query values, never JSON GET bodies. Decode strict UTF-8/percent encoding
+once; reject unknown keys, empty values and duplicate singular keys. Repeatable
+keys accept only distinct values, rejecting decoded aliases of the same value.
+The raw origin-relative
+target is at most 8192 bytes and has at most 32 query pairs, checked before
+allocation; exceeding either uses invalid_request/400. Canonical paths and
+primitive encodings retain their owners.
+
 Use a bounded, typed filter grammar. Distinct filters combine with AND;
 explicitly repeatable values combine with OR. Reject unknown filters. Do not
 accept SQL, Cypher, JSONPath or model-produced expressions as filter syntax.
 
-Large histories use keyset pagination on immutable ordering fields, such as
-descending creation time with an opaque ID tie-breaker. The first page fixes
-an upper watermark. Authenticate cursors and bind them to organization,
-principal, domain, purpose, filter fingerprint, ordering, upper watermark and
-expiry. A changed filter or purpose invalidates the cursor. A cursor carries
-no secrets and never substitutes for current authorization.
+Large histories use the selection contract's exact family keysets: immutable
+aggregate creation time/ID, content revision, asset-local version order, channel
+name or generation. The first page fixes its upper watermark from a disclosed
+row. Authenticate cursors and bind the exact executor/delegation, context,
+normalized filters, route, view, page size, ordering and returned keys. The fixed
+900-second expiry never renews. A cursor carries no secrets and never substitutes
+for current authorization.
 
 Apply current eligibility and permissions on every page, preferably in the
 bounded SQL selection. Do not use raw OFFSET for large histories or issue one
@@ -198,7 +266,21 @@ policy query per result. Do not expose inaccessible rows through totals,
 counts, exclusions or cursor diagnostics.
 
 Current-state queues are moving eligible sets: state changes may remove rows
-between pages, even with a fixed upper watermark. Document this behavior.
+between pages, even with a fixed upper watermark. New visibility below the
+remaining boundary can appear; an already passed range can be missed. Only a
+successful bounded authorized selection/lookahead establishes the next cursor
+or final page. Whole-page admission fences current authority and row/control
+observations; changed observations conflict without an automatic refill loop.
+Malformed raw selectors use 400. Invalid supplied cursor syntax, key, MAC,
+time or binding uses the uniform invalid_command/422 cursor_invalid problem.
+Missing required key/time/policy infrastructure uses unavailable/503. Authorized
+missing required retained predicate, summary or exact-resource details use
+conflict/409 with resource_details_unavailable; never substitute null, another
+revision or successful exhaustion. Unknown or undisclosable identity remains 404.
+Actual impossible complete response construction uses 503. The selection owner
+fixes safe title/detail and response compositions; no hidden field/count enters
+an error. Exact selected versions never fall back to current heads.
+
 A financial report uses the separate immutable selection operation specified
 by [financial records](financial-records.md), not a traversal of that queue.
 The [financial compilation fences](financial-records.md#compilation-and-permission-fences)
@@ -221,12 +303,28 @@ Any unavailable or revoked required component makes the build unavailable.
 Do not silently omit it, truncate the build or substitute a newer version.
 Snapshot mode rejects query-driven selection.
 
-Search is a separate operation governed by [storage and search](storage-and-search.md#bounded-search).
+Search is the separate synchronous POST above, with the selection owner's closed
+complete request, explicit profiles/filters/field view/output limits and no query
+parameters, command metadata, idempotency receipt or public cursor. It returns one
+finite response. [Storage and search](storage-and-search.md#bounded-search) owns
+the bounded retrieval and canonical final fences.
 Its receipt names the actual selected versions, source build if relevant,
 retrieval profile, generation, applied limits, truncation and incompleteness.
+Every returned candidate retains complete consequential content; optional direct
+observations are the complete exact union. The unsigned receipt binds actual
+output and gateway exposure, records admission and does not prove delivery.
 It cannot claim that a full-build approval or signature covers different
 selected bytes. Conversion of ad hoc selections into an approved release
 requires a separate accepted and tested contract.
+
+Once search dispatch might have occurred, clients must not automatically replay
+the HTTP request after timeout, connection loss, ambiguous write, 5xx or a lost
+response. Only a proved zero-byte pre-dispatch failure can retry the unsent
+request. Retry-After guides a deliberately new invocation, with new selection
+identity and current admission, not resume or page fill. Internal work keeps its
+original deadline and shared reservations; reconciliation cannot start new work.
+search.select.v1 remains unavailable until both search execution and complete
+receipt production qualify, including compatible consumer behavior.
 
 Resolution and selection receipts retain exact served identity, purpose and
 policy context. Neither receipt proves that a downstream decision was correct.
@@ -254,7 +352,7 @@ never changes a terminal result or starts hidden replacement work.
 ### Exact lifecycle transport inventory
 
 Every mutation below uses closed {metadata,body}; the lifecycle owner defines
-every field, precondition and result. All exact GETs require organization_id,
+every field, precondition and result. All lifecycle exact GETs require organization_id,
 domain_id and purpose query selectors, reject extra/duplicate selectors, decode
 once and match route/reference scope. Read-only POSTs use their exact closed
 body and carry no command receipt. These are specified capabilities; actual

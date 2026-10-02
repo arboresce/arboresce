@@ -42,6 +42,13 @@ not establish another participant's agreement, identity or consent.
 
 ## Recordkeeping journey
 
+The first delivery is the [contextual project workflow](project-workflow.md)
+through the independent CLI. A user provisions a Nostr identity, creates/selects
+one server workspace and project, submits a receipt photo and short voice note,
+reviews multiple contextual change items independently, revises the project and
+separately confirms its associated expense. Exact context, ambiguity, lineage,
+manual correction and follow-up revision are required product behavior.
+
 A user can submit a receipt together with a written or spoken note, inspect the
 processing result and correct the proposed record. The system preserves the
 original evidence and identifies which fields were extracted, supplied by the
@@ -121,7 +128,7 @@ to otherwise available stored records or exports.
 
 ## Included and deferred work
 
-The MVP includes secure setup and scoped identity; organization and domain access;
+The retained complete MVP includes secure setup and scoped identity; organization and domain access;
 bounded local and controlled HTTPS capture; supported text, image and short-audio
 processing; grounded proposals; readable revision-safe review; confirmed financial
 records and per-currency exports; asset history; exact builds and channels;
@@ -129,6 +136,23 @@ version-linked feedback; bounded retrieval; revocation, holds, purge and complet
 customer export. Required recovery and abuse/resource controls accompany those
 capabilities. [Processing](processing.md), [security](security-and-privacy.md) and
 [resource profiles](resource-profiles.md) define their supported boundaries.
+
+The focused CLI project milestone includes Nostr identity/workspace provisioning,
+parties/projects and versioned context, bounded local capture, text/photo/short-audio
+processing, typed contextual proposals, per-item readable/JSON review, manual and
+follow-up revision, project-associated financial confirmation, source-linked
+readback/export and actual packaged security/recovery for every enabled component.
+It is named G3-project, not completion of full G3 or production v1. Complete
+knowledge builds/evaluation/promotion/resolution/feedback, full search and
+propagation/physical-purge/repair, customer archive/exit breadth and their expanded
+restoration remain separately retained obligations. The early deployment advertises
+only qualified capabilities; later enablement requires actual expanded tests and
+restoration first. Immediate current authorization, restriction/hold fences and
+authentic independent continuity are required from the first consuming writer.
+
+Additional application runtimes, embedded bindings and commercial service surfaces
+are outside the focused delivery. The underlying public API remains reusable by
+future clients without implementing another canonical system.
 
 The release must include a documented self-operated engine profile, operator
 bootstrap and diagnostics, and compatibility with independently built native CLI

@@ -16,22 +16,21 @@ Default listeners bind loopback. Exposing a service remotely requires explicit
 encrypted transport and identity configuration; local installation is not an
 authentication exemption. First-owner provisioning requires local operator
 possession and an expiring, single-use flow. Ship no reusable default password.
-Provide a documented local/service-token route that requires no Arboresce account
-or entitlement.
+Provide the [Nostr identity profile](identity-contract.md), without email/signup or
+Arboresce entitlement. Exact signed HTTP method/URL/body/time, replay/idempotency,
+key storage/loss/recovery and own-key agent grants must qualify before consumers.
+This replaces mandatory issuer/browser-PKCE login in the focused first profile.
+Optional future OIDC needs a separately qualified issuer/public-client contract,
+exact redirects, issuer/audience/signature/time/rotation and browser/session controls;
+neither browser nor device authorization is an implicit prerequisite or fallback.
 
-Qualify one concrete issuer contract for remote interactive login. The native
-client uses the external browser, authorization code and PKCE, exact registered
-redirect handling, and state/nonce where required by that contract. Validate issuer,
-audience, signature, allowed algorithms, expiry and key rotation. A native client
-cannot protect an embedded client secret. Device authorization is available only
-when that issuer and the client implementation explicitly support it; it is not
-an assumed fallback or a reason to implement a general identity provider.
-
-Principal identity is the stable issuer/subject pair, not a mutable email address.
+Principal identity is the exact selected identity-profile/key mapping, not a
+mutable email or Party alias. Key control is not human-review assurance.
 Resolve active organization membership and its revision canonically. Credentials
 have bounded lifetime, revocation, and explicit action, organization, domain and
-purpose scopes. A local CLI workspace name is not a tenant or an authorization
-grant. Identifiers, URLs and possession of a content digest confer no authority.
+purpose scopes. A local CLI connection profile is not a tenant or authorization
+grant. Server Workspace means the Organization tenant with a default Domain.
+Identifiers, URLs and possession of a content digest confer no authority.
 
 Any cookie-based session needs explicit CSRF and SameSite controls. Token-based
 APIs require an explicit CORS policy; neither browser policy nor a trusted-looking
@@ -40,9 +39,9 @@ origin replaces authentication and authorization.
 Store credentials through qualified secret-storage facilities with restricted
 file modes where files are necessary. Never place credentials in source, examples,
 process arguments, terminal history, logs or exported diagnostics. Local logout
-must invalidate the selected profile immediately even when the issuer is offline;
+must invalidate the selected profile immediately even when the server is offline;
 report cleanup failures, preserve other profiles and user data, and fence concurrent
-refresh so it cannot restore the logged-out session. Issuer-side revocation is a
+signer/refresh so it cannot restore the logged-out session. Server-side revocation is a
 separate result. Supported uninstall removes managed secrets, caches and temporary
 work while preserving exports and unsent edits. The CLI owns the installed-process
 contract and must demonstrate those behaviors with the engine's credential rules.
@@ -56,6 +55,13 @@ expand their audience. Missing, expired or unsupported policy denies the affecte
 operation. Enforce same-tenant relationships before reading or mutating records.
 Validate every link in a delegation chain; delegation cannot confer actions,
 purposes, scope or assurance that its issuer lacks.
+Resolve the actual executor and one exact selected delegation-chain reference,
+or null for direct human, agent or service execution. A chain identity binds
+immutable members, grants and scope interpretation; changing them creates a new
+identity. Revocation and every link's current authority are checked on each
+request. Stable principal identity survives credential refresh only after fresh
+admission; switching chains cannot preserve an old cursor binding. Email, bearer
+bytes, cached roles and a client-claimed authorizer are not identity inputs.
 Use non-owner application database roles and transaction-local tenant context;
 connection reuse must never carry authority into another request.
 
@@ -72,7 +78,12 @@ flag or request field cannot assert that a human approved a result. Human-requir
 approval needs a distinct authenticated event that binds the actual principal,
 assurance, exact content/revision, purpose and decision. The accepted identity
 contract must define that mechanism before such approval can be implemented or
-claimed. Model output, retrieved instructions and uploaded documents remain data.
+claimed. The [identity owner](identity-contract.md#trusted-financial-review-event-issuance)
+defines the concrete challenge, human review, event issuance and exact executor
+consumption flow. Its actual assurance mechanism remains unqualified until selected
+and proved. A scoped grant may permit project-item acceptance; it cannot create the
+separate actual-human financial event or weaken human-required knowledge policy.
+Model output, retrieved instructions and uploaded documents remain data.
 Tool responses and embedded document instructions have the same untrusted status.
 Consequential external actions in the first release require authenticated human
 authority recorded in an explicit approval or valid delegated grant, scoped to
@@ -86,6 +97,51 @@ permitted tools and effects must be explicitly scoped.
 Personal drafts remain separate from published organization context and are not
 implicitly exposed to organization-wide search or administrators' ordinary views.
 Do not introduce hidden employee productivity, loyalty or alignment scoring.
+
+### Listing credentials, time and complete read disclosure
+
+The [selection contract](selection-contract.md) binds listing cursors to the
+server-derived executor/delegation, complete context and normalized query. Its
+dedicated 32-byte HMAC-SHA-256 cursor keys are separate from bearer credentials
+and build-attestation keys. Before issuance, qualify actual key provisioning,
+bounded local selectors, rotation/retirement and authoritative clock health
+across every issuing/verifying instance and restart. The fixed 900-second
+lifetime never renews. Zero positive skew, rollback and expired-token
+resurrection checks need a real shared clock-health mapping; comparison to one
+token's issued_at alone is insufficient. Unhealthy or unknown time/key
+infrastructure denies issuance and acceptance. Synthetic vectors confer no
+operational key authority. Keep complete targets/cursors out of unrestricted logs.
+
+Every page and exact read rechecks current disclosure and required dependency
+closure. A list summary is not full content or permission to use it. Required
+retained predicates and fields must resolve exactly; unknown details cannot be
+discarded to claim an exhausted page. A full asset content read requires its own
+unrestricted/available lifecycle state plus all current source-use checks.
+Holds, active labels and historical approval cannot bypass those checks.
+
+Selected-version relationship identity/absence, complete supersession-record
+details and endpoint content are distinct metadata/content actions. Check the
+selected version's relationship-identity action before looking up whether a link
+exists. Its authorized opaque immediate reference can be disclosed without
+disclosing the counterpart, reason or approver. Null represents actual absence
+and cannot redact a denied link. Lists exclude rows without required disclosure;
+exact reads requiring it fail with the ordinary non-disclosing 404.
+
+An exact relationship record read independently requires disclosure of its
+identity and every retained field, including both endpoint references and
+candidate contexts, reason, human approval, executor and policy/audit history.
+Authority over one endpoint cannot reveal the other. Unknown/undisclosable
+record or counterpart uses the same safe 404; disclosable denied actions may use
+403. Required unknown policy/service uses 503; after complete current disclosure,
+known required retained-detail loss uses resource_details_unavailable/409.
+No hidden edge/count/hash or diagnostic difference becomes an existence oracle.
+
+Complete retained relationship metadata may remain readable after endpoint
+content revocation/purge only when every field remains lawfully retained and
+currently disclosable. This creates no retention exception, content reconstruction
+authority, approval transfer or source-use grant. Search query/request hashes,
+receipts and gateway provenance also require finite retention/disclosure policy;
+guessable hashes are protected observations, not anonymous cross-user cache keys.
 
 ## Acquisition and execution boundaries
 

@@ -80,6 +80,16 @@ remove its architectural or measurement obligations.
 
 ## Sources of truth
 
+The focused [project profile](project-workflow.md) adds canonical Party/project
+records, exact context snapshots and typed change mappings to application PostgreSQL.
+The CLI remains a public HTTP client without database, workflow or gRPC authority.
+Python still returns bounded observations/proposals without canonical DB credentials.
+Initial context comes from authorized bounded canonical reads; Qdrant and full
+Context Builds are unavailable until later qualified consumers. Package only the
+actual required local roles, including independent lifecycle continuity and separate
+Temporal persistence. No graph database, bindings or additional runtime is an
+implicit prerequisite of G3-project.
+
 | Component | Authority and limit |
 | --- | --- |
 | Application PostgreSQL | Canonical organizations, memberships, policies, evidence relationships, reviews, expenses, assets, builds, channels, operations, audit and outbox records. |

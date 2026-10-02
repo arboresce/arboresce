@@ -16,7 +16,10 @@ contradiction through a reviewed owning-contract amendment before dependent work
 
 | Owner | Requirements governed |
 | --- | --- |
-| [Product and scope](product-and-scope.md) | The two complete workflows, public capability parity, included outcomes and exclusions |
+| [Product and scope](product-and-scope.md) | Focused CLI project MVP, retained complete knowledge/production milestones, public capability parity and exclusions |
+| [Workspace and contextual project workflow](project-workflow.md) | Server workspace/project/party meaning, exact context and field lineage, independently reviewable typed changes, application and revision |
+| [Nostr identity and scoped execution](identity-contract.md) | Signup-free first identity profile, signed HTTP authentication, key lifecycle, own-key agent grants and trusted financial review-event issuance |
+| [Contextual project fixtures](project-fixtures.md) | Canonical photo/short-audio/context corpus, deterministic review trace, independent truth and focused integration scenarios |
 | [Architecture](architecture.md) | Component boundaries, dependency direction and canonical versus derived responsibilities |
 | [API](api.md) | Operation contracts, errors, revisions, idempotency, cancellation, exact resolution versus selection and interface compatibility |
 | [Common wire contract](common-contract.md) | Exact shared identifier/revision/date encodings, command metadata, problems, operation states and readiness shapes; schemas own structural constraints |
@@ -27,6 +30,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [Financial records](financial-records.md) | Complete financial content and identity, exact money and attributable confirmation, closed commands, immutable report selections and lossless JSON/reversible CSV export profiles |
 | [Context contract](context-contract.md) | Complete immutable builds and delivery, independent evaluation receipts, authenticated build approval, exact attestation/trust profiles and generation-checked channel transitions |
 | [Lifecycle and operation contract](lifecycle-contract.md) | Exact operations/plans, cancellation, explicit capture analysis, subject controls, action/propagation/repair obligations, sealed financial delivery, immutable feedback and internal recognition/retirement/continuity records |
+| [Listing and selection contract](selection-contract.md) | Finite bodyless listing/exact companion reads, normalized filters and authenticated cursors, complete asset/supersession resources and bounded synchronous search with unsigned selection receipts |
 | [Processing](processing.md) | Grounded extraction, supported processing, deterministic orchestration and model gateway behavior |
 | [Storage and search](storage-and-search.md) | Persistence invariants, outbox/projections, sealing and bounded retrieval mechanics |
 | [Security and privacy](security-and-privacy.md) | Identity, authorization, human assurance, acquisition, egress and lifecycle protection |
@@ -35,7 +39,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [Dependency qualification](dependency-qualification.md) | Exact toolchain/dependency targets, compatibility and reproducible preparation |
 | [Deployment](deployment.md) | Supported operational topology, startup/readiness, upgrade and shutdown obligations |
 | [Recovery](recovery.md) | Canonical restoration, current lifecycle restrictions, derived reconstruction and closed-serving behavior |
-| [Acceptance](acceptance.md) | G0–G6, E01–E12, real workflows, independent qualification and production evidence |
+| [Acceptance](acceptance.md) | G0–G6, focused G2-project/G3-project/G4-project, retained E01–E12 and independent production evidence |
 
 The existing [release policy](../release-policy.md),
 [generated artifact process](../generated-artifacts.md) and
@@ -54,8 +58,15 @@ their first consuming capability. The
 [validation catalogue](../../contracts/validation/README.md) distinguishes these
 parsed-value checks from actual services, canonical hashes, storage and restore.
 
-Missing issuer/provider selections, authorized evaluation material, environment
+Missing identity-assurance/provider selections, authorized evaluation material, environment
 capacity, operational policies or approved signing inputs remain explicit
 qualification gates. They do not justify invented defaults, substituted model
 responses or omitted tests. Requirements can be adopted before those inputs
 exist; the affected runtime and production evidence cannot pass until they do.
+
+The focused first runtime uses [D0-project](resource-profiles.md#corpus-definitions)
+and [its packaged restoration](recovery.md#early-d0-project-and-later-full-recovery).
+Full search/build/physical-purge/repair capabilities remain unavailable until their
+own concrete producers, propagation and expanded restoration qualify. Historical
+contract and execution evidence retains its original scope; adoption does not
+mark old incomplete runtime work or full G3 complete.

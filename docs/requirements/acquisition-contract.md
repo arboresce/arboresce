@@ -23,6 +23,17 @@ storage provider, account, deployment or command implementation.
 
 ## Definitions and ownership
 
+The focused [project workflow](project-workflow.md) retains this complete ordered
+capture intent and exact original/sealed binding. Project/context/event-date inputs
+require a qualified versioned capture/analysis composition; they are not extra
+fields inserted into closed v1 bodies. Exact project selection and all attachments
+belong to one workspace. A ~30-second note is an expected use case, not permission
+to bypass current finite duration/codec limits. Preserve original-to-normalized
+orientation/pixel and channel/time maps and a supplied transcript's separate source
+identity. HEIC support requires its own qualified decoder/profile, or an explicit
+preserved original-to-JPEG derivative relationship; silent conversion does not
+qualify the original format. Unsupported originals are reported before processing.
+
 | Definition family | Meaning |
 | --- | --- |
 | `byte_identity`, `declared_original` | Exact digest/length representation and the supported declared original format union. |
@@ -44,6 +55,15 @@ The [lifecycle acquisition specialization](lifecycle-contract.md#5-acquisition-a
 owns required upload control, abort, explicit analysis, complete operation
 results and exact current/revision reads. It composes these definitions without
 changing their immutable leaves or enabling an unqualified download route.
+
+The [selection contract](selection-contract.md) owns capture-head and exact
+revision discovery lists. They preserve immutable aggregate creation metadata
+under the data model without adding fields to capture_revision or changing the
+existing current/exact GET responses. A head summary carries exact retained
+intent identity and current submission/readiness observations; a revision
+summary carries only its exact capture reference. Neither is a complete capture,
+processing result or permission to read its sources. Exact reads retain every
+ordered attachment and never substitute a newer revision.
 
 ## Complete commands and routes
 

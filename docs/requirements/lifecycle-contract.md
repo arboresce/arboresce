@@ -35,6 +35,21 @@ Temporal, repair, delivery or restoration. The
 [rolling plan](../execution/open-cli-mvp-v1-rcld.md) assigns those implementations
 and records actual evidence separately.
 
+The [selection contract](selection-contract.md) owns finite discovery and exact
+companion reads plus synchronous search. Asset head/deprecation observations and
+reviewed supersession links are separate from the accepted-version lifecycle
+control defined here. Fresh complete asset reads require unrestricted/available
+own control and current source disclosure; retained restricted/purged metadata
+creates no content access or retention exception. Existing capture/expense exact
+GETs, lifecycle operation kinds and command/feedback identities remain unchanged.
+
+Search reuses exposure_reference and this owner's state, receipt and settlement
+meaning through its own finite read-run observation. It does not fabricate an
+operation/stage/attempt to instantiate exposure_entry. The processing gateway
+must qualify actual read-run producer/verifier and ledger associations before
+use. Search selection_id is not context usage_id or a feedback subject; its
+inline unsigned receipt confers no durable-operation replay/lookup promise.
+
 ## 1. Notation and inherited limits
 
 Every displayed object is CLOSED, including canonical cores, record wrappers, references, controls and command bodies, unless explicitly marked additive32. Additive32 means at most32 total members with the existing common bounded-JSON extension values, key syntax and reserved-alias rules. Required legitimate fields are permitted in their declared position; top-level or nested aliases for result, receipt, authority, outcome or operation are forbidden elsewhere. A record returned by GET remains closed inside its additive result.
@@ -1220,6 +1235,23 @@ qualified_observation is a server-only variant whose concrete producer must inde
 
 ## 13. Consuming qualification map and dependencies
 
+The focused first profile is D0-project under [project workflow](project-workflow.md)
+and [recovery](recovery.md#early-d0-project-and-later-full-recovery). Authentic
+independent recognition/lifecycle continuity, current restrictive/hold fences and
+all complete enabled producer/verifier bytes precede first admission/bootstrap.
+New project/party/context/item/association writers must define their exact registered
+causes, bindings and recovery semantics before use; they cannot borrow arbitrary
+metadata or add a second journal. The six-family model remains authoritative.
+Restore every enabled operation/material/control and uncertain effect honestly.
+
+Full search/build/physical-purge/propagation-repair remain unavailable in D0-project.
+E124 concrete repair schemas, real Qdrant multi-batch qualification and the full
+repair graph restoration are prerequisites of those later enabled capabilities,
+not a universal gate before focused packaged restore. This explicitly amends the
+older E134-before-any-D0/independent-user ordering. Later expanded enablement requires
+actual propagation and packaged restoration first; all retained repair oracles and
+full G3/G4/D1/G6 remain required. Disabled actions have no invented completion proof.
+
 The E008 source gate is limited to selected finite contracts and independently checked parsed values. Runtime capability remains disabled until its actual owner qualifies complete bytes, admission/race rules and resources. Deferred evidence references are exact typed identities defined here; their producer/verifier and promised consumer read transport cannot remain unspecified when that capability first qualifies.
 
 | Owner slice | Mandatory consuming obligation |
@@ -1240,7 +1272,7 @@ The E008 source gate is limited to selected finite contracts and independently c
 | E112-retention-contract / E112 | Actual parameterized holds, references, purge policy and exact physical-copy manifest/receipt interpretation, current races, late confirmation and passive-ingress finite producer/verifier; E050 continuity is an earlier prerequisite, not retroactive work |
 | E113/E114 and later exit/restore | Complete customer archive format/streaming operation has a distinct future reviewed capability/result contract; this financial-export format does not claim complete customer exit or invent that operation now |
 | E124 derived invalidation/deletion | Mandatory current-authorized finite propagation repair over the original immutable obligation, complete command/operation/plan/batch/coverage/continuity producer-verifier contracts and exact reads; prior performed reuse/unknown-handoff fencing, authentic contiguous and empty coverage, all failed-attempt history, atomic final completion; actual RUST and SERVICE/Qdrant multi-batch, failure/cancellation, races and interrupted-repair qualification |
-| E134-restore | Actual old-backup restoration of initial and later repair operations, all ranges/actions/confirmations and authentic coverage/completion associations before D0 or independent-user qualification; missing graph or unknown cutoff keeps serving closed |
+| E134-restore | Actual old-backup restoration of initial and later repair operations, all ranges/actions/confirmations and authentic coverage/completion associations before later complete D0/independent use of enabled repair capabilities; D0-project separately restores every actually enabled component before personal evidence/users; missing required graph or unknown cutoff keeps serving closed |
 
 Feedback corrections remain new evidence leading to explicit reviewed lesson/candidate supersession under the existing review owners; immutable feedback is never silently edited. The later exact supersession workflow/CLI obligations remain mandatory and are not removed by this bounded feedback.record command.
 

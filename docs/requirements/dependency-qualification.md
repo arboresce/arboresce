@@ -72,7 +72,8 @@ other owning contracts.
 | S3-compatible object storage | Qualify the selected implementation's credential scope, staged overwrite behavior, one-read sealing, checksums, orphan reconciliation, failure recovery and residency. Do not infer atomicity with PostgreSQL, immutable acceptance or recall of issued grants from an S3-compatible interface. E05 and E09 apply. |
 | Qdrant | Pin the service and client, embedding dimensions and model/profile identity. Measure ACL selectivity, stale and reordered writes, generation rebuilds, cold/warm queries, memory peaks and canonical filtering before reranking. E06 and E07 apply. |
 | Python media and intelligence service | Pin the interpreter, environment, codecs, OCR/ASR libraries, model route and packaged resources. Test decoder restrictions, bounded parsing, locator validity, cross-language messages and actual held-out processing. E05 and E11 apply. |
-| OIDC and service credentials | Qualify one concrete issuer/public-client contract, browser PKCE behavior, issuer/audience/signature checks, rotation and recovery, alongside local and scoped-service bootstrap. Device authorization is supported only when the chosen issuer path is independently tested. E02 and E08 apply. |
+| Nostr identity and scoped credentials | Pin exact NIP-01/NIP-98 revisions, vetted secp256k1/BIP-340 libraries and independent vectors. Qualify exact signed request binding, clock/replay/idempotency, key storage/recovery/revocation, protected bootstrap and own-key grants under [identity](identity-contract.md). Actual-human financial review has separate qualified assurance. E02 and E08 remain production obligations. |
+| Optional later OIDC | No first-profile issuer prerequisite. Before support, qualify the concrete issuer/public-client browser PKCE/redirect/signature/rotation/recovery contract and any explicitly supported device flow independently. |
 | SMTP submission | Qualify the actual certificate-verified transport and submission policy, stable logical notification identity and accept-then-disconnect ambiguity. Test with an isolated mail service, never a production mailbox. E03 includes ambiguous delivery; delivery receipts must preserve uncertainty. |
 | Canonical encoding and signatures | Use vetted canonical-JSON and Ed25519 implementations. Verify exact public vectors and Rust/Python agreement, malformed signatures, trust, expiry, rotation and revocation. E10 applies; do not invent cryptographic primitives. |
 | Containers and local orchestration | Pin bases, runtime packages and test images; verify the produced digest, resources, startup and shutdown. Local orchestration must invoke the same implemented direct checks. E01 and E12 apply; local success does not replace independent release verification. |
@@ -91,6 +92,19 @@ workflow, measured workload and review of the exact licence/edition capabilities
 it must not become an implicit dependency of exact-build serving.
 
 ## Processing and external-service selections
+
+The focused profile independently qualifies OCR, ASR and contextual synthesis;
+selection of one does not select the other two. Pin and verify expected model and
+dictionary bytes, runtime/codec versions, prompt/parser/schema, language, endpoint,
+data exposure/retention and cost. OCR readiness must not depend on unrelated face
+models. Expose skipped/truncated results; detector scores do not prove financial
+correctness. Qualify JPEG/PNG and the actual selected non-DRM WAV/M4A profile;
+HEIC needs separate decoder evidence or an explicitly preserved derivative relation.
+Actual signing/review assurance, Temporal server/tools and finite worker limits
+remain consumer-specific unqualified inputs until selected. Exact Rust 1.98.0
+supersedes stale execution-plan 1.97.1 entries without implying installation or
+compatibility evidence. Public implementations/resources must be standalone and
+rights-cleared; reference code is not automatically a dependency or licensed input.
 
 A supported media profile identifies exact input formats, codecs, languages,
 parser versions, model and prompt versions, endpoint policy, licence terms,
