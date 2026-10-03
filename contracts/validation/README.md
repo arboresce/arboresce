@@ -216,38 +216,43 @@ current authorization and transactional effects need the owning runtime tests.
 Their contract scenarios remain requirements until those tests execute. This
 fixture pass cannot substitute for runtime or source-coverage evidence.
 
-Freeze the actual complete machine inventory before qualification: 23 schemas,
-seven literal case manifests, the separate signing-vector manifest, validator
-project and lock (37 inputs). Freeze actual per-target/namespace/case counts and
-input digests after independent authoring; no count or positive outcome may be
-inferred from an earlier family. Run all eleven commands against those exact
-bytes. Relocation must copy/re-hash every input into a path with spaces and
-Unicode and exercise all seven family entries plus signing structure.
+Freeze the actual complete machine inventory before qualification. The
+project workflow/identity extension brings the inventory to 26 schemas (eight
+fixture entries, eight public libraries, one internal library, eight expectation
+schemas and the signing-vector schema), eight literal case manifests, the
+separate signing-vector manifest, and the validator project and lock: 37 inputs.
+The pre-extension inventory had 23 schemas and seven literal case manifests (33
+inputs); its counts are historical only. Freeze actual per-target/namespace/case
+counts and input digests after independent authoring; no count or positive
+outcome may be inferred from an earlier family. Run all twelve direct commands
+(the metaschema command, the eight family checks, the signing-structure check
+and the two pinned synchronization checks) against those exact bytes. Relocation
+must copy/re-hash every input into a path with spaces and Unicode and exercise
+all eight family entries plus the signing structure.
 
 Independently review finite oracle-integrity mutations for metadata, missing or
-duplicated identities, order, strict booleans, target substitution across the
-public/internal namespace, and positive/negative value replacement in both
-namespaces. Break actually consumed references under both positive refs and
-negative not branches; require their missing-reference diagnostics, never a
-successful negation. Remove each actually consumed application library and
-observe the exact missing-path diagnostic. All 42 off-diagonal family pairings
-must fail ordinary validation on the complete manifests. Restore and re-hash
-every input and rerun positive guards. Tool/timeout/environment or unrelated
-schema-resolution failure is not a negative value oracle.
+duplicated identities, order, strict booleans (including a genuine non-boolean
+scalar), target substitution across the public/internal namespace, and
+positive/negative value replacement in both namespaces. Break actually consumed
+references under both positive refs and negative not branches; require their
+missing-reference diagnostics, never a successful negation. Remove each actually
+consumed application library and observe the exact missing-path diagnostic. All
+56 off-diagonal family pairings must fail ordinary validation on the complete
+manifests. Restore and re-hash every input and rerun positive guards.
+Tool/timeout/environment or unrelated schema-resolution failure is not a
+negative value oracle.
 
-The pre-extension complete protocol has 93 commands: eleven direct checks, eight
+The pre-extension complete protocol had 93 commands: eleven direct checks, eight
 relocated checks, eighteen oracle mutations, four consumed broken references,
 eight consumed missing libraries, 42 off-diagonal pairings and two restored
-positive guards. The project workflow family extends the inventory to 26 schemas
-and eight literal case manifests, so the complete protocol must be recomputed and
-re-run on the extended inputs before a complete-corpus qualification. For the new
-family the direct metaschema command, its family fixtures command and its
-off-diagonal pairings were actually run; the relocated, oracle-mutation,
-broken-reference and missing-library protocol remains pending on the extended
-inventory. The pre-extension 93-command result is retained only for its own
-historical inputs. A changed primary validator profile requires this complete
-protocol afresh on the newly frozen inputs; results from an older profile cannot
-be combined into a current pass.
+positive guards. It is retained only for its own historical inputs. The project
+workflow/identity extension recomputes the complete protocol as 110 commands on
+the frozen extended inputs: twelve direct checks, nine relocated checks,
+eighteen oracle mutations, four consumed broken references, nine consumed
+missing libraries, 56 off-diagonal pairings and two restored positive guards. A
+changed primary validator profile requires this complete protocol afresh on the
+newly frozen inputs; results from an older profile cannot be combined into a
+current pass.
 
 The URI regression inventory contains sixteen variants in each of staging
 grant, acquisition allocation response and lifecycle allocation response:
