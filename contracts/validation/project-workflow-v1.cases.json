@@ -11035,7 +11035,30 @@
             "standard": "nip-98",
             "revision": "nip-98/2026-10-02"
           }
-        }
+        },
+        "limits": {
+          "max_authorization_header_bytes": 4096,
+          "max_decoded_event_bytes": 8192,
+          "max_tag_cardinality": 8,
+          "max_body_bytes": 268435456,
+          "max_url_bytes": 2048
+        },
+        "standard_selection": {
+          "standard": "nip-98",
+          "revision": "nip-98/2026-10-02",
+          "status": "admitted"
+        },
+        "admitted_methods": [
+          "GET",
+          "POST",
+          "PUT",
+          "PATCH",
+          "DELETE"
+        ],
+        "bodyless_methods": [
+          "GET",
+          "DELETE"
+        ]
       }
     },
     {
@@ -13385,6 +13408,1003 @@
           },
           "reason": ""
         }
+      }
+    },
+    {
+      "id": "operation-registration-identity-bootstrap",
+      "target": "operation_registration",
+      "valid": true,
+      "value": {
+        "operation": "identity.bootstrap",
+        "route": {
+          "method": "POST",
+          "path_template": "/v1/identity/bootstrap"
+        },
+        "scope": {
+          "workspace_requirement": "bootstrap_exception",
+          "authority": "operator_bootstrap_grant"
+        },
+        "request_contract": "project-workflow.identity_bootstrap_request",
+        "success_response": "project-workflow.identity_bootstrap_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "conflict",
+          "invalid_command",
+          "rate_limited",
+          "unavailable"
+        ]
+      }
+    },
+    {
+      "id": "operation-registration-unknown-operation",
+      "target": "operation_registration",
+      "valid": false,
+      "value": {
+        "operation": "identity.forge",
+        "route": {
+          "method": "POST",
+          "path_template": "/v1/identity/bootstrap"
+        },
+        "scope": {
+          "workspace_requirement": "bootstrap_exception",
+          "authority": "operator_bootstrap_grant"
+        },
+        "request_contract": "project-workflow.identity_bootstrap_request",
+        "success_response": "project-workflow.identity_bootstrap_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "conflict",
+          "invalid_command",
+          "rate_limited",
+          "unavailable"
+        ]
+      }
+    },
+    {
+      "id": "operation-registration-wrong-method",
+      "target": "operation_registration",
+      "valid": false,
+      "value": {
+        "operation": "identity.bootstrap",
+        "route": {
+          "method": "GET",
+          "path_template": "/v1/identity/bootstrap"
+        },
+        "scope": {
+          "workspace_requirement": "bootstrap_exception",
+          "authority": "operator_bootstrap_grant"
+        },
+        "request_contract": "project-workflow.identity_bootstrap_request",
+        "success_response": "project-workflow.identity_bootstrap_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "conflict",
+          "invalid_command",
+          "rate_limited",
+          "unavailable"
+        ]
+      }
+    },
+    {
+      "id": "operation-registration-wrong-route",
+      "target": "operation_registration",
+      "valid": false,
+      "value": {
+        "operation": "identity.bootstrap",
+        "route": {
+          "method": "POST",
+          "path_template": "/v1/identity/other"
+        },
+        "scope": {
+          "workspace_requirement": "bootstrap_exception",
+          "authority": "operator_bootstrap_grant"
+        },
+        "request_contract": "project-workflow.identity_bootstrap_request",
+        "success_response": "project-workflow.identity_bootstrap_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "conflict",
+          "invalid_command",
+          "rate_limited",
+          "unavailable"
+        ]
+      }
+    },
+    {
+      "id": "operation-registration-forged-error",
+      "target": "operation_registration",
+      "valid": false,
+      "value": {
+        "operation": "identity.bootstrap",
+        "route": {
+          "method": "POST",
+          "path_template": "/v1/identity/bootstrap"
+        },
+        "scope": {
+          "workspace_requirement": "bootstrap_exception",
+          "authority": "operator_bootstrap_grant"
+        },
+        "request_contract": "project-workflow.identity_bootstrap_request",
+        "success_response": "project-workflow.identity_bootstrap_response",
+        "error_codes": [
+          "invalid_request",
+          "totally_forged"
+        ]
+      }
+    },
+    {
+      "id": "operation-inventory-complete",
+      "target": "operation_inventory",
+      "valid": true,
+      "value": [
+        {
+          "operation": "identity.bootstrap",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/identity/bootstrap"
+          },
+          "scope": {
+            "workspace_requirement": "bootstrap_exception",
+            "authority": "operator_bootstrap_grant"
+          },
+          "request_contract": "project-workflow.identity_bootstrap_request",
+          "success_response": "project-workflow.identity_bootstrap_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "workspace.membership.get",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/workspace-memberships/resolve"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "workspace_membership"
+          },
+          "request_contract": "project-workflow.workspace_membership_get_request",
+          "success_response": "project-workflow.workspace_membership_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.create",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_create_request",
+          "success_response": "project-workflow.agent_grant_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.get",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants/resolve"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_get_request",
+          "success_response": "project-workflow.agent_grant_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.revoke",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants/{grant_id}/revoke"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_revoke_request",
+          "success_response": "project-workflow.agent_grant_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "financial_review.challenge",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/financial-reviews/challenges"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "trusted_human_reviewer"
+          },
+          "request_contract": "project-workflow.financial_review_challenge_request",
+          "success_response": "project-workflow.financial_review_challenge_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "financial_review.issue",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/financial-reviews"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "trusted_human_reviewer"
+          },
+          "request_contract": "project-workflow.financial_review_issue_request",
+          "success_response": "project-workflow.financial_review_issue_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "expense.confirm",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/expenses/{expense_id}/confirmations"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "current_financial_owner"
+          },
+          "request_contract": "financial-records.expense_confirm_command",
+          "success_response": "financial-records.expense_confirm_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operation-inventory-missing-operation",
+      "target": "operation_inventory",
+      "valid": false,
+      "value": [
+        {
+          "operation": "identity.bootstrap",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/identity/bootstrap"
+          },
+          "scope": {
+            "workspace_requirement": "bootstrap_exception",
+            "authority": "operator_bootstrap_grant"
+          },
+          "request_contract": "project-workflow.identity_bootstrap_request",
+          "success_response": "project-workflow.identity_bootstrap_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "workspace.membership.get",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/workspace-memberships/resolve"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "workspace_membership"
+          },
+          "request_contract": "project-workflow.workspace_membership_get_request",
+          "success_response": "project-workflow.workspace_membership_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.create",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_create_request",
+          "success_response": "project-workflow.agent_grant_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.get",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants/resolve"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_get_request",
+          "success_response": "project-workflow.agent_grant_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.revoke",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants/{grant_id}/revoke"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_revoke_request",
+          "success_response": "project-workflow.agent_grant_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "financial_review.challenge",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/financial-reviews/challenges"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "trusted_human_reviewer"
+          },
+          "request_contract": "project-workflow.financial_review_challenge_request",
+          "success_response": "project-workflow.financial_review_challenge_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "financial_review.issue",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/financial-reviews"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "trusted_human_reviewer"
+          },
+          "request_contract": "project-workflow.financial_review_issue_request",
+          "success_response": "project-workflow.financial_review_issue_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operation-inventory-duplicate-operation",
+      "target": "operation_inventory",
+      "valid": false,
+      "value": [
+        {
+          "operation": "identity.bootstrap",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/identity/bootstrap"
+          },
+          "scope": {
+            "workspace_requirement": "bootstrap_exception",
+            "authority": "operator_bootstrap_grant"
+          },
+          "request_contract": "project-workflow.identity_bootstrap_request",
+          "success_response": "project-workflow.identity_bootstrap_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "workspace.membership.get",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/workspace-memberships/resolve"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "workspace_membership"
+          },
+          "request_contract": "project-workflow.workspace_membership_get_request",
+          "success_response": "project-workflow.workspace_membership_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.create",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_create_request",
+          "success_response": "project-workflow.agent_grant_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.get",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants/resolve"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_get_request",
+          "success_response": "project-workflow.agent_grant_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "grant.revoke",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/agent-grants/{grant_id}/revoke"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.agent_grant_revoke_request",
+          "success_response": "project-workflow.agent_grant_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "financial_review.challenge",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/financial-reviews/challenges"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "trusted_human_reviewer"
+          },
+          "request_contract": "project-workflow.financial_review_challenge_request",
+          "success_response": "project-workflow.financial_review_challenge_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "financial_review.issue",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/financial-reviews"
+          },
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "trusted_human_reviewer"
+          },
+          "request_contract": "project-workflow.financial_review_issue_request",
+          "success_response": "project-workflow.financial_review_issue_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        },
+        {
+          "operation": "identity.bootstrap",
+          "route": {
+            "method": "POST",
+            "path_template": "/v1/identity/bootstrap"
+          },
+          "scope": {
+            "workspace_requirement": "bootstrap_exception",
+            "authority": "operator_bootstrap_grant"
+          },
+          "request_contract": "project-workflow.identity_bootstrap_request",
+          "success_response": "project-workflow.identity_bootstrap_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "conflict",
+            "invalid_command",
+            "rate_limited",
+            "unavailable"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reference-resolution-request-complete",
+      "target": "reference_resolution_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.resolve_reference",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "subject_text": "Alice",
+          "expected_kind": "participant"
+        }
+      }
+    },
+    {
+      "id": "reference-resolution-request-extra-field",
+      "target": "reference_resolution_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.resolve_reference",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "subject_text": "Alice",
+          "expected_kind": "participant",
+          "foreign_tenant": "11111111-1111-4111-8111-111111111111"
+        }
+      }
+    },
+    {
+      "id": "reference-resolution-result-resolved",
+      "target": "reference_resolution_result",
+      "valid": true,
+      "value": {
+        "outcome": "resolved",
+        "resolved": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "clarification": "single same-workspace match"
+      }
+    },
+    {
+      "id": "reference-resolution-result-ambiguous",
+      "target": "reference_resolution_result",
+      "valid": true,
+      "value": {
+        "outcome": "ambiguous",
+        "resolved": null,
+        "clarification": "two aliases match"
+      }
+    },
+    {
+      "id": "reference-resolution-result-ambiguous-with-resolved",
+      "target": "reference_resolution_result",
+      "valid": false,
+      "value": {
+        "outcome": "ambiguous",
+        "resolved": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "clarification": "invalid"
+      }
+    },
+    {
+      "id": "reference-resolution-result-resolved-null",
+      "target": "reference_resolution_result",
+      "valid": false,
+      "value": {
+        "outcome": "resolved",
+        "resolved": null,
+        "clarification": "invalid"
+      }
+    },
+    {
+      "id": "reference-resolution-response-complete",
+      "target": "reference_resolution_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "11111111-1111-4111-8111-111111111111",
+        "result": {
+          "resolution": {
+            "outcome": "not_found",
+            "resolved": null,
+            "clarification": "no match"
+          }
+        }
+      }
+    },
+    {
+      "id": "signed-request-wire-complete",
+      "target": "signed_request_wire",
+      "valid": true,
+      "value": {
+        "authorization_scheme": "Nostr",
+        "encoded_event": "eyJraW5kIjoyNzIzNSwicHViX2tleSI6ImFhIn0=",
+        "origin": "https://api.example.com",
+        "request_target": "/v1/workspace-memberships/resolve?organization_id=11111111-1111-4111-8111-111111111111",
+        "method": "POST",
+        "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "admitted_body_bytes": 128
+      }
+    },
+    {
+      "id": "signed-request-wire-http-origin",
+      "target": "signed_request_wire",
+      "valid": false,
+      "value": {
+        "authorization_scheme": "Nostr",
+        "encoded_event": "eyJraW5kIjoyNzIzNSwicHViX2tleSI6ImFhIn0=",
+        "origin": "http://api.example.com",
+        "request_target": "/v1/workspace-memberships/resolve?organization_id=11111111-1111-4111-8111-111111111111",
+        "method": "POST",
+        "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "admitted_body_bytes": 128
+      }
+    },
+    {
+      "id": "signed-request-wire-bad-encoding",
+      "target": "signed_request_wire",
+      "valid": false,
+      "value": {
+        "authorization_scheme": "Nostr",
+        "encoded_event": "not base64 ***",
+        "origin": "https://api.example.com",
+        "request_target": "/v1/workspace-memberships/resolve?organization_id=11111111-1111-4111-8111-111111111111",
+        "method": "POST",
+        "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "admitted_body_bytes": 128
+      }
+    },
+    {
+      "id": "signed-request-parser-limits-complete",
+      "target": "signed_request_parser_limits",
+      "valid": true,
+      "value": {
+        "max_authorization_header_bytes": 4096,
+        "max_decoded_event_bytes": 8192,
+        "max_tag_cardinality": 8,
+        "max_body_bytes": 268435456,
+        "max_url_bytes": 2048
+      }
+    },
+    {
+      "id": "signed-request-parser-limits-oversized",
+      "target": "signed_request_parser_limits",
+      "valid": false,
+      "value": {
+        "max_authorization_header_bytes": 0,
+        "max_decoded_event_bytes": 8192,
+        "max_tag_cardinality": 8,
+        "max_body_bytes": 268435456,
+        "max_url_bytes": 2048
+      }
+    },
+    {
+      "id": "signed-request-admission-complete",
+      "target": "signed_request_admission",
+      "valid": true,
+      "value": {
+        "wire": {
+          "authorization_scheme": "Nostr",
+          "encoded_event": "eyJraW5kIjoyNzIzNSwicHViX2tleSI6ImFhIn0=",
+          "origin": "https://api.example.com",
+          "request_target": "/v1/workspace-memberships/resolve?organization_id=11111111-1111-4111-8111-111111111111",
+          "method": "POST",
+          "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "admitted_body_bytes": 128
+        },
+        "normalized": {
+          "kind": 27235,
+          "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "created_at": 1790000000,
+          "content": "",
+          "url": "https://api.example.com/v1/workspace-memberships/resolve?organization_id=11111111-1111-4111-8111-111111111111",
+          "method": "POST",
+          "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "signature": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "standard": {
+          "standard": "nip-98",
+          "revision": "nip-98/2026-10-02",
+          "status": "admitted"
+        }
+      }
+    },
+    {
+      "id": "signed-request-admission-unsupported-standard",
+      "target": "signed_request_admission",
+      "valid": false,
+      "value": {
+        "wire": {
+          "authorization_scheme": "Nostr",
+          "encoded_event": "eyJraW5kIjoyNzIzNSwicHViX2tleSI6ImFhIn0=",
+          "origin": "https://api.example.com",
+          "request_target": "/v1/workspace-memberships/resolve?organization_id=11111111-1111-4111-8111-111111111111",
+          "method": "POST",
+          "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "admitted_body_bytes": 128
+        },
+        "normalized": {
+          "kind": 27235,
+          "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "created_at": 1790000000,
+          "content": "",
+          "url": "https://api.example.com/v1/workspace-memberships/resolve?organization_id=11111111-1111-4111-8111-111111111111",
+          "method": "POST",
+          "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "signature": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "standard": {
+          "standard": "nip-98",
+          "revision": "nip-98/2026-10-02",
+          "status": "unsupported"
+        }
+      }
+    },
+    {
+      "id": "standard-revision-arbitrary-revision",
+      "target": "standard_revision",
+      "valid": false,
+      "value": {
+        "standard": "nip-01",
+        "revision": "whatever/2020"
+      }
+    },
+    {
+      "id": "standard-revision-selection-admitted",
+      "target": "standard_revision_selection",
+      "valid": true,
+      "value": {
+        "standard": "nip-98",
+        "revision": "nip-98/2026-10-02",
+        "status": "admitted"
+      }
+    },
+    {
+      "id": "standard-revision-selection-unsupported",
+      "target": "standard_revision_selection",
+      "valid": true,
+      "value": {
+        "standard": "nip-98",
+        "revision": "nip-98/2026-10-02",
+        "status": "unsupported"
+      }
+    },
+    {
+      "id": "standard-revision-selection-arbitrary-admitted",
+      "target": "standard_revision_selection",
+      "valid": false,
+      "value": {
+        "standard": "nip-98",
+        "revision": "nip-98/2025-01-01",
+        "status": "admitted"
+      }
+    },
+    {
+      "id": "signed-request-profile-unqualified-standard",
+      "target": "signed_request_profile",
+      "valid": false,
+      "value": {
+        "profile": "arboresce.nip98-http-auth.v1",
+        "max_clock_skew_seconds": 30,
+        "replay_retention_seconds": 3600,
+        "max_event_bytes": 8192,
+        "max_tag_cardinality": 8,
+        "allowed_origins": [
+          "https://api.example.com"
+        ],
+        "standard_revisions": {
+          "nip98": {
+            "standard": "nip-98",
+            "revision": "nip-98/2026-10-02"
+          }
+        },
+        "limits": {
+          "max_authorization_header_bytes": 4096,
+          "max_decoded_event_bytes": 8192,
+          "max_tag_cardinality": 8,
+          "max_body_bytes": 268435456,
+          "max_url_bytes": 2048
+        },
+        "standard_selection": {
+          "standard": "nip-98",
+          "revision": "nip-98/2026-10-02",
+          "status": "unsupported"
+        },
+        "admitted_methods": [
+          "GET",
+          "POST",
+          "PUT",
+          "PATCH",
+          "DELETE"
+        ],
+        "bodyless_methods": [
+          "GET",
+          "DELETE"
+        ]
       }
     }
   ]

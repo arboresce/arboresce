@@ -2966,7 +2966,11 @@
         "max_event_bytes",
         "max_tag_cardinality",
         "allowed_origins",
-        "standard_revisions"
+        "standard_revisions",
+        "limits",
+        "standard_selection",
+        "admitted_methods",
+        "bodyless_methods"
       ],
       "properties": {
         "profile": {
@@ -3023,6 +3027,41 @@
             }
           },
           "additionalProperties": false
+        },
+        "limits": {
+          "$ref": "#/$defs/signed_request_parser_limits"
+        },
+        "standard_selection": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/standard_revision_selection"
+            },
+            {
+              "properties": {
+                "status": {
+                  "const": "admitted"
+                }
+              }
+            }
+          ]
+        },
+        "admitted_methods": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/request_method"
+          }
+        },
+        "bodyless_methods": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/request_method"
+          }
         }
       },
       "additionalProperties": false
@@ -3940,7 +3979,7 @@
       "additionalProperties": false
     },
     "standard_revision": {
-      "description": "Exact pinned revision of an admitted external standard. A generic label is not a pinned revision.",
+      "description": "Exact pinned revision of an admitted external standard. A generic label or arbitrary string is not a pinned admitted revision.",
       "type": "object",
       "required": [
         "standard",
@@ -3960,7 +3999,29 @@
           "pattern": "^[A-Za-z0-9][A-Za-z0-9./:_-]{0,63}$"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "standard": {
+              "const": "nip-01"
+            },
+            "revision": {
+              "const": "nip-01/2026-10-02"
+            }
+          }
+        },
+        {
+          "properties": {
+            "standard": {
+              "const": "nip-98"
+            },
+            "revision": {
+              "const": "nip-98/2026-10-02"
+            }
+          }
+        }
+      ]
     },
     "financial_review_rendering": {
       "description": "Readable exact-content rendering presented to the human reviewer with an independently verifiable identity. Rendering does not itself approve anything.",
@@ -4405,6 +4466,935 @@
         }
       },
       "additionalProperties": false
+    },
+    "standard_revision_status": {
+      "description": "Explicit admission status of a pinned external standard revision. Only an admitted exact revision can authorize work.",
+      "enum": [
+        "admitted",
+        "unsupported",
+        "unknown"
+      ]
+    },
+    "standard_revision_selection": {
+      "description": "Exact standard revision selection with explicit admission status. An arbitrary revision string is not an admitted profile.",
+      "type": "object",
+      "required": [
+        "standard",
+        "revision",
+        "status"
+      ],
+      "properties": {
+        "standard": {
+          "enum": [
+            "nip-01",
+            "nip-98"
+          ]
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9./:_-]{0,63}$"
+        },
+        "status": {
+          "$ref": "#/$defs/standard_revision_status"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "standard": {
+              "const": "nip-01"
+            },
+            "revision": {
+              "const": "nip-01/2026-10-02"
+            },
+            "status": {
+              "const": "admitted"
+            }
+          }
+        },
+        {
+          "properties": {
+            "standard": {
+              "const": "nip-98"
+            },
+            "revision": {
+              "const": "nip-98/2026-10-02"
+            },
+            "status": {
+              "const": "admitted"
+            }
+          }
+        },
+        {
+          "properties": {
+            "status": {
+              "enum": [
+                "unsupported",
+                "unknown"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "signed_request_parser_limits": {
+      "description": "Finite decoder/parser limits for the NIP-98 authorization transport. Exceeding any limit rejects before signing work.",
+      "type": "object",
+      "required": [
+        "max_authorization_header_bytes",
+        "max_decoded_event_bytes",
+        "max_tag_cardinality",
+        "max_body_bytes",
+        "max_url_bytes"
+      ],
+      "properties": {
+        "max_authorization_header_bytes": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 16384
+        },
+        "max_decoded_event_bytes": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 65536
+        },
+        "max_tag_cardinality": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 16
+        },
+        "max_body_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 268435456
+        },
+        "max_url_bytes": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 8192
+        }
+      },
+      "additionalProperties": false
+    },
+    "signed_request_wire": {
+      "description": "Exact NIP-98 Authorization-header transport. The server decodes the admitted base64 event and binds it to the exact received request bytes; it never reconstructs the URL from forwarding headers.",
+      "type": "object",
+      "required": [
+        "authorization_scheme",
+        "encoded_event",
+        "origin",
+        "request_target",
+        "method",
+        "body_sha256",
+        "admitted_body_bytes"
+      ],
+      "properties": {
+        "authorization_scheme": {
+          "const": "Nostr"
+        },
+        "encoded_event": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 87380,
+          "pattern": "^[A-Za-z0-9+/]+={0,2}$"
+        },
+        "origin": {
+          "$ref": "#/$defs/https_origin"
+        },
+        "request_target": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8192,
+          "pattern": "^/[^\\s]*$"
+        },
+        "method": {
+          "$ref": "#/$defs/request_method"
+        },
+        "body_sha256": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "admitted_body_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 268435456
+        }
+      },
+      "additionalProperties": false
+    },
+    "signed_request_admission": {
+      "description": "Wire-to-normalized admission binding. Only an admitted standard selection can authorize the normalized event.",
+      "type": "object",
+      "required": [
+        "wire",
+        "normalized",
+        "standard"
+      ],
+      "properties": {
+        "wire": {
+          "$ref": "#/$defs/signed_request_wire"
+        },
+        "normalized": {
+          "$ref": "#/$defs/signed_request"
+        },
+        "standard": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/standard_revision_selection"
+            },
+            {
+              "properties": {
+                "status": {
+                  "const": "admitted"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "resolved_reference": {
+      "description": "Exactly one resolved same-workspace target: a committed project record revision or an exact change-item revision.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/project_record_reference"
+        },
+        {
+          "$ref": "#/$defs/project_change_item_reference"
+        }
+      ]
+    },
+    "reference_resolution_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            },
+            {
+              "properties": {
+                "command": {
+                  "const": "project.resolve_reference"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "subject_text",
+            "expected_kind"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "subject_text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "expected_kind": {
+              "$ref": "#/$defs/project_record_kind"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "reference_resolution_result": {
+      "description": "Disclosure-safe typed resolution outcome. Ambiguity, unresolved dependency, stale target and absence are distinct observations and never reveal foreign IDs.",
+      "type": "object",
+      "required": [
+        "outcome",
+        "resolved",
+        "clarification"
+      ],
+      "properties": {
+        "outcome": {
+          "$ref": "#/$defs/resolution_outcome"
+        },
+        "resolved": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/resolved_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "clarification": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "outcome": {
+              "const": "resolved"
+            },
+            "resolved": {
+              "$ref": "#/$defs/resolved_reference"
+            }
+          }
+        },
+        {
+          "properties": {
+            "outcome": {
+              "enum": [
+                "ambiguous",
+                "dependency_unresolved",
+                "stale_target",
+                "not_found"
+              ]
+            },
+            "resolved": {
+              "type": "null"
+            }
+          }
+        }
+      ]
+    },
+    "reference_resolution_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "resolution"
+          ],
+          "properties": {
+            "resolution": {
+              "$ref": "#/$defs/reference_resolution_result"
+            }
+          }
+        }
+      }
+    },
+    "operation_route": {
+      "description": "Exact registered HTTP method and path template. A capability label without a registered route is not implemented.",
+      "type": "object",
+      "required": [
+        "method",
+        "path_template"
+      ],
+      "properties": {
+        "method": {
+          "$ref": "#/$defs/request_method"
+        },
+        "path_template": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 256,
+          "pattern": "^/v1/[A-Za-z0-9/_{}-]+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "operation_scope": {
+      "description": "Exact workspace requirement and current authority required by a registered operation.",
+      "type": "object",
+      "required": [
+        "workspace_requirement",
+        "authority"
+      ],
+      "properties": {
+        "workspace_requirement": {
+          "enum": [
+            "exactly_one_workspace",
+            "bootstrap_exception"
+          ]
+        },
+        "authority": {
+          "enum": [
+            "operator_bootstrap_grant",
+            "workspace_membership",
+            "scoped_agent_grant",
+            "trusted_human_reviewer",
+            "current_financial_owner"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "operation_error_code": {
+      "description": "Closed problem-code inventory admitted for registered operations.",
+      "enum": [
+        "invalid_request",
+        "unauthenticated",
+        "forbidden",
+        "not_found",
+        "conflict",
+        "request_too_large",
+        "unsupported_media_type",
+        "invalid_command",
+        "rate_limited",
+        "internal_error",
+        "unavailable"
+      ]
+    },
+    "operation_contract_ref": {
+      "description": "Fully qualified closed request/response contract reference.",
+      "enum": [
+        "financial-records.expense_confirm_command",
+        "financial-records.expense_confirm_response",
+        "project-workflow.agent_grant_create_request",
+        "project-workflow.agent_grant_get_request",
+        "project-workflow.agent_grant_get_response",
+        "project-workflow.agent_grant_response",
+        "project-workflow.agent_grant_revoke_request",
+        "project-workflow.financial_review_challenge_request",
+        "project-workflow.financial_review_challenge_response",
+        "project-workflow.financial_review_issue_request",
+        "project-workflow.financial_review_issue_response",
+        "project-workflow.identity_bootstrap_request",
+        "project-workflow.identity_bootstrap_response",
+        "project-workflow.workspace_membership_get_request",
+        "project-workflow.workspace_membership_get_response"
+      ]
+    },
+    "operation_registration": {
+      "description": "Closed registration of one focused operation: exact method, route, scope, request/response contracts and admitted error codes.",
+      "type": "object",
+      "required": [
+        "operation",
+        "route",
+        "scope",
+        "request_contract",
+        "success_response",
+        "error_codes"
+      ],
+      "properties": {
+        "operation": {
+          "$ref": "#/$defs/registered_operation"
+        },
+        "route": {
+          "$ref": "#/$defs/operation_route"
+        },
+        "scope": {
+          "$ref": "#/$defs/operation_scope"
+        },
+        "request_contract": {
+          "$ref": "#/$defs/operation_contract_ref"
+        },
+        "success_response": {
+          "$ref": "#/$defs/operation_contract_ref"
+        },
+        "error_codes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/operation_error_code"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "operation": {
+              "const": "identity.bootstrap"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/identity/bootstrap"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "bootstrap_exception"
+                },
+                "authority": {
+                  "const": "operator_bootstrap_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.identity_bootstrap_request"
+            },
+            "success_response": {
+              "const": "project-workflow.identity_bootstrap_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "workspace.membership.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/workspace-memberships/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "workspace_membership"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.workspace_membership_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.workspace_membership_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "grant.create"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/agent-grants"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.agent_grant_create_request"
+            },
+            "success_response": {
+              "const": "project-workflow.agent_grant_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "grant.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/agent-grants/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.agent_grant_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.agent_grant_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "grant.revoke"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/agent-grants/{grant_id}/revoke"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.agent_grant_revoke_request"
+            },
+            "success_response": {
+              "const": "project-workflow.agent_grant_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "conflict",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_review.challenge"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/financial-reviews/challenges"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "trusted_human_reviewer"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.financial_review_challenge_request"
+            },
+            "success_response": {
+              "const": "project-workflow.financial_review_challenge_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_review.issue"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/financial-reviews"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "trusted_human_reviewer"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.financial_review_issue_request"
+            },
+            "success_response": {
+              "const": "project-workflow.financial_review_issue_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "expense.confirm"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/expenses/{expense_id}/confirmations"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "current_financial_owner"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "financial-records.expense_confirm_command"
+            },
+            "success_response": {
+              "const": "financial-records.expense_confirm_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "conflict",
+                "invalid_command",
+                "rate_limited",
+                "unavailable"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "operation_inventory": {
+      "description": "The complete focused operation inventory: exactly one registration per registered operation.",
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/operation_registration"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "identity.bootstrap"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "workspace.membership.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "grant.create"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "grant.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "grant.revoke"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "financial_review.challenge"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "financial_review.issue"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "expense.confirm"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
     }
   }
 }
