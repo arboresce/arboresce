@@ -389,17 +389,19 @@
       "maxLength": 128,
       "pattern": "^[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)*(?![\\s\\S])"
     },
+    "description_text": {
+      "description": "Nonempty single-line description text with no control characters. It matches the description record statement so an admitted request can be preserved unchanged.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
+    },
     "record_statement": {
       "type": "object",
       "required": ["kind", "statement"],
       "properties": {
         "kind": {"const": "description"},
-        "statement": {
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 4096,
-          "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
-        }
+        "statement": {"$ref": "#/$defs/description_text"}
       },
       "additionalProperties": false
     },
@@ -757,6 +759,857 @@
         "association_revision": {"$ref": "common.schema.json#/$defs/content_revision"}
       },
       "additionalProperties": false
+    },
+    "project_resource_record": {
+      "type": "object",
+      "required": [
+        "record_id",
+        "content_revision",
+        "content"
+      ],
+      "properties": {
+        "record_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "content": {
+          "$ref": "#/$defs/project_record_content"
+        },
+        "accepted_mapping": {
+          "$ref": "#/$defs/project_effect_mapping"
+        },
+        "field_lineage": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {"$ref": "#/$defs/field_lineage_entry"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_page": {
+      "description": "Bounded project readback page. A continuation cursor must be present exactly when more canonical records remain.",
+      "type": "object",
+      "required": ["total_records", "has_more", "next_cursor"],
+      "properties": {
+        "total_records": {"type": "integer", "minimum": 0, "maximum": 1000000},
+        "has_more": {"type": "boolean"},
+        "next_cursor": {
+          "oneOf": [
+            {"type": "string", "minLength": 1, "maxLength": 512, "pattern": "^[A-Za-z0-9_-]{1,512}$"},
+            {"type": "null"}
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"has_more": {"const": true}, "next_cursor": {"type": "string"}}},
+        {"properties": {"has_more": {"const": false}, "next_cursor": {"type": "null"}}}
+      ]
+    },
+    "project_resource": {
+      "type": "object",
+      "required": [
+        "workspace",
+        "project_id",
+        "content_revision",
+        "records",
+        "page"
+      ],
+      "properties": {
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "project_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "records": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/project_resource_record"
+          }
+        },
+        "page": {
+          "$ref": "#/$defs/project_page"
+        }
+      },
+      "additionalProperties": false
+    },
+    "workspace_resource": {
+      "type": "object",
+      "required": [
+        "workspace"
+      ],
+      "properties": {
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_create_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "project.create"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "project_id",
+            "description"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "project_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "description": {
+              "$ref": "#/$defs/description_text"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "project.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "project_id"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "project_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "exact_revision": {
+              "$ref": "common.schema.json#/$defs/content_revision"
+            },
+            "cursor": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512,
+              "pattern": "^[A-Za-z0-9_-]{1,512}$"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_revise_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "project.revise"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "project",
+            "expected_revision",
+            "description"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "project": {
+              "$ref": "#/$defs/project_reference"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/content_revision"
+            },
+            "description": {
+              "$ref": "#/$defs/description_text"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "party_create_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "party.create"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "party_id",
+            "kind",
+            "aliases"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "party_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "kind": {
+              "$ref": "#/$defs/party_kind"
+            },
+            "aliases": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 32,
+              "items": {
+                "$ref": "#/$defs/party_alias"
+              }
+            },
+            "details": {
+              "type": "array",
+              "maxItems": 32,
+              "items": {
+                "$ref": "#/$defs/party_detail"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "party_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "party.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "party_id"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "party_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "exact_revision": {
+              "$ref": "common.schema.json#/$defs/content_revision"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "party_revise_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "party.revise"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "party",
+            "expected_revision",
+            "aliases"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "party": {
+              "$ref": "#/$defs/party_reference"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/content_revision"
+            },
+            "aliases": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 32,
+              "items": {
+                "$ref": "#/$defs/party_alias"
+              }
+            },
+            "details": {
+              "type": "array",
+              "maxItems": 32,
+              "items": {
+                "$ref": "#/$defs/party_detail"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "workspace_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "workspace.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "change_item_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "project_change.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "project",
+            "item_id"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "project": {
+              "$ref": "#/$defs/project_reference"
+            },
+            "item_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "exact_candidate": {
+              "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "change_item_edit_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "project_change.edit"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "project",
+            "edit"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "project": {
+              "$ref": "#/$defs/project_reference"
+            },
+            "edit": {
+              "$ref": "#/$defs/project_item_edit"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "change_item_review_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "project_change.review"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "project",
+            "review"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "project": {
+              "$ref": "#/$defs/project_reference"
+            },
+            "review": {
+              "$ref": "#/$defs/project_review_request"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_association_create_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "expense_association.create"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "association"
+          ],
+          "properties": {
+            "association": {
+              "$ref": "#/$defs/expense_project_association"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_association_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "expense_association.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "project",
+            "expense_id"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "project": {
+              "$ref": "#/$defs/project_reference"
+            },
+            "expense_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "exact_association_revision": {
+              "$ref": "common.schema.json#/$defs/content_revision"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_success_response": {
+      "description": "Shared project success envelope. It additionally rejects unsupported authority, assurance and actor assertions at the top level and inside the result.",
+      "allOf": [{"$ref": "common.schema.json#/$defs/success_response"}],
+      "properties": {
+        "authorized": false,
+        "approved": false,
+        "human_approved": false,
+        "confidence": false,
+        "actor": false,
+        "result": {
+          "properties": {
+            "authorized": false,
+            "approved": false,
+            "human_approved": false,
+            "confidence": false,
+            "actor": false
+          }
+        }
+      }
+    },
+    "project_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "project"
+          ],
+          "properties": {
+            "project": {
+              "$ref": "#/$defs/project_resource"
+            }
+          }
+        }
+      },
+      "required": [
+        "idempotency_receipt"
+      ]
+    },
+    "project_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "project"
+          ],
+          "properties": {
+            "project": {
+              "$ref": "#/$defs/project_resource"
+            }
+          }
+        }
+      }
+    },
+    "party_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "party"
+          ],
+          "properties": {
+            "party": {
+              "$ref": "#/$defs/party_record"
+            }
+          }
+        }
+      },
+      "required": [
+        "idempotency_receipt"
+      ]
+    },
+    "party_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "party"
+          ],
+          "properties": {
+            "party": {
+              "$ref": "#/$defs/party_record"
+            }
+          }
+        }
+      }
+    },
+    "workspace_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "workspace"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_resource"
+            }
+          }
+        }
+      }
+    },
+    "change_item_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "change"
+          ],
+          "properties": {
+            "change": {
+              "$ref": "#/$defs/project_change_resource"
+            }
+          }
+        }
+      }
+    },
+    "change_item_edit_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "change"
+          ],
+          "properties": {
+            "change": {
+              "$ref": "#/$defs/project_change_resource"
+            }
+          }
+        }
+      },
+      "required": [
+        "idempotency_receipt"
+      ]
+    },
+    "change_item_review_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "change"
+          ],
+          "properties": {
+            "change": {
+              "$ref": "#/$defs/project_change_resource"
+            }
+          }
+        }
+      },
+      "required": [
+        "idempotency_receipt"
+      ]
+    },
+    "expense_association_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "association"
+          ],
+          "properties": {
+            "association": {
+              "$ref": "#/$defs/expense_project_association"
+            }
+          }
+        }
+      },
+      "required": [
+        "idempotency_receipt"
+      ]
+    },
+    "expense_association_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "association"
+          ],
+          "properties": {
+            "association": {
+              "$ref": "#/$defs/expense_project_association"
+            }
+          }
+        }
+      }
     }
   }
 }

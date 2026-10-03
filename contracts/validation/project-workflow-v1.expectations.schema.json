@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 199,
-      "maxItems": 199,
+      "minItems": 260,
+      "maxItems": 260,
       "prefixItems": [
         {
           "type": "object",
@@ -5572,6 +5572,1713 @@
               "not": {
                 "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_resource"
               }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-create-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_create_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-create-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_create_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-get-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-get-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-revise-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_revise_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_revise_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-revise-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_revise_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_revise_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-create-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_create_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-create-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_create_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-get-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-get-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-revise-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_revise_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_revise_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-revise-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_revise_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_revise_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-get-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-get-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-get-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-get-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-edit-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_edit_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_edit_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-edit-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_edit_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_edit_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-review-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_review_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_review_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-review-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_review_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_review_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-create-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_create_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-create-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_create_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-get-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-get-request-missing-required"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-get-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-get-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-get-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "party-get-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "party_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/party_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-get-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-get-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-get-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-get-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-edit-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_edit_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_edit_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-edit-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_edit_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_edit_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-review-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_review_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_review_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "change-item-review-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "change_item_review_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/change_item_review_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-get-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-get-response-missing-result"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-resource"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_resource"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-resource-missing-records"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_resource"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-resource-record"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_resource_record"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_resource_record"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-resource"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_resource"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-resource-extra-invalid"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_resource"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-create-request-control-description"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_create_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-revise-request-control-description"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_revise_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_revise_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-resource-too-many-records"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_resource"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-response-authorized-invalid"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-response-result-authority-invalid"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-success-response"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_success_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_success_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-resource-record-with-provenance"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_resource_record"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_resource_record"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-association-get-request-exact-revision"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_association_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_association_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-page"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_page"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_page"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-page-has-more-without-cursor"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_page"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_page"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-get-request-cursor"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-resource-paginated"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_resource"
             }
           },
           "required": [

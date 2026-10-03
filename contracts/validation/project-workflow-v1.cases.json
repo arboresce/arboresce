@@ -5549,6 +5549,5141 @@
           "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }
       }
+    },
+    {
+      "id": "project-create-request",
+      "target": "project_create_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "description": "New project"
+        }
+      }
+    },
+    {
+      "id": "project-create-request-missing-required",
+      "target": "project_create_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "description": "New project"
+        }
+      }
+    },
+    {
+      "id": "project-get-request",
+      "target": "project_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project_id": "44444444-4444-4444-b444-444444444444"
+        }
+      }
+    },
+    {
+      "id": "project-get-request-missing-required",
+      "target": "project_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          }
+        }
+      }
+    },
+    {
+      "id": "project-revise-request",
+      "target": "project_revise_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.revise",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "expected_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "description": "Revised project"
+        }
+      }
+    },
+    {
+      "id": "project-revise-request-missing-required",
+      "target": "project_revise_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.revise",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "description": "Revised project"
+        }
+      }
+    },
+    {
+      "id": "party-create-request",
+      "target": "party_create_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "party.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "party_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "person",
+          "aliases": [
+            {
+              "value": "Dana",
+              "status": "known"
+            }
+          ],
+          "details": []
+        }
+      }
+    },
+    {
+      "id": "party-create-request-missing-required",
+      "target": "party_create_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "party.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "party_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "person",
+          "details": []
+        }
+      }
+    },
+    {
+      "id": "party-get-request",
+      "target": "party_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "party.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "party_id": "33333333-3333-4333-a333-333333333333"
+        }
+      }
+    },
+    {
+      "id": "party-get-request-missing-required",
+      "target": "party_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "party.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          }
+        }
+      }
+    },
+    {
+      "id": "party-revise-request",
+      "target": "party_revise_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "party.revise",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "party": {
+            "party_id": "33333333-3333-4333-a333-333333333333",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "expected_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "aliases": [
+            {
+              "value": "Dana",
+              "status": "known"
+            }
+          ],
+          "details": []
+        }
+      }
+    },
+    {
+      "id": "party-revise-request-missing-required",
+      "target": "party_revise_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "party.revise",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "party": {
+            "party_id": "33333333-3333-4333-a333-333333333333",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "aliases": [
+            {
+              "value": "Dana",
+              "status": "known"
+            }
+          ],
+          "details": []
+        }
+      }
+    },
+    {
+      "id": "workspace-get-request",
+      "target": "workspace_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "workspace.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          }
+        }
+      }
+    },
+    {
+      "id": "workspace-get-request-missing-required",
+      "target": "workspace_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "workspace.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {}
+      }
+    },
+    {
+      "id": "change-item-get-request",
+      "target": "change_item_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_change.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "item_id": "11111111-1111-4111-8111-111111111111"
+        }
+      }
+    },
+    {
+      "id": "change-item-get-request-missing-required",
+      "target": "change_item_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_change.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "change-item-edit-request",
+      "target": "change_item_edit_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_change.edit",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "edit": {
+            "item_id": "11111111-1111-4111-8111-111111111111",
+            "base_candidate": {
+              "context": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "purpose": "project_update"
+              },
+              "candidate_id": "66666666-6666-4666-8666-666666666666",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "content": {
+              "kind": "status",
+              "value": "on_track"
+            },
+            "changed_fields": [
+              "content.value"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "change-item-edit-request-missing-required",
+      "target": "change_item_edit_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_change.edit",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "change-item-review-request",
+      "target": "change_item_review_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_change.review",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "review": {
+            "item_id": "11111111-1111-4111-8111-111111111111",
+            "candidate": {
+              "context": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "purpose": "project_update"
+              },
+              "candidate_id": "66666666-6666-4666-8666-666666666666",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "verdict": "accept",
+            "reason": "Reviewed.",
+            "expected_control_revision": {
+              "kind": "control",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "change-item-review-request-missing-required",
+      "target": "change_item_review_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_change.review",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "expense-association-create-request",
+      "target": "expense_association_create_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "expense_association.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "association": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project": {
+              "project_id": "44444444-4444-4444-b444-444444444444",
+              "content_revision": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "expense_id": "11111111-1111-4111-8111-111111111111",
+            "expense_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "association_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "expense-association-create-request-missing-required",
+      "target": "expense_association_create_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "expense_association.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {}
+      }
+    },
+    {
+      "id": "expense-association-get-request",
+      "target": "expense_association_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "expense_association.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "expense_id": "11111111-1111-4111-8111-111111111111"
+        }
+      }
+    },
+    {
+      "id": "expense-association-get-request-missing-required",
+      "target": "expense_association_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "expense_association.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "project-response",
+      "target": "project_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "project": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "records": [
+              {
+                "record_id": "11111111-1111-4111-8111-111111111111",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content": {
+                  "kind": "work_item",
+                  "statement": "Buy paint",
+                  "state": "planned"
+                }
+              }
+            ],
+            "page": {
+              "total_records": 1,
+              "has_more": false,
+              "next_cursor": null
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "project-response-missing-result",
+      "target": "project_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {},
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "project-get-response",
+      "target": "project_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "project": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "records": [
+              {
+                "record_id": "11111111-1111-4111-8111-111111111111",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content": {
+                  "kind": "work_item",
+                  "statement": "Buy paint",
+                  "state": "planned"
+                }
+              }
+            ],
+            "page": {
+              "total_records": 1,
+              "has_more": false,
+              "next_cursor": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "project-get-response-missing-result",
+      "target": "project_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {}
+      }
+    },
+    {
+      "id": "party-response",
+      "target": "party_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "party": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "party_id": "33333333-3333-4333-a333-333333333333",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "kind": "person",
+            "aliases": [
+              {
+                "value": "Dana",
+                "status": "known"
+              }
+            ],
+            "details": []
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "party-response-missing-result",
+      "target": "party_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {},
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "party-get-response",
+      "target": "party_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "party": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "party_id": "33333333-3333-4333-a333-333333333333",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "kind": "person",
+            "aliases": [
+              {
+                "value": "Dana",
+                "status": "known"
+              }
+            ],
+            "details": []
+          }
+        }
+      }
+    },
+    {
+      "id": "party-get-response-missing-result",
+      "target": "party_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {}
+      }
+    },
+    {
+      "id": "workspace-get-response",
+      "target": "workspace_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "workspace": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "workspace-get-response-missing-result",
+      "target": "workspace_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {}
+      }
+    },
+    {
+      "id": "change-item-get-response",
+      "target": "change_item_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "change": {
+            "item": {
+              "item_id": "11111111-1111-4111-8111-111111111111",
+              "candidate": {
+                "context": {
+                  "organization_id": "11111111-1111-4111-8111-111111111111",
+                  "domain_id": "22222222-2222-4222-9222-222222222222",
+                  "purpose": "project_update"
+                },
+                "candidate_id": "66666666-6666-4666-8666-666666666666",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "workspace": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222"
+              },
+              "project": {
+                "project_id": "44444444-4444-4444-b444-444444444444",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "origin": {
+                "capture": {
+                  "organization_id": "11111111-1111-4111-8111-111111111111",
+                  "domain_id": "22222222-2222-4222-9222-222222222222",
+                  "capture_id": "55555555-5555-4555-8555-555555555555",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  }
+                },
+                "analysis_id": "77777777-7777-4777-8777-777777777777",
+                "analysis_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "temporal_basis": {
+                  "event": {
+                    "precision": "date",
+                    "value": "2026-10-03"
+                  },
+                  "timezone": "America/Los_Angeles",
+                  "relative_date_rule_version": "relative_dates_v1"
+                }
+              },
+              "operation": "create",
+              "record_kind": "work_item",
+              "target": {
+                "record": {
+                  "kind": "work_item",
+                  "record_id": "88888888-8888-4888-8888-888888888888"
+                },
+                "absent": true
+              },
+              "content": {
+                "kind": "work_item",
+                "statement": "Buy paint",
+                "state": "planned"
+              },
+              "changed_fields": [
+                "statement"
+              ],
+              "statement": "Propose a new work item.",
+              "scope": {
+                "summary": "Project update",
+                "applies_to": [
+                  "project work"
+                ],
+                "excludes": []
+              },
+              "qualifications": [],
+              "evidence": {
+                "supporting": [
+                  {
+                    "organization_id": "11111111-1111-4111-8111-111111111111",
+                    "observation_id": "22222222-2222-4222-9222-222222222222"
+                  }
+                ],
+                "refuting": [],
+                "qualifying": []
+              },
+              "field_lineage": [
+                {
+                  "field": "statement",
+                  "entries": [
+                    {
+                      "category": "model_inference",
+                      "profile": "synthesis_v1",
+                      "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                      "basis": "The note reports the change.",
+                      "alternatives": [],
+                      "unresolved": []
+                    }
+                  ]
+                }
+              ],
+              "unresolved": [],
+              "dependencies": []
+            },
+            "revision_state": "pending",
+            "review": null,
+            "superseded_by": null,
+            "control_revision": {
+              "kind": "control",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "change-item-get-response-missing-result",
+      "target": "change_item_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {}
+      }
+    },
+    {
+      "id": "change-item-edit-response",
+      "target": "change_item_edit_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "change": {
+            "item": {
+              "item_id": "11111111-1111-4111-8111-111111111111",
+              "candidate": {
+                "context": {
+                  "organization_id": "11111111-1111-4111-8111-111111111111",
+                  "domain_id": "22222222-2222-4222-9222-222222222222",
+                  "purpose": "project_update"
+                },
+                "candidate_id": "66666666-6666-4666-8666-666666666666",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "workspace": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222"
+              },
+              "project": {
+                "project_id": "44444444-4444-4444-b444-444444444444",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "origin": {
+                "capture": {
+                  "organization_id": "11111111-1111-4111-8111-111111111111",
+                  "domain_id": "22222222-2222-4222-9222-222222222222",
+                  "capture_id": "55555555-5555-4555-8555-555555555555",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  }
+                },
+                "analysis_id": "77777777-7777-4777-8777-777777777777",
+                "analysis_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "temporal_basis": {
+                  "event": {
+                    "precision": "date",
+                    "value": "2026-10-03"
+                  },
+                  "timezone": "America/Los_Angeles",
+                  "relative_date_rule_version": "relative_dates_v1"
+                }
+              },
+              "operation": "create",
+              "record_kind": "work_item",
+              "target": {
+                "record": {
+                  "kind": "work_item",
+                  "record_id": "88888888-8888-4888-8888-888888888888"
+                },
+                "absent": true
+              },
+              "content": {
+                "kind": "work_item",
+                "statement": "Buy paint",
+                "state": "planned"
+              },
+              "changed_fields": [
+                "statement"
+              ],
+              "statement": "Propose a new work item.",
+              "scope": {
+                "summary": "Project update",
+                "applies_to": [
+                  "project work"
+                ],
+                "excludes": []
+              },
+              "qualifications": [],
+              "evidence": {
+                "supporting": [
+                  {
+                    "organization_id": "11111111-1111-4111-8111-111111111111",
+                    "observation_id": "22222222-2222-4222-9222-222222222222"
+                  }
+                ],
+                "refuting": [],
+                "qualifying": []
+              },
+              "field_lineage": [
+                {
+                  "field": "statement",
+                  "entries": [
+                    {
+                      "category": "model_inference",
+                      "profile": "synthesis_v1",
+                      "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                      "basis": "The note reports the change.",
+                      "alternatives": [],
+                      "unresolved": []
+                    }
+                  ]
+                }
+              ],
+              "unresolved": [],
+              "dependencies": []
+            },
+            "revision_state": "pending",
+            "review": null,
+            "superseded_by": null,
+            "control_revision": {
+              "kind": "control",
+              "value": "1"
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "change-item-edit-response-missing-result",
+      "target": "change_item_edit_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {},
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "change-item-review-response",
+      "target": "change_item_review_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "change": {
+            "item": {
+              "item_id": "11111111-1111-4111-8111-111111111111",
+              "candidate": {
+                "context": {
+                  "organization_id": "11111111-1111-4111-8111-111111111111",
+                  "domain_id": "22222222-2222-4222-9222-222222222222",
+                  "purpose": "project_update"
+                },
+                "candidate_id": "66666666-6666-4666-8666-666666666666",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "workspace": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222"
+              },
+              "project": {
+                "project_id": "44444444-4444-4444-b444-444444444444",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "origin": {
+                "capture": {
+                  "organization_id": "11111111-1111-4111-8111-111111111111",
+                  "domain_id": "22222222-2222-4222-9222-222222222222",
+                  "capture_id": "55555555-5555-4555-8555-555555555555",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  }
+                },
+                "analysis_id": "77777777-7777-4777-8777-777777777777",
+                "analysis_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "temporal_basis": {
+                  "event": {
+                    "precision": "date",
+                    "value": "2026-10-03"
+                  },
+                  "timezone": "America/Los_Angeles",
+                  "relative_date_rule_version": "relative_dates_v1"
+                }
+              },
+              "operation": "create",
+              "record_kind": "work_item",
+              "target": {
+                "record": {
+                  "kind": "work_item",
+                  "record_id": "88888888-8888-4888-8888-888888888888"
+                },
+                "absent": true
+              },
+              "content": {
+                "kind": "work_item",
+                "statement": "Buy paint",
+                "state": "planned"
+              },
+              "changed_fields": [
+                "statement"
+              ],
+              "statement": "Propose a new work item.",
+              "scope": {
+                "summary": "Project update",
+                "applies_to": [
+                  "project work"
+                ],
+                "excludes": []
+              },
+              "qualifications": [],
+              "evidence": {
+                "supporting": [
+                  {
+                    "organization_id": "11111111-1111-4111-8111-111111111111",
+                    "observation_id": "22222222-2222-4222-9222-222222222222"
+                  }
+                ],
+                "refuting": [],
+                "qualifying": []
+              },
+              "field_lineage": [
+                {
+                  "field": "statement",
+                  "entries": [
+                    {
+                      "category": "model_inference",
+                      "profile": "synthesis_v1",
+                      "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                      "basis": "The note reports the change.",
+                      "alternatives": [],
+                      "unresolved": []
+                    }
+                  ]
+                }
+              ],
+              "unresolved": [],
+              "dependencies": []
+            },
+            "revision_state": "pending",
+            "review": null,
+            "superseded_by": null,
+            "control_revision": {
+              "kind": "control",
+              "value": "1"
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "change-item-review-response-missing-result",
+      "target": "change_item_review_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {},
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "expense-association-response",
+      "target": "expense_association_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "association": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project": {
+              "project_id": "44444444-4444-4444-b444-444444444444",
+              "content_revision": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "expense_id": "11111111-1111-4111-8111-111111111111",
+            "expense_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "association_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "expense-association-response-missing-result",
+      "target": "expense_association_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {},
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "expense-association-get-response",
+      "target": "expense_association_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "association": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project": {
+              "project_id": "44444444-4444-4444-b444-444444444444",
+              "content_revision": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "expense_id": "11111111-1111-4111-8111-111111111111",
+            "expense_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "association_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "expense-association-get-response-missing-result",
+      "target": "expense_association_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {}
+      }
+    },
+    {
+      "id": "project-resource",
+      "target": "project_resource",
+      "valid": true,
+      "value": {
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project_id": "44444444-4444-4444-b444-444444444444",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "records": [
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "Buy paint",
+              "state": "planned"
+            }
+          }
+        ],
+        "page": {
+          "total_records": 1,
+          "has_more": false,
+          "next_cursor": null
+        }
+      }
+    },
+    {
+      "id": "project-resource-missing-records",
+      "target": "project_resource",
+      "valid": false,
+      "value": {
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project_id": "44444444-4444-4444-b444-444444444444",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "page": {
+          "total_records": 1,
+          "has_more": false,
+          "next_cursor": null
+        }
+      }
+    },
+    {
+      "id": "project-resource-record",
+      "target": "project_resource_record",
+      "valid": true,
+      "value": {
+        "record_id": "11111111-1111-4111-8111-111111111111",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        }
+      }
+    },
+    {
+      "id": "workspace-resource",
+      "target": "workspace_resource",
+      "valid": true,
+      "value": {
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        }
+      }
+    },
+    {
+      "id": "workspace-resource-extra-invalid",
+      "target": "workspace_resource",
+      "valid": false,
+      "value": {
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "name": "x"
+      }
+    },
+    {
+      "id": "project-create-request-control-description",
+      "target": "project_create_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "description": "line\nbreak"
+        }
+      }
+    },
+    {
+      "id": "project-revise-request-control-description",
+      "target": "project_revise_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.revise",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "expected_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "description": "line\nbreak"
+        }
+      }
+    },
+    {
+      "id": "project-resource-too-many-records",
+      "target": "project_resource",
+      "valid": false,
+      "value": {
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project_id": "44444444-4444-4444-b444-444444444444",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "records": [
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          },
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "x",
+              "state": "planned"
+            }
+          }
+        ],
+        "page": {
+          "total_records": 1,
+          "has_more": false,
+          "next_cursor": null
+        }
+      }
+    },
+    {
+      "id": "project-response-authorized-invalid",
+      "target": "project_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "project": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "records": [
+              {
+                "record_id": "11111111-1111-4111-8111-111111111111",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content": {
+                  "kind": "work_item",
+                  "statement": "Buy paint",
+                  "state": "planned"
+                }
+              }
+            ],
+            "page": {
+              "total_records": 1,
+              "has_more": false,
+              "next_cursor": null
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        },
+        "authorized": true
+      }
+    },
+    {
+      "id": "project-response-result-authority-invalid",
+      "target": "project_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "project": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "records": [
+              {
+                "record_id": "11111111-1111-4111-8111-111111111111",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content": {
+                  "kind": "work_item",
+                  "statement": "Buy paint",
+                  "state": "planned"
+                }
+              }
+            ],
+            "page": {
+              "total_records": 1,
+              "has_more": false,
+              "next_cursor": null
+            }
+          },
+          "human_approved": true
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "project-success-response",
+      "target": "project_success_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "12121212-1212-4212-8212-121212121212",
+        "result": {
+          "project": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "records": [
+              {
+                "record_id": "11111111-1111-4111-8111-111111111111",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content": {
+                  "kind": "work_item",
+                  "statement": "Buy paint",
+                  "state": "planned"
+                }
+              }
+            ],
+            "page": {
+              "total_records": 1,
+              "has_more": false,
+              "next_cursor": null
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "request_fingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "expires_at": "2026-10-04T00:00:00.000Z",
+          "tombstone_expires_at": "2026-11-04T00:00:00.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "project-resource-record-with-provenance",
+      "target": "project_resource_record",
+      "valid": true,
+      "value": {
+        "record_id": "11111111-1111-4111-8111-111111111111",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "accepted_mapping": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "target": {
+            "kind": "work_item",
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "expense-association-get-request-exact-revision",
+      "target": "expense_association_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "expense_association.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "expense_id": "11111111-1111-4111-8111-111111111111",
+          "exact_association_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "project-page",
+      "target": "project_page",
+      "valid": true,
+      "value": {
+        "total_records": 1,
+        "has_more": false,
+        "next_cursor": null
+      }
+    },
+    {
+      "id": "project-page-has-more-without-cursor",
+      "target": "project_page",
+      "valid": false,
+      "value": {
+        "total_records": 300,
+        "has_more": true,
+        "next_cursor": null
+      }
+    },
+    {
+      "id": "project-get-request-cursor",
+      "target": "project_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "cursor": "abc_DEF-123"
+        }
+      }
+    },
+    {
+      "id": "project-resource-paginated",
+      "target": "project_resource",
+      "valid": true,
+      "value": {
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project_id": "44444444-4444-4444-b444-444444444444",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "records": [
+          {
+            "record_id": "11111111-1111-4111-8111-111111111111",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content": {
+              "kind": "work_item",
+              "statement": "Buy paint",
+              "state": "planned"
+            }
+          }
+        ],
+        "page": {
+          "total_records": 300,
+          "has_more": true,
+          "next_cursor": "page_2"
+        }
+      }
     }
   ]
 }
