@@ -231,13 +231,14 @@ must copy/re-hash every input into a path with spaces and Unicode and exercise
 all eight family entries plus the signing structure.
 
 Independently review finite oracle-integrity mutations for metadata, missing or
-duplicated identities, order, strict booleans (including a genuine non-boolean
-scalar), target substitution across the public/internal namespace, and
-positive/negative value replacement in both namespaces. Break actually consumed
-references under both positive refs and negative not branches; require their
-missing-reference diagnostics, never a successful negation. Remove each actually
-consumed application library and observe the exact missing-path diagnostic. All
-56 off-diagonal family pairings must fail ordinary validation on the complete
+duplicated identities, order, strict booleans (including genuine non-boolean
+manifest scalar values), target substitution across the public/internal
+namespace, and positive/negative value replacement in both namespaces. Break
+actually consumed references under both positive refs and negative not branches
+in both the public and internal namespaces; require their missing-reference
+diagnostics, never a successful negation. Remove each actually consumed
+application library and observe the exact missing-path diagnostic. All 56
+off-diagonal family pairings must fail ordinary validation on the complete
 manifests. Restore and re-hash every input and rerun positive guards.
 Tool/timeout/environment or unrelated schema-resolution failure is not a
 negative value oracle.
@@ -246,9 +247,9 @@ The pre-extension complete protocol had 93 commands: eleven direct checks, eight
 relocated checks, eighteen oracle mutations, four consumed broken references,
 eight consumed missing libraries, 42 off-diagonal pairings and two restored
 positive guards. It is retained only for its own historical inputs. The project
-workflow/identity extension recomputes the complete protocol as 110 commands on
+workflow/identity extension recomputes the complete protocol as 117 commands on
 the frozen extended inputs: twelve direct checks, nine relocated checks,
-eighteen oracle mutations, four consumed broken references, nine consumed
+twenty-three oracle mutations, six consumed broken references, nine consumed
 missing libraries, 56 off-diagonal pairings and two restored positive guards. A
 changed primary validator profile requires this complete protocol afresh on the
 newly frozen inputs; results from an older profile cannot be combined into a
