@@ -91,7 +91,7 @@ uv sync --project contracts/validation --check --locked --no-dev --offline
 
 ## Checks
 
-Run all nine commands from this repository's root after preparation. Every
+Run all ten commands from this repository's root after preparation. Every
 command must exit zero. Explicit file arguments prevent an empty glob from
 selecting no fixtures. Together with the two synchronization checks above,
 these are twelve required verification commands. The metaschema command names
@@ -247,9 +247,9 @@ The pre-extension complete protocol had 93 commands: eleven direct checks, eight
 relocated checks, eighteen oracle mutations, four consumed broken references,
 eight consumed missing libraries, 42 off-diagonal pairings and two restored
 positive guards. It is retained only for its own historical inputs. The project
-workflow/identity extension recomputes the complete protocol as 117 commands on
+workflow/identity extension recomputes the complete protocol as 121 commands on
 the frozen extended inputs: twelve direct checks, nine relocated checks,
-twenty-three oracle mutations, six consumed broken references, nine consumed
+twenty-seven oracle mutations, six consumed broken references, nine consumed
 missing libraries, 56 off-diagonal pairings and two restored positive guards. A
 changed primary validator profile requires this complete protocol afresh on the
 newly frozen inputs; results from an older profile cannot be combined into a
