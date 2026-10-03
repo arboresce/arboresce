@@ -995,6 +995,9 @@
           "items": {
             "$ref": "#/$defs/change_dependency"
           }
+        },
+        "content_preimage": {
+          "$ref": "#/$defs/project_change_preimage"
         }
       },
       "additionalProperties": false
@@ -1829,6 +1832,9 @@
             }
           },
           "additionalProperties": false
+        },
+        "content_preimage": {
+          "$ref": "#/$defs/expense_association_preimage"
         }
       },
       "additionalProperties": false
@@ -3761,7 +3767,9 @@
         "decision",
         "review_policy",
         "assurance_profile",
-        "reviewer_id"
+        "reviewer_id",
+        "executor_scope",
+        "expires_at"
       ],
       "properties": {
         "kind": {
@@ -3806,6 +3814,12 @@
         },
         "reviewer_id": {
           "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "executor_scope": {
+          "$ref": "#/$defs/executor_scope"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
         }
       },
       "additionalProperties": false
@@ -4080,16 +4094,31 @@
       "additionalProperties": false
     },
     "registered_operation": {
-      "description": "Focused first-profile registered operations. A capability label without a registered operation is not implemented.",
+      "description": "Complete focused first-profile registered operations. A capability label without a registered operation is not implemented.",
       "enum": [
         "identity.bootstrap",
+        "workspace.get",
         "workspace.membership.get",
+        "project.create",
+        "project.get",
+        "project.revise",
+        "party.create",
+        "party.get",
+        "party.revise",
+        "project_change.get",
+        "project_change.edit",
+        "project_change.review",
+        "project.resolve_reference",
+        "expense_association.create",
+        "expense_association.get",
         "grant.create",
         "grant.get",
         "grant.revoke",
         "financial_review.challenge",
         "financial_review.issue",
-        "expense.confirm"
+        "financial_review.event.get",
+        "expense.confirm",
+        "key.transition"
       ]
     },
     "resolution_outcome": {
@@ -4151,16 +4180,7 @@
       ],
       "properties": {
         "metadata": {
-          "allOf": [
-            {
-              "$ref": "common.schema.json#/$defs/command_metadata"
-            }
-          ],
-          "properties": {
-            "command": {
-              "const": "identity.bootstrap"
-            }
-          }
+          "$ref": "#/$defs/identity_bootstrap_metadata"
         },
         "body": {
           "type": "object",
@@ -4632,7 +4652,7 @@
       "additionalProperties": false
     },
     "signed_request_admission": {
-      "description": "Wire-to-normalized admission binding. Only an admitted standard selection can authorize the normalized event.",
+      "description": "Wire-to-normalized admission binding. Only an admitted NIP-98 selection can authorize work, and a nonempty admitted body must carry its SHA-256.",
       "type": "object",
       "required": [
         "wire",
@@ -4653,6 +4673,9 @@
             },
             {
               "properties": {
+                "standard": {
+                  "const": "nip-98"
+                },
                 "status": {
                   "const": "admitted"
                 }
@@ -4661,7 +4684,38 @@
           ]
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "wire": {
+              "properties": {
+                "body_sha256": {
+                  "type": "null"
+                },
+                "admitted_body_bytes": {
+                  "const": 0
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "wire": {
+              "properties": {
+                "body_sha256": {
+                  "$ref": "common.schema.json#/$defs/sha256"
+                },
+                "admitted_body_bytes": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "resolved_reference": {
       "description": "Exactly one resolved same-workspace target: a committed project record revision or an exact change-item revision.",
@@ -4836,7 +4890,8 @@
             "workspace_membership",
             "scoped_agent_grant",
             "trusted_human_reviewer",
-            "current_financial_owner"
+            "current_financial_owner",
+            "qualified_recovery_authority"
           ]
         }
       },
@@ -4868,12 +4923,40 @@
         "project-workflow.agent_grant_get_response",
         "project-workflow.agent_grant_response",
         "project-workflow.agent_grant_revoke_request",
+        "project-workflow.change_item_edit_request",
+        "project-workflow.change_item_edit_response",
+        "project-workflow.change_item_get_request",
+        "project-workflow.change_item_get_response",
+        "project-workflow.change_item_review_request",
+        "project-workflow.change_item_review_response",
+        "project-workflow.expense_association_create_request",
+        "project-workflow.expense_association_get_request",
+        "project-workflow.expense_association_get_response",
+        "project-workflow.expense_association_response",
         "project-workflow.financial_review_challenge_request",
         "project-workflow.financial_review_challenge_response",
+        "project-workflow.financial_review_event_get_request",
+        "project-workflow.financial_review_event_get_response",
         "project-workflow.financial_review_issue_request",
         "project-workflow.financial_review_issue_response",
         "project-workflow.identity_bootstrap_request",
         "project-workflow.identity_bootstrap_response",
+        "project-workflow.party_create_request",
+        "project-workflow.party_get_request",
+        "project-workflow.party_get_response",
+        "project-workflow.party_response",
+        "project-workflow.party_revise_request",
+        "project-workflow.principal_key_transition_request",
+        "project-workflow.principal_key_transition_response",
+        "project-workflow.project_create_request",
+        "project-workflow.project_get_request",
+        "project-workflow.project_get_response",
+        "project-workflow.project_response",
+        "project-workflow.project_revise_request",
+        "project-workflow.reference_resolution_request",
+        "project-workflow.reference_resolution_response",
+        "project-workflow.workspace_get_request",
+        "project-workflow.workspace_get_response",
         "project-workflow.workspace_membership_get_request",
         "project-workflow.workspace_membership_get_response"
       ]
@@ -4954,8 +5037,58 @@
                 "unauthenticated",
                 "forbidden",
                 "conflict",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "workspace.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/workspaces/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "workspace_membership"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.workspace_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.workspace_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -4998,8 +5131,575 @@
                 "unauthenticated",
                 "forbidden",
                 "not_found",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project.create"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/projects"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.project_create_request"
+            },
+            "success_response": {
+              "const": "project-workflow.project_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/projects/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "workspace_membership"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.project_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.project_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project.revise"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/projects/{project_id}/revisions"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.project_revise_request"
+            },
+            "success_response": {
+              "const": "project-workflow.project_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "party.create"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/parties"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.party_create_request"
+            },
+            "success_response": {
+              "const": "project-workflow.party_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "party.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/parties/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "workspace_membership"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.party_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.party_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "party.revise"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/parties/{party_id}/revisions"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.party_revise_request"
+            },
+            "success_response": {
+              "const": "project-workflow.party_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project_change.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/project-changes/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "workspace_membership"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.change_item_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.change_item_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project_change.edit"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/project-changes/{item_id}/edits"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.change_item_edit_request"
+            },
+            "success_response": {
+              "const": "project-workflow.change_item_edit_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project_change.review"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/project-changes/{item_id}/reviews"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.change_item_review_request"
+            },
+            "success_response": {
+              "const": "project-workflow.change_item_review_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project.resolve_reference"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/project-references/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "workspace_membership"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.reference_resolution_request"
+            },
+            "success_response": {
+              "const": "project-workflow.reference_resolution_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "expense_association.create"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/expense-associations"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "scoped_agent_grant"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.expense_association_create_request"
+            },
+            "success_response": {
+              "const": "project-workflow.expense_association_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "expense_association.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/expense-associations/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "workspace_membership"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.expense_association_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.expense_association_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -5042,8 +5742,11 @@
                 "unauthenticated",
                 "forbidden",
                 "conflict",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -5086,8 +5789,11 @@
                 "unauthenticated",
                 "forbidden",
                 "not_found",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -5129,10 +5835,12 @@
                 "invalid_request",
                 "unauthenticated",
                 "forbidden",
-                "not_found",
                 "conflict",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -5175,8 +5883,11 @@
                 "unauthenticated",
                 "forbidden",
                 "conflict",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -5219,8 +5930,58 @@
                 "unauthenticated",
                 "forbidden",
                 "conflict",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_review.event.get"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/financial-reviews/events/resolve"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "trusted_human_reviewer"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.financial_review_event_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.financial_review_event_get_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -5237,7 +5998,7 @@
                   "const": "POST"
                 },
                 "path_template": {
-                  "const": "/v1/expenses/{expense_id}/confirmations"
+                  "const": "/v1/expenses/{expense_id}/confirm"
                 }
               }
             },
@@ -5262,10 +6023,59 @@
                 "invalid_request",
                 "unauthenticated",
                 "forbidden",
-                "not_found",
                 "conflict",
+                "request_too_large",
+                "unsupported_media_type",
                 "invalid_command",
                 "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "key.transition"
+            },
+            "route": {
+              "properties": {
+                "method": {
+                  "const": "POST"
+                },
+                "path_template": {
+                  "const": "/v1/principal-key-transitions"
+                }
+              }
+            },
+            "scope": {
+              "properties": {
+                "workspace_requirement": {
+                  "const": "exactly_one_workspace"
+                },
+                "authority": {
+                  "const": "qualified_recovery_authority"
+                }
+              }
+            },
+            "request_contract": {
+              "const": "project-workflow.principal_key_transition_request"
+            },
+            "success_response": {
+              "const": "project-workflow.principal_key_transition_response"
+            },
+            "error_codes": {
+              "const": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
                 "unavailable"
               ]
             }
@@ -5276,8 +6086,8 @@
     "operation_inventory": {
       "description": "The complete focused operation inventory: exactly one registration per registered operation.",
       "type": "array",
-      "minItems": 8,
-      "maxItems": 8,
+      "minItems": 23,
+      "maxItems": 23,
       "items": {
         "$ref": "#/$defs/operation_registration"
       },
@@ -5303,7 +6113,189 @@
             ],
             "properties": {
               "operation": {
+                "const": "workspace.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
                 "const": "workspace.membership.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "project.create"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "project.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "project.revise"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "party.create"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "party.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "party.revise"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "project_change.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "project_change.edit"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "project_change.review"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "project.resolve_reference"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "expense_association.create"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "expense_association.get"
               }
             }
           },
@@ -5387,7 +6379,35 @@
             ],
             "properties": {
               "operation": {
+                "const": "financial_review.event.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
                 "const": "expense.confirm"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "key.transition"
               }
             }
           },
@@ -5395,6 +6415,249 @@
           "maxContains": 1
         }
       ]
+    },
+    "identity_bootstrap_context": {
+      "description": "Bootstrap context naming the organization and purpose to create. It is the explicit exception to selecting an existing workspace/domain.",
+      "type": "object",
+      "required": [
+        "organization_id",
+        "purpose"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "purpose": {
+          "$ref": "common.schema.json#/$defs/slug"
+        }
+      },
+      "additionalProperties": false
+    },
+    "identity_bootstrap_metadata": {
+      "description": "Closed bootstrap command metadata that does not require selecting an existing workspace or domain.",
+      "type": "object",
+      "required": [
+        "contract_version",
+        "command",
+        "context",
+        "idempotency"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "v1"
+        },
+        "command": {
+          "const": "identity.bootstrap"
+        },
+        "context": {
+          "$ref": "#/$defs/identity_bootstrap_context"
+        },
+        "idempotency": {
+          "$ref": "common.schema.json#/$defs/idempotency"
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_change_preimage": {
+      "description": "Closed canonical preimage for a project change item. Its digest covers exactly these consequential fields and never ambient record identity.",
+      "type": "object",
+      "required": [
+        "kind",
+        "item_id",
+        "operation",
+        "workspace",
+        "project",
+        "target",
+        "content",
+        "changed_fields"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-change-content.v1"
+        },
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "operation": {
+          "$ref": "#/$defs/change_operation"
+        },
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "project": {
+          "$ref": "#/$defs/project_reference"
+        },
+        "target": {
+          "$ref": "#/$defs/target_predicate"
+        },
+        "content": {
+          "$ref": "#/$defs/project_record_content"
+        },
+        "changed_fields": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/changed_field"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_association_preimage": {
+      "description": "Closed canonical preimage for the exact expense/project association. Its digest binds the exact project and expense revision content.",
+      "type": "object",
+      "required": [
+        "kind",
+        "organization_id",
+        "domain_id",
+        "project_id",
+        "expense_id",
+        "expense_version",
+        "expense_content_sha256"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.expense-association-content.v1"
+        },
+        "organization_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "domain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "project_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "expense_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "expense_version": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "expense_content_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_review_event_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            },
+            {
+              "properties": {
+                "command": {
+                  "const": "financial_review.event.get"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "financial_review_event_id"
+          ],
+          "properties": {
+            "financial_review_event_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_review_event_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "event",
+            "rendering"
+          ],
+          "properties": {
+            "event": {
+              "$ref": "#/$defs/financial_review_event"
+            },
+            "rendering": {
+              "$ref": "#/$defs/financial_review_rendering"
+            }
+          }
+        }
+      }
+    },
+    "principal_key_transition_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            },
+            {
+              "properties": {
+                "command": {
+                  "const": "key.transition"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "transition"
+          ],
+          "properties": {
+            "transition": {
+              "$ref": "#/$defs/principal_key_transition"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "principal_key_transition_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "required": [
+        "idempotency_receipt"
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "transition"
+          ],
+          "properties": {
+            "transition": {
+              "$ref": "#/$defs/principal_key_transition"
+            }
+          }
+        }
+      }
     }
   }
 }
