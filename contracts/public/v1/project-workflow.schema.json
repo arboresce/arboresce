@@ -7,10 +7,17 @@
     "workspace_reference": {
       "description": "Selected Organization tenant and its exact default Domain. Workspace terminology resolves to these canonical wire identifiers.",
       "type": "object",
-      "required": ["organization_id", "domain_id"],
+      "required": [
+        "organization_id",
+        "domain_id"
+      ],
       "properties": {
-        "organization_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "domain_id": {"$ref": "common.schema.json#/$defs/identifier"}
+        "organization_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "domain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        }
       },
       "additionalProperties": false
     },
@@ -24,24 +31,50 @@
     "temporal_basis": {
       "description": "Attributed event date/precision, selected IANA timezone and versioned relative-date rule used for interpretation. A date-only value is never coerced to an instant.",
       "type": "object",
-      "required": ["event", "timezone", "relative_date_rule_version"],
+      "required": [
+        "event",
+        "timezone",
+        "relative_date_rule_version"
+      ],
       "properties": {
-        "event": {"$ref": "#/$defs/project_date"},
-        "timezone": {"$ref": "#/$defs/iana_timezone"},
-        "relative_date_rule_version": {"$ref": "common.schema.json#/$defs/slug"}
+        "event": {
+          "$ref": "#/$defs/project_date"
+        },
+        "timezone": {
+          "$ref": "#/$defs/iana_timezone"
+        },
+        "relative_date_rule_version": {
+          "$ref": "common.schema.json#/$defs/slug"
+        }
       },
       "additionalProperties": false
     },
     "proposal_origin": {
       "description": "Exact immutable origin of one proposal: the admitted capture revision, the analysis run identity, the selected immutable processing profile and the attributed temporal basis. Absence of this origin is not inferred evidence.",
       "type": "object",
-      "required": ["capture", "analysis_id", "analysis_revision", "processing_profile_digest", "temporal_basis"],
+      "required": [
+        "capture",
+        "analysis_id",
+        "analysis_revision",
+        "processing_profile_digest",
+        "temporal_basis"
+      ],
       "properties": {
-        "capture": {"$ref": "observation.schema.json#/$defs/capture_reference"},
-        "analysis_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "analysis_revision": {"$ref": "common.schema.json#/$defs/content_revision"},
-        "processing_profile_digest": {"$ref": "common.schema.json#/$defs/sha256"},
-        "temporal_basis": {"$ref": "#/$defs/temporal_basis"}
+        "capture": {
+          "$ref": "observation.schema.json#/$defs/capture_reference"
+        },
+        "analysis_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "analysis_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "processing_profile_digest": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "temporal_basis": {
+          "$ref": "#/$defs/temporal_basis"
+        }
       },
       "additionalProperties": false
     },
@@ -50,14 +83,26 @@
       "oneOf": [
         {
           "type": "object",
-          "required": ["scope"],
-          "properties": {"scope": {"const": "project"}},
+          "required": [
+            "scope"
+          ],
+          "properties": {
+            "scope": {
+              "const": "project"
+            }
+          },
           "additionalProperties": false
         },
         {
           "type": "object",
-          "required": ["record"],
-          "properties": {"record": {"$ref": "#/$defs/project_record_reference"}},
+          "required": [
+            "record"
+          ],
+          "properties": {
+            "record": {
+              "$ref": "#/$defs/project_record_reference"
+            }
+          },
           "additionalProperties": false
         }
       ]
@@ -65,16 +110,26 @@
     "party_kind": {
       "description": "A party is a person or an external business, never a principal, membership, organization or grant.",
       "type": "string",
-      "enum": ["person", "external_business"]
+      "enum": [
+        "person",
+        "external_business"
+      ]
     },
     "party_alias_status": {
       "type": "string",
-      "enum": ["known", "ambiguous", "unverified"]
+      "enum": [
+        "known",
+        "ambiguous",
+        "unverified"
+      ]
     },
     "party_alias": {
       "description": "One attributed name or spelling. Ambiguity and non-verification are preserved rather than collapsed.",
       "type": "object",
-      "required": ["value", "status"],
+      "required": [
+        "value",
+        "status"
+      ],
       "properties": {
         "value": {
           "type": "string",
@@ -82,53 +137,89 @@
           "maxLength": 256,
           "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
         },
-        "status": {"$ref": "#/$defs/party_alias_status"}
+        "status": {
+          "$ref": "#/$defs/party_alias_status"
+        }
       },
       "additionalProperties": false
     },
     "party_detail": {
       "type": "object",
-      "required": ["kind", "value", "status"],
+      "required": [
+        "kind",
+        "value",
+        "status"
+      ],
       "properties": {
-        "kind": {"$ref": "common.schema.json#/$defs/slug"},
+        "kind": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
         "value": {
           "type": "string",
           "minLength": 1,
           "maxLength": 1024,
           "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
         },
-        "status": {"$ref": "#/$defs/party_alias_status"}
+        "status": {
+          "$ref": "#/$defs/party_alias_status"
+        }
       },
       "additionalProperties": false
     },
     "party_reference": {
       "type": "object",
-      "required": ["party_id", "content_revision"],
+      "required": [
+        "party_id",
+        "content_revision"
+      ],
       "properties": {
-        "party_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "content_revision": {"$ref": "common.schema.json#/$defs/content_revision"}
+        "party_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        }
       },
       "additionalProperties": false
     },
     "party_record": {
       "description": "Stable workspace-scoped Party content revision. Aliases and details may be unresolved or unverified.",
       "type": "object",
-      "required": ["workspace", "party_id", "content_revision", "kind", "aliases", "details"],
+      "required": [
+        "workspace",
+        "party_id",
+        "content_revision",
+        "kind",
+        "aliases",
+        "details"
+      ],
       "properties": {
-        "workspace": {"$ref": "#/$defs/workspace_reference"},
-        "party_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "content_revision": {"$ref": "common.schema.json#/$defs/content_revision"},
-        "kind": {"$ref": "#/$defs/party_kind"},
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "party_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "kind": {
+          "$ref": "#/$defs/party_kind"
+        },
         "aliases": {
           "type": "array",
           "minItems": 1,
           "maxItems": 32,
-          "items": {"$ref": "#/$defs/party_alias"}
+          "items": {
+            "$ref": "#/$defs/party_alias"
+          }
         },
         "details": {
           "type": "array",
           "maxItems": 32,
-          "items": {"$ref": "#/$defs/party_detail"}
+          "items": {
+            "$ref": "#/$defs/party_detail"
+          }
         }
       },
       "additionalProperties": false
@@ -136,14 +227,28 @@
     "party_role": {
       "description": "Separate relationship roles. Holding one role never implies another.",
       "type": "string",
-      "enum": ["supplier", "speaker", "participant", "assignee", "reviewer", "executor"]
+      "enum": [
+        "supplier",
+        "speaker",
+        "participant",
+        "assignee",
+        "reviewer",
+        "executor"
+      ]
     },
     "project_reference": {
       "type": "object",
-      "required": ["project_id", "content_revision"],
+      "required": [
+        "project_id",
+        "content_revision"
+      ],
       "properties": {
-        "project_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "content_revision": {"$ref": "common.schema.json#/$defs/content_revision"}
+        "project_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        }
       },
       "additionalProperties": false
     },
@@ -163,82 +268,159 @@
     },
     "project_record_reference": {
       "type": "object",
-      "required": ["kind", "record_id", "content_revision"],
+      "required": [
+        "kind",
+        "record_id",
+        "content_revision"
+      ],
       "properties": {
-        "kind": {"$ref": "#/$defs/project_record_kind"},
-        "record_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "content_revision": {"$ref": "common.schema.json#/$defs/content_revision"}
+        "kind": {
+          "$ref": "#/$defs/project_record_kind"
+        },
+        "record_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        }
       },
       "additionalProperties": false
     },
     "work_item_state": {
       "description": "Planned or assigned work is not evidence of completion.",
       "type": "string",
-      "enum": ["planned", "in_progress", "completed", "cancelled", "unknown"]
+      "enum": [
+        "planned",
+        "in_progress",
+        "completed",
+        "cancelled",
+        "unknown"
+      ]
     },
     "decision_state": {
       "type": "string",
-      "enum": ["proposed", "conditional", "agreed", "rejected", "unknown"]
+      "enum": [
+        "proposed",
+        "conditional",
+        "agreed",
+        "rejected",
+        "unknown"
+      ]
     },
     "responsibility_state": {
       "description": "Distinguishes a reported assignment from an accepted product update and independently established agreement.",
       "type": "string",
-      "enum": ["reported", "product_update", "agreed"]
+      "enum": [
+        "reported",
+        "product_update",
+        "agreed"
+      ]
     },
     "project_date": {
       "description": "Either a date-only value or an exact UTC instant, never both and never a coerced midnight.",
       "type": "object",
-      "required": ["precision"],
+      "required": [
+        "precision"
+      ],
       "properties": {
-        "precision": {"type": "string", "enum": ["date", "instant"]},
-        "value": {"type": "string", "minLength": 10, "maxLength": 24}
+        "precision": {
+          "type": "string",
+          "enum": [
+            "date",
+            "instant"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 24
+        }
       },
       "additionalProperties": false,
       "oneOf": [
         {
           "properties": {
-            "precision": {"const": "date"},
-            "value": {"$ref": "common.schema.json#/$defs/calendar_date"}
+            "precision": {
+              "const": "date"
+            },
+            "value": {
+              "$ref": "common.schema.json#/$defs/calendar_date"
+            }
           },
-          "required": ["value"]
+          "required": [
+            "value"
+          ]
         },
         {
           "properties": {
-            "precision": {"const": "instant"},
-            "value": {"$ref": "common.schema.json#/$defs/timestamp"}
+            "precision": {
+              "const": "instant"
+            },
+            "value": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            }
           },
-          "required": ["value"]
+          "required": [
+            "value"
+          ]
         }
       ]
     },
     "lineage_category": {
       "type": "string",
-      "enum": ["source_observation", "retained_context", "deterministic_default", "model_inference"]
+      "enum": [
+        "source_observation",
+        "retained_context",
+        "deterministic_default",
+        "model_inference"
+      ]
     },
     "source_observation_lineage": {
       "type": "object",
-      "required": ["category", "observation"],
+      "required": [
+        "category",
+        "observation"
+      ],
       "properties": {
-        "category": {"const": "source_observation"},
-        "observation": {"$ref": "observation.schema.json#/$defs/observation_reference"}
+        "category": {
+          "const": "source_observation"
+        },
+        "observation": {
+          "$ref": "observation.schema.json#/$defs/observation_reference"
+        }
       },
       "additionalProperties": false
     },
     "retained_context_lineage": {
       "type": "object",
-      "required": ["category", "record"],
+      "required": [
+        "category",
+        "record"
+      ],
       "properties": {
-        "category": {"const": "retained_context"},
-        "record": {"$ref": "#/$defs/project_record_reference"}
+        "category": {
+          "const": "retained_context"
+        },
+        "record": {
+          "$ref": "#/$defs/project_record_reference"
+        }
       },
       "additionalProperties": false
     },
     "deterministic_default_lineage": {
       "type": "object",
-      "required": ["category", "rule_version", "applies_to"],
+      "required": [
+        "category",
+        "rule_version",
+        "applies_to"
+      ],
       "properties": {
-        "category": {"const": "deterministic_default"},
-        "rule_version": {"$ref": "common.schema.json#/$defs/slug"},
+        "category": {
+          "const": "deterministic_default"
+        },
+        "rule_version": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
         "applies_to": {
           "type": "string",
           "minLength": 1,
@@ -250,11 +432,24 @@
     },
     "model_inference_lineage": {
       "type": "object",
-      "required": ["category", "profile", "profile_digest", "basis", "alternatives", "unresolved"],
+      "required": [
+        "category",
+        "profile",
+        "profile_digest",
+        "basis",
+        "alternatives",
+        "unresolved"
+      ],
       "properties": {
-        "category": {"const": "model_inference"},
-        "profile": {"$ref": "common.schema.json#/$defs/slug"},
-        "profile_digest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "category": {
+          "const": "model_inference"
+        },
+        "profile": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
+        "profile_digest": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
         "basis": {
           "type": "string",
           "minLength": 1,
@@ -287,48 +482,83 @@
     "lineage_entry": {
       "description": "Lineage categories are not interchangeable; each entry states exactly one category.",
       "oneOf": [
-        {"$ref": "#/$defs/source_observation_lineage"},
-        {"$ref": "#/$defs/retained_context_lineage"},
-        {"$ref": "#/$defs/deterministic_default_lineage"},
-        {"$ref": "#/$defs/model_inference_lineage"}
+        {
+          "$ref": "#/$defs/source_observation_lineage"
+        },
+        {
+          "$ref": "#/$defs/retained_context_lineage"
+        },
+        {
+          "$ref": "#/$defs/deterministic_default_lineage"
+        },
+        {
+          "$ref": "#/$defs/model_inference_lineage"
+        }
       ]
     },
     "field_lineage_entry": {
       "description": "Explicit binding of one consequential field path to its own lineage entries. Aggregate prose lineage cannot identify which field was sourced, inherited, defaulted or inferred.",
       "type": "object",
-      "required": ["field", "entries"],
+      "required": [
+        "field",
+        "entries"
+      ],
       "properties": {
-        "field": {"$ref": "#/$defs/changed_field"},
+        "field": {
+          "$ref": "#/$defs/changed_field"
+        },
         "entries": {
           "type": "array",
           "minItems": 1,
           "maxItems": 16,
-          "items": {"$ref": "#/$defs/lineage_entry"}
+          "items": {
+            "$ref": "#/$defs/lineage_entry"
+          }
         }
       },
       "additionalProperties": false
     },
     "evidence_role": {
       "type": "string",
-      "enum": ["supporting", "refuting", "qualifying"]
+      "enum": [
+        "supporting",
+        "refuting",
+        "qualifying"
+      ]
     },
     "evidence_reference": {
       "type": "object",
-      "required": ["role", "observation"],
+      "required": [
+        "role",
+        "observation"
+      ],
       "properties": {
-        "role": {"$ref": "#/$defs/evidence_role"},
-        "observation": {"$ref": "observation.schema.json#/$defs/observation_reference"}
+        "role": {
+          "$ref": "#/$defs/evidence_role"
+        },
+        "observation": {
+          "$ref": "observation.schema.json#/$defs/observation_reference"
+        }
       },
       "additionalProperties": false
     },
     "unresolved_value": {
       "type": "object",
-      "required": ["field", "requirement"],
+      "required": [
+        "field",
+        "requirement"
+      ],
       "properties": {
-        "field": {"$ref": "#/$defs/changed_field"},
+        "field": {
+          "$ref": "#/$defs/changed_field"
+        },
         "requirement": {
           "type": "string",
-          "enum": ["clarification", "unknown", "conflict"]
+          "enum": [
+            "clarification",
+            "unknown",
+            "conflict"
+          ]
         }
       },
       "additionalProperties": false
@@ -338,48 +568,94 @@
       "oneOf": [
         {
           "type": "object",
-          "required": ["item_id", "content_revision"],
+          "required": [
+            "item_id",
+            "content_revision"
+          ],
           "properties": {
-            "item_id": {"$ref": "common.schema.json#/$defs/identifier"},
-            "content_revision": {"$ref": "common.schema.json#/$defs/content_revision"}
+            "item_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "content_revision": {
+              "$ref": "common.schema.json#/$defs/content_revision"
+            }
           },
           "additionalProperties": false
         },
         {
           "type": "object",
-          "required": ["record"],
-          "properties": {"record": {"$ref": "#/$defs/project_record_reference"}},
+          "required": [
+            "record"
+          ],
+          "properties": {
+            "record": {
+              "$ref": "#/$defs/project_record_reference"
+            }
+          },
           "additionalProperties": false
         }
       ]
     },
     "change_operation": {
       "type": "string",
-      "enum": ["create", "revise", "associate"]
+      "enum": [
+        "create",
+        "revise",
+        "associate"
+      ]
     },
     "project_record_target": {
       "description": "Stable typed identity of the exact existing or proposed project record. A bare revision number does not identify a record.",
       "type": "object",
-      "required": ["kind", "record_id"],
+      "required": [
+        "kind",
+        "record_id"
+      ],
       "properties": {
-        "kind": {"$ref": "#/$defs/project_record_kind"},
-        "record_id": {"$ref": "common.schema.json#/$defs/identifier"}
+        "kind": {
+          "$ref": "#/$defs/project_record_kind"
+        },
+        "record_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        }
       },
       "additionalProperties": false
     },
     "target_predicate": {
       "description": "A typed target identity plus exactly one of an expected content revision or an explicit creation-absense predicate. The record identity is required in both cases; the proposed record identity names the creation being asserted absent. This is a per-target fence, never a whole-project revision fence.",
       "type": "object",
-      "required": ["record"],
+      "required": [
+        "record"
+      ],
       "properties": {
-        "record": {"$ref": "#/$defs/project_record_target"},
-        "expected": {"$ref": "common.schema.json#/$defs/content_revision"},
-        "absent": {"const": true}
+        "record": {
+          "$ref": "#/$defs/project_record_target"
+        },
+        "expected": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "absent": {
+          "const": true
+        }
       },
       "additionalProperties": false,
       "oneOf": [
-        {"required": ["expected"], "properties": {"absent": false}},
-        {"required": ["absent"], "properties": {"expected": false}}
+        {
+          "required": [
+            "expected"
+          ],
+          "properties": {
+            "absent": false
+          }
+        },
+        {
+          "required": [
+            "absent"
+          ],
+          "properties": {
+            "expected": false
+          }
+        }
       ]
     },
     "changed_field": {
@@ -398,96 +674,171 @@
     },
     "record_statement": {
       "type": "object",
-      "required": ["kind", "statement"],
+      "required": [
+        "kind",
+        "statement"
+      ],
       "properties": {
-        "kind": {"const": "description"},
-        "statement": {"$ref": "#/$defs/description_text"}
+        "kind": {
+          "const": "description"
+        },
+        "statement": {
+          "$ref": "#/$defs/description_text"
+        }
       },
       "additionalProperties": false
     },
     "record_context": {
       "type": "object",
-      "required": ["kind", "summary", "established"],
+      "required": [
+        "kind",
+        "summary",
+        "established"
+      ],
       "properties": {
-        "kind": {"const": "context"},
+        "kind": {
+          "const": "context"
+        },
         "summary": {
           "type": "string",
           "minLength": 1,
           "maxLength": 4096,
           "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
         },
-        "established": {"type": "boolean"}
+        "established": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
     "record_participant": {
       "type": "object",
-      "required": ["kind", "party", "role", "assent_reported"],
+      "required": [
+        "kind",
+        "party",
+        "role",
+        "assent_reported"
+      ],
       "properties": {
-        "kind": {"const": "participant"},
-        "party": {"$ref": "#/$defs/party_reference"},
-        "role": {"$ref": "#/$defs/party_role"},
-        "assent_reported": {"type": "boolean"}
+        "kind": {
+          "const": "participant"
+        },
+        "party": {
+          "$ref": "#/$defs/party_reference"
+        },
+        "role": {
+          "$ref": "#/$defs/party_role"
+        },
+        "assent_reported": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
     "record_decision": {
       "type": "object",
-      "required": ["kind", "statement", "state"],
+      "required": [
+        "kind",
+        "statement",
+        "state"
+      ],
       "properties": {
-        "kind": {"const": "decision"},
+        "kind": {
+          "const": "decision"
+        },
         "statement": {
           "type": "string",
           "minLength": 1,
           "maxLength": 4096,
           "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
         },
-        "state": {"$ref": "#/$defs/decision_state"}
+        "state": {
+          "$ref": "#/$defs/decision_state"
+        }
       },
       "additionalProperties": false
     },
     "record_work_item": {
       "type": "object",
-      "required": ["kind", "statement", "state"],
+      "required": [
+        "kind",
+        "statement",
+        "state"
+      ],
       "properties": {
-        "kind": {"const": "work_item"},
+        "kind": {
+          "const": "work_item"
+        },
         "statement": {
           "type": "string",
           "minLength": 1,
           "maxLength": 4096,
           "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
         },
-        "state": {"$ref": "#/$defs/work_item_state"}
+        "state": {
+          "$ref": "#/$defs/work_item_state"
+        }
       },
       "additionalProperties": false
     },
     "record_responsibility": {
       "type": "object",
-      "required": ["kind", "party", "role", "state", "subject"],
+      "required": [
+        "kind",
+        "party",
+        "role",
+        "state",
+        "subject"
+      ],
       "properties": {
-        "kind": {"const": "responsibility"},
-        "party": {"$ref": "#/$defs/party_reference"},
-        "role": {"$ref": "#/$defs/party_role"},
-        "state": {"$ref": "#/$defs/responsibility_state"},
-        "subject": {"$ref": "#/$defs/relationship_subject"}
+        "kind": {
+          "const": "responsibility"
+        },
+        "party": {
+          "$ref": "#/$defs/party_reference"
+        },
+        "role": {
+          "$ref": "#/$defs/party_role"
+        },
+        "state": {
+          "$ref": "#/$defs/responsibility_state"
+        },
+        "subject": {
+          "$ref": "#/$defs/relationship_subject"
+        }
       },
       "additionalProperties": false
     },
     "record_due_date": {
       "type": "object",
-      "required": ["kind", "due", "subject"],
+      "required": [
+        "kind",
+        "due",
+        "subject"
+      ],
       "properties": {
-        "kind": {"const": "due_date"},
-        "due": {"$ref": "#/$defs/project_date"},
-        "subject": {"$ref": "#/$defs/relationship_subject"}
+        "kind": {
+          "const": "due_date"
+        },
+        "due": {
+          "$ref": "#/$defs/project_date"
+        },
+        "subject": {
+          "$ref": "#/$defs/relationship_subject"
+        }
       },
       "additionalProperties": false
     },
     "record_status": {
       "type": "object",
-      "required": ["kind", "value"],
+      "required": [
+        "kind",
+        "value"
+      ],
       "properties": {
-        "kind": {"const": "status"},
+        "kind": {
+          "const": "status"
+        },
         "value": {
           "type": "string",
           "minLength": 1,
@@ -499,10 +850,18 @@
     },
     "record_fact": {
       "type": "object",
-      "required": ["kind", "name", "value"],
+      "required": [
+        "kind",
+        "name",
+        "value"
+      ],
       "properties": {
-        "kind": {"const": "fact"},
-        "name": {"$ref": "common.schema.json#/$defs/slug"},
+        "kind": {
+          "const": "fact"
+        },
+        "name": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
         "value": {
           "type": "string",
           "minLength": 1,
@@ -514,15 +873,33 @@
     },
     "project_record_content": {
       "oneOf": [
-        {"$ref": "#/$defs/record_statement"},
-        {"$ref": "#/$defs/record_context"},
-        {"$ref": "#/$defs/record_participant"},
-        {"$ref": "#/$defs/record_decision"},
-        {"$ref": "#/$defs/record_work_item"},
-        {"$ref": "#/$defs/record_responsibility"},
-        {"$ref": "#/$defs/record_due_date"},
-        {"$ref": "#/$defs/record_status"},
-        {"$ref": "#/$defs/record_fact"}
+        {
+          "$ref": "#/$defs/record_statement"
+        },
+        {
+          "$ref": "#/$defs/record_context"
+        },
+        {
+          "$ref": "#/$defs/record_participant"
+        },
+        {
+          "$ref": "#/$defs/record_decision"
+        },
+        {
+          "$ref": "#/$defs/record_work_item"
+        },
+        {
+          "$ref": "#/$defs/record_responsibility"
+        },
+        {
+          "$ref": "#/$defs/record_due_date"
+        },
+        {
+          "$ref": "#/$defs/record_status"
+        },
+        {
+          "$ref": "#/$defs/record_fact"
+        }
       ]
     },
     "project_change_item_base": {
@@ -547,45 +924,77 @@
         "dependencies"
       ],
       "properties": {
-        "item_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "candidate": {"$ref": "candidate-review.schema.json#/$defs/candidate_reference"},
-        "workspace": {"$ref": "#/$defs/workspace_reference"},
-        "project": {"$ref": "#/$defs/project_reference"},
-        "origin": {"$ref": "#/$defs/proposal_origin"},
-        "operation": {"$ref": "#/$defs/change_operation"},
-        "record_kind": {"$ref": "#/$defs/project_record_kind"},
-        "content": {"$ref": "#/$defs/project_record_content"},
-        "target": {"$ref": "#/$defs/target_predicate"},
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "candidate": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+        },
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "project": {
+          "$ref": "#/$defs/project_reference"
+        },
+        "origin": {
+          "$ref": "#/$defs/proposal_origin"
+        },
+        "operation": {
+          "$ref": "#/$defs/change_operation"
+        },
+        "record_kind": {
+          "$ref": "#/$defs/project_record_kind"
+        },
+        "content": {
+          "$ref": "#/$defs/project_record_content"
+        },
+        "target": {
+          "$ref": "#/$defs/target_predicate"
+        },
         "changed_fields": {
           "type": "array",
           "minItems": 1,
           "maxItems": 64,
           "uniqueItems": true,
-          "items": {"$ref": "#/$defs/changed_field"}
+          "items": {
+            "$ref": "#/$defs/changed_field"
+          }
         },
         "statement": {
           "type": "string",
           "minLength": 1,
           "maxLength": 16384
         },
-        "scope": {"$ref": "candidate-review.schema.json#/$defs/candidate_scope"},
-        "qualifications": {"$ref": "candidate-review.schema.json#/$defs/content_items"},
-        "evidence": {"$ref": "candidate-review.schema.json#/$defs/evidence_roles"},
+        "scope": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_scope"
+        },
+        "qualifications": {
+          "$ref": "candidate-review.schema.json#/$defs/content_items"
+        },
+        "evidence": {
+          "$ref": "candidate-review.schema.json#/$defs/evidence_roles"
+        },
         "field_lineage": {
           "type": "array",
           "minItems": 1,
           "maxItems": 64,
-          "items": {"$ref": "#/$defs/field_lineage_entry"}
+          "items": {
+            "$ref": "#/$defs/field_lineage_entry"
+          }
         },
         "unresolved": {
           "type": "array",
           "maxItems": 32,
-          "items": {"$ref": "#/$defs/unresolved_value"}
+          "items": {
+            "$ref": "#/$defs/unresolved_value"
+          }
         },
         "dependencies": {
           "type": "array",
           "maxItems": 32,
-          "items": {"$ref": "#/$defs/change_dependency"}
+          "items": {
+            "$ref": "#/$defs/change_dependency"
+          }
         }
       },
       "additionalProperties": false
@@ -593,80 +1002,374 @@
     "project_change_item": {
       "description": "One independently reviewable typed project change over complete proposed content. It carries its own immutable candidate revision/digest and exact capture/analysis origin, binds content kind to record_kind, binds each consequential field to its own lineage, and requires an explicit absence target for a create. It never introduces a second approval ledger.",
       "allOf": [
-        {"$ref": "#/$defs/project_change_item_base"},
+        {
+          "$ref": "#/$defs/project_change_item_base"
+        },
         {
           "oneOf": [
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "description"}, "content": {"$ref": "#/$defs/record_statement"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "description"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "context"}, "content": {"$ref": "#/$defs/record_context"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "context"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "participant"}, "content": {"$ref": "#/$defs/record_participant"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "participant"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "decision"}, "content": {"$ref": "#/$defs/record_decision"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "decision"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "work_item"}, "content": {"$ref": "#/$defs/record_work_item"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "work_item"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "responsibility"}, "content": {"$ref": "#/$defs/record_responsibility"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "responsibility"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "due_date"}, "content": {"$ref": "#/$defs/record_due_date"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "due_date"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "status"}, "content": {"$ref": "#/$defs/record_status"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "status"}}}}}}},
-            {"required": ["record_kind", "content"], "properties": {"record_kind": {"const": "fact"}, "content": {"$ref": "#/$defs/record_fact"}, "target": {"properties": {"record": {"properties": {"kind": {"const": "fact"}}}}}}}
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "description"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_statement"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "description"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "context"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_context"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "context"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "participant"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_participant"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "participant"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "decision"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_decision"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "decision"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "work_item"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_work_item"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "work_item"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "responsibility"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_responsibility"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "responsibility"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "due_date"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_due_date"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "due_date"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "status"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_status"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "status"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "record_kind",
+                "content"
+              ],
+              "properties": {
+                "record_kind": {
+                  "const": "fact"
+                },
+                "content": {
+                  "$ref": "#/$defs/record_fact"
+                },
+                "target": {
+                  "properties": {
+                    "record": {
+                      "properties": {
+                        "kind": {
+                          "const": "fact"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           ]
         },
         {
-          "if": {"required": ["operation"], "properties": {"operation": {"const": "create"}}},
-          "then": {"properties": {"target": {"required": ["absent"], "properties": {"absent": {"const": true}}}}},
-          "else": {"properties": {"target": {"required": ["expected"]}}}
+          "if": {
+            "required": [
+              "operation"
+            ],
+            "properties": {
+              "operation": {
+                "const": "create"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "target": {
+                "required": [
+                  "absent"
+                ],
+                "properties": {
+                  "absent": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "target": {
+                "required": [
+                  "expected"
+                ]
+              }
+            }
+          }
         }
       ]
     },
     "project_change_item_reference": {
       "type": "object",
-      "required": ["item_id", "content_revision"],
+      "required": [
+        "item_id",
+        "content_revision"
+      ],
       "properties": {
-        "item_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "content_revision": {"$ref": "common.schema.json#/$defs/content_revision"}
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        }
       },
       "additionalProperties": false
     },
     "project_change_batch": {
       "description": "A reviewable presentation grouping, not an indivisible approval or distributed transaction.",
       "type": "object",
-      "required": ["workspace", "project", "items"],
+      "required": [
+        "workspace",
+        "project",
+        "items"
+      ],
       "properties": {
-        "workspace": {"$ref": "#/$defs/workspace_reference"},
-        "project": {"$ref": "#/$defs/project_reference"},
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "project": {
+          "$ref": "#/$defs/project_reference"
+        },
         "items": {
           "type": "array",
           "minItems": 1,
           "maxItems": 64,
-          "items": {"$ref": "#/$defs/project_change_item"}
+          "items": {
+            "$ref": "#/$defs/project_change_item"
+          }
         }
       },
       "additionalProperties": false
     },
     "project_item_verdict": {
       "type": "string",
-      "enum": ["accept", "reject", "pending"]
+      "enum": [
+        "accept",
+        "reject",
+        "pending"
+      ]
     },
     "project_item_edit": {
       "description": "An attributable manual revision that never alters original media, observations or prior verdicts. It binds to the exact base candidate revision and digest it supersedes and may replace the typed project effect and the reviewable candidate content (statement, scope, qualifications, evidence, field lineage).",
       "type": "object",
-      "required": ["item_id", "base_candidate", "content", "changed_fields"],
+      "required": [
+        "item_id",
+        "base_candidate",
+        "content",
+        "changed_fields"
+      ],
       "properties": {
-        "item_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "base_candidate": {"$ref": "candidate-review.schema.json#/$defs/candidate_reference"},
-        "content": {"$ref": "#/$defs/project_record_content"},
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "base_candidate": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+        },
+        "content": {
+          "$ref": "#/$defs/project_record_content"
+        },
         "changed_fields": {
           "type": "array",
           "minItems": 1,
           "maxItems": 64,
           "uniqueItems": true,
-          "items": {"$ref": "#/$defs/changed_field"}
+          "items": {
+            "$ref": "#/$defs/changed_field"
+          }
         },
-        "statement": {"type": "string", "minLength": 1, "maxLength": 16384},
-        "scope": {"$ref": "candidate-review.schema.json#/$defs/candidate_scope"},
-        "qualifications": {"$ref": "candidate-review.schema.json#/$defs/content_items"},
-        "evidence": {"$ref": "candidate-review.schema.json#/$defs/evidence_roles"},
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16384
+        },
+        "scope": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_scope"
+        },
+        "qualifications": {
+          "$ref": "candidate-review.schema.json#/$defs/content_items"
+        },
+        "evidence": {
+          "$ref": "candidate-review.schema.json#/$defs/evidence_roles"
+        },
         "field_lineage": {
           "type": "array",
           "minItems": 1,
           "maxItems": 64,
-          "items": {"$ref": "#/$defs/field_lineage_entry"}
+          "items": {
+            "$ref": "#/$defs/field_lineage_entry"
+          }
         }
       },
       "additionalProperties": false
@@ -674,89 +1377,459 @@
     "project_effect_mapping": {
       "description": "The accepted item bound to its exact candidate revision/digest and mapped to the exact project record revision. This is the project member of the single review ledger, never a detached ID-only effect.",
       "type": "object",
-      "required": ["item_id", "candidate", "target"],
+      "required": [
+        "item_id",
+        "candidate",
+        "target"
+      ],
       "properties": {
-        "item_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "candidate": {"$ref": "candidate-review.schema.json#/$defs/candidate_reference"},
-        "target": {"$ref": "#/$defs/project_record_reference"}
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "candidate": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+        },
+        "target": {
+          "$ref": "#/$defs/project_record_reference"
+        }
       },
       "additionalProperties": false
     },
     "project_review_request": {
       "description": "A reviewer decision input bound to the exact candidate revision/digest and observed aggregate control revision. It is not itself a verdict record or a second ledger.",
       "type": "object",
-      "required": ["item_id", "candidate", "expected_control_revision", "verdict", "reason"],
+      "required": [
+        "item_id",
+        "candidate",
+        "expected_control_revision",
+        "verdict",
+        "reason"
+      ],
       "properties": {
-        "item_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "candidate": {"$ref": "candidate-review.schema.json#/$defs/candidate_reference"},
-        "expected_control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
-        "verdict": {"$ref": "#/$defs/project_item_verdict"},
-        "reason": {"type": "string", "minLength": 1, "maxLength": 8192}
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "candidate": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+        },
+        "expected_control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "verdict": {
+          "$ref": "#/$defs/project_item_verdict"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8192
+        }
       },
       "additionalProperties": false
     },
     "project_review_record": {
       "description": "Versioned project extension of the candidate/review family. It retains the candidate verdict semantics and binds an accepted verdict to the exact typed project effect mapping without requiring a knowledge publication.",
       "type": "object",
-      "required": ["review_id", "candidate", "control_revision", "verdict", "reason", "recorded_at", "audit_event_id"],
+      "required": [
+        "review_id",
+        "candidate",
+        "control_revision",
+        "verdict",
+        "reason",
+        "recorded_at",
+        "audit_event_id"
+      ],
       "properties": {
-        "review_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "candidate": {"$ref": "candidate-review.schema.json#/$defs/candidate_reference"},
-        "control_revision": {"allOf": [{"$ref": "common.schema.json#/$defs/control_revision"}], "properties": {"value": {"not": {"const": "1"}}}},
-        "verdict": {"enum": ["accepted", "rejected", "contested"]},
-        "reason": {"type": "string", "minLength": 1, "maxLength": 8192},
-        "recorded_at": {"$ref": "common.schema.json#/$defs/timestamp"},
-        "audit_event_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "mapping": {"$ref": "#/$defs/project_effect_mapping"}
+        "review_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "candidate": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+        },
+        "control_revision": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            }
+          ],
+          "properties": {
+            "value": {
+              "not": {
+                "const": "1"
+              }
+            }
+          }
+        },
+        "verdict": {
+          "enum": [
+            "accepted",
+            "rejected",
+            "contested"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8192
+        },
+        "recorded_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "audit_event_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "mapping": {
+          "$ref": "#/$defs/project_effect_mapping"
+        }
       },
       "additionalProperties": false,
       "oneOf": [
-        {"required": ["mapping"], "properties": {"verdict": {"const": "accepted"}}},
-        {"properties": {"verdict": {"enum": ["rejected", "contested"]}, "mapping": false}}
+        {
+          "required": [
+            "mapping"
+          ],
+          "properties": {
+            "verdict": {
+              "const": "accepted"
+            }
+          }
+        },
+        {
+          "properties": {
+            "verdict": {
+              "enum": [
+                "rejected",
+                "contested"
+              ]
+            },
+            "mapping": false
+          }
+        }
       ]
     },
     "project_change_resource": {
       "description": "One project change item with its candidate review state. The review reuses the versioned project review variant; no parallel project approval ledger exists, and a superseded revision retains its prior review.",
       "type": "object",
-      "required": ["item", "control_revision", "revision_state", "review", "superseded_by"],
+      "required": [
+        "item",
+        "control_revision",
+        "revision_state",
+        "review",
+        "superseded_by"
+      ],
       "properties": {
-        "item": {"$ref": "#/$defs/project_change_item"},
-        "control_revision": {"$ref": "common.schema.json#/$defs/control_revision"},
-        "revision_state": {"type": "string", "enum": ["pending", "accepted", "rejected", "contested", "superseded"]},
-        "review": {"oneOf": [{"$ref": "#/$defs/project_review_record"}, {"type": "null"}]},
-        "superseded_by": {"oneOf": [{"$ref": "candidate-review.schema.json#/$defs/candidate_reference"}, {"type": "null"}]}
+        "item": {
+          "$ref": "#/$defs/project_change_item"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "revision_state": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "accepted",
+            "rejected",
+            "contested",
+            "superseded"
+          ]
+        },
+        "review": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/project_review_record"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "superseded_by": {
+          "oneOf": [
+            {
+              "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
       },
       "additionalProperties": false,
-      "if": {"properties": {"revision_state": {"not": {"const": "pending"}}}},
-      "then": {"properties": {"control_revision": {"properties": {"value": {"not": {"const": "1"}}}}}},
+      "if": {
+        "properties": {
+          "revision_state": {
+            "not": {
+              "const": "pending"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "control_revision": {
+            "properties": {
+              "value": {
+                "not": {
+                  "const": "1"
+                }
+              }
+            }
+          }
+        }
+      },
       "allOf": [
         {
-          "if": {"properties": {"revision_state": {"const": "superseded"}, "review": {"type": "object"}}},
-          "then": {"properties": {"control_revision": {"properties": {"value": {"not": {"enum": ["1", "2"]}}}}}}
+          "if": {
+            "properties": {
+              "revision_state": {
+                "const": "superseded"
+              },
+              "review": {
+                "type": "object"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "control_revision": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "enum": [
+                        "1",
+                        "2"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
         {
-          "if": {"properties": {"item": {"properties": {"candidate": {"properties": {"version": {"properties": {"value": {"not": {"const": "1"}}}}}}}}}},
-          "then": {"properties": {"control_revision": {"properties": {"value": {"not": {"const": "1"}}}}}}
+          "if": {
+            "properties": {
+              "item": {
+                "properties": {
+                  "candidate": {
+                    "properties": {
+                      "version": {
+                        "properties": {
+                          "value": {
+                            "not": {
+                              "const": "1"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "control_revision": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "const": "1"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       ],
       "oneOf": [
-        {"properties": {"revision_state": {"const": "pending"}, "review": {"type": "null"}, "superseded_by": {"type": "null"}}},
-        {"properties": {"revision_state": {"const": "accepted"}, "review": {"allOf": [{"$ref": "#/$defs/project_review_record"}], "properties": {"verdict": {"const": "accepted"}}}, "superseded_by": {"type": "null"}}},
-        {"properties": {"revision_state": {"const": "rejected"}, "review": {"allOf": [{"$ref": "#/$defs/project_review_record"}], "properties": {"verdict": {"const": "rejected"}}}, "superseded_by": {"type": "null"}}},
-        {"properties": {"revision_state": {"const": "contested"}, "review": {"allOf": [{"$ref": "#/$defs/project_review_record"}], "properties": {"verdict": {"const": "contested"}}}, "superseded_by": {"type": "null"}}},
-        {"properties": {"revision_state": {"const": "superseded"}, "review": {"oneOf": [{"$ref": "#/$defs/project_review_record"}, {"type": "null"}]}, "superseded_by": {"allOf": [{"$ref": "candidate-review.schema.json#/$defs/candidate_reference"}], "properties": {"version": {"properties": {"value": {"not": {"const": "1"}}}}}}}}
+        {
+          "properties": {
+            "revision_state": {
+              "const": "pending"
+            },
+            "review": {
+              "type": "null"
+            },
+            "superseded_by": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "revision_state": {
+              "const": "accepted"
+            },
+            "review": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/project_review_record"
+                }
+              ],
+              "properties": {
+                "verdict": {
+                  "const": "accepted"
+                }
+              }
+            },
+            "superseded_by": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "revision_state": {
+              "const": "rejected"
+            },
+            "review": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/project_review_record"
+                }
+              ],
+              "properties": {
+                "verdict": {
+                  "const": "rejected"
+                }
+              }
+            },
+            "superseded_by": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "revision_state": {
+              "const": "contested"
+            },
+            "review": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/project_review_record"
+                }
+              ],
+              "properties": {
+                "verdict": {
+                  "const": "contested"
+                }
+              }
+            },
+            "superseded_by": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "revision_state": {
+              "const": "superseded"
+            },
+            "review": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/project_review_record"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "superseded_by": {
+              "allOf": [
+                {
+                  "$ref": "candidate-review.schema.json#/$defs/candidate_reference"
+                }
+              ],
+              "properties": {
+                "version": {
+                  "properties": {
+                    "value": {
+                      "not": {
+                        "const": "1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "expense_project_association": {
-      "description": "Typed versioned relationship to the exact expense revision, distinct from financial confirmation.",
+      "description": "Typed versioned relationship to the exact expense revision, distinct from financial confirmation. It carries a stable identity, immutable revision/digest, expected aggregate control and attributable provenance.",
       "type": "object",
-      "required": ["workspace", "project", "expense_id", "expense_revision", "association_revision"],
+      "required": [
+        "association_id",
+        "workspace",
+        "project",
+        "expense",
+        "association_revision",
+        "association_sha256",
+        "expected_control_revision",
+        "provenance"
+      ],
       "properties": {
-        "workspace": {"$ref": "#/$defs/workspace_reference"},
-        "project": {"$ref": "#/$defs/project_reference"},
-        "expense_id": {"$ref": "common.schema.json#/$defs/identifier"},
-        "expense_revision": {"$ref": "common.schema.json#/$defs/content_revision"},
-        "association_revision": {"$ref": "common.schema.json#/$defs/content_revision"}
+        "association_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "project": {
+          "$ref": "#/$defs/project_reference"
+        },
+        "expense": {
+          "$ref": "financial-records.schema.json#/$defs/expense_reference"
+        },
+        "association_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "association_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "expected_control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "recorded_at",
+            "audit_event_id",
+            "executor",
+            "authority_audit_event_id",
+            "delegation_id"
+          ],
+          "properties": {
+            "recorded_at": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            "audit_event_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "executor": {
+              "$ref": "#/$defs/principal_reference"
+            },
+            "authority_audit_event_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "delegation_id": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/identifier"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     },
@@ -783,7 +1856,9 @@
         "field_lineage": {
           "type": "array",
           "maxItems": 64,
-          "items": {"$ref": "#/$defs/field_lineage_entry"}
+          "items": {
+            "$ref": "#/$defs/field_lineage_entry"
+          }
         }
       },
       "additionalProperties": false
@@ -791,21 +1866,56 @@
     "project_page": {
       "description": "Bounded project readback page. A continuation cursor must be present exactly when more canonical records remain.",
       "type": "object",
-      "required": ["total_records", "has_more", "next_cursor"],
+      "required": [
+        "total_records",
+        "has_more",
+        "next_cursor"
+      ],
       "properties": {
-        "total_records": {"type": "integer", "minimum": 0, "maximum": 1000000},
-        "has_more": {"type": "boolean"},
+        "total_records": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "has_more": {
+          "type": "boolean"
+        },
         "next_cursor": {
           "oneOf": [
-            {"type": "string", "minLength": 1, "maxLength": 512, "pattern": "^[A-Za-z0-9_-]{1,512}$"},
-            {"type": "null"}
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512,
+              "pattern": "^[A-Za-z0-9_-]{1,512}$"
+            },
+            {
+              "type": "null"
+            }
           ]
         }
       },
       "additionalProperties": false,
       "oneOf": [
-        {"properties": {"has_more": {"const": true}, "next_cursor": {"type": "string"}}},
-        {"properties": {"has_more": {"const": false}, "next_cursor": {"type": "null"}}}
+        {
+          "properties": {
+            "has_more": {
+              "const": true
+            },
+            "next_cursor": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "has_more": {
+              "const": false
+            },
+            "next_cursor": {
+              "type": "null"
+            }
+          }
+        }
       ]
     },
     "project_resource": {
@@ -1388,7 +2498,11 @@
     },
     "project_success_response": {
       "description": "Shared project success envelope. It additionally rejects unsupported authority, assurance and actor assertions at the top level and inside the result.",
-      "allOf": [{"$ref": "common.schema.json#/$defs/success_response"}],
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        }
+      ],
       "properties": {
         "authorized": false,
         "approved": false,
@@ -1631,7 +2745,8 @@
       "required": [
         "profile",
         "version",
-        "public_key"
+        "public_key",
+        "standard_revisions"
       ],
       "properties": {
         "profile": {
@@ -1642,6 +2757,29 @@
         },
         "public_key": {
           "$ref": "#/$defs/nostr_public_key"
+        },
+        "standard_revisions": {
+          "type": "object",
+          "required": [
+            "nip01"
+          ],
+          "properties": {
+            "nip01": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/standard_revision"
+                },
+                {
+                  "properties": {
+                    "standard": {
+                      "const": "nip-01"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -1827,7 +2965,8 @@
         "replay_retention_seconds",
         "max_event_bytes",
         "max_tag_cardinality",
-        "allowed_origins"
+        "allowed_origins",
+        "standard_revisions"
       ],
       "properties": {
         "profile": {
@@ -1861,6 +3000,29 @@
           "items": {
             "$ref": "#/$defs/https_origin"
           }
+        },
+        "standard_revisions": {
+          "type": "object",
+          "required": [
+            "nip98"
+          ],
+          "properties": {
+            "nip98": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/standard_revision"
+                },
+                {
+                  "properties": {
+                    "standard": {
+                      "const": "nip-98"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -2284,7 +3446,7 @@
       ]
     },
     "financial_review_challenge": {
-      "description": "Bounded expiring one-use review challenge bound to the exact pending expense revision/digest, optional exact association, purpose and executor scope.",
+      "description": "Bounded expiring one-use review challenge bound to the exact pending expense revision/digest, optional exact association revision/digest, purpose and executor scope.",
       "type": "object",
       "required": [
         "challenge_id",
@@ -2294,7 +3456,7 @@
         "domain_id",
         "purpose",
         "expense",
-        "association_id",
+        "association",
         "expense_version",
         "content_sha256",
         "decision",
@@ -2325,10 +3487,10 @@
         "expense": {
           "$ref": "financial-records.schema.json#/$defs/expense_reference"
         },
-        "association_id": {
+        "association": {
           "oneOf": [
             {
-              "$ref": "common.schema.json#/$defs/identifier"
+              "$ref": "#/$defs/project_association_reference"
             },
             {
               "type": "null"
@@ -2364,20 +3526,16 @@
       "type": "object",
       "required": [
         "challenge_id",
-        "proof_mechanism",
         "assurance",
         "reviewer",
         "decision",
         "content_sha256",
         "asserted_at",
-        "proof_digest"
+        "proof"
       ],
       "properties": {
         "challenge_id": {
           "$ref": "common.schema.json#/$defs/identifier"
-        },
-        "proof_mechanism": {
-          "$ref": "common.schema.json#/$defs/slug"
         },
         "assurance": {
           "$ref": "#/$defs/assurance_profile"
@@ -2405,8 +3563,8 @@
         "asserted_at": {
           "$ref": "common.schema.json#/$defs/timestamp"
         },
-        "proof_digest": {
-          "$ref": "common.schema.json#/$defs/sha256"
+        "proof": {
+          "$ref": "#/$defs/financial_review_proof_payload"
         }
       },
       "additionalProperties": false
@@ -2429,7 +3587,7 @@
         "domain_id",
         "purpose",
         "expense",
-        "association_id",
+        "association",
         "expense_version",
         "content_sha256",
         "decision",
@@ -2477,10 +3635,10 @@
         "expense": {
           "$ref": "financial-records.schema.json#/$defs/expense_reference"
         },
-        "association_id": {
+        "association": {
           "oneOf": [
             {
-              "$ref": "common.schema.json#/$defs/identifier"
+              "$ref": "#/$defs/project_association_reference"
             },
             {
               "type": "null"
@@ -2558,7 +3716,7 @@
         "domain_id",
         "purpose",
         "expense_id",
-        "association_id",
+        "association",
         "expense_version",
         "content_sha256",
         "decision",
@@ -2582,10 +3740,10 @@
         "expense_id": {
           "$ref": "common.schema.json#/$defs/identifier"
         },
-        "association_id": {
+        "association": {
           "oneOf": [
             {
-              "$ref": "common.schema.json#/$defs/identifier"
+              "$ref": "#/$defs/project_association_reference"
             },
             {
               "type": "null"
@@ -2636,7 +3794,7 @@
           "type": "object",
           "required": [
             "expense",
-            "association_id",
+            "association",
             "expected_version",
             "expected_content_sha256",
             "purpose",
@@ -2645,16 +3803,6 @@
           "properties": {
             "expense": {
               "$ref": "financial-records.schema.json#/$defs/expense_reference"
-            },
-            "association_id": {
-              "oneOf": [
-                {
-                  "$ref": "common.schema.json#/$defs/identifier"
-                },
-                {
-                  "type": "null"
-                }
-              ]
             },
             "expected_version": {
               "$ref": "common.schema.json#/$defs/content_revision"
@@ -2667,6 +3815,16 @@
             },
             "executor_scope": {
               "$ref": "#/$defs/executor_scope"
+            },
+            "association": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/project_association_reference"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "additionalProperties": false
@@ -2687,7 +3845,8 @@
         "result": {
           "required": [
             "capability",
-            "challenge"
+            "challenge",
+            "rendering"
           ],
           "properties": {
             "capability": {
@@ -2695,6 +3854,9 @@
             },
             "challenge": {
               "$ref": "#/$defs/financial_review_challenge"
+            },
+            "rendering": {
+              "$ref": "#/$defs/financial_review_rendering"
             }
           }
         }
@@ -2755,6 +3917,494 @@
           }
         }
       }
+    },
+    "project_association_reference": {
+      "description": "Exact immutable association revision/digest used by financial review. An opaque association id alone is not a revision identity.",
+      "type": "object",
+      "required": [
+        "association_id",
+        "association_revision",
+        "association_sha256"
+      ],
+      "properties": {
+        "association_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "association_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "association_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "standard_revision": {
+      "description": "Exact pinned revision of an admitted external standard. A generic label is not a pinned revision.",
+      "type": "object",
+      "required": [
+        "standard",
+        "revision"
+      ],
+      "properties": {
+        "standard": {
+          "enum": [
+            "nip-01",
+            "nip-98"
+          ]
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9./:_-]{0,63}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_review_rendering": {
+      "description": "Readable exact-content rendering presented to the human reviewer with an independently verifiable identity. Rendering does not itself approve anything.",
+      "type": "object",
+      "required": [
+        "content_sha256",
+        "rendering_sha256",
+        "media_type",
+        "text"
+      ],
+      "properties": {
+        "content_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "rendering_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "media_type": {
+          "enum": [
+            "text/plain"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16384
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_review_proof_payload": {
+      "description": "Verifiable mechanism proof for the trusted review. The opaque reference is resolvable only by the configured mechanism; the digest binds the asserted exact content.",
+      "type": "object",
+      "required": [
+        "mechanism",
+        "assertion",
+        "reference",
+        "digest"
+      ],
+      "properties": {
+        "mechanism": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
+        "assertion": {
+          "enum": [
+            "human_confirmed"
+          ]
+        },
+        "reference": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "digest": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "registered_operation": {
+      "description": "Focused first-profile registered operations. A capability label without a registered operation is not implemented.",
+      "enum": [
+        "identity.bootstrap",
+        "workspace.membership.get",
+        "grant.create",
+        "grant.get",
+        "grant.revoke",
+        "financial_review.challenge",
+        "financial_review.issue",
+        "expense.confirm"
+      ]
+    },
+    "resolution_outcome": {
+      "description": "Typed resolution outcome distinct from syntactic validity; ambiguous names, unresolved dependencies, stale targets and absence are separate observations.",
+      "enum": [
+        "resolved",
+        "ambiguous",
+        "dependency_unresolved",
+        "stale_target",
+        "not_found"
+      ]
+    },
+    "operator_bootstrap_grant": {
+      "description": "Documented operator-held, expiring, one-use bootstrap grant. There are no reusable default credentials or unauthenticated tenancy exceptions.",
+      "type": "object",
+      "required": [
+        "bootstrap_grant_id",
+        "namespace",
+        "policy",
+        "operator",
+        "issued_at",
+        "expires_at",
+        "single_use",
+        "audit_event_id"
+      ],
+      "properties": {
+        "bootstrap_grant_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "namespace": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
+        "policy": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
+        "operator": {
+          "$ref": "#/$defs/principal_reference"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "single_use": {
+          "const": true
+        },
+        "audit_event_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "identity_bootstrap_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "identity.bootstrap"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "bootstrap_grant_id",
+            "principal_id",
+            "identity_profile"
+          ],
+          "properties": {
+            "bootstrap_grant_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "principal_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "identity_profile": {
+              "$ref": "#/$defs/identity_profile"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "identity_bootstrap_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "required": [
+        "idempotency_receipt"
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "principal"
+          ],
+          "properties": {
+            "principal": {
+              "$ref": "#/$defs/principal_identity"
+            }
+          }
+        }
+      }
+    },
+    "workspace_membership": {
+      "description": "Explicit one-workspace membership binding a principal to roles under policy and revision. Membership is separate from party, principal and grant.",
+      "type": "object",
+      "required": [
+        "membership_id",
+        "principal",
+        "workspace",
+        "roles",
+        "policy",
+        "revision",
+        "state"
+      ],
+      "properties": {
+        "membership_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "principal": {
+          "$ref": "#/$defs/principal_reference"
+        },
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "common.schema.json#/$defs/slug"
+          }
+        },
+        "policy": {
+          "$ref": "common.schema.json#/$defs/slug"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "state": {
+          "enum": [
+            "active",
+            "revoked"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "workspace_membership_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "workspace.membership.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "workspace",
+            "principal"
+          ],
+          "properties": {
+            "workspace": {
+              "$ref": "#/$defs/workspace_reference"
+            },
+            "principal": {
+              "$ref": "#/$defs/principal_reference"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "workspace_membership_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "membership"
+          ],
+          "properties": {
+            "membership": {
+              "$ref": "#/$defs/workspace_membership"
+            }
+          }
+        }
+      }
+    },
+    "agent_grant_create_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "grant.create"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "grant"
+          ],
+          "properties": {
+            "grant": {
+              "$ref": "#/$defs/agent_grant"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "agent_grant_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "required": [
+        "idempotency_receipt"
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "grant"
+          ],
+          "properties": {
+            "grant": {
+              "$ref": "#/$defs/agent_grant"
+            }
+          }
+        }
+      }
+    },
+    "agent_grant_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "grant.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "grant_id",
+            "expected_revision"
+          ],
+          "properties": {
+            "grant_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "agent_grant_get_response": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "grant"
+          ],
+          "properties": {
+            "grant": {
+              "$ref": "#/$defs/agent_grant"
+            }
+          }
+        }
+      }
+    },
+    "agent_grant_revoke_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "grant.revoke"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "grant_id",
+            "expected_revision",
+            "reason"
+          ],
+          "properties": {
+            "grant_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

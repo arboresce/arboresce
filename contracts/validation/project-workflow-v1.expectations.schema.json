@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 334,
-      "maxItems": 334,
+      "minItems": 363,
+      "maxItems": 363,
       "prefixItems": [
         {
           "type": "object",
@@ -9354,6 +9354,811 @@
             "value": {
               "not": {
                 "$ref": "../public/v1/project-workflow.schema.json#/$defs/financial_review_issue_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-association-reference-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_association_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_association_reference"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-association-reference-missing-digest"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_association_reference"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_association_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-project-association-control"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_project_association"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_project_association"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "expense-project-association-missing-provenance"
+            },
+            "target": {
+              "type": "string",
+              "const": "expense_project_association"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/expense_project_association"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "financial-review-rendering-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "financial_review_rendering"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/financial_review_rendering"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "financial-review-rendering-empty-text"
+            },
+            "target": {
+              "type": "string",
+              "const": "financial_review_rendering"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/financial_review_rendering"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "financial-review-proof-payload-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "financial_review_proof_payload"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/financial_review_proof_payload"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "financial-review-proof-payload-wrong-assertion"
+            },
+            "target": {
+              "type": "string",
+              "const": "financial_review_proof_payload"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/financial_review_proof_payload"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "standard-revision-nip01"
+            },
+            "target": {
+              "type": "string",
+              "const": "standard_revision"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/standard_revision"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "standard-revision-unknown-standard"
+            },
+            "target": {
+              "type": "string",
+              "const": "standard_revision"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/standard_revision"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "registered-operation-financial"
+            },
+            "target": {
+              "type": "string",
+              "const": "registered_operation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/registered_operation"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "registered-operation-unknown"
+            },
+            "target": {
+              "type": "string",
+              "const": "registered_operation"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/registered_operation"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "resolution-outcome-ambiguous"
+            },
+            "target": {
+              "type": "string",
+              "const": "resolution_outcome"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/resolution_outcome"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "resolution-outcome-success-flag"
+            },
+            "target": {
+              "type": "string",
+              "const": "resolution_outcome"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/resolution_outcome"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operator-bootstrap-grant-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "operator_bootstrap_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/operator_bootstrap_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operator-bootstrap-grant-reusable"
+            },
+            "target": {
+              "type": "string",
+              "const": "operator_bootstrap_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operator_bootstrap_grant"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "identity-bootstrap-request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "identity_bootstrap_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/identity_bootstrap_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "identity-bootstrap-request-wrong-command"
+            },
+            "target": {
+              "type": "string",
+              "const": "identity_bootstrap_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/identity_bootstrap_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "identity-bootstrap-response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "identity_bootstrap_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/identity_bootstrap_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-membership-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_membership"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_membership"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-membership-empty-roles"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_membership"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_membership"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-membership-get-request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_membership_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_membership_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "workspace-membership-get-response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "workspace_membership_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/workspace_membership_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-create-request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant_create_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant_create_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-get-request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-get-response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-revoke-request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant_revoke_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant_revoke_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-revoke-request-empty-reason"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant_revoke_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant_revoke_request"
               }
             }
           },
