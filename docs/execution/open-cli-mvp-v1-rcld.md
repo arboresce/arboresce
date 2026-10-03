@@ -75,7 +75,7 @@ plan alone. Use the configured build-output router where enabled.
 
 ### E200 — Freeze focused public project and identity contract extensions
 
-Status: `not_started`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: none. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -88,6 +88,8 @@ External prerequisite capabilities: Adopt the approved specifications and versio
 Definition of green: Closed workspace/Party/project/change-item/auth/review-event variants, errors, bounds and compatibility vectors agree with owning requirements; old wire families are not silently repurposed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
+
+Progress: exact typed targets, candidate/origin/profile identities, field lineage, relationship subjects, project review mappings and ordinary operation/read variants are represented, together with closed identity/principal, NIP-98 signed-request, agent-grant/execution-authority and trusted financial-review challenge/proof/issue/event/preimage variants with explicit qualified/unqualified/unsupported assurance outcomes, for 334 parsed cases (169 positive, 165 negative). This is bounded progress, not whole-slice acceptance. Complete the frozen complete validation protocol with exact input/profile binding and diagnostic classifications before consumers. Parsed values do not qualify semantic joins, authority or canonical effects.
 
 ### E201 — Bootstrap measured Rust types on the accepted toolchain
 

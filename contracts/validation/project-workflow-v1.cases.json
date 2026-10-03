@@ -10684,6 +10684,1763 @@
           "next_cursor": "page_2"
         }
       }
+    },
+    {
+      "id": "principal-identity-active",
+      "target": "principal_identity",
+      "valid": true,
+      "value": {
+        "principal_id": "11111111-1111-4111-8111-111111111111",
+        "kind": "human",
+        "identity_profile": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "state": "active",
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "created_at": "2026-10-03T04:04:26.000Z",
+        "revoked_at": null
+      }
+    },
+    {
+      "id": "principal-identity-revoked-complete",
+      "target": "principal_identity",
+      "valid": true,
+      "value": {
+        "principal_id": "11111111-1111-4111-8111-111111111111",
+        "kind": "human",
+        "identity_profile": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "state": "revoked",
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "created_at": "2026-10-03T04:04:26.000Z",
+        "revoked_at": "2026-10-03T04:09:26.000Z"
+      }
+    },
+    {
+      "id": "principal-identity-active-with-revoked-at",
+      "target": "principal_identity",
+      "valid": false,
+      "value": {
+        "principal_id": "11111111-1111-4111-8111-111111111111",
+        "kind": "human",
+        "identity_profile": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "state": "active",
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "created_at": "2026-10-03T04:04:26.000Z",
+        "revoked_at": "2026-10-03T04:09:26.000Z"
+      }
+    },
+    {
+      "id": "principal-identity-missing-profile",
+      "target": "principal_identity",
+      "valid": false,
+      "value": {
+        "principal_id": "11111111-1111-4111-8111-111111111111",
+        "kind": "human",
+        "state": "active",
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "created_at": "2026-10-03T04:04:26.000Z",
+        "revoked_at": null
+      }
+    },
+    {
+      "id": "principal-reference-human",
+      "target": "principal_reference",
+      "valid": true,
+      "value": {
+        "principal_id": "11111111-1111-4111-8111-111111111111",
+        "kind": "human"
+      }
+    },
+    {
+      "id": "principal-reference-unknown-kind",
+      "target": "principal_reference",
+      "valid": false,
+      "value": {
+        "principal_id": "11111111-1111-4111-8111-111111111111",
+        "kind": "robot"
+      }
+    },
+    {
+      "id": "principal-reference-extra-field",
+      "target": "principal_reference",
+      "valid": false,
+      "value": {
+        "principal_id": "11111111-1111-4111-8111-111111111111",
+        "kind": "human",
+        "email": "a@example.com"
+      }
+    },
+    {
+      "id": "identity-profile-complete",
+      "target": "identity_profile",
+      "valid": true,
+      "value": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "identity-profile-short-key",
+      "target": "identity_profile",
+      "valid": false,
+      "value": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "identity-profile-wrong-version",
+      "target": "identity_profile",
+      "valid": false,
+      "value": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip98-v1",
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "signed-request-bodyless",
+      "target": "signed_request",
+      "valid": true,
+      "value": {
+        "kind": 27235,
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "created_at": 1790000000,
+        "content": "",
+        "url": "https://api.example.com/v1/workspaces?active=true",
+        "method": "GET",
+        "body_sha256": null,
+        "signature": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    {
+      "id": "signed-request-with-body-hash",
+      "target": "signed_request",
+      "valid": true,
+      "value": {
+        "kind": 27235,
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "created_at": 1790000000,
+        "content": "",
+        "url": "https://api.example.com/v1/workspaces?active=true",
+        "method": "POST",
+        "body_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "signature": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    {
+      "id": "signed-request-nonempty-content",
+      "target": "signed_request",
+      "valid": false,
+      "value": {
+        "kind": 27235,
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "created_at": 1790000000,
+        "content": "{}",
+        "url": "https://api.example.com/v1/workspaces?active=true",
+        "method": "GET",
+        "body_sha256": null,
+        "signature": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    {
+      "id": "signed-request-wrong-kind",
+      "target": "signed_request",
+      "valid": false,
+      "value": {
+        "kind": 1,
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "created_at": 1790000000,
+        "content": "",
+        "url": "https://api.example.com/v1/workspaces?active=true",
+        "method": "GET",
+        "body_sha256": null,
+        "signature": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    {
+      "id": "signed-request-http-url",
+      "target": "signed_request",
+      "valid": false,
+      "value": {
+        "kind": 27235,
+        "public_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "created_at": 1790000000,
+        "content": "",
+        "url": "http://api.example.com/v1/workspaces",
+        "method": "GET",
+        "body_sha256": null,
+        "signature": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    {
+      "id": "signed-request-profile-complete",
+      "target": "signed_request_profile",
+      "valid": true,
+      "value": {
+        "profile": "arboresce.nip98-http-auth.v1",
+        "max_clock_skew_seconds": 30,
+        "replay_retention_seconds": 3600,
+        "max_event_bytes": 8192,
+        "max_tag_cardinality": 8,
+        "allowed_origins": [
+          "https://api.example.com"
+        ]
+      }
+    },
+    {
+      "id": "signed-request-profile-no-origins",
+      "target": "signed_request_profile",
+      "valid": false,
+      "value": {
+        "profile": "arboresce.nip98-http-auth.v1",
+        "max_clock_skew_seconds": 30,
+        "replay_retention_seconds": 3600,
+        "max_event_bytes": 8192,
+        "max_tag_cardinality": 8,
+        "allowed_origins": []
+      }
+    },
+    {
+      "id": "signed-request-profile-origin-with-path",
+      "target": "signed_request_profile",
+      "valid": false,
+      "value": {
+        "profile": "arboresce.nip98-http-auth.v1",
+        "max_clock_skew_seconds": 30,
+        "replay_retention_seconds": 3600,
+        "max_event_bytes": 8192,
+        "max_tag_cardinality": 8,
+        "allowed_origins": [
+          "https://api.example.com/v1"
+        ]
+      }
+    },
+    {
+      "id": "https-origin-with-port",
+      "target": "https_origin",
+      "valid": true,
+      "value": "https://api.example.com:8443"
+    },
+    {
+      "id": "https-origin-with-userinfo",
+      "target": "https_origin",
+      "valid": false,
+      "value": "https://user@api.example.com"
+    },
+    {
+      "id": "absolute-https-url-with-query",
+      "target": "absolute_https_url",
+      "valid": true,
+      "value": "https://api.example.com/v1/candidates?cursor=abc"
+    },
+    {
+      "id": "absolute-https-url-relative",
+      "target": "absolute_https_url",
+      "valid": false,
+      "value": "/v1/candidates"
+    },
+    {
+      "id": "request-method-post",
+      "target": "request_method",
+      "valid": true,
+      "value": "POST"
+    },
+    {
+      "id": "request-method-lowercase",
+      "target": "request_method",
+      "valid": false,
+      "value": "post"
+    },
+    {
+      "id": "principal-key-transition-rotation",
+      "target": "principal_key_transition",
+      "valid": true,
+      "value": {
+        "from_principal": {
+          "principal_id": "11111111-1111-4111-8111-111111111111",
+          "kind": "human"
+        },
+        "to_principal": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "reason": "rotation",
+        "recovery_authority": {
+          "authority_principal": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "human"
+          },
+          "policy": "key_recovery"
+        },
+        "policy": "principal_continuity",
+        "occurred_at": "2026-10-03T04:04:26.000Z",
+        "audit_event_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "principal-key-transition-missing-authority",
+      "target": "principal_key_transition",
+      "valid": false,
+      "value": {
+        "from_principal": {
+          "principal_id": "11111111-1111-4111-8111-111111111111",
+          "kind": "human"
+        },
+        "to_principal": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "reason": "rotation",
+        "policy": "principal_continuity",
+        "occurred_at": "2026-10-03T04:04:26.000Z",
+        "audit_event_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "principal-key-transition-unknown-reason",
+      "target": "principal_key_transition",
+      "valid": false,
+      "value": {
+        "from_principal": {
+          "principal_id": "11111111-1111-4111-8111-111111111111",
+          "kind": "human"
+        },
+        "to_principal": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "reason": "guess",
+        "recovery_authority": {
+          "authority_principal": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "human"
+          },
+          "policy": "key_recovery"
+        },
+        "policy": "principal_continuity",
+        "occurred_at": "2026-10-03T04:04:26.000Z",
+        "audit_event_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "grant-scope-workspace",
+      "target": "grant_scope",
+      "valid": true,
+      "value": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "resource_kind": "workspace",
+        "resource_id": null
+      }
+    },
+    {
+      "id": "grant-scope-project",
+      "target": "grant_scope",
+      "valid": true,
+      "value": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "resource_kind": "project",
+        "resource_id": "33333333-3333-4333-a333-333333333333"
+      }
+    },
+    {
+      "id": "grant-scope-project-without-id",
+      "target": "grant_scope",
+      "valid": false,
+      "value": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "resource_kind": "project",
+        "resource_id": null
+      }
+    },
+    {
+      "id": "grant-scope-workspace-with-id",
+      "target": "grant_scope",
+      "valid": false,
+      "value": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "resource_kind": "workspace",
+        "resource_id": "33333333-3333-4333-a333-333333333333"
+      }
+    },
+    {
+      "id": "agent-grant-active",
+      "target": "agent_grant",
+      "valid": true,
+      "value": {
+        "grant_id": "11111111-1111-4111-8111-111111111111",
+        "issuer": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "subject": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "parent_grant_id": null,
+        "scope": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "resource_kind": "workspace",
+          "resource_id": null
+        },
+        "actions": [
+          "project.read",
+          "project.change.review"
+        ],
+        "purposes": [
+          "project_support"
+        ],
+        "delegable": false,
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "policy": "agent_scoped",
+        "revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "state": "active",
+        "revoked_at": null
+      }
+    },
+    {
+      "id": "agent-grant-revoked",
+      "target": "agent_grant",
+      "valid": true,
+      "value": {
+        "grant_id": "11111111-1111-4111-8111-111111111111",
+        "issuer": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "subject": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "parent_grant_id": null,
+        "scope": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "resource_kind": "workspace",
+          "resource_id": null
+        },
+        "actions": [
+          "project.read",
+          "project.change.review"
+        ],
+        "purposes": [
+          "project_support"
+        ],
+        "delegable": false,
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "policy": "agent_scoped",
+        "revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "state": "revoked",
+        "revoked_at": "2026-10-03T04:09:26.000Z"
+      }
+    },
+    {
+      "id": "agent-grant-active-with-revoked-at",
+      "target": "agent_grant",
+      "valid": false,
+      "value": {
+        "grant_id": "11111111-1111-4111-8111-111111111111",
+        "issuer": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "subject": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "parent_grant_id": null,
+        "scope": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "resource_kind": "workspace",
+          "resource_id": null
+        },
+        "actions": [
+          "project.read",
+          "project.change.review"
+        ],
+        "purposes": [
+          "project_support"
+        ],
+        "delegable": false,
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "policy": "agent_scoped",
+        "revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "state": "active",
+        "revoked_at": "2026-10-03T04:09:26.000Z"
+      }
+    },
+    {
+      "id": "agent-grant-unknown-action",
+      "target": "agent_grant",
+      "valid": false,
+      "value": {
+        "grant_id": "11111111-1111-4111-8111-111111111111",
+        "issuer": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "subject": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "parent_grant_id": null,
+        "scope": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "resource_kind": "workspace",
+          "resource_id": null
+        },
+        "actions": [
+          "project.obliterate"
+        ],
+        "purposes": [
+          "project_support"
+        ],
+        "delegable": false,
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "policy": "agent_scoped",
+        "revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "state": "active",
+        "revoked_at": null
+      }
+    },
+    {
+      "id": "agent-grant-empty-purposes",
+      "target": "agent_grant",
+      "valid": false,
+      "value": {
+        "grant_id": "11111111-1111-4111-8111-111111111111",
+        "issuer": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "subject": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "parent_grant_id": null,
+        "scope": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "resource_kind": "workspace",
+          "resource_id": null
+        },
+        "actions": [
+          "project.read",
+          "project.change.review"
+        ],
+        "purposes": [],
+        "delegable": false,
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "policy": "agent_scoped",
+        "revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "state": "active",
+        "revoked_at": null
+      }
+    },
+    {
+      "id": "agent-grant-chain-single",
+      "target": "agent_grant_chain",
+      "valid": true,
+      "value": [
+        {
+          "grant_id": "11111111-1111-4111-8111-111111111111",
+          "issuer": {
+            "principal_id": "22222222-2222-4222-9222-222222222222",
+            "kind": "human"
+          },
+          "subject": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "parent_grant_id": null,
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "resource_kind": "workspace",
+            "resource_id": null
+          },
+          "actions": [
+            "project.read",
+            "project.change.review"
+          ],
+          "purposes": [
+            "project_support"
+          ],
+          "delegable": false,
+          "issued_at": "2026-10-03T04:04:26.000Z",
+          "expires_at": "2026-10-03T04:09:26.000Z",
+          "policy": "agent_scoped",
+          "revision": {
+            "kind": "control",
+            "value": "1"
+          },
+          "state": "active",
+          "revoked_at": null
+        }
+      ]
+    },
+    {
+      "id": "agent-grant-chain-empty",
+      "target": "agent_grant_chain",
+      "valid": false,
+      "value": []
+    },
+    {
+      "id": "execution-authority-complete",
+      "target": "execution_authority",
+      "valid": true,
+      "value": {
+        "executor": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "chain": [
+          {
+            "grant_id": "11111111-1111-4111-8111-111111111111",
+            "issuer": {
+              "principal_id": "22222222-2222-4222-9222-222222222222",
+              "kind": "human"
+            },
+            "subject": {
+              "principal_id": "33333333-3333-4333-a333-333333333333",
+              "kind": "agent"
+            },
+            "parent_grant_id": null,
+            "scope": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "resource_kind": "workspace",
+              "resource_id": null
+            },
+            "actions": [
+              "project.read",
+              "project.change.review"
+            ],
+            "purposes": [
+              "project_support"
+            ],
+            "delegable": false,
+            "issued_at": "2026-10-03T04:04:26.000Z",
+            "expires_at": "2026-10-03T04:09:26.000Z",
+            "policy": "agent_scoped",
+            "revision": {
+              "kind": "control",
+              "value": "1"
+            },
+            "state": "active",
+            "revoked_at": null
+          }
+        ],
+        "authority_audit_event_id": "44444444-4444-4444-b444-444444444444",
+        "command_id": "55555555-5555-4555-8555-555555555555"
+      }
+    },
+    {
+      "id": "execution-authority-empty-chain",
+      "target": "execution_authority",
+      "valid": false,
+      "value": {
+        "executor": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "chain": [],
+        "authority_audit_event_id": "44444444-4444-4444-b444-444444444444",
+        "command_id": "55555555-5555-4555-8555-555555555555"
+      }
+    },
+    {
+      "id": "assurance-profile-qualified",
+      "target": "assurance_profile",
+      "valid": true,
+      "value": {
+        "assurance_profile": "webauthn_platform_v1",
+        "state": "qualified",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        }
+      }
+    },
+    {
+      "id": "assurance-profile-unqualified",
+      "target": "assurance_profile",
+      "valid": true,
+      "value": {
+        "assurance_profile": "webauthn_platform_v1",
+        "state": "unqualified",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        }
+      }
+    },
+    {
+      "id": "assurance-profile-unknown-state",
+      "target": "assurance_profile",
+      "valid": false,
+      "value": {
+        "assurance_profile": "webauthn_platform_v1",
+        "state": "maybe",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        }
+      }
+    },
+    {
+      "id": "review-policy-reference",
+      "target": "review_policy_reference",
+      "valid": true,
+      "value": {
+        "policy": "financial_human_review",
+        "version": "1"
+      }
+    },
+    {
+      "id": "review-policy-reference-zero-version",
+      "target": "review_policy_reference",
+      "valid": false,
+      "value": {
+        "policy": "financial_human_review",
+        "version": "0"
+      }
+    },
+    {
+      "id": "review-decision-confirm",
+      "target": "review_decision",
+      "valid": true,
+      "value": "confirm"
+    },
+    {
+      "id": "review-decision-accept",
+      "target": "review_decision",
+      "valid": false,
+      "value": "accept"
+    },
+    {
+      "id": "executor-scope-delegated",
+      "target": "executor_scope",
+      "valid": true,
+      "value": {
+        "executor": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "delegation_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "executor-scope-direct",
+      "target": "executor_scope",
+      "valid": true,
+      "value": {
+        "executor": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "delegation_id": null
+      }
+    },
+    {
+      "id": "executor-scope-missing-executor",
+      "target": "executor_scope",
+      "valid": false,
+      "value": {
+        "delegation_id": null
+      }
+    },
+    {
+      "id": "financial-review-capability-available",
+      "target": "financial_review_capability",
+      "valid": true,
+      "value": {
+        "availability": "available",
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "financial-review-capability-unqualified",
+      "target": "financial_review_capability",
+      "valid": true,
+      "value": {
+        "availability": "unqualified",
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "unqualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "financial-review-capability-available-but-unqualified",
+      "target": "financial_review_capability",
+      "valid": false,
+      "value": {
+        "availability": "available",
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "unqualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "financial-review-challenge-complete",
+      "target": "financial_review_challenge",
+      "valid": true,
+      "value": {
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "single_use": true,
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        }
+      }
+    },
+    {
+      "id": "financial-review-challenge-reusable",
+      "target": "financial_review_challenge",
+      "valid": false,
+      "value": {
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "single_use": false,
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        }
+      }
+    },
+    {
+      "id": "financial-review-challenge-non-confirm",
+      "target": "financial_review_challenge",
+      "valid": false,
+      "value": {
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "decline",
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "single_use": true,
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        }
+      }
+    },
+    {
+      "id": "financial-review-challenge-missing-association",
+      "target": "financial_review_challenge",
+      "valid": false,
+      "value": {
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "single_use": true,
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        }
+      }
+    },
+    {
+      "id": "financial-review-proof-complete",
+      "target": "financial_review_proof",
+      "valid": true,
+      "value": {
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "proof_mechanism": "platform_authenticator",
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "reviewer": {
+          "principal_id": "11111111-1111-4111-8111-111111111111",
+          "kind": "human"
+        },
+        "decision": "confirm",
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "asserted_at": "2026-10-03T04:04:26.000Z",
+        "proof_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    },
+    {
+      "id": "financial-review-proof-agent-reviewer",
+      "target": "financial_review_proof",
+      "valid": false,
+      "value": {
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "proof_mechanism": "platform_authenticator",
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "reviewer": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "decision": "confirm",
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "asserted_at": "2026-10-03T04:04:26.000Z",
+        "proof_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    },
+    {
+      "id": "financial-review-event-issued",
+      "target": "financial_review_event",
+      "valid": true,
+      "value": {
+        "financial_review_event_id": "66666666-6666-4666-a666-666666666666",
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "reviewer": {
+          "principal_id": "11111111-1111-4111-8111-111111111111",
+          "kind": "human"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "recorded_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "state": "issued",
+        "revoked_at": null,
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        },
+        "audit_event_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "financial-review-event-revoked",
+      "target": "financial_review_event",
+      "valid": true,
+      "value": {
+        "financial_review_event_id": "66666666-6666-4666-a666-666666666666",
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "reviewer": {
+          "principal_id": "11111111-1111-4111-8111-111111111111",
+          "kind": "human"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "recorded_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "state": "revoked",
+        "revoked_at": "2026-10-03T04:09:26.000Z",
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        },
+        "audit_event_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "financial-review-event-issued-with-revocation",
+      "target": "financial_review_event",
+      "valid": false,
+      "value": {
+        "financial_review_event_id": "66666666-6666-4666-a666-666666666666",
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "reviewer": {
+          "principal_id": "11111111-1111-4111-8111-111111111111",
+          "kind": "human"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "recorded_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "state": "issued",
+        "revoked_at": "2026-10-03T04:09:26.000Z",
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        },
+        "audit_event_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "financial-review-event-nonhuman-reviewer",
+      "target": "financial_review_event",
+      "valid": false,
+      "value": {
+        "financial_review_event_id": "66666666-6666-4666-a666-666666666666",
+        "challenge_id": "55555555-5555-4555-8555-555555555555",
+        "reviewer": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "service"
+        },
+        "assurance": {
+          "assurance_profile": "webauthn_platform_v1",
+          "state": "qualified",
+          "review_policy": {
+            "policy": "financial_human_review",
+            "version": "1"
+          }
+        },
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "expense_id": "33333333-3333-4333-a333-333333333333",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "recorded_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "state": "issued",
+        "revoked_at": null,
+        "executor_scope": {
+          "executor": {
+            "principal_id": "33333333-3333-4333-a333-333333333333",
+            "kind": "agent"
+          },
+          "delegation_id": "44444444-4444-4444-b444-444444444444"
+        },
+        "audit_event_id": "44444444-4444-4444-b444-444444444444"
+      }
+    },
+    {
+      "id": "financial-review-preimage-complete",
+      "target": "financial_review_preimage",
+      "valid": true,
+      "value": {
+        "kind": "arboresce.financial-review-content.v1",
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense_id": "33333333-3333-4333-a333-333333333333",
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "assurance_profile": "webauthn_platform_v1",
+        "reviewer_id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "id": "financial-review-preimage-wrong-kind",
+      "target": "financial_review_preimage",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.candidate.v1",
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense_id": "33333333-3333-4333-a333-333333333333",
+        "association_id": "66666666-6666-4666-a666-666666666666",
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "assurance_profile": "webauthn_platform_v1",
+        "reviewer_id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "id": "financial-review-preimage-null-association",
+      "target": "financial_review_preimage",
+      "valid": true,
+      "value": {
+        "kind": "arboresce.financial-review-content.v1",
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "purpose": "expense_review",
+        "expense_id": "33333333-3333-4333-a333-333333333333",
+        "association_id": null,
+        "expense_version": {
+          "kind": "content",
+          "value": "1"
+        },
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "decision": "confirm",
+        "review_policy": {
+          "policy": "financial_human_review",
+          "version": "1"
+        },
+        "assurance_profile": "webauthn_platform_v1",
+        "reviewer_id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "id": "financial-review-challenge-request-complete",
+      "target": "financial_review_challenge_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "financial_review.challenge",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "expense_review"
+          },
+          "idempotency": {
+            "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "body": {
+          "expense": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "expense_id": "33333333-3333-4333-a333-333333333333",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          },
+          "association_id": "66666666-6666-4666-a666-666666666666",
+          "expected_version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "expected_content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "purpose": "expense_review",
+          "executor_scope": {
+            "executor": {
+              "principal_id": "33333333-3333-4333-a333-333333333333",
+              "kind": "agent"
+            },
+            "delegation_id": "44444444-4444-4444-b444-444444444444"
+          }
+        }
+      }
+    },
+    {
+      "id": "financial-review-challenge-request-wrong-command",
+      "target": "financial_review_challenge_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "financial_review.issue",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "expense_review"
+          },
+          "idempotency": {
+            "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "body": {
+          "expense": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "expense_id": "33333333-3333-4333-a333-333333333333",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          },
+          "association_id": "66666666-6666-4666-a666-666666666666",
+          "expected_version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "expected_content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "purpose": "expense_review",
+          "executor_scope": {
+            "executor": {
+              "principal_id": "33333333-3333-4333-a333-333333333333",
+              "kind": "agent"
+            },
+            "delegation_id": "44444444-4444-4444-b444-444444444444"
+          }
+        }
+      }
+    },
+    {
+      "id": "financial-review-challenge-response-complete",
+      "target": "financial_review_challenge_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "11111111-1111-4111-8111-111111111111",
+        "result": {
+          "capability": {
+            "availability": "available",
+            "assurance": {
+              "assurance_profile": "webauthn_platform_v1",
+              "state": "qualified",
+              "review_policy": {
+                "policy": "financial_human_review",
+                "version": "1"
+              }
+            }
+          },
+          "challenge": {
+            "challenge_id": "55555555-5555-4555-8555-555555555555",
+            "review_policy": {
+              "policy": "financial_human_review",
+              "version": "1"
+            },
+            "assurance": {
+              "assurance_profile": "webauthn_platform_v1",
+              "state": "qualified",
+              "review_policy": {
+                "policy": "financial_human_review",
+                "version": "1"
+              }
+            },
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "expense_review",
+            "expense": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "expense_id": "33333333-3333-4333-a333-333333333333",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "association_id": "66666666-6666-4666-a666-666666666666",
+            "expense_version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "decision": "confirm",
+            "issued_at": "2026-10-03T04:04:26.000Z",
+            "expires_at": "2026-10-03T04:09:26.000Z",
+            "single_use": true,
+            "executor_scope": {
+              "executor": {
+                "principal_id": "33333333-3333-4333-a333-333333333333",
+                "kind": "agent"
+              },
+              "delegation_id": "44444444-4444-4444-b444-444444444444"
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "request_fingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "expires_at": "2026-10-03T04:09:26.000Z",
+          "tombstone_expires_at": "2026-10-03T04:09:26.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "financial-review-challenge-response-missing-challenge",
+      "target": "financial_review_challenge_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "11111111-1111-4111-8111-111111111111",
+        "result": {
+          "capability": {
+            "availability": "available",
+            "assurance": {
+              "assurance_profile": "webauthn_platform_v1",
+              "state": "qualified",
+              "review_policy": {
+                "policy": "financial_human_review",
+                "version": "1"
+              }
+            }
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "request_fingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "expires_at": "2026-10-03T04:09:26.000Z",
+          "tombstone_expires_at": "2026-10-03T04:09:26.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "financial-review-issue-request-complete",
+      "target": "financial_review_issue_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "financial_review.issue",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "expense_review"
+          },
+          "idempotency": {
+            "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "body": {
+          "proof": {
+            "challenge_id": "55555555-5555-4555-8555-555555555555",
+            "proof_mechanism": "platform_authenticator",
+            "assurance": {
+              "assurance_profile": "webauthn_platform_v1",
+              "state": "qualified",
+              "review_policy": {
+                "policy": "financial_human_review",
+                "version": "1"
+              }
+            },
+            "reviewer": {
+              "principal_id": "11111111-1111-4111-8111-111111111111",
+              "kind": "human"
+            },
+            "decision": "confirm",
+            "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "asserted_at": "2026-10-03T04:04:26.000Z",
+            "proof_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        }
+      }
+    },
+    {
+      "id": "financial-review-issue-request-missing-proof",
+      "target": "financial_review_issue_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "financial_review.issue",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "expense_review"
+          },
+          "idempotency": {
+            "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "body": {}
+      }
+    },
+    {
+      "id": "financial-review-issue-response-complete",
+      "target": "financial_review_issue_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "11111111-1111-4111-8111-111111111111",
+        "result": {
+          "event": {
+            "financial_review_event_id": "66666666-6666-4666-a666-666666666666",
+            "challenge_id": "55555555-5555-4555-8555-555555555555",
+            "reviewer": {
+              "principal_id": "11111111-1111-4111-8111-111111111111",
+              "kind": "human"
+            },
+            "assurance": {
+              "assurance_profile": "webauthn_platform_v1",
+              "state": "qualified",
+              "review_policy": {
+                "policy": "financial_human_review",
+                "version": "1"
+              }
+            },
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "expense_review",
+            "expense": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "expense_id": "33333333-3333-4333-a333-333333333333",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "association_id": "66666666-6666-4666-a666-666666666666",
+            "expense_version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "decision": "confirm",
+            "review_policy": {
+              "policy": "financial_human_review",
+              "version": "1"
+            },
+            "recorded_at": "2026-10-03T04:04:26.000Z",
+            "expires_at": "2026-10-03T04:09:26.000Z",
+            "state": "issued",
+            "revoked_at": null,
+            "executor_scope": {
+              "executor": {
+                "principal_id": "33333333-3333-4333-a333-333333333333",
+                "kind": "agent"
+              },
+              "delegation_id": "44444444-4444-4444-b444-444444444444"
+            },
+            "audit_event_id": "44444444-4444-4444-b444-444444444444"
+          }
+        },
+        "idempotency_receipt": {
+          "key_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "request_fingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "expires_at": "2026-10-03T04:09:26.000Z",
+          "tombstone_expires_at": "2026-10-03T04:09:26.000Z",
+          "replayed": false
+        }
+      }
+    },
+    {
+      "id": "financial-review-issue-response-missing-event",
+      "target": "financial_review_issue_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "11111111-1111-4111-8111-111111111111",
+        "result": {},
+        "idempotency_receipt": {
+          "key_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "request_fingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "expires_at": "2026-10-03T04:09:26.000Z",
+          "tombstone_expires_at": "2026-10-03T04:09:26.000Z",
+          "replayed": false
+        }
+      }
     }
   ]
 }
