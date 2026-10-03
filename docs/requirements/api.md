@@ -94,6 +94,61 @@ content/control revision type specified by the operation. Stale expectations
 return a conflict. MVP does not simultaneously require `If-Match`; introducing
 conditional headers requires a later explicit precedence and status contract.
 
+### Focused identity, membership, grant and review transport inventory
+
+[Identity](identity-contract.md) owns authentication and review authority;
+[project workflow](project-workflow.md) owns the workspace/Party meaning. The
+focused first surface registers exactly these operations; the machine contract
+[`operation_inventory`](../contracts/public/v1/project-workflow.schema.json)
+pins one registration per operation and rejects an unknown operation, a changed
+method or route, and any error code outside the admitted set. A named operation
+without a registration is not implemented. Actual support begins only after the
+owning implementation qualifies it.
+
+| Registered operation | Method and route | Required scope and authority | Success contract | Admitted error codes |
+| --- | --- | --- | --- | --- |
+| identity.bootstrap | POST `/v1/identity/bootstrap` | Controlled bootstrap exception; operator-held expiring one-use bootstrap grant | `identity_bootstrap_response` | invalid_request, unauthenticated, forbidden, conflict, invalid_command, rate_limited, unavailable |
+| workspace.membership.get | POST `/v1/workspace-memberships/resolve` | Exactly one workspace; current workspace membership | `workspace_membership_get_response` | invalid_request, unauthenticated, forbidden, not_found, invalid_command, rate_limited, unavailable |
+| grant.create | POST `/v1/agent-grants` | Exactly one workspace; current scoped agent grant | `agent_grant_response` | invalid_request, unauthenticated, forbidden, conflict, invalid_command, rate_limited, unavailable |
+| grant.get | POST `/v1/agent-grants/resolve` | Exactly one workspace; current scoped agent grant | `agent_grant_get_response` | invalid_request, unauthenticated, forbidden, not_found, invalid_command, rate_limited, unavailable |
+| grant.revoke | POST `/v1/agent-grants/{grant_id}/revoke` | Exactly one workspace; current scoped agent grant | `agent_grant_response` | invalid_request, unauthenticated, forbidden, not_found, conflict, invalid_command, rate_limited, unavailable |
+| financial_review.challenge | POST `/v1/financial-reviews/challenges` | Exactly one workspace; qualified trusted human reviewer | `financial_review_challenge_response` | invalid_request, unauthenticated, forbidden, conflict, invalid_command, rate_limited, unavailable |
+| financial_review.issue | POST `/v1/financial-reviews` | Exactly one workspace; qualified trusted human reviewer | `financial_review_issue_response` | invalid_request, unauthenticated, forbidden, conflict, invalid_command, rate_limited, unavailable |
+| expense.confirm | POST `/v1/expenses/{expense_id}/confirmations` | Exactly one workspace; current financial owner consuming one issued review event | `expense_confirm_response` | invalid_request, unauthenticated, forbidden, not_found, conflict, invalid_command, rate_limited, unavailable |
+
+Every command uses the closed `{metadata,body}` shape and its contract-version
+v1 scope; `identity.bootstrap` is the only workspace exception. Read-only
+membership/grant reads carry no command receipt. Each mutation names exactly one
+organization/domain/purpose, exact target/base revisions and idempotency intent;
+same-actor access to multiple workspaces never authorizes a cross-tenant link.
+
+### Signed-request and reference-resolution admission
+
+The [identity profile](identity-contract.md#signed-http-profile) owns the exact
+NIP-01/NIP-98 selections. The machine contract freezes the NIP-98
+`Authorization` transport separately from its normalized event fields: an
+`authorization_scheme` of `Nostr` with a bounded admitted base64 event, the exact
+received `origin` and `request_target`, the signed method, the required SHA-256
+of every nonempty admitted body and the admitted body byte length. The server
+decodes and verifies those admitted bytes; it never reconstructs the URL from
+forwarding headers or verifies a parsed/re-serialized body. Finite
+`max_authorization_header_bytes`, `max_decoded_event_bytes`, `max_tag_cardinality`,
+`max_body_bytes` and `max_url_bytes` limits reject before any signing work, and
+the profile admits only the selected exact standard revision with status
+`admitted`. Duplicate/contradictory tags, unsupported encodings, changed
+method/URL/body, expired/future/replayed events and unknown or revoked authority
+are rejected. Authentication implementation and its fixed-vector qualification
+remain C313; this registration does not admit an unqualified profile.
+
+Reference resolution is a disclosure-safe successful read that returns a typed
+`resolution_outcome` (`resolved`, `ambiguous`, `dependency_unresolved`,
+`stale_target`, `not_found`). `resolved` carries exactly one exact same-workspace
+record or item revision; every other outcome carries no resolved value and only a
+bounded clarification. An inaccessible or foreign resource never becomes
+`not_found` plus another tenant's identity, and an ambiguous or stale target is
+never silently resolved. These outcomes do not replace the HTTP problem contract
+for malformed, unauthenticated or unauthorized requests.
+
 ## HTTP outcomes and health
 
 | Status | Meaning |
