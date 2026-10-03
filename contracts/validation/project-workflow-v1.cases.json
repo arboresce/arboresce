@@ -600,7 +600,8 @@
         "profile": "synthesis_v1",
         "basis": "The note reports a purchase.",
         "alternatives": [],
-        "unresolved": []
+        "unresolved": [],
+        "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
       }
     },
     {
@@ -774,6 +775,10 @@
       "target": "target_predicate",
       "valid": true,
       "value": {
+        "record": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333"
+        },
         "expected": {
           "kind": "content",
           "value": "1"
@@ -785,6 +790,10 @@
       "target": "target_predicate",
       "valid": true,
       "value": {
+        "record": {
+          "kind": "work_item",
+          "record_id": "88888888-8888-4888-8888-888888888888"
+        },
         "absent": true
       }
     },
@@ -793,6 +802,10 @@
       "target": "target_predicate",
       "valid": false,
       "value": {
+        "record": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333"
+        },
         "expected": {
           "kind": "content",
           "value": "1"
@@ -948,7 +961,10 @@
           }
         },
         "role": "assignee",
-        "state": "reported"
+        "state": "reported",
+        "subject": {
+          "scope": "project"
+        }
       }
     },
     {
@@ -977,6 +993,16 @@
         "due": {
           "precision": "date",
           "value": "2026-10-09"
+        },
+        "subject": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
         }
       }
     },
@@ -1049,6 +1075,19 @@
       "valid": true,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
         "workspace": {
           "organization_id": "11111111-1111-4111-8111-111111111111",
           "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1060,9 +1099,38 @@
             "value": "1"
           }
         },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
         "operation": "create",
         "record_kind": "work_item",
         "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
           "absent": true
         },
         "content": {
@@ -1071,24 +1139,40 @@
           "state": "planned"
         },
         "changed_fields": [
-          "statement"
+          "content.statement"
         ],
-        "evidence": [
-          {
-            "role": "supporting",
-            "observation": {
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
               "organization_id": "11111111-1111-4111-8111-111111111111",
               "observation_id": "22222222-2222-4222-9222-222222222222"
             }
-          }
-        ],
-        "lineage": [
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
           {
-            "category": "model_inference",
-            "profile": "synthesis_v1",
-            "basis": "The note reports a purchase.",
-            "alternatives": [],
-            "unresolved": []
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
           }
         ],
         "unresolved": [],
@@ -1101,6 +1185,19 @@
       "valid": true,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
         "workspace": {
           "organization_id": "11111111-1111-4111-8111-111111111111",
           "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1112,9 +1209,38 @@
             "value": "1"
           }
         },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
         "operation": "revise",
         "record_kind": "decision",
         "target": {
+          "record": {
+            "kind": "decision",
+            "record_id": "33333333-3333-4333-a333-333333333333"
+          },
           "expected": {
             "kind": "content",
             "value": "1"
@@ -1126,16 +1252,40 @@
           "state": "agreed"
         },
         "changed_fields": [
-          "state"
+          "content.statement"
         ],
-        "evidence": [],
-        "lineage": [
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
           {
-            "category": "model_inference",
-            "profile": "synthesis_v1",
-            "basis": "The note reports a purchase.",
-            "alternatives": [],
-            "unresolved": []
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
           }
         ],
         "unresolved": [],
@@ -1159,6 +1309,19 @@
       "valid": false,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
         "workspace": {
           "organization_id": "11111111-1111-4111-8111-111111111111",
           "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1170,9 +1333,38 @@
             "value": "1"
           }
         },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
         "operation": "create",
         "record_kind": "work_item",
         "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
           "expected": {
             "kind": "content",
             "value": "1"
@@ -1186,22 +1378,38 @@
         "changed_fields": [
           "statement"
         ],
-        "evidence": [
-          {
-            "role": "supporting",
-            "observation": {
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
               "organization_id": "11111111-1111-4111-8111-111111111111",
               "observation_id": "22222222-2222-4222-9222-222222222222"
             }
-          }
-        ],
-        "lineage": [
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
           {
-            "category": "model_inference",
-            "profile": "synthesis_v1",
-            "basis": "The note reports a purchase.",
-            "alternatives": [],
-            "unresolved": []
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
           }
         ],
         "unresolved": [],
@@ -1214,6 +1422,19 @@
       "valid": false,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
         "workspace": {
           "organization_id": "11111111-1111-4111-8111-111111111111",
           "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1225,9 +1446,38 @@
             "value": "1"
           }
         },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
         "operation": "create",
         "record_kind": "work_item",
         "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
           "absent": true
         },
         "content": {
@@ -1238,22 +1488,38 @@
         "changed_fields": [
           "statement"
         ],
-        "evidence": [
-          {
-            "role": "supporting",
-            "observation": {
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
               "organization_id": "11111111-1111-4111-8111-111111111111",
               "observation_id": "22222222-2222-4222-9222-222222222222"
             }
-          }
-        ],
-        "lineage": [
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
           {
-            "category": "model_inference",
-            "profile": "synthesis_v1",
-            "basis": "The note reports a purchase.",
-            "alternatives": [],
-            "unresolved": []
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
           }
         ],
         "unresolved": [],
@@ -1266,6 +1532,19 @@
       "valid": false,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
         "workspace": {
           "organization_id": "11111111-1111-4111-8111-111111111111",
           "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1277,9 +1556,38 @@
             "value": "1"
           }
         },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
         "operation": "create",
         "record_kind": "work_item",
         "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
           "absent": true
         },
         "content": {
@@ -1290,15 +1598,25 @@
         "changed_fields": [
           "statement"
         ],
-        "evidence": [
-          {
-            "role": "supporting",
-            "observation": {
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
               "organization_id": "11111111-1111-4111-8111-111111111111",
               "observation_id": "22222222-2222-4222-9222-222222222222"
             }
-          }
-        ],
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
         "unresolved": [],
         "dependencies": []
       }
@@ -1342,6 +1660,19 @@
         "items": [
           {
             "item_id": "11111111-1111-4111-8111-111111111111",
+            "candidate": {
+              "context": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "purpose": "project_update"
+              },
+              "candidate_id": "66666666-6666-4666-8666-666666666666",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
             "workspace": {
               "organization_id": "11111111-1111-4111-8111-111111111111",
               "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1353,9 +1684,38 @@
                 "value": "1"
               }
             },
+            "origin": {
+              "capture": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "capture_id": "55555555-5555-4555-8555-555555555555",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "analysis_id": "77777777-7777-4777-8777-777777777777",
+              "analysis_revision": {
+                "kind": "content",
+                "value": "1"
+              },
+              "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "temporal_basis": {
+                "event": {
+                  "precision": "date",
+                  "value": "2026-10-03"
+                },
+                "timezone": "America/Los_Angeles",
+                "relative_date_rule_version": "relative_dates_v1"
+              }
+            },
             "operation": "create",
             "record_kind": "work_item",
             "target": {
+              "record": {
+                "kind": "work_item",
+                "record_id": "88888888-8888-4888-8888-888888888888"
+              },
               "absent": true
             },
             "content": {
@@ -1364,24 +1724,40 @@
               "state": "planned"
             },
             "changed_fields": [
-              "statement"
+              "content.statement"
             ],
-            "evidence": [
-              {
-                "role": "supporting",
-                "observation": {
+            "statement": "Propose a new work item.",
+            "scope": {
+              "summary": "Project update",
+              "applies_to": [
+                "project work"
+              ],
+              "excludes": []
+            },
+            "qualifications": [],
+            "evidence": {
+              "supporting": [
+                {
                   "organization_id": "11111111-1111-4111-8111-111111111111",
                   "observation_id": "22222222-2222-4222-9222-222222222222"
                 }
-              }
-            ],
-            "lineage": [
+              ],
+              "refuting": [],
+              "qualifying": []
+            },
+            "field_lineage": [
               {
-                "category": "model_inference",
-                "profile": "synthesis_v1",
-                "basis": "The note reports a purchase.",
-                "alternatives": [],
-                "unresolved": []
+                "field": "content.statement",
+                "entries": [
+                  {
+                    "category": "model_inference",
+                    "profile": "synthesis_v1",
+                    "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "basis": "The note reports the change.",
+                    "alternatives": [],
+                    "unresolved": []
+                  }
+                ]
               }
             ],
             "unresolved": [],
@@ -1439,16 +1815,25 @@
       "valid": true,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
-        "base_version": {
-          "kind": "content",
-          "value": "1"
+        "base_candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         },
         "content": {
           "kind": "status",
           "value": "on_track"
         },
         "changed_fields": [
-          "value"
+          "content.value"
         ]
       }
     },
@@ -1458,9 +1843,18 @@
       "valid": false,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
-        "base_version": {
-          "kind": "content",
-          "value": "1"
+        "base_candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         },
         "content": {
           "kind": "status",
@@ -1474,6 +1868,19 @@
       "valid": true,
       "value": {
         "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
         "target": {
           "kind": "decision",
           "record_id": "33333333-3333-4333-a333-333333333333",
@@ -1499,6 +1906,19 @@
       "value": {
         "item": {
           "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
           "workspace": {
             "organization_id": "11111111-1111-4111-8111-111111111111",
             "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1510,9 +1930,38 @@
               "value": "1"
             }
           },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
           "operation": "create",
           "record_kind": "work_item",
           "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
             "absent": true
           },
           "content": {
@@ -1523,28 +1972,50 @@
           "changed_fields": [
             "statement"
           ],
-          "evidence": [
-            {
-              "role": "supporting",
-              "observation": {
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
                 "organization_id": "11111111-1111-4111-8111-111111111111",
                 "observation_id": "22222222-2222-4222-9222-222222222222"
               }
-            }
-          ],
-          "lineage": [
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
             {
-              "category": "model_inference",
-              "profile": "synthesis_v1",
-              "basis": "The note reports a purchase.",
-              "alternatives": [],
-              "unresolved": []
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
             }
           ],
           "unresolved": [],
           "dependencies": []
         },
-        "state": "pending"
+        "revision_state": "pending",
+        "review": null,
+        "superseded_by": null,
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
       }
     },
     {
@@ -1554,6 +2025,19 @@
       "value": {
         "item": {
           "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
           "workspace": {
             "organization_id": "11111111-1111-4111-8111-111111111111",
             "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -1565,9 +2049,38 @@
               "value": "1"
             }
           },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
           "operation": "create",
           "record_kind": "work_item",
           "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
             "absent": true
           },
           "content": {
@@ -1578,28 +2091,50 @@
           "changed_fields": [
             "statement"
           ],
-          "evidence": [
-            {
-              "role": "supporting",
-              "observation": {
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
                 "organization_id": "11111111-1111-4111-8111-111111111111",
                 "observation_id": "22222222-2222-4222-9222-222222222222"
               }
-            }
-          ],
-          "lineage": [
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
             {
-              "category": "model_inference",
-              "profile": "synthesis_v1",
-              "basis": "The note reports a purchase.",
-              "alternatives": [],
-              "unresolved": []
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
             }
           ],
           "unresolved": [],
           "dependencies": []
         },
-        "state": "approved"
+        "revision_state": "approved",
+        "review": null,
+        "superseded_by": null,
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        }
       }
     },
     {
@@ -1649,6 +2184,3369 @@
         "expense_revision": {
           "kind": "content",
           "value": "1"
+        }
+      }
+    },
+    {
+      "id": "project-record-target-complete",
+      "target": "project_record_target",
+      "valid": true,
+      "value": {
+        "kind": "work_item",
+        "record_id": "88888888-8888-4888-8888-888888888888"
+      }
+    },
+    {
+      "id": "project-record-target-missing-identity",
+      "target": "project_record_target",
+      "valid": false,
+      "value": {
+        "kind": "work_item"
+      }
+    },
+    {
+      "id": "project-record-target-bad-kind",
+      "target": "project_record_target",
+      "valid": false,
+      "value": {
+        "kind": "note",
+        "record_id": "88888888-8888-4888-8888-888888888888"
+      }
+    },
+    {
+      "id": "target-predicate-revise-missing-revision",
+      "target": "target_predicate",
+      "valid": false,
+      "value": {
+        "record": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333"
+        }
+      }
+    },
+    {
+      "id": "target-predicate-revise-missing-identity",
+      "target": "target_predicate",
+      "valid": false,
+      "value": {
+        "expected": {
+          "kind": "content",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "target-predicate-control-revision-invalid",
+      "target": "target_predicate",
+      "valid": false,
+      "value": {
+        "record": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333"
+        },
+        "expected": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "target-predicate-extra-field-invalid",
+      "target": "target_predicate",
+      "valid": false,
+      "value": {
+        "record": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333"
+        },
+        "expected": {
+          "kind": "content",
+          "value": "1"
+        },
+        "project_revision": {
+          "kind": "content",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "project-change-item-create-missing-record-identity",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-target-kind-mismatch",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "decision",
+            "record_id": "33333333-3333-4333-a333-333333333333"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-missing-candidate",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-missing-origin",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-missing-statement",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-missing-scope",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-missing-qualifications",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-missing-evidence",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-change-item-candidate-bad-digest",
+      "target": "project_change_item",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "not-a-digest"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Propose a new work item.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "proposal-origin",
+      "target": "proposal_origin",
+      "valid": true,
+      "value": {
+        "capture": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "capture_id": "55555555-5555-4555-8555-555555555555",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "analysis_id": "77777777-7777-4777-8777-777777777777",
+        "analysis_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "temporal_basis": {
+          "event": {
+            "precision": "date",
+            "value": "2026-10-03"
+          },
+          "timezone": "America/Los_Angeles",
+          "relative_date_rule_version": "relative_dates_v1"
+        }
+      }
+    },
+    {
+      "id": "proposal-origin-missing-capture",
+      "target": "proposal_origin",
+      "valid": false,
+      "value": {
+        "analysis_id": "77777777-7777-4777-8777-777777777777",
+        "analysis_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "temporal_basis": {
+          "event": {
+            "precision": "date",
+            "value": "2026-10-03"
+          },
+          "timezone": "America/Los_Angeles",
+          "relative_date_rule_version": "relative_dates_v1"
+        }
+      }
+    },
+    {
+      "id": "proposal-origin-missing-profile",
+      "target": "proposal_origin",
+      "valid": false,
+      "value": {
+        "capture": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "capture_id": "55555555-5555-4555-8555-555555555555",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "analysis_id": "77777777-7777-4777-8777-777777777777",
+        "analysis_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "temporal_basis": {
+          "event": {
+            "precision": "date",
+            "value": "2026-10-03"
+          },
+          "timezone": "America/Los_Angeles",
+          "relative_date_rule_version": "relative_dates_v1"
+        }
+      }
+    },
+    {
+      "id": "project-item-edit-missing-base",
+      "target": "project_item_edit",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "content": {
+          "kind": "status",
+          "value": "on_track"
+        },
+        "changed_fields": [
+          "value"
+        ]
+      }
+    },
+    {
+      "id": "project-effect-mapping-missing-candidate",
+      "target": "project_effect_mapping",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "target": {
+          "kind": "decision",
+          "record_id": "33333333-3333-4333-a333-333333333333",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "project-review-request",
+      "target": "project_review_request",
+      "valid": true,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "verdict": "accept",
+        "reason": "Reviewed.",
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "project-review-request-bad-verdict",
+      "target": "project_review_request",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "verdict": "approved",
+        "reason": "Reviewed.",
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "project-change-resource-accepted",
+      "target": "project_change_resource",
+      "valid": true,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "accepted",
+        "review": {
+          "review_id": "99999999-9999-4999-8999-999999999999",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          },
+          "verdict": "accepted",
+          "reason": "Reviewed against the accepted policy.",
+          "recorded_at": "2026-10-03T00:00:00.000Z",
+          "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "mapping": {
+            "item_id": "11111111-1111-4111-8111-111111111111",
+            "candidate": {
+              "context": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "purpose": "project_update"
+              },
+              "candidate_id": "66666666-6666-4666-8666-666666666666",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "target": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888",
+              "content_revision": {
+                "kind": "content",
+                "value": "1"
+              }
+            }
+          }
+        },
+        "superseded_by": null,
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        }
+      }
+    },
+    {
+      "id": "project-change-resource-rejected",
+      "target": "project_change_resource",
+      "valid": true,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "rejected",
+        "review": {
+          "review_id": "99999999-9999-4999-8999-999999999999",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          },
+          "verdict": "rejected",
+          "reason": "Reviewed against the accepted policy.",
+          "recorded_at": "2026-10-03T00:00:00.000Z",
+          "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+        },
+        "superseded_by": null,
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        }
+      }
+    },
+    {
+      "id": "project-change-resource-verdict-mismatch",
+      "target": "project_change_resource",
+      "valid": false,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "accepted",
+        "review": {
+          "review_id": "99999999-9999-4999-8999-999999999999",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          },
+          "verdict": "rejected",
+          "reason": "Reviewed against the accepted policy.",
+          "recorded_at": "2026-10-03T00:00:00.000Z",
+          "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+        },
+        "superseded_by": null,
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        }
+      }
+    },
+    {
+      "id": "project-change-resource-missing-review",
+      "target": "project_change_resource",
+      "valid": false,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "accepted",
+        "superseded_by": null,
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        }
+      }
+    },
+    {
+      "id": "field-lineage-entry",
+      "target": "field_lineage_entry",
+      "valid": true,
+      "value": {
+        "field": "content.statement",
+        "entries": [
+          {
+            "category": "model_inference",
+            "profile": "synthesis_v1",
+            "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "basis": "The note reports the change.",
+            "alternatives": [],
+            "unresolved": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "field-lineage-entry-missing-entries",
+      "target": "field_lineage_entry",
+      "valid": false,
+      "value": {
+        "field": "content.statement"
+      }
+    },
+    {
+      "id": "model-inference-lineage-missing-profile-digest",
+      "target": "model_inference_lineage",
+      "valid": false,
+      "value": {
+        "category": "model_inference",
+        "profile": "synthesis_v1",
+        "basis": "x",
+        "alternatives": [],
+        "unresolved": []
+      }
+    },
+    {
+      "id": "temporal-basis",
+      "target": "temporal_basis",
+      "valid": true,
+      "value": {
+        "event": {
+          "precision": "date",
+          "value": "2026-10-03"
+        },
+        "timezone": "America/Los_Angeles",
+        "relative_date_rule_version": "relative_dates_v1"
+      }
+    },
+    {
+      "id": "temporal-basis-missing-timezone",
+      "target": "temporal_basis",
+      "valid": false,
+      "value": {
+        "event": {
+          "precision": "date",
+          "value": "2026-10-03"
+        },
+        "relative_date_rule_version": "relative_dates_v1"
+      }
+    },
+    {
+      "id": "iana-timezone",
+      "target": "iana_timezone",
+      "valid": true,
+      "value": "Europe/Berlin"
+    },
+    {
+      "id": "iana-timezone-invalid",
+      "target": "iana_timezone",
+      "valid": false,
+      "value": "not a zone"
+    },
+    {
+      "id": "relationship-subject-project",
+      "target": "relationship_subject",
+      "valid": true,
+      "value": {
+        "scope": "project"
+      }
+    },
+    {
+      "id": "relationship-subject-record",
+      "target": "relationship_subject",
+      "valid": true,
+      "value": {
+        "record": {
+          "kind": "work_item",
+          "record_id": "88888888-8888-4888-8888-888888888888",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "relationship-subject-extra-invalid",
+      "target": "relationship_subject",
+      "valid": false,
+      "value": {
+        "scope": "project",
+        "record": {
+          "kind": "work_item",
+          "record_id": "88888888-8888-4888-8888-888888888888",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "record-responsibility-missing-subject",
+      "target": "record_responsibility",
+      "valid": false,
+      "value": {
+        "kind": "responsibility",
+        "party": {
+          "party_id": "33333333-3333-4333-a333-333333333333",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "role": "assignee",
+        "state": "reported"
+      }
+    },
+    {
+      "id": "record-due-date-missing-subject",
+      "target": "record_due_date",
+      "valid": false,
+      "value": {
+        "kind": "due_date",
+        "due": {
+          "precision": "date",
+          "value": "2026-10-09"
+        }
+      }
+    },
+    {
+      "id": "project-change-resource-superseded-reviewed",
+      "target": "project_change_resource",
+      "valid": true,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "superseded",
+        "review": {
+          "review_id": "99999999-9999-4999-8999-999999999999",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          },
+          "verdict": "accepted",
+          "reason": "Reviewed against the accepted policy.",
+          "recorded_at": "2026-10-03T00:00:00.000Z",
+          "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "mapping": {
+            "item_id": "11111111-1111-4111-8111-111111111111",
+            "candidate": {
+              "context": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "purpose": "project_update"
+              },
+              "candidate_id": "66666666-6666-4666-8666-666666666666",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "target": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888",
+              "content_revision": {
+                "kind": "content",
+                "value": "1"
+              }
+            }
+          }
+        },
+        "superseded_by": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "2"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "3"
+        }
+      }
+    },
+    {
+      "id": "project-change-resource-superseded-pending",
+      "target": "project_change_resource",
+      "valid": true,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "superseded",
+        "review": null,
+        "superseded_by": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "2"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        }
+      }
+    },
+    {
+      "id": "project-review-record-accepted",
+      "target": "project_review_record",
+      "valid": true,
+      "value": {
+        "review_id": "99999999-9999-4999-8999-999999999999",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        },
+        "verdict": "accepted",
+        "reason": "Reviewed against the accepted policy.",
+        "recorded_at": "2026-10-03T00:00:00.000Z",
+        "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "mapping": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "target": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "project-review-record-accepted-missing-mapping",
+      "target": "project_review_record",
+      "valid": false,
+      "value": {
+        "review_id": "99999999-9999-4999-8999-999999999999",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        },
+        "verdict": "accepted",
+        "reason": "Reviewed against the accepted policy.",
+        "recorded_at": "2026-10-03T00:00:00.000Z",
+        "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "project-review-record-rejected-with-mapping",
+      "target": "project_review_record",
+      "valid": false,
+      "value": {
+        "review_id": "99999999-9999-4999-8999-999999999999",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        },
+        "verdict": "rejected",
+        "reason": "Reviewed against the accepted policy.",
+        "recorded_at": "2026-10-03T00:00:00.000Z",
+        "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "mapping": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "target": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "project-review-record-control-one-invalid",
+      "target": "project_review_record",
+      "valid": false,
+      "value": {
+        "review_id": "99999999-9999-4999-8999-999999999999",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "verdict": "rejected",
+        "reason": "Reviewed against the accepted policy.",
+        "recorded_at": "2026-10-03T00:00:00.000Z",
+        "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "project-change-resource-superseded-missing-successor",
+      "target": "project_change_resource",
+      "valid": false,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "superseded",
+        "review": null,
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        }
+      }
+    },
+    {
+      "id": "project-change-resource-pending-with-successor",
+      "target": "project_change_resource",
+      "valid": false,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "revision_state": "pending",
+        "review": null,
+        "superseded_by": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "2"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "project-change-item-multiline-statement",
+      "target": "project_change_item",
+      "valid": true,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project": {
+          "project_id": "44444444-4444-4444-b444-444444444444",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
+          }
+        },
+        "operation": "create",
+        "record_kind": "work_item",
+        "target": {
+          "record": {
+            "kind": "work_item",
+            "record_id": "88888888-8888-4888-8888-888888888888"
+          },
+          "absent": true
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy paint",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "statement"
+        ],
+        "statement": "Line one.\nLine two\twith tab.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
+      }
+    },
+    {
+      "id": "project-item-edit-candidate-content",
+      "target": "project_item_edit",
+      "valid": true,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "base_candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "content": {
+          "kind": "work_item",
+          "statement": "Buy primer",
+          "state": "planned"
+        },
+        "changed_fields": [
+          "content.statement"
+        ],
+        "statement": "Corrected candidate statement.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [
+          "Reviewed manually."
+        ],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-change-resource-control-one-invalid",
+      "target": "project_change_resource",
+      "valid": false,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        },
+        "revision_state": "accepted",
+        "review": null,
+        "superseded_by": null
+      }
+    },
+    {
+      "id": "project-review-request-missing-control",
+      "target": "project_review_request",
+      "valid": false,
+      "value": {
+        "item_id": "11111111-1111-4111-8111-111111111111",
+        "candidate": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "verdict": "accept",
+        "reason": "Reviewed."
+      }
+    },
+    {
+      "id": "changed-field-dotted-valid",
+      "target": "changed_field",
+      "valid": true,
+      "value": "content.due.value"
+    },
+    {
+      "id": "changed-field-leading-dot-invalid",
+      "target": "changed_field",
+      "valid": false,
+      "value": ".statement"
+    },
+    {
+      "id": "unresolved-value-dotted-field",
+      "target": "unresolved_value",
+      "valid": true,
+      "value": {
+        "field": "content.due.value",
+        "requirement": "unknown"
+      }
+    },
+    {
+      "id": "project-change-resource-revised-pending",
+      "target": "project_change_resource",
+      "valid": true,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "2"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "content.statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "content.statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        },
+        "revision_state": "pending",
+        "review": null,
+        "superseded_by": null
+      }
+    },
+    {
+      "id": "project-change-resource-revised-pending-control-one",
+      "target": "project_change_resource",
+      "valid": false,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "2"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "content.statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "content.statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "revision_state": "pending",
+        "review": null,
+        "superseded_by": null
+      }
+    },
+    {
+      "id": "project-change-resource-superseded-reviewed-control-two",
+      "target": "project_change_resource",
+      "valid": false,
+      "value": {
+        "item": {
+          "item_id": "11111111-1111-4111-8111-111111111111",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "project": {
+            "project_id": "44444444-4444-4444-b444-444444444444",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "origin": {
+            "capture": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "capture_id": "55555555-5555-4555-8555-555555555555",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "analysis_id": "77777777-7777-4777-8777-777777777777",
+            "analysis_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "temporal_basis": {
+              "event": {
+                "precision": "date",
+                "value": "2026-10-03"
+              },
+              "timezone": "America/Los_Angeles",
+              "relative_date_rule_version": "relative_dates_v1"
+            }
+          },
+          "operation": "create",
+          "record_kind": "work_item",
+          "target": {
+            "record": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888"
+            },
+            "absent": true
+          },
+          "content": {
+            "kind": "work_item",
+            "statement": "Buy paint",
+            "state": "planned"
+          },
+          "changed_fields": [
+            "content.statement"
+          ],
+          "statement": "Propose a new work item.",
+          "scope": {
+            "summary": "Project update",
+            "applies_to": [
+              "project work"
+            ],
+            "excludes": []
+          },
+          "qualifications": [],
+          "evidence": {
+            "supporting": [
+              {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "observation_id": "22222222-2222-4222-9222-222222222222"
+              }
+            ],
+            "refuting": [],
+            "qualifying": []
+          },
+          "field_lineage": [
+            {
+              "field": "content.statement",
+              "entries": [
+                {
+                  "category": "model_inference",
+                  "profile": "synthesis_v1",
+                  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "basis": "The note reports the change.",
+                  "alternatives": [],
+                  "unresolved": []
+                }
+              ]
+            }
+          ],
+          "unresolved": [],
+          "dependencies": []
+        },
+        "control_revision": {
+          "kind": "control",
+          "value": "2"
+        },
+        "revision_state": "superseded",
+        "review": {
+          "review_id": "99999999-9999-4999-8999-999999999999",
+          "candidate": {
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_update"
+            },
+            "candidate_id": "66666666-6666-4666-8666-666666666666",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          },
+          "verdict": "accepted",
+          "reason": "Reviewed against the accepted policy.",
+          "recorded_at": "2026-10-03T00:00:00.000Z",
+          "audit_event_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "mapping": {
+            "item_id": "11111111-1111-4111-8111-111111111111",
+            "candidate": {
+              "context": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "purpose": "project_update"
+              },
+              "candidate_id": "66666666-6666-4666-8666-666666666666",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "target": {
+              "kind": "work_item",
+              "record_id": "88888888-8888-4888-8888-888888888888",
+              "content_revision": {
+                "kind": "content",
+                "value": "1"
+              }
+            }
+          }
+        },
+        "superseded_by": {
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_update"
+          },
+          "candidate_id": "66666666-6666-4666-8666-666666666666",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }
       }
     }
