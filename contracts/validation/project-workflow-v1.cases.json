@@ -14236,7 +14236,7 @@
           },
           "scope": {
             "workspace_requirement": "exactly_one_workspace",
-            "authority": "trusted_human_reviewer"
+            "authority": "authenticated_review_requester"
           },
           "request_contract": "project-workflow.financial_review_challenge_request",
           "success_response": "project-workflow.financial_review_challenge_response",
@@ -14252,7 +14252,9 @@
             "internal_error",
             "unavailable"
           ],
-          "required_actions": [],
+          "required_actions": [
+            "financial_review.request"
+          ],
           "required_purposes": [
             "expense_review"
           ],
@@ -15027,7 +15029,7 @@
           },
           "scope": {
             "workspace_requirement": "exactly_one_workspace",
-            "authority": "trusted_human_reviewer"
+            "authority": "authenticated_review_requester"
           },
           "request_contract": "project-workflow.financial_review_challenge_request",
           "success_response": "project-workflow.financial_review_challenge_response",
@@ -15043,7 +15045,9 @@
             "internal_error",
             "unavailable"
           ],
-          "required_actions": [],
+          "required_actions": [
+            "financial_review.request"
+          ],
           "required_purposes": [
             "expense_review"
           ],
@@ -15786,7 +15790,7 @@
           },
           "scope": {
             "workspace_requirement": "exactly_one_workspace",
-            "authority": "trusted_human_reviewer"
+            "authority": "authenticated_review_requester"
           },
           "request_contract": "project-workflow.financial_review_challenge_request",
           "success_response": "project-workflow.financial_review_challenge_response",
@@ -15802,7 +15806,9 @@
             "internal_error",
             "unavailable"
           ],
-          "required_actions": [],
+          "required_actions": [
+            "financial_review.request"
+          ],
           "required_purposes": [
             "expense_review"
           ],
@@ -16423,6 +16429,7 @@
         "kind": "arboresce.project-change-content.v1",
         "item_id": "33333333-3333-4333-a333-333333333333",
         "operation": "create",
+        "record_kind": "decision",
         "workspace": {
           "organization_id": "11111111-1111-4111-8111-111111111111",
           "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -16432,6 +16439,31 @@
           "content_revision": {
             "kind": "content",
             "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
           }
         },
         "target": {
@@ -16448,7 +16480,43 @@
         },
         "changed_fields": [
           "content.statement"
-        ]
+        ],
+        "statement": "Approve the change.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
       }
     },
     {
@@ -16459,6 +16527,7 @@
         "kind": "arboresce.project-change-content.v1",
         "item_id": "33333333-3333-4333-a333-333333333333",
         "operation": "create",
+        "record_kind": "decision",
         "workspace": {
           "organization_id": "11111111-1111-4111-8111-111111111111",
           "domain_id": "22222222-2222-4222-9222-222222222222"
@@ -16468,6 +16537,31 @@
           "content_revision": {
             "kind": "content",
             "value": "1"
+          }
+        },
+        "origin": {
+          "capture": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "capture_id": "55555555-5555-4555-8555-555555555555",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "analysis_id": "77777777-7777-4777-8777-777777777777",
+          "analysis_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "processing_profile_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "temporal_basis": {
+            "event": {
+              "precision": "date",
+              "value": "2026-10-03"
+            },
+            "timezone": "America/Los_Angeles",
+            "relative_date_rule_version": "relative_dates_v1"
           }
         },
         "target": {
@@ -16481,7 +16575,43 @@
           "kind": "decision",
           "statement": "Approve",
           "state": "agreed"
-        }
+        },
+        "statement": "Approve the change.",
+        "scope": {
+          "summary": "Project update",
+          "applies_to": [
+            "project work"
+          ],
+          "excludes": []
+        },
+        "qualifications": [],
+        "evidence": {
+          "supporting": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "observation_id": "22222222-2222-4222-9222-222222222222"
+            }
+          ],
+          "refuting": [],
+          "qualifying": []
+        },
+        "field_lineage": [
+          {
+            "field": "content.statement",
+            "entries": [
+              {
+                "category": "model_inference",
+                "profile": "synthesis_v1",
+                "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                "basis": "The note reports the change.",
+                "alternatives": [],
+                "unresolved": []
+              }
+            ]
+          }
+        ],
+        "unresolved": [],
+        "dependencies": []
       }
     },
     {
@@ -16879,6 +17009,163 @@
         },
         "actions": [
           "party.delete"
+        ],
+        "purposes": [
+          "project_support"
+        ],
+        "delegable": false,
+        "issued_at": "2026-10-03T04:04:26.000Z",
+        "expires_at": "2026-10-03T04:09:26.000Z",
+        "policy": "agent_scoped",
+        "revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "state": "active",
+        "revoked_at": null
+      }
+    },
+    {
+      "id": "operation-registration-challenge-requester",
+      "target": "operation_registration",
+      "valid": true,
+      "value": {
+        "operation": "financial_review.challenge",
+        "route": {
+          "method": "POST",
+          "path_template": "/v1/financial-reviews/challenges"
+        },
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "authenticated_review_requester"
+        },
+        "request_contract": "project-workflow.financial_review_challenge_request",
+        "success_response": "project-workflow.financial_review_challenge_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "required_actions": [
+          "financial_review.request"
+        ],
+        "required_purposes": [
+          "expense_review"
+        ],
+        "required_scope_kinds": [
+          "workspace",
+          "expense"
+        ]
+      }
+    },
+    {
+      "id": "operation-registration-challenge-reviewer-authority",
+      "target": "operation_registration",
+      "valid": false,
+      "value": {
+        "operation": "financial_review.challenge",
+        "route": {
+          "method": "POST",
+          "path_template": "/v1/financial-reviews/challenges"
+        },
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "trusted_human_reviewer"
+        },
+        "request_contract": "project-workflow.financial_review_challenge_request",
+        "success_response": "project-workflow.financial_review_challenge_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "required_actions": [
+          "financial_review.request"
+        ],
+        "required_purposes": [
+          "expense_review"
+        ],
+        "required_scope_kinds": [
+          "workspace",
+          "expense"
+        ]
+      }
+    },
+    {
+      "id": "operation-registration-issue-requester-authority",
+      "target": "operation_registration",
+      "valid": false,
+      "value": {
+        "operation": "financial_review.issue",
+        "route": {
+          "method": "POST",
+          "path_template": "/v1/financial-reviews"
+        },
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "authenticated_review_requester"
+        },
+        "request_contract": "project-workflow.financial_review_issue_request",
+        "success_response": "project-workflow.financial_review_issue_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "required_actions": [],
+        "required_purposes": [
+          "expense_review"
+        ],
+        "required_scope_kinds": [
+          "workspace",
+          "expense"
+        ]
+      }
+    },
+    {
+      "id": "agent-grant-review-requester-action",
+      "target": "agent_grant",
+      "valid": true,
+      "value": {
+        "grant_id": "11111111-1111-4111-8111-111111111111",
+        "issuer": {
+          "principal_id": "22222222-2222-4222-9222-222222222222",
+          "kind": "human"
+        },
+        "subject": {
+          "principal_id": "33333333-3333-4333-a333-333333333333",
+          "kind": "agent"
+        },
+        "parent_grant_id": null,
+        "scope": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "resource_kind": "workspace",
+          "resource_id": null
+        },
+        "actions": [
+          "financial_review.request"
         ],
         "purposes": [
           "project_support"

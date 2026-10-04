@@ -3146,6 +3146,7 @@
         "association.create",
         "grant.read",
         "grant.manage",
+        "financial_review.request",
         "capture.create",
         "expense.read",
         "expense.review",
@@ -4897,6 +4898,7 @@
             "workspace_membership",
             "scoped_agent_grant",
             "authorized_human_review",
+            "authenticated_review_requester",
             "trusted_human_reviewer",
             "current_financial_owner",
             "qualified_recovery_authority"
@@ -6210,7 +6212,8 @@
                 },
                 "authority": {
                   "enum": [
-                    "trusted_human_reviewer"
+                    "authenticated_review_requester",
+                    "scoped_agent_grant"
                   ]
                 }
               }
@@ -6236,7 +6239,9 @@
               ]
             },
             "required_actions": {
-              "const": []
+              "const": [
+                "financial_review.request"
+              ]
             },
             "required_purposes": {
               "const": [
@@ -6882,17 +6887,26 @@
       "additionalProperties": false
     },
     "project_change_preimage": {
-      "description": "Closed canonical preimage for a project change item. Its digest covers exactly these consequential fields and never ambient record identity.",
+      "description": "Closed canonical preimage for a project change item. Its digest covers exactly the complete consequential review content of the item \u2014 typed effect, proposed content, statement, scope, qualifications, evidence, origin, field lineage, unresolved values and dependencies \u2014 and never ambient record identity.",
       "type": "object",
       "required": [
         "kind",
         "item_id",
         "operation",
+        "record_kind",
         "workspace",
         "project",
+        "origin",
         "target",
         "content",
-        "changed_fields"
+        "changed_fields",
+        "statement",
+        "scope",
+        "qualifications",
+        "evidence",
+        "field_lineage",
+        "unresolved",
+        "dependencies"
       ],
       "properties": {
         "kind": {
@@ -6923,6 +6937,48 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/$defs/changed_field"
+          }
+        },
+        "record_kind": {
+          "$ref": "#/$defs/project_record_kind"
+        },
+        "origin": {
+          "$ref": "#/$defs/proposal_origin"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16384
+        },
+        "scope": {
+          "$ref": "candidate-review.schema.json#/$defs/candidate_scope"
+        },
+        "qualifications": {
+          "$ref": "candidate-review.schema.json#/$defs/content_items"
+        },
+        "evidence": {
+          "$ref": "candidate-review.schema.json#/$defs/evidence_roles"
+        },
+        "field_lineage": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/field_lineage_entry"
+          }
+        },
+        "unresolved": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/unresolved_value"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/change_dependency"
           }
         }
       },

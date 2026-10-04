@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 411,
-      "maxItems": 411,
+      "minItems": 415,
+      "maxItems": 415,
       "prefixItems": [
         {
           "type": "object",
@@ -11510,6 +11510,118 @@
               "not": {
                 "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant"
               }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-challenge-requester"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-challenge-reviewer-authority"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-issue-requester-authority"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-review-requester-action"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant"
             }
           },
           "required": [
