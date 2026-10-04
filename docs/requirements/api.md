@@ -127,7 +127,7 @@ owning implementation qualifies it.
 | grant.create | POST `/v1/agent-grants` | Exactly one workspace; scoped agent grant or authorized human review | agent_grant_response |
 | grant.get | POST `/v1/agent-grants/resolve` | Exactly one workspace; scoped agent grant or authorized human review | agent_grant_get_response |
 | grant.revoke | POST `/v1/agent-grants/{grant_id}/revoke` | Exactly one workspace; scoped agent grant or authorized human review | agent_grant_response |
-| financial_review.challenge | POST `/v1/financial-reviews/challenges` | Exactly one workspace; qualified trusted human reviewer | financial_review_challenge_response |
+| financial_review.challenge | POST `/v1/financial-reviews/challenges` | Exactly one workspace; authenticated review requester or scoped agent grant | financial_review_challenge_response |
 | financial_review.issue | POST `/v1/financial-reviews` | Exactly one workspace; qualified trusted human reviewer | financial_review_issue_response |
 | financial_review.event.get | POST `/v1/financial-reviews/events/resolve` | Exactly one workspace; qualified trusted human reviewer | financial_review_event_get_response |
 | expense.confirm | POST `/v1/expenses/{expense_id}/confirm` | Exactly one workspace; current financial owner consuming one issued review event | expense_confirm_response |
@@ -158,6 +158,10 @@ domain policy; workspace membership alone is never action authority.
 `authorized_human_review` is an attributable human project reviewer, distinct from
 the trusted financial human reviewer, the authenticated challenge requester and the
 separately permitted executor, and it cannot issue financial assurance.
+The financial-review challenge is requested by a distinct authenticated review
+requester (or an explicit `financial_review.request` grant action), which is not the
+trusted human reviewer that issues the assurance, and not the separately permitted
+executor that consumes the issued event.
 
 ### Signed-request and reference-resolution admission
 
