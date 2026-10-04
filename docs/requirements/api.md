@@ -101,7 +101,7 @@ conditional headers requires a later explicit precedence and status contract.
 [financial records](financial-records.md#complete-commands-and-reads) owns the
 expense confirmation route replayed here. The focused first surface registers
 exactly the operations below; the machine contract
-[`operation_inventory`](../contracts/public/v1/project-workflow.schema.json)
+[`operation_inventory`](../../contracts/public/v1/project-workflow.schema.json)
 pins one registration per operation and rejects an unknown operation, a changed
 method or route and any error code outside the admitted set. A named operation
 without a registration is not implemented. Actual support begins only after the
@@ -112,21 +112,21 @@ owning implementation qualifies it.
 | identity.bootstrap | POST `/v1/identity/bootstrap` | Bootstrap exception; operator-held expiring one-use bootstrap grant | identity_bootstrap_response |
 | workspace.get | POST `/v1/workspaces/resolve` | Exactly one workspace; current membership | workspace_get_response |
 | workspace.membership.get | POST `/v1/workspace-memberships/resolve` | Exactly one workspace; current membership | workspace_membership_get_response |
-| project.create | POST `/v1/projects` | Exactly one workspace; scoped agent grant | project_response |
+| project.create | POST `/v1/projects` | Exactly one workspace; scoped agent grant or authorized human review | project_response |
 | project.get | POST `/v1/projects/resolve` | Exactly one workspace; current membership | project_get_response |
-| project.revise | POST `/v1/projects/{project_id}/revisions` | Exactly one workspace; scoped agent grant | project_response |
-| party.create | POST `/v1/parties` | Exactly one workspace; scoped agent grant | party_response |
+| project.revise | POST `/v1/projects/{project_id}/revisions` | Exactly one workspace; scoped agent grant or authorized human review | project_response |
+| party.create | POST `/v1/parties` | Exactly one workspace; scoped agent grant or authorized human review | party_response |
 | party.get | POST `/v1/parties/resolve` | Exactly one workspace; current membership | party_get_response |
-| party.revise | POST `/v1/parties/{party_id}/revisions` | Exactly one workspace; scoped agent grant | party_response |
+| party.revise | POST `/v1/parties/{party_id}/revisions` | Exactly one workspace; scoped agent grant or authorized human review | party_response |
 | project_change.get | POST `/v1/project-changes/resolve` | Exactly one workspace; current membership | change_item_get_response |
-| project_change.edit | POST `/v1/project-changes/{item_id}/edits` | Exactly one workspace; scoped agent grant | change_item_edit_response |
-| project_change.review | POST `/v1/project-changes/{item_id}/reviews` | Exactly one workspace; scoped agent grant | change_item_review_response |
+| project_change.edit | POST `/v1/project-changes/{item_id}/edits` | Exactly one workspace; scoped agent grant or authorized human review | change_item_edit_response |
+| project_change.review | POST `/v1/project-changes/{item_id}/reviews` | Exactly one workspace; scoped agent grant or authorized human review | change_item_review_response |
 | project.resolve_reference | POST `/v1/project-references/resolve` | Exactly one workspace; current membership | reference_resolution_response |
-| expense_association.create | POST `/v1/expense-associations` | Exactly one workspace; scoped agent grant | expense_association_response |
+| expense_association.create | POST `/v1/expense-associations` | Exactly one workspace; scoped agent grant or authorized human review | expense_association_response |
 | expense_association.get | POST `/v1/expense-associations/resolve` | Exactly one workspace; current membership | expense_association_get_response |
-| grant.create | POST `/v1/agent-grants` | Exactly one workspace; scoped agent grant | agent_grant_response |
-| grant.get | POST `/v1/agent-grants/resolve` | Exactly one workspace; scoped agent grant | agent_grant_get_response |
-| grant.revoke | POST `/v1/agent-grants/{grant_id}/revoke` | Exactly one workspace; scoped agent grant | agent_grant_response |
+| grant.create | POST `/v1/agent-grants` | Exactly one workspace; scoped agent grant or authorized human review | agent_grant_response |
+| grant.get | POST `/v1/agent-grants/resolve` | Exactly one workspace; scoped agent grant or authorized human review | agent_grant_get_response |
+| grant.revoke | POST `/v1/agent-grants/{grant_id}/revoke` | Exactly one workspace; scoped agent grant or authorized human review | agent_grant_response |
 | financial_review.challenge | POST `/v1/financial-reviews/challenges` | Exactly one workspace; qualified trusted human reviewer | financial_review_challenge_response |
 | financial_review.issue | POST `/v1/financial-reviews` | Exactly one workspace; qualified trusted human reviewer | financial_review_issue_response |
 | financial_review.event.get | POST `/v1/financial-reviews/events/resolve` | Exactly one workspace; qualified trusted human reviewer | financial_review_event_get_response |
@@ -147,6 +147,18 @@ a cross-tenant link. Each registration admits the shared `invalid_request`,
 plus `not_found` for reads and `conflict` for mutations, matching the shared HTTP
 outcome table below.
 
+Each registered grant-consuming operation carries one explicit least-privilege
+operation-to-action/purpose/resource mapping in the machine contract: the exact
+`grant_action`, bounded purpose and same-workspace grant resource kinds its scoped
+agent grant must include, resolving the differing operation and action spellings
+(for example `expense_association.create` to `association.create`). Ordinary
+project, Party, item and association writes accept either that explicit scoped
+agent grant or the ordinary `authorized_human_review` authority under current
+domain policy; workspace membership alone is never action authority.
+`authorized_human_review` is an attributable human project reviewer, distinct from
+the trusted financial human reviewer, the authenticated challenge requester and the
+separately permitted executor, and it cannot issue financial assurance.
+
 ### Signed-request and reference-resolution admission
 
 The [identity profile](identity-contract.md#signed-http-profile) owns the exact
@@ -165,8 +177,8 @@ body digest to the body length: a nonempty admitted body must carry its SHA-256,
 while a bodyless request must carry no digest. Duplicate/contradictory tags,
 unsupported encodings, changed method/URL/body, expired/future/replayed events
 and unknown or revoked authority are rejected. Authentication implementation and
-its fixed-vector qualification remain C313; this registration does not admit an
-unqualified profile.
+its fixed-vector qualification remain a later owning identity consumer gate,
+not provided here; this registration does not admit an unqualified profile.
 
 Reference resolution is a disclosure-safe successful read that returns a typed
 `resolution_outcome` (`resolved`, `ambiguous`, `dependency_unresolved`,
