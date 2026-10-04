@@ -3139,6 +3139,13 @@
         "project.change.read",
         "project.change.edit",
         "project.change.review",
+        "party.read",
+        "party.create",
+        "party.revise",
+        "association.read",
+        "association.create",
+        "grant.read",
+        "grant.manage",
         "capture.create",
         "expense.read",
         "expense.review",
@@ -4871,7 +4878,7 @@
       "additionalProperties": false
     },
     "operation_scope": {
-      "description": "Exact workspace requirement and current authority required by a registered operation.",
+      "description": "Exact workspace requirement and current authority required by a registered operation. `scoped_agent_grant` requires the operation's exact least-privilege action/purpose/resource mapping below. `authorized_human_review` is the ordinary direct-human alternative under current domain policy (attributable project review or acceptance); it is distinct from workspace membership, from a scoped agent grant, from the trusted financial human reviewer and from the separately permitted executor.",
       "type": "object",
       "required": [
         "workspace_requirement",
@@ -4889,6 +4896,7 @@
             "operator_bootstrap_grant",
             "workspace_membership",
             "scoped_agent_grant",
+            "authorized_human_review",
             "trusted_human_reviewer",
             "current_financial_owner",
             "qualified_recovery_authority"
@@ -4970,7 +4978,10 @@
         "scope",
         "request_contract",
         "success_response",
-        "error_codes"
+        "error_codes",
+        "required_actions",
+        "required_purposes",
+        "required_scope_kinds"
       ],
       "properties": {
         "operation": {
@@ -4996,6 +5007,15 @@
           "items": {
             "$ref": "#/$defs/operation_error_code"
           }
+        },
+        "required_actions": {
+          "$ref": "#/$defs/required_action_set"
+        },
+        "required_purposes": {
+          "$ref": "#/$defs/required_purpose_set"
+        },
+        "required_scope_kinds": {
+          "$ref": "#/$defs/required_scope_kind_set"
         }
       },
       "additionalProperties": false,
@@ -5021,7 +5041,9 @@
                   "const": "bootstrap_exception"
                 },
                 "authority": {
-                  "const": "operator_bootstrap_grant"
+                  "enum": [
+                    "operator_bootstrap_grant"
+                  ]
                 }
               }
             },
@@ -5043,6 +5065,19 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": []
+            },
+            "required_purposes": {
+              "const": [
+                "identity_bootstrap"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5068,7 +5103,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "workspace_membership"
+                  "enum": [
+                    "workspace_membership"
+                  ]
                 }
               }
             },
@@ -5090,6 +5127,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "workspace.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "workspace_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5115,7 +5167,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "workspace_membership"
+                  "enum": [
+                    "workspace_membership"
+                  ]
                 }
               }
             },
@@ -5137,6 +5191,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "workspace.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "workspace_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5162,7 +5231,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5184,6 +5256,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "project.create"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "project_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5209,7 +5296,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "workspace_membership"
+                  "enum": [
+                    "workspace_membership"
+                  ]
                 }
               }
             },
@@ -5231,6 +5320,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "project.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "project_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "project"
               ]
             }
           }
@@ -5256,7 +5361,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5278,6 +5386,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "project.revise"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "project_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "project"
               ]
             }
           }
@@ -5303,7 +5427,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5325,6 +5452,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "party.create"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "party_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5350,7 +5492,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "workspace_membership"
+                  "enum": [
+                    "workspace_membership"
+                  ]
                 }
               }
             },
@@ -5372,6 +5516,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "party.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "party_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5397,7 +5556,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5419,6 +5581,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "party.revise"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "party_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5444,7 +5621,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "workspace_membership"
+                  "enum": [
+                    "workspace_membership"
+                  ]
                 }
               }
             },
@@ -5466,6 +5645,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "project.change.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "project_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "project"
               ]
             }
           }
@@ -5491,7 +5686,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5513,6 +5711,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "project.change.edit"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "project_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "project"
               ]
             }
           }
@@ -5538,7 +5752,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5560,6 +5777,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "project.change.review"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "project_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "project"
               ]
             }
           }
@@ -5585,7 +5818,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "workspace_membership"
+                  "enum": [
+                    "workspace_membership"
+                  ]
                 }
               }
             },
@@ -5607,6 +5842,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "project.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "project_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "project"
               ]
             }
           }
@@ -5632,7 +5883,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5654,6 +5908,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "association.create"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "expense_associate"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "expense"
               ]
             }
           }
@@ -5679,7 +5949,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "workspace_membership"
+                  "enum": [
+                    "workspace_membership"
+                  ]
                 }
               }
             },
@@ -5701,6 +5973,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "association.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "expense_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "expense"
               ]
             }
           }
@@ -5726,7 +6014,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5748,6 +6039,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "grant.manage"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "grant_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5773,7 +6079,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5795,6 +6104,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "grant.read"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "grant_read"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5820,7 +6144,10 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "scoped_agent_grant"
+                  "enum": [
+                    "scoped_agent_grant",
+                    "authorized_human_review"
+                  ]
                 }
               }
             },
@@ -5842,6 +6169,21 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "grant.manage"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "grant_manage"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -5867,7 +6209,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "trusted_human_reviewer"
+                  "enum": [
+                    "trusted_human_reviewer"
+                  ]
                 }
               }
             },
@@ -5889,6 +6233,20 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": []
+            },
+            "required_purposes": {
+              "const": [
+                "expense_review"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "expense"
               ]
             }
           }
@@ -5914,7 +6272,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "trusted_human_reviewer"
+                  "enum": [
+                    "trusted_human_reviewer"
+                  ]
                 }
               }
             },
@@ -5936,6 +6296,20 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": []
+            },
+            "required_purposes": {
+              "const": [
+                "expense_review"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "expense"
               ]
             }
           }
@@ -5961,7 +6335,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "trusted_human_reviewer"
+                  "enum": [
+                    "trusted_human_reviewer"
+                  ]
                 }
               }
             },
@@ -5983,6 +6359,20 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": []
+            },
+            "required_purposes": {
+              "const": [
+                "expense_review"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "expense"
               ]
             }
           }
@@ -6008,7 +6398,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "current_financial_owner"
+                  "enum": [
+                    "current_financial_owner"
+                  ]
                 }
               }
             },
@@ -6030,6 +6422,22 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": [
+                "expense.confirm"
+              ]
+            },
+            "required_purposes": {
+              "const": [
+                "expense_confirm"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace",
+                "expense"
               ]
             }
           }
@@ -6055,7 +6463,9 @@
                   "const": "exactly_one_workspace"
                 },
                 "authority": {
-                  "const": "qualified_recovery_authority"
+                  "enum": [
+                    "qualified_recovery_authority"
+                  ]
                 }
               }
             },
@@ -6077,6 +6487,19 @@
                 "rate_limited",
                 "internal_error",
                 "unavailable"
+              ]
+            },
+            "required_actions": {
+              "const": []
+            },
+            "required_purposes": {
+              "const": [
+                "identity_recovery"
+              ]
+            },
+            "required_scope_kinds": {
+              "const": [
+                "workspace"
               ]
             }
           }
@@ -6657,6 +7080,41 @@
             }
           }
         }
+      }
+    },
+    "required_action_set": {
+      "description": "Exact least-privilege action set a scoped agent grant must include for this operation; empty when the operation is not delegated through an agent grant.",
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/grant_action"
+      }
+    },
+    "required_purpose_set": {
+      "description": "Exact bounded purposes a scoped agent grant must admit for this operation; empty when the operation is not delegated through an agent grant.",
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "common.schema.json#/$defs/slug"
+      }
+    },
+    "required_scope_kind_set": {
+      "description": "Exact same-workspace grant resource kinds that may authorize this operation; a resource kind requires the exact resource identifier.",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "workspace",
+          "project",
+          "capture",
+          "expense"
+        ]
       }
     }
   }

@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 403,
-      "maxItems": 403,
+      "minItems": 411,
+      "maxItems": 411,
       "prefixItems": [
         {
           "type": "object",
@@ -11282,6 +11282,234 @@
             },
             "value": {
               "$ref": "../public/v1/project-workflow.schema.json#/$defs/principal_key_transition_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-human-authority"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-membership-write-denied"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-wrong-required-action"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-unknown-authority"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-missing-required-actions"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "operation-registration-wrong-scope-kind"
+            },
+            "target": {
+              "type": "string",
+              "const": "operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-expanded-management-actions"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "agent-grant-unknown-management-action"
+            },
+            "target": {
+              "type": "string",
+              "const": "agent_grant"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/agent_grant"
+              }
             }
           },
           "required": [
