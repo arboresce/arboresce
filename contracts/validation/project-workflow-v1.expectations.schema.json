@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 465,
-      "maxItems": 465,
+      "minItems": 499,
+      "maxItems": 499,
       "prefixItems": [
         {
           "type": "object",
@@ -13026,6 +13026,984 @@
             },
             "value": {
               "$ref": "../public/v1/project-workflow.schema.json#/$defs/principal_revoke_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-continuation-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-accepted-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-empty-scoped-page"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-missing-workspace"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-missing-project"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-missing-snapshot"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-id-only-item"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-item-missing-content"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-item-missing-review"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-item-missing-control"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-continuation-id-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-continuation-missing-snapshot"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-continuation-empty-cursor"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-continuation-overlong-cursor"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-continuation-invalid-cursor"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-continuation-extra-property"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-change-group-unscoped-legacy-summary"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_change_group"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_change_group"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-missing-control-revision"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-missing-snapshot-id"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-missing-records"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-missing-mappings"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-missing-review-history"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-missing-expense-associations"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-missing-expenses"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-id-only-record"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-mapping-missing-candidate"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-review-missing-control"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-association-missing-provenance"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-expense-fake-confirmed"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-provenance-label-only"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-provenance-missing-record"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-provenance-empty-lineage"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-empty-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_view"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_view"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "project-readback-pending-with-accepted-item"
+            },
+            "target": {
+              "type": "string",
+              "const": "project_readback_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/project_readback_response"
+              }
             }
           },
           "required": [

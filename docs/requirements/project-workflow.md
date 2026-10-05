@@ -122,6 +122,22 @@ remains ineligible with a typed reason; no silent substitute or automatic accept
 is allowed. Independent items remain reviewable. Accepting a decision does not
 automatically accept its suggested task, date, participants or expense.
 
+The change-group read returns complete `project_change_resource` entries,
+including typed proposed content, exact candidate identity, origin, lineage,
+dependencies, current review and control observations. An ID/revision/state list
+cannot substitute for those entries. The group retains the exact workspace,
+project revision and capture revision plus a server-issued snapshot ID. A non-null
+continuation contains that same snapshot ID and a bounded opaque cursor; null
+means the end of that snapshot. It is not a fresh analysis or an approval command.
+The serving implementation must bind the cursor to this snapshot, selected scope
+and current disclosure authority. It must compare each item's workspace, project
+and capture identity against the group and compare the response capture with the
+group capture. Those cross-record joins require semantic qualification in addition
+to the parsed shape checks; no identifier or cursor grants authority.
+The project identity join does not require each item's retained project base
+revision to equal a later project-head observation. Target/dependency fences
+remain per item; unrelated project changes do not create a whole-project fence.
+
 Project change content requires a versioned extension of the candidate/review
 family: a typed effect plus the existing statement, scope, qualification and exact
 evidence semantics. Do not insert project fields into the closed legacy candidate
@@ -183,6 +199,27 @@ under current disclosure controls. The CLI has no competing project database.
 Lossless JSON and reversible CSV financial exports retain existing rules; focused
 project read/export preserves references and review history with an independent
 reader. A financial export alone is not a complete customer archive.
+
+The scoped `project_readback_view` contains explicit collections of complete
+canonical records, exact accepted effect mappings, attributable review history,
+expense/project associations and financial expense snapshots. It includes current
+project control and a server-issued snapshot ID. Empty collections are explicit;
+missing collections cannot stand for a completed read. Each provenance entry binds
+an exact record revision to structured field lineage; a source label alone does
+not provide that lineage. The response's separate `pending` collection contains
+complete pending change resources, not accepted or rejected results disguised as
+pending summaries.
+
+Every returned record, mapping, review and expense association must belong to the
+selected workspace/project and snapshot. The reader compares exact referenced
+candidate, target, expense and association revisions/digests and control
+observations. Accepted mappings and provenance identify their returned canonical
+records; review history never confers new authority. A financial snapshot exposes
+its own proposed/confirmed/superseded/voided state, independent of project-item
+acceptance. Bounded reads must report an explicit capacity failure when a complete
+authorized view cannot fit; silent collection truncation is forbidden. Semantic
+join, completeness and current disclosure checks remain required before a service
+or client can claim qualified readback.
 
 ## Required qualification
 
