@@ -17181,6 +17181,700 @@
         "state": "active",
         "revoked_at": null
       }
+    },
+    {
+      "id": "mvp-cli-additional-operation-mvp-valid",
+      "target": "mvp_cli_additional_operation",
+      "valid": true,
+      "value": {
+        "operation": "principal.revoke",
+        "method": "POST",
+        "route": "/v1/principals/{principal_id}/revoke",
+        "request_contract": "project-workflow.principal_revoke_request",
+        "success_response": "project-workflow.principal_revoke_response"
+      }
+    },
+    {
+      "id": "mvp-cli-additional-operation-mvp-invalid",
+      "target": "mvp_cli_additional_operation",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "mvp-cli-additional-operation-inventory-mvp-valid",
+      "target": "mvp_cli_additional_operation_inventory",
+      "valid": true,
+      "value": [
+        {
+          "operation": "principal.revoke",
+          "method": "POST",
+          "route": "/v1/principals/{principal_id}/revoke",
+          "request_contract": "project-workflow.principal_revoke_request",
+          "success_response": "project-workflow.principal_revoke_response"
+        },
+        {
+          "operation": "project_change.group",
+          "method": "GET",
+          "route": "/v1/captures/{capture_id}/project-changes",
+          "request_contract": "project-workflow.project_change_group_response",
+          "success_response": "project-workflow.project_change_group_response"
+        },
+        {
+          "operation": "project.readback",
+          "method": "GET",
+          "route": "/v1/projects/{project_id}/readback",
+          "request_contract": "project-workflow.project_readback_response",
+          "success_response": "project-workflow.project_readback_response"
+        },
+        {
+          "operation": "project_report.create",
+          "method": "POST",
+          "route": "/v1/projects/{project_id}/reports",
+          "request_contract": "project-workflow.project_report_create_request",
+          "success_response": "project-workflow.project_report_create_response"
+        },
+        {
+          "operation": "project_report.export",
+          "method": "POST",
+          "route": "/v1/project-reports/{report_id}/exports",
+          "request_contract": "project-workflow.project_report_export_request",
+          "success_response": "project-workflow.project_report_export_response"
+        },
+        {
+          "operation": "project.export",
+          "method": "POST",
+          "route": "/v1/projects/{project_id}/exports",
+          "request_contract": "project-workflow.project_export_request",
+          "success_response": "project-workflow.project_export_response"
+        },
+        {
+          "operation": "project_capture.bind",
+          "method": "POST",
+          "route": "/v1/projects/{project_id}/captures/{capture_id}/binding",
+          "request_contract": "project-workflow.project_capture_binding_request",
+          "success_response": "project-workflow.project_capture_binding_response"
+        }
+      ]
+    },
+    {
+      "id": "mvp-cli-additional-operation-inventory-mvp-invalid",
+      "target": "mvp_cli_additional_operation_inventory",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "principal-revoke-request-mvp-valid",
+      "target": "principal_revoke_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "principal.revoke",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_support"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "principal_id": "33333333-3333-4333-8333-333333333333",
+          "expected_control_revision": {
+            "kind": "control",
+            "value": "1"
+          },
+          "reason": "retired"
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-request-mvp-invalid",
+      "target": "principal_revoke_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "principal-revoke-response-mvp-valid",
+      "target": "principal_revoke_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "human"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-response-mvp-invalid",
+      "target": "principal_revoke_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-capture-binding-mvp-valid",
+      "target": "project_capture_binding",
+      "valid": true,
+      "value": {
+        "binding_id": "33333333-3333-4333-8333-333333333333",
+        "project_id": "33333333-3333-4333-8333-333333333333",
+        "capture_id": "22222222-2222-4222-9222-222222222222",
+        "capture_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "binding_revision": {
+          "kind": "content",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "project-capture-binding-mvp-invalid",
+      "target": "project_capture_binding",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-capture-binding-request-mvp-valid",
+      "target": "project_capture_binding_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_capture.bind",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_support"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "project_id": "33333333-3333-4333-8333-333333333333",
+          "capture_id": "22222222-2222-4222-9222-222222222222",
+          "capture_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "binding_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "project-capture-binding-request-mvp-invalid",
+      "target": "project_capture_binding_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-capture-binding-response-mvp-valid",
+      "target": "project_capture_binding_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "project_capture.bind",
+          "binding": {
+            "binding_id": "33333333-3333-4333-8333-333333333333",
+            "project_id": "33333333-3333-4333-8333-333333333333",
+            "capture_id": "22222222-2222-4222-9222-222222222222",
+            "capture_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "binding_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "project-capture-binding-response-mvp-invalid",
+      "target": "project_capture_binding_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-change-group-mvp-valid",
+      "target": "project_change_group",
+      "valid": true,
+      "value": {
+        "capture_id": "33333333-3333-4333-8333-333333333333",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "items": [],
+        "continuation": null
+      }
+    },
+    {
+      "id": "project-change-group-mvp-invalid",
+      "target": "project_change_group",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-change-group-response-mvp-valid",
+      "target": "project_change_group_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "result": {
+          "capture": "33333333-3333-4333-8333-333333333333",
+          "group": {
+            "capture_id": "33333333-3333-4333-8333-333333333333",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "items": [],
+            "continuation": null
+          }
+        }
+      }
+    },
+    {
+      "id": "project-change-group-response-mvp-invalid",
+      "target": "project_change_group_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-export-request-mvp-valid",
+      "target": "project_export_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.export",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_support"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "project_id": "33333333-3333-4333-8333-333333333333",
+          "project_revision": {
+            "kind": "content",
+            "value": "1"
+          },
+          "format": "project-json-v1"
+        }
+      }
+    },
+    {
+      "id": "project-export-request-mvp-invalid",
+      "target": "project_export_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-export-response-mvp-valid",
+      "target": "project_export_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "project.export",
+          "export": {
+            "export_id": "33333333-3333-4333-8333-333333333333",
+            "profile": "project-json-v1",
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        }
+      }
+    },
+    {
+      "id": "project-export-response-mvp-invalid",
+      "target": "project_export_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-pending-item-mvp-valid",
+      "target": "project_pending_item",
+      "valid": true,
+      "value": {
+        "item_id": "33333333-3333-4333-8333-333333333333",
+        "revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "state": "pending"
+      }
+    },
+    {
+      "id": "project-pending-item-mvp-invalid",
+      "target": "project_pending_item",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-readback-provenance-mvp-valid",
+      "target": "project_readback_provenance",
+      "valid": true,
+      "value": {
+        "source": "ocr_synthesis",
+        "accepted_revision": {
+          "kind": "content",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "project-readback-provenance-mvp-invalid",
+      "target": "project_readback_provenance",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-readback-request-mvp-valid",
+      "target": "project_readback_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project.readback",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_support"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "project_id": "33333333-3333-4333-8333-333333333333"
+        }
+      }
+    },
+    {
+      "id": "project-readback-request-mvp-invalid",
+      "target": "project_readback_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-readback-response-mvp-valid",
+      "target": "project_readback_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "result": {
+          "project": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "project_id": "33333333-3333-4333-8333-333333333333",
+            "content_revision": {
+              "kind": "content",
+              "value": "1"
+            },
+            "provenance": [
+              {
+                "source": "ocr_synthesis",
+                "accepted_revision": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              }
+            ]
+          },
+          "pending": [
+            {
+              "item_id": "33333333-3333-4333-8333-333333333333",
+              "revision": {
+                "kind": "content",
+                "value": "1"
+              },
+              "state": "pending"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "project-readback-response-mvp-invalid",
+      "target": "project_readback_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-readback-view-mvp-valid",
+      "target": "project_readback_view",
+      "valid": true,
+      "value": {
+        "workspace": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "project_id": "33333333-3333-4333-8333-333333333333",
+        "content_revision": {
+          "kind": "content",
+          "value": "1"
+        },
+        "provenance": [
+          {
+            "source": "ocr_synthesis",
+            "accepted_revision": {
+              "kind": "content",
+              "value": "1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-readback-view-mvp-invalid",
+      "target": "project_readback_view",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-report-create-request-mvp-valid",
+      "target": "project_report_create_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_report.create",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_support"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "project_id": "33333333-3333-4333-8333-333333333333",
+          "currency": "CAD",
+          "date_policy": {
+            "policy_id": "44444444-4444-4444-8444-444444444444",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "timezone": "America/Vancouver"
+          },
+          "period": {
+            "start_date": "2026-09-01",
+            "end_exclusive": {
+              "kind": "date",
+              "value": "2026-09-30"
+            }
+          },
+          "include_undated": false
+        }
+      }
+    },
+    {
+      "id": "project-report-create-request-mvp-invalid",
+      "target": "project_report_create_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-report-create-response-mvp-valid",
+      "target": "project_report_create_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "project_report.create",
+          "report": {
+            "reference": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "report_id": "33333333-3333-4333-8333-333333333333",
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "manifest": {
+              "profile": "financial-report-v1",
+              "context": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "purpose": "project_support"
+              },
+              "date_basis": "expense_date",
+              "date_policy": {
+                "policy_id": "44444444-4444-4444-8444-444444444444",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "timezone": "America/Vancouver"
+              },
+              "period": {
+                "start_date": "2026-09-01",
+                "end_exclusive": {
+                  "kind": "date",
+                  "value": "2026-09-30"
+                }
+              },
+              "include_undated": false,
+              "selection_cutoff": "2026-09-30T12:00:00.000Z",
+              "calculation_version": "financial-calculation-v1",
+              "selected": [],
+              "exclusions": [],
+              "totals": []
+            }
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "1"
+          }
+        }
+      }
+    },
+    {
+      "id": "project-report-create-response-mvp-invalid",
+      "target": "project_report_create_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-report-export-request-mvp-valid",
+      "target": "project_report_export_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "contract_version": "v1",
+          "command": "project_report.export",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_support"
+          },
+          "idempotency": {
+            "key": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+          }
+        },
+        "body": {
+          "report": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "report_id": "33333333-3333-4333-8333-333333333333",
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "expected_control_revision": {
+            "kind": "control",
+            "value": "1"
+          },
+          "format": "project-financial-json-v1"
+        }
+      }
+    },
+    {
+      "id": "project-report-export-request-mvp-invalid",
+      "target": "project_report_export_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "project-report-export-response-mvp-valid",
+      "target": "project_report_export_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "project_report.export",
+          "export": {
+            "export_id": "33333333-3333-4333-8333-333333333333",
+            "profile": "project-financial-json-v1",
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        }
+      }
+    },
+    {
+      "id": "project-report-export-response-mvp-invalid",
+      "target": "project_report_export_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "sealed-export-reference-mvp-valid",
+      "target": "sealed_export_reference",
+      "valid": true,
+      "value": {
+        "export_id": "33333333-3333-4333-8333-333333333333",
+        "profile": "project-json-v1",
+        "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "sealed-export-reference-mvp-invalid",
+      "target": "sealed_export_reference",
+      "valid": false,
+      "value": {}
     }
   ]
 }

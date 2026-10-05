@@ -919,3 +919,18 @@ identity, contract and CLI suites must retain independent inputs and oracles.
 fixtures, full suite/process inventory and strict applicable source coverage.
 [Acceptance](acceptance.md) owns the 250 monetary scenarios and broader
 experiments/gates. None is replaced by parsed shapes or a simulated service.
+
+## Project report transport completion
+
+The required versioned project financial composition supplies exact project and
+currency selectors in addition to authorized date policy, half-open period and
+include-undated policy. Project selection joins qualified associations to exact
+expense revisions before canonical server calculation. The result freezes that
+selection, associated identities, exclusions, canonical per-currency totals and
+observed availability control. A client cannot apply a project filter to workspace
+totals and claim a canonical project report. Project report creation is an
+idempotent mutation; export consumes its exact immutable reference and current
+availability control. The complete project composition transport and JSON/CSV
+profiles must be defined and independently qualified before CLI consumption.
+Keep existing closed financial v1 commands, money, calculation and export rules;
+use additive versioned composition instead of unsupported extra v1 body fields.

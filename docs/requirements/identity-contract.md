@@ -122,3 +122,13 @@ routes/actions and canonical preimages; no route is enabled by this document.
 Prove stale revision/association, tampering, fake assurance, revoked reviewer or
 executor, expiry, competing issuance/confirmation, lost responses and restart.
 Financial review changes neither candidate verdicts nor project update approval.
+
+## Self-principal server revocation
+
+The API transport-completeness contract defines authenticated self-principal
+revocation with exact current control revision and explicit reason. It revokes
+that server's principal/key authority and returns the qualified revoked identity;
+remote deletion and recovery are separate. It does not request key transition,
+select a replacement principal or bypass recovery authority. Current authorization,
+final effect fencing and retained idempotency receipt rules still apply; revocation
+cannot grant a revoked signer renewed authority for a retry or unrelated read.

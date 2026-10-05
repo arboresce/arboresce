@@ -7172,6 +7172,851 @@
           "expense"
         ]
       }
+    },
+  "principal_revoke_request": {
+    "type": "object",
+    "required": [
+      "metadata",
+      "body"
+    ],
+    "properties": {
+      "metadata": {
+        "allOf": [
+          {
+            "$ref": "common.schema.json#/$defs/command_metadata"
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "principal.revoke"
+              }
+            }
+          }
+        ]
+      },
+      "body": {
+        "type": "object",
+        "required": [
+          "principal_id",
+          "expected_control_revision",
+          "reason"
+        ],
+        "properties": {
+          "principal_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "expected_control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "principal_revoke_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "required": [
+      "idempotency_receipt"
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "command",
+          "principal",
+          "control_revision"
+        ],
+        "properties": {
+          "command": {
+            "const": "principal.revoke"
+          },
+          "principal": {
+            "$ref": "#/$defs/principal_reference"
+          },
+          "control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
+          }
+        }
+      }
     }
+  },
+  "sealed_export_reference": {
+    "type": "object",
+    "required": [
+      "export_id",
+      "profile",
+      "content_sha256"
+    ],
+    "properties": {
+      "export_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "profile": {
+        "enum": [
+          "project-financial-json-v1",
+          "project-financial-csv-v1",
+          "project-json-v1",
+          "project-csv-v1"
+        ]
+      },
+      "content_sha256": {
+        "$ref": "common.schema.json#/$defs/sha256"
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_report_create_request": {
+    "type": "object",
+    "required": [
+      "metadata",
+      "body"
+    ],
+    "properties": {
+      "metadata": {
+        "allOf": [
+          {
+            "$ref": "common.schema.json#/$defs/command_metadata"
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "project_report.create"
+              }
+            }
+          }
+        ]
+      },
+      "body": {
+        "type": "object",
+        "required": [
+          "project_id",
+          "currency",
+          "date_policy",
+          "period",
+          "include_undated"
+        ],
+        "properties": {
+          "project_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "currency": {
+            "$ref": "financial-records.schema.json#/$defs/currency"
+          },
+          "date_policy": {
+            "$ref": "financial-records.schema.json#/$defs/date_policy"
+          },
+          "period": {
+            "$ref": "financial-records.schema.json#/$defs/period"
+          },
+          "include_undated": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_report_create_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "required": [
+      "idempotency_receipt"
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "command",
+          "report",
+          "control_revision"
+        ],
+        "properties": {
+          "command": {
+            "const": "project_report.create"
+          },
+          "report": {
+            "$ref": "financial-records.schema.json#/$defs/report_snapshot"
+          },
+          "control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
+          }
+        }
+      }
+    }
+  },
+  "project_report_export_request": {
+    "type": "object",
+    "required": [
+      "metadata",
+      "body"
+    ],
+    "properties": {
+      "metadata": {
+        "allOf": [
+          {
+            "$ref": "common.schema.json#/$defs/command_metadata"
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "project_report.export"
+              }
+            }
+          }
+        ]
+      },
+      "body": {
+        "type": "object",
+        "required": [
+          "report",
+          "expected_control_revision",
+          "format"
+        ],
+        "properties": {
+          "report": {
+            "$ref": "financial-records.schema.json#/$defs/report_reference"
+          },
+          "expected_control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
+          },
+          "format": {
+            "enum": [
+              "project-financial-json-v1",
+              "project-financial-csv-v1"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_report_export_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "required": [
+      "idempotency_receipt"
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "command",
+          "export"
+        ],
+        "properties": {
+          "command": {
+            "const": "project_report.export"
+          },
+          "export": {
+            "$ref": "#/$defs/sealed_export_reference"
+          }
+        }
+      }
+    }
+  },
+  "project_export_request": {
+    "type": "object",
+    "required": [
+      "metadata",
+      "body"
+    ],
+    "properties": {
+      "metadata": {
+        "allOf": [
+          {
+            "$ref": "common.schema.json#/$defs/command_metadata"
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "project.export"
+              }
+            }
+          }
+        ]
+      },
+      "body": {
+        "type": "object",
+        "required": [
+          "project_id",
+          "project_revision",
+          "format"
+        ],
+        "properties": {
+          "project_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "project_revision": {
+            "$ref": "common.schema.json#/$defs/content_revision"
+          },
+          "format": {
+            "enum": [
+              "project-json-v1",
+              "project-csv-v1"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_export_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "required": [
+      "idempotency_receipt"
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "command",
+          "export"
+        ],
+        "properties": {
+          "command": {
+            "const": "project.export"
+          },
+          "export": {
+            "$ref": "#/$defs/sealed_export_reference"
+          }
+        }
+      }
+    }
+  },
+  "project_readback_request": {
+    "type": "object",
+    "required": [
+      "metadata",
+      "body"
+    ],
+    "properties": {
+      "metadata": {
+        "allOf": [
+          {
+            "$ref": "common.schema.json#/$defs/command_metadata"
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "project.readback"
+              }
+            }
+          }
+        ]
+      },
+      "body": {
+        "type": "object",
+        "required": [
+          "project_id"
+        ],
+        "properties": {
+          "project_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "include_pending": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_readback_provenance": {
+    "type": "object",
+    "required": [
+      "source",
+      "accepted_revision"
+    ],
+    "properties": {
+      "source": {
+        "$ref": "common.schema.json#/$defs/slug"
+      },
+      "accepted_revision": {
+        "$ref": "common.schema.json#/$defs/content_revision"
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_pending_item": {
+    "type": "object",
+    "required": [
+      "item_id",
+      "revision",
+      "state"
+    ],
+    "properties": {
+      "item_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "revision": {
+        "$ref": "common.schema.json#/$defs/content_revision"
+      },
+      "state": {
+        "enum": [
+          "pending",
+          "accepted",
+          "rejected"
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_readback_view": {
+    "type": "object",
+    "required": [
+      "workspace",
+      "project_id",
+      "content_revision",
+      "provenance"
+    ],
+    "properties": {
+      "workspace": {
+        "$ref": "#/$defs/workspace_reference"
+      },
+      "project_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "content_revision": {
+        "$ref": "common.schema.json#/$defs/content_revision"
+      },
+      "provenance": {
+        "type": "array",
+        "maxItems": 256,
+        "items": {
+          "$ref": "#/$defs/project_readback_provenance"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_readback_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "project",
+          "pending"
+        ],
+        "properties": {
+          "project": {
+            "$ref": "#/$defs/project_readback_view"
+          },
+          "pending": {
+            "type": "array",
+            "maxItems": 256,
+            "items": {
+              "$ref": "#/$defs/project_pending_item"
+            }
+          }
+        }
+      }
+    }
+  },
+  "project_change_group": {
+    "type": "object",
+    "required": [
+      "capture_id",
+      "content_revision",
+      "items",
+      "continuation"
+    ],
+    "properties": {
+      "capture_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "content_revision": {
+        "$ref": "common.schema.json#/$defs/content_revision"
+      },
+      "items": {
+        "type": "array",
+        "maxItems": 256,
+        "items": {
+          "$ref": "#/$defs/project_pending_item"
+        }
+      },
+      "continuation": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "common.schema.json#/$defs/identifier"
+          }
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_change_group_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "capture",
+          "group"
+        ],
+        "properties": {
+          "capture": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "group": {
+            "$ref": "#/$defs/project_change_group"
+          }
+        }
+      }
+    }
+  },
+  "project_capture_binding": {
+    "type": "object",
+    "required": [
+      "binding_id",
+      "project_id",
+      "capture_id",
+      "capture_revision",
+      "binding_revision"
+    ],
+    "properties": {
+      "binding_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "project_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "capture_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "capture_revision": {
+        "$ref": "common.schema.json#/$defs/content_revision"
+      },
+      "binding_revision": {
+        "$ref": "common.schema.json#/$defs/content_revision"
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_capture_binding_request": {
+    "type": "object",
+    "required": [
+      "metadata",
+      "body"
+    ],
+    "properties": {
+      "metadata": {
+        "allOf": [
+          {
+            "$ref": "common.schema.json#/$defs/command_metadata"
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "project_capture.bind"
+              }
+            }
+          }
+        ]
+      },
+      "body": {
+        "type": "object",
+        "required": [
+          "project_id",
+          "capture_id",
+          "capture_revision",
+          "binding_revision"
+        ],
+        "properties": {
+          "project_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "capture_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "capture_revision": {
+            "$ref": "common.schema.json#/$defs/content_revision"
+          },
+          "binding_revision": {
+            "$ref": "common.schema.json#/$defs/content_revision"
+          },
+          "source_context": {
+            "$ref": "#/$defs/workspace_reference"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_capture_binding_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "required": [
+      "idempotency_receipt"
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "command",
+          "binding"
+        ],
+        "properties": {
+          "command": {
+            "const": "project_capture.bind"
+          },
+          "binding": {
+            "$ref": "#/$defs/project_capture_binding"
+          }
+        }
+      }
+    }
+  },
+  "mvp_cli_additional_operation": {
+    "type": "object",
+    "required": [
+      "operation",
+      "method",
+      "route",
+      "request_contract",
+      "success_response"
+    ],
+    "properties": {
+      "operation": {
+        "enum": [
+          "principal.revoke",
+          "project_change.group",
+          "project.readback",
+          "project_report.create",
+          "project_report.export",
+          "project.export",
+          "project_capture.bind"
+        ]
+      },
+      "method": {
+        "$ref": "#/$defs/request_method"
+      },
+      "route": {
+        "type": "string",
+        "minLength": 4,
+        "maxLength": 256,
+        "pattern": "^/v1/[A-Za-z0-9/_{}-]+$"
+      },
+      "request_contract": {
+        "enum": [
+          "project-workflow.principal_revoke_request",
+          "project-workflow.project_capture_binding_request",
+          "project-workflow.project_change_group_response",
+          "project-workflow.project_export_request",
+          "project-workflow.project_readback_response",
+          "project-workflow.project_report_create_request",
+          "project-workflow.project_report_export_request"
+        ]
+      },
+      "success_response": {
+        "enum": [
+          "project-workflow.principal_revoke_response",
+          "project-workflow.project_capture_binding_response",
+          "project-workflow.project_change_group_response",
+          "project-workflow.project_export_response",
+          "project-workflow.project_readback_response",
+          "project-workflow.project_report_create_response",
+          "project-workflow.project_report_export_response"
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "mvp_cli_additional_operation_inventory": {
+    "type": "array",
+    "minItems": 7,
+    "maxItems": 7,
+    "items": {
+      "$ref": "#/$defs/mvp_cli_additional_operation"
+    },
+    "allOf": [
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "principal.revoke"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/principals/{principal_id}/revoke"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      },
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "project_change.group"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/captures/{capture_id}/project-changes"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      },
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "project.readback"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/projects/{project_id}/readback"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      },
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "project_report.create"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/projects/{project_id}/reports"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      },
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "project_report.export"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/project-reports/{report_id}/exports"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      },
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "project.export"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/projects/{project_id}/exports"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      },
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "project_capture.bind"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/projects/{project_id}/captures/{capture_id}/binding"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      }
+    ]
+  }
   }
 }

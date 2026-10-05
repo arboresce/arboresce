@@ -537,3 +537,58 @@ snapshot denial. Exercise actual API behavior once implemented under
 [testing and coverage](testing-and-coverage.md). The [acceptance criteria](acceptance.md)
 own experiment thresholds and capability evidence; this document claims no
 passing runtime results.
+
+## MVP CLI transport completeness
+
+The 23-entry `operation_inventory` above is the focused project/identity/grant/
+review inventory, not the inventory of every MVP API. Acquisition, lifecycle and
+financial owners retain their own registered contracts. In particular current
+capture GET and operation GET are defined by the lifecycle contract and must not
+be classified as unsupported merely because they are absent from that table.
+Actual unavailable capability remains an honest runtime result; absence of a
+qualified contract is unfinished implementation, not removal of the requirement.
+
+Complete the following additive contracts before CLI contract consumers, without
+changing the accepted 23 registrations or closed financial/acquisition v1 bodies:
+
+- `principal.revoke`: POST `/v1/principals/{principal_id}/revoke`, authenticated
+  self-principal only, selected authorized context, exact current control revision
+  and explicit reason. A qualified closed body names the principal ID,
+  `expected_control_revision` and reason; success returns the complete revoked
+  principal identity and terminal command receipt. It fences that server's
+  principal/key authority without creating a replacement principal or claiming
+  remote deletion. Key transition remains a different recovery-authority operation.
+- GET `/v1/captures/{capture_id}/project-changes`: an authorized, revision-bound
+  complete typed change grouping with exact capture/project identity, item content,
+  review/control observations and deterministic bounded continuation. Plan and
+  filtered item-list presentations use this canonical grouping, not the lifecycle
+  execution-plan record. Empty, pending, failed and permission-denied cases remain
+  distinguishable; no unauthorized head or truncated set may appear complete.
+- GET `/v1/projects/{project_id}/readback`: qualified current accepted project
+  revisions, exact accepted mappings/source/context provenance, qualified current
+  expense associations and separately identified pending items when requested.
+  Preserve current disclosure and complete-or-error semantics.
+- Project-scoped report creation and export use the separately versioned financial
+  composition required by the financial owner: exact project/currency selection,
+  date policy/period/include-undated inputs, canonical server totals, exact
+  expense/association revisions and availability control. Define their complete
+  requests/responses and register exact methods/routes before CLI consumption.
+  Do not alias away a project selector into the older workspace report command.
+- POST `/v1/projects/{project_id}/exports`: exact project revision/control and
+  requested JSON/CSV profile; durable admission and qualified sealed project
+  artifact/delivery containing lossless project records, provenance and financial
+  composition references under current disclosure. Define independent JSON and
+  reversible CSV profiles; a CLI-created file or a financial-only artifact is
+  not a sealed project export.
+- Project capture association is a separately versioned binding between selected
+  project and exact capture intent/revision. Define its complete transport and
+  independently validated source/context identity before capture composition;
+  do not add a project ID to closed acquisition v1 bodies or hide it in prose.
+
+These are contract completions for the existing MVP surfaces, not runtime support
+claims. Each needs real public engine schemas, exact compatible routes, positive/
+negative and semantic vectors, bounded profile qualification and independent
+contract review before its consumer. CLI presentation schemas stay CLI-owned;
+canonical requests, read envelopes and sealed outputs stay engine-owned. Preserve
+receipt distinctions, current authority, idempotency and resource budgets. Contract
+additions do not require implementation of later storage/service/model consumers.
