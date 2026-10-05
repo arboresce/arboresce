@@ -574,6 +574,12 @@ changing the accepted 23 registrations or closed financial/acquisition v1 bodies
   expense/association revisions and availability control. Define their complete
   requests/responses and register exact methods/routes before CLI consumption.
   Do not alias away a project selector into the older workspace report command.
+- GET `/v1/project-reports/{report_id}` returns the complete separately versioned
+  project financial snapshot and current report control under current disclosure.
+  It supplies the exact immutable reference for export; resolving an ID is not
+  permission to substitute a workspace report. The normalized read selector uses
+  `project_report_get_request`, the result uses `project_report_get_response`, and
+  the HTTP request has no JSON body or mutation idempotency key.
 - POST `/v1/projects/{project_id}/exports`: exact project revision/control and
   requested JSON/CSV profile; durable admission and qualified sealed project
   artifact/delivery containing lossless project records, provenance and financial

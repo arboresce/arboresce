@@ -934,3 +934,51 @@ availability control. The complete project composition transport and JSON/CSV
 profiles must be defined and independently qualified before CLI consumption.
 Keep existing closed financial v1 commands, money, calculation and export rules;
 use additive versioned composition instead of unsupported extra v1 body fields.
+
+The `project-financial-report-v1` manifest freezes an exact project reference and
+one currency, the unchanged `financial-report-v1` manifest, and complete selected
+and excluded association collections. Each selection retains the exact financial
+selected record, complete expense/project association, observed association
+control and the attributable exact-content financial review event. Match that
+event's expense, association, reviewer and event ID to the retained confirmation;
+an asserted `qualified` field or project acceptance cannot supply actual human
+assurance. Selected associations correspond one-to-one, in frozen selection order,
+with the financial manifest's selected records. Expense and association controls
+remain distinct. Only the selected currency contributes totals.
+
+Project exclusions retain only authorized exact association/expense identities,
+observed controls, revision state and a typed reason. They describe project/currency
+or association eligibility in addition to the unchanged financial exclusions.
+They contribute no money to totals. Inaccessible records remain wholly omitted,
+including their identifiers. Superseded or proposed expenses cannot become
+confirmed through composition. Selection and exclusion collections must be
+complete within their bounds or fail explicitly; no silent truncation is allowed.
+
+The minimal exclusion identity contains workspace, project ID, exact expense
+reference and exact association ID/revision/digest. It contains no executor,
+delegation, audit or other association provenance. Matching financial and project
+exclusion entries must agree on the duplicated expense control and revision state.
+Their reasons may describe independently applicable financial and project policies;
+identity equality cannot justify substituting a contradictory state or control.
+
+The dedicated immutable reference uses kind
+`arboresce.project-financial-report-reference.v1`, workspace/project/report IDs and
+the SHA-256 of JCS of the following closed preimage:
+
+```json
+{"kind":"arboresce.project-financial-report.v1","manifest":"<complete normalized project-financial-report-v1 manifest>"}
+```
+
+The displayed manifest placeholder denotes the object itself, never a JSON string.
+This digest differs from a workspace report digest even when financial totals
+coincide. Current report availability control accompanies the immutable snapshot;
+it is not a mutable field inserted into that snapshot's digest. Export consumes
+this exact project report reference and the expected availability control.
+GET `/v1/project-reports/{report_id}` resolves the complete authorized snapshot and
+current control before that consumption. Its normalized selector metadata has no
+idempotency key; selectors come from the route, and the HTTP GET has no JSON body.
+The read neither issues a mutation receipt nor provides new confirmation authority.
+
+Parsed fixtures and synthetic event joins do not establish actual-human assurance,
+canonical server arithmetic, current disclosure or real service qualification.
+Qualify those obligations with independent expected values at their consumers.

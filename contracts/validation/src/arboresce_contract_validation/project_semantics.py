@@ -101,6 +101,134 @@ def binding_problems(
     return problems
 
 
+def report_problems(request: dict[str, Any], response: dict[str, Any]) -> list[str]:
+    """Check frozen project selection joins, not server arithmetic or human proof."""
+    body = request["body"]
+    report = response["result"]["report"]
+    reference, manifest = report["reference"], report["manifest"]
+    financial = manifest["financial_manifest"]
+    problems: list[str] = []
+    if not _scope(reference, request["metadata"]["context"]) or not _scope(
+        financial["context"], reference
+    ):
+        problems.append("project report belongs to another workspace")
+    if (
+        reference["project_id"] != body["project_id"]
+        or manifest["project"]["project_id"] != body["project_id"]
+    ):
+        problems.append("project report names another project")
+    if manifest["currency"] != body["currency"]:
+        problems.append("project report changed the selected currency")
+    for key in ("date_policy", "period", "include_undated"):
+        if financial[key] != body[key]:
+            problems.append(f"project report changed the selected {key}")
+    if any(total["currency"] != manifest["currency"] for total in financial["totals"]):
+        problems.append("project report totals contain another currency")
+    if len(financial["totals"]) > 1:
+        problems.append("project report repeats a currency total")
+    if sum(total["record_count"] for total in financial["totals"]) != len(financial["selected"]):
+        problems.append("project report total counts differ from the frozen selection")
+    selections = manifest["selected_associations"]
+    if len(selections) != len(financial["selected"]):
+        problems.append("project report association selection is incomplete")
+    seen: set[tuple[str, str, str, str, str]] = set()
+    for index, entry in enumerate(selections):
+        selected, association, event = (
+            entry["selected"],
+            entry["association"],
+            entry["review_event"],
+        )
+        if index >= len(financial["selected"]) or selected != financial["selected"][index]:
+            problems.append(
+                "project report association selection differs from the financial selection"
+            )
+        expense = selected["reference"]
+        key = _expense(expense)
+        if key in seen:
+            problems.append("project report repeats an exact selected expense")
+        seen.add(key)
+        if not _scope(expense, reference) or not _scope(association["workspace"], reference):
+            problems.append("project report selection belongs to another workspace")
+        if association["project"]["project_id"] != reference["project_id"]:
+            problems.append("project report association names another project")
+        if association["expense"] != expense:
+            problems.append("project report association names another expense revision")
+        confirmation = selected["confirmation"]
+        if confirmation["reference"] != expense:
+            problems.append("project report confirmation names another expense revision")
+        if int(confirmation["control_revision"]["value"]) > int(
+            selected["observed_control_revision"]["value"]
+        ):
+            problems.append("project report confirmation follows the observed expense control")
+        if (
+            not _scope(event, reference)
+            or event["expense"] != expense
+            or event["expense_version"] != expense["version"]
+            or event["content_sha256"] != expense["content_sha256"]
+        ):
+            problems.append("project report review event names another expense or scope")
+        if event["association"] != {
+            k: association[k]
+            for k in ("association_id", "association_revision", "association_sha256")
+        }:
+            problems.append("project report review event names another association revision")
+        if (
+            event["financial_review_event_id"] != confirmation["financial_review_event_id"]
+            or event["reviewer"] != confirmation["reviewer"]
+            or event["decision"] != "confirm"
+            or event["executor_scope"]["executor"] != confirmation["executor"]
+            or event["executor_scope"]["delegation_id"] != confirmation["delegation_id"]
+        ):
+            problems.append("project report review event differs from the recorded confirmation")
+        # The schema requires fixed-width canonical UTC millisecond timestamps.
+        instant = confirmation["recorded_at"]
+        if not event["recorded_at"] <= instant < event["expires_at"]:
+            problems.append("project report confirmation falls outside the review event lifetime")
+        if event["revoked_at"] is not None and event["revoked_at"] <= instant:
+            problems.append("project report review event was revoked before confirmation")
+        if instant > financial["selection_cutoff"]:
+            problems.append("project report confirmation follows the selection cutoff")
+        if association["provenance"]["recorded_at"] > event["recorded_at"]:
+            problems.append("project report association follows its financial review")
+    excluded: set[tuple[str, str, str, str, str]] = set()
+    for entry in manifest["excluded_associations"]:
+        identity = entry["identity"]
+        expense = identity["expense"]
+        key = _expense(expense)
+        if key in excluded or key in seen:
+            problems.append("project report exclusion repeats or selects an exact expense")
+        excluded.add(key)
+        if not _scope(identity["workspace"], reference) or not _scope(expense, reference):
+            problems.append("project report exclusion belongs to another workspace")
+        if identity["project_id"] != reference["project_id"]:
+            problems.append("project report excluded association names another project")
+        required_state = {
+            "proposed": "proposed",
+            "unresolved": "proposed",
+            "voided": "voided",
+            "superseded": "superseded",
+        }.get(entry["reason"])
+        if required_state is not None and entry["revision_state"] != required_state:
+            problems.append("project report exclusion reason differs from its revision state")
+    for expense_exclusion in financial["exclusions"]:
+        matched = [
+            entry
+            for entry in manifest["excluded_associations"]
+            if entry["identity"]["expense"] == expense_exclusion["reference"]
+        ]
+        if not matched:
+            problems.append("project report financial exclusion has no returned association")
+        for entry in matched:
+            if (
+                entry["observed_expense_control_revision"]
+                != expense_exclusion["observed_control_revision"]
+            ):
+                problems.append("project report exclusion expense controls differ")
+            if entry["revision_state"] != expense_exclusion["revision_state"]:
+                problems.append("project report exclusion expense states differ")
+    return problems
+
+
 def group_problems(group: dict[str, Any], response_capture: str) -> list[str]:
     """Check group scope/capture joins, uniqueness and continuation identity."""
     problems: list[str] = []

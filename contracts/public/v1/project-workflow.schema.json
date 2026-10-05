@@ -7362,7 +7362,7 @@
             "const": "project_report.create"
           },
           "report": {
-            "$ref": "financial-records.schema.json#/$defs/report_snapshot"
+            "$ref": "#/$defs/project_financial_report_snapshot"
           },
           "control_revision": {
             "$ref": "common.schema.json#/$defs/control_revision"
@@ -7401,7 +7401,7 @@
         ],
         "properties": {
           "report": {
-            "$ref": "financial-records.schema.json#/$defs/report_reference"
+            "$ref": "#/$defs/project_financial_report_reference"
           },
           "expected_control_revision": {
             "$ref": "common.schema.json#/$defs/control_revision"
@@ -7921,6 +7921,258 @@
       }
     }
   },
+  "project_financial_report_reference": {
+    "type": "object",
+    "required": [
+      "kind",
+      "organization_id",
+      "domain_id",
+      "project_id",
+      "report_id",
+      "content_sha256"
+    ],
+    "properties": {
+      "kind": {
+        "const": "arboresce.project-financial-report-reference.v1"
+      },
+      "organization_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "domain_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "project_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "report_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "content_sha256": {
+        "$ref": "common.schema.json#/$defs/sha256"
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_financial_selection": {
+    "type": "object",
+    "required": [
+      "selected",
+      "association",
+      "observed_association_control_revision",
+      "review_event"
+    ],
+    "properties": {
+      "selected": {
+        "$ref": "financial-records.schema.json#/$defs/selected_record"
+      },
+      "association": {
+        "$ref": "#/$defs/expense_project_association"
+      },
+      "observed_association_control_revision": {
+        "$ref": "common.schema.json#/$defs/control_revision"
+      },
+      "review_event": {
+        "$ref": "#/$defs/financial_review_event"
+      }
+    },
+    "additionalProperties": false,
+    "description": "Exact frozen expense/association selection with its attributable financial review event; shape is not actual-human qualification."
+  },
+  "project_financial_association_identity": {
+    "type": "object",
+    "required": [
+      "workspace",
+      "project_id",
+      "expense",
+      "association"
+    ],
+    "properties": {
+      "workspace": {
+        "$ref": "#/$defs/workspace_reference"
+      },
+      "project_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "expense": {
+        "$ref": "financial-records.schema.json#/$defs/expense_reference"
+      },
+      "association": {
+        "$ref": "#/$defs/project_association_reference"
+      }
+    },
+    "additionalProperties": false,
+    "description": "Only authorized exact relationship identities for exclusions; no executor, audit, delegation or field provenance."
+  },
+  "project_financial_exclusion": {
+    "type": "object",
+    "required": [
+      "identity",
+      "observed_association_control_revision",
+      "observed_expense_control_revision",
+      "revision_state",
+      "reason"
+    ],
+    "properties": {
+      "observed_association_control_revision": {
+        "$ref": "common.schema.json#/$defs/control_revision"
+      },
+      "observed_expense_control_revision": {
+        "$ref": "common.schema.json#/$defs/control_revision"
+      },
+      "revision_state": {
+        "enum": [
+          "proposed",
+          "confirmed",
+          "superseded",
+          "voided"
+        ]
+      },
+      "reason": {
+        "enum": [
+          "other_currency",
+          "outside_period",
+          "unassigned_date",
+          "proposed",
+          "unresolved",
+          "superseded",
+          "voided",
+          "ineligible",
+          "association_unavailable"
+        ]
+      },
+      "identity": {
+        "$ref": "#/$defs/project_financial_association_identity"
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_financial_report_manifest": {
+    "type": "object",
+    "required": [
+      "profile",
+      "project",
+      "currency",
+      "financial_manifest",
+      "selected_associations",
+      "excluded_associations"
+    ],
+    "properties": {
+      "profile": {
+        "const": "project-financial-report-v1"
+      },
+      "project": {
+        "$ref": "#/$defs/project_reference"
+      },
+      "currency": {
+        "$ref": "financial-records.schema.json#/$defs/currency"
+      },
+      "financial_manifest": {
+        "$ref": "financial-records.schema.json#/$defs/report_manifest"
+      },
+      "selected_associations": {
+        "type": "array",
+        "maxItems": 256,
+        "items": {
+          "$ref": "#/$defs/project_financial_selection"
+        }
+      },
+      "excluded_associations": {
+        "type": "array",
+        "maxItems": 256,
+        "items": {
+          "$ref": "#/$defs/project_financial_exclusion"
+        }
+      }
+    },
+    "additionalProperties": false,
+    "description": "Project/currency selection composes unchanged financial v1 arithmetic, selections and exclusions with exact reviewed project associations. Arrays are complete or fail explicitly."
+  },
+  "project_financial_report_snapshot": {
+    "type": "object",
+    "required": [
+      "reference",
+      "manifest"
+    ],
+    "properties": {
+      "reference": {
+        "$ref": "#/$defs/project_financial_report_reference"
+      },
+      "manifest": {
+        "$ref": "#/$defs/project_financial_report_manifest"
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_report_get_request": {
+    "type": "object",
+    "required": [
+      "metadata",
+      "body"
+    ],
+    "properties": {
+      "metadata": {
+        "type": "object",
+        "required": [
+          "contract_version",
+          "command",
+          "context"
+        ],
+        "properties": {
+          "contract_version": {
+            "const": "v1"
+          },
+          "command": {
+            "const": "project_report.get"
+          },
+          "context": {
+            "$ref": "common.schema.json#/$defs/command_context"
+          }
+        },
+        "additionalProperties": false
+      },
+      "body": {
+        "type": "object",
+        "required": [
+          "report_id"
+        ],
+        "properties": {
+          "report_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_report_get_response": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/project_success_response"
+      }
+    ],
+    "properties": {
+      "result": {
+        "required": [
+          "command",
+          "report",
+          "control_revision"
+        ],
+        "properties": {
+          "command": {
+            "const": "project_report.get"
+          },
+          "report": {
+            "$ref": "#/$defs/project_financial_report_snapshot"
+          },
+          "control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
+          }
+        }
+      },
+      "idempotency_receipt": false
+    }
+  },
   "mvp_cli_additional_operation": {
     "type": "object",
     "required": [
@@ -7944,7 +8196,8 @@
           "project_report.create",
           "project_report.export",
           "project.export",
-          "project_capture.bind"
+          "project_capture.bind",
+          "project_report.get"
         ]
       },
       "method": {
@@ -7967,7 +8220,8 @@
           "project-workflow.project_export_request",
           "project-workflow.project_readback_response",
           "project-workflow.project_report_create_request",
-          "project-workflow.project_report_export_request"
+          "project-workflow.project_report_export_request",
+          "project-workflow.project_report_get_request"
         ]
       },
       "success_response": {
@@ -7978,7 +8232,8 @@
           "project-workflow.project_export_response",
           "project-workflow.project_readback_response",
           "project-workflow.project_report_create_response",
-          "project-workflow.project_report_export_response"
+          "project-workflow.project_report_export_response",
+          "project-workflow.project_report_get_response"
         ]
       },
       "error_codes": {
@@ -8424,13 +8679,70 @@
             ]
           }
         }
+      },
+      {
+        "properties": {
+          "operation": {
+            "const": "project_report.get"
+          },
+          "method": {
+            "const": "GET"
+          },
+          "route": {
+            "const": "/v1/project-reports/{report_id}"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "const": "workspace_membership"
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.project_report_get_request"
+          },
+          "success_response": {
+            "const": "project-workflow.project_report_get_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": []
+          },
+          "required_purposes": {
+            "const": [
+              "project_read"
+            ]
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
       }
     ]
   },
   "mvp_cli_additional_operation_inventory": {
     "type": "array",
-    "minItems": 7,
-    "maxItems": 7,
+    "minItems": 8,
+    "maxItems": 8,
     "items": {
       "$ref": "#/$defs/mvp_cli_additional_operation"
     },
@@ -8578,6 +8890,28 @@
             },
             "route": {
               "const": "/v1/projects/{project_id}/captures/{capture_id}/binding"
+            }
+          },
+          "required": [
+            "operation",
+            "method",
+            "route"
+          ]
+        },
+        "minContains": 1,
+        "maxContains": 1
+      },
+      {
+        "contains": {
+          "properties": {
+            "operation": {
+              "const": "project_report.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/project-reports/{report_id}"
             }
           },
           "required": [
