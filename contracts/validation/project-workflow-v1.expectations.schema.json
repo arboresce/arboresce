@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 457,
-      "maxItems": 457,
+      "minItems": 458,
+      "maxItems": 458,
       "prefixItems": [
         {
           "type": "object",
@@ -12797,6 +12797,35 @@
             "value": {
               "not": {
                 "$ref": "../public/v1/project-workflow.schema.json#/$defs/sealed_export_reference"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "mvp-cli-additional-operation-inventory-swapped-invalid"
+            },
+            "target": {
+              "type": "string",
+              "const": "mvp_cli_additional_operation_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/mvp_cli_additional_operation_inventory"
               }
             }
           },

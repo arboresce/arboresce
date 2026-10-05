@@ -4901,7 +4901,8 @@
             "authenticated_review_requester",
             "trusted_human_reviewer",
             "current_financial_owner",
-            "qualified_recovery_authority"
+            "qualified_recovery_authority",
+            "self_principal"
           ]
         }
       },
@@ -7810,8 +7811,13 @@
       "operation",
       "method",
       "route",
+      "scope",
       "request_contract",
-      "success_response"
+      "success_response",
+      "error_codes",
+      "required_actions",
+      "required_purposes",
+      "required_scope_kinds"
     ],
     "properties": {
       "operation": {
@@ -7834,6 +7840,9 @@
         "maxLength": 256,
         "pattern": "^/v1/[A-Za-z0-9/_{}-]+$"
       },
+      "scope": {
+        "$ref": "#/$defs/operation_scope"
+      },
       "request_contract": {
         "enum": [
           "project-workflow.principal_revoke_request",
@@ -7855,9 +7864,452 @@
           "project-workflow.project_report_create_response",
           "project-workflow.project_report_export_response"
         ]
+      },
+      "error_codes": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 12,
+        "uniqueItems": true,
+        "items": {
+          "$ref": "#/$defs/operation_error_code"
+        }
+      },
+      "required_actions": {
+        "$ref": "#/$defs/required_action_set"
+      },
+      "required_purposes": {
+        "$ref": "#/$defs/required_purpose_set"
+      },
+      "required_scope_kinds": {
+        "$ref": "#/$defs/required_scope_kind_set"
       }
     },
-    "additionalProperties": false
+    "additionalProperties": false,
+    "oneOf": [
+      {
+        "properties": {
+          "operation": {
+            "const": "principal.revoke"
+          },
+          "method": {
+            "const": "POST"
+          },
+          "route": {
+            "const": "/v1/principals/{principal_id}/revoke"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "const": "self_principal"
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.principal_revoke_request"
+          },
+          "success_response": {
+            "const": "project-workflow.principal_revoke_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": []
+          },
+          "required_purposes": {
+            "const": []
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace"
+            ]
+          }
+        }
+      },
+      {
+        "properties": {
+          "operation": {
+            "const": "project_change.group"
+          },
+          "method": {
+            "const": "GET"
+          },
+          "route": {
+            "const": "/v1/captures/{capture_id}/project-changes"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "const": "workspace_membership"
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.project_change_group_response"
+          },
+          "success_response": {
+            "const": "project-workflow.project_change_group_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": []
+          },
+          "required_purposes": {
+            "const": [
+              "project_read"
+            ]
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace",
+              "project",
+              "capture"
+            ]
+          }
+        }
+      },
+      {
+        "properties": {
+          "operation": {
+            "const": "project.readback"
+          },
+          "method": {
+            "const": "GET"
+          },
+          "route": {
+            "const": "/v1/projects/{project_id}/readback"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "const": "workspace_membership"
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.project_readback_response"
+          },
+          "success_response": {
+            "const": "project-workflow.project_readback_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": []
+          },
+          "required_purposes": {
+            "const": [
+              "project_read"
+            ]
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      },
+      {
+        "properties": {
+          "operation": {
+            "const": "project_report.create"
+          },
+          "method": {
+            "const": "POST"
+          },
+          "route": {
+            "const": "/v1/projects/{project_id}/reports"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "enum": [
+                  "scoped_agent_grant",
+                  "authorized_human_review"
+                ]
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.project_report_create_request"
+          },
+          "success_response": {
+            "const": "project-workflow.project_report_create_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": [
+              "report.read"
+            ]
+          },
+          "required_purposes": {
+            "const": [
+              "project_read"
+            ]
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      },
+      {
+        "properties": {
+          "operation": {
+            "const": "project_report.export"
+          },
+          "method": {
+            "const": "POST"
+          },
+          "route": {
+            "const": "/v1/project-reports/{report_id}/exports"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "enum": [
+                  "scoped_agent_grant",
+                  "authorized_human_review"
+                ]
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.project_report_export_request"
+          },
+          "success_response": {
+            "const": "project-workflow.project_report_export_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": [
+              "report.export"
+            ]
+          },
+          "required_purposes": {
+            "const": [
+              "project_read"
+            ]
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      },
+      {
+        "properties": {
+          "operation": {
+            "const": "project.export"
+          },
+          "method": {
+            "const": "POST"
+          },
+          "route": {
+            "const": "/v1/projects/{project_id}/exports"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "enum": [
+                  "scoped_agent_grant",
+                  "authorized_human_review"
+                ]
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.project_export_request"
+          },
+          "success_response": {
+            "const": "project-workflow.project_export_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": [
+              "project.read"
+            ]
+          },
+          "required_purposes": {
+            "const": [
+              "project_read"
+            ]
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      },
+      {
+        "properties": {
+          "operation": {
+            "const": "project_capture.bind"
+          },
+          "method": {
+            "const": "POST"
+          },
+          "route": {
+            "const": "/v1/projects/{project_id}/captures/{capture_id}/binding"
+          },
+          "scope": {
+            "properties": {
+              "workspace_requirement": {
+                "const": "exactly_one_workspace"
+              },
+              "authority": {
+                "enum": [
+                  "scoped_agent_grant",
+                  "authorized_human_review"
+                ]
+              }
+            }
+          },
+          "request_contract": {
+            "const": "project-workflow.project_capture_binding_request"
+          },
+          "success_response": {
+            "const": "project-workflow.project_capture_binding_response"
+          },
+          "error_codes": {
+            "const": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          },
+          "required_actions": {
+            "const": [
+              "capture.create"
+            ]
+          },
+          "required_purposes": {
+            "const": [
+              "project_manage"
+            ]
+          },
+          "required_scope_kinds": {
+            "const": [
+              "workspace",
+              "project",
+              "capture"
+            ]
+          }
+        }
+      }
+    ]
   },
   "mvp_cli_additional_operation_inventory": {
     "type": "array",

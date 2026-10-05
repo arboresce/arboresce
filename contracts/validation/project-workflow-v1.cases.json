@@ -17191,7 +17191,29 @@
         "method": "POST",
         "route": "/v1/principals/{principal_id}/revoke",
         "request_contract": "project-workflow.principal_revoke_request",
-        "success_response": "project-workflow.principal_revoke_response"
+        "success_response": "project-workflow.principal_revoke_response",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "self_principal"
+        },
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "required_actions": [],
+        "required_purposes": [],
+        "required_scope_kinds": [
+          "workspace"
+        ]
       }
     },
     {
@@ -17210,49 +17232,229 @@
           "method": "POST",
           "route": "/v1/principals/{principal_id}/revoke",
           "request_contract": "project-workflow.principal_revoke_request",
-          "success_response": "project-workflow.principal_revoke_response"
+          "success_response": "project-workflow.principal_revoke_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "self_principal"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [],
+          "required_purposes": [],
+          "required_scope_kinds": [
+            "workspace"
+          ]
         },
         {
           "operation": "project_change.group",
           "method": "GET",
           "route": "/v1/captures/{capture_id}/project-changes",
           "request_contract": "project-workflow.project_change_group_response",
-          "success_response": "project-workflow.project_change_group_response"
+          "success_response": "project-workflow.project_change_group_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "workspace_membership"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project",
+            "capture"
+          ]
         },
         {
           "operation": "project.readback",
           "method": "GET",
           "route": "/v1/projects/{project_id}/readback",
           "request_contract": "project-workflow.project_readback_response",
-          "success_response": "project-workflow.project_readback_response"
+          "success_response": "project-workflow.project_readback_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "workspace_membership"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
         },
         {
           "operation": "project_report.create",
           "method": "POST",
           "route": "/v1/projects/{project_id}/reports",
           "request_contract": "project-workflow.project_report_create_request",
-          "success_response": "project-workflow.project_report_create_response"
+          "success_response": "project-workflow.project_report_create_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "report.read"
+          ],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
         },
         {
           "operation": "project_report.export",
           "method": "POST",
           "route": "/v1/project-reports/{report_id}/exports",
           "request_contract": "project-workflow.project_report_export_request",
-          "success_response": "project-workflow.project_report_export_response"
+          "success_response": "project-workflow.project_report_export_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "report.export"
+          ],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
         },
         {
           "operation": "project.export",
           "method": "POST",
           "route": "/v1/projects/{project_id}/exports",
           "request_contract": "project-workflow.project_export_request",
-          "success_response": "project-workflow.project_export_response"
+          "success_response": "project-workflow.project_export_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "project.read"
+          ],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
         },
         {
           "operation": "project_capture.bind",
           "method": "POST",
           "route": "/v1/projects/{project_id}/captures/{capture_id}/binding",
           "request_contract": "project-workflow.project_capture_binding_request",
-          "success_response": "project-workflow.project_capture_binding_response"
+          "success_response": "project-workflow.project_capture_binding_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "capture.create"
+          ],
+          "required_purposes": [
+            "project_manage"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project",
+            "capture"
+          ]
         }
       ]
     },
@@ -17905,6 +18107,242 @@
       "target": "sealed_export_reference",
       "valid": false,
       "value": {}
+    },
+    {
+      "id": "mvp-cli-additional-operation-inventory-swapped-invalid",
+      "target": "mvp_cli_additional_operation_inventory",
+      "valid": false,
+      "value": [
+        {
+          "operation": "principal.revoke",
+          "method": "POST",
+          "route": "/v1/principals/{principal_id}/revoke",
+          "request_contract": "project-workflow.project_report_create_request",
+          "success_response": "project-workflow.principal_revoke_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "self_principal"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [],
+          "required_purposes": [],
+          "required_scope_kinds": [
+            "workspace"
+          ]
+        },
+        {
+          "operation": "project_change.group",
+          "method": "GET",
+          "route": "/v1/captures/{capture_id}/project-changes",
+          "request_contract": "project-workflow.project_change_group_response",
+          "success_response": "project-workflow.project_change_group_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "workspace_membership"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project",
+            "capture"
+          ]
+        },
+        {
+          "operation": "project.readback",
+          "method": "GET",
+          "route": "/v1/projects/{project_id}/readback",
+          "request_contract": "project-workflow.project_readback_response",
+          "success_response": "project-workflow.project_readback_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "workspace_membership"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
+        },
+        {
+          "operation": "project_report.create",
+          "method": "POST",
+          "route": "/v1/projects/{project_id}/reports",
+          "request_contract": "project-workflow.project_report_create_request",
+          "success_response": "project-workflow.project_report_create_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "report.read"
+          ],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
+        },
+        {
+          "operation": "project_report.export",
+          "method": "POST",
+          "route": "/v1/project-reports/{report_id}/exports",
+          "request_contract": "project-workflow.project_report_export_request",
+          "success_response": "project-workflow.project_report_export_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "report.export"
+          ],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
+        },
+        {
+          "operation": "project.export",
+          "method": "POST",
+          "route": "/v1/projects/{project_id}/exports",
+          "request_contract": "project-workflow.project_export_request",
+          "success_response": "project-workflow.project_export_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "project.read"
+          ],
+          "required_purposes": [
+            "project_read"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project"
+          ]
+        },
+        {
+          "operation": "project_capture.bind",
+          "method": "POST",
+          "route": "/v1/projects/{project_id}/captures/{capture_id}/binding",
+          "request_contract": "project-workflow.project_capture_binding_request",
+          "success_response": "project-workflow.project_capture_binding_response",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "required_actions": [
+            "capture.create"
+          ],
+          "required_purposes": [
+            "project_manage"
+          ],
+          "required_scope_kinds": [
+            "workspace",
+            "project",
+            "capture"
+          ]
+        }
+      ]
     }
   ]
 }
