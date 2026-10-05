@@ -3,9 +3,10 @@
 from copy import deepcopy
 
 import pytest
-from project_semantics_support import case, prior_identity
+from project_semantics_support import binding_inputs, case, prior_identity
 
 from arboresce_contract_validation.project_semantics import (
+    binding_problems,
     group_problems,
     readback_problems,
     revocation_problems,
@@ -229,6 +230,92 @@ def test_revocation_literal():
     response = case("principal-revoke-response-mvp-valid")
     identity = prior_identity()
     assert revocation_problems(request, response, identity) == []
+
+
+def test_binding_literal():
+    workspace, capture, project_id = binding_inputs()
+    assert (
+        binding_problems(
+            case("project-capture-binding-request-mvp-valid"),
+            case("project-capture-binding-response-mvp-valid"),
+            workspace,
+            capture,
+            project_id,
+        )
+        == []
+    )
+
+
+@pytest.mark.parametrize(
+    ("path", "replacement", "diagnostic"),
+    [
+        (
+            ("request", "metadata", "context", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding request belongs to another workspace",
+        ),
+        (
+            ("capture", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding source capture belongs to another workspace",
+        ),
+        (
+            ("request", "body", "source_context", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding source context differs from the selected capture workspace",
+        ),
+        (
+            ("request", "body", "project_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding request names another project",
+        ),
+        (
+            ("request", "body", "capture_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding request names another capture revision",
+        ),
+        (
+            ("capture", "version", "value"),
+            "2",
+            "binding request names another capture revision",
+        ),
+        (
+            ("response", "result", "binding", "project_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding result changed the admitted project_id",
+        ),
+        (
+            ("response", "result", "binding", "capture_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding result changed the admitted capture_id",
+        ),
+        (
+            ("response", "result", "binding", "capture_revision", "value"),
+            "2",
+            "binding result changed the admitted capture_revision",
+        ),
+        (
+            ("response", "result", "binding", "binding_revision", "value"),
+            "2",
+            "binding result changed the admitted binding_revision",
+        ),
+        (
+            ("response", "result", "binding", "source_context", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "binding result changed the admitted source_context",
+        ),
+    ],
+)
+def test_binding_semantic_mismatches(path, replacement, diagnostic):
+    workspace, capture, project_id = binding_inputs()
+    request = case("project-capture-binding-request-mvp-valid")
+    response = case("project-capture-binding-response-mvp-valid")
+    inputs = {"request": request, "response": response, "capture": capture}
+    target = inputs
+    for component in path[:-1]:
+        target = target[component]
+    target[path[-1]] = replacement
+    assert diagnostic in binding_problems(request, response, workspace, capture, project_id)
 
 
 def test_readback_literal():

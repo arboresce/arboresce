@@ -31,3 +31,18 @@ def prior_identity() -> dict[str, Any]:
         "created_at": "2026-09-30T12:00:00.000Z",
         "revoked_at": None,
     }
+
+
+def binding_inputs() -> tuple[dict[str, Any], dict[str, Any], str]:
+    """Supply selected scope and source identity independently of wire results."""
+    workspace = {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+    }
+    capture = {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "capture_id": "22222222-2222-4222-9222-222222222222",
+        "version": {"kind": "content", "value": "1"},
+    }
+    return workspace, capture, "33333333-3333-4333-8333-333333333333"

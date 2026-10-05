@@ -61,6 +61,46 @@ def revocation_problems(
     return problems
 
 
+def binding_problems(
+    request: dict[str, Any],
+    response: dict[str, Any],
+    workspace: dict[str, Any],
+    capture: dict[str, Any],
+    project_id: str,
+) -> list[str]:
+    """Compare a project binding with the selected scope and exact source capture.
+
+    The supplied capture is an independently obtained acquisition reference;
+    matching its identifiers does not prove current authorization or sealed bytes.
+    """
+    body = request["body"]
+    binding = response["result"]["binding"]
+    problems: list[str] = []
+    if not _scope(request["metadata"]["context"], workspace):
+        problems.append("binding request belongs to another workspace")
+    if not _scope(capture, workspace):
+        problems.append("binding source capture belongs to another workspace")
+    if body["source_context"] != workspace or not _scope(capture, body["source_context"]):
+        problems.append("binding source context differs from the selected capture workspace")
+    if body["project_id"] != project_id:
+        problems.append("binding request names another project")
+    if (
+        body["capture_id"] != capture["capture_id"]
+        or body["capture_revision"] != capture["version"]
+    ):
+        problems.append("binding request names another capture revision")
+    for key in (
+        "project_id",
+        "capture_id",
+        "capture_revision",
+        "binding_revision",
+        "source_context",
+    ):
+        if binding[key] != body[key]:
+            problems.append(f"binding result changed the admitted {key}")
+    return problems
+
+
 def group_problems(group: dict[str, Any], response_capture: str) -> list[str]:
     """Check group scope/capture joins, uniqueness and continuation identity."""
     problems: list[str] = []

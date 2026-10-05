@@ -68,6 +68,15 @@ versions. Preserve image orientation/coordinate mappings and audio channel/time
 mappings. A supplied transcript is a derivative or attributed statement, never a
 replacement for the original recording or independent proof of transcription.
 
+The separately versioned project-capture binding preserves its required source
+workspace context. Admission compares the selected project/workspace and an exact
+independently resolved capture reference with the request. The returned binding
+retains the admitted project ID, capture ID/revision, binding revision and source
+context. A foreign source workspace, substituted revision or discarded context is
+a semantic failure even when each value has a valid parsed shape. These joins do
+not replace current authorization, sealed-byte validation or the final transaction
+fence owned by the consuming service.
+
 A normal voice note is approximately 30 seconds and describes what changed. It
 need not repeat the project description, roster, known responsibilities or existing
 dates. Longer input is accepted only within its qualified profile. The analysis
