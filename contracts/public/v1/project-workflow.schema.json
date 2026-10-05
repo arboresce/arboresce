@@ -7241,7 +7241,21 @@
             "const": "principal.revoke"
           },
           "principal": {
-            "$ref": "#/$defs/principal_identity"
+            "allOf": [
+              {
+                "$ref": "#/$defs/principal_identity"
+              },
+              {
+                "properties": {
+                  "state": {
+                    "const": "revoked"
+                  },
+                  "revoked_at": {
+                    "$ref": "common.schema.json#/$defs/timestamp"
+                  }
+                }
+              }
+            ]
           },
           "control_revision": {
             "$ref": "common.schema.json#/$defs/control_revision"

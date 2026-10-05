@@ -132,3 +132,17 @@ remote deletion and recovery are separate. It does not request key transition,
 select a replacement principal or bypass recovery authority. Current authorization,
 final effect fencing and retained idempotency receipt rules still apply; revocation
 cannot grant a revoked signer renewed authority for a retry or unrelated read.
+
+A successful revocation response contains a principal in `revoked` state with
+a non-null canonical `revoked_at` timestamp. Human, agent and service principals
+retain their original kind and complete key-control profile. An active identity
+is not a successful revocation result, even when it otherwise satisfies the
+principal resource schema.
+
+Parsed-value checks enforce that state and timestamp shape. The consuming service
+and client must also compare the returned principal ID with the authenticated
+self-principal and exact admitted request, compare the inner principal control
+revision with the result control observation, and verify the expected-to-result
+control transition against the canonical transaction. JSON Schema does not
+establish these cross-record equalities. They require independently expected
+semantic cases before consumer qualification.

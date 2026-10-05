@@ -18343,6 +18343,320 @@
           ]
         }
       ]
+    },
+    {
+      "id": "principal-revoke-response-active",
+      "target": "principal_revoke_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "human",
+            "identity_profile": {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+              "standard_revisions": {
+                "nip01": {
+                  "standard": "nip-01",
+                  "revision": "nip-01/2026-10-02"
+                }
+              }
+            },
+            "state": "active",
+            "control_revision": {
+              "kind": "control",
+              "value": "2"
+            },
+            "created_at": "2026-09-30T12:00:00.000Z",
+            "revoked_at": null
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-response-revoked-null-time",
+      "target": "principal_revoke_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "human",
+            "identity_profile": {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+              "standard_revisions": {
+                "nip01": {
+                  "standard": "nip-01",
+                  "revision": "nip-01/2026-10-02"
+                }
+              }
+            },
+            "state": "revoked",
+            "control_revision": {
+              "kind": "control",
+              "value": "2"
+            },
+            "created_at": "2026-09-30T12:00:00.000Z",
+            "revoked_at": null
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-response-revoked-missing-time",
+      "target": "principal_revoke_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "human",
+            "identity_profile": {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+              "standard_revisions": {
+                "nip01": {
+                  "standard": "nip-01",
+                  "revision": "nip-01/2026-10-02"
+                }
+              }
+            },
+            "state": "revoked",
+            "control_revision": {
+              "kind": "control",
+              "value": "2"
+            },
+            "created_at": "2026-09-30T12:00:00.000Z"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-response-active-with-time",
+      "target": "principal_revoke_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "human",
+            "identity_profile": {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+              "standard_revisions": {
+                "nip01": {
+                  "standard": "nip-01",
+                  "revision": "nip-01/2026-10-02"
+                }
+              }
+            },
+            "state": "active",
+            "control_revision": {
+              "kind": "control",
+              "value": "2"
+            },
+            "created_at": "2026-09-30T12:00:00.000Z",
+            "revoked_at": "2026-09-30T12:00:00.000Z"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-response-revoked-invalid-time",
+      "target": "principal_revoke_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "human",
+            "identity_profile": {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+              "standard_revisions": {
+                "nip01": {
+                  "standard": "nip-01",
+                  "revision": "nip-01/2026-10-02"
+                }
+              }
+            },
+            "state": "revoked",
+            "control_revision": {
+              "kind": "control",
+              "value": "2"
+            },
+            "created_at": "2026-09-30T12:00:00.000Z",
+            "revoked_at": "not-a-timestamp"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-response-revoked-agent",
+      "target": "principal_revoke_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "agent",
+            "identity_profile": {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+              "standard_revisions": {
+                "nip01": {
+                  "standard": "nip-01",
+                  "revision": "nip-01/2026-10-02"
+                }
+              }
+            },
+            "state": "revoked",
+            "control_revision": {
+              "kind": "control",
+              "value": "2"
+            },
+            "created_at": "2026-09-30T12:00:00.000Z",
+            "revoked_at": "2026-09-30T12:00:00.000Z"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
+    },
+    {
+      "id": "principal-revoke-response-revoked-service",
+      "target": "principal_revoke_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "request_id": "33333333-3333-4333-8333-333333333333",
+        "idempotency_receipt": {
+          "key_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "request_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expires_at": "2026-09-30T12:00:00.000Z",
+          "tombstone_expires_at": "2026-09-30T12:00:00.000Z",
+          "replayed": false
+        },
+        "result": {
+          "command": "principal.revoke",
+          "principal": {
+            "principal_id": "33333333-3333-4333-8333-333333333333",
+            "kind": "service",
+            "identity_profile": {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+              "standard_revisions": {
+                "nip01": {
+                  "standard": "nip-01",
+                  "revision": "nip-01/2026-10-02"
+                }
+              }
+            },
+            "state": "revoked",
+            "control_revision": {
+              "kind": "control",
+              "value": "2"
+            },
+            "created_at": "2026-09-30T12:00:00.000Z",
+            "revoked_at": "2026-09-30T12:00:00.000Z"
+          },
+          "control_revision": {
+            "kind": "control",
+            "value": "2"
+          }
+        }
+      }
     }
   ]
 }
