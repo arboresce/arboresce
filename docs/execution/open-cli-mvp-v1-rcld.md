@@ -1079,3 +1079,13 @@ by the CLI command freeze. Existing 23 focused registrations and closed v1
 families stay fixed. Qualify new canonical contracts and affected compatibility
 checks independently before updating a CLI snapshot. This is contract work;
 later runtime checkpoints remain unimplemented and retain their dependencies.
+
+### Additive compatibility acceptance disposition
+
+The additive transport definitions have structural vectors and parsed checks;
+independent whole compatibility acceptance has not been obtained. Their domain
+content, operation-symbol binding, project financial/export composition, complete
+revocation state and source/context joins remain incomplete under the API owner.
+The original accepted initial contract checkpoint is preserved. Do not describe
+this additive candidate or its consuming CLI snapshot as independently accepted.
+Repair and qualify all affected contracts before the next consumer snapshot.

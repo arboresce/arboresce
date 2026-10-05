@@ -592,3 +592,35 @@ contract review before its consumer. CLI presentation schemas stay CLI-owned;
 canonical requests, read envelopes and sealed outputs stay engine-owned. Preserve
 receipt distinctions, current authority, idempotency and resource budgets. Contract
 additions do not require implementation of later storage/service/model consumers.
+
+### Completeness of the additive MVP contracts
+
+The additive registrations bind each exact operation to its method, route,
+request symbol, response symbol, scope and admitted errors. Swapping symbols
+between operations must fail. Structural `{}` negatives and empty positives do
+not qualify consequential semantic content or canonical cross-record joins.
+
+Self-principal revocation returns the complete `principal_identity` in revoked
+state, including its current control observation; a two-field principal reference
+is insufficient. Project-change grouping retains workspace, exact project and
+capture identities, complete typed item content and review/control observations,
+plus the bounded continuation's snapshot identity. Project readback carries
+accepted records/mappings, source/context provenance, qualified expense
+associations and separately identified pending changes; its closed shape must
+permit all of them. Existing canonical limits and disclosure remain in force.
+
+Project financial composition freezes project/currency selectors, exact selected
+expense/association revisions, exclusions, server-calculated totals and observed
+availability control. Reusing a workspace report without these bindings does not
+produce a project report. Project export carries exact revision/control inputs,
+lossless independently usable JSON/reversible CSV payload profiles, complete
+sealed artifact/delivery identity and current availability restrictions. An ID,
+profile and hash alone cannot qualify that export. Project capture binding retains
+its required source/context identity in both admission and returned canonical
+binding; source context is not an optional discarded annotation.
+
+Require nonempty complete positive values proving these fields and targeted
+negative/semantic cases for mismatched identities, revisions, hashes, scope,
+control, disclosure and substituted contracts. Keep independently expected values
+separate from schema or implementation generation. Complete and independently
+review these contracts before admitting their CLI consumers.
