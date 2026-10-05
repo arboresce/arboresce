@@ -7240,7 +7240,7 @@
             "const": "principal.revoke"
           },
           "principal": {
-            "$ref": "#/$defs/principal_reference"
+            "$ref": "#/$defs/principal_identity"
           },
           "control_revision": {
             "$ref": "common.schema.json#/$defs/control_revision"
@@ -7701,7 +7701,8 @@
       "project_id",
       "capture_id",
       "capture_revision",
-      "binding_revision"
+      "binding_revision",
+      "source_context"
     ],
     "properties": {
       "binding_id": {
@@ -7718,6 +7719,9 @@
       },
       "binding_revision": {
         "$ref": "common.schema.json#/$defs/content_revision"
+      },
+      "source_context": {
+        "$ref": "#/$defs/workspace_reference"
       }
     },
     "additionalProperties": false
@@ -7749,7 +7753,8 @@
           "project_id",
           "capture_id",
           "capture_revision",
-          "binding_revision"
+          "binding_revision",
+          "source_context"
         ],
         "properties": {
           "project_id": {
