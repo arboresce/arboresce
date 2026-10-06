@@ -5,9 +5,36 @@ import hashlib
 import io
 import json
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, Protocol, cast
+
+from jsonschema.protocols import Validator
+from support import validator_for
+
+from arboresce_contract_validation.cli import LocalRegistryLoader, SnapshotStore
 
 BYTE_FIXTURES = Path(__file__).resolve().parent / "fixtures/project-export-bytes"
+
+
+class SchemaEvolution(Protocol):
+    """The consumed specialization of the prepared validator keyword API."""
+
+    def evolve(self, *, schema: dict[str, Any]) -> Validator:
+        """Specialize the loaded validator for one explicit owning target."""
+        ...
+
+
+def validate_target(value: dict[str, Any], target: str) -> None:
+    """Validate actual complete inputs before semantic conformance comparisons."""
+    contracts = Path(__file__).resolve().parents[2]
+    entry = contracts / "public/v1/project-workflow.schema.json"
+    with SnapshotStore(contracts) as store:
+        loader = LocalRegistryLoader(store, str(entry))
+        base = validator_for(loader, value)
+        validator = cast("SchemaEvolution", base).evolve(
+            schema={"$ref": entry.as_uri() + "#/$defs/" + target}
+        )
+        if not validator.is_valid(value):
+            raise ValueError("value violates owning contract")
 
 
 def byte_fixture(name: str) -> bytes:
@@ -97,3 +124,19 @@ def export_inputs(
         case(prefix + "-export-response-mvp-valid"),
         case(payload + "-export-payload-complete"),
     )
+
+
+def transport_inputs(format_name: str) -> tuple[dict[str, Any], ...]:
+    """Load complete literal wire values and separate declared admission inputs."""
+    targets = (
+        "project_export_artifact_get_request",
+        "project_export_artifact_get_response",
+        "project_export_content_request",
+        "project_export_delivery_receipt",
+        "project_export_content_response",
+        "project_export_delivery_profile",
+        "project_export_delivery_admission_inputs",
+        "project_export_delivery_get_request",
+        "project_export_delivery_get_response",
+    )
+    return tuple(case("transport-" + format_name + "-" + target) for target in targets)

@@ -49949,6 +49949,4732 @@
         "sealed_at": "2026-10-03T12:05:01.000Z",
         "expires_at": "2026-10-03T12:10:01.000Z"
       }
+    },
+    {
+      "id": "project-export-transport-inventory-complete",
+      "target": "project_export_transport_inventory",
+      "valid": true,
+      "value": [
+        {
+          "operation": "project_export.artifact.get",
+          "method": "GET",
+          "route": "/v1/export-artifacts/{export_id}",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_artifact_get_request",
+          "success_response": "project-workflow.project_export_artifact_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        },
+        {
+          "operation": "project_export.content.read",
+          "method": "POST",
+          "route": "/v1/export-artifacts/{export_id}/content",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_content_request",
+          "success_response": "project-workflow.project_export_content_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        },
+        {
+          "operation": "project_export.delivery.get",
+          "method": "GET",
+          "route": "/v1/export-deliveries/{delivery_id}",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_delivery_get_request",
+          "success_response": "project-workflow.project_export_delivery_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "project-export-transport-inventory-incomplete",
+      "target": "project_export_transport_inventory",
+      "valid": false,
+      "value": [
+        {
+          "operation": "project_export.artifact.get",
+          "method": "GET",
+          "route": "/v1/export-artifacts/{export_id}",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_artifact_get_request",
+          "success_response": "project-workflow.project_export_artifact_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        },
+        {
+          "operation": "project_export.content.read",
+          "method": "POST",
+          "route": "/v1/export-artifacts/{export_id}/content",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_content_request",
+          "success_response": "project-workflow.project_export_content_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "project-export-transport-inventory-duplicate",
+      "target": "project_export_transport_inventory",
+      "valid": false,
+      "value": [
+        {
+          "operation": "project_export.artifact.get",
+          "method": "GET",
+          "route": "/v1/export-artifacts/{export_id}",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_artifact_get_request",
+          "success_response": "project-workflow.project_export_artifact_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        },
+        {
+          "operation": "project_export.artifact.get",
+          "method": "GET",
+          "route": "/v1/export-artifacts/{export_id}",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_artifact_get_request",
+          "success_response": "project-workflow.project_export_artifact_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        },
+        {
+          "operation": "project_export.artifact.get",
+          "method": "GET",
+          "route": "/v1/export-artifacts/{export_id}",
+          "scope": {
+            "workspace_requirement": "exactly_one_workspace",
+            "authority": "scoped_agent_grant"
+          },
+          "request_contract": "project-workflow.project_export_artifact_get_request",
+          "success_response": "project-workflow.project_export_artifact_get_response",
+          "error_codes": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ],
+          "subject_requirements": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "project_export-artifact-get-registration",
+      "target": "project_export_transport_registration",
+      "valid": true,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-wrong-operation",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-wrong-method",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-wrong-route",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-wrong-request_contract",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-wrong-success_response",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-wrong-grant",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-human-registration",
+      "target": "project_export_transport_registration",
+      "valid": true,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "current_authorized_human"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-artifact-get-membership-only",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "workspace_membership"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-registration",
+      "target": "project_export_transport_registration",
+      "valid": true,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-wrong-operation",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-wrong-method",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-wrong-route",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "POST",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-wrong-request_contract",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-wrong-success_response",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-wrong-grant",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-human-registration",
+      "target": "project_export_transport_registration",
+      "valid": true,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "current_authorized_human"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-content-read-membership-only",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.content.read",
+        "method": "POST",
+        "route": "/v1/export-artifacts/{export_id}/content",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "workspace_membership"
+        },
+        "request_contract": "project-workflow.project_export_content_request",
+        "success_response": "project-workflow.project_export_content_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-registration",
+      "target": "project_export_transport_registration",
+      "valid": true,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "GET",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-wrong-operation",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.artifact.get",
+        "method": "GET",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-wrong-method",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "DELETE",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-wrong-route",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "GET",
+        "route": "/v1/export-artifacts/{export_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-wrong-request_contract",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "GET",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_artifact_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-wrong-success_response",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "GET",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_artifact_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-wrong-grant",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "GET",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "scoped_agent_grant"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-human-registration",
+      "target": "project_export_transport_registration",
+      "valid": true,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "GET",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "current_authorized_human"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "project_export-delivery-get-membership-only",
+      "target": "project_export_transport_registration",
+      "valid": false,
+      "value": {
+        "operation": "project_export.delivery.get",
+        "method": "GET",
+        "route": "/v1/export-deliveries/{delivery_id}",
+        "scope": {
+          "workspace_requirement": "exactly_one_workspace",
+          "authority": "workspace_membership"
+        },
+        "request_contract": "project-workflow.project_export_delivery_get_request",
+        "success_response": "project-workflow.project_export_delivery_get_response",
+        "error_codes": [
+          "invalid_request",
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "conflict",
+          "request_too_large",
+          "unsupported_media_type",
+          "invalid_command",
+          "rate_limited",
+          "internal_error",
+          "unavailable"
+        ],
+        "subject_requirements": {
+          "project": {
+            "required_actions": [
+              "project.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          },
+          "project_financial_report": {
+            "required_actions": [
+              "project.read",
+              "report.read"
+            ],
+            "required_purposes": [
+              "project_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "project"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_profile",
+      "target": "project_export_delivery_profile",
+      "valid": true,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_profile-missing",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_profile-wrong-kind",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.financial-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_profile-boolean-buffer",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": true,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_artifact_get_request",
+      "target": "project_export_artifact_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000010"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_artifact_get_request-missing",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_artifact_get_request-mutation-key",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000010"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_artifact_get_response",
+      "target": "project_export_artifact_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "export_id": "70000000-0000-4000-8000-000000000010",
+                "kind": "export_artifact",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              }
+            },
+            "core": {
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "emitted": {
+                "byte_length": 26389,
+                "sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000010",
+              "format": "project-json-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "application/json",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "payload_sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c",
+              "profile": {
+                "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "profile_id": "70000000-0000-4000-8000-000000000032",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "2"
+                },
+                "project": {
+                  "content_revision": {
+                    "kind": "content",
+                    "value": "1"
+                  },
+                  "project_id": "44444444-4444-4444-b444-444444444444"
+                },
+                "snapshot_id": "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd"
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "72668b8d64dc5fb61b65bced9c3701493a8751b4528f926530ca299c30f809fb",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000010",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            }
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000040"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_artifact_get_response-missing",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_artifact_get_response-receipt-alias",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "export_id": "70000000-0000-4000-8000-000000000010",
+                "kind": "export_artifact",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              }
+            },
+            "core": {
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "emitted": {
+                "byte_length": 26389,
+                "sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000010",
+              "format": "project-json-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "application/json",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "payload_sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c",
+              "profile": {
+                "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "profile_id": "70000000-0000-4000-8000-000000000032",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "2"
+                },
+                "project": {
+                  "content_revision": {
+                    "kind": "content",
+                    "value": "1"
+                  },
+                  "project_id": "44444444-4444-4444-b444-444444444444"
+                },
+                "snapshot_id": "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd"
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "72668b8d64dc5fb61b65bced9c3701493a8751b4528f926530ca299c30f809fb",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000010",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            }
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000040"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_content_request",
+      "target": "project_export_content_request",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "72668b8d64dc5fb61b65bced9c3701493a8751b4528f926530ca299c30f809fb",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "export_id": "70000000-0000-4000-8000-000000000010",
+          "organization_id": "11111111-1111-4111-8111-111111111111"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_content_request-missing",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_content_request-mutation-key",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "72668b8d64dc5fb61b65bced9c3701493a8751b4528f926530ca299c30f809fb",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "export_id": "70000000-0000-4000-8000-000000000010",
+          "organization_id": "11111111-1111-4111-8111-111111111111"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_receipt",
+      "target": "project_export_delivery_receipt",
+      "valid": true,
+      "value": {
+        "delivery_id": "70000000-0000-4000-8000-000000000020",
+        "artifact": {
+          "artifact_record_sha256": "72668b8d64dc5fb61b65bced9c3701493a8751b4528f926530ca299c30f809fb",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "export_id": "70000000-0000-4000-8000-000000000010",
+          "organization_id": "11111111-1111-4111-8111-111111111111"
+        },
+        "emitted": {
+          "byte_length": 26389,
+          "sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c"
+        },
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "profile": {
+          "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "profile_id": "70000000-0000-4000-8000-000000000032",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+        "delivery": "admitted"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_receipt-missing",
+      "target": "project_export_delivery_receipt",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_get_request",
+      "target": "project_export_delivery_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000020"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_get_request-missing",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_get_request-mutation-key",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000020"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_get_response",
+      "target": "project_export_delivery_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000020",
+            "artifact": {
+              "artifact_record_sha256": "72668b8d64dc5fb61b65bced9c3701493a8751b4528f926530ca299c30f809fb",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000010",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            },
+            "emitted": {
+              "byte_length": 26389,
+              "sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c"
+            },
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "profile_id": "70000000-0000-4000-8000-000000000032",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000044"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_get_response-missing",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_get_response-receipt-alias",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000020",
+            "artifact": {
+              "artifact_record_sha256": "72668b8d64dc5fb61b65bced9c3701493a8751b4528f926530ca299c30f809fb",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000010",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            },
+            "emitted": {
+              "byte_length": 26389,
+              "sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c"
+            },
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "profile_id": "70000000-0000-4000-8000-000000000032",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000044"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_content_response",
+      "target": "project_export_content_response",
+      "valid": true,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "26389",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000010",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000020",
+          "Arboresce-Artifact-Sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_content_response-missing",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_content_response-untyped-length",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": 26389,
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000010",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000020",
+          "Arboresce-Artifact-Sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_content_response-leading-zero",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "026389",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000010",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000020",
+          "Arboresce-Artifact-Sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_profile",
+      "target": "project_export_delivery_profile",
+      "valid": true,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_profile-missing",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_profile-wrong-kind",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.financial-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_profile-boolean-buffer",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": true,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_artifact_get_request",
+      "target": "project_export_artifact_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000011"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_artifact_get_request-missing",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_artifact_get_request-mutation-key",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000011"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_artifact_get_response",
+      "target": "project_export_artifact_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "export_id": "70000000-0000-4000-8000-000000000011",
+                "kind": "export_artifact",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              }
+            },
+            "core": {
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "emitted": {
+                "byte_length": 272609,
+                "sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000011",
+              "format": "project-csv-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "text/csv",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "payload_sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c",
+              "profile": {
+                "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "profile_id": "70000000-0000-4000-8000-000000000032",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "2"
+                },
+                "project": {
+                  "content_revision": {
+                    "kind": "content",
+                    "value": "1"
+                  },
+                  "project_id": "44444444-4444-4444-b444-444444444444"
+                },
+                "snapshot_id": "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd"
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "d253856d7b9ec2c295811388a946b71b20d272536d32f6beb4136f55d7c9c08d",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000011",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            }
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000041"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_artifact_get_response-missing",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_artifact_get_response-receipt-alias",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "export_id": "70000000-0000-4000-8000-000000000011",
+                "kind": "export_artifact",
+                "organization_id": "11111111-1111-4111-8111-111111111111"
+              }
+            },
+            "core": {
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "emitted": {
+                "byte_length": 272609,
+                "sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000011",
+              "format": "project-csv-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "text/csv",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "payload_sha256": "069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c",
+              "profile": {
+                "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "profile_id": "70000000-0000-4000-8000-000000000032",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "2"
+                },
+                "project": {
+                  "content_revision": {
+                    "kind": "content",
+                    "value": "1"
+                  },
+                  "project_id": "44444444-4444-4444-b444-444444444444"
+                },
+                "snapshot_id": "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd"
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "d253856d7b9ec2c295811388a946b71b20d272536d32f6beb4136f55d7c9c08d",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000011",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            }
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000041"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_content_request",
+      "target": "project_export_content_request",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "d253856d7b9ec2c295811388a946b71b20d272536d32f6beb4136f55d7c9c08d",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "export_id": "70000000-0000-4000-8000-000000000011",
+          "organization_id": "11111111-1111-4111-8111-111111111111"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_content_request-missing",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_content_request-mutation-key",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "d253856d7b9ec2c295811388a946b71b20d272536d32f6beb4136f55d7c9c08d",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "export_id": "70000000-0000-4000-8000-000000000011",
+          "organization_id": "11111111-1111-4111-8111-111111111111"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_receipt",
+      "target": "project_export_delivery_receipt",
+      "valid": true,
+      "value": {
+        "delivery_id": "70000000-0000-4000-8000-000000000021",
+        "artifact": {
+          "artifact_record_sha256": "d253856d7b9ec2c295811388a946b71b20d272536d32f6beb4136f55d7c9c08d",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "export_id": "70000000-0000-4000-8000-000000000011",
+          "organization_id": "11111111-1111-4111-8111-111111111111"
+        },
+        "emitted": {
+          "byte_length": 272609,
+          "sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052"
+        },
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "policy": {
+          "policy_scope": "domain",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "profile": {
+          "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "profile_id": "70000000-0000-4000-8000-000000000032",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+        "delivery": "admitted"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_receipt-missing",
+      "target": "project_export_delivery_receipt",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_get_request",
+      "target": "project_export_delivery_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000021"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_get_request-missing",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_get_request-mutation-key",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000021"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_get_response",
+      "target": "project_export_delivery_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000021",
+            "artifact": {
+              "artifact_record_sha256": "d253856d7b9ec2c295811388a946b71b20d272536d32f6beb4136f55d7c9c08d",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000011",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            },
+            "emitted": {
+              "byte_length": 272609,
+              "sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052"
+            },
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "profile_id": "70000000-0000-4000-8000-000000000032",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000045"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_get_response-missing",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_get_response-receipt-alias",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000021",
+            "artifact": {
+              "artifact_record_sha256": "d253856d7b9ec2c295811388a946b71b20d272536d32f6beb4136f55d7c9c08d",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "export_id": "70000000-0000-4000-8000-000000000011",
+              "organization_id": "11111111-1111-4111-8111-111111111111"
+            },
+            "emitted": {
+              "byte_length": 272609,
+              "sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052"
+            },
+            "context": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "30db35c49d17f3253a8c7797dcd601c778bbe014ccab46c4bc33fe7368277585",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "profile_id": "70000000-0000-4000-8000-000000000032",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000045"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_content_response",
+      "target": "project_export_content_response",
+      "valid": true,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "text/csv",
+          "Content-Length": "272609",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000011",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000021",
+          "Arboresce-Artifact-Sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_content_response-missing",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_content_response-untyped-length",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "text/csv",
+          "Content-Length": 272609,
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000011",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000021",
+          "Arboresce-Artifact-Sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_content_response-leading-zero",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "text/csv",
+          "Content-Length": "0272609",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000011",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000021",
+          "Arboresce-Artifact-Sha256": "803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_profile",
+      "target": "project_export_delivery_profile",
+      "valid": true,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_profile-missing",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_profile-wrong-kind",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.financial-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_profile-boolean-buffer",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": true,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_artifact_get_request",
+      "target": "project_export_artifact_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000012"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_artifact_get_request-missing",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_artifact_get_request-mutation-key",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000012"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_artifact_get_response",
+      "target": "project_export_artifact_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "export_id": "70000000-0000-4000-8000-000000000012",
+                "kind": "export_artifact",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              }
+            },
+            "core": {
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "emitted": {
+                "byte_length": 27425,
+                "sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000012",
+              "format": "project-financial-json-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "application/json",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "payload_sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4",
+              "profile": {
+                "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "profile_id": "70000000-0000-4000-8000-000000000033",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project_financial_report",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "1"
+                },
+                "report": {
+                  "content_sha256": "db261719d5b2ebf99560e6caebee6dc4508b03f134ae61fd35ec3c21f083d427",
+                  "domain_id": "60000000-0000-4000-8000-000000000002",
+                  "kind": "arboresce.project-financial-report-reference.v1",
+                  "organization_id": "60000000-0000-4000-8000-000000000001",
+                  "project_id": "33333333-3333-4333-8333-333333333333",
+                  "report_id": "60000000-0000-4000-8000-00000000003d"
+                }
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "9f26251240a6ffb4de914c8b721bf135d6c295f0c06d69714d2ea1011007761e",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000012",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            }
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000042"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_artifact_get_response-missing",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_artifact_get_response-receipt-alias",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "export_id": "70000000-0000-4000-8000-000000000012",
+                "kind": "export_artifact",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              }
+            },
+            "core": {
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "emitted": {
+                "byte_length": 27425,
+                "sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000012",
+              "format": "project-financial-json-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "application/json",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "payload_sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4",
+              "profile": {
+                "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "profile_id": "70000000-0000-4000-8000-000000000033",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project_financial_report",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "1"
+                },
+                "report": {
+                  "content_sha256": "db261719d5b2ebf99560e6caebee6dc4508b03f134ae61fd35ec3c21f083d427",
+                  "domain_id": "60000000-0000-4000-8000-000000000002",
+                  "kind": "arboresce.project-financial-report-reference.v1",
+                  "organization_id": "60000000-0000-4000-8000-000000000001",
+                  "project_id": "33333333-3333-4333-8333-333333333333",
+                  "report_id": "60000000-0000-4000-8000-00000000003d"
+                }
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "9f26251240a6ffb4de914c8b721bf135d6c295f0c06d69714d2ea1011007761e",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000012",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            }
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000042"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_content_request",
+      "target": "project_export_content_request",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "9f26251240a6ffb4de914c8b721bf135d6c295f0c06d69714d2ea1011007761e",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "export_id": "70000000-0000-4000-8000-000000000012",
+          "organization_id": "60000000-0000-4000-8000-000000000001"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_content_request-missing",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_content_request-mutation-key",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "9f26251240a6ffb4de914c8b721bf135d6c295f0c06d69714d2ea1011007761e",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "export_id": "70000000-0000-4000-8000-000000000012",
+          "organization_id": "60000000-0000-4000-8000-000000000001"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_receipt",
+      "target": "project_export_delivery_receipt",
+      "valid": true,
+      "value": {
+        "delivery_id": "70000000-0000-4000-8000-000000000022",
+        "artifact": {
+          "artifact_record_sha256": "9f26251240a6ffb4de914c8b721bf135d6c295f0c06d69714d2ea1011007761e",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "export_id": "70000000-0000-4000-8000-000000000012",
+          "organization_id": "60000000-0000-4000-8000-000000000001"
+        },
+        "emitted": {
+          "byte_length": 27425,
+          "sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4"
+        },
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "profile": {
+          "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "profile_id": "70000000-0000-4000-8000-000000000033",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+        "delivery": "admitted"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_receipt-missing",
+      "target": "project_export_delivery_receipt",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_get_request",
+      "target": "project_export_delivery_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000022"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_get_request-missing",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_get_request-mutation-key",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000022"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_get_response",
+      "target": "project_export_delivery_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000022",
+            "artifact": {
+              "artifact_record_sha256": "9f26251240a6ffb4de914c8b721bf135d6c295f0c06d69714d2ea1011007761e",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000012",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            },
+            "emitted": {
+              "byte_length": 27425,
+              "sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4"
+            },
+            "context": {
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "profile_id": "70000000-0000-4000-8000-000000000033",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000046"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_get_response-missing",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_get_response-receipt-alias",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000022",
+            "artifact": {
+              "artifact_record_sha256": "9f26251240a6ffb4de914c8b721bf135d6c295f0c06d69714d2ea1011007761e",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000012",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            },
+            "emitted": {
+              "byte_length": 27425,
+              "sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4"
+            },
+            "context": {
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "profile_id": "70000000-0000-4000-8000-000000000033",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000046"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_content_response",
+      "target": "project_export_content_response",
+      "valid": true,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "27425",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000012",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000022",
+          "Arboresce-Artifact-Sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_content_response-missing",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_content_response-untyped-length",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": 27425,
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000012",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000022",
+          "Arboresce-Artifact-Sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_content_response-leading-zero",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Content-Length": "027425",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000012",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000022",
+          "Arboresce-Artifact-Sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_profile",
+      "target": "project_export_delivery_profile",
+      "valid": true,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_profile-missing",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_profile-wrong-kind",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.financial-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": 65536,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_profile-boolean-buffer",
+      "target": "project_export_delivery_profile",
+      "valid": false,
+      "value": {
+        "kind": "arboresce.project-export-delivery-profile.v1",
+        "artifact_lifetime_ms": 300000,
+        "staging_lifetime_ms": 60000,
+        "generation_total_ms": 30000,
+        "generation_attempt_limit": 2,
+        "transfer_total_ms": 60000,
+        "transfer_idle_ms": 1000,
+        "transfer_buffer_bytes": true,
+        "transfer_attempt_limit": 2,
+        "max_active_transfers_per_organization": 2,
+        "max_active_transfers_global": 8,
+        "max_staged_bytes_per_operation": 134217728,
+        "lifecycle_policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_artifact_get_request",
+      "target": "project_export_artifact_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000013"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_artifact_get_request-missing",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_artifact_get_request-mutation-key",
+      "target": "project_export_artifact_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.artifact.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "export_id": "70000000-0000-4000-8000-000000000013"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_artifact_get_response",
+      "target": "project_export_artifact_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "export_id": "70000000-0000-4000-8000-000000000013",
+                "kind": "export_artifact",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              }
+            },
+            "core": {
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "emitted": {
+                "byte_length": 366414,
+                "sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000013",
+              "format": "project-financial-csv-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "text/csv",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "payload_sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4",
+              "profile": {
+                "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "profile_id": "70000000-0000-4000-8000-000000000033",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project_financial_report",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "1"
+                },
+                "report": {
+                  "content_sha256": "db261719d5b2ebf99560e6caebee6dc4508b03f134ae61fd35ec3c21f083d427",
+                  "domain_id": "60000000-0000-4000-8000-000000000002",
+                  "kind": "arboresce.project-financial-report-reference.v1",
+                  "organization_id": "60000000-0000-4000-8000-000000000001",
+                  "project_id": "33333333-3333-4333-8333-333333333333",
+                  "report_id": "60000000-0000-4000-8000-00000000003d"
+                }
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "aac86c40e41f07573b187f23b217e049b3660a1134f1f28d0dbc333012b73742",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000013",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            }
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000043"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_artifact_get_response-missing",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_artifact_get_response-receipt-alias",
+      "target": "project_export_artifact_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "artifact": {
+            "availability": "available",
+            "control": {
+              "bytes_state": "available",
+              "control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "hold_state": "none",
+              "last_event": {
+                "event_id": "10000000-0000-4000-8000-00000000000b",
+                "event_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              },
+              "purge_state": "none",
+              "restriction": "unrestricted",
+              "subject": {
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "export_id": "70000000-0000-4000-8000-000000000013",
+                "kind": "export_artifact",
+                "organization_id": "60000000-0000-4000-8000-000000000001"
+              }
+            },
+            "core": {
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "emitted": {
+                "byte_length": 366414,
+                "sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a"
+              },
+              "encoding": "utf-8",
+              "expires_at": "2026-10-03T12:10:01.000Z",
+              "export_id": "70000000-0000-4000-8000-000000000013",
+              "format": "project-financial-csv-v1",
+              "kind": "arboresce.project-export-artifact.v1",
+              "media_type": "text/csv",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "payload_sha256": "9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4",
+              "profile": {
+                "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "profile_id": "70000000-0000-4000-8000-000000000033",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "sealed_at": "2026-10-03T12:05:01.000Z",
+              "subject": {
+                "kind": "project_financial_report",
+                "observed_control_revision": {
+                  "kind": "control",
+                  "value": "1"
+                },
+                "report": {
+                  "content_sha256": "db261719d5b2ebf99560e6caebee6dc4508b03f134ae61fd35ec3c21f083d427",
+                  "domain_id": "60000000-0000-4000-8000-000000000002",
+                  "kind": "arboresce.project-financial-report-reference.v1",
+                  "organization_id": "60000000-0000-4000-8000-000000000001",
+                  "project_id": "33333333-3333-4333-8333-333333333333",
+                  "report_id": "60000000-0000-4000-8000-00000000003d"
+                }
+              }
+            },
+            "observed_at": "2026-10-03T12:05:02.000Z",
+            "reference": {
+              "artifact_record_sha256": "aac86c40e41f07573b187f23b217e049b3660a1134f1f28d0dbc333012b73742",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000013",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            }
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000043"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_content_request",
+      "target": "project_export_content_request",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "aac86c40e41f07573b187f23b217e049b3660a1134f1f28d0dbc333012b73742",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "export_id": "70000000-0000-4000-8000-000000000013",
+          "organization_id": "60000000-0000-4000-8000-000000000001"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_content_request-missing",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_content_request-mutation-key",
+      "target": "project_export_content_request",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "artifact": {
+          "artifact_record_sha256": "aac86c40e41f07573b187f23b217e049b3660a1134f1f28d0dbc333012b73742",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "export_id": "70000000-0000-4000-8000-000000000013",
+          "organization_id": "60000000-0000-4000-8000-000000000001"
+        },
+        "expected_control_revision": {
+          "kind": "control",
+          "value": "1"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_receipt",
+      "target": "project_export_delivery_receipt",
+      "valid": true,
+      "value": {
+        "delivery_id": "70000000-0000-4000-8000-000000000023",
+        "artifact": {
+          "artifact_record_sha256": "aac86c40e41f07573b187f23b217e049b3660a1134f1f28d0dbc333012b73742",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "export_id": "70000000-0000-4000-8000-000000000013",
+          "organization_id": "60000000-0000-4000-8000-000000000001"
+        },
+        "emitted": {
+          "byte_length": 366414,
+          "sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a"
+        },
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "policy": {
+          "policy_scope": "domain",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "policy_id": "70000000-0000-4000-8000-000000000001",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          },
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "profile": {
+          "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "profile_id": "70000000-0000-4000-8000-000000000033",
+          "version": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+        "delivery": "admitted"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_receipt-missing",
+      "target": "project_export_delivery_receipt",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_get_request",
+      "target": "project_export_delivery_get_request",
+      "valid": true,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000023"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_get_request-missing",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_get_request-mutation-key",
+      "target": "project_export_delivery_get_request",
+      "valid": false,
+      "value": {
+        "metadata": {
+          "command": "project_export.delivery.get",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "project_read"
+          }
+        },
+        "body": {
+          "delivery_id": "70000000-0000-4000-8000-000000000023"
+        },
+        "idempotency_key": "opaque"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_get_response",
+      "target": "project_export_delivery_get_response",
+      "valid": true,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000023",
+            "artifact": {
+              "artifact_record_sha256": "aac86c40e41f07573b187f23b217e049b3660a1134f1f28d0dbc333012b73742",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000013",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            },
+            "emitted": {
+              "byte_length": 366414,
+              "sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a"
+            },
+            "context": {
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "profile_id": "70000000-0000-4000-8000-000000000033",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          }
+        },
+        "request_id": "70000000-0000-4000-8000-000000000047"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_get_response-missing",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_get_response-receipt-alias",
+      "target": "project_export_delivery_get_response",
+      "valid": false,
+      "value": {
+        "state": "succeeded",
+        "http_status": 200,
+        "result": {
+          "delivery": {
+            "delivery_id": "70000000-0000-4000-8000-000000000023",
+            "artifact": {
+              "artifact_record_sha256": "aac86c40e41f07573b187f23b217e049b3660a1134f1f28d0dbc333012b73742",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "export_id": "70000000-0000-4000-8000-000000000013",
+              "organization_id": "60000000-0000-4000-8000-000000000001"
+            },
+            "emitted": {
+              "byte_length": 366414,
+              "sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a"
+            },
+            "context": {
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "purpose": "project_read"
+            },
+            "executor": {
+              "kind": "human",
+              "principal_id": "70000000-0000-4000-8000-000000000030"
+            },
+            "delegation_id": null,
+            "policy": {
+              "policy_scope": "domain",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "policy_id": "70000000-0000-4000-8000-000000000001",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            },
+            "profile": {
+              "content_sha256": "da98f5061e8e43ac6160ced1e5b10d46a13e92d7d19ddfdc1e1b92e353ac4e44",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "profile_id": "70000000-0000-4000-8000-000000000033",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+            "admitted_at": "2026-10-03T12:05:03.000Z",
+            "transfer_expires_at": "2026-10-03T12:05:33.000Z",
+            "delivery": "admitted"
+          },
+          "idempotency_receipt": {}
+        },
+        "request_id": "70000000-0000-4000-8000-000000000047"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_content_response",
+      "target": "project_export_content_response",
+      "valid": true,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "text/csv",
+          "Content-Length": "366414",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000013",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000023",
+          "Arboresce-Artifact-Sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_content_response-missing",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_content_response-untyped-length",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "text/csv",
+          "Content-Length": 366414,
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000013",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000023",
+          "Arboresce-Artifact-Sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_content_response-leading-zero",
+      "target": "project_export_content_response",
+      "valid": false,
+      "value": {
+        "http_status": 200,
+        "headers": {
+          "Content-Type": "text/csv",
+          "Content-Length": "0366414",
+          "Arboresce-Export-Id": "70000000-0000-4000-8000-000000000013",
+          "Arboresce-Delivery-Id": "70000000-0000-4000-8000-000000000023",
+          "Arboresce-Artifact-Sha256": "b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a",
+          "Arboresce-Transfer-Expires-At": "2026-10-03T12:05:33.000Z"
+        }
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_admission_inputs",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z"
+      }
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_admission_inputs-missing",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-json-v1-project_export_delivery_admission_inputs-receipt-authority-alias",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z",
+        "authorized": true
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_admission_inputs",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z"
+      }
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_admission_inputs-missing",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-csv-v1-project_export_delivery_admission_inputs-receipt-authority-alias",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z",
+        "authorized": true
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_admission_inputs",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z"
+      }
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_admission_inputs-missing",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-json-v1-project_export_delivery_admission_inputs-receipt-authority-alias",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z",
+        "authorized": true
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_admission_inputs",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": true,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z"
+      }
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_admission_inputs-missing",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {}
+    },
+    {
+      "id": "transport-project-financial-csv-v1-project_export_delivery_admission_inputs-receipt-authority-alias",
+      "target": "project_export_delivery_admission_inputs",
+      "valid": false,
+      "value": {
+        "context": {
+          "organization_id": "60000000-0000-4000-8000-000000000001",
+          "domain_id": "60000000-0000-4000-8000-000000000002",
+          "purpose": "project_read"
+        },
+        "executor": {
+          "kind": "human",
+          "principal_id": "70000000-0000-4000-8000-000000000030"
+        },
+        "delegation_id": null,
+        "authority_audit_event_id": "70000000-0000-4000-8000-000000000031",
+        "admitted_at": "2026-10-03T12:05:03.000Z",
+        "authority_expires_at": "2026-10-03T12:06:03.000Z",
+        "server_deadline": "2026-10-03T12:05:33.000Z",
+        "authorized": true
+      }
     }
   ]
 }

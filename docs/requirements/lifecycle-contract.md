@@ -952,6 +952,14 @@ This closed receipt records admitted delivery only. transfer_expires_at=min(fixe
 Exact response headers are Content-Type, Content-Length, Arboresce-Export-Id, Arboresce-Delivery-Id, Arboresce-Artifact-Sha256 and Arboresce-Transfer-Expires-At. Their values equal the exact format/length/IDs/emitted digest/receipt timestamp. Before body, errors use common problems; after bytes begin, abort transport and never append JSON or claim complete success. A client verifies full length and digest before committing a protected destination, never silently overwrites partial/existing content. GET /v1/export-deliveries/{delivery_id} returns common200 {delivery:export_delivery_receipt}, additive result/no command receipt; it is not a reusable capability.
 
 
+The focused project artifact kind has its separately named delivery profile and
+transport registrations under the [project owner](project-workflow.md#focused-artifact-and-delivery-transport).
+It reuses the exact closed export reference, control, content request and delivery
+receipt plus this section's current admission, fixed grant, complete-byte and
+failure rules. The original financial artifact/profile definitions and finite
+eight-kind operation enum remain unchanged. Artifact transport qualification
+does not activate another operation kind or a runtime delivery capability.
+
 ## 11. Retention, recognition and independent continuity
 
 ```text

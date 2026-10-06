@@ -1,14 +1,195 @@
 """Cross-record conformance checks for structurally validated public values.
 
 These helpers compare independently supplied request, identity and read snapshots.
-They do not authenticate actors, calculate canonical digests, establish current
-authorization, or implement canonical transactions. Callers must first validate
+Export metadata checks also compare actual core and selected-profile digests
+using the bounded conformance encoding. They do not authenticate actors, establish
+current authorization, or implement canonical transactions. Callers first validate
 each value against its owning schema. Diagnostics identify checks, never secrets.
 """
 
 from __future__ import annotations
 
+import hashlib
+from datetime import datetime, timedelta
 from typing import Any
+
+from arboresce_contract_validation.project_exports import canonical_bytes
+
+
+def artifact_read_problems(request: dict[str, Any], response: dict[str, Any]) -> list[str]:
+    """Join structurally validated exact read selectors and complete artifact metadata."""
+    artifact = response["result"]["artifact"]
+    core, reference, control = artifact["core"], artifact["reference"], artifact["control"]
+    workspace = request["metadata"]["context"]
+    problems: list[str] = []
+    if request["body"]["export_id"] != reference["export_id"]:
+        problems.append("artifact read names another export")
+    if any(
+        not _scope(value, workspace)
+        for value in (core, reference, control["subject"], core["profile"])
+    ):
+        problems.append("artifact read belongs to another workspace")
+    if any(value["export_id"] != core["export_id"] for value in (reference, control["subject"])):
+        problems.append("artifact read identities differ")
+    if control["last_event"]["organization_id"] != workspace["organization_id"]:
+        problems.append("artifact read lifecycle event belongs to another organization")
+    if core["subject"]["kind"] == "project_financial_report" and not _scope(
+        core["subject"]["report"], workspace
+    ):
+        problems.append("artifact read subject belongs to another workspace")
+    if hashlib.sha256(canonical_bytes(core)).hexdigest() != reference["artifact_record_sha256"]:
+        problems.append("artifact read core digest differs")
+    if not core["sealed_at"] < core["expires_at"] or artifact["observed_at"] < core["sealed_at"]:
+        problems.append("artifact read observation interval is invalid")
+    expected = (
+        {"purged"}
+        if control["bytes_state"] == "purged"
+        else {"expired"}
+        if artifact["observed_at"] >= core["expires_at"]
+        else {"unavailable"}
+        if control["restriction"] != "unrestricted" or control["bytes_state"] != "available"
+        else {"available", "unavailable"}
+    )
+    if artifact["availability"] not in expected:
+        problems.append("artifact read availability differs")
+    return problems
+
+
+def delivery_read_problems(
+    request: dict[str, Any], response: dict[str, Any], artifact: dict[str, Any]
+) -> list[str]:
+    """Compare exact retained delivery lookup; it confers no admission grant."""
+    delivery = response["result"]["delivery"]
+    problems: list[str] = []
+    if delivery["delivery_id"] != request["body"]["delivery_id"]:
+        problems.append("delivery read names another delivery")
+    if not _scope(delivery["context"], request["metadata"]["context"]):
+        problems.append("delivery read belongs to another workspace")
+    if any(
+        not _scope(value, request["metadata"]["context"])
+        for value in (
+            artifact["core"],
+            artifact["reference"],
+            artifact["control"]["subject"],
+            artifact["core"]["profile"],
+        )
+    ):
+        problems.append("delivery read artifact belongs to another workspace")
+    if (
+        delivery["artifact"] != artifact["reference"]
+        or delivery["emitted"] != artifact["core"]["emitted"]
+    ):
+        problems.append("delivery read differs from the exact artifact")
+    core = artifact["core"]
+    if delivery["profile"] != core["profile"]:
+        problems.append("delivery read profile differs from the exact artifact")
+    policy = delivery["policy"]
+    if policy["organization_id"] != core["organization_id"] or (
+        policy["policy_scope"] == "domain" and policy["domain_id"] != core["domain_id"]
+    ):
+        problems.append("delivery read policy belongs to another scope")
+    if (
+        not core["sealed_at"]
+        <= delivery["admitted_at"]
+        < delivery["transfer_expires_at"]
+        <= core["expires_at"]
+    ):
+        problems.append("delivery read historical interval is invalid")
+    return problems
+
+
+def delivery_problems(
+    request: dict[str, Any],
+    artifact: dict[str, Any],
+    delivery: dict[str, Any],
+    response: dict[str, Any],
+    profile: dict[str, Any],
+    admission: dict[str, Any],
+) -> list[str]:
+    """Compare validated declared admission snapshots, never authenticate a receipt.
+
+    Callers qualify current authority and validate each complete input first.
+    Byte reconstruction/identity is independently checked by verify_artifact.
+    These static joins implement no live authorization, reservation or streaming.
+    """
+    core, reference = artifact["core"], artifact["reference"]
+    problems: list[str] = []
+    if request["artifact"] != reference or delivery["artifact"] != reference:
+        problems.append("delivery names another exact artifact")
+    if request["expected_control_revision"] != artifact["control"]["control_revision"]:
+        problems.append("delivery control precondition differs")
+    if (
+        request["context"] != admission["context"]
+        or delivery["context"] != admission["context"]
+        or not _scope(core, admission["context"])
+    ):
+        problems.append("delivery context differs from admission")
+    if any(
+        delivery[key] != admission[key]
+        for key in ("executor", "delegation_id", "authority_audit_event_id", "admitted_at")
+    ):
+        problems.append("delivery attribution differs from admission")
+    if delivery["emitted"] != core["emitted"]:
+        problems.append("delivery emitted identity differs")
+    if (
+        delivery["profile"] != core["profile"]
+        or core["profile"]["content_sha256"] != hashlib.sha256(canonical_bytes(profile)).hexdigest()
+    ):
+        problems.append("delivery selected profile differs")
+    policy = profile["lifecycle_policy"]
+    if (
+        delivery["policy"] != policy
+        or policy["organization_id"] != core["organization_id"]
+        or (policy["policy_scope"] == "domain" and policy["domain_id"] != core["domain_id"])
+    ):
+        problems.append("delivery policy differs or belongs to another scope")
+    if (
+        profile["transfer_idle_ms"] > profile["transfer_total_ms"]
+        or profile["max_active_transfers_per_organization"] > profile["max_active_transfers_global"]
+    ):
+        problems.append("delivery selected profile capacities are inconsistent")
+    if (
+        artifact["availability"] != "available"
+        or not core["sealed_at"] <= admission["admitted_at"] < core["expires_at"]
+    ):
+        problems.append("delivery artifact is unavailable at admission")
+    authority_expiry, server_deadline = (
+        admission["authority_expires_at"],
+        admission["server_deadline"],
+    )
+    if authority_expiry is None or server_deadline is None:
+        problems.append("delivery admission deadline is unknown")
+    else:
+
+        def after(timestamp: str, duration: int) -> str:
+            value = datetime.fromisoformat(timestamp) + timedelta(
+                seconds=duration // 1000, milliseconds=duration % 1000
+            )
+            return value.isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+        try:
+            fixed_expiry = after(core["sealed_at"], profile["artifact_lifetime_ms"])
+            transfer_limit = after(admission["admitted_at"], profile["transfer_total_ms"])
+            expected = min(core["expires_at"], authority_expiry, server_deadline, transfer_limit)
+            if (
+                core["expires_at"] != fixed_expiry
+                or delivery["transfer_expires_at"] != expected
+                or expected <= admission["admitted_at"]
+            ):
+                problems.append("delivery fixed or transfer deadline differs")
+        except OverflowError:
+            problems.append("delivery deadline arithmetic is unrepresentable")
+    expected_headers = {
+        "Content-Type": core["media_type"],
+        "Content-Length": str(core["emitted"]["byte_length"]),
+        "Arboresce-Export-Id": core["export_id"],
+        "Arboresce-Delivery-Id": delivery["delivery_id"],
+        "Arboresce-Artifact-Sha256": core["emitted"]["sha256"],
+        "Arboresce-Transfer-Expires-At": delivery["transfer_expires_at"],
+    }
+    if response["headers"] != expected_headers:
+        problems.append("delivery binary headers differ")
+    return problems
 
 
 def _candidate(value: dict[str, Any]) -> tuple[str, str, str]:

@@ -9325,6 +9325,609 @@
         "maxContains": 1
       }
     ]
-  }
+  },
+    "project_export_artifact_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "required": [
+            "command",
+            "context"
+          ],
+          "properties": {
+            "command": {
+              "const": "project_export.artifact.get"
+            },
+            "context": {
+              "$ref": "common.schema.json#/$defs/command_context"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "export_id"
+          ],
+          "properties": {
+            "export_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_export_artifact_get_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        }
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/response_object"
+            }
+          ],
+          "required": [
+            "artifact"
+          ],
+          "properties": {
+            "state": false,
+            "status": false,
+            "code": false,
+            "problem": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "receipt": false,
+            "operation": false,
+            "operation_id": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "result": false,
+            "idempotency_receipt": false,
+            "artifact": {
+              "$ref": "#/$defs/project_export_artifact_resource"
+            }
+          }
+        }
+      }
+    },
+    "project_export_content_request": {
+      "$ref": "lifecycle.schema.json#/$defs/export_content_request"
+    },
+    "project_export_delivery_receipt": {
+      "$ref": "lifecycle.schema.json#/$defs/export_delivery_receipt"
+    },
+    "project_export_delivery_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "required": [
+            "command",
+            "context"
+          ],
+          "properties": {
+            "command": {
+              "const": "project_export.delivery.get"
+            },
+            "context": {
+              "$ref": "common.schema.json#/$defs/command_context"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "delivery_id"
+          ],
+          "properties": {
+            "delivery_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_export_delivery_get_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        }
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/response_object"
+            }
+          ],
+          "required": [
+            "delivery"
+          ],
+          "properties": {
+            "state": false,
+            "status": false,
+            "code": false,
+            "problem": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "receipt": false,
+            "operation": false,
+            "operation_id": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "result": false,
+            "idempotency_receipt": false,
+            "delivery": {
+              "$ref": "#/$defs/project_export_delivery_receipt"
+            }
+          }
+        }
+      }
+    },
+    "project_export_delivery_profile": {
+      "type": "object",
+      "required": [
+        "kind",
+        "artifact_lifetime_ms",
+        "staging_lifetime_ms",
+        "generation_total_ms",
+        "generation_attempt_limit",
+        "transfer_total_ms",
+        "transfer_idle_ms",
+        "transfer_buffer_bytes",
+        "transfer_attempt_limit",
+        "max_active_transfers_per_organization",
+        "max_active_transfers_global",
+        "max_staged_bytes_per_operation",
+        "lifecycle_policy"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-export-delivery-profile.v1"
+        },
+        "artifact_lifetime_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/artifact_lifetime_ms"
+        },
+        "staging_lifetime_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/staging_lifetime_ms"
+        },
+        "generation_total_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/generation_total_ms"
+        },
+        "generation_attempt_limit": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/generation_attempt_limit"
+        },
+        "transfer_total_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_total_ms"
+        },
+        "transfer_idle_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_idle_ms"
+        },
+        "transfer_buffer_bytes": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_buffer_bytes"
+        },
+        "transfer_attempt_limit": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_attempt_limit"
+        },
+        "max_active_transfers_per_organization": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/max_active_transfers_per_organization"
+        },
+        "max_active_transfers_global": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/max_active_transfers_global"
+        },
+        "max_staged_bytes_per_operation": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/max_staged_bytes_per_operation"
+        },
+        "lifecycle_policy": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/lifecycle_policy"
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_export_content_response": {
+      "type": "object",
+      "required": [
+        "http_status",
+        "headers"
+      ],
+      "properties": {
+        "http_status": {
+          "const": 200
+        },
+        "headers": {
+          "type": "object",
+          "required": [
+            "Content-Type",
+            "Content-Length",
+            "Arboresce-Export-Id",
+            "Arboresce-Delivery-Id",
+            "Arboresce-Artifact-Sha256",
+            "Arboresce-Transfer-Expires-At"
+          ],
+          "properties": {
+            "Content-Type": {
+              "enum": [
+                "application/json",
+                "text/csv"
+              ]
+            },
+            "Content-Length": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8,
+              "pattern": "^[1-9][0-9]*(?![\\s\\S])"
+            },
+            "Arboresce-Export-Id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "Arboresce-Delivery-Id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "Arboresce-Artifact-Sha256": {
+              "$ref": "common.schema.json#/$defs/sha256"
+            },
+            "Arboresce-Transfer-Expires-At": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_export_transport_registration": {
+      "type": "object",
+      "required": [
+        "operation",
+        "method",
+        "route",
+        "request_contract",
+        "success_response",
+        "scope",
+        "error_codes",
+        "subject_requirements"
+      ],
+      "properties": {
+        "operation": {
+          "enum": [
+            "project_export.artifact.get",
+            "project_export.content.read",
+            "project_export.delivery.get"
+          ]
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ]
+        },
+        "route": {
+          "enum": [
+            "/v1/export-artifacts/{export_id}",
+            "/v1/export-artifacts/{export_id}/content",
+            "/v1/export-deliveries/{delivery_id}"
+          ]
+        },
+        "request_contract": {
+          "enum": [
+            "project-workflow.project_export_artifact_get_request",
+            "project-workflow.project_export_content_request",
+            "project-workflow.project_export_delivery_get_request"
+          ]
+        },
+        "success_response": {
+          "enum": [
+            "project-workflow.project_export_artifact_get_response",
+            "project-workflow.project_export_content_response",
+            "project-workflow.project_export_delivery_get_response"
+          ]
+        },
+        "scope": {
+          "type": "object",
+          "required": [
+            "workspace_requirement",
+            "authority"
+          ],
+          "properties": {
+            "workspace_requirement": {
+              "const": "exactly_one_workspace"
+            },
+            "authority": {
+              "enum": [
+                "scoped_agent_grant",
+                "current_authorized_human"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "error_codes": {
+          "const": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ]
+        },
+        "subject_requirements": {
+          "const": {
+            "project": {
+              "required_actions": [
+                "project.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            },
+            "project_financial_report": {
+              "required_actions": [
+                "project.read",
+                "report.read"
+              ],
+              "required_purposes": [
+                "project_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "project"
+              ]
+            }
+          }
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "operation": {
+              "const": "project_export.artifact.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/export-artifacts/{export_id}"
+            },
+            "request_contract": {
+              "const": "project-workflow.project_export_artifact_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.project_export_artifact_get_response"
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project_export.content.read"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/export-artifacts/{export_id}/content"
+            },
+            "request_contract": {
+              "const": "project-workflow.project_export_content_request"
+            },
+            "success_response": {
+              "const": "project-workflow.project_export_content_response"
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "project_export.delivery.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/export-deliveries/{delivery_id}"
+            },
+            "request_contract": {
+              "const": "project-workflow.project_export_delivery_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.project_export_delivery_get_response"
+            }
+          }
+        }
+      ]
+    },
+    "project_export_transport_inventory": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/project_export_transport_registration"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "project_export.artifact.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "project_export.content.read"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "project_export.delivery.get"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "project_export_delivery_admission_inputs": {
+      "description": "Declared independent conformance inputs from the qualified admission boundary; this object authenticates nothing and is not a public content POST body. Unknown required deadlines deny admission.",
+      "type": "object",
+      "required": [
+        "context",
+        "executor",
+        "delegation_id",
+        "authority_audit_event_id",
+        "admitted_at",
+        "authority_expires_at",
+        "server_deadline"
+      ],
+      "properties": {
+        "context": {
+          "$ref": "common.schema.json#/$defs/command_context"
+        },
+        "executor": {
+          "$ref": "context.schema.json#/$defs/principal_reference"
+        },
+        "delegation_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authority_audit_event_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "admitted_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "authority_expires_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "server_deadline": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
   }
 }

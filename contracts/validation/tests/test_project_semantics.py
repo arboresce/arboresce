@@ -3,16 +3,432 @@
 from copy import deepcopy
 
 import pytest
-from project_semantics_support import binding_inputs, case, export_inputs, prior_identity
+from project_semantics_support import (
+    binding_inputs,
+    byte_vector,
+    case,
+    export_inputs,
+    prior_identity,
+    transport_inputs,
+    validate_target,
+)
 
+from arboresce_contract_validation.project_exports import verify_artifact
 from arboresce_contract_validation.project_semantics import (
+    artifact_read_problems,
     binding_problems,
+    delivery_problems,
+    delivery_read_problems,
     export_problems,
     group_problems,
     readback_problems,
     report_problems,
     revocation_problems,
 )
+
+
+def test_transport_profile_versions_bind_one_immutable_digest():
+    identities = {}
+    for name in (
+        "project-json-v1",
+        "project-csv-v1",
+        "project-financial-json-v1",
+        "project-financial-csv-v1",
+    ):
+        reference = transport_inputs(name)[1]["result"]["artifact"]["core"]["profile"]
+        key = (
+            reference["organization_id"],
+            reference["domain_id"],
+            reference["profile_id"],
+            reference["version"]["kind"],
+            reference["version"]["value"],
+        )
+        if key in identities:
+            assert identities[key] == reference["content_sha256"]
+        identities[key] = reference["content_sha256"]
+    assert len(identities) == 2
+
+
+@pytest.mark.parametrize(
+    ("index", "target", "required"),
+    [
+        (2, "project_export_content_request", "expected_control_revision"),
+        (5, "project_export_delivery_profile", "max_staged_bytes_per_operation"),
+        (6, "project_export_delivery_admission_inputs", "authority_expires_at"),
+    ],
+)
+def test_transport_structural_guard_rejects_missing_admission_inputs(index, target, required):
+    value = transport_inputs("project-json-v1")[index]
+    del value[required]
+    with pytest.raises(ValueError, match="value violates owning contract"):
+        validate_target(value, target)
+
+
+@pytest.mark.parametrize(
+    "name",
+    ["project-json-v1", "project-csv-v1", "project-financial-json-v1", "project-financial-csv-v1"],
+)
+def test_complete_transport_literals_and_actual_bytes(name):
+    (
+        read_request,
+        read_response,
+        request,
+        receipt,
+        response,
+        profile,
+        admission,
+        delivery_request,
+        delivery_response,
+    ) = transport_inputs(name)
+    artifact = read_response["result"]["artifact"]
+    for target, value in (
+        ("project_export_artifact_get_request", read_request),
+        ("project_export_artifact_get_response", read_response),
+        ("project_export_content_request", request),
+        ("project_export_delivery_receipt", receipt),
+        ("project_export_content_response", response),
+        ("project_export_delivery_profile", profile),
+        ("project_export_delivery_admission_inputs", admission),
+        ("project_export_delivery_get_request", delivery_request),
+        ("project_export_delivery_get_response", delivery_response),
+    ):
+        validate_target(value, target)
+    assert artifact_read_problems(read_request, read_response) == []
+    assert delivery_read_problems(delivery_request, delivery_response, artifact) == []
+    assert delivery_problems(request, artifact, receipt, response, profile, admission) == []
+    assert verify_artifact(artifact, byte_vector(name)[1]) == byte_vector(name)[2]
+
+
+@pytest.mark.parametrize(
+    ("index", "path", "value", "diagnostic"),
+    [
+        (
+            0,
+            ("body", "export_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "artifact read names another export",
+        ),
+        (
+            0,
+            ("metadata", "context", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "artifact read belongs to another workspace",
+        ),
+        (
+            1,
+            ("result", "artifact", "control", "subject", "export_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "artifact read identities differ",
+        ),
+        (
+            1,
+            ("result", "artifact", "control", "last_event", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "artifact read lifecycle event belongs to another organization",
+        ),
+        (
+            1,
+            ("result", "artifact", "reference", "artifact_record_sha256"),
+            "0" * 64,
+            "artifact read core digest differs",
+        ),
+        (
+            1,
+            ("result", "artifact", "observed_at"),
+            "2026-10-03T12:05:00.000Z",
+            "artifact read observation interval is invalid",
+        ),
+        (
+            1,
+            ("result", "artifact", "core", "expires_at"),
+            "2026-10-03T12:05:00.000Z",
+            "artifact read observation interval is invalid",
+        ),
+        (
+            1,
+            ("result", "artifact", "availability"),
+            "expired",
+            "artifact read availability differs",
+        ),
+    ],
+)
+def test_artifact_read_cross_record_substitutions(index, path, value, diagnostic):
+    values = transport_inputs("project-json-v1")[:2]
+    node = values[index]
+    for key in path[:-1]:
+        node = node[key]
+    node[path[-1]] = value
+    assert diagnostic in artifact_read_problems(*values)
+
+
+def test_artifact_read_financial_subject_scope():
+    request, response = transport_inputs("project-financial-json-v1")[:2]
+    response["result"]["artifact"]["core"]["subject"]["report"]["domain_id"] = (
+        "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    )
+    assert "artifact read subject belongs to another workspace" in artifact_read_problems(
+        request, response
+    )
+
+
+@pytest.mark.parametrize(
+    ("changes", "availability"),
+    [
+        (
+            {
+                "bytes_state": "purged",
+                "restriction": "revoked",
+                "purge_state": "complete",
+                "control_revision": {"kind": "control", "value": "5"},
+            },
+            "purged",
+        ),
+        (
+            {"restriction": "revoked", "control_revision": {"kind": "control", "value": "2"}},
+            "unavailable",
+        ),
+        (
+            {"bytes_state": "unavailable", "control_revision": {"kind": "control", "value": "2"}},
+            "unavailable",
+        ),
+        ({}, "unavailable"),
+    ],
+)
+def test_artifact_read_availability_precedence(changes, availability):
+    request, response = transport_inputs("project-json-v1")[:2]
+    artifact = response["result"]["artifact"]
+    artifact["control"].update(changes)
+    artifact["availability"] = availability
+    validate_target(response, "project_export_artifact_get_response")
+    assert artifact_read_problems(request, response) == []
+
+
+def test_artifact_read_exclusive_expiry():
+    request, response = transport_inputs("project-json-v1")[:2]
+    artifact = response["result"]["artifact"]
+    artifact["observed_at"] = artifact["core"]["expires_at"]
+    artifact["availability"] = "expired"
+    validate_target(response, "project_export_artifact_get_response")
+    assert artifact_read_problems(request, response) == []
+
+
+@pytest.mark.parametrize(
+    "format_name",
+    ["project-json-v1", "project-csv-v1", "project-financial-json-v1", "project-financial-csv-v1"],
+)
+@pytest.mark.parametrize(
+    ("section", "field", "replacement", "diagnostic"),
+    [
+        ("profile", "profile_id", "ffffffff-ffff-4fff-8fff-ffffffffffff", "profile differs"),
+        ("profile", "content_sha256", "0" * 64, "profile differs"),
+        ("profile", "domain_id", "ffffffff-ffff-4fff-8fff-ffffffffffff", "profile differs"),
+        ("policy", "organization_id", "ffffffff-ffff-4fff-8fff-ffffffffffff", "policy belongs"),
+        ("policy", "domain_id", "ffffffff-ffff-4fff-8fff-ffffffffffff", "policy belongs"),
+    ],
+)
+def test_retained_delivery_immutable_profile_and_policy_scopes(
+    format_name, section, field, replacement, diagnostic
+):
+    values = transport_inputs(format_name)
+    request, response, artifact = values[7], values[8], values[1]["result"]["artifact"]
+    response["result"]["delivery"][section][field] = replacement
+    validate_target(response, "project_export_delivery_get_response")
+    assert any(
+        diagnostic in problem for problem in delivery_read_problems(request, response, artifact)
+    )
+
+
+@pytest.mark.parametrize(
+    "format_name",
+    ["project-json-v1", "project-csv-v1", "project-financial-json-v1", "project-financial-csv-v1"],
+)
+@pytest.mark.parametrize(
+    ("admitted", "expires", "valid"),
+    [
+        ("2026-10-03T12:05:01.000Z", "2026-10-03T12:10:01.000Z", True),
+        ("2026-10-03T12:05:00.999Z", "2026-10-03T12:05:33.000Z", False),
+        ("2026-10-03T12:05:03.000Z", "2026-10-03T12:05:02.000Z", False),
+        ("2026-10-03T12:05:03.000Z", "2026-10-03T12:05:03.000Z", False),
+        ("2026-10-03T12:10:01.000Z", "2026-10-03T12:10:01.001Z", False),
+        ("2026-10-03T12:05:03.000Z", "2026-10-03T12:10:01.001Z", False),
+    ],
+)
+def test_retained_delivery_historical_interval(format_name, admitted, expires, valid):
+    values = transport_inputs(format_name)
+    request, response, artifact = values[7], values[8], values[1]["result"]["artifact"]
+    receipt = response["result"]["delivery"]
+    receipt["admitted_at"], receipt["transfer_expires_at"] = admitted, expires
+    # Present expiry does not rewrite an earlier admitted immutable receipt.
+    artifact["observed_at"] = artifact["core"]["expires_at"]
+    artifact["availability"] = "expired"
+    validate_target(response, "project_export_delivery_get_response")
+    validate_target(artifact, "project_export_artifact_resource")
+    problems = delivery_read_problems(request, response, artifact)
+    assert ("delivery read historical interval is invalid" not in problems) is valid
+
+
+@pytest.mark.parametrize("selector", ["organization_id", "domain_id"])
+def test_delivery_read_coherent_receipt_cannot_replace_artifact_workspace(selector):
+    values = transport_inputs("project-json-v1")
+    request, response, artifact = values[7], values[8], values[1]["result"]["artifact"]
+    request["metadata"]["context"][selector] = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    response["result"]["delivery"]["context"][selector] = request["metadata"]["context"][selector]
+    validate_target(request, "project_export_delivery_get_request")
+    validate_target(response, "project_export_delivery_get_response")
+    validate_target(artifact, "project_export_artifact_resource")
+    assert "delivery read artifact belongs to another workspace" in delivery_read_problems(
+        request, response, artifact
+    )
+
+
+@pytest.mark.parametrize(
+    ("index", "path", "value", "diagnostic"),
+    [
+        (
+            0,
+            ("body", "delivery_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery read names another delivery",
+        ),
+        (
+            1,
+            ("result", "delivery", "context", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery read belongs to another workspace",
+        ),
+        (
+            1,
+            ("result", "delivery", "artifact", "export_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery read differs from the exact artifact",
+        ),
+        (
+            1,
+            ("result", "delivery", "emitted", "sha256"),
+            "0" * 64,
+            "delivery read differs from the exact artifact",
+        ),
+    ],
+)
+def test_delivery_read_substitutions(index, path, value, diagnostic):
+    values = transport_inputs("project-json-v1")
+    selected = (values[7], values[8], values[1]["result"]["artifact"])
+    node = selected[index]
+    for key in path[:-1]:
+        node = node[key]
+    node[path[-1]] = value
+    assert diagnostic in delivery_read_problems(*selected)
+
+
+@pytest.mark.parametrize(
+    ("index", "path", "value", "diagnostic"),
+    [
+        (
+            0,
+            ("artifact", "artifact_record_sha256"),
+            "0" * 64,
+            "delivery names another exact artifact",
+        ),
+        (0, ("expected_control_revision", "value"), "99", "delivery control precondition differs"),
+        (0, ("context", "purpose"), "other", "delivery context differs from admission"),
+        (
+            2,
+            ("context", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery context differs from admission",
+        ),
+        (
+            2,
+            ("executor", "principal_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery attribution differs from admission",
+        ),
+        (2, ("emitted", "byte_length"), 1, "delivery emitted identity differs"),
+        (2, ("profile", "content_sha256"), "0" * 64, "delivery selected profile differs"),
+        (4, ("transfer_buffer_bytes",), 1, "delivery selected profile differs"),
+        (
+            2,
+            ("policy", "policy_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery policy differs or belongs to another scope",
+        ),
+        (
+            4,
+            ("lifecycle_policy", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery policy differs or belongs to another scope",
+        ),
+        (
+            4,
+            ("lifecycle_policy", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery policy differs or belongs to another scope",
+        ),
+        (4, ("transfer_idle_ms",), 60001, "delivery selected profile capacities are inconsistent"),
+        (
+            4,
+            ("max_active_transfers_per_organization",),
+            9,
+            "delivery selected profile capacities are inconsistent",
+        ),
+        (1, ("availability",), "unavailable", "delivery artifact is unavailable at admission"),
+        (
+            5,
+            ("admitted_at",),
+            "2026-10-03T12:05:00.000Z",
+            "delivery artifact is unavailable at admission",
+        ),
+        (
+            5,
+            ("admitted_at",),
+            "2026-10-03T12:10:01.000Z",
+            "delivery artifact is unavailable at admission",
+        ),
+        (5, ("authority_expires_at",), None, "delivery admission deadline is unknown"),
+        (5, ("server_deadline",), None, "delivery admission deadline is unknown"),
+        (4, ("artifact_lifetime_ms",), 1, "delivery fixed or transfer deadline differs"),
+        (
+            2,
+            ("transfer_expires_at",),
+            "2026-10-03T12:05:34.000Z",
+            "delivery fixed or transfer deadline differs",
+        ),
+        (
+            5,
+            ("authority_expires_at",),
+            "2026-10-03T12:05:03.000Z",
+            "delivery fixed or transfer deadline differs",
+        ),
+        (
+            4,
+            ("artifact_lifetime_ms",),
+            9007199254740991,
+            "delivery deadline arithmetic is unrepresentable",
+        ),
+        (3, ("headers", "Content-Length"), "1", "delivery binary headers differ"),
+        (
+            3,
+            ("headers", "Arboresce-Delivery-Id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "delivery binary headers differ",
+        ),
+    ],
+)
+def test_delivery_admission_and_binary_response_substitutions(index, path, value, diagnostic):
+    values = transport_inputs("project-json-v1")
+    selected = (
+        values[2],
+        values[1]["result"]["artifact"],
+        values[3],
+        values[4],
+        values[5],
+        values[6],
+    )
+    node = selected[index]
+    for key in path[:-1]:
+        node = node[key]
+    node[path[-1]] = value
+    assert diagnostic in delivery_problems(*selected)
 
 
 @pytest.mark.parametrize("financial", [False, True])

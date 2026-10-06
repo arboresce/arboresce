@@ -338,6 +338,81 @@ maintained project CSV encoding and independent readers, additive operation/admi
 exact artifact/content/delivery transport qualification remain required before
 CLI consumption. No ID-only export response constitutes a complete artifact.
 
+### Focused artifact and delivery transport
+
+The canonical artifact kind selects the focused project profile on the existing
+`GET /v1/export-artifacts/{export_id}`, read-only
+`POST /v1/export-artifacts/{export_id}/content`, and
+`GET /v1/export-deliveries/{delivery_id}` routes. This does not widen the closed
+financial artifact core or register another legacy lifecycle operation kind.
+The separate three-entry `project_export_transport_inventory` binds operation,
+method, route, normalized request, success contract, errors and exact grant
+requirements. Its operations are `project_export.artifact.get`,
+`project_export.content.read` and `project_export.delivery.get`.
+
+Both GETs have exactly the organization, domain and purpose query selectors,
+decoded once with duplicates and extra selectors rejected, and no HTTP body or
+mutation idempotency metadata. Their normalized selectors contain read command
+and context metadata plus the exact route ID. Artifact GET returns the complete
+focused resource in common 200 `result.artifact`; delivery GET returns the
+unchanged closed lifecycle delivery receipt in common 200 `result.delivery`.
+Neither response has a top-level or nested command receipt or operation alias.
+Lookup under current authority must return the complete record or fail. An
+availability observation or retained delivery receipt never grants byte access.
+
+The content POST reuses the unchanged closed lifecycle `export_content_request`:
+context, complete exact export reference and expected control revision. It has
+no command metadata or idempotency claim. Before bytes, compare route, workspace,
+reference/core digest and current control, then recheck current source, subject,
+profile, policy, expiry and grant authority and reserve capacity and an audited
+delivery. The existing lifecycle fixed-grant and before/after-body failure rules
+apply. No Range, resume, compression, redirect, presigned URL or multipart mode
+is introduced. A retry obtains a fresh delivery admission and ID.
+
+For a scoped agent, project artifacts require `project.read`; project financial
+artifacts additionally require `report.read`. Both use `project_read` purpose
+and an exact same-workspace workspace or project grant. This is a minimum
+artifact access mapping, not authorization to disclose every payload member:
+each included expense, association, review, source and contextual record still
+requires its owning current authority. Direct human access requires current
+domain policy and the same complete disclosure checks. Select the requirements
+from the canonical artifact subject, never an unverified caller kind; do not
+reveal the subject or delivery identity before authorization. A delivery GET
+resolves its exact retained artifact for this selection, never a mutable head.
+
+`project_export_delivery_profile` is a separately named closed profile with kind
+`arboresce.project-export-delivery-profile.v1`. It has the same mandatory finite
+duration, attempt, buffer, slot, staged-byte and lifecycle-policy fields and leaf
+bounds as the existing financial delivery profile. All fields are selected
+inputs, not defaults. Qualify idle versus total duration, organization versus
+global slots, checked representable UTC arithmetic, staging/retry copies and
+actual complete 64 MiB generation, transfer and cleanup before enabling support.
+The artifact's profile reference binds JCS of this complete selected profile;
+its fixed expiry equals sealing time plus its checked artifact lifetime.
+
+Binary success is HTTP 200 with the complete artifact bytes. The typed
+`project_export_content_response` describes the observed status and six required
+headers; it is a conformance observation, not a JSON body sent instead of bytes.
+Headers are Content-Type, Content-Length, Arboresce-Export-Id,
+Arboresce-Delivery-Id, Arboresce-Artifact-Sha256 and
+Arboresce-Transfer-Expires-At. Preserve and reject duplicate case-insensitive
+instances before constructing the canonical header observation. Other ordinary
+HTTP headers confer no identity or authority. Required values exactly match
+artifact format, emitted length/hash and the admitted delivery ID/deadline.
+Transfer expiry is the minimum of fixed artifact expiry, known current authority
+expiry, admitted time plus selected transfer total and the qualified server
+deadline. None may be inferred from a receipt, refreshed by idle activity or
+silently omitted. The client checks the complete byte length/digest and commits
+only a protected complete destination after successful verification.
+
+The closed `project_export_delivery_admission_inputs` supplies independent
+conformance inputs from the qualified boundary: context, executor, delegation,
+audit event, admission time, authority expiry and server deadline. It is neither
+a customer POST body nor an authenticated grant. Unknown required deadlines are
+representable as null and must deny admission. Qualify their actual trusted
+producer and current fences before runtime use; never derive these inputs from
+the returned receipt or accept client assertions as their authority.
+
 ## Required qualification
 
 [Project fixtures](project-fixtures.md) owns the deterministic corpus and review

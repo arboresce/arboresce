@@ -599,6 +599,18 @@ canonical requests, read envelopes and sealed outputs stay engine-owned. Preserv
 receipt distinctions, current authority, idempotency and resource budgets. Contract
 additions do not require implementation of later storage/service/model consumers.
 
+The focused project artifact kind uses the existing exact artifact/content/
+delivery routes through the separately registered
+[`project_export_transport_inventory`](../../contracts/public/v1/project-workflow.schema.json).
+The [project owner](project-workflow.md#focused-artifact-and-delivery-transport)
+defines its complete selectors, wrappers, binary observation, subject-selected
+minimum grant mapping and finite delivery profile. Preserve bodyless exact GETs,
+read-only content POST, current complete disclosure and retained receipt
+distinctions. These registrations do not change the original 23-entry or
+eight-entry additive MVP inventories or the closed financial/lifecycle types.
+Qualification of these contracts does not enable the missing asynchronous
+project export operation or actual streaming service.
+
 ### Completeness of the additive MVP contracts
 
 The additive registrations bind each exact operation to its method, route,

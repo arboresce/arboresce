@@ -289,7 +289,8 @@ The contract uses the
 
 `src/arboresce_contract_validation/project_semantics.py` exposes
 `revocation_problems`, `binding_problems`, `report_problems`, `export_problems`,
-`group_problems` and `readback_problems` for already
+`group_problems`, `readback_problems`, `artifact_read_problems`,
+`delivery_read_problems` and `delivery_problems` for already
 structurally validated values. They compare independently selected identity,
 request and response scope, exact references, controls, continuation identity and
 review history. They reject the contradictory pending/accepted fixture and the
@@ -312,10 +313,11 @@ financial selection order, separate artifact/reference/control identity, fixed
 expiry and availability precedence. JSON literal examples have independently
 reviewable complete payload/core preimages, byte lengths and hashes. The CSV core
 examples qualify representation shape only; they do not claim emitted CSV bytes.
-Complete maintained CSV readers, asynchronous admission and exact delivery routes remain
-required before consumption. These helpers do not qualify source-set completeness
-or calculate canonical bytes, and never manufacture actual financial assurance.
-They do not authenticate an actor, calculate canonical digests, enforce current
+Qualified complete CSV readers, asynchronous admission and exact delivery routes
+remain required before consumption. Export metadata checks compare actual core
+and selected-profile digests with the bounded conformance encoder. These helpers
+do not qualify source-set completeness or manufacture actual financial assurance.
+They do not authenticate an actor, enforce current
 disclosure, perform a transaction or qualify an actual human decision. Their
 literal positive and mutation scenarios are in `tests/test_project_semantics.py`;
 the loader `tests/project_semantics_support.py` is maintained helper source.
@@ -324,6 +326,27 @@ performs these cross-record checks. Consuming clients/services must explicitly
 compose structural and semantic validation and qualify their effects.
 
 ### Frozen project export byte expectations
+
+The focused transport definitions register exact artifact/content/delivery reads
+on the existing generic routes. They preserve the original 23 registrations,
+the eight additive MVP registrations and the closed lifecycle/financial types.
+Complete literal transport cases bind a separately named selected delivery
+profile, exact artifact core/reference, request, receipt, binary header
+observation and independent declared admission inputs. Their bytes reuse the
+approved JSON/CSV payloads below; the new selected profile and export IDs give
+their immutable cores distinct digests. The binary observation is never a JSON
+body substituted for the actual download.
+
+`artifact_read_problems`, `delivery_read_problems` and `delivery_problems` compare
+these structurally validated values across scope, controls, profile/policy,
+attribution, emitted identity, fixed/transfer deadlines and headers. Metadata
+unavailability may reflect upstream denial even when own bytes remain present.
+Unknown required deadlines deny admission; UTC overflow and inconsistent finite
+capacities fail. These helpers and literal loaders remain in the measured and
+strictly typed source inventory. They prove neither actual authenticated
+authority, capacity reservation, complete streaming throughput nor a financial
+human review. Qualify the trusted admission producer and all runtime fences
+before support; supplied facts and retained receipts confer no access.
 
 The maintained `arboresce_contract_validation.project_exports` readers consume
 the independently approved literal JSON and CSV vectors. They reconstruct the
