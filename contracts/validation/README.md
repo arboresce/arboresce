@@ -312,7 +312,7 @@ financial selection order, separate artifact/reference/control identity, fixed
 expiry and availability precedence. JSON literal examples have independently
 reviewable complete payload/core preimages, byte lengths and hashes. The CSV core
 examples qualify representation shape only; they do not claim emitted CSV bytes.
-Complete CSV readers, asynchronous admission and exact delivery routes remain
+Complete maintained CSV readers, asynchronous admission and exact delivery routes remain
 required before consumption. These helpers do not qualify source-set completeness
 or calculate canonical bytes, and never manufacture actual financial assurance.
 They do not authenticate an actor, calculate canonical digests, enforce current
@@ -322,6 +322,48 @@ the loader `tests/project_semantics_support.py` is maintained helper source.
 Neither the generic local CLI nor the upstream parsed-fixture CLI automatically
 performs these cross-record checks. Consuming clients/services must explicitly
 compose structural and semantic validation and qualify their effects.
+
+### Frozen project export byte expectations
+
+[The byte-vector inventory](tests/fixtures/project-export-byte-vectors.json)
+names fifteen explicit files under `tests/fixtures/project-export-bytes/`.
+They are literal expectations for independent approval before maintained
+encoders/readers consume them, not outputs regenerated during tests or normal use.
+Exact-path Git attributes preserve all five CSV files' CRLF bytes through staging
+and checkout; the rest of the repository retains its ordinary text policy.
+The complete JSON payloads are the existing reviewed project and project-financial
+payload cases, with unchanged values and JCS identities. Each CSV artifact has a
+distinct export ID and an actual emitted-byte digest/length; its core digest
+excludes mutable observations. Existing CSV cases in the shape manifest remain
+shape-only and do not retrospectively prove these bytes.
+
+| Format | Emitted bytes | SHA-256 |
+| --- | ---: | --- |
+| `project-json-v1` | 26,389 | `069562a14dbb6d72c370702fe010bf0bd6ad758c7cb851aac8229cc31a3f102c` |
+| `project-csv-v1` | 272,609 | `803f616be0a38b706af95c72382051aa6953484817fe0e38b9291dd045172052` |
+| `project-financial-json-v1` | 27,425 | `9af6789caebc98e014762d11471ac12a994e7fb559fa47c0477d6927d08465e4` |
+| `project-financial-csv-v1` | 366,414 | `b897dcc5e6fc5ca37632094f0c9742724c98605804a0345edc7699fc4444618a` |
+
+Project CSV represents all 852 payload nodes in 853 data rows. Financial CSV
+represents all 845 nodes, plus report/record/seven summary/financial exclusion
+overviews, in 855 data rows. The financial gross remains the reviewed CAD 50.00;
+the separate proposed expense contributes neither money nor fetched content.
+Both files retain all pending/association/review/availability fields as applicable.
+Independent decoding must reconstruct the exact JSON bytes, validate all
+identity and overview projections, and recompute artifact-core identities.
+An encoding-only 18-node tree additionally freezes UTF-16 ordering, escaped
+pointers, formula-like text, Unicode controls, literal backslash escapes,
+maximum safe unsigned integer, nulls and distinct empty containers. The cell
+vectors include valid and invalid literal tokens. They do not establish a domain
+payload, current authorization, source completeness or actual human assurance.
+Separate depth vectors accept 32 nested containers with a leaf inside the
+deepest one and reject 33 containers. The scalar leaf does not add container depth.
+
+The [owning profile](../../docs/requirements/project-workflow.md#focused-reversible-csv-profiles)
+defines the new formats. No maintained encoder/reader, asynchronous admission,
+artifact/content/delivery route, actual server arithmetic or real-human gate is
+qualified merely by adding these expectations. All original fixture expectations
+and closed financial/common/lifecycle definitions remain unchanged.
 
 The repository also supplies a tested local validator at
 `contracts/validation/src/arboresce_contract_validation/cli.py`. The corpus

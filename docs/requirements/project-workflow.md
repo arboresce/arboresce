@@ -260,12 +260,81 @@ and the financial export's 64 MiB, depth 32 and 1,048,576-node stream bounds.
 Money and revision values remain strings. Actual bytes and complete encoded size
 require independent qualification; parsed shapes do not establish them.
 
+### Focused reversible CSV profiles
+
+Both focused CSV formats retain the financial owner's exact UTF-8, quoting,
+CRLF, typed-cell, reversible string-escape and capacity rules. Quote every cell,
+including headers, and terminate every row, including the last, with CRLF.
+The decoded data cells use `text:s:`, `text:n:`, `text:b:`, `text:i:` and
+the separately declared inapplicable token `text:x:`. A null value, empty
+string, empty object, empty array and inapplicable column remain distinct.
+Money, IDs and revisions remain strings; counters and container counts use
+canonical unsigned integers no greater than 9,007,199,254,740,991. No nested
+JSON object or array is placed in a cell. The shared 32,760 UTF-16-code-unit
+and 65,536 UTF-8-byte decoded-cell bounds include the token and escaped payload;
+CSV quoting is outside the cell bound and inside the stream bound.
+
+`project-csv-v1` has this exact nine-column header:
+
+```text
+row_kind,organization_id,domain_id,project_id,content_revision,snapshot_id,path,value_type,value
+```
+
+Every data row repeats the payload's exact readback workspace, project ID,
+content revision value and snapshot ID. The first data row has row kind
+`project`, inapplicable path, value type `string` and value `project-csv-v1`.
+All later rows have kind `field`. They encode every node of the complete
+`project-export-payload-v1`, including the root, pending changes and source
+availability. The row identities are projections checked against that root;
+they never replace its controls, provenance or accepted-versus-pending state.
+
+`project-financial-csv-v1` retains the financial owner's exact 24-column
+header, cell and overview projections. Every row repeats the dedicated project
+report ID and digest; the first `report` row's value is
+`project-financial-csv-v1`. The `record` rows project complete selected records
+in frozen order. `summary` and `exclusion` rows project
+`report.manifest.financial_manifest`, with unchanged currency/bucket ordering
+and minimal authorized exclusion identities. Project association selections,
+review events and project association exclusions appear in the mandatory
+complete field rows, without extra overview transactions or fetching excluded
+content. File order is report, records, summaries, financial exclusions, then
+all field rows. Every assigned nullable overview cell uses its null token;
+every unassigned column uses the inapplicable token. These overviews are
+checked projections of the complete payload, never another money authority.
+
+For either format, one `field` row represents every payload node. Its canonical
+RFC 6901 pointer is empty at root; object keys escape `~` as `~0` and `/` as
+`~1`, and array indices use canonical unsigned decimals. Value type is exactly
+`object`, `array`, `string`, `integer`, `boolean` or `null`. Containers carry
+their exact immediate count as an integer cell; scalars carry the matching
+typed cell. Rows use deterministic preorder, with parents before children,
+UTF-16 JCS member ordering and increasing array indices. Financial field rows'
+other columns, apart from row kind and repeated report identity, are inapplicable.
+
+An independent reader reconstructs exactly one complete root and validates its
+owning payload shape and all repeated identities, profile and overview
+projections. Reject wrong headers, row width, row kinds or order; unquoted
+cells, malformed UTF-8, BOM, missing final CRLF, noncanonical cells or pointers;
+duplicates, missing parents, wrong scalar/container types or counts and
+noncontiguous arrays. Reject all stream, depth, node and cell overflows rather
+than truncating. JCS of the reconstructed payload must equal the corresponding
+JSON bytes and payload digest. An ordinary CSV parser and this public profile
+suffice; reconstruction needs neither an engine database nor a proprietary
+importer. A separately requested JSON export may fit when CSV exceeds a bound.
+
+The literal [byte vectors](../../contracts/validation/tests/fixtures/project-export-byte-vectors.json)
+freeze complete payload, emitted and artifact-core identities for independent
+review before maintained encoders or readers consume them. Encoding-only
+Unicode/escape/container vectors exercise the same cell/tree convention but
+do not assert a domain payload or actual human assurance. Synthetic retained
+assurance and source labels remain fixture values, not qualification evidence.
+
 The lifecycle owner retains fixed sealing/expiry, staging, current authorization,
 bounded delivery, source restriction and retained receipt semantics. Existing
 financial/lifecycle v1 shapes and operation kinds are unchanged. This additive
-payload/core completion does not register a new lifecycle operation, qualify
+payload/core and byte-profile completion does not register a new lifecycle operation, qualify
 asynchronous admission, or advertise an implemented delivery route. Complete
-project CSV encoding and independent readers, additive operation/admission and
+maintained project CSV encoding and independent readers, additive operation/admission and
 exact artifact/content/delivery transport qualification remain required before
 CLI consumption. No ID-only export response constitutes a complete artifact.
 

@@ -12,3 +12,10 @@
 *.tar binary
 *.woff binary
 *.woff2 binary
+
+# These literal byte expectations require their canonical CRLF framing.
+contracts/validation/tests/fixtures/project-export-bytes/project.csv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+contracts/validation/tests/fixtures/project-export-bytes/project-financial.csv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+contracts/validation/tests/fixtures/project-export-bytes/encoding-tree.fields.csv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+contracts/validation/tests/fixtures/project-export-bytes/encoding-depth-32.fields.csv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+contracts/validation/tests/fixtures/project-export-bytes/encoding-depth-33.fields.csv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
