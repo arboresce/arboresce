@@ -230,6 +230,45 @@ authorized view cannot fit; silent collection truncation is forbidden. Semantic
 join, completeness and current disclosure checks remain required before a service
 or client can claim qualified readback.
 
+## Focused export payload and artifact identities
+
+Project export requires both the exact project content revision and expected
+project control revision. Neither precondition may be inferred from an ID or a
+cached head. `project-export-payload-v1` freezes the complete scoped
+`project_readback_view`, the separate complete pending change collection and
+source availability. Accepted content and pending proposals remain distinct.
+`project-financial-export-payload-v1` freezes the complete project financial
+report snapshot, every selected exact financial revision paired with its frozen
+selection, and source availability. Financial records use the unchanged closed
+financial v1 export record type and retain selection order. Excluded records
+contribute neither content nor money. Every included identity, lineage, review
+and source descriptor requires current disclosure; inability to provide the
+complete authorized payload fails rather than silently omitting entries.
+
+The closed `arboresce.project-export-artifact.v1` core binds workspace/export
+identity, exact project snapshot or project report subject with observed control,
+payload digest, selected format, media type, literal UTF-8 encoding, emitted
+byte length/digest, selected profile, sealing time and fixed exclusive expiry.
+The complete resource adds the unchanged lifecycle export reference and control,
+observation time and available/unavailable/expired/purged disposition. Its
+artifact-record digest hashes JCS of the complete core. Mutable observations
+never enter that digest. Project and project-financial formats require their
+corresponding subject kind; JSON uses application/json and CSV uses text/csv.
+For JSON, payload and emitted digests agree; CSV has its own emitted-byte digest.
+Each JSON payload uses shared JCS, with no BOM, newline or insignificant space,
+and the financial export's 64 MiB, depth 32 and 1,048,576-node stream bounds.
+Money and revision values remain strings. Actual bytes and complete encoded size
+require independent qualification; parsed shapes do not establish them.
+
+The lifecycle owner retains fixed sealing/expiry, staging, current authorization,
+bounded delivery, source restriction and retained receipt semantics. Existing
+financial/lifecycle v1 shapes and operation kinds are unchanged. This additive
+payload/core completion does not register a new lifecycle operation, qualify
+asynchronous admission, or advertise an implemented delivery route. Complete
+project CSV encoding and independent readers, additive operation/admission and
+exact artifact/content/delivery transport qualification remain required before
+CLI consumption. No ID-only export response constitutes a complete artifact.
+
 ## Required qualification
 
 [Project fixtures](project-fixtures.md) owns the deterministic corpus and review

@@ -46,3 +46,16 @@ def binding_inputs() -> tuple[dict[str, Any], dict[str, Any], str]:
         "version": {"kind": "content", "value": "1"},
     }
     return workspace, capture, "33333333-3333-4333-8333-333333333333"
+
+
+def export_inputs(
+    financial: bool = False,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    """Load independent literal admission, artifact and payload inputs."""
+    prefix = "project-report" if financial else "project"
+    payload = "project-financial" if financial else "project"
+    return (
+        case(prefix + "-export-request-mvp-valid"),
+        case(prefix + "-export-response-mvp-valid"),
+        case(payload + "-export-payload-complete"),
+    )

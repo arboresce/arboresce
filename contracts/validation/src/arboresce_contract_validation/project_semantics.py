@@ -33,6 +33,95 @@ def _scope(value: dict[str, Any], workspace: dict[str, Any]) -> bool:
     return all(value[key] == workspace[key] for key in ("organization_id", "domain_id"))
 
 
+def export_problems(
+    request: dict[str, Any], response: dict[str, Any], payload: dict[str, Any]
+) -> list[str]:
+    """Join independently frozen export input, artifact and complete payload.
+
+    These comparisons do not calculate emitted bytes or canonical hashes, prove
+    source-set completeness, or establish current disclosure and durable admission.
+    """
+    workspace = request["metadata"]["context"]
+    body, result = request["body"], response["result"]
+    artifact = result["export"]
+    core, reference, control = artifact["core"], artifact["reference"], artifact["control"]
+    subject = core["subject"]
+    problems: list[str] = []
+    if result["command"] != request["metadata"]["command"]:
+        problems.append("export response names another command")
+    if any(not _scope(value, workspace) for value in (core, reference, control["subject"])):
+        problems.append("export artifact belongs to another workspace")
+    if any(value["export_id"] != core["export_id"] for value in (reference, control["subject"])):
+        problems.append("export artifact identities differ")
+    if (
+        not _scope(core["profile"], workspace)
+        or control["last_event"]["organization_id"] != workspace["organization_id"]
+    ):
+        problems.append("export profile or lifecycle event belongs to another workspace")
+    if core["format"] != body["format"]:
+        problems.append("export format differs from the admitted request")
+    if subject["observed_control_revision"] != body["expected_control_revision"]:
+        problems.append("export subject control differs from the admitted request")
+    if request["metadata"]["command"] == "project.export":
+        project = payload["project"]
+        expected = {"project_id": body["project_id"], "content_revision": body["project_revision"]}
+        if subject["kind"] != "project" or subject.get("project") != expected:
+            problems.append("export subject differs from the selected project revision")
+        if payload["profile"] != "project-export-payload-v1":
+            problems.append("export payload has another project profile")
+        if (
+            project["project_id"] != body["project_id"]
+            or project["content_revision"] != body["project_revision"]
+            or project["control_revision"] != body["expected_control_revision"]
+            or subject.get("snapshot_id") != project["snapshot_id"]
+        ):
+            problems.append("export payload differs from the selected project snapshot")
+        problems.extend(
+            readback_problems(
+                {"result": {"project": project, "pending": payload["pending"]}},
+                {key: workspace[key] for key in ("organization_id", "domain_id")},
+                expected,
+            )
+        )
+    else:
+        report = payload["report"]
+        if subject["kind"] != "project_financial_report" or subject.get("report") != body["report"]:
+            problems.append("export subject differs from the selected project report")
+        if payload["profile"] != "project-financial-export-payload-v1":
+            problems.append("export payload has another financial profile")
+        if report["reference"] != body["report"] or not _scope(report["reference"], workspace):
+            problems.append("export payload names another project report")
+        selected = report["manifest"]["financial_manifest"]["selected"]
+        if [record["selected"] for record in payload["records"]] != selected:
+            problems.append("export records differ from the frozen financial selections")
+        for record in payload["records"]:
+            if record["revision"]["reference"] != record["selected"]["reference"]:
+                problems.append("export financial content names another exact revision")
+    if not core["sealed_at"] < core["expires_at"]:
+        problems.append("export artifact expiry does not follow sealing")
+    if artifact["observed_at"] < core["sealed_at"]:
+        problems.append("export availability was observed before sealing")
+    state = artifact["availability"]
+    expected_state = (
+        "purged"
+        if control["bytes_state"] == "purged"
+        else "expired"
+        if artifact["observed_at"] >= core["expires_at"]
+        else "unavailable"
+        if control["restriction"] != "unrestricted" or control["bytes_state"] != "available"
+        else "available"
+    )
+    # Current physical availability/disclosure may deny bytes despite a retained
+    # available control. Such a denial cannot bypass purge or exclusive expiry.
+    if state != expected_state and not (expected_state == "available" and state == "unavailable"):
+        problems.append("export availability contradicts its observed controls or expiry")
+    if core["format"].endswith("json-v1") and core["emitted"]["sha256"] != core["payload_sha256"]:
+        problems.append("export JSON emitted and payload digests differ")
+    if payload["source_availability"]["observed_at"] > core["sealed_at"]:
+        problems.append("export sources were observed after sealing")
+    return problems
+
+
 def revocation_problems(
     request: dict[str, Any], response: dict[str, Any], identity: dict[str, Any]
 ) -> list[str]:

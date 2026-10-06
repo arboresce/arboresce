@@ -3,15 +3,259 @@
 from copy import deepcopy
 
 import pytest
-from project_semantics_support import binding_inputs, case, prior_identity
+from project_semantics_support import binding_inputs, case, export_inputs, prior_identity
 
 from arboresce_contract_validation.project_semantics import (
     binding_problems,
+    export_problems,
     group_problems,
     readback_problems,
     report_problems,
     revocation_problems,
 )
+
+
+@pytest.mark.parametrize("financial", [False, True])
+def test_export_complete_literals(financial):
+    assert export_problems(*export_inputs(financial)) == []
+
+
+@pytest.mark.parametrize(
+    ("financial", "index", "path", "replacement", "diagnostic"),
+    [
+        (
+            False,
+            1,
+            ("result", "command"),
+            "project_report.export",
+            "export response names another command",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "core", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export artifact belongs to another workspace",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "reference", "export_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export artifact identities differ",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "control", "subject", "export_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export artifact identities differ",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "core", "profile", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export profile or lifecycle event belongs to another workspace",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "control", "last_event", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export profile or lifecycle event belongs to another workspace",
+        ),
+        (
+            False,
+            0,
+            ("body", "format"),
+            "project-csv-v1",
+            "export format differs from the admitted request",
+        ),
+        (
+            False,
+            0,
+            ("body", "expected_control_revision", "value"),
+            "3",
+            "export subject control differs from the admitted request",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "core", "subject", "project", "project_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export subject differs from the selected project revision",
+        ),
+        (
+            False,
+            2,
+            ("profile",),
+            "project-financial-export-payload-v1",
+            "export payload has another project profile",
+        ),
+        (
+            False,
+            2,
+            ("project", "project_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export payload differs from the selected project snapshot",
+        ),
+        (
+            False,
+            2,
+            ("project", "content_revision", "value"),
+            "2",
+            "export payload differs from the selected project snapshot",
+        ),
+        (
+            False,
+            2,
+            ("project", "control_revision", "value"),
+            "3",
+            "export payload differs from the selected project snapshot",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "core", "subject", "snapshot_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "export payload differs from the selected project snapshot",
+        ),
+        (
+            False,
+            2,
+            ("project", "workspace", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "readback belongs to another workspace",
+        ),
+        (
+            True,
+            1,
+            ("result", "export", "core", "subject", "report", "content_sha256"),
+            "f" * 64,
+            "export subject differs from the selected project report",
+        ),
+        (
+            True,
+            2,
+            ("profile",),
+            "project-export-payload-v1",
+            "export payload has another financial profile",
+        ),
+        (
+            True,
+            2,
+            ("report", "reference", "content_sha256"),
+            "f" * 64,
+            "export payload names another project report",
+        ),
+        (True, 2, ("records",), [], "export records differ from the frozen financial selections"),
+        (
+            True,
+            2,
+            ("records", 0, "revision", "reference", "version", "value"),
+            "2",
+            "export financial content names another exact revision",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "core", "expires_at"),
+            "2026-10-03T12:05:01.000Z",
+            "export artifact expiry does not follow sealing",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "observed_at"),
+            "2026-10-03T12:05:00.000Z",
+            "export availability was observed before sealing",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "observed_at"),
+            "2026-10-03T12:10:01.000Z",
+            "export availability contradicts its observed controls or expiry",
+        ),
+        (
+            False,
+            1,
+            ("result", "export", "core", "emitted", "sha256"),
+            "f" * 64,
+            "export JSON emitted and payload digests differ",
+        ),
+        (
+            False,
+            2,
+            ("source_availability", "observed_at"),
+            "2026-10-03T12:05:01.001Z",
+            "export sources were observed after sealing",
+        ),
+    ],
+)
+def test_export_semantic_mismatches(financial, index, path, replacement, diagnostic):
+    values = export_inputs(financial)
+    target = values[index]
+    for member in path[:-1]:
+        target = target[member]
+    target[path[-1]] = replacement
+    assert diagnostic in export_problems(*values)
+
+
+@pytest.mark.parametrize("availability", ["expired", "unavailable", "purged"])
+def test_export_retained_availability_literals(availability):
+    request, response, payload = export_inputs()
+    response["result"]["export"] = case("project-export-artifact-" + availability)
+    assert export_problems(request, response, payload) == []
+
+
+def test_export_unavailable_bytes_with_retained_available_control():
+    request, response, payload = export_inputs()
+    response["result"]["export"]["availability"] = "unavailable"
+    assert export_problems(request, response, payload) == []
+
+
+def test_export_expiry_precedes_missing_bytes():
+    request, response, payload = export_inputs()
+    response["result"]["export"] = case("project-export-artifact-unavailable")
+    response["result"]["export"]["observed_at"] = "2026-10-03T12:10:01.000Z"
+    assert "export availability contradicts its observed controls or expiry" in export_problems(
+        request, response, payload
+    )
+
+
+def test_export_csv_has_distinct_emitted_digest():
+    request, response, payload = export_inputs()
+    request["body"]["format"] = "project-csv-v1"
+    response["result"]["export"]["core"].update(format="project-csv-v1", media_type="text/csv")
+    response["result"]["export"]["core"]["emitted"]["sha256"] = "f" * 64
+    assert export_problems(request, response, payload) == []
+
+
+@pytest.mark.parametrize("financial", [False, True])
+def test_export_cannot_substitute_other_subject_kind(financial):
+    request, response, payload = export_inputs(financial)
+    other = export_inputs(not financial)[1]["result"]["export"]["core"]["subject"]
+    response["result"]["export"]["core"]["subject"] = other
+    diagnostic = (
+        "export subject differs from the selected project report"
+        if financial
+        else "export subject differs from the selected project revision"
+    )
+    assert diagnostic in export_problems(request, response, payload)
+
+
+@pytest.mark.parametrize("field", ["reference", "control"])
+def test_export_every_identity_must_match_workspace(field):
+    request, response, payload = export_inputs()
+    identity = response["result"]["export"][field]
+    if field == "control":
+        identity = identity["subject"]
+    identity["domain_id"] = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    assert "export artifact belongs to another workspace" in export_problems(
+        request, response, payload
+    )
 
 
 @pytest.mark.parametrize(

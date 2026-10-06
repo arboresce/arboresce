@@ -288,7 +288,8 @@ The contract uses the
 ## Local validator component
 
 `src/arboresce_contract_validation/project_semantics.py` exposes
-`revocation_problems`, `binding_problems`, `report_problems`, `group_problems` and `readback_problems` for already
+`revocation_problems`, `binding_problems`, `report_problems`, `export_problems`,
+`group_problems` and `readback_problems` for already
 structurally validated values. They compare independently selected identity,
 request and response scope, exact references, controls, continuation identity and
 review history. They reject the contradictory pending/accepted fixture and the
@@ -305,6 +306,15 @@ authenticate a synthetic assurance label. The project composition fixtures retai
 the independent financial vector's CAD 50.00 gross and exclude a distinct proposed
 expense; no report implementation generated their expected values. Actual server
 arithmetic, canonical hashing and current disclosure remain separately required.
+Export checks compare independently frozen complete payloads and sealed artifacts
+with admitted selectors and expected controls. They preserve exact revision and
+financial selection order, separate artifact/reference/control identity, fixed
+expiry and availability precedence. JSON literal examples have independently
+reviewable complete payload/core preimages, byte lengths and hashes. The CSV core
+examples qualify representation shape only; they do not claim emitted CSV bytes.
+Complete CSV readers, asynchronous admission and exact delivery routes remain
+required before consumption. These helpers do not qualify source-set completeness
+or calculate canonical bytes, and never manufacture actual financial assurance.
 They do not authenticate an actor, calculate canonical digests, enforce current
 disclosure, perform a transaction or qualify an actual human decision. Their
 literal positive and mutation scenarios are in `tests/test_project_semantics.py`;

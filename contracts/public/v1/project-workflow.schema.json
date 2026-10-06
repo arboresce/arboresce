@@ -7264,30 +7264,427 @@
       }
     }
   },
-  "sealed_export_reference": {
+  "project_export_payload": {
     "type": "object",
     "required": [
-      "export_id",
       "profile",
-      "content_sha256"
+      "project",
+      "pending",
+      "source_availability"
     ],
     "properties": {
-      "export_id": {
-        "$ref": "common.schema.json#/$defs/identifier"
-      },
       "profile": {
-        "enum": [
-          "project-financial-json-v1",
-          "project-financial-csv-v1",
-          "project-json-v1",
-          "project-csv-v1"
-        ]
+        "const": "project-export-payload-v1"
       },
-      "content_sha256": {
-        "$ref": "common.schema.json#/$defs/sha256"
+      "project": {
+        "$ref": "#/$defs/project_readback_view"
+      },
+      "pending": {
+        "type": "array",
+        "maxItems": 256,
+        "items": {
+          "$ref": "#/$defs/project_change_resource"
+        }
+      },
+      "source_availability": {
+        "$ref": "financial-records.schema.json#/$defs/source_availability"
       }
     },
     "additionalProperties": false
+  },
+  "project_financial_export_payload": {
+    "type": "object",
+    "required": [
+      "profile",
+      "report",
+      "records",
+      "source_availability"
+    ],
+    "properties": {
+      "profile": {
+        "const": "project-financial-export-payload-v1"
+      },
+      "report": {
+        "$ref": "#/$defs/project_financial_report_snapshot"
+      },
+      "records": {
+        "type": "array",
+        "maxItems": 256,
+        "items": {
+          "$ref": "financial-records.schema.json#/$defs/export_record"
+        }
+      },
+      "source_availability": {
+        "$ref": "financial-records.schema.json#/$defs/source_availability"
+      }
+    },
+    "additionalProperties": false
+  },
+  "project_export_subject": {
+    "oneOf": [
+      {
+        "type": "object",
+        "required": [
+          "kind",
+          "project",
+          "snapshot_id",
+          "observed_control_revision"
+        ],
+        "properties": {
+          "kind": {
+            "const": "project"
+          },
+          "project": {
+            "$ref": "#/$defs/project_reference"
+          },
+          "snapshot_id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "observed_control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "required": [
+          "kind",
+          "report",
+          "observed_control_revision"
+        ],
+        "properties": {
+          "kind": {
+            "const": "project_financial_report"
+          },
+          "report": {
+            "$ref": "#/$defs/project_financial_report_reference"
+          },
+          "observed_control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
+          }
+        },
+        "additionalProperties": false
+      }
+    ]
+  },
+  "project_export_artifact_core": {
+    "type": "object",
+    "required": [
+      "kind",
+      "export_id",
+      "organization_id",
+      "domain_id",
+      "subject",
+      "payload_sha256",
+      "format",
+      "media_type",
+      "encoding",
+      "emitted",
+      "profile",
+      "sealed_at",
+      "expires_at"
+    ],
+    "properties": {
+      "kind": {
+        "const": "arboresce.project-export-artifact.v1"
+      },
+      "export_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "organization_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "domain_id": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      },
+      "subject": {
+        "$ref": "#/$defs/project_export_subject"
+      },
+      "payload_sha256": {
+        "$ref": "common.schema.json#/$defs/sha256"
+      },
+      "format": {
+        "enum": [
+          "project-json-v1",
+          "project-csv-v1",
+          "project-financial-json-v1",
+          "project-financial-csv-v1"
+        ]
+      },
+      "media_type": {
+        "enum": [
+          "application/json",
+          "text/csv"
+        ]
+      },
+      "encoding": {
+        "const": "utf-8"
+      },
+      "emitted": {
+        "type": "object",
+        "required": [
+          "sha256",
+          "byte_length"
+        ],
+        "properties": {
+          "sha256": {
+            "$ref": "common.schema.json#/$defs/sha256"
+          },
+          "byte_length": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 67108864
+          }
+        },
+        "additionalProperties": false
+      },
+      "profile": {
+        "$ref": "context.schema.json#/$defs/profile_reference"
+      },
+      "sealed_at": {
+        "$ref": "common.schema.json#/$defs/timestamp"
+      },
+      "expires_at": {
+        "$ref": "common.schema.json#/$defs/timestamp"
+      }
+    },
+    "additionalProperties": false,
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "format": {
+              "enum": [
+                "project-json-v1"
+              ]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "media_type": {
+              "const": "application/json"
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "const": "project"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "format": {
+              "enum": [
+                "project-csv-v1"
+              ]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "media_type": {
+              "const": "text/csv"
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "const": "project"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "format": {
+              "enum": [
+                "project-financial-json-v1"
+              ]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "media_type": {
+              "const": "application/json"
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "const": "project_financial_report"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "format": {
+              "enum": [
+                "project-financial-csv-v1"
+              ]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "media_type": {
+              "const": "text/csv"
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "const": "project_financial_report"
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "project_export_artifact_resource": {
+    "allOf": [
+      {
+        "$ref": "common.schema.json#/$defs/response_object"
+      },
+      {
+        "if": {
+          "properties": {
+            "availability": {
+              "const": "purged"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "control": {
+              "properties": {
+                "bytes_state": {
+                  "const": "purged"
+                }
+              }
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "control": {
+              "properties": {
+                "bytes_state": {
+                  "enum": [
+                    "available",
+                    "unavailable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "availability": {
+              "const": "available"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "control": {
+              "properties": {
+                "restriction": {
+                  "const": "unrestricted"
+                },
+                "bytes_state": {
+                  "const": "available"
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "required": [
+      "reference",
+      "core",
+      "control",
+      "observed_at",
+      "availability"
+    ],
+    "properties": {
+      "state": false,
+      "status": false,
+      "code": false,
+      "problem": false,
+      "error": false,
+      "failure": false,
+      "failure_code": false,
+      "success": false,
+      "ready": false,
+      "accepted": false,
+      "approved": false,
+      "human_approved": false,
+      "authorized": false,
+      "confidence": false,
+      "result": false,
+      "receipt": false,
+      "idempotency_receipt": false,
+      "operation": false,
+      "operation_id": false,
+      "origin_event": false,
+      "authority": false,
+      "outcome": false,
+      "reference": {
+        "$ref": "lifecycle.schema.json#/$defs/export_reference"
+      },
+      "core": {
+        "$ref": "#/$defs/project_export_artifact_core"
+      },
+      "control": {
+        "allOf": [
+          {
+            "$ref": "lifecycle.schema.json#/$defs/lifecycle_control"
+          },
+          {
+            "properties": {
+              "subject": {
+                "properties": {
+                  "kind": {
+                    "const": "export_artifact"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "observed_at": {
+        "$ref": "common.schema.json#/$defs/timestamp"
+      },
+      "availability": {
+        "enum": [
+          "available",
+          "unavailable",
+          "expired",
+          "purged"
+        ]
+      }
+    }
+  },
+  "sealed_export_reference": {
+    "$ref": "#/$defs/project_export_artifact_resource"
   },
   "project_report_create_request": {
     "type": "object",
@@ -7470,6 +7867,7 @@
         "required": [
           "project_id",
           "project_revision",
+          "expected_control_revision",
           "format"
         ],
         "properties": {
@@ -7484,6 +7882,9 @@
               "project-json-v1",
               "project-csv-v1"
             ]
+          },
+          "expected_control_revision": {
+            "$ref": "common.schema.json#/$defs/control_revision"
           }
         },
         "additionalProperties": false
