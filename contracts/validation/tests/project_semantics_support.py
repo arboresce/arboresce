@@ -1,8 +1,46 @@
 """Load independently authored literal project conformance inputs."""
 
+import csv
+import hashlib
+import io
 import json
 from pathlib import Path
 from typing import Any, cast
+
+BYTE_FIXTURES = Path(__file__).resolve().parent / "fixtures/project-export-bytes"
+
+
+def byte_fixture(name: str) -> bytes:
+    """Read a literal independently reviewed byte input, never regenerate it."""
+    return (BYTE_FIXTURES / name).read_bytes()
+
+
+def byte_vector(format_name: str) -> tuple[dict[str, Any], bytes, dict[str, Any]]:
+    inventory = json.loads((BYTE_FIXTURES.parent / "project-export-byte-vectors.json").read_text())
+    vector = next(item for item in inventory["vectors"] if item["id"] == format_name)
+    return (
+        json.loads(byte_fixture(vector["artifact"])),
+        byte_fixture(vector["emitted"]),
+        json.loads(byte_fixture(vector["payload"])),
+    )
+
+
+def csv_rows(data: bytes) -> list[list[str]]:
+    return list(csv.reader(io.StringIO(data.decode("utf-8"), newline=""), strict=True))
+
+
+def csv_mutation(rows: list[list[str]]) -> bytes:
+    """Frame deliberately altered negative inputs; not a positive export oracle."""
+    stream = io.StringIO(newline="")
+    csv.writer(stream, quoting=csv.QUOTE_ALL, lineterminator="\r\n").writerows(rows)
+    return stream.getvalue().encode("utf-8")
+
+
+def rehash_ascii_core(artifact: dict[str, Any]) -> None:
+    """Rehash ASCII-only negative cores independently of the reader under test."""
+    core = json.dumps(artifact["core"], sort_keys=True, separators=(",", ":"))
+    assert core.isascii()
+    artifact["reference"]["artifact_record_sha256"] = hashlib.sha256(core.encode()).hexdigest()
 
 
 def case(identity: str) -> dict[str, Any]:

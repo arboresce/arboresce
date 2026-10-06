@@ -325,6 +325,17 @@ compose structural and semantic validation and qualify their effects.
 
 ### Frozen project export byte expectations
 
+The maintained `arboresce_contract_validation.project_exports` readers consume
+the independently approved literal JSON and CSV vectors. They reconstruct the
+complete typed payload, enforce the published byte/cell/tree bounds, validate
+the owning closed definitions, and compare artifact scope, observation interval,
+core/payload/emitted-byte identities. `tests/test_project_exports.py` also tests
+malformed bytes and actual boundary-sized inputs. Shared fixture and negative
+mutation helpers in `tests/project_semantics_support.py` remain in the measured
+and strictly typed engineering denominator. These conformance tools establish
+neither production writing/delivery admission nor current authority, source-set
+completeness, financial arithmetic or actual-human assurance.
+
 [The byte-vector inventory](tests/fixtures/project-export-byte-vectors.json)
 names fifteen explicit files under `tests/fixtures/project-export-bytes/`.
 They are literal expectations for independent approval before maintained
@@ -515,7 +526,7 @@ mkdir "$REGISTRY_RUN/home" "$REGISTRY_RUN/tmp" "$REGISTRY_RUN/cache" \
   "$REGISTRY_RUN/profiles" "$REGISTRY_RUN/reports"
 ```
 
-The following selects all nine test modules, including semantic conformance and the process observation guard fixtures in test_support.py. The real /bin/sh process records its own $$ and execs timeout with that same PID. The only transient prepared Python command inspects inherited limits and publishes the original monotonic deadline/current-UID encoding before timeout starts. There is no uv or other process left between timeout and the measured pytest process. Current support then checks the actual parent/group/session and retains every actual CLI child/profile.
+The following selects all ten test modules, including semantic and byte conformance and the process observation guard fixtures in test_support.py. The real /bin/sh process records its own $$ and execs timeout with that same PID. The only transient prepared Python command inspects inherited limits and publishes the original monotonic deadline/current-UID encoding before timeout starts. There is no uv or other process left between timeout and the measured pytest process. Current support then checks the actual parent/group/session and retains every actual CLI child/profile.
 
 ```sh
 cd "$REGISTRY_PROJECT/../.."
@@ -556,7 +567,8 @@ env -i PATH=/usr/bin:/bin LANG=C LC_ALL=C TZ=UTC \
   "$REGISTRY_PROJECT/tests/test_properties.py" "$REGISTRY_PROJECT/tests/test_races.py" \
   "$REGISTRY_PROJECT/tests/test_references.py" "$REGISTRY_PROJECT/tests/test_snapshot.py" \
   "$REGISTRY_PROJECT/tests/test_support.py" "$REGISTRY_PROJECT/tests/test_validation.py" \
-  "$REGISTRY_PROJECT/tests/test_project_semantics.py"
+  "$REGISTRY_PROJECT/tests/test_project_semantics.py" \
+  "$REGISTRY_PROJECT/tests/test_project_exports.py"
 ```
 
 The shell uses noclobber for stdout/stderr and a fresh owner-only output tree. Test support exclusively creates the suite receipt. The shown shell profile uses 1024-byte file-limit units; the pre-exec checks require actual soft/hard 134217728-byte file limits, zero core limits and at least 256 descriptors. A different platform unit convention fails before pytest starts and needs an explicitly qualified command adjustment. The standard platform encoding is derived from the current UID. Keep these actual bindings; do not copy a historical host UID.
@@ -573,7 +585,7 @@ PROJECT/tests/test_cli.py PROJECT/tests/test_discovery.py
 PROJECT/tests/test_properties.py PROJECT/tests/test_races.py
 PROJECT/tests/test_references.py PROJECT/tests/test_snapshot.py
 PROJECT/tests/test_support.py PROJECT/tests/test_validation.py
-PROJECT/tests/test_project_semantics.py
+PROJECT/tests/test_project_semantics.py PROJECT/tests/test_project_exports.py
 ```
 
 These preserve the reviewed 320s/45s original observation/reconciliation windows and the separate 300+5/30+5 timeout behavior. Never replace the original deadline with a per-barrier allowance. The shell is a real entered process, not a parenthesized shell subshell that borrows another process's $$; include its one transient clock/limit inspection process in the full launch inventory. The bridge does not independently reconcile a timed-out group's terminal status or certify raw profiles: preserve a failed timeout and all artifacts. Existing qualification observation/reconciliation remains required for a qualification claim.
