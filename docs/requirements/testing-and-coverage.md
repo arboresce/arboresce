@@ -198,6 +198,22 @@ cancelled, concurrent and cleanup cases before dependent implementation.
 
 ## Evidence and gate limits
 
+Freeze the actual environment and interpreter base selected by every command,
+including lock/synchronization checks, plus consumed wrappers, executables,
+configuration, source and fixture identities. Equivalent isolated copies do not
+establish the bytes of a shared environment actually selected during execution.
+Before/after inventories must cover those consumed paths and resolution choices.
+
+Negative qualification retains bounded decisive diagnostic witnesses sufficient
+to reconstruct its classification independently, including exact missing paths
+for missing-reference/library checks. A producer's exit and success flag or a tail
+that omits the relevant error cannot substitute for that witness. Tool, profile,
+timeout and unrelated resolution failures are not expected value rejections.
+Capture evidence during a fresh run; preserve older packets and do not reconstruct
+historical missing hashes or diagnostics. A changed primary validator profile
+requires the complete documented protocol afresh. Any permitted unchanged-check
+reuse binds its exact consumed inputs, effective profile and tools explicitly.
+
 Record actual commands, source and locks, profile, test identities/counts, raw
 coverage numerators/denominators, result, duration, reviewer and unresolved findings.
 Store a checkpoint's own commit identity in a subsequent or external record rather

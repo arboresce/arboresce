@@ -46,6 +46,47 @@ public source. Public standalone fixtures use rights-cleared synthetic evidence.
 Permitted private originals remain in a separately controlled fixture corpus with
 access/retention policy, prepared after the required security/recovery gates.
 
+## Package validation and authoring
+
+The versioned package has independently defined required groups, typed fields,
+case identities and category coverage. An oracle cannot define away its own
+mandatory inventory. Empty packages, missing collections, malformed or duplicate
+identities, unbound preimages and inconsistent cross-group relationships fail.
+Bound file/JSON reads and reject unsafe or outside-package source paths before
+consumption. A digest must hash its declared canonical preimage, not an item label.
+
+Runtime projection uses an explicit evidence-and-authorized-context shape. It
+excludes truth, expected proposals, verdicts, future clarification, final state
+and recovery answers regardless of their field names. Substring sentinels cannot
+establish isolation or reject otherwise permitted Party names. Record full prior
+content/revisions, actor roles and policies, attributed event/timezone context,
+derivative/profile preimages and complete separate processor recordings.
+
+The primary synthetic journey reaches project updates and a separately reviewed
+exact expense/project association and financial confirmation. Preserve initial
+ambiguity and provide independently authored attributable clarification as a
+separate future input. Retain held, rejected and unreadable cases. Synthetic
+review-mechanism evidence qualifies fixture protocol only, never actual human
+assurance. Expected transitions include exact actors/grants, CAS/control/intent,
+creation mappings, dependencies, complete history and distinct reanalysis that
+preserves manual decisions. Final-state/export/follow-up/recovery groups contain
+concrete values and bytes, not desired-behavior summaries.
+
+Every retained matrix case has bounded concrete inputs, actors, revisions,
+commands, exact results/errors/exits and effect/no-effect expectations. Preserve
+all previously reviewed cases and categories, adding cases needed for new rules.
+Expected values remain independent of the implementation or processor under test.
+
+Generators are inert on import and run only through explicit invocation. Qualify
+exact tool, codec, voice/font and normalization identities before reproducibility
+claims. Generation uses bounded subprocesses, safe temporary staging and package
+replacement with verified contents; a failure cannot report a complete package.
+Ordinary checks use frozen committed originals and never regenerate them merely
+for review. Maintained builders, validators, helpers and actual subprocess paths
+join their owning source inventory and strict qualification in the same source
+checkpoint. Partial group checks identify their bounded scope and cannot approve
+the complete corpus or its runtime consumers.
+
 ## Required scenario matrix
 
 The D0-project inventory includes at least:

@@ -2,10 +2,10 @@
 
 Plan version: 2
 
-Status: owner-approved target; all 68 implementation slices remain
-`not_started`. The previous sequence is superseded, not completed. Earlier
-adoption/contract evidence keeps its historical scope; it does not qualify new
-project/identity wire variants or runtime. Current available behavior remains
+Status: owner-approved target; E200 retains accepted contract-milestone status
+and the other 67 implementation slices remain `not_started`. The previous sequence is superseded, not completed. Earlier
+adoption/contract evidence keeps its historical scope; it does not qualify further
+contract changes or runtime. Current available behavior remains
 separately described by the repository guidance.
 
 ## Scope and milestones
@@ -1082,10 +1082,66 @@ later runtime checkpoints remain unimplemented and retain their dependencies.
 
 ### Additive compatibility acceptance disposition
 
-The additive transport definitions have structural vectors and parsed checks;
-independent whole compatibility acceptance has not been obtained. Their domain
-content, operation-symbol binding, project financial/export composition, complete
-revocation state and source/context joins remain incomplete under the API owner.
-The original accepted initial contract checkpoint is preserved. Do not describe
-this additive candidate or its consuming CLI snapshot as independently accepted.
-Repair and qualify all affected contracts before the next consumer snapshot.
+The additive candidate includes complete typed project groups and readback,
+project-specific financial composition, revocation and source/context joins,
+exact operation registrations, lossless JSON and reversible CSV export bytes,
+canonical readers, bounded artifact delivery, and retained asynchronous
+receipt, plan, stage-result and cancellation contracts. Maintained conformance
+comparisons and their measured helpers have passed bounded independent source
+and expected-value review.
+
+Whole compatibility acceptance requires a fresh complete protocol, exact source
+and selected tool-byte verification, and independent whole compatibility review.
+Complete that gate before committing this candidate for a new CLI snapshot.
+Preserve the original accepted initial contract checkpoint. Runtime admission,
+current authority, workers, canonical writes, human assurance and actual delivery
+remain requirements of their owning later checkpoints.
+
+## Compatibility evidence repair and retained implementation
+
+The compatibility candidate remains unaccepted as a whole. A completed protocol
+with recorded expected exits omitted the actual environment selected by its sync
+check and discarded decisive diagnostics for some negative classifications.
+Source/expected-value approvals retain their exact bounded input scope. They do
+not repair those missing observations or qualify runtime effects. Changing this
+plan or consumed qualification guidance requires fresh identity reconciliation.
+
+| Unit | Exact scope | Definition of green and verification |
+| --- | --- | --- |
+| Selected environment | The compatibility qualification driver, selected synchronization environment/interpreter base, tool/configuration freezer and retained receipts; contracts/validation/README.md and the evidence requirements in docs/requirements/testing-and-coverage.md. | Explicitly select the frozen isolated environment or freeze the actual selected environment and base. Every consumed path/resolution is bound before/after; test selection mismatch and omitted input rejection. Equivalent copies do not repair historical missing hashes. |
+| Diagnostic witnesses | The same driver's classifier and bounded evidence serialization. | Retain decisive error excerpts and exact missing-reference/library paths sufficient for independent reclassification. Reject timeout/tool/profile/unrelated failure substitution; test truncated tails and classification witnesses without manufacturing historical output. |
+| Complete protocol | Freeze repaired harness/profile and all 37 documented inputs before execution. | Fresh 121 commands retain 12 direct, nine relocated, 27 mutations, six broken references, nine missing libraries, 56 off-diagonal pairs and two restored guards. Preserve timeout/resource limits, source/tool/relocation hashes and classified diagnostics; reconcile current semantic/helper/static evidence and obtain separate whole compatibility acceptance. |
+| Committed consumer admission | Whole compatibility acceptance and exact owning candidate/public disclosure review. | Commit only qualified exact paths, preserve prior accepted contracts/evidence, and supply the actual committed public schema/license inventory to consumers. Neither dirty candidate bytes nor a bounded helper PASS admits a new snapshot. |
+
+Use [testing and coverage](../requirements/testing-and-coverage.md) and
+[validator contributor commands](../../contracts/validation/README.md). Preserve
+existing parsed/source/semantic and independent expected-value obligations for
+grouping/readback, project financial composition, export bytes/artifact/delivery,
+revocation/control, capture context and exact operation registrations. The
+accepted initial contract checkpoint is not reopened merely by this refinement.
+No whole acceptance follows from numerical exits or a producer success flag.
+
+Fixture consumers follow the strengthened [fixture authority](../requirements/project-fixtures.md):
+independent complete package/lineage/transition/financial/readback/export/recovery
+expectations precede consumption. Runtime authorization and canonical effects
+remain actual consuming requirements, not schema-check results.
+
+All E201–E267 work remains in scope and follows the existing prerequisites:
+measured Rust and architecture/dependency guards; clocks/revisions; application
+ports/RLS; authentic lifecycle continuity before admitted writers; idempotent
+audit/outbox and HTTP/auth/bootstrap/workspaces/grants; canonical project context;
+typed gRPC/Python, operations/leases/cancel, objects/captures and separate Temporal
+persistence; real recorded-provider integration and packaged restrictive restore;
+qualified live media/synthesis; composable review and correction preservation;
+actual human assurance and exact one-use financial confirmation/report/export;
+whole recorded real-service workflow and focused acceptance; then retained
+knowledge/build/evaluate/promote/context delivery/search/feedback/exit archives,
+propagation/recovery, managed/native/production experiments and optional SMTP.
+
+Typed message work E218 depends on E200 and can proceed when independently
+eligible. Preserve exact context delivery before its client consumer, complete
+exit archives before their consumer, and optional SMTP's actual controlled-mail
+qualification before final production acceptance. Unqualified routes remain
+unavailable. Package actual restoration before private evidence/users and expand
+it before enabling review, finance and later capabilities. Missing real inputs
+block their consuming nodes only; no fake provider, human or restore closes them.
