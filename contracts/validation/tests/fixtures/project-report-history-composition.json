@@ -1,0 +1,492 @@
+{
+  "profile": "project-report-history-composition-v1",
+  "scope": "Independent declared retained report comparisons; source-set completeness, current authority, human assurance and producer transactions are separately qualified.",
+  "reports": {
+    "retained_revocation": {
+      "reference": {
+        "kind": "arboresce.project-financial-report-reference.v1",
+        "organization_id": "60000000-0000-4000-8000-000000000001",
+        "domain_id": "60000000-0000-4000-8000-000000000002",
+        "project_id": "33333333-3333-4333-8333-333333333333",
+        "report_id": "64000000-0000-4000-8000-000000000001",
+        "content_sha256": "5d8c02c36e3ac31f7b3422317da3368ef1cd9b29172a1f20de660afac92dac87"
+      },
+      "manifest": {
+        "profile": "project-financial-report-v1",
+        "project": {
+          "project_id": "33333333-3333-4333-8333-333333333333",
+          "content_revision": {
+            "kind": "content",
+            "value": "2"
+          }
+        },
+        "currency": "CAD",
+        "financial_manifest": {
+          "profile": "financial-report-v1",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "financial_recordkeeping"
+          },
+          "date_basis": "expense_date",
+          "date_policy": {
+            "policy_id": "60000000-0000-4000-8000-00000000003c",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "timezone": "America/Toronto"
+          },
+          "period": {
+            "start_date": "2026-09-01",
+            "end_exclusive": {
+              "kind": "date",
+              "value": "2026-10-01"
+            }
+          },
+          "include_undated": true,
+          "selection_cutoff": "2026-09-08T12:02:00.000Z",
+          "calculation_version": "financial-calculation-v1",
+          "selected": [
+            {
+              "reference": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-000000000003",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "observed_control_revision": {
+                "kind": "control",
+                "value": "2"
+              },
+              "confirmation": {
+                "financial_review_event_id": "60000000-0000-4000-8000-000000000032",
+                "reference": {
+                  "organization_id": "60000000-0000-4000-8000-000000000001",
+                  "domain_id": "60000000-0000-4000-8000-000000000002",
+                  "expense_id": "60000000-0000-4000-8000-000000000003",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  },
+                  "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+                },
+                "control_revision": {
+                  "kind": "control",
+                  "value": "2"
+                },
+                "reviewer": {
+                  "principal_id": "60000000-0000-4000-8000-00000000001e",
+                  "kind": "human"
+                },
+                "executor": {
+                  "principal_id": "60000000-0000-4000-8000-00000000001e",
+                  "kind": "human"
+                },
+                "authority_audit_event_id": "60000000-0000-4000-8000-000000000033",
+                "delegation_id": null,
+                "recorded_at": "2026-09-08T12:01:00.000Z",
+                "audit_event_id": "60000000-0000-4000-8000-000000000034"
+              }
+            }
+          ],
+          "exclusions": [
+            {
+              "reference": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-00000000006d",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "observed_control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "revision_state": "proposed",
+              "reason": "proposed"
+            }
+          ],
+          "totals": [
+            {
+              "currency": "CAD",
+              "record_count": 1,
+              "gross": {
+                "known_net": "50.00",
+                "complete": true,
+                "unknown_record_count": 0,
+                "unknown_list_record_count": 0,
+                "known_null_component_count": 0
+              },
+              "subtotal": {
+                "known_net": "40.00",
+                "complete": true,
+                "unknown_record_count": 0,
+                "unknown_list_record_count": 0,
+                "known_null_component_count": 0
+              },
+              "tax": {
+                "known_net": "2.00",
+                "complete": true,
+                "unknown_record_count": 0,
+                "unknown_list_record_count": 0,
+                "known_null_component_count": 0
+              },
+              "gratuity": {
+                "known_net": "8.00",
+                "complete": true,
+                "unknown_record_count": 0,
+                "unknown_list_record_count": 0,
+                "known_null_component_count": 0
+              },
+              "service_charges": {
+                "known_net": "0.00",
+                "complete": true,
+                "unknown_record_count": 0,
+                "unknown_list_record_count": 0,
+                "known_null_component_count": 0
+              },
+              "discount": {
+                "known_net": "0.00",
+                "complete": true,
+                "unknown_record_count": 0,
+                "unknown_list_record_count": 0,
+                "known_null_component_count": 0
+              },
+              "business_allocation": {
+                "known_net": "0.00",
+                "complete": false,
+                "unknown_record_count": 1,
+                "unknown_list_record_count": 0,
+                "known_null_component_count": 1
+              }
+            }
+          ]
+        },
+        "selected_associations": [
+          {
+            "selected": {
+              "reference": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-000000000003",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "observed_control_revision": {
+                "kind": "control",
+                "value": "2"
+              },
+              "confirmation": {
+                "financial_review_event_id": "60000000-0000-4000-8000-000000000032",
+                "reference": {
+                  "organization_id": "60000000-0000-4000-8000-000000000001",
+                  "domain_id": "60000000-0000-4000-8000-000000000002",
+                  "expense_id": "60000000-0000-4000-8000-000000000003",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  },
+                  "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+                },
+                "control_revision": {
+                  "kind": "control",
+                  "value": "2"
+                },
+                "reviewer": {
+                  "principal_id": "60000000-0000-4000-8000-00000000001e",
+                  "kind": "human"
+                },
+                "executor": {
+                  "principal_id": "60000000-0000-4000-8000-00000000001e",
+                  "kind": "human"
+                },
+                "authority_audit_event_id": "60000000-0000-4000-8000-000000000033",
+                "delegation_id": null,
+                "recorded_at": "2026-09-08T12:01:00.000Z",
+                "audit_event_id": "60000000-0000-4000-8000-000000000034"
+              }
+            },
+            "association": {
+              "association_id": "60000000-0000-4000-8000-000000000061",
+              "workspace": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002"
+              },
+              "project": {
+                "project_id": "33333333-3333-4333-8333-333333333333",
+                "content_revision": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "expense": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-000000000003",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "association_revision": {
+                "kind": "content",
+                "value": "1"
+              },
+              "association_sha256": "57f7775d897542076bf07e11c94486accde6b4ef00472fecb791b4507d385b7c",
+              "expected_control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "provenance": {
+                "recorded_at": "2026-09-08T12:00:10.000Z",
+                "audit_event_id": "60000000-0000-4000-8000-000000000062",
+                "executor": {
+                  "principal_id": "60000000-0000-4000-8000-00000000001e",
+                  "kind": "human"
+                },
+                "authority_audit_event_id": "60000000-0000-4000-8000-000000000063",
+                "delegation_id": null
+              },
+              "content_preimage": {
+                "kind": "arboresce.expense-association-content.v1",
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "project_id": "33333333-3333-4333-8333-333333333333",
+                "expense_id": "60000000-0000-4000-8000-000000000003",
+                "expense_version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "expense_content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              }
+            },
+            "observed_association_control_revision": {
+              "kind": "control",
+              "value": "1"
+            },
+            "review_event": {
+              "financial_review_event_id": "60000000-0000-4000-8000-000000000032",
+              "challenge_id": "55555555-5555-4555-8555-555555555555",
+              "reviewer": {
+                "principal_id": "60000000-0000-4000-8000-00000000001e",
+                "kind": "human"
+              },
+              "assurance": {
+                "assurance_profile": "webauthn_platform_v1",
+                "state": "qualified",
+                "review_policy": {
+                  "policy": "financial_human_review",
+                  "version": "1"
+                }
+              },
+              "organization_id": "60000000-0000-4000-8000-000000000001",
+              "domain_id": "60000000-0000-4000-8000-000000000002",
+              "purpose": "expense_review",
+              "expense": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-000000000003",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "expense_version": {
+                "kind": "content",
+                "value": "1"
+              },
+              "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a",
+              "decision": "confirm",
+              "review_policy": {
+                "policy": "financial_human_review",
+                "version": "1"
+              },
+              "recorded_at": "2026-09-08T12:00:30.000Z",
+              "expires_at": "2026-09-08T12:05:30.000Z",
+              "state": "revoked",
+              "revoked_at": "2026-09-08T12:01:30.000Z",
+              "executor_scope": {
+                "executor": {
+                  "principal_id": "60000000-0000-4000-8000-00000000001e",
+                  "kind": "human"
+                },
+                "delegation_id": null
+              },
+              "audit_event_id": "60000000-0000-4000-8000-000000000031",
+              "association": {
+                "association_id": "60000000-0000-4000-8000-000000000061",
+                "association_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "association_sha256": "57f7775d897542076bf07e11c94486accde6b4ef00472fecb791b4507d385b7c"
+              }
+            }
+          }
+        ],
+        "excluded_associations": [
+          {
+            "observed_association_control_revision": {
+              "kind": "control",
+              "value": "1"
+            },
+            "observed_expense_control_revision": {
+              "kind": "control",
+              "value": "1"
+            },
+            "revision_state": "proposed",
+            "reason": "proposed",
+            "identity": {
+              "workspace": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002"
+              },
+              "project_id": "33333333-3333-4333-8333-333333333333",
+              "expense": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-00000000006d",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "association": {
+                "association_id": "60000000-0000-4000-8000-00000000006c",
+                "association_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "association_sha256": "0dfe624371707f70029361a3e4ff4a7a5894c6f3c8f84355f707cb8ab9cb203f"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "empty_selection": {
+      "reference": {
+        "kind": "arboresce.project-financial-report-reference.v1",
+        "organization_id": "60000000-0000-4000-8000-000000000001",
+        "domain_id": "60000000-0000-4000-8000-000000000002",
+        "project_id": "33333333-3333-4333-8333-333333333333",
+        "report_id": "64000000-0000-4000-8000-000000000002",
+        "content_sha256": "6e50e9ee17ddb0e005bcdd1f5616b2e04363961c2d8932205fdbecc50f641628"
+      },
+      "manifest": {
+        "profile": "project-financial-report-v1",
+        "project": {
+          "project_id": "33333333-3333-4333-8333-333333333333",
+          "content_revision": {
+            "kind": "content",
+            "value": "1"
+          }
+        },
+        "currency": "CAD",
+        "financial_manifest": {
+          "profile": "financial-report-v1",
+          "context": {
+            "organization_id": "60000000-0000-4000-8000-000000000001",
+            "domain_id": "60000000-0000-4000-8000-000000000002",
+            "purpose": "financial_recordkeeping"
+          },
+          "date_basis": "expense_date",
+          "date_policy": {
+            "policy_id": "60000000-0000-4000-8000-00000000003c",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            },
+            "timezone": "America/Toronto"
+          },
+          "period": {
+            "start_date": "2026-09-01",
+            "end_exclusive": {
+              "kind": "date",
+              "value": "2026-10-01"
+            }
+          },
+          "include_undated": true,
+          "selection_cutoff": "2026-09-08T12:02:00.000Z",
+          "calculation_version": "financial-calculation-v1",
+          "selected": [],
+          "exclusions": [
+            {
+              "reference": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-00000000006d",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "observed_control_revision": {
+                "kind": "control",
+                "value": "1"
+              },
+              "revision_state": "proposed",
+              "reason": "proposed"
+            }
+          ],
+          "totals": []
+        },
+        "selected_associations": [],
+        "excluded_associations": [
+          {
+            "observed_association_control_revision": {
+              "kind": "control",
+              "value": "1"
+            },
+            "observed_expense_control_revision": {
+              "kind": "control",
+              "value": "1"
+            },
+            "revision_state": "proposed",
+            "reason": "outside_period",
+            "identity": {
+              "workspace": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002"
+              },
+              "project_id": "33333333-3333-4333-8333-333333333333",
+              "expense": {
+                "organization_id": "60000000-0000-4000-8000-000000000001",
+                "domain_id": "60000000-0000-4000-8000-000000000002",
+                "expense_id": "60000000-0000-4000-8000-00000000006d",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "content_sha256": "03d3700f85567d8579f19a525c53f52dcc5e83a4a10bae8074a8a39f6f82342a"
+              },
+              "association": {
+                "association_id": "60000000-0000-4000-8000-00000000006c",
+                "association_revision": {
+                  "kind": "content",
+                  "value": "1"
+                },
+                "association_sha256": "0dfe624371707f70029361a3e4ff4a7a5894c6f3c8f84355f707cb8ab9cb203f"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

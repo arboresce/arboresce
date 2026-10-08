@@ -15,6 +15,12 @@ persistence, sealing and retrieval mechanics.
 
 ## Shared operation contract
 
+The separately versioned [focused asynchronous export profile](project-workflow.md#focused-asynchronous-export-operations)
+defines complete admission/replay exchanges and operation/plan reads for project
+and project-report exports. Its explicit registration and capability selection
+preserve the original inventories and closed legacy families. Prototype terminal
+export responses cannot substitute for this qualified asynchronous profile.
+
 The focused first surface follows [project workflow](project-workflow.md) and
 [Nostr identity](identity-contract.md). Freeze complete versioned contracts for
 identity/bootstrap, workspace membership/grants, Party/project/context reads and
@@ -564,10 +570,19 @@ changing the accepted 23 registrations or closed financial/acquisition v1 bodies
   filtered item-list presentations use this canonical grouping, not the lifecycle
   execution-plan record. Empty, pending, failed and permission-denied cases remain
   distinguishable; no unauthorized head or truncated set may appear complete.
+  The registered `project_change_group_request` is a normalized selector, not
+  the response contract. It names the capture and may select its exact content
+  revision or continue the same snapshot with its bounded cursor. The HTTP GET
+  has no JSON body or mutation idempotency key. Omitted revision selects a
+  current qualified snapshot; the server resolves its authorized project binding.
 - GET `/v1/projects/{project_id}/readback`: qualified current accepted project
   revisions, exact accepted mappings/source/context provenance, qualified current
   expense associations and separately identified pending items when requested.
   Preserve current disclosure and complete-or-error semantics.
+  Register `project_readback_request` as the normalized selector. Its context,
+  project ID and optional `include_pending` boolean are read selectors, without
+  mutation metadata. Context query members occur exactly once; reject duplicate
+  or unknown selectors and noncanonical booleans before serving either GET.
 - Project-scoped report creation and export use the separately versioned financial
   composition required by the financial owner: exact project/currency selection,
   date policy/period/include-undated inputs, canonical server totals, exact
@@ -580,6 +595,14 @@ changing the accepted 23 registrations or closed financial/acquisition v1 bodies
   permission to substitute a workspace report. The normalized read selector uses
   `project_report_get_request`, the result uses `project_report_get_response`, and
   the HTTP request has no JSON body or mutation idempotency key.
+
+The three additive reads retain current workspace membership and disclosure
+requirements. Scoped agents additionally need `project.change.read` for grouping,
+`project.read` for readback, and both `project.read` and `report.read` for the
+project financial report. They use `project_read` purpose and the exact registered
+workspace/project/capture resource scopes. Membership alone supplies no action
+grant. Current authorized human reads follow their domain policy; these reads
+neither establish human financial assurance nor confer review authority.
 - POST `/v1/projects/{project_id}/exports`: exact project revision/control and
   requested JSON/CSV profile; durable admission and qualified sealed project
   artifact/delivery containing lossless project records, provenance and financial

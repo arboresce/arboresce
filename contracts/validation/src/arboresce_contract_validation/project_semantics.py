@@ -1,8 +1,9 @@
 """Cross-record conformance checks for structurally validated public values.
 
 These helpers compare independently supplied request, identity and read snapshots.
-Export metadata checks also compare actual core and selected-profile digests
-using the bounded conformance encoding. They do not authenticate actors, establish
+Export and retained financial checks compare declared core, profile, content,
+report and association digests and internal field joins with bounded encoding.
+They do not authenticate actors, establish
 current authorization, or implement canonical transactions. Callers first validate
 each value against its owning schema. Diagnostics identify checks, never secrets.
 """
@@ -13,7 +14,7 @@ import hashlib
 from datetime import datetime, timedelta
 from typing import Any
 
-from arboresce_contract_validation.project_exports import canonical_bytes
+from arboresce_contract_validation.project_exports import ExportReadError, canonical_bytes
 
 
 def artifact_read_problems(request: dict[str, Any], response: dict[str, Any]) -> list[str]:
@@ -214,6 +215,139 @@ def _scope(value: dict[str, Any], workspace: dict[str, Any]) -> bool:
     return all(value[key] == workspace[key] for key in ("organization_id", "domain_id"))
 
 
+def _financial_values(content: dict[str, Any]) -> dict[str, Any]:
+    values = {
+        "/" + key: content[key]
+        for key in (
+            "kind",
+            "currency",
+            "gross",
+            "expense_date",
+            "source_observed_at",
+            "merchant",
+            "original",
+            "business_purpose",
+            "business_allocation",
+            "reconciliation",
+        )
+    }
+    components = content["components"]
+    values.update(
+        {"/components/" + key: components[key] for key in ("subtotal", "gratuity", "discount")}
+    )
+    for name in ("tax_components", "service_charges"):
+        items = components[name]
+        if items is None or not items:
+            values["/components/" + name] = items
+        else:
+            for index, item in enumerate(items):
+                for key in ("label", "amount"):
+                    values[f"/components/{name}/{index}/{key}"] = item[key]
+    return values
+
+
+def _financial_revision_problems(revision: dict[str, Any]) -> list[str]:
+    """Compare complete retained field associations, without inventing predecessor truth."""
+    reference, content = revision["reference"], revision["content"]
+    problems: list[str] = []
+    values = _financial_values(content)
+    bindings = content["field_attribution"]
+    targets = [binding["target"] for binding in bindings]
+    if targets != sorted(set(targets)):
+        problems.append("financial field bindings are not uniquely ordered")
+    if not {key for key, value in values.items() if value is not None}.issubset(targets):
+        problems.append("financial field bindings omit a known unit")
+    for binding in bindings:
+        basis = [(item["organization_id"], item["observation_id"]) for item in binding["basis"]]
+        if basis != sorted(set(basis)) or any(
+            key[0] != reference["organization_id"] for key in basis
+        ):
+            problems.append("financial field evidence is foreign or not uniquely ordered")
+    original = content["original"]
+    if original is not None and not _scope(original, reference):
+        problems.append("financial original reference belongs to another workspace")
+    attributions = revision["attribution"]
+    if [item["target"] for item in attributions] != targets:
+        problems.append("financial attributions differ from the complete field bindings")
+    seen: set[str] = set()
+    for attribution in attributions:
+        origin = attribution["origin"]
+        if attribution["captured_for"] != reference:
+            problems.append("financial attribution names another captured revision")
+        source = origin["source_revision"]
+        if any(
+            source[key] != reference[key] for key in ("organization_id", "domain_id", "expense_id")
+        ):
+            problems.append("financial attribution origin belongs to another aggregate")
+        source_version, version = (
+            int(source["version"]["value"]),
+            int(reference["version"]["value"]),
+        )
+        if source_version > version or (source_version == version and source != reference):
+            problems.append("financial attribution origin has an inconsistent revision")
+        if source_version < version and attribution["prior_association_id"] is None:
+            problems.append("financial carried attribution has no predecessor association")
+        if origin["association_id"] in seen:
+            problems.append("financial attribution repeats an origin association")
+        seen.add(origin["association_id"])
+        target = attribution["target"]
+        if origin["target"] != target:
+            problems.append("financial attribution origin names another field")
+        if origin["recorded_at"] > revision["recorded_at"]:
+            problems.append("financial attribution origin follows the retained revision")
+        if target not in values:
+            problems.append("financial attribution target is not an exact atomic unit")
+        else:
+            try:
+                digest = hashlib.sha256(canonical_bytes(values[target])).hexdigest()
+            except ExportReadError:
+                problems.append("financial attributed value cannot be canonically encoded")
+            else:
+                if digest != origin["value_sha256"]:
+                    problems.append("financial attribution resolved-value digest differs")
+    preimage = {
+        "kind": "arboresce.financial-content.v1",
+        "organization_id": reference["organization_id"],
+        "domain_id": reference["domain_id"],
+        "content": content,
+    }
+    try:
+        encoded = canonical_bytes(preimage)
+    except ExportReadError:
+        problems.append("financial content cannot be canonically encoded")
+    else:
+        if (
+            len(encoded) > 131_072
+            or hashlib.sha256(encoded).hexdigest() != reference["content_sha256"]
+        ):
+            problems.append("financial content preimage exceeds its bound or has another digest")
+    return problems
+
+
+def _association_problems(association: dict[str, Any]) -> list[str]:
+    """Join the complete association preimage to its exposed resource identities."""
+    workspace, expense = association["workspace"], association["expense"]
+    problems: list[str] = []
+    if not _scope(expense, workspace):
+        problems.append("association expense belongs to another workspace")
+    preimage = association.get("content_preimage")
+    if preimage is None:
+        return problems + ["association has no complete content preimage"]
+    expected = {
+        "kind": "arboresce.expense-association-content.v1",
+        **workspace,
+        "project_id": association["project"]["project_id"],
+        "expense_id": expense["expense_id"],
+        "expense_version": expense["version"],
+        "expense_content_sha256": expense["content_sha256"],
+    }
+    if preimage != expected:
+        problems.append("association content preimage differs from its exposed identities")
+    if hashlib.sha256(canonical_bytes(preimage)).hexdigest() != association["association_sha256"]:
+        problems.append("association content preimage digest differs")
+    return problems
+
+
 def export_problems(
     request: dict[str, Any], response: dict[str, Any], payload: dict[str, Any]
 ) -> list[str]:
@@ -278,6 +412,8 @@ def export_problems(
         for record in payload["records"]:
             if record["revision"]["reference"] != record["selected"]["reference"]:
                 problems.append("export financial content names another exact revision")
+            problems.extend(_financial_revision_problems(record["revision"]))
+        problems.extend(_report_composition_problems(report))
     if not core["sealed_at"] < core["expires_at"]:
         problems.append("export artifact expiry does not follow sealing")
     if artifact["observed_at"] < core["sealed_at"]:
@@ -378,9 +514,7 @@ def report_problems(request: dict[str, Any], response: dict[str, Any]) -> list[s
     reference, manifest = report["reference"], report["manifest"]
     financial = manifest["financial_manifest"]
     problems: list[str] = []
-    if not _scope(reference, request["metadata"]["context"]) or not _scope(
-        financial["context"], reference
-    ):
+    if not _scope(reference, request["metadata"]["context"]):
         problems.append("project report belongs to another workspace")
     if (
         reference["project_id"] != body["project_id"]
@@ -392,6 +526,27 @@ def report_problems(request: dict[str, Any], response: dict[str, Any]) -> list[s
     for key in ("date_policy", "period", "include_undated"):
         if financial[key] != body[key]:
             problems.append(f"project report changed the selected {key}")
+    problems.extend(_report_composition_problems(report))
+    return problems
+
+
+def _report_composition_problems(report: dict[str, Any]) -> list[str]:
+    """Compare retained composition without manufacturing its creation request."""
+    reference, manifest = report["reference"], report["manifest"]
+    financial = manifest["financial_manifest"]
+    problems: list[str] = []
+    if not _scope(financial["context"], reference):
+        problems.append("project report belongs to another workspace")
+    if manifest["project"]["project_id"] != reference["project_id"]:
+        problems.append("project report names another project")
+    preimage = {"kind": "arboresce.project-financial-report.v1", "manifest": manifest}
+    try:
+        digest = hashlib.sha256(canonical_bytes(preimage)).hexdigest()
+    except ExportReadError:
+        problems.append("project report cannot be canonically encoded")
+    else:
+        if digest != reference["content_sha256"]:
+            problems.append("project report content preimage digest differs")
     if any(total["currency"] != manifest["currency"] for total in financial["totals"]):
         problems.append("project report totals contain another currency")
     if len(financial["totals"]) > 1:
@@ -399,6 +554,16 @@ def report_problems(request: dict[str, Any], response: dict[str, Any]) -> list[s
     if sum(total["record_count"] for total in financial["totals"]) != len(financial["selected"]):
         problems.append("project report total counts differ from the frozen selection")
     selections = manifest["selected_associations"]
+    problems.extend(
+        _association_collection_problems(
+            [entry["association"] for entry in selections]
+            + [
+                {"workspace": entry["identity"]["workspace"], **entry["identity"]["association"]}
+                for entry in manifest["excluded_associations"]
+            ],
+            "project report",
+        )
+    )
     if len(selections) != len(financial["selected"]):
         problems.append("project report association selection is incomplete")
     seen: set[tuple[str, str, str, str, str]] = set()
@@ -408,6 +573,7 @@ def report_problems(request: dict[str, Any], response: dict[str, Any]) -> list[s
             entry["association"],
             entry["review_event"],
         )
+        problems.extend(_association_problems(association))
         if index >= len(financial["selected"]) or selected != financial["selected"][index]:
             problems.append(
                 "project report association selection differs from the financial selection"
@@ -499,6 +665,124 @@ def report_problems(request: dict[str, Any], response: dict[str, Any]) -> list[s
     return problems
 
 
+def _lineage_problems(
+    lineage: list[dict[str, Any]],
+    workspace: dict[str, Any],
+    label: str,
+    fields: list[str] | None = None,
+) -> list[str]:
+    """Compare declared fields and scope present in the returned lineage itself."""
+    problems: list[str] = []
+    covered: set[str] = set()
+    for field in lineage:
+        if field["field"] in covered:
+            problems.append(f"{label} lineage repeats a field")
+        covered.add(field["field"])
+        for entry in field["entries"]:
+            if (
+                entry["category"] == "source_observation"
+                and entry["observation"]["organization_id"] != workspace["organization_id"]
+            ):
+                problems.append(f"{label} lineage observation belongs to another organization")
+    if fields is not None and not set(fields).issubset(covered):
+        problems.append(f"{label} lineage omits a declared changed field")
+    return problems
+
+
+def _association_collection_problems(
+    associations: list[dict[str, Any]],
+    label: str,
+) -> list[str]:
+    """Require a single immutable identity per scoped association revision."""
+    problems: list[str] = []
+    seen: dict[tuple[str, str, str, str], str] = {}
+    for association in associations:
+        workspace = association["workspace"]
+        key = (
+            workspace["organization_id"],
+            workspace["domain_id"],
+            association["association_id"],
+            association["association_revision"]["value"],
+        )
+        digest = association["association_sha256"]
+        if key in seen:
+            if seen[key] != digest:
+                problems.append(f"{label} has contradictory digests for an association revision")
+            else:
+                problems.append(f"{label} repeats an exact association revision")
+        seen[key] = digest
+    return problems
+
+
+def _change_collection_problems(
+    resources: list[dict[str, Any]],
+    workspace: dict[str, Any],
+    label: str,
+) -> list[str]:
+    """Share intrinsic item, lineage and returned dependency-graph comparisons."""
+    problems: list[str] = []
+    seen: set[tuple[str, str, str]] = set()
+    candidate_versions: set[tuple[str, str]] = set()
+    dependencies: dict[tuple[str, str], set[tuple[str, str]]] = {}
+    for resource in resources:
+        item = resource["item"]
+        if not _scope(item["origin"]["capture"], workspace):
+            problems.append(
+                "group item names another capture revision"
+                if label == "group"
+                else f"{label} item origin capture belongs to another workspace"
+            )
+        candidate = _candidate(item["candidate"])
+        if candidate in seen:
+            problems.append(
+                "readback repeats an exact pending candidate"
+                if label == "readback pending"
+                else f"{label} repeats an exact candidate"
+            )
+        elif candidate[:2] in candidate_versions:
+            problems.append(f"{label} repeats a candidate version with another digest")
+        seen.add(candidate)
+        candidate_versions.add(candidate[:2])
+        key = item["item_id"], item["candidate"]["version"]["value"]
+        if key in dependencies:
+            problems.append(f"{label} repeats an exact item revision")
+        dependencies.setdefault(key, set()).update(
+            {
+                (dependency["item_id"], dependency["content_revision"]["value"])
+                for dependency in item["dependencies"]
+                if "item_id" in dependency
+            }
+        )
+        for evidence in item["evidence"].values():
+            if any(entry["organization_id"] != workspace["organization_id"] for entry in evidence):
+                problems.append(f"{label} item evidence belongs to another organization")
+        successor = resource["superseded_by"]
+        if successor is not None:
+            if (
+                successor["context"] != item["candidate"]["context"]
+                or successor["candidate_id"] != item["candidate"]["candidate_id"]
+            ):
+                problems.append(f"{label} item successor belongs to another candidate or context")
+            if int(successor["version"]["value"]) != int(item["candidate"]["version"]["value"]) + 1:
+                problems.append(f"{label} item successor is not the immediate revision")
+        problems.extend(
+            _lineage_problems(
+                item["field_lineage"],
+                workspace,
+                f"{label} item",
+                item["changed_fields"],
+            )
+        )
+    unresolved = set(dependencies)
+    while unresolved:
+        ready = {key for key in unresolved if not (dependencies[key] & unresolved)}
+        if not ready:
+            problems.append(f"{label} item dependencies contain a cycle")
+            break
+        unresolved.difference_update(ready)
+    return problems
+
+
 def group_problems(group: dict[str, Any], response_capture: str) -> list[str]:
     """Check group scope/capture joins, uniqueness and continuation identity."""
     problems: list[str] = []
@@ -508,7 +792,7 @@ def group_problems(group: dict[str, Any], response_capture: str) -> list[str]:
     continuation = group["continuation"]
     if continuation is not None and continuation["snapshot_id"] != group["snapshot_id"]:
         problems.append("group continuation names another snapshot")
-    seen: set[tuple[str, str, str]] = set()
+    problems.extend(_change_collection_problems(group["items"], workspace, "group"))
     for resource in group["items"]:
         item = resource["item"]
         if item["workspace"] != workspace or not _scope(item["candidate"]["context"], workspace):
@@ -519,15 +803,10 @@ def group_problems(group: dict[str, Any], response_capture: str) -> list[str]:
             problems.append("group item belongs to another project")
         capture = item["origin"]["capture"]
         if (
-            not _scope(capture, workspace)
-            or capture["capture_id"] != group["capture_id"]
+            capture["capture_id"] != group["capture_id"]
             or capture["version"] != group["content_revision"]
         ):
             problems.append("group item names another capture revision")
-        candidate = _candidate(item["candidate"])
-        if candidate in seen:
-            problems.append("group repeats an exact candidate")
-        seen.add(candidate)
         review = resource["review"]
         if review is not None:
             if review["candidate"] != item["candidate"]:
@@ -599,8 +878,15 @@ def readback_problems(
         if not any(review.get("mapping") == mapping for review in view["review_history"]):
             problems.append("readback mapping has no accepted review history")
     reviewed: set[tuple[str, str, str]] = set()
+    reviewed_versions: set[tuple[str, str]] = set()
     for review in view["review_history"]:
-        reviewed.add(_candidate(review["candidate"]))
+        candidate = _candidate(review["candidate"])
+        if candidate in reviewed:
+            problems.append("readback repeats a verdict for an exact candidate")
+        elif candidate[:2] in reviewed_versions:
+            problems.append("readback review has contradictory digests for a candidate version")
+        reviewed.add(candidate)
+        reviewed_versions.add(candidate[:2])
         if not _scope(review["candidate"]["context"], workspace):
             problems.append("readback review belongs to another workspace")
         if review["candidate"]["context"]["purpose"] != "project_update":
@@ -611,20 +897,47 @@ def readback_problems(
             if review["mapping"] not in mappings:
                 problems.append("readback accepted review has no returned mapping")
     for provenance in view["provenance"]:
+        problems.extend(
+            _lineage_problems(provenance["field_lineage"], workspace, "readback provenance")
+        )
         if _record(provenance["record"]) not in records:
             problems.append("readback provenance has no exact returned record")
         if provenance["accepted_revision"] != provenance["record"]["content_revision"]:
             problems.append("readback provenance and record revisions differ")
     expenses: set[tuple[str, str, str, str, str]] = set()
+    expense_versions: set[tuple[str, str, str, str]] = set()
     for expense in view["expenses"]:
+        problems.extend(_financial_revision_problems(expense["revision"]))
         reference = expense["revision"]["reference"]
         if not _scope(reference, workspace):
             problems.append("readback expense belongs to another workspace")
         key = _expense(reference)
         if key in expenses:
             problems.append("readback repeats an exact expense")
+        elif key[:4] in expense_versions:
+            problems.append("readback has contradictory digests for an expense revision")
         expenses.add(key)
+        expense_versions.add(key[:4])
+        confirmation = expense["confirmation"]
+        if confirmation is not None:
+            if confirmation["reference"] != reference:
+                problems.append("readback confirmation names another expense revision")
+            if int(confirmation["control_revision"]["value"]) > int(
+                expense["control_revision"]["value"]
+            ):
+                problems.append("readback confirmation follows the observed expense control")
+        successor = expense["superseded_by"]
+        if successor is not None:
+            if any(
+                successor[key] != reference[key]
+                for key in ("organization_id", "domain_id", "expense_id")
+            ):
+                problems.append("readback expense successor belongs to another aggregate")
+            if int(successor["version"]["value"]) != int(reference["version"]["value"]) + 1:
+                problems.append("readback expense successor is not the immediate revision")
+    problems.extend(_association_collection_problems(view["expense_associations"], "readback"))
     for association in view["expense_associations"]:
+        problems.extend(_association_problems(association))
         if (
             association["workspace"] != workspace
             or association["project"]["project_id"] != project["project_id"]
@@ -632,13 +945,11 @@ def readback_problems(
             problems.append("readback expense association belongs to another scope")
         if _expense(association["expense"]) not in expenses:
             problems.append("readback association has no exact returned expense")
-    pending: set[tuple[str, str, str]] = set()
+    problems.extend(
+        _change_collection_problems(response["result"]["pending"], workspace, "readback pending")
+    )
     for resource in response["result"]["pending"]:
         item = resource["item"]
-        candidate = _candidate(item["candidate"])
-        if candidate in pending:
-            problems.append("readback repeats an exact pending candidate")
-        pending.add(candidate)
         if item["workspace"] != workspace or item["project"]["project_id"] != project["project_id"]:
             problems.append("readback pending item belongs to another scope")
         if not _scope(item["candidate"]["context"], workspace):
@@ -647,7 +958,7 @@ def readback_problems(
             problems.append("readback pending candidate has another purpose")
         if resource["revision_state"] != "pending" or resource["review"] is not None:
             problems.append("readback pending item is already reviewed")
-        if _candidate(item["candidate"]) in reviewed:
+        if _candidate(item["candidate"])[:2] in reviewed_versions:
             problems.append("readback pending candidate already has recorded review history")
         target = item["target"]
         if target.get("absent") is True and any(

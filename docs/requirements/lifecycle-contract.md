@@ -95,6 +95,15 @@ Every exact GET uses required organization_id, domain_id, purpose query selector
 
 ## 3. Shared operation, plan, clocks and evidence
 
+The [focused project export profile](project-workflow.md#focused-asynchronous-export-operations)
+uses separately versioned operation, execution, plan and stage-result records.
+It reuses these state, clock, attribution, control, effect, exposure and receipt
+rules while retaining complete focused stage-result bytes inline in the exact
+operation read. Its two commands do not widen this family's eight-kind enum or
+its closed operation/plan definitions. Qualification and capability registration
+must precede activation; a schema reference alone establishes neither support
+nor canonical admission.
+
 ```text
 operation_reference = {organization_id, domain_id, operation_id}
 execution_plan_reference = {

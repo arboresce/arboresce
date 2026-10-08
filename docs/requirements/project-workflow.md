@@ -338,6 +338,134 @@ maintained project CSV encoding and independent readers, additive operation/admi
 exact artifact/content/delivery transport qualification remain required before
 CLI consumption. No ID-only export response constitutes a complete artifact.
 
+### Focused asynchronous export operations
+
+`arboresce.project-export-operations.v1` is a separately registered focused
+profile for `project.export` and `project_report.export`. It preserves the
+original focused and additional inventories, their legacy response
+definitions, and the closed financial/lifecycle v1 families. Those prototype
+export responses do not establish asynchronous support. Capability discovery
+must name the implemented qualified profile and its exact request, exchange,
+operation and plan contracts; it cannot silently select a prototype response.
+The focused profile registers both existing export POST routes, the existing
+exact operation and operation-plan GET routes and the existing operation cancel
+POST. No legacy lifecycle operation
+kind is added. Current subject authority and complete source disclosure remain
+mandatory before admission, replay and each exact read.
+
+The existing closed export request bodies remain the input contracts. Initial
+durable admission returns HTTP 202, a common accepted body, the complete queued
+or running focused operation and its top-level pending originating receipt.
+Location identifies that exact `/v1/operations/{operation_id}`. Authorized replay
+and operation GET return HTTP 200 with common succeeded transport body and
+`result={operation,idempotency_receipt}`. Pending work has null receipt expiry
+pair; terminal work has the original terminal pair. Receipt replay indication
+describes the request disposition, not another admission or effect. Failed and
+cancelled work remain failed and cancelled inside a successful resource read.
+No command receipt is placed inside the operation or at the top of a read.
+Cancellation reuses the unchanged lifecycle request and complete cancellation
+record/disposition rules, with its own atomic terminal receipt and the full
+focused target operation. Resolve the target's immutable subject before current
+action/policy checks; membership, a target reference or an original receipt
+does not authorize cancellation. No disconnect or polling timeout cancels work.
+Status and required headers belong to a separate normalized exchange, not
+invented domain-body fields. The focused exchange observes a `WWW-Authenticate`
+challenge for 401, using the `Nostr` scheme and at most 512 printable ASCII
+characters without CR/LF. The qualified identity producer owns its complete
+applicable challenge syntax and interpretation; a string is no proof of identity.
+429 requires `Retry-After`; 202 and other errors may carry it where guidance
+applies. This profile observes canonical delta seconds `0..99999999` as an
+ASCII decimal string without leading zeroes. The finite representation is not
+a default wait or permission to retry uncertain dispatched work. Preserve the
+qualified producer's actual guidance. Current authorization precedes retained replay.
+
+The complete focused operation retains the common identity/state fields,
+command, context, command origin, historical causal command, execution
+attribution, exact closed domain input, operation control, execution, effects
+and exposures. Reuse the lifecycle state, cancellation, reconciliation, clock,
+stage, attempt and ledger rules. Its separately closed execution additionally
+retains complete `stage_results`; every accepted result reference has exactly
+one corresponding complete record. No hidden, truncated or fabricated empty
+collection qualifies a read. Missing required retained detail fails under the
+existing lifecycle disclosure/retention outcomes.
+
+`arboresce.project-export-plan.v1` is a closed immutable plan core containing
+plan ID, scoped operation, command, context, complete selected profile reference,
+execution limits, canonical domain-input digest and complete stage declarations.
+Hash JCS of that entire core; exclude its own digest. The separately closed
+`arboresce.project-export-operation-profile.v1` selects complete execution
+limits, the exact delivery-profile reference and the first focused variant's
+single required `compile_export` stage with `export_artifact` output. It also
+selects the scoped lifecycle policy and the unchanged lifecycle
+`command_retention_limits` in its mandatory `retention` object. Qualify their
+actual policy applicability before admission. Replay duration is at least
+604800000 ms, diagnostic duration at least 2592000000 ms and strictly longer
+than replay. Both are terminal-relative: receipt expiry is terminal time plus
+`replay_retention_ms`; tombstone expiry is terminal time plus
+`diagnostic_retention_ms`, with checked UTC arithmetic. No incremental duration
+is inferred from the first expiry. Polling and replay never refresh either value. Pending receipts
+retain the required null pair. Minimal recognition and retirement barriers
+remain governed by lifecycle continuity; receipt expiry permits no repeated
+effect. These are explicit selected inputs, not defaults. The stage's input digest hashes JCS of
+the complete closed domain body; the request fingerprint independently hashes
+the full submitted command using the common method/path/purpose/body preimage.
+Never retain the raw idempotency key in the public operation or plan.
+
+The complete closed `arboresce.project-export-stage-result.v1` retains its ID,
+scoped operation and stage, exact input/profile digests and exact artifact
+reference. Its reference's result digest hashes JCS of the complete record.
+Operation success requires that retained output, the matching canonical
+`export_artifact_bound` effect and a typed result with command, exact subject
+and artifact reference. Resolve complete artifact metadata and bytes through
+the focused artifact transport; an ID-only result is insufficient. Compile-stage
+completion atomically retains the immutable artifact/control, its stage-result
+record, canonical effect and audit. It does not by itself claim overall operation
+success. The final operation completion checks the selected policy and shares
+the success/cancellation fence. If that final fence fails or cancellation wins
+after stage completion, preserve the completed stage, attempt, result and effect;
+failed/cancelled work still has no successful public operation result. No new
+business dispatch or artifact bind follows the winning cancellation. These
+focused boundaries do not alter the closed legacy financial operation contract.
+
+Cancellation comparison requires separate qualified decision inputs using
+`project_export_cancellation_decision_inputs`: the exact target, prior control,
+context, complete own execution attribution and canonical decision time. These
+are producer evidence, never a customer body or authority inferred from the
+returned cancellation. The own command and authority audit belong to that
+decision, separately from the originating command. Its recorded time cannot
+precede any event represented in the retained prior operation, including stage
+and attempt completion, effect commits, exposure observations, terminalization
+or an earlier cancellation. Replay preserves the original decision inputs and
+observed target. Queued work can become cancelled in the same one-increment
+decision without inventing a worker attempt.
+
+Attempt execution stays within its declared stage interval; no business stage
+or attempt dispatch follows a winning cancellation. Retry wait cannot retain a
+running attempt, and successful terminalization stays within the fixed work
+boundary. Complete ledger comparison checks distinct effect/exposure identities,
+scoped references, stage/attempt identity and audit attribution, observed clocks
+and exposure reconciliation associations. Ledger presence itself grants no
+permission for a canonical effect or external exposure.
+
+The selected export capability admits no canonical business effect before its
+compile stage. Each effect names that stage and its qualified worker execution;
+stage-less admission effects require a separately defined independent admission
+association before any future support. Terminal business stages and attempts
+cannot remain running or retryable. Ordinary finish and reconciliation checks
+stay within their fixed deadlines, and success observes settlement before its
+terminal time. Diagnostic strings and claimed resolved states supply no late
+observation qualification. The current conformance inputs contain no independent
+late timeout, passive confirmation or post-terminal effect evidence, so those
+comparisons deny when such evidence would be required. An owning producer must
+define and qualify that evidence before supporting the retained lifecycle late
+observation and confirmation paths; no later work or renewed budget is inferred.
+
+Plans, profiles, fingerprints, receipts, UTC deadlines, controls, complete
+ledgers, outputs and source/artifact joins require independent expected-value
+and semantic qualification. Static declarations implement no canonical
+admission, worker, current authority, capacity reservation or live delivery.
+Qualify those actual producers and fences before enabling this profile.
+
 ### Focused artifact and delivery transport
 
 The canonical artifact kind selects the focused project profile on the existing

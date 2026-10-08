@@ -1,14 +1,19 @@
 """Independent scope, control and history conformance regressions."""
 
 from copy import deepcopy
+from decimal import Decimal
 
 import pytest
 from project_semantics_support import (
     binding_inputs,
     byte_vector,
     case,
+    expense_history,
     export_inputs,
     prior_identity,
+    rehash_association_negative,
+    rehash_report_negative,
+    report_history,
     transport_inputs,
     validate_target,
 )
@@ -25,6 +30,179 @@ from arboresce_contract_validation.project_semantics import (
     report_problems,
     revocation_problems,
 )
+
+
+@pytest.mark.parametrize(
+    ("operation", "identity", "symbol", "actions"),
+    [
+        (
+            "project_change.group",
+            "project-group-current-read-selectors",
+            "project_change_group_request",
+            ["project.change.read"],
+        ),
+        (
+            "project_change.group",
+            "project-group-exact-read-selectors",
+            "project_change_group_request",
+            ["project.change.read"],
+        ),
+        (
+            "project_change.group",
+            "project-group-continuation-read-selectors",
+            "project_change_group_request",
+            ["project.change.read"],
+        ),
+        (
+            "project.readback",
+            "project-readback-request-mvp-valid",
+            "project_readback_request",
+            ["project.read"],
+        ),
+        (
+            "project_report.get",
+            "project-report-get-request-composed-valid",
+            "project_report_get_request",
+            ["project.read", "report.read"],
+        ),
+    ],
+)
+def test_actual_normalized_read_passes_its_registered_request_symbol(
+    operation, identity, symbol, actions
+):
+    inventory = case("mvp-cli-additional-operation-inventory-mvp-valid")
+    validate_target(inventory, "mvp_cli_additional_operation_inventory")
+    registration = next(row for row in inventory if row["operation"] == operation)
+    assert registration["method"] == "GET"
+    assert registration["request_contract"] == "project-workflow." + symbol
+    assert registration["required_actions"] == actions
+    request = case(identity)
+    assert "idempotency_key" not in request["metadata"]
+    validate_target(request, registration["request_contract"].split(".", 1)[1])
+    with pytest.raises(ValueError, match="value violates owning contract"):
+        validate_target(request, registration["success_response"].split(".", 1)[1])
+
+
+@pytest.mark.parametrize("state", ["confirmed", "superseded", "voided"])
+def test_readback_and_export_retain_exact_historical_confirmation(state):
+    request, exported, payload = export_inputs()
+    payload["project"]["expenses"][0] = expense_history(state)
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    assert (
+        readback_problems(
+            response,
+            payload["project"]["workspace"],
+            {key: payload["project"][key] for key in ("project_id", "content_revision")},
+        )
+        == []
+    )
+    assert export_problems(request, exported, payload) == []
+
+
+@pytest.mark.parametrize("state", ["confirmed", "superseded", "voided"])
+@pytest.mark.parametrize(
+    ("path", "replacement", "diagnostic"),
+    [
+        (
+            ("reference", "expense_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "readback confirmation names another expense revision",
+        ),
+        (
+            ("reference", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "readback confirmation names another expense revision",
+        ),
+        (
+            ("reference", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "readback confirmation names another expense revision",
+        ),
+        (
+            ("reference", "version", "value"),
+            "2",
+            "readback confirmation names another expense revision",
+        ),
+        (
+            ("reference", "content_sha256"),
+            "f" * 64,
+            "readback confirmation names another expense revision",
+        ),
+        (
+            ("control_revision", "value"),
+            "4",
+            "readback confirmation follows the observed expense control",
+        ),
+    ],
+)
+def test_schema_valid_confirmation_mismatches_fail_readback_and_export(
+    state, path, replacement, diagnostic
+):
+    request, exported, payload = export_inputs()
+    payload["project"]["expenses"][0] = expense_history(state)
+    target = payload["project"]["expenses"][0]["confirmation"]
+    for component in path[:-1]:
+        target = target[component]
+    target[path[-1]] = replacement
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    assert readback_problems(
+        response,
+        payload["project"]["workspace"],
+        {key: payload["project"][key] for key in ("project_id", "content_revision")},
+    ) == [diagnostic]
+    assert export_problems(request, exported, payload) == [diagnostic]
+
+
+@pytest.mark.parametrize(
+    ("path", "replacement", "diagnostic"),
+    [
+        (
+            ("organization_id",),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "readback expense successor belongs to another aggregate",
+        ),
+        (
+            ("domain_id",),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "readback expense successor belongs to another aggregate",
+        ),
+        (
+            ("expense_id",),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "readback expense successor belongs to another aggregate",
+        ),
+        (
+            ("version", "value"),
+            "3",
+            "readback expense successor is not the immediate revision",
+        ),
+    ],
+)
+def test_schema_valid_expense_successor_mismatches_fail_readback_and_export(
+    path, replacement, diagnostic
+):
+    request, exported, payload = export_inputs()
+    payload["project"]["expenses"][0] = expense_history("superseded")
+    target = payload["project"]["expenses"][0]["superseded_by"]
+    for component in path[:-1]:
+        target = target[component]
+    target[path[-1]] = replacement
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    assert readback_problems(
+        response,
+        payload["project"]["workspace"],
+        {key: payload["project"][key] for key in ("project_id", "content_revision")},
+    ) == [diagnostic]
+    assert export_problems(request, exported, payload) == [diagnostic]
 
 
 def test_transport_profile_versions_bind_one_immutable_digest():
@@ -758,7 +936,10 @@ def test_group_response_capture_and_duplicate():
     group = case("project-change-group-mvp-valid")
     assert group_problems(group, "other") == ["group capture differs from the response capture"]
     group["items"].append(deepcopy(group["items"][0]))
-    assert group_problems(group, group["capture_id"]) == ["group repeats an exact candidate"]
+    assert group_problems(group, group["capture_id"]) == [
+        "group repeats an exact candidate",
+        "group repeats an exact item revision",
+    ]
 
 
 def test_group_candidate_purpose():
@@ -1269,6 +1450,7 @@ def test_report_exclusion_expense_control_joins():
     response["result"]["report"]["manifest"]["excluded_associations"][0][
         "observed_expense_control_revision"
     ]["value"] = "2"
+    rehash_report_negative(response)
     assert report_problems(request, response) == [
         "project report exclusion expense controls differ"
     ]
@@ -1279,6 +1461,7 @@ def test_report_exclusion_expense_state_joins_preserve_separate_reasons():
     response = case("project-report-create-response-mvp-valid")
     manifest = response["result"]["report"]["manifest"]
     manifest["excluded_associations"][0].update(revision_state="confirmed", reason="ineligible")
+    rehash_report_negative(response)
     assert report_problems(request, response) == ["project report exclusion expense states differ"]
 
 
@@ -1295,20 +1478,16 @@ def test_report_totals_have_one_currency_bucket():
 def test_report_retains_confirmation_after_later_event_revocation():
     request = case("project-report-create-request-mvp-valid")
     response = case("project-report-create-response-mvp-valid")
-    entry = response["result"]["report"]["manifest"]["selected_associations"][0]
-    entry["review_event"].update(state="revoked", revoked_at="2026-09-08T12:01:30.000Z")
-    response["result"]["report"]["manifest"]["project"]["content_revision"]["value"] = "2"
+    response["result"]["report"] = report_history("retained_revocation")
+    validate_target(response, "project_report_create_response")
     assert report_problems(request, response) == []
 
 
 def test_report_empty_selection_and_other_exclusion_policy():
     request = case("project-report-create-request-mvp-valid")
     response = case("project-report-create-response-mvp-valid")
-    manifest = response["result"]["report"]["manifest"]
-    manifest["selected_associations"] = []
-    manifest["financial_manifest"]["selected"] = []
-    manifest["financial_manifest"]["totals"] = []
-    manifest["excluded_associations"][0]["reason"] = "outside_period"
+    response["result"]["report"] = report_history("empty_selection")
+    validate_target(response, "project_report_create_response")
     assert report_problems(request, response) == []
 
 
@@ -1478,7 +1657,8 @@ def test_readback_pending_candidates_are_unique():
     response["result"]["pending"].append(deepcopy(response["result"]["pending"][0]))
     project = {"project_id": view["project_id"], "content_revision": view["content_revision"]}
     assert readback_problems(response, view["workspace"], project) == [
-        "readback repeats an exact pending candidate"
+        "readback repeats an exact pending candidate",
+        "readback pending repeats an exact item revision",
     ]
 
 
@@ -1590,3 +1770,609 @@ def test_empty_readback_and_noncreate_pending():
     item["target"]["expected"] = {"kind": "content", "value": "1"}
     project = {"project_id": view["project_id"], "content_revision": view["content_revision"]}
     assert readback_problems(response, view["workspace"], project) == []
+
+
+@pytest.mark.parametrize("role", ["supporting", "refuting", "qualifying"])
+def test_group_rejects_foreign_evidence_ownership(role):
+    group = case("project-change-group-accepted-complete")
+    item = group["items"][0]["item"]
+    item["evidence"][role] = [
+        {
+            "organization_id": "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "observation_id": "22222222-2222-4222-9222-222222222222",
+        }
+    ]
+    validate_target(group, "project_change_group")
+    assert "group item evidence belongs to another organization" in group_problems(
+        group, group["capture_id"]
+    )
+
+
+def test_group_rejects_self_dependency():
+    group = case("project-change-group-accepted-complete")
+    item = group["items"][0]["item"]
+    item["dependencies"] = [
+        {"item_id": item["item_id"], "content_revision": {"kind": "content", "value": "1"}}
+    ]
+    validate_target(group, "project_change_group")
+    assert "group item dependencies contain a cycle" in group_problems(group, group["capture_id"])
+
+
+@pytest.mark.parametrize("size", [2, 3])
+def test_group_rejects_nonself_dependency_cycles(size):
+    group = case("project-change-group-mvp-valid")
+    resource = group["items"][0]
+    group["items"] = [deepcopy(resource) for _ in range(size)]
+    for index, entry in enumerate(group["items"]):
+        item = entry["item"]
+        item["item_id"] = f"63000000-0000-4000-8000-{index + 1:012x}"
+        item["candidate"]["candidate_id"] = f"63000000-0000-4000-8000-{index + 11:012x}"
+        item["dependencies"] = [
+            {
+                "item_id": f"63000000-0000-4000-8000-{(index + 1) % size + 1:012x}",
+                "content_revision": {"kind": "content", "value": "1"},
+            }
+        ]
+    validate_target(group, "project_change_group")
+    assert "group item dependencies contain a cycle" in group_problems(group, group["capture_id"])
+
+
+@pytest.mark.parametrize(
+    ("path", "replacement", "diagnostic"),
+    [
+        (
+            ("candidate_id",),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "group item successor belongs to another candidate or context",
+        ),
+        (
+            ("context", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "group item successor belongs to another candidate or context",
+        ),
+        (
+            ("context", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "group item successor belongs to another candidate or context",
+        ),
+        (
+            ("context", "purpose"),
+            "project_read",
+            "group item successor belongs to another candidate or context",
+        ),
+        (("version", "value"), "99", "group item successor is not the immediate revision"),
+    ],
+)
+def test_group_rejects_inconsistent_candidate_successor(path, replacement, diagnostic):
+    group = case("project-change-group-mvp-valid")
+    group["items"] = [case("project-change-resource-superseded-reviewed")]
+    target = group["items"][0]["superseded_by"]
+    for component in path[:-1]:
+        target = target[component]
+    target[path[-1]] = replacement
+    validate_target(group, "project_change_group")
+    assert diagnostic in group_problems(group, group["capture_id"])
+
+
+def test_group_rejects_two_candidates_for_one_item_revision():
+    group = case("project-change-group-mvp-valid")
+    duplicate = deepcopy(group["items"][0])
+    duplicate["item"]["candidate"]["candidate_id"] = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    group["items"].append(duplicate)
+    validate_target(group, "project_change_group")
+    assert "group repeats an exact item revision" in group_problems(group, group["capture_id"])
+
+
+@pytest.mark.parametrize("conflicting", [False, True])
+def test_readback_and_export_reject_duplicate_exact_candidate_verdicts(conflicting):
+    request, exported, payload = export_inputs()
+    history = payload["project"]["review_history"]
+    duplicate = deepcopy(history[0])
+    duplicate["review_id"] = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    if conflicting:
+        duplicate["verdict"] = "rejected"
+        duplicate.pop("mapping")
+    history.append(duplicate)
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    assert "readback repeats a verdict for an exact candidate" in readback_problems(
+        response,
+        payload["project"]["workspace"],
+        {key: payload["project"][key] for key in ("project_id", "content_revision")},
+    )
+    assert "readback repeats a verdict for an exact candidate" in export_problems(
+        request, exported, payload
+    )
+
+
+@pytest.mark.parametrize("financial", [False, True])
+@pytest.mark.parametrize(
+    ("path", "replacement", "diagnostic"),
+    [
+        (
+            ("captured_for", "expense_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "financial attribution names another captured revision",
+        ),
+        (
+            ("captured_for", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "financial attribution names another captured revision",
+        ),
+        (
+            ("captured_for", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "financial attribution names another captured revision",
+        ),
+        (
+            ("captured_for", "version", "value"),
+            "2",
+            "financial attribution names another captured revision",
+        ),
+        (
+            ("captured_for", "content_sha256"),
+            "f" * 64,
+            "financial attribution names another captured revision",
+        ),
+        (
+            ("origin", "source_revision", "organization_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "financial attribution origin belongs to another aggregate",
+        ),
+        (
+            ("origin", "source_revision", "domain_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "financial attribution origin belongs to another aggregate",
+        ),
+        (
+            ("origin", "source_revision", "expense_id"),
+            "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "financial attribution origin belongs to another aggregate",
+        ),
+        (
+            ("origin", "source_revision", "version", "value"),
+            "2",
+            "financial attribution origin has an inconsistent revision",
+        ),
+        (
+            ("origin", "source_revision", "content_sha256"),
+            "f" * 64,
+            "financial attribution origin has an inconsistent revision",
+        ),
+        (("origin", "target"), "/gross", "financial attribution origin names another field"),
+        (
+            ("origin", "value_sha256"),
+            "f" * 64,
+            "financial attribution resolved-value digest differs",
+        ),
+        (
+            ("origin", "recorded_at"),
+            "2026-10-03T12:00:00.000Z",
+            "financial attribution origin follows the retained revision",
+        ),
+    ],
+)
+def test_complete_financial_attribution_mismatches_fail_composed_reads(
+    financial, path, replacement, diagnostic
+):
+    request, exported, payload = export_inputs(financial)
+    revision = (
+        payload["records"][0]["revision"]
+        if financial
+        else payload["project"]["expenses"][0]["revision"]
+    )
+    target = revision["attribution"][0]
+    for component in path[:-1]:
+        target = target[component]
+    target[path[-1]] = replacement
+    validate_target(
+        payload, "project_financial_export_payload" if financial else "project_export_payload"
+    )
+    assert diagnostic in export_problems(request, exported, payload)
+    if not financial:
+        response = case("project-readback-response-mvp-valid")
+        response["result"].update(project=payload["project"], pending=payload["pending"])
+        validate_target(response, "project_readback_response")
+        assert diagnostic in readback_problems(
+            response,
+            payload["project"]["workspace"],
+            {key: payload["project"][key] for key in ("project_id", "content_revision")},
+        )
+
+
+@pytest.mark.parametrize("financial", [False, True])
+@pytest.mark.parametrize("mutation", ["missing", "reordered", "origin-alias", "unknown-target"])
+def test_complete_financial_field_associations_cannot_be_omitted_or_reassigned(financial, mutation):
+    request, exported, payload = export_inputs(financial)
+    revision = (
+        payload["records"][0]["revision"]
+        if financial
+        else payload["project"]["expenses"][0]["revision"]
+    )
+    entries = revision["attribution"]
+    if mutation == "missing":
+        entries.pop()
+        diagnostic = "financial attributions differ from the complete field bindings"
+    elif mutation == "reordered":
+        entries.reverse()
+        diagnostic = "financial attributions differ from the complete field bindings"
+    elif mutation == "origin-alias":
+        entries[1]["origin"]["association_id"] = entries[0]["origin"]["association_id"]
+        diagnostic = "financial attribution repeats an origin association"
+    else:
+        entries[0]["target"] = "/components/tax_components/15/amount"
+        entries[0]["origin"]["target"] = entries[0]["target"]
+        diagnostic = "financial attribution target is not an exact atomic unit"
+    validate_target(
+        payload, "project_financial_export_payload" if financial else "project_export_payload"
+    )
+    assert diagnostic in export_problems(request, exported, payload)
+
+
+@pytest.mark.parametrize("financial", [False, True])
+@pytest.mark.parametrize(
+    "member",
+    [
+        "organization_id",
+        "domain_id",
+        "project_id",
+        "expense_id",
+        "expense_version",
+        "expense_content_sha256",
+    ],
+)
+def test_association_preimage_mismatches_fail_every_composition(financial, member):
+    request, exported, payload = export_inputs(financial)
+    association = (
+        payload["report"]["manifest"]["selected_associations"][0]["association"]
+        if financial
+        else payload["project"]["expense_associations"][0]
+    )
+    replacement = (
+        {"kind": "content", "value": "2"}
+        if member == "expense_version"
+        else "f" * 64
+        if member == "expense_content_sha256"
+        else "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    )
+    association["content_preimage"][member] = replacement
+    validate_target(
+        payload, "project_financial_export_payload" if financial else "project_export_payload"
+    )
+    assert "association content preimage differs from its exposed identities" in export_problems(
+        request, exported, payload
+    )
+    if not financial:
+        response = case("project-readback-response-mvp-valid")
+        response["result"].update(project=payload["project"], pending=payload["pending"])
+        validate_target(response, "project_readback_response")
+        assert (
+            "association content preimage differs from its exposed identities"
+            in readback_problems(
+                response,
+                payload["project"]["workspace"],
+                {key: payload["project"][key] for key in ("project_id", "content_revision")},
+            )
+        )
+    report_request = case("project-report-create-request-mvp-valid")
+    report_response = case("project-report-create-response-mvp-valid")
+    report_response["result"]["report"]["manifest"]["selected_associations"][0]["association"][
+        "content_preimage"
+    ][member] = replacement
+    validate_target(report_response, "project_report_create_response")
+    assert "association content preimage differs from its exposed identities" in report_problems(
+        report_request, report_response
+    )
+
+
+@pytest.mark.parametrize("financial", [False, True])
+def test_association_without_preimage_cannot_qualify_composed_read(financial):
+    request, exported, payload = export_inputs(financial)
+    association = (
+        payload["report"]["manifest"]["selected_associations"][0]["association"]
+        if financial
+        else payload["project"]["expense_associations"][0]
+    )
+    del association["content_preimage"]
+    validate_target(
+        payload, "project_financial_export_payload" if financial else "project_export_payload"
+    )
+    assert "association has no complete content preimage" in export_problems(
+        request, exported, payload
+    )
+
+
+def test_group_candidate_version_cannot_have_two_content_digests():
+    group = case("project-change-group-mvp-valid")
+    duplicate = deepcopy(group["items"][0])
+    duplicate["item"]["item_id"] = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    duplicate["item"]["candidate"]["content_sha256"] = "f" * 64
+    group["items"].append(duplicate)
+    validate_target(group, "project_change_group")
+    assert "group repeats a candidate version with another digest" in group_problems(
+        group, group["capture_id"]
+    )
+
+
+@pytest.mark.parametrize("kind", ["verdict", "expense"])
+def test_readback_and_export_immutable_version_cannot_hide_behind_digest_alias(kind):
+    request, exported, payload = export_inputs()
+    view = payload["project"]
+    if kind == "verdict":
+        duplicate = deepcopy(view["review_history"][0])
+        duplicate["review_id"] = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+        duplicate["verdict"] = "rejected"
+        del duplicate["mapping"]
+        duplicate["candidate"]["content_sha256"] = "f" * 64
+        view["review_history"].append(duplicate)
+        diagnostic = "readback review has contradictory digests for a candidate version"
+    else:
+        duplicate = deepcopy(view["expenses"][0])
+        duplicate["revision"]["reference"]["content_sha256"] = "f" * 64
+        view["expenses"].append(duplicate)
+        diagnostic = "readback has contradictory digests for an expense revision"
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=view, pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    assert diagnostic in readback_problems(
+        response, view["workspace"], {key: view[key] for key in ("project_id", "content_revision")}
+    )
+    assert diagnostic in export_problems(request, exported, payload)
+
+
+@pytest.mark.parametrize("role", ["supporting", "refuting", "qualifying"])
+def test_pending_readback_and_export_share_evidence_scope_checks(role):
+    request, exported, payload = export_inputs()
+    payload["pending"][0]["item"]["evidence"][role] = [
+        {
+            "organization_id": "ffffffff-ffff-4fff-8fff-ffffffffffff",
+            "observation_id": "22222222-2222-4222-9222-222222222222",
+        }
+    ]
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    view = payload["project"]
+    diagnostic = "readback pending item evidence belongs to another organization"
+    assert diagnostic in readback_problems(response, view["workspace"], view)
+    assert diagnostic in export_problems(request, exported, payload)
+
+
+@pytest.mark.parametrize("size", [1, 2, 3])
+def test_pending_readback_and_export_share_returned_dependency_cycle_checks(size):
+    request, exported, payload = export_inputs()
+    resource = payload["pending"][0]
+    payload["pending"] = [deepcopy(resource) for _ in range(size)]
+    for index, entry in enumerate(payload["pending"]):
+        item = entry["item"]
+        item["item_id"] = f"65000000-0000-4000-8000-{index + 1:012x}"
+        item["candidate"]["candidate_id"] = f"65000000-0000-4000-8000-{index + 11:012x}"
+        item["dependencies"] = [
+            {
+                "item_id": f"65000000-0000-4000-8000-{(index + 1) % size + 1:012x}",
+                "content_revision": deepcopy(item["candidate"]["version"]),
+            }
+        ]
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    view = payload["project"]
+    diagnostic = "readback pending item dependencies contain a cycle"
+    assert diagnostic in readback_problems(response, view["workspace"], view)
+    assert diagnostic in export_problems(request, exported, payload)
+
+
+def test_pending_readback_and_export_reject_candidate_version_digest_alias():
+    request, exported, payload = export_inputs()
+    duplicate = deepcopy(payload["pending"][0])
+    duplicate["item"]["candidate"]["content_sha256"] = "f" * 64
+    payload["pending"].append(duplicate)
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    view = payload["project"]
+    diagnostic = "readback pending repeats a candidate version with another digest"
+    assert diagnostic in readback_problems(response, view["workspace"], view)
+    assert diagnostic in export_problems(request, exported, payload)
+
+
+@pytest.mark.parametrize("surface", ["group", "pending", "provenance"])
+def test_every_project_lineage_surface_rejects_foreign_observations(surface):
+    request, exported, payload = export_inputs()
+    group = case("project-change-group-accepted-complete")
+    lineage = (
+        group["items"][0]["item"]["field_lineage"]
+        if surface == "group"
+        else payload["pending"][0]["item"]["field_lineage"]
+        if surface == "pending"
+        else payload["project"]["provenance"][0]["field_lineage"]
+    )
+    lineage[0]["entries"] = [
+        {
+            "category": "source_observation",
+            "observation": {
+                "organization_id": "ffffffff-ffff-4fff-8fff-ffffffffffff",
+                "observation_id": "22222222-2222-4222-9222-222222222222",
+            },
+        }
+    ]
+    if surface == "group":
+        validate_target(group, "project_change_group")
+        assert "group item lineage observation belongs to another organization" in group_problems(
+            group, group["capture_id"]
+        )
+    else:
+        response = case("project-readback-response-mvp-valid")
+        response["result"].update(project=payload["project"], pending=payload["pending"])
+        validate_target(response, "project_readback_response")
+        validate_target(payload, "project_export_payload")
+        diagnostic = (
+            "readback pending item lineage observation belongs to another organization"
+            if surface == "pending"
+            else "readback provenance lineage observation belongs to another organization"
+        )
+        assert diagnostic in readback_problems(
+            response, payload["project"]["workspace"], payload["project"]
+        )
+        assert diagnostic in export_problems(request, exported, payload)
+
+
+@pytest.mark.parametrize("surface", ["group", "pending"])
+@pytest.mark.parametrize("mutation", ["missing", "duplicate"])
+def test_project_item_lineage_covers_changed_fields_once(surface, mutation):
+    request, exported, payload = export_inputs()
+    group = case("project-change-group-accepted-complete")
+    item = group["items"][0]["item"] if surface == "group" else payload["pending"][0]["item"]
+    if mutation == "missing":
+        item["field_lineage"] = [deepcopy(item["field_lineage"][0])]
+        item["field_lineage"][0]["field"] = "scope"
+        suffix = "lineage omits a declared changed field"
+    else:
+        item["field_lineage"].append(deepcopy(item["field_lineage"][0]))
+        suffix = "lineage repeats a field"
+    if surface == "group":
+        validate_target(group, "project_change_group")
+        assert "group item " + suffix in group_problems(group, group["capture_id"])
+    else:
+        response = case("project-readback-response-mvp-valid")
+        response["result"].update(project=payload["project"], pending=payload["pending"])
+        validate_target(response, "project_readback_response")
+        validate_target(payload, "project_export_payload")
+        diagnostic = "readback pending item " + suffix
+        assert diagnostic in readback_problems(
+            response, payload["project"]["workspace"], payload["project"]
+        )
+        assert diagnostic in export_problems(request, exported, payload)
+
+
+@pytest.mark.parametrize("conflicting", [False, True])
+def test_readback_and_export_reject_repeated_association_revision(conflicting):
+    request, exported, payload = export_inputs()
+    view = payload["project"]
+    duplicate = deepcopy(view["expense_associations"][0])
+    if conflicting:
+        expense = deepcopy(view["expenses"][0])
+        foreign = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+        expense["revision"]["reference"]["expense_id"] = foreign
+        for attribution in expense["revision"]["attribution"]:
+            attribution["captured_for"]["expense_id"] = foreign
+            attribution["origin"]["source_revision"]["expense_id"] = foreign
+        if expense["confirmation"] is not None:
+            expense["confirmation"]["reference"]["expense_id"] = foreign
+        view["expenses"].append(expense)
+        duplicate["expense"]["expense_id"] = foreign
+        duplicate["content_preimage"]["expense_id"] = foreign
+        rehash_association_negative(duplicate)
+    view["expense_associations"].append(duplicate)
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=view, pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    diagnostic = (
+        "readback has contradictory digests for an association revision"
+        if conflicting
+        else "readback repeats an exact association revision"
+    )
+    assert readback_problems(response, view["workspace"], view) == [diagnostic]
+    assert export_problems(request, exported, payload) == [diagnostic]
+
+
+@pytest.mark.parametrize("conflicting", [False, True])
+def test_report_and_financial_export_reject_repeated_association_revision(conflicting):
+    request, exported, payload = export_inputs(True)
+    report = payload["report"]
+    manifest = report["manifest"]
+    financial = manifest["financial_manifest"]
+    duplicate = deepcopy(manifest["selected_associations"][0])
+    if conflicting:
+        foreign = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+        selected, association, event = (
+            duplicate["selected"],
+            duplicate["association"],
+            duplicate["review_event"],
+        )
+        selected["reference"]["expense_id"] = foreign
+        selected["confirmation"]["reference"]["expense_id"] = foreign
+        selected["confirmation"]["financial_review_event_id"] = foreign
+        association["expense"]["expense_id"] = foreign
+        association["content_preimage"]["expense_id"] = foreign
+        rehash_association_negative(association)
+        event["expense"]["expense_id"] = foreign
+        event["financial_review_event_id"] = foreign
+        event["association"]["association_sha256"] = association["association_sha256"]
+        record = deepcopy(payload["records"][0])
+        record["selected"] = deepcopy(selected)
+        record["revision"]["reference"]["expense_id"] = foreign
+        for attribution in record["revision"]["attribution"]:
+            attribution["captured_for"]["expense_id"] = foreign
+            attribution["origin"]["source_revision"]["expense_id"] = foreign
+        payload["records"].append(record)
+    manifest["selected_associations"].append(duplicate)
+    financial["selected"].append(deepcopy(duplicate["selected"]))
+    for total in financial["totals"]:
+        total["record_count"] *= 2
+        for bucket in [
+            "gross",
+            "subtotal",
+            "tax",
+            "gratuity",
+            "service_charges",
+            "discount",
+            "business_allocation",
+        ]:
+            values = total[bucket]
+            values["known_net"] = format(Decimal(values["known_net"]) * 2, ".2f")
+            for count in [
+                "unknown_record_count",
+                "unknown_list_record_count",
+                "known_null_component_count",
+            ]:
+                values[count] *= 2
+    rehash_report_negative({"result": {"report": report}})
+    exported["result"]["export"]["core"]["subject"]["report"] = deepcopy(report["reference"])
+    request["body"]["report"] = deepcopy(report["reference"])
+    if not conflicting:
+        # Exact duplicate selections are already forbidden by the owning shape.
+        with pytest.raises(ValueError, match="value violates owning contract"):
+            validate_target(payload, "project_financial_export_payload")
+        return
+    validate_target(payload, "project_financial_export_payload")
+    diagnostic = (
+        "project report has contradictory digests for an association revision"
+        if conflicting
+        else "project report repeats an exact association revision"
+    )
+    assert diagnostic in export_problems(request, exported, payload)
+    creation_request = case("project-report-create-request-mvp-valid")
+    creation_response = case("project-report-create-response-mvp-valid")
+    creation_response["result"]["report"] = report
+    validate_target(creation_response, "project_report_create_response")
+    assert diagnostic in report_problems(creation_request, creation_response)
+
+
+@pytest.mark.parametrize("member", ["organization_id", "domain_id"])
+def test_pending_origin_capture_scope_is_shared_by_group_readback_and_export(member):
+    request, exported, payload = export_inputs()
+    payload["pending"][0]["item"]["origin"]["capture"][member] = (
+        "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    )
+    response = case("project-readback-response-mvp-valid")
+    response["result"].update(project=payload["project"], pending=payload["pending"])
+    validate_target(response, "project_readback_response")
+    validate_target(payload, "project_export_payload")
+    view = payload["project"]
+    diagnostic = "readback pending item origin capture belongs to another workspace"
+    assert readback_problems(response, view["workspace"], view) == [diagnostic]
+    assert export_problems(request, exported, payload) == [diagnostic]
+    group = case("project-change-group-mvp-valid")
+    group["items"][0]["item"]["origin"]["capture"][member] = "ffffffff-ffff-4fff-8fff-ffffffffffff"
+    validate_target(group, "project_change_group")
+    assert group_problems(group, group["capture_id"]) == [
+        "group item names another capture revision"
+    ]

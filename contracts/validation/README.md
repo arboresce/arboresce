@@ -325,6 +325,84 @@ Neither the generic local CLI nor the upstream parsed-fixture CLI automatically
 performs these cross-record checks. Consuming clients/services must explicitly
 compose structural and semantic validation and qualify their effects.
 
+### Focused asynchronous export expectations
+
+The separately versioned focused export-operation profile retains complete
+operation, execution, selected-profile, plan and stage-result records. Its five
+registrations select the two export POSTs, exact operation and plan GETs, and
+operation cancellation. The original inventories and closed lifecycle and
+financial definitions remain unchanged. Capability discovery and activation
+require the qualified focused profile rather than a legacy terminal prototype.
+
+Literal examples include both admission states, every work state, current reads,
+authorized replay, complete plans, all cancellation dispositions and RFC 9457
+transport failures. Required status/header observations are distinct from their
+domain bodies. Request fingerprints include the full submitted command; public
+operation/plan inputs contain no raw idempotency key. Stage-result references
+bind the complete retained result bytes, not an unexplained output digest.
+Selected retention uses lifecycle's terminal-relative replay/diagnostic limits
+and minimum seven/thirty days; polling cannot renew them. Failed/cancelled
+examples retain a completed stage, attempt, full output and canonical effect
+when the final operation fence fails or cancellation wins afterward. Empty
+required output/effect collections fail shape validation; exact cross-record
+identity, hash, timing and immutable-history joins remain semantic gates.
+Normalized errors retain the required bounded Nostr challenge and retry guidance;
+202 also permits polling guidance without treating it as retry authorization.
+
+These new examples are provisional until independent expected-value review and
+cross-record semantic qualification pass. Shape acceptance establishes neither
+canonical admission, current authority, complete source disclosure nor an
+implemented worker or transport. Complete current protocol qualification and
+whole-profile acceptance must precede dependent client consumption.
+
+`project_operations.py` compares the separately supplied complete request,
+admission/source snapshot, selected profile, plan, operation and retained artifact.
+It checks full submitted-command fingerprints, terminal-relative receipts,
+immutable plan/input/result hashes, scoped attribution, fixed clocks and attempt
+ledgers, accepted outputs and canonical artifact effects. Exact reads retain
+their original cause; cancellation compares an independent prior snapshot and
+preserves the original work while issuing its own record and receipt. Required
+`project_export_cancellation_decision_inputs` supply separate qualified own
+context, target/control, execution attribution and decision time; the return
+record cannot stand in for those producer inputs. Queued immediate-cancellation
+literals retain zero attempts and one control increment. Canonical
+subset failures deny comparison before hashes, including integer-valued floats.
+These are conformance comparisons, not authentication, current policy checks,
+canonical transactions, workers or live delivery. Actual progress-history,
+capacity, cancellation observation, admission and cleanup fences still require
+their owning runtime qualification.
+
+The semantic tests consume reviewed complete positive literals; the full corpus
+protocol qualifies their structural preconditions against the same frozen input
+bytes. Complete request, selected-profile, plan, admission and artifact positives
+use that owning corpus qualification rather than rerunning identical schema
+checks for every semantic observation. Structural comparisons reuse one real
+immutable registry snapshot per test process, specialized to each owning target.
+Mutated negative inputs explicitly pass their owning structural check
+before the cross-record comparison. No schema filler or helper-generated positive
+result serves as its expected oracle.
+
+Read-family cases resolve actual normalized grouping, readback and report
+requests through their registered request symbols, with the exact minimum
+action/purpose/resource mappings. Logical selectors do not establish that an
+HTTP producer emitted a bodyless GET or qualified current disclosure.
+Group comparisons reject returned dependency cycles, foreign evidence ownership
+and inconsistent candidate successors. Readback preserves one immutable verdict
+per exact candidate and the original confirmation across financial history.
+Shared financial comparisons join complete field bindings, captured and origin
+references, resolved atomic values, content digests and association preimages.
+The retained report comparison serves creation and export without fabricating a
+creation request from the returned report. These internal checks cannot prove
+unreturned predecessor content, source truth, current authority or human assurance.
+
+The selected export contract requires a stage identity on every canonical effect.
+Its conformance inputs do not supply independent late-observation evidence;
+ordinary finishes and automatic reconciliation stay inside their fixed clocks.
+Late timeout observations, passive confirmations and later effects require their
+own producer qualification before support. Claimed diagnostics and receipt fields
+cannot supply that qualification. Reusable input builders belong to measured
+support; assertion bodies do not contribute to maintained-source totals.
+
 ### Frozen project export byte expectations
 
 The focused transport definitions register exact artifact/content/delivery reads
@@ -549,7 +627,7 @@ mkdir "$REGISTRY_RUN/home" "$REGISTRY_RUN/tmp" "$REGISTRY_RUN/cache" \
   "$REGISTRY_RUN/profiles" "$REGISTRY_RUN/reports"
 ```
 
-The following selects all ten test modules, including semantic and byte conformance and the process observation guard fixtures in test_support.py. The real /bin/sh process records its own $$ and execs timeout with that same PID. The only transient prepared Python command inspects inherited limits and publishes the original monotonic deadline/current-UID encoding before timeout starts. There is no uv or other process left between timeout and the measured pytest process. Current support then checks the actual parent/group/session and retains every actual CLI child/profile.
+The following selects all eleven test modules, including semantic, operation and byte conformance and the process observation guard fixtures in test_support.py. The real /bin/sh process records its own $$ and execs timeout with that same PID. The only transient prepared Python command inspects inherited limits and publishes the original monotonic deadline/current-UID encoding before timeout starts. There is no uv or other process left between timeout and the measured pytest process. Current support then checks the actual parent/group/session and retains every actual CLI child/profile.
 
 ```sh
 cd "$REGISTRY_PROJECT/../.."
@@ -591,7 +669,8 @@ env -i PATH=/usr/bin:/bin LANG=C LC_ALL=C TZ=UTC \
   "$REGISTRY_PROJECT/tests/test_references.py" "$REGISTRY_PROJECT/tests/test_snapshot.py" \
   "$REGISTRY_PROJECT/tests/test_support.py" "$REGISTRY_PROJECT/tests/test_validation.py" \
   "$REGISTRY_PROJECT/tests/test_project_semantics.py" \
-  "$REGISTRY_PROJECT/tests/test_project_exports.py"
+  "$REGISTRY_PROJECT/tests/test_project_exports.py" \
+  "$REGISTRY_PROJECT/tests/test_project_operations.py"
 ```
 
 The shell uses noclobber for stdout/stderr and a fresh owner-only output tree. Test support exclusively creates the suite receipt. The shown shell profile uses 1024-byte file-limit units; the pre-exec checks require actual soft/hard 134217728-byte file limits, zero core limits and at least 256 descriptors. A different platform unit convention fails before pytest starts and needs an explicitly qualified command adjustment. The standard platform encoding is derived from the current UID. Keep these actual bindings; do not copy a historical host UID.
@@ -609,6 +688,7 @@ PROJECT/tests/test_properties.py PROJECT/tests/test_races.py
 PROJECT/tests/test_references.py PROJECT/tests/test_snapshot.py
 PROJECT/tests/test_support.py PROJECT/tests/test_validation.py
 PROJECT/tests/test_project_semantics.py PROJECT/tests/test_project_exports.py
+PROJECT/tests/test_project_operations.py
 ```
 
 These preserve the reviewed 320s/45s original observation/reconciliation windows and the separate 300+5/30+5 timeout behavior. Never replace the original deadline with a per-barrier allowance. The shell is a real entered process, not a parenthesized shell subshell that borrows another process's $$; include its one transient clock/limit inspection process in the full launch inventory. The bridge does not independently reconcile a timed-out group's terminal status or certify raw profiles: preserve a failed timeout and all artifacts. Existing qualification observation/reconciliation remains required for a qualification claim.
