@@ -266,6 +266,89 @@ normalized no-op financial revision or rewriting an older confirmation/report.
 Initial creation is not acceptance of those later transitions, human assurance
 or an installed service/client command.
 
+### Association revision before financial confirmation
+
+The registered `expense_association.create` operation can create a new immutable
+revision of an existing association before that relationship is financially
+confirmed. This profile is distinct from absent-aggregate initial creation. The
+stable association ID, workspace and stable expense ID remain unchanged; rebinding
+changes the selected project or the exact revision of that same expense. A new
+expense identity requires its own initial relationship, not reuse of another
+association identity. The current expense head is proposed. At the final
+admission fence, the complete required confirmation history of the selected stable
+association aggregate is observed across all its retained revisions, within its
+exact workspace. No revision of that aggregate has a retained successful
+financial confirmation binding. A confirmed historical revision prevents this
+pre-confirmation admission even if a later current association or expense head
+is unconfirmed/proposed; the separately versioned post-confirmation composition
+transition is required. Missing or unavailable required history cannot establish
+eligibility. A confirmation for a different stable association does not supply
+this aggregate's history or by itself disqualify this transition.
+
+The complete retained write intent names the exact held current association
+revision/digest and separately observed aggregate control. At final admission,
+that held head must still be the current immutable association, and the requested
+`expected_control_revision` must equal the current association control. The new
+`association_revision` is exactly the old association content revision plus one;
+after commit the current association control is exactly its former value plus
+one. Content and control counters remain independent. The immutable predecessor's
+retained expected control, an expense/project revision or a financial label
+cannot supply the current control or infer either successor counter. Reject
+exhaustion or a stale fence before any effect.
+
+The existing closed create body carries the complete new association and common
+metadata. Its project reference names a complete current same-workspace project;
+its expense reference names the complete current proposed head of the same stable
+expense, including exact version and content digest. Both the predecessor and
+new relationship remain subject to current requester/executor, membership,
+permitted action/purpose, scoped grant or independently authorized human, source
+disclosure and lifecycle authority. No project approval, Party, cached permission
+or retained review supplies fresh authority. The new current project/expense pair
+must not already belong to a different current association in the workspace.
+
+The new owning association preimage and digest must differ from the predecessor's
+normalized content. Provenance-only changes or refreshing the same project's
+reference without changing the owning preimage cannot manufacture a revision.
+Changing the project binding or the exact expense revision is explicit reviewed
+association content; it never changes closed expense v1 money/content. A normalized
+no-op expense revision cannot substitute for an association or composition change.
+
+One fenced transaction retains the predecessor unchanged, appends exactly the
+new immutable association, replaces that aggregate's current head, advances its
+independently recorded current control once and binds attributable provenance,
+mutation audit/outbox, permanent command recognition and complete original
+terminal result/receipt. The old association remains resolvable by its exact
+revision/digest under current disclosure; supersession changes the current head,
+not the immutable historical association or its provenance. Other association
+aggregates, expense content/control/state, project content, old confirmations and
+frozen report selections remain unchanged. Failure cannot commit a partial set
+of these effects or disclose a partial successful result.
+
+Pending financial challenges and unconsumed review events bound to the old
+association become ineligible for the new current relationship. Their exact
+historical bodies and decisions remain retained; they cannot be rebound, renewed,
+reissued or consumed as authority for the successor. A new exact review must name
+the new association revision/digest. The association write issues or consumes no
+financial review event and creates no financial confirmation.
+
+Each distinct revision or rebind retains a new complete command intent and key.
+Eligible exact replay rechecks current authorization before disclosure and returns
+the original association and original receipt with replay marked. Later current
+heads or controls do not turn replay into fresh revision admission; the original
+fingerprint, terminal time and retention deadlines do not change. Replay creates
+no new version, head/control change, audit/outbox, recognition or financial effect.
+A changed full request under the same scoped key conflicts. Permanent recognition
+with unavailable detailed results cannot be treated as an unused key. A retry
+with a new key still must satisfy the actual current head/control and no-op fences.
+
+Complete recorded observations distinguish immutable history, held references,
+the current head and independent current control before and after the write.
+Lost or invalid success observations leave remote admission unknown and retain
+the last trusted state; they cannot invent committed or aborted postconditions.
+These requirements must receive independent literal, consumer and actual runtime
+qualification at their respective gates. They accept no post-confirmation
+composition, financial human assurance, storage or installed service/client.
+
 Project readback uses canonical accepted project revisions and qualified current
 expense associations. It distinguishes pending changes, unknown/conflicting facts,
 reported attendance, planned/completed work and confirmed/unconfirmed expenses.
