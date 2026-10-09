@@ -200,6 +200,72 @@ financial composition without changing closed v1 money fields or smuggling a
 project ID into business-purpose prose. Financial confirmation needs the distinct
 actual-human exact-content event; project-item acceptance cannot provide it.
 
+### Initial expense association admission
+
+The initial association profile creates a previously absent relationship for a
+current proposed expense. Its `expected_control_revision` belongs to the stable
+association aggregate. Expense and project control revisions remain independent;
+no expense content version, project revision or retained association field can
+supply a current association control observation.
+
+For fresh initial creation, the selected workspace has no aggregate with the
+supplied association ID and no current association for the selected project and
+expense ID. The complete supplied association has `association_revision` content
+1 and `expected_control_revision` control 1. These are explicit initial values,
+not a fabricated pre-existing control 1 or a zero control. The initial-control
+precondition binds the absent aggregate and the required initial result together.
+An existing ID or current relationship conflicts rather than silently replacing
+or duplicating it. Later association revision and rebinding transitions retain
+separate qualification requirements.
+
+At the final admission fence, the selected project reference names its complete
+current same-workspace project content revision. The supplied expense reference
+names the complete current same-workspace expense head, including exact content
+version and digest, and that head is proposed. Current requester, executor,
+membership, permitted purpose/action, scoped grant or authorized-human authority,
+source disclosure and lifecycle permissions must all still permit this creation.
+A financial review label, Party, project acceptance or retained confirmation
+cannot provide this authority. The separately registered create request retains
+its complete association body and common metadata; protected input does not
+replace these semantic preconditions.
+
+One fenced transaction creates the immutable association revision 1, its current
+head and independently recorded current association control 1. It binds the
+complete owning association preimage/digest, actual executor and attributable
+provenance, mutation audit/outbox and terminal idempotency receipt to that exact
+request and result. Failure cannot expose a partial association or commit part
+of those effects. Initial creation does not revise expense money/content,
+advance expense content/control, change its proposed state, issue or consume a
+financial review event, or create financial confirmation. It does not rewrite
+project content, historical associations, confirmations or report selections.
+
+Complete recorded postconditions distinguish the absent association/control
+before admission from the exact new head and current control 1 afterwards.
+Current control is an observation bound to the stable association ID; the
+immutable resource's retained expected control is a historical precondition.
+The existing `observed_association_control_revision` in financial selections
+carries the separately observed association control, not an expense version or
+an inferred approval. A service must qualify actual current-control observation
+and mutation effects before enabling the corresponding runtime capability;
+synthetic conformance records establish neither storage nor actual authority.
+
+Eligible exact idempotent replay rechecks current authorization and disclosure
+before returning the original complete association and receipt. It preserves the
+original request fingerprint and receipt expiry/tombstone deadlines, marks the
+receipt replayed, and creates no new association, head, control increment,
+mutation audit/outbox or review effect. A changed request under the same key
+conflicts. A fresh distinct intent cannot convert an existing ID or relationship
+into initial creation. Current denial does not disclose a cached result or
+reapply an old financial effect.
+
+This profile defines initial creation and its exact replay only. Association
+revision, rebinding, supersession and correction after confirmation remain
+required but must receive their own complete owning transitions before affected
+consumers. A new proposed composition cannot be implemented by fabricating a
+normalized no-op financial revision or rewriting an older confirmation/report.
+Initial creation is not acceptance of those later transitions, human assurance
+or an installed service/client command.
+
 Project readback uses canonical accepted project revisions and qualified current
 expense associations. It distinguishes pending changes, unknown/conflicting facts,
 reported attendance, planned/completed work and confirmed/unconfirmed expenses.
