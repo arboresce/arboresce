@@ -105,7 +105,7 @@ Planned paths: `Cargo.toml`, `Cargo.lock`, `rust-toolchain.toml`, `crates/arbore
 
 External prerequisite capabilities: Approve the focused synthetic corpus and independent oracles. Require independently qualified compatible public contracts/corpus/policy or actual client/service evidence for these consumed capabilities before this slice starts. This declares capability readiness without a private checkout or tooling dependency.
 
-Definition of green: Exact Rust 1.98.0 builds useful opaque identities; independent formats/roundtrips and strict source/region coverage pass; the binding proof is not treated as an API runtime.
+Definition of green: Exact Rust 1.99.0 builds useful opaque identities; independent formats/roundtrips and strict source/region coverage pass; the binding proof is not treated as an API runtime.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 

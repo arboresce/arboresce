@@ -18,7 +18,7 @@ lockfile or executable command is introduced by this requirements document.
 
 | Component | Required selection |
 | --- | --- |
-| Rust toolchain | Exactly `1.98.0`. Use an exact pin, not a floating channel or an implicit minor-line upgrade. |
+| Rust toolchain | Exactly `1.99.0`. Use an exact pin, not a floating channel or an implicit minor-line upgrade. |
 | Rust language edition | `2024`. |
 | Cargo dependency resolver | `3`. The lockfile format number is a separate setting. |
 | Temporal Rust SDK | `temporalio-sdk` exactly `1.0.0`. |
@@ -101,8 +101,8 @@ models. Expose skipped/truncated results; detector scores do not prove financial
 correctness. Qualify JPEG/PNG and the actual selected non-DRM WAV/M4A profile;
 HEIC needs separate decoder evidence or an explicitly preserved derivative relation.
 Actual signing/review assurance, Temporal server/tools and finite worker limits
-remain consumer-specific unqualified inputs until selected. Exact Rust 1.98.0
-supersedes stale execution-plan 1.97.1 entries without implying installation or
+remain consumer-specific unqualified inputs until selected. Exact Rust 1.99.0
+supersedes the earlier 1.98.0 baseline and stale execution-plan 1.97.1 entries without implying installation or
 compatibility evidence. Public implementations/resources must be standalone and
 rights-cleared; reference code is not automatically a dependency or licensed input.
 
