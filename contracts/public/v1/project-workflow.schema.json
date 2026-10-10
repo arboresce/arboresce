@@ -12605,6 +12605,1684 @@
         }
       },
       "additionalProperties": false
+    },
+    "financial_composition_reference_v1": {
+      "type": "object",
+      "required": [
+        "organization_id",
+        "domain_id",
+        "composition_id",
+        "content_revision",
+        "content_sha256"
+      ],
+      "properties": {
+        "organization_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "domain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "composition_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_revision": {
+          "$ref": "common.schema.json#/$defs/content_revision"
+        },
+        "content_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_preimage_v1": {
+      "type": "object",
+      "required": [
+        "kind",
+        "workspace",
+        "project",
+        "expense",
+        "association"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.financial-composition-content.v1"
+        },
+        "workspace": {
+          "$ref": "#/$defs/workspace_reference"
+        },
+        "project": {
+          "$ref": "#/$defs/project_reference"
+        },
+        "expense": {
+          "$ref": "financial-records.schema.json#/$defs/expense_reference"
+        },
+        "association": {
+          "$ref": "#/$defs/project_association_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_content_v1": {
+      "type": "object",
+      "required": [
+        "reference",
+        "preimage"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "#/$defs/financial_composition_reference_v1"
+        },
+        "preimage": {
+          "$ref": "#/$defs/financial_composition_preimage_v1"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_revision_v1": {
+      "type": "object",
+      "required": [
+        "content",
+        "provenance"
+      ],
+      "properties": {
+        "content": {
+          "$ref": "#/$defs/financial_composition_content_v1"
+        },
+        "provenance": {
+          "$ref": "#/$defs/expense_project_association/properties/provenance"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_controls_v1": {
+      "type": "object",
+      "required": [
+        "project",
+        "expense",
+        "association",
+        "composition"
+      ],
+      "properties": {
+        "project": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "expense": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "association": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "composition": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_association_snapshot_v1": {
+      "type": "object",
+      "required": [
+        "association",
+        "control_revision"
+      ],
+      "properties": {
+        "association": {
+          "$ref": "#/$defs/expense_project_association"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_confirmation_v1": {
+      "type": "object",
+      "required": [
+        "financial_review_event_id",
+        "reference",
+        "control_revision",
+        "association",
+        "association_control_revision",
+        "expense_disposition",
+        "reviewer",
+        "executor",
+        "delegation_id",
+        "authority_audit_event_id",
+        "recorded_at",
+        "audit_event_id"
+      ],
+      "properties": {
+        "financial_review_event_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "reference": {
+          "$ref": "#/$defs/financial_composition_reference_v1"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "association": {
+          "$ref": "#/$defs/project_association_reference"
+        },
+        "association_control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "expense_disposition": {
+          "enum": [
+            "confirmed_now",
+            "already_confirmed"
+          ]
+        },
+        "reviewer": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/principal_reference"
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "human"
+                }
+              }
+            }
+          ]
+        },
+        "executor": {
+          "$ref": "#/$defs/principal_reference"
+        },
+        "delegation_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authority_audit_event_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "recorded_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "audit_event_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_snapshot_v1": {
+      "type": "object",
+      "required": [
+        "revision",
+        "control_revision",
+        "state",
+        "confirmation",
+        "superseded_by"
+      ],
+      "properties": {
+        "revision": {
+          "$ref": "#/$defs/financial_composition_revision_v1"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "state": {
+          "enum": [
+            "proposed",
+            "confirmed",
+            "superseded",
+            "voided"
+          ]
+        },
+        "confirmation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/financial_composition_confirmation_v1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "superseded_by": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/financial_composition_reference_v1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "state": {
+              "const": "proposed"
+            },
+            "confirmation": {
+              "type": "null"
+            },
+            "superseded_by": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "state": {
+              "const": "confirmed"
+            },
+            "confirmation": {
+              "type": "object"
+            },
+            "superseded_by": {
+              "type": "null"
+            },
+            "control_revision": {
+              "properties": {
+                "value": {
+                  "not": {
+                    "const": "1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "state": {
+              "const": "superseded"
+            },
+            "superseded_by": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "properties": {
+            "state": {
+              "const": "voided"
+            },
+            "superseded_by": {
+              "type": "null"
+            }
+          }
+        }
+      ]
+    },
+    "financial_composition_proposal_fences_v1": {
+      "type": "object",
+      "required": [
+        "association",
+        "association_control_revision",
+        "composition",
+        "composition_control_revision",
+        "expense_control_revision",
+        "project_control_revision"
+      ],
+      "properties": {
+        "association": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/project_association_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "association_control_revision": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "composition": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/financial_composition_reference_v1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "composition_control_revision": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expense_control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        },
+        "project_control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_propose_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.propose"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "mode",
+            "composition",
+            "association",
+            "fences"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "first_associated",
+                "first_unassociated",
+                "correction"
+              ]
+            },
+            "composition": {
+              "$ref": "#/$defs/financial_composition_content_v1"
+            },
+            "association": {
+              "$ref": "#/$defs/expense_project_association"
+            },
+            "fences": {
+              "$ref": "#/$defs/financial_composition_proposal_fences_v1"
+            }
+          },
+          "additionalProperties": false,
+          "oneOf": [
+            {
+              "properties": {
+                "mode": {
+                  "const": "first_associated"
+                },
+                "fences": {
+                  "properties": {
+                    "association": {
+                      "type": "object"
+                    },
+                    "association_control_revision": {
+                      "type": "object"
+                    },
+                    "composition": {
+                      "type": "null"
+                    },
+                    "composition_control_revision": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "mode": {
+                  "const": "first_unassociated"
+                },
+                "fences": {
+                  "properties": {
+                    "association": {
+                      "type": "null"
+                    },
+                    "association_control_revision": {
+                      "type": "null"
+                    },
+                    "composition": {
+                      "type": "null"
+                    },
+                    "composition_control_revision": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "mode": {
+                  "const": "correction"
+                },
+                "fences": {
+                  "properties": {
+                    "association": {
+                      "type": "object"
+                    },
+                    "association_control_revision": {
+                      "type": "object"
+                    },
+                    "composition": {
+                      "type": "object"
+                    },
+                    "composition_control_revision": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_get_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "composition"
+          ],
+          "properties": {
+            "composition": {
+              "$ref": "#/$defs/financial_composition_reference_v1"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_confirm_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.confirm"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "composition",
+            "project",
+            "expense",
+            "association",
+            "controls",
+            "financial_review_event_id"
+          ],
+          "properties": {
+            "composition": {
+              "$ref": "#/$defs/financial_composition_reference_v1"
+            },
+            "project": {
+              "$ref": "#/$defs/project_reference"
+            },
+            "expense": {
+              "$ref": "financial-records.schema.json#/$defs/expense_reference"
+            },
+            "association": {
+              "$ref": "#/$defs/project_association_reference"
+            },
+            "controls": {
+              "$ref": "#/$defs/financial_composition_controls_v1"
+            },
+            "financial_review_event_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_preimage_v1": {
+      "type": "object",
+      "required": [
+        "kind",
+        "base",
+        "composition",
+        "project",
+        "controls"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.financial-composition-review-content.v1"
+        },
+        "base": {
+          "$ref": "#/$defs/financial_review_preimage"
+        },
+        "composition": {
+          "$ref": "#/$defs/financial_composition_reference_v1"
+        },
+        "project": {
+          "$ref": "#/$defs/project_reference"
+        },
+        "controls": {
+          "$ref": "#/$defs/financial_composition_controls_v1"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_challenge_v1": {
+      "type": "object",
+      "required": [
+        "kind",
+        "base",
+        "preimage",
+        "review_sha256"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.financial-composition-review-challenge.v1"
+        },
+        "base": {
+          "$ref": "#/$defs/financial_review_challenge"
+        },
+        "preimage": {
+          "$ref": "#/$defs/financial_composition_review_preimage_v1"
+        },
+        "review_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_event_v1": {
+      "type": "object",
+      "required": [
+        "kind",
+        "base",
+        "preimage",
+        "review_sha256"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.financial-composition-review-event.v1"
+        },
+        "base": {
+          "$ref": "#/$defs/financial_review_event"
+        },
+        "preimage": {
+          "$ref": "#/$defs/financial_composition_review_preimage_v1"
+        },
+        "review_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_proof_v1": {
+      "type": "object",
+      "required": [
+        "kind",
+        "challenge_id",
+        "reviewer",
+        "assurance",
+        "decision",
+        "review_sha256",
+        "asserted_at",
+        "proof"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.financial-composition-review-proof.v1"
+        },
+        "challenge_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "reviewer": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/principal_reference"
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "human"
+                }
+              }
+            }
+          ]
+        },
+        "assurance": {
+          "$ref": "#/$defs/assurance_profile"
+        },
+        "decision": {
+          "$ref": "#/$defs/review_decision"
+        },
+        "review_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "asserted_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "proof": {
+          "$ref": "#/$defs/financial_review_proof_payload"
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_rendering_v1": {
+      "type": "object",
+      "required": [
+        "kind",
+        "review_sha256",
+        "rendering_sha256",
+        "media_type",
+        "text"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.financial-composition-review-rendering.v1"
+        },
+        "review_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "rendering_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "media_type": {
+          "const": "text/plain"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16384
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_challenge_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition_review.challenge"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "composition",
+            "project",
+            "expense",
+            "association",
+            "controls",
+            "purpose",
+            "reviewer",
+            "executor_scope"
+          ],
+          "properties": {
+            "composition": {
+              "$ref": "#/$defs/financial_composition_reference_v1"
+            },
+            "project": {
+              "$ref": "#/$defs/project_reference"
+            },
+            "expense": {
+              "$ref": "financial-records.schema.json#/$defs/expense_reference"
+            },
+            "association": {
+              "$ref": "#/$defs/project_association_reference"
+            },
+            "controls": {
+              "$ref": "#/$defs/financial_composition_controls_v1"
+            },
+            "purpose": {
+              "$ref": "common.schema.json#/$defs/slug"
+            },
+            "reviewer": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/principal_reference"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "human"
+                    }
+                  }
+                }
+              ]
+            },
+            "executor_scope": {
+              "$ref": "#/$defs/executor_scope"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_issue_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition_review.issue"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "proof"
+          ],
+          "properties": {
+            "proof": {
+              "$ref": "#/$defs/financial_composition_review_proof_v1"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_review_event_get_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            }
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition_review.event.get"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "financial_review_event_id"
+          ],
+          "properties": {
+            "financial_review_event_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "financial_composition_propose_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [
+            "composition",
+            "association",
+            "expense",
+            "project"
+          ],
+          "properties": {
+            "composition": {
+              "$ref": "#/$defs/financial_composition_snapshot_v1"
+            },
+            "association": {
+              "$ref": "#/$defs/financial_composition_association_snapshot_v1"
+            },
+            "expense": {
+              "$ref": "financial-records.schema.json#/$defs/expense_snapshot"
+            },
+            "project": {
+              "$ref": "#/$defs/financial_composition_project_observation_v1"
+            }
+          },
+          "maxProperties": 32,
+          "propertyNames": {
+            "$ref": "common.schema.json#/$defs/json_key"
+          },
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/json_value"
+          }
+        },
+        "state": {
+          "const": "succeeded"
+        },
+        "request_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "idempotency_receipt": {
+          "$ref": "common.schema.json#/$defs/idempotency_receipt"
+        }
+      },
+      "required": [
+        "state",
+        "request_id",
+        "result",
+        "idempotency_receipt"
+      ],
+      "type": "object"
+    },
+    "financial_composition_get_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [
+            "composition",
+            "association",
+            "expense",
+            "project"
+          ],
+          "properties": {
+            "composition": {
+              "$ref": "#/$defs/financial_composition_snapshot_v1"
+            },
+            "association": {
+              "$ref": "#/$defs/financial_composition_association_snapshot_v1"
+            },
+            "expense": {
+              "$ref": "financial-records.schema.json#/$defs/expense_snapshot"
+            },
+            "project": {
+              "$ref": "#/$defs/financial_composition_project_observation_v1"
+            }
+          },
+          "maxProperties": 32,
+          "propertyNames": {
+            "$ref": "common.schema.json#/$defs/json_key"
+          },
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/json_value"
+          }
+        },
+        "idempotency_receipt": false,
+        "state": {
+          "const": "succeeded"
+        },
+        "request_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        }
+      },
+      "type": "object",
+      "required": [
+        "state",
+        "request_id",
+        "result"
+      ]
+    },
+    "financial_composition_confirm_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [
+            "composition",
+            "association",
+            "expense",
+            "project"
+          ],
+          "properties": {
+            "composition": {
+              "$ref": "#/$defs/financial_composition_snapshot_v1"
+            },
+            "association": {
+              "$ref": "#/$defs/financial_composition_association_snapshot_v1"
+            },
+            "expense": {
+              "$ref": "financial-records.schema.json#/$defs/expense_snapshot"
+            },
+            "project": {
+              "$ref": "#/$defs/financial_composition_project_observation_v1"
+            }
+          },
+          "maxProperties": 32,
+          "propertyNames": {
+            "$ref": "common.schema.json#/$defs/json_key"
+          },
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/json_value"
+          }
+        },
+        "state": {
+          "const": "succeeded"
+        },
+        "request_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "idempotency_receipt": {
+          "$ref": "common.schema.json#/$defs/idempotency_receipt"
+        }
+      },
+      "required": [
+        "state",
+        "request_id",
+        "result",
+        "idempotency_receipt"
+      ],
+      "type": "object"
+    },
+    "financial_composition_review_challenge_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [
+            "challenge",
+            "rendering",
+            "capability"
+          ],
+          "properties": {
+            "challenge": {
+              "$ref": "#/$defs/financial_composition_review_challenge_v1"
+            },
+            "rendering": {
+              "$ref": "#/$defs/financial_composition_review_rendering_v1"
+            },
+            "capability": {
+              "$ref": "#/$defs/financial_review_capability"
+            }
+          },
+          "maxProperties": 32,
+          "propertyNames": {
+            "$ref": "common.schema.json#/$defs/json_key"
+          },
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/json_value"
+          }
+        },
+        "state": {
+          "const": "succeeded"
+        },
+        "request_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "idempotency_receipt": {
+          "$ref": "common.schema.json#/$defs/idempotency_receipt"
+        }
+      },
+      "required": [
+        "state",
+        "request_id",
+        "result",
+        "idempotency_receipt"
+      ],
+      "type": "object"
+    },
+    "financial_composition_review_issue_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [
+            "event"
+          ],
+          "properties": {
+            "event": {
+              "$ref": "#/$defs/financial_composition_review_event_v1"
+            }
+          },
+          "maxProperties": 32,
+          "propertyNames": {
+            "$ref": "common.schema.json#/$defs/json_key"
+          },
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/json_value"
+          }
+        },
+        "state": {
+          "const": "succeeded"
+        },
+        "request_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "idempotency_receipt": {
+          "$ref": "common.schema.json#/$defs/idempotency_receipt"
+        }
+      },
+      "required": [
+        "state",
+        "request_id",
+        "result",
+        "idempotency_receipt"
+      ],
+      "type": "object"
+    },
+    "financial_composition_review_event_get_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [
+            "event"
+          ],
+          "properties": {
+            "event": {
+              "$ref": "#/$defs/financial_composition_review_event_v1"
+            }
+          },
+          "maxProperties": 32,
+          "propertyNames": {
+            "$ref": "common.schema.json#/$defs/json_key"
+          },
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/json_value"
+          }
+        },
+        "idempotency_receipt": false,
+        "state": {
+          "const": "succeeded"
+        },
+        "request_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        }
+      },
+      "type": "object",
+      "required": [
+        "state",
+        "request_id",
+        "result"
+      ]
+    },
+    "financial_composition_operation_registration_v1": {
+      "oneOf": [
+        {
+          "const": {
+            "operation": "financial_composition.propose",
+            "method": "POST",
+            "route": "/v1/financial-compositions",
+            "scope": {
+              "workspace_requirement": "exactly_one_workspace",
+              "authority": "current_financial_owner"
+            },
+            "required_actions": [
+              "expense.review",
+              "association.create",
+              "project.read"
+            ],
+            "required_purposes": [
+              "expense_associate"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "expense",
+              "project"
+            ],
+            "request_contract": "project-workflow.financial_composition_propose_request_v1",
+            "success_response": "project-workflow.financial_composition_propose_response_v1",
+            "error_codes": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          }
+        },
+        {
+          "const": {
+            "operation": "financial_composition.get",
+            "method": "POST",
+            "route": "/v1/financial-compositions/resolve",
+            "scope": {
+              "workspace_requirement": "exactly_one_workspace",
+              "authority": "current_financial_owner"
+            },
+            "required_actions": [
+              "expense.read",
+              "association.read",
+              "project.read"
+            ],
+            "required_purposes": [
+              "expense_read"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "expense",
+              "project"
+            ],
+            "request_contract": "project-workflow.financial_composition_get_request_v1",
+            "success_response": "project-workflow.financial_composition_get_response_v1",
+            "error_codes": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          }
+        },
+        {
+          "const": {
+            "operation": "financial_composition.confirm",
+            "method": "POST",
+            "route": "/v1/financial-compositions/{composition_id}/confirm",
+            "scope": {
+              "workspace_requirement": "exactly_one_workspace",
+              "authority": "current_financial_owner"
+            },
+            "required_actions": [
+              "expense.confirm",
+              "association.create",
+              "project.read"
+            ],
+            "required_purposes": [
+              "expense_confirm"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "expense",
+              "project"
+            ],
+            "request_contract": "project-workflow.financial_composition_confirm_request_v1",
+            "success_response": "project-workflow.financial_composition_confirm_response_v1",
+            "error_codes": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          }
+        },
+        {
+          "const": {
+            "operation": "financial_composition_review.challenge",
+            "method": "POST",
+            "route": "/v1/financial-composition-reviews/challenges",
+            "scope": {
+              "workspace_requirement": "exactly_one_workspace",
+              "authority": "authenticated_review_requester"
+            },
+            "required_actions": [
+              "financial_review.request",
+              "expense.read",
+              "association.read",
+              "project.read"
+            ],
+            "required_purposes": [
+              "expense_review"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "expense",
+              "project"
+            ],
+            "request_contract": "project-workflow.financial_composition_review_challenge_request_v1",
+            "success_response": "project-workflow.financial_composition_review_challenge_response_v1",
+            "error_codes": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          }
+        },
+        {
+          "const": {
+            "operation": "financial_composition_review.issue",
+            "method": "POST",
+            "route": "/v1/financial-composition-reviews",
+            "scope": {
+              "workspace_requirement": "exactly_one_workspace",
+              "authority": "trusted_human_reviewer"
+            },
+            "required_actions": [],
+            "required_purposes": [
+              "expense_review"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "expense",
+              "project"
+            ],
+            "request_contract": "project-workflow.financial_composition_review_issue_request_v1",
+            "success_response": "project-workflow.financial_composition_review_issue_response_v1",
+            "error_codes": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          }
+        },
+        {
+          "const": {
+            "operation": "financial_composition_review.event.get",
+            "method": "POST",
+            "route": "/v1/financial-composition-reviews/events/resolve",
+            "scope": {
+              "workspace_requirement": "exactly_one_workspace",
+              "authority": "trusted_human_reviewer"
+            },
+            "required_actions": [],
+            "required_purposes": [
+              "expense_review"
+            ],
+            "required_scope_kinds": [
+              "workspace",
+              "expense",
+              "project"
+            ],
+            "request_contract": "project-workflow.financial_composition_review_event_get_request_v1",
+            "success_response": "project-workflow.financial_composition_review_event_get_response_v1",
+            "error_codes": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "request_too_large",
+              "unsupported_media_type",
+              "invalid_command",
+              "rate_limited",
+              "internal_error",
+              "unavailable"
+            ]
+          }
+        }
+      ]
+    },
+    "financial_composition_operation_inventory_v1": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/financial_composition_operation_registration_v1"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": {
+              "operation": "financial_composition.propose",
+              "method": "POST",
+              "route": "/v1/financial-compositions",
+              "scope": {
+                "workspace_requirement": "exactly_one_workspace",
+                "authority": "current_financial_owner"
+              },
+              "required_actions": [
+                "expense.review",
+                "association.create",
+                "project.read"
+              ],
+              "required_purposes": [
+                "expense_associate"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "expense",
+                "project"
+              ],
+              "request_contract": "project-workflow.financial_composition_propose_request_v1",
+              "success_response": "project-workflow.financial_composition_propose_response_v1",
+              "error_codes": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "const": {
+              "operation": "financial_composition.get",
+              "method": "POST",
+              "route": "/v1/financial-compositions/resolve",
+              "scope": {
+                "workspace_requirement": "exactly_one_workspace",
+                "authority": "current_financial_owner"
+              },
+              "required_actions": [
+                "expense.read",
+                "association.read",
+                "project.read"
+              ],
+              "required_purposes": [
+                "expense_read"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "expense",
+                "project"
+              ],
+              "request_contract": "project-workflow.financial_composition_get_request_v1",
+              "success_response": "project-workflow.financial_composition_get_response_v1",
+              "error_codes": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "const": {
+              "operation": "financial_composition.confirm",
+              "method": "POST",
+              "route": "/v1/financial-compositions/{composition_id}/confirm",
+              "scope": {
+                "workspace_requirement": "exactly_one_workspace",
+                "authority": "current_financial_owner"
+              },
+              "required_actions": [
+                "expense.confirm",
+                "association.create",
+                "project.read"
+              ],
+              "required_purposes": [
+                "expense_confirm"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "expense",
+                "project"
+              ],
+              "request_contract": "project-workflow.financial_composition_confirm_request_v1",
+              "success_response": "project-workflow.financial_composition_confirm_response_v1",
+              "error_codes": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "const": {
+              "operation": "financial_composition_review.challenge",
+              "method": "POST",
+              "route": "/v1/financial-composition-reviews/challenges",
+              "scope": {
+                "workspace_requirement": "exactly_one_workspace",
+                "authority": "authenticated_review_requester"
+              },
+              "required_actions": [
+                "financial_review.request",
+                "expense.read",
+                "association.read",
+                "project.read"
+              ],
+              "required_purposes": [
+                "expense_review"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "expense",
+                "project"
+              ],
+              "request_contract": "project-workflow.financial_composition_review_challenge_request_v1",
+              "success_response": "project-workflow.financial_composition_review_challenge_response_v1",
+              "error_codes": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "const": {
+              "operation": "financial_composition_review.issue",
+              "method": "POST",
+              "route": "/v1/financial-composition-reviews",
+              "scope": {
+                "workspace_requirement": "exactly_one_workspace",
+                "authority": "trusted_human_reviewer"
+              },
+              "required_actions": [],
+              "required_purposes": [
+                "expense_review"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "expense",
+                "project"
+              ],
+              "request_contract": "project-workflow.financial_composition_review_issue_request_v1",
+              "success_response": "project-workflow.financial_composition_review_issue_response_v1",
+              "error_codes": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "conflict",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "const": {
+              "operation": "financial_composition_review.event.get",
+              "method": "POST",
+              "route": "/v1/financial-composition-reviews/events/resolve",
+              "scope": {
+                "workspace_requirement": "exactly_one_workspace",
+                "authority": "trusted_human_reviewer"
+              },
+              "required_actions": [],
+              "required_purposes": [
+                "expense_review"
+              ],
+              "required_scope_kinds": [
+                "workspace",
+                "expense",
+                "project"
+              ],
+              "request_contract": "project-workflow.financial_composition_review_event_get_request_v1",
+              "success_response": "project-workflow.financial_composition_review_event_get_response_v1",
+              "error_codes": [
+                "invalid_request",
+                "unauthenticated",
+                "forbidden",
+                "not_found",
+                "request_too_large",
+                "unsupported_media_type",
+                "invalid_command",
+                "rate_limited",
+                "internal_error",
+                "unavailable"
+              ]
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "financial_composition_project_observation_v1": {
+      "description": "Independently obtained current project resource and its separately observed composition admission control; content revision does not infer this control.",
+      "type": "object",
+      "required": [
+        "project",
+        "control_revision"
+      ],
+      "properties": {
+        "project": {
+          "$ref": "#/$defs/project_resource"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

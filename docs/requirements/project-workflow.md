@@ -379,6 +379,28 @@ authorized view cannot fit; silent collection truncation is forbidden. Semantic
 join, completeness and current disclosure checks remain required before a service
 or client can claim qualified readback.
 
+### Separately versioned confirmed financial composition
+
+Post-confirmation relationship changes use the separate
+[`financial_composition_*_v1` family](financial-records.md#versioned-composition-transitions),
+including first materialization from a legacy association or an explicitly known
+unassociated confirmed expense. Each proposal creates a new exact association
+and composition atomically; it never rewrites a historical association or borrows
+the pre-confirmation profile. Content revisions and observed controls advance
+independently. Complete financial binding history remains distinct from current
+heads. An unchanged associated binding cannot create a wrapper-only successor.
+
+The dedicated compound review binds exact project revision, money, association,
+composition and their independent current controls. Confirmation requires both
+financial and association authority, one qualified human decision and one global
+event consumption. Proposed incomplete money cannot become confirmed by association.
+Original expense confirmations and reports remain immutable. Current authorization
+also gates exact reads and replay disclosure; a retained reference grants no access.
+The legacy report/readback/export shapes remain unchanged. Their separately
+versioned composition selections must distinguish legacy association selections
+from compound selections and retain original base expense confirmation alongside
+the compound event. This family alone does not qualify those consumer paths.
+
 ## Focused export payload and artifact identities
 
 Project export requires both the exact project content revision and expected

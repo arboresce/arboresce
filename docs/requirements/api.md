@@ -169,6 +169,32 @@ requester (or an explicit `financial_review.request` grant action), which is not
 trusted human reviewer that issues the assurance, and not the separately permitted
 executor that consumes the issued event.
 
+### Versioned financial composition operations
+
+The separate `financial_composition_operation_inventory_v1` registers six closed
+operations without changing the original inventories. All use exact workspace
+context, ordinary signed-request admission and current disclosure authorization.
+
+| Operation | POST route | Required current actions |
+| --- | --- | --- |
+| `financial_composition.propose` | `/v1/financial-compositions` | `expense.review`, `association.create`, `project.read` |
+| `financial_composition.get` | `/v1/financial-compositions/resolve` | `expense.read`, `association.read`, `project.read` |
+| `financial_composition.confirm` | `/v1/financial-compositions/{composition_id}/confirm` | `expense.confirm`, `association.create`, `project.read` |
+| `financial_composition_review.challenge` | `/v1/financial-composition-reviews/challenges` | `financial_review.request`, `expense.read`, `association.read`, `project.read` |
+| `financial_composition_review.issue` | `/v1/financial-composition-reviews` | Trusted qualified human reviewer; no general grant substitutes |
+| `financial_composition_review.event.get` | `/v1/financial-composition-reviews/events/resolve` | Current trusted reviewer and current target disclosure |
+
+Each inventory row fixes request, success and admitted error contracts, purposes,
+resource scopes and authority. Successful mutations carry the original common
+idempotency receipt; protected resolve responses carry none. The complete request
+body and canonical route are part of retained command intent. Proposal explicitly
+selects first-associated, first-unassociated or correction fences. Challenge and
+confirmation bind all four current target controls; issuance consumes the selected
+compound challenge with its own closed proof. Legacy financial operations cannot
+consume compound authority. Reauthorization precedes replay, and every failed fence
+prevents partial association, financial, challenge/event or receipt effects.
+These declarations do not enable installed commands or a qualified review mechanism.
+
 ### Signed-request and reference-resolution admission
 
 The [identity profile](identity-contract.md#signed-http-profile) owns the exact

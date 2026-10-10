@@ -396,6 +396,77 @@ context nor inference can manufacture source monetary facts. Independent reports
 and lossless JSON/reversible CSV retain exact selected financial and association
 versions, per-currency totals, provenance and current disclosure controls.
 
+#### Versioned composition transitions
+
+`financial_composition_*_v1` definitions in the project-workflow schema are a
+separate contract family. They do not extend closed expense money, financial
+revision, confirmation or legacy review preimages. A composition's immutable
+`content` contains its workspace-qualified reference and canonical preimage;
+the latter binds the exact project content revision, expense reference and
+association reference. SHA-256 uses the existing bounded canonical JSON subset
+without a new money normalization. Server provenance is outside that preimage.
+The snapshot separately records current control, state and confirmation.
+Successful composition propose/get/confirm results additionally require a complete
+`financial_composition_project_observation_v1`: the unchanged closed project
+resource plus independently observed current project control. This sidecar is
+not inferred from project content revision and changes no old project read.
+The observation joins exact workspace/project/content identity to every request
+project fence; proposal and confirmation preserve its resource/control postimage.
+
+Every fresh `financial_composition.propose` atomically appends a new association
+and proposed composition. Its explicit mode is `first_associated`,
+`first_unassociated` or `correction`. The request fences the independently observed
+current expense and project controls and the actual association/composition heads
+and controls; absent aggregates use explicit null fences, never missing observations.
+Admission establishes complete known absence and prevents duplicate current
+project/expense relationships or composition aggregates over one association.
+
+- First associated materialization retains complete historical financial bindings,
+  names the actual current association predecessor, advances its content and
+  independently observed control once, and initializes composition content/control
+  to one. An old confirmed association may differ from that actual current head.
+- First unassociated materialization establishes absence of association identity,
+  target relationship and composition identity/head/control. It initializes both
+  content/control pairs to one and retains the original null-associated expense
+  confirmation. An unknown observation cannot authorize this mode.
+- Correction names both actual current predecessors and independent controls,
+  appends successor content for both and advances each control once. A proposed
+  or confirmed current composition may be corrected. Historical revisions,
+  confirmations and frozen reports remain unchanged; pending reviews of the
+  predecessor become ineligible for a fresh confirmation.
+
+For associated first materialization and correction, the new association preimage
+must differ from its predecessor. An unchanged relationship cannot mint a wrapper,
+refresh provenance or create a fake money revision. Proposal preserves expense
+content/control/state and all previous financial confirmations. The selected
+expense is either currently confirmed or a real proposed successor from ordinary
+expense revision; incomplete monetary facts remain proposed. Exhausted counters,
+missing/stale/ambiguous fences or unavailable required history prevent all effects.
+Old pre-confirmation association admission cannot be reused after any retained
+financial confirmation for that stable association.
+
+`financial_composition.confirm` requires a current proposed composition, its exact
+association, current expense/project and independently observed controls, and a
+fresh compound event. Current financial authority and association-binding authority
+are both required under current source/project disclosure and any complete scoped
+delegation. The short fenced transaction consumes one global event, confirms the
+composition and its exact association binding, advances composition/association
+controls once and records original receipt, recognition, audit and outbox atomically.
+If the expense is proposed and financially complete, the same transaction confirms
+that exact expense using the unchanged v1 confirmation and canonically stored base
+financial event, advancing expense financial control once. If already confirmed,
+its original state/control/confirmation stay unchanged. Composition confirmation
+records whether the base expense was `confirmed_now` or `already_confirmed`.
+Neither case overwrites old base confirmations or frozen reports.
+
+Current authorization precedes replay disclosure. Exact replay returns the original
+result and deadlines without new effects before fresh head/event checks; changed
+intent conflicts. An uncertain remote observation retains last trusted state.
+These contracts enable no identity mechanism, installed client, storage or runtime.
+Separately versioned report/readback/export selections must retain the unchanged
+financial manifest and original selected-record confirmation alongside the explicit
+composition confirmation/event. They require their own complete consumer gates.
+
 `expense_date` uses the common calendar date and preserves date-only precision.
 `source_observed_at` is a separately attributed nullable source instant;
 `recorded_at` is the server's UTC time. Neither upload time nor server time

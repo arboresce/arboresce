@@ -5,6 +5,7 @@ import csv
 import hashlib
 import io
 import json
+import marshal
 from functools import cache
 from pathlib import Path
 from typing import Any, Protocol, cast
@@ -13,6 +14,9 @@ from jsonschema.protocols import Validator
 from support import validator_for
 
 from arboresce_contract_validation.cli import LocalRegistryLoader, SnapshotStore
+from arboresce_contract_validation.financial_composition import (
+    proposal_problems as check_composition_proposal,
+)
 
 BYTE_FIXTURES = Path(__file__).resolve().parent / "fixtures/project-export-bytes"
 
@@ -35,12 +39,52 @@ def owning_validator() -> SchemaEvolution:
         return cast("SchemaEvolution", validator_for(loader, {}))
 
 
-def validate_target(value: dict[str, Any], target: str) -> None:
+def validate_target(value: Any, target: str) -> None:
     """Validate actual complete inputs before semantic conformance comparisons."""
     entry = Path(__file__).resolve().parents[2] / "public/v1/project-workflow.schema.json"
     validator = owning_validator().evolve(schema={"$ref": entry.as_uri() + "#/$defs/" + target})
     if not validator.is_valid(value):
         raise ValueError("value violates owning contract")
+
+
+@cache
+def _composition_literal() -> dict[str, Any]:
+    path = Path(__file__).resolve().parent / "fixtures/financial-composition.v1.json"
+    return cast("dict[str, Any]", json.loads(path.read_text(encoding="utf-8")))
+
+
+def composition_literal() -> dict[str, Any]:
+    """Return an independent mutable copy of reviewed literals, never new gold."""
+    return copy.deepcopy(_composition_literal())
+
+
+def proposal_problems(row: dict[str, Any]) -> list[str]:
+    """Check a proposal using the independently retained literal receipt profile."""
+    return check_composition_proposal(row, composition_literal()["receipt_retention_profile"])
+
+
+def rehash_negative(value: Any) -> str:
+    """Recompute only a negative mirror, independently of maintained canonicalization."""
+    data = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    assert data.isascii()
+    return hashlib.sha256(data.encode()).hexdigest()
+
+
+def altered(value: Any, path: str, replacement: Any) -> Any:
+    """Change one negative observation; no positive oracle is constructed here."""
+    result = copy.deepcopy(value)
+    cursor = result
+    keys = path.split("/")
+    for key in keys[:-1]:
+        cursor = cast("list[Any]", cursor)[int(key)] if isinstance(cursor, list) else cursor[key]
+    last = int(keys[-1]) if isinstance(cursor, list) else keys[-1]
+    cast("Any", cursor)[last] = copy.deepcopy(replacement)
+    return result
+
+
+def vector(kind: str, index: int = 0) -> dict[str, Any]:
+    """Select a fresh copy of one independently reviewed composition observation."""
+    return cast("dict[str, Any]", composition_literal()[kind + "_vectors"][index])
 
 
 def byte_fixture(name: str) -> bytes:
@@ -106,12 +150,18 @@ def rehash_plan_input_negative(response: dict[str, Any], operation: dict[str, An
     rehash_plan_negative(response, operation)
 
 
-def case(identity: str) -> dict[str, Any]:
+@cache
+def _case_encodings() -> tuple[tuple[str, bytes], ...]:
+    """Keep immutable fixture values, never comparison results or authority."""
     manifest = Path(__file__).resolve().parents[1] / "project-workflow-v1.cases.json"
     cases = json.loads(manifest.read_text(encoding="utf-8"))["cases"]
-    return cast(
-        "dict[str, Any]", next(value["value"] for value in cases if value["id"] == identity)
-    )
+    return tuple((row["id"], marshal.dumps(row["value"], 4, allow_code=False)) for row in cases)
+
+
+def case(identity: str) -> dict[str, Any]:
+    """Decode one fresh reviewed fixture image, preserving selection and isolation."""
+    encoded = next(value for key, value in _case_encodings() if key == identity)
+    return cast("dict[str, Any]", marshal.loads(encoded, allow_code=False))
 
 
 def expense_history(state: str) -> dict[str, Any]:

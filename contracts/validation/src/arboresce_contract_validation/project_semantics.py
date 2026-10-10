@@ -348,6 +348,16 @@ def _association_problems(association: dict[str, Any]) -> list[str]:
     return problems
 
 
+def association_problems(association: dict[str, Any]) -> list[str]:
+    """Compare a structurally validated complete association's identities/digest."""
+    return _association_problems(association)
+
+
+def financial_revision_problems(revision: dict[str, Any]) -> list[str]:
+    """Compare complete validated financial content and effective attribution."""
+    return _financial_revision_problems(revision)
+
+
 def export_problems(
     request: dict[str, Any], response: dict[str, Any], payload: dict[str, Any]
 ) -> list[str]:

@@ -123,6 +123,48 @@ Prove stale revision/association, tampering, fake assurance, revoked reviewer or
 executor, expiry, competing issuance/confirmation, lost responses and restart.
 Financial review changes neither candidate verdicts nor project update approval.
 
+### Compound composition assurance
+
+The separate `financial_composition_review.*` operations challenge and issue one
+actual-human decision over the exact composition, project, expense and association
+and their current controls. Their versioned preimage, challenge, rendering and
+proof bind the selected review policy, assurance, human reviewer, permitted executor,
+exclusive lifetime and exact content. The proof has its own compound kind; it is
+never presented as a legacy expense-only proof. A claimed `qualified` fixture label
+does not qualify a real mechanism, signer, human presence or consent.
+
+The issued compound wrapper stores the exact canonical legacy
+`financial_review_event` base portion at issuance plus the composition identity and
+compound preimage/digest. It contains one event ID and one human decision, governed
+by one global single-use consumption record. Issuance consumes the challenge
+atomically; confirmation consumes the event atomically with all compound effects.
+The compound event ID, challenge, reviewer, assurance, policy, executor, purpose,
+workspace, expense, association and lifetime must agree with its base portion.
+The compound digest also binds independent project/expense/association/composition
+controls. Rendering hashes exact UTF-8 text and identifies that compound digest.
+
+The compound rendering kind fixes the deterministic text profile. Its UTF-8 text
+is exactly `Arboresce financial composition review v1` followed by LF and the
+bounded canonical JSON serialization of the closed display object with four
+members: `composition` (complete immutable composition content), `association`
+(complete exact association), `expense_content` (unchanged closed financial
+content) and `review_preimage` (complete compound preimage, including independent
+controls). There is no trailing newline. The rendering digest hashes these exact
+bytes; `review_sha256` hashes the separate complete compound preimage. This
+renders every monetary fact and exact target instead of substituting a summary.
+The configured actual-human mechanism must present this complete consequential
+content and verify its identity; deterministic fixture rendering does not qualify
+that mechanism or a human decision. A different rendering profile requires its
+own explicit version and qualification.
+
+Legacy event resolution may return this exact stored base portion under current
+authorization, without reconstructing or manufacturing it on the client. Legacy
+challenge issuance and expense-only confirmation reject compound challenge/event
+authority. A compound ID cannot be downgraded into a partial expense-only commit,
+or consumed twice through two routes. Old expense-only authority cannot confirm a
+composition. Complete current mechanism qualification, reviewer/executor authority,
+delegation, revocation and time fences remain mandatory runtime inputs.
+
 ## Self-principal server revocation
 
 The API transport-completeness contract defines authenticated self-principal
