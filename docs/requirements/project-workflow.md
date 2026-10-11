@@ -721,3 +721,7 @@ OCR, ASR and contextual synthesis require separate actual routes and independent
 checked truth. G2-project and actual D0-project restoration precede personal
 evidence and independent users. Full knowledge, search/repair, D1 recovery and
 production obligations remain retained under [acceptance](acceptance.md).
+
+## Versioned financial composition report selection
+
+[Financial composition reports](financial-composition-reports.md) owns the separately closed report/read/export profile that retains unchanged original expense approval alongside explicit compound relationship approval. Legacy reports and focused export inventories keep their exact shapes. Support requires that owner's complete independent qualification.

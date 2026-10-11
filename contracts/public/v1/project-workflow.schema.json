@@ -14283,6 +14283,4124 @@
         }
       },
       "additionalProperties": false
+    },
+    "composition_project_report_reference_v1": {
+      "type": "object",
+      "required": [
+        "kind",
+        "organization_id",
+        "domain_id",
+        "project_id",
+        "report_id",
+        "content_sha256"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-financial-composition-report-reference.v1"
+        },
+        "organization_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "domain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "project_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "report_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "content_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_report_selection_v1": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "selected",
+            "association",
+            "observed_association_control_revision",
+            "review_event"
+          ],
+          "properties": {
+            "kind": {
+              "const": "legacy_association"
+            },
+            "selected": {
+              "$ref": "financial-records.schema.json#/$defs/selected_record"
+            },
+            "association": {
+              "$ref": "#/$defs/expense_project_association"
+            },
+            "observed_association_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "review_event": {
+              "$ref": "#/$defs/financial_review_event"
+            }
+          },
+          "additionalProperties": false,
+          "description": "Exact frozen expense/association selection with its attributable financial review event; shape is not actual-human qualification."
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "selected",
+            "association",
+            "observed_association_control_revision",
+            "composition",
+            "observed_composition_control_revision",
+            "composition_confirmation",
+            "compound_review_event"
+          ],
+          "properties": {
+            "kind": {
+              "const": "confirmed_composition"
+            },
+            "selected": {
+              "$ref": "financial-records.schema.json#/$defs/selected_record"
+            },
+            "association": {
+              "$ref": "#/$defs/expense_project_association"
+            },
+            "observed_association_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "composition": {
+              "$ref": "#/$defs/financial_composition_content_v1"
+            },
+            "observed_composition_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "composition_confirmation": {
+              "$ref": "#/$defs/financial_composition_confirmation_v1"
+            },
+            "compound_review_event": {
+              "$ref": "#/$defs/financial_composition_review_event_v1"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "composition_project_report_exclusion_v1": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "identity",
+            "observed_association_control_revision",
+            "observed_expense_control_revision",
+            "revision_state",
+            "reason"
+          ],
+          "properties": {
+            "kind": {
+              "const": "legacy_association"
+            },
+            "observed_association_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "observed_expense_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "revision_state": {
+              "enum": [
+                "proposed",
+                "confirmed",
+                "superseded",
+                "voided"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "unassigned_date",
+                "voided",
+                "unresolved",
+                "proposed",
+                "ineligible",
+                "other_currency"
+              ]
+            },
+            "identity": {
+              "$ref": "#/$defs/project_financial_association_identity"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "identity",
+            "observed_association_control_revision",
+            "observed_expense_control_revision",
+            "revision_state",
+            "reason",
+            "composition_reference",
+            "observed_composition_control_revision",
+            "composition_state"
+          ],
+          "properties": {
+            "kind": {
+              "const": "composition"
+            },
+            "observed_association_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "observed_expense_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "revision_state": {
+              "enum": [
+                "proposed",
+                "confirmed",
+                "superseded",
+                "voided"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "unassigned_date",
+                "voided",
+                "unresolved",
+                "proposed",
+                "ineligible",
+                "other_currency",
+                "composition_proposed",
+                "composition_noncurrent"
+              ]
+            },
+            "identity": {
+              "$ref": "#/$defs/project_financial_association_identity"
+            },
+            "composition_reference": {
+              "$ref": "#/$defs/financial_composition_reference_v1"
+            },
+            "observed_composition_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "composition_state": {
+              "enum": [
+                "proposed",
+                "confirmed",
+                "superseded",
+                "voided"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "composition_project_report_manifest_v1": {
+      "type": "object",
+      "required": [
+        "project",
+        "currency",
+        "financial_manifest",
+        "selected_relationships",
+        "excluded_relationships"
+      ],
+      "properties": {
+        "project": {
+          "$ref": "#/$defs/project_reference"
+        },
+        "currency": {
+          "$ref": "financial-records.schema.json#/$defs/currency"
+        },
+        "financial_manifest": {
+          "$ref": "financial-records.schema.json#/$defs/report_manifest"
+        },
+        "selected_relationships": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/composition_project_report_selection_v1"
+          }
+        },
+        "excluded_relationships": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/composition_project_report_exclusion_v1"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_report_snapshot_v1": {
+      "type": "object",
+      "required": [
+        "reference",
+        "manifest"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "#/$defs/composition_project_report_reference_v1"
+        },
+        "manifest": {
+          "$ref": "#/$defs/composition_project_report_manifest_v1"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_report_create_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            },
+            {
+              "properties": {
+                "command": {
+                  "const": "financial_composition.report.create"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "project_id",
+            "currency",
+            "date_policy",
+            "period",
+            "include_undated"
+          ],
+          "properties": {
+            "project_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "currency": {
+              "$ref": "financial-records.schema.json#/$defs/currency"
+            },
+            "date_policy": {
+              "$ref": "financial-records.schema.json#/$defs/date_policy"
+            },
+            "period": {
+              "$ref": "financial-records.schema.json#/$defs/period"
+            },
+            "include_undated": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_report_create_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "required": [
+        "idempotency_receipt"
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "command",
+            "report",
+            "control_revision"
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.report.create"
+            },
+            "report": {
+              "$ref": "#/$defs/composition_project_report_snapshot_v1"
+            },
+            "control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "composition_project_report_get_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "required": [
+            "command",
+            "context"
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.report.get"
+            },
+            "context": {
+              "allOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/command_context"
+                },
+                {
+                  "properties": {
+                    "purpose": {
+                      "const": "project_read"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "report_id"
+          ],
+          "properties": {
+            "report_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_report_get_response_v1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/project_success_response"
+        }
+      ],
+      "properties": {
+        "result": {
+          "required": [
+            "command",
+            "report",
+            "control_revision"
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.report.get"
+            },
+            "report": {
+              "$ref": "#/$defs/composition_project_report_snapshot_v1"
+            },
+            "control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            }
+          },
+          "additionalProperties": false
+        },
+        "idempotency_receipt": false
+      }
+    },
+    "composition_project_report_export_request_v1": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            },
+            {
+              "properties": {
+                "command": {
+                  "const": "financial_composition.report.export"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "report",
+            "expected_control_revision",
+            "format"
+          ],
+          "properties": {
+            "report": {
+              "$ref": "#/$defs/composition_project_report_reference_v1"
+            },
+            "expected_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "format": {
+              "enum": [
+                "project-financial-composition-json-v1",
+                "project-financial-composition-csv-v1"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_payload_v1": {
+      "type": "object",
+      "required": [
+        "profile",
+        "report",
+        "records",
+        "source_availability"
+      ],
+      "properties": {
+        "profile": {
+          "const": "project-financial-composition-export-payload-v1"
+        },
+        "report": {
+          "$ref": "#/$defs/composition_project_report_snapshot_v1"
+        },
+        "records": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "financial-records.schema.json#/$defs/export_record"
+          }
+        },
+        "source_availability": {
+          "$ref": "financial-records.schema.json#/$defs/source_availability"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_subject": {
+      "type": "object",
+      "required": [
+        "kind",
+        "report",
+        "observed_control_revision"
+      ],
+      "properties": {
+        "kind": {
+          "const": "project_financial_composition_report"
+        },
+        "report": {
+          "$ref": "#/$defs/composition_project_report_reference_v1"
+        },
+        "observed_control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_artifact_core": {
+      "type": "object",
+      "required": [
+        "kind",
+        "export_id",
+        "organization_id",
+        "domain_id",
+        "subject",
+        "payload_sha256",
+        "format",
+        "media_type",
+        "encoding",
+        "emitted",
+        "profile",
+        "sealed_at",
+        "expires_at"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-financial-composition-export-artifact.v1"
+        },
+        "export_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "organization_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "domain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "kind",
+            "report",
+            "observed_control_revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "project_financial_composition_report"
+            },
+            "report": {
+              "$ref": "#/$defs/composition_project_report_reference_v1"
+            },
+            "observed_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            }
+          },
+          "additionalProperties": false
+        },
+        "payload_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "format": {
+          "enum": [
+            "project-financial-composition-json-v1",
+            "project-financial-composition-csv-v1"
+          ]
+        },
+        "media_type": {
+          "enum": [
+            "application/json",
+            "text/csv"
+          ]
+        },
+        "encoding": {
+          "const": "utf-8"
+        },
+        "emitted": {
+          "type": "object",
+          "required": [
+            "sha256",
+            "byte_length"
+          ],
+          "properties": {
+            "sha256": {
+              "$ref": "common.schema.json#/$defs/sha256"
+            },
+            "byte_length": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 67108864
+            }
+          },
+          "additionalProperties": false
+        },
+        "profile": {
+          "$ref": "context.schema.json#/$defs/profile_reference"
+        },
+        "sealed_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "const": "project-financial-composition-json-v1"
+              }
+            },
+            "required": [
+              "format"
+            ]
+          },
+          "then": {
+            "properties": {
+              "media_type": {
+                "const": "application/json"
+              },
+              "subject": {
+                "properties": {
+                  "kind": {
+                    "const": "project_financial_composition_report"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "const": "project-financial-composition-csv-v1"
+              }
+            },
+            "required": [
+              "format"
+            ]
+          },
+          "then": {
+            "properties": {
+              "media_type": {
+                "const": "text/csv"
+              },
+              "subject": {
+                "properties": {
+                  "kind": {
+                    "const": "project_financial_composition_report"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "composition_project_export_artifact_resource": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/response_object"
+        },
+        {
+          "if": {
+            "properties": {
+              "availability": {
+                "const": "purged"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "control": {
+                "properties": {
+                  "bytes_state": {
+                    "const": "purged"
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "control": {
+                "properties": {
+                  "bytes_state": {
+                    "enum": [
+                      "available",
+                      "unavailable"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "availability": {
+                "const": "available"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "control": {
+                "properties": {
+                  "restriction": {
+                    "const": "unrestricted"
+                  },
+                  "bytes_state": {
+                    "const": "available"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "required": [
+        "reference",
+        "core",
+        "control",
+        "observed_at",
+        "availability"
+      ],
+      "properties": {
+        "state": false,
+        "status": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "result": false,
+        "receipt": false,
+        "idempotency_receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "reference": {
+          "$ref": "lifecycle.schema.json#/$defs/export_reference"
+        },
+        "core": {
+          "$ref": "#/$defs/composition_project_export_artifact_core"
+        },
+        "control": {
+          "allOf": [
+            {
+              "$ref": "lifecycle.schema.json#/$defs/lifecycle_control"
+            },
+            {
+              "properties": {
+                "subject": {
+                  "properties": {
+                    "kind": {
+                      "const": "export_artifact"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "observed_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "availability": {
+          "enum": [
+            "available",
+            "unavailable",
+            "expired",
+            "purged"
+          ]
+        }
+      }
+    },
+    "composition_project_export_artifact_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "required": [
+            "command",
+            "context"
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.export.artifact.get"
+            },
+            "context": {
+              "$ref": "common.schema.json#/$defs/command_context"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "export_id"
+          ],
+          "properties": {
+            "export_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_artifact_get_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        }
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/response_object"
+            }
+          ],
+          "required": [
+            "artifact"
+          ],
+          "properties": {
+            "state": false,
+            "status": false,
+            "code": false,
+            "problem": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "receipt": false,
+            "operation": false,
+            "operation_id": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "result": false,
+            "idempotency_receipt": false,
+            "artifact": {
+              "$ref": "#/$defs/composition_project_export_artifact_resource"
+            }
+          }
+        }
+      }
+    },
+    "composition_project_export_content_request": {
+      "$ref": "lifecycle.schema.json#/$defs/export_content_request"
+    },
+    "composition_project_export_delivery_receipt": {
+      "$ref": "lifecycle.schema.json#/$defs/export_delivery_receipt"
+    },
+    "composition_project_export_delivery_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "required": [
+            "command",
+            "context"
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.export.delivery.get"
+            },
+            "context": {
+              "$ref": "common.schema.json#/$defs/command_context"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "delivery_id"
+          ],
+          "properties": {
+            "delivery_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_delivery_get_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        }
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "problem": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "actor": false,
+        "receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/response_object"
+            }
+          ],
+          "required": [
+            "delivery"
+          ],
+          "properties": {
+            "state": false,
+            "status": false,
+            "code": false,
+            "problem": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "actor": false,
+            "receipt": false,
+            "operation": false,
+            "operation_id": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "result": false,
+            "idempotency_receipt": false,
+            "delivery": {
+              "$ref": "#/$defs/composition_project_export_delivery_receipt"
+            }
+          }
+        }
+      }
+    },
+    "composition_project_export_delivery_profile": {
+      "type": "object",
+      "required": [
+        "kind",
+        "artifact_lifetime_ms",
+        "staging_lifetime_ms",
+        "generation_total_ms",
+        "generation_attempt_limit",
+        "transfer_total_ms",
+        "transfer_idle_ms",
+        "transfer_buffer_bytes",
+        "transfer_attempt_limit",
+        "max_active_transfers_per_organization",
+        "max_active_transfers_global",
+        "max_staged_bytes_per_operation",
+        "lifecycle_policy"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-financial-composition-export-delivery-profile.v1"
+        },
+        "artifact_lifetime_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/artifact_lifetime_ms"
+        },
+        "staging_lifetime_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/staging_lifetime_ms"
+        },
+        "generation_total_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/generation_total_ms"
+        },
+        "generation_attempt_limit": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/generation_attempt_limit"
+        },
+        "transfer_total_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_total_ms"
+        },
+        "transfer_idle_ms": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_idle_ms"
+        },
+        "transfer_buffer_bytes": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_buffer_bytes"
+        },
+        "transfer_attempt_limit": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/transfer_attempt_limit"
+        },
+        "max_active_transfers_per_organization": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/max_active_transfers_per_organization"
+        },
+        "max_active_transfers_global": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/max_active_transfers_global"
+        },
+        "max_staged_bytes_per_operation": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/max_staged_bytes_per_operation"
+        },
+        "lifecycle_policy": {
+          "$ref": "lifecycle.schema.json#/$defs/financial_export_delivery_profile/properties/lifecycle_policy"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_content_response": {
+      "type": "object",
+      "required": [
+        "http_status",
+        "headers"
+      ],
+      "properties": {
+        "http_status": {
+          "const": 200
+        },
+        "headers": {
+          "type": "object",
+          "required": [
+            "Content-Type",
+            "Content-Length",
+            "Arboresce-Export-Id",
+            "Arboresce-Delivery-Id",
+            "Arboresce-Artifact-Sha256",
+            "Arboresce-Transfer-Expires-At"
+          ],
+          "properties": {
+            "Content-Type": {
+              "enum": [
+                "application/json",
+                "text/csv"
+              ]
+            },
+            "Content-Length": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8,
+              "pattern": "^[1-9][0-9]*(?![\\s\\S])"
+            },
+            "Arboresce-Export-Id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "Arboresce-Delivery-Id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "Arboresce-Artifact-Sha256": {
+              "$ref": "common.schema.json#/$defs/sha256"
+            },
+            "Arboresce-Transfer-Expires-At": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_transport_registration": {
+      "type": "object",
+      "required": [
+        "contract_profile",
+        "operation",
+        "method",
+        "route",
+        "request_contract",
+        "success_response",
+        "scope",
+        "error_codes",
+        "subject_requirements"
+      ],
+      "properties": {
+        "contract_profile": {
+          "const": "arboresce.project-financial-composition-export-transport.v1"
+        },
+        "operation": {
+          "enum": [
+            "financial_composition.export.artifact.get",
+            "financial_composition.export.content.read",
+            "financial_composition.export.delivery.get"
+          ]
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ]
+        },
+        "route": {
+          "type": "string"
+        },
+        "request_contract": {
+          "type": "string"
+        },
+        "success_response": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "required": [
+            "workspace_requirement",
+            "authority"
+          ],
+          "properties": {
+            "workspace_requirement": {
+              "const": "exactly_one_workspace"
+            },
+            "authority": {
+              "enum": [
+                "scoped_agent_grant",
+                "current_authorized_human"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "error_codes": {
+          "const": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ]
+        },
+        "subject_requirements": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.export.artifact.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/export-artifacts/{export_id}"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_export_artifact_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.composition_project_export_artifact_get_response"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "project.read",
+                    "report.read"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.export.content.read"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/export-artifacts/{export_id}/content"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_export_content_request"
+            },
+            "success_response": {
+              "const": "project-workflow.composition_project_export_content_response"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "project.read",
+                    "report.read"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.export.delivery.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/export-deliveries/{delivery_id}"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_export_delivery_get_request"
+            },
+            "success_response": {
+              "const": "project-workflow.composition_project_export_delivery_get_response"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "project.read",
+                    "report.read"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "composition_project_export_transport_inventory": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/composition_project_export_transport_registration"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.export.artifact.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.export.content.read"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.export.delivery.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "composition_project_export_delivery_admission_inputs": {
+      "description": "Declared independent conformance inputs from the qualified admission boundary; this object authenticates nothing and is not a public content POST body. Unknown required deadlines deny admission.",
+      "type": "object",
+      "required": [
+        "context",
+        "executor",
+        "delegation_id",
+        "authority_audit_event_id",
+        "admitted_at",
+        "authority_expires_at",
+        "server_deadline"
+      ],
+      "properties": {
+        "context": {
+          "$ref": "common.schema.json#/$defs/command_context"
+        },
+        "executor": {
+          "$ref": "context.schema.json#/$defs/principal_reference"
+        },
+        "delegation_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authority_audit_event_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "admitted_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "authority_expires_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "server_deadline": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_profile": {
+      "type": "object",
+      "required": [
+        "kind",
+        "delivery_profile",
+        "limits",
+        "stage",
+        "lifecycle_policy",
+        "retention"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-financial-composition-export-operation-profile.v1"
+        },
+        "delivery_profile": {
+          "$ref": "context.schema.json#/$defs/profile_reference"
+        },
+        "limits": {
+          "allOf": [
+            {
+              "$ref": "lifecycle.schema.json#/$defs/execution_limits"
+            },
+            {
+              "properties": {
+                "max_stage_count": {
+                  "const": 1
+                }
+              }
+            }
+          ]
+        },
+        "stage": {
+          "type": "object",
+          "required": [
+            "kind",
+            "required",
+            "output_kind",
+            "input_mode"
+          ],
+          "properties": {
+            "kind": {
+              "const": "compile_export"
+            },
+            "required": {
+              "const": true
+            },
+            "output_kind": {
+              "const": "export_artifact"
+            },
+            "input_mode": {
+              "const": "canonical_domain_body_v1"
+            }
+          },
+          "additionalProperties": false
+        },
+        "lifecycle_policy": {
+          "$ref": "lifecycle.schema.json#/$defs/scoped_policy_reference"
+        },
+        "retention": {
+          "$ref": "lifecycle.schema.json#/$defs/command_retention_limits"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_plan_core": {
+      "type": "object",
+      "required": [
+        "kind",
+        "plan_id",
+        "operation",
+        "command",
+        "context",
+        "profile",
+        "limits",
+        "input_sha256",
+        "stages"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-financial-composition-export-plan.v1"
+        },
+        "plan_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "operation": {
+          "$ref": "lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "command": {
+          "const": "financial_composition.report.export"
+        },
+        "context": {
+          "$ref": "common.schema.json#/$defs/command_context"
+        },
+        "profile": {
+          "$ref": "context.schema.json#/$defs/profile_reference"
+        },
+        "limits": {
+          "$ref": "lifecycle.schema.json#/$defs/execution_limits"
+        },
+        "input_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "stages": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "lifecycle.schema.json#/$defs/stage_declaration"
+              },
+              {
+                "properties": {
+                  "ordinal": {
+                    "const": 0
+                  },
+                  "kind": {
+                    "const": "compile_export"
+                  },
+                  "required": {
+                    "const": true
+                  },
+                  "depends_on": {
+                    "maxItems": 0
+                  },
+                  "output_kind": {
+                    "const": "export_artifact"
+                  }
+                }
+              }
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/0"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/1"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/2"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/3"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/4"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/5"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/6"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/7"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/8"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/9"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/10"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/11"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/12"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/13"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/14"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/15"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/16"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/17"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/18"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/19"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/20"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/21"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/22"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/23"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/24"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/25"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/26"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/27"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/28"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/29"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/30"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/31"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/32"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/33"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/34"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/35"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/36"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/37"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/38"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/39"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/40"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/41"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/42"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/43"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/44"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/45"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/46"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/47"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/48"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/49"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/50"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/51"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/52"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/53"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/54"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/55"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/56"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/57"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/58"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/59"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/60"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/61"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/62"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/execution_plan_core/allOf/63"
+        }
+      ]
+    },
+    "composition_project_export_operation_plan_record": {
+      "type": "object",
+      "required": [
+        "core",
+        "plan_sha256"
+      ],
+      "properties": {
+        "core": {
+          "$ref": "#/$defs/composition_project_export_operation_plan_core"
+        },
+        "plan_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_stage_result": {
+      "type": "object",
+      "required": [
+        "kind",
+        "stage_result_id",
+        "operation",
+        "stage_id",
+        "input_sha256",
+        "profile_sha256",
+        "artifact"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-financial-composition-export-stage-result.v1"
+        },
+        "stage_result_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "operation": {
+          "$ref": "lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "stage_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "input_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "profile_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "artifact": {
+          "$ref": "lifecycle.schema.json#/$defs/export_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_execution": {
+      "type": "object",
+      "required": [
+        "plan",
+        "timing",
+        "stages",
+        "attempts",
+        "stage_results"
+      ],
+      "properties": {
+        "plan": {
+          "$ref": "lifecycle.schema.json#/$defs/operation_execution/properties/plan"
+        },
+        "timing": {
+          "$ref": "lifecycle.schema.json#/$defs/operation_execution/properties/timing"
+        },
+        "stages": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "lifecycle.schema.json#/$defs/stage_snapshot"
+              },
+              {
+                "properties": {
+                  "ordinal": {
+                    "const": 0
+                  },
+                  "kind": {
+                    "const": "compile_export"
+                  },
+                  "required": {
+                    "const": true
+                  },
+                  "accepted_result": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "$ref": "lifecycle.schema.json#/$defs/stage_result_reference"
+                          },
+                          {
+                            "properties": {
+                              "kind": {
+                                "const": "export_artifact"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "uniqueItems": true
+        },
+        "attempts": {
+          "$ref": "lifecycle.schema.json#/$defs/operation_execution/properties/attempts"
+        },
+        "stage_results": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/$defs/composition_project_export_stage_result"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "stages": {
+                "items": {
+                  "properties": {
+                    "accepted_result": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "stage_results": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "stage_results": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "composition_project_export_operation_result": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/response_object"
+        }
+      ],
+      "required": [
+        "command",
+        "subject",
+        "artifact"
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "http_status": false,
+        "headers": false,
+        "body": false,
+        "state": false,
+        "result": false,
+        "idempotency_receipt": false,
+        "command": {
+          "const": "financial_composition.report.export"
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "kind",
+            "report",
+            "observed_control_revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "project_financial_composition_report"
+            },
+            "report": {
+              "$ref": "#/$defs/composition_project_report_reference_v1"
+            },
+            "observed_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            }
+          },
+          "additionalProperties": false
+        },
+        "artifact": {
+          "$ref": "lifecycle.schema.json#/$defs/export_reference"
+        }
+      }
+    },
+    "composition_project_export_operation_resource": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/operation"
+        },
+        {
+          "required": [
+            "command",
+            "context",
+            "origin",
+            "causal_command",
+            "execution_attribution",
+            "input",
+            "control",
+            "execution",
+            "effects",
+            "exposures"
+          ]
+        },
+        {
+          "properties": {
+            "status": false,
+            "code": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "receipt": false,
+            "operation": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "http_status": false,
+            "headers": false,
+            "body": false,
+            "command": {
+              "const": "financial_composition.report.export"
+            },
+            "context": {
+              "$ref": "common.schema.json#/$defs/command_context"
+            },
+            "origin": {
+              "allOf": [
+                {
+                  "$ref": "lifecycle.schema.json#/$defs/operation_origin"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "command"
+                    }
+                  }
+                }
+              ]
+            },
+            "causal_command": {
+              "$ref": "lifecycle.schema.json#/$defs/historical_command_cause"
+            },
+            "execution_attribution": {
+              "$ref": "context.schema.json#/$defs/execution_attribution"
+            },
+            "control": {
+              "$ref": "lifecycle.schema.json#/$defs/operation_control"
+            },
+            "execution": {
+              "$ref": "#/$defs/composition_project_export_operation_execution"
+            },
+            "effects": {
+              "allOf": [
+                {
+                  "$ref": "lifecycle.schema.json#/$defs/effects_snapshot"
+                },
+                {
+                  "properties": {
+                    "entries": {
+                      "items": {
+                        "properties": {
+                          "stage_id": {
+                            "$ref": "common.schema.json#/$defs/identifier"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "exposures": {
+              "$ref": "lifecycle.schema.json#/$defs/exposures_snapshot"
+            },
+            "input": {},
+            "result": {
+              "$ref": "#/$defs/composition_project_export_operation_result"
+            },
+            "idempotency_receipt": false,
+            "purge_progress": false,
+            "material_actions": false,
+            "obligation": false
+          }
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/12"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/13"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/14"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/15"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/16"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/17"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/21"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/22"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/23"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/24"
+        },
+        {
+          "$ref": "lifecycle.schema.json#/$defs/operation_resource/allOf/25"
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "succeeded"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effects": {
+                "properties": {
+                  "entries": {
+                    "contains": {
+                      "properties": {
+                        "value": {
+                          "properties": {
+                            "kind": {
+                              "const": "export_artifact_bound"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "minContains": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "execution": {
+                "properties": {
+                  "stages": {
+                    "items": {
+                      "properties": {
+                        "accepted_result": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effects": {
+                "properties": {
+                  "entries": {
+                    "contains": {
+                      "properties": {
+                        "value": {
+                          "properties": {
+                            "kind": {
+                              "const": "export_artifact_bound"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "minContains": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "command": {
+              "const": "financial_composition.report.export"
+            },
+            "input": {
+              "$ref": "#/$defs/composition_project_export_request/properties/body"
+            },
+            "causal_command": {
+              "properties": {
+                "command": {
+                  "const": "financial_composition.report.export"
+                }
+              }
+            },
+            "result": {
+              "properties": {
+                "command": {
+                  "const": "financial_composition.report.export"
+                },
+                "subject": {
+                  "properties": {
+                    "kind": {
+                      "const": "project_financial_composition_report"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "composition_project_export_operation_admission_inputs": {
+      "type": "object",
+      "required": [
+        "context",
+        "execution",
+        "admitted_at",
+        "operation",
+        "source"
+      ],
+      "properties": {
+        "context": {
+          "$ref": "common.schema.json#/$defs/command_context"
+        },
+        "execution": {
+          "$ref": "context.schema.json#/$defs/execution_attribution"
+        },
+        "admitted_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "operation": {
+          "$ref": "lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "source": {
+          "type": "object",
+          "required": [
+            "kind",
+            "report",
+            "observed_control_revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "project_financial_composition_report"
+            },
+            "report": {
+              "$ref": "#/$defs/composition_project_report_reference_v1"
+            },
+            "observed_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_accepted_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/accepted_response"
+        }
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "receipt": false,
+        "operation": {
+          "$ref": "#/$defs/composition_project_export_operation_resource"
+        },
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "http_status": false,
+        "headers": false,
+        "body": false
+      }
+    },
+    "composition_project_export_operation_read_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        }
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "http_status": false,
+        "headers": false,
+        "body": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/result_object"
+            }
+          ],
+          "required": [
+            "operation",
+            "idempotency_receipt"
+          ],
+          "properties": {
+            "status": false,
+            "code": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "receipt": false,
+            "operation": {
+              "$ref": "#/$defs/composition_project_export_operation_resource"
+            },
+            "operation_id": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "http_status": false,
+            "headers": false,
+            "body": false,
+            "state": false,
+            "result": false,
+            "idempotency_receipt": {
+              "$ref": "common.schema.json#/$defs/idempotency_receipt"
+            }
+          },
+          "oneOf": [
+            {
+              "properties": {
+                "operation": {
+                  "properties": {
+                    "state": {
+                      "enum": [
+                        "queued",
+                        "running"
+                      ]
+                    }
+                  }
+                },
+                "idempotency_receipt": {
+                  "properties": {
+                    "expires_at": {
+                      "type": "null"
+                    },
+                    "tombstone_expires_at": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "operation": {
+                  "properties": {
+                    "state": {
+                      "enum": [
+                        "succeeded",
+                        "failed",
+                        "cancelled"
+                      ]
+                    }
+                  }
+                },
+                "idempotency_receipt": {
+                  "properties": {
+                    "expires_at": {
+                      "$ref": "common.schema.json#/$defs/timestamp"
+                    },
+                    "tombstone_expires_at": {
+                      "$ref": "common.schema.json#/$defs/timestamp"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "composition_project_export_operation_plan_get_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        }
+      ],
+      "properties": {
+        "status": false,
+        "code": false,
+        "error": false,
+        "failure": false,
+        "failure_code": false,
+        "success": false,
+        "ready": false,
+        "accepted": false,
+        "approved": false,
+        "human_approved": false,
+        "authorized": false,
+        "confidence": false,
+        "receipt": false,
+        "operation": false,
+        "operation_id": false,
+        "origin_event": false,
+        "authority": false,
+        "outcome": false,
+        "http_status": false,
+        "headers": false,
+        "body": false,
+        "idempotency_receipt": false,
+        "result": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/result_object"
+            }
+          ],
+          "required": [
+            "plan"
+          ],
+          "properties": {
+            "status": false,
+            "code": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "receipt": false,
+            "operation": false,
+            "operation_id": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "http_status": false,
+            "headers": false,
+            "body": false,
+            "state": false,
+            "result": false,
+            "idempotency_receipt": false,
+            "plan": {
+              "$ref": "#/$defs/composition_project_export_operation_plan_record"
+            }
+          }
+        }
+      }
+    },
+    "composition_project_export_operation_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "required": [
+            "command",
+            "context"
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.export.operation.get"
+            },
+            "context": {
+              "$ref": "common.schema.json#/$defs/command_context"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "operation_id"
+          ],
+          "properties": {
+            "operation_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_plan_get_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "required": [
+            "command",
+            "context"
+          ],
+          "properties": {
+            "command": {
+              "const": "financial_composition.export.plan.get"
+            },
+            "context": {
+              "$ref": "common.schema.json#/$defs/command_context"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "plan_id"
+          ],
+          "properties": {
+            "plan_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_command_exchange": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "status",
+            "headers",
+            "body"
+          ],
+          "properties": {
+            "status": {
+              "const": 202
+            },
+            "headers": {
+              "type": "object",
+              "required": [
+                "Content-Type",
+                "Location"
+              ],
+              "properties": {
+                "Content-Type": {
+                  "const": "application/json"
+                },
+                "Location": {
+                  "type": "string",
+                  "pattern": "^/v1/operations/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}(?![\\s\\S])"
+                },
+                "Retry-After": {
+                  "type": "string",
+                  "pattern": "^(?:0|[1-9][0-9]{0,7})(?![\\s\\S])",
+                  "maxLength": 8
+                }
+              },
+              "additionalProperties": false
+            },
+            "body": {
+              "$ref": "#/$defs/composition_project_export_operation_accepted_response"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "status",
+            "headers",
+            "body"
+          ],
+          "properties": {
+            "status": {
+              "const": 200
+            },
+            "headers": {
+              "type": "object",
+              "required": [
+                "Content-Type"
+              ],
+              "properties": {
+                "Content-Type": {
+                  "const": "application/json"
+                }
+              },
+              "additionalProperties": false
+            },
+            "body": {
+              "$ref": "#/$defs/composition_project_export_operation_read_response"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "composition_project_export_operation_get_exchange": {
+      "type": "object",
+      "required": [
+        "status",
+        "headers",
+        "body"
+      ],
+      "properties": {
+        "status": {
+          "const": 200
+        },
+        "headers": {
+          "type": "object",
+          "required": [
+            "Content-Type"
+          ],
+          "properties": {
+            "Content-Type": {
+              "const": "application/json"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "$ref": "#/$defs/composition_project_export_operation_read_response"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_plan_get_exchange": {
+      "type": "object",
+      "required": [
+        "status",
+        "headers",
+        "body"
+      ],
+      "properties": {
+        "status": {
+          "const": 200
+        },
+        "headers": {
+          "type": "object",
+          "required": [
+            "Content-Type"
+          ],
+          "properties": {
+            "Content-Type": {
+              "const": "application/json"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "$ref": "#/$defs/composition_project_export_operation_plan_get_response"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_registration": {
+      "type": "object",
+      "required": [
+        "contract_profile",
+        "operation",
+        "method",
+        "route",
+        "request_contract",
+        "success_exchange",
+        "scope",
+        "error_codes",
+        "subject_requirements"
+      ],
+      "properties": {
+        "contract_profile": {
+          "const": "arboresce.project-financial-composition-export-operations.v1"
+        },
+        "operation": {
+          "enum": [
+            "financial_composition.report.export",
+            "financial_composition.export.operation.get",
+            "financial_composition.export.plan.get",
+            "operation.cancel"
+          ]
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ]
+        },
+        "route": {
+          "type": "string"
+        },
+        "request_contract": {
+          "type": "string"
+        },
+        "success_exchange": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "required": [
+            "workspace_requirement",
+            "authority"
+          ],
+          "properties": {
+            "workspace_requirement": {
+              "const": "exactly_one_workspace"
+            },
+            "authority": {
+              "enum": [
+                "scoped_agent_grant",
+                "current_authorized_human"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "error_codes": {
+          "const": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ]
+        },
+        "subject_requirements": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.report.export"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/project-financial-composition-reports/{report_id}/exports"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_report_export_request_v1"
+            },
+            "success_exchange": {
+              "const": "project-workflow.composition_project_export_operation_command_exchange"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "report.export"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.export.operation.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/operations/{operation_id}"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_export_operation_get_request"
+            },
+            "success_exchange": {
+              "const": "project-workflow.composition_project_export_operation_get_exchange"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "project.read",
+                    "report.read"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.export.plan.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/operation-plans/{plan_id}"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_export_operation_plan_get_request"
+            },
+            "success_exchange": {
+              "const": "project-workflow.composition_project_export_operation_plan_get_exchange"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "project.read",
+                    "report.read"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "operation.cancel"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/operations/{operation_id}/cancel"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_export_operation_cancel_request"
+            },
+            "success_exchange": {
+              "const": "project-workflow.composition_project_export_operation_cancel_exchange"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "report.export"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "composition_project_export_operation_inventory": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/composition_project_export_operation_registration"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.report.export"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.export.operation.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.export.plan.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "operation.cancel"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "composition_project_export_operation_cancel_response": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/success_response"
+        },
+        {
+          "properties": {
+            "status": false,
+            "code": false,
+            "problem": false,
+            "error": false,
+            "failure": false,
+            "failure_code": false,
+            "success": false,
+            "ready": false,
+            "accepted": false,
+            "approved": false,
+            "human_approved": false,
+            "authorized": false,
+            "confidence": false,
+            "receipt": false,
+            "operation": false,
+            "operation_id": false,
+            "origin_event": false,
+            "authority": false,
+            "outcome": false,
+            "result": {
+              "allOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/response_object"
+                }
+              ],
+              "required": [
+                "command",
+                "cancellation",
+                "operation"
+              ],
+              "properties": {
+                "state": false,
+                "status": false,
+                "code": false,
+                "problem": false,
+                "error": false,
+                "failure": false,
+                "failure_code": false,
+                "success": false,
+                "ready": false,
+                "accepted": false,
+                "approved": false,
+                "human_approved": false,
+                "authorized": false,
+                "confidence": false,
+                "result": false,
+                "receipt": false,
+                "idempotency_receipt": false,
+                "operation_id": false,
+                "origin_event": false,
+                "authority": false,
+                "outcome": false,
+                "command": {
+                  "const": "operation.cancel"
+                },
+                "cancellation": {
+                  "$ref": "lifecycle.schema.json#/$defs/cancellation_record"
+                },
+                "operation": {
+                  "$ref": "#/$defs/composition_project_export_operation_resource"
+                }
+              }
+            },
+            "idempotency_receipt": {
+              "allOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/idempotency_receipt"
+                },
+                {
+                  "properties": {
+                    "state": false,
+                    "status": false,
+                    "code": false,
+                    "problem": false,
+                    "error": false,
+                    "failure": false,
+                    "failure_code": false,
+                    "success": false,
+                    "ready": false,
+                    "accepted": false,
+                    "approved": false,
+                    "human_approved": false,
+                    "authorized": false,
+                    "confidence": false,
+                    "result": false,
+                    "receipt": false,
+                    "operation": false,
+                    "operation_id": false,
+                    "origin_event": false,
+                    "authority": false,
+                    "outcome": false,
+                    "idempotency_receipt": false,
+                    "expires_at": {
+                      "$ref": "common.schema.json#/$defs/timestamp"
+                    },
+                    "tombstone_expires_at": {
+                      "$ref": "common.schema.json#/$defs/timestamp"
+                    }
+                  }
+                }
+              ]
+            },
+            "http_status": false,
+            "headers": false,
+            "body": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "disposition": {
+                            "const": "requested"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "enum": [
+                          "queued",
+                          "running",
+                          "cancelled"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "disposition": {
+                            "const": "already_requested"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "enum": [
+                          "queued",
+                          "running"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "disposition": {
+                            "const": "already_terminal"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "enum": [
+                          "succeeded",
+                          "failed",
+                          "cancelled"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "observed_state": {
+                            "const": "queued"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "const": "queued"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "observed_state": {
+                            "const": "running"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "const": "running"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "observed_state": {
+                            "const": "succeeded"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "const": "succeeded"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "observed_state": {
+                            "const": "failed"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "const": "failed"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "observed_state": {
+                            "const": "cancelled"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "state": {
+                        "const": "cancelled"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "cancellation": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "disposition": {
+                            "enum": [
+                              "requested",
+                              "already_requested"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "operation": {
+                    "properties": {
+                      "control": {
+                        "properties": {
+                          "cancellation": {
+                            "properties": {
+                              "kind": {
+                                "const": "requested"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "required": [
+        "idempotency_receipt"
+      ]
+    },
+    "composition_project_export_operation_cancel_exchange": {
+      "type": "object",
+      "required": [
+        "status",
+        "headers",
+        "body"
+      ],
+      "properties": {
+        "status": {
+          "const": 200
+        },
+        "headers": {
+          "type": "object",
+          "required": [
+            "Content-Type"
+          ],
+          "properties": {
+            "Content-Type": {
+              "const": "application/json"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "$ref": "#/$defs/composition_project_export_operation_cancel_response"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_operation_cancel_request": {
+      "$ref": "lifecycle.schema.json#/$defs/operation_cancel_request"
+    },
+    "composition_project_export_operation_error_exchange": {
+      "type": "object",
+      "required": [
+        "status",
+        "headers",
+        "body"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer",
+          "minimum": 400,
+          "maximum": 599
+        },
+        "headers": {
+          "type": "object",
+          "required": [
+            "Content-Type"
+          ],
+          "properties": {
+            "Content-Type": {
+              "const": "application/problem+json"
+            },
+            "WWW-Authenticate": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 512,
+              "pattern": "^Nostr(?: [\\x20-\\x7E]{1,506})?(?![\\s\\S])"
+            },
+            "Retry-After": {
+              "type": "string",
+              "pattern": "^(?:0|[1-9][0-9]{0,7})(?![\\s\\S])",
+              "maxLength": 8
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "$ref": "common.schema.json#/$defs/problem"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "invalid_request"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 400
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "unauthenticated"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 401
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 403
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "not_found"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 404
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "conflict"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 409
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "request_too_large"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 413
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "unsupported_media_type"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 415
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "invalid_command"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 422
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "rate_limited"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 429
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "internal_error"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 500
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "body": {
+                "properties": {
+                  "code": {
+                    "const": "unavailable"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 503
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": 401
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "headers": {
+                "required": [
+                  "WWW-Authenticate"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": 429
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "headers": {
+                "required": [
+                  "Retry-After"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "composition_project_export_cancellation_decision_inputs": {
+      "type": "object",
+      "required": [
+        "kind",
+        "context",
+        "execution",
+        "recorded_at",
+        "operation",
+        "expected_control_revision"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.project-financial-composition-export-cancellation-decision-inputs.v1"
+        },
+        "context": {
+          "$ref": "common.schema.json#/$defs/command_context"
+        },
+        "execution": {
+          "$ref": "context.schema.json#/$defs/execution_attribution"
+        },
+        "recorded_at": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "operation": {
+          "$ref": "lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "expected_control_revision": {
+          "$ref": "common.schema.json#/$defs/control_revision"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_export_request": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "body"
+      ],
+      "properties": {
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/command_metadata"
+            },
+            {
+              "properties": {
+                "command": {
+                  "const": "financial_composition.report.export"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "report",
+            "expected_control_revision",
+            "format"
+          ],
+          "properties": {
+            "report": {
+              "$ref": "#/$defs/composition_project_report_reference_v1"
+            },
+            "expected_control_revision": {
+              "$ref": "common.schema.json#/$defs/control_revision"
+            },
+            "format": {
+              "enum": [
+                "project-financial-composition-json-v1",
+                "project-financial-composition-csv-v1"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition_project_report_registration": {
+      "type": "object",
+      "required": [
+        "contract_profile",
+        "operation",
+        "method",
+        "route",
+        "request_contract",
+        "success_response",
+        "scope",
+        "error_codes",
+        "subject_requirements"
+      ],
+      "properties": {
+        "contract_profile": {
+          "const": "arboresce.project-financial-composition-report-workflows.v1"
+        },
+        "operation": {
+          "enum": [
+            "financial_composition.report.create",
+            "financial_composition.report.get",
+            "financial_composition.report.export"
+          ]
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ]
+        },
+        "route": {
+          "type": "string"
+        },
+        "request_contract": {
+          "type": "string"
+        },
+        "success_response": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "required": [
+            "workspace_requirement",
+            "authority"
+          ],
+          "properties": {
+            "workspace_requirement": {
+              "const": "exactly_one_workspace"
+            },
+            "authority": {
+              "enum": [
+                "scoped_agent_grant",
+                "current_authorized_human"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "error_codes": {
+          "const": [
+            "invalid_request",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "conflict",
+            "request_too_large",
+            "unsupported_media_type",
+            "invalid_command",
+            "rate_limited",
+            "internal_error",
+            "unavailable"
+          ]
+        },
+        "subject_requirements": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.report.create"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/projects/{project_id}/financial-composition-reports"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_report_create_request_v1"
+            },
+            "success_response": {
+              "const": "project-workflow.composition_project_report_create_response_v1"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "project.read",
+                    "report.read"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.report.get"
+            },
+            "method": {
+              "const": "GET"
+            },
+            "route": {
+              "const": "/v1/project-financial-composition-reports/{report_id}"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_report_get_request_v1"
+            },
+            "success_response": {
+              "const": "project-workflow.composition_project_report_get_response_v1"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "project.read",
+                    "report.read"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "operation": {
+              "const": "financial_composition.report.export"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "route": {
+              "const": "/v1/project-financial-composition-reports/{report_id}/exports"
+            },
+            "request_contract": {
+              "const": "project-workflow.composition_project_report_export_request_v1"
+            },
+            "success_response": {
+              "const": "project-workflow.composition_project_export_operation_command_exchange"
+            },
+            "subject_requirements": {
+              "const": {
+                "project_financial_composition_report": {
+                  "required_actions": [
+                    "report.export"
+                  ],
+                  "required_purposes": [
+                    "project_read"
+                  ],
+                  "required_scope_kinds": [
+                    "workspace",
+                    "project"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "composition_project_report_inventory": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/composition_project_report_registration"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.report.create"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.report.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "operation": {
+                "const": "financial_composition.report.export"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
     }
   }
 }

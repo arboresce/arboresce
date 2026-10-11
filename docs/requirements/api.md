@@ -691,3 +691,7 @@ negative/semantic cases for mismatched identities, revisions, hashes, scope,
 control, disclosure and substituted contracts. Keep independently expected values
 separate from schema or implementation generation. Complete and independently
 review these contracts before admitting their CLI consumers.
+
+## Versioned financial composition reports
+
+[Financial composition reports](financial-composition-reports.md) owns separately registered financial_composition.report.create/get/export and their exact closed report, async operation and artifact transport contracts. Canonical command/subject/kind dispatch selects the qualified profile after current authorization; existing closed families do not admit these variants. No declaration alone implements these routes.

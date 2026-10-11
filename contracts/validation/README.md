@@ -697,3 +697,15 @@ These preserve the reviewed 320s/45s original observation/reconciliation windows
 Optional diagnosis may replace the explicit module list with PROJECT/tests/test_cli.py::test_process_barriers, which selects exactly the five added process rows. That subset is not the default or a complete checkpoint. Collect and reconcile exact node and child/profile identities for the current source and fixture inventory. A changed source, config or dependency profile requires a new run; do not merge incompatible results.
 
 Use standard coverage combine --keep, json and report with the complete accepted current raw profile list, a fresh combined data path and the reviewed configuration. Run these reporting commands from the same canonical engine root. Parent and copied child profiles then use the same contracts/validation/src and contracts/validation/tests paths; no additional path aliases or coverage configuration changes are needed. Keep every child profile/core log and complete process receipt. Measure the maintained observation helper with support/production code; assertion-only test files do not inflate those denominators. Apply total>0 and 10*covered>9*total independently to every applicable file/module/package metric. Neither a five-node diagnostic nor a successful standard-tool command proves complete qualification or coverage.
+
+## Separately closed composition report shapes
+
+The project-workflow manifest additionally retains parsed positive and negative
+examples for all 51 separately closed composition report and export definitions.
+All 1393 prior cases and their original expectations remain unchanged. These
+examples cover required fields and root types, finite registrations, both
+relationship tags, wrapper-only exclusions, report limits and format/media pairs.
+They qualify parsed structure only. Current authorization, complete selection,
+canonical operation and artifact joins, actual JSON/CSV emission, asynchronous
+execution, delivery and installed runtime retain their separate complete
+consumer and runtime gates. No namespace translation grants a capability.

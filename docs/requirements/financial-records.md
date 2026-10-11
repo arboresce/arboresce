@@ -1053,3 +1053,7 @@ The read neither issues a mutation receipt nor provides new confirmation authori
 Parsed fixtures and synthetic event joins do not establish actual-human assurance,
 canonical server arithmetic, current disclosure or real service qualification.
 Qualify those obligations with independent expected values at their consumers.
+
+## Versioned project composition report consumer
+
+[Financial composition reports](financial-composition-reports.md) retains this owner's unchanged manifest, exact original financial confirmation, arithmetic and byte rules while adding explicit reviewed relationship selections. Compound approval never replaces original base approval or creates another monetary transaction. Its complete separate qualification precedes consumer support.

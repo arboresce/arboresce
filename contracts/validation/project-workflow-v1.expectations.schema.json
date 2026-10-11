@@ -14,8 +14,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 1393,
-      "maxItems": 1393,
+      "minItems": 1567,
+      "maxItems": 1567,
       "prefixItems": [
         {
           "type": "object",
@@ -38245,6 +38245,4922 @@
             "value": {
               "not": {
                 "$ref": "../public/v1/project-workflow.schema.json#/$defs/financial_composition_project_observation_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_reference_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_reference_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_reference_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_reference_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_reference_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_reference_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_reference_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_reference_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_reference_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_selection_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_selection_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_selection_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_selection_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_selection_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_selection_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_selection_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_selection_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_selection_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_exclusion_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_exclusion_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_exclusion_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_exclusion_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_exclusion_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_exclusion_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_exclusion_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_exclusion_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_exclusion_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_manifest_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_manifest_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_manifest_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_manifest_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_manifest_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_manifest_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_manifest_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_manifest_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_manifest_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_snapshot_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_snapshot_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_snapshot_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_snapshot_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_snapshot_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_snapshot_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_snapshot_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_snapshot_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_snapshot_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_create_request_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_request_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_create_request_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_request_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_create_request_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_request_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_create_response_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_response_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_create_response_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_response_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_create_response_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_response_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_get_request_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_get_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_get_request_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_get_request_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_get_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_get_request_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_get_request_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_get_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_get_request_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_get_response_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_get_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_get_response_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_get_response_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_get_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_get_response_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_get_response_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_get_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_get_response_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_export_request_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_export_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_export_request_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_export_request_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_export_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_export_request_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_export_request_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_export_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_export_request_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_request-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_request-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_payload_v1-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_payload_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_payload_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_payload_v1-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_payload_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_payload_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_payload_v1-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_payload_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_payload_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_profile-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_profile"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_profile"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_profile-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_profile"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_profile"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_profile-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_profile"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_profile"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_get_request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_get_request-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_get_request-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_get_response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_get_response-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_get_response-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_content_request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_content_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_content_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_content_request-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_content_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_content_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_content_request-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_content_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_content_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_receipt-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_receipt"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_receipt"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_receipt-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_receipt"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_receipt"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_receipt-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_receipt"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_receipt"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_get_request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_get_request-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_get_request-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_get_response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_get_response-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_get_response-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_content_response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_content_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_content_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_content_response-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_content_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_content_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_content_response-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_content_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_content_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_admission_inputs-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_admission_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_admission_inputs"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_admission_inputs-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_admission_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_admission_inputs"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_delivery_admission_inputs-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_delivery_admission_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_delivery_admission_inputs"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_profile-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_profile"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_profile"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_profile-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_profile"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_profile"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_profile-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_profile"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_profile"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_record-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_record"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_record"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_record-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_record"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_record"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_record-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_record"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_record"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_stage_result-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_stage_result"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_stage_result"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_stage_result-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_stage_result"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_stage_result"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_stage_result-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_stage_result"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_stage_result"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_admission_inputs-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_admission_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_admission_inputs"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_admission_inputs-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_admission_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_admission_inputs"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_admission_inputs-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_admission_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_admission_inputs"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_resource-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_resource"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_resource-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_resource"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_resource-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_resource"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_read_response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_read_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_read_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_read_response-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_read_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_read_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_read_response-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_read_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_read_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_get_exchange-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_get_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_get_exchange"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_get_exchange-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_get_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_get_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_get_exchange-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_get_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_get_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_command_exchange-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_command_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_command_exchange"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_command_exchange-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_command_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_command_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_command_exchange-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_command_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_command_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_accepted_response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_accepted_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_accepted_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_accepted_response-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_accepted_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_accepted_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_accepted_response-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_accepted_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_accepted_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_get_request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_get_request-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_get_request-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_request-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_request-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_response-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_response-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_exchange-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_exchange"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_exchange-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_get_exchange-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_get_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_get_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_request-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_request"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_request-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_request-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_request"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_request"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_response-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_response"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_response-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_response-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_response"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_response"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_exchange-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_exchange"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_exchange-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_cancel_exchange-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_cancel_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_cancel_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_cancellation_decision_inputs-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_cancellation_decision_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_cancellation_decision_inputs"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_cancellation_decision_inputs-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_cancellation_decision_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_cancellation_decision_inputs"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_cancellation_decision_inputs-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_cancellation_decision_inputs"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_cancellation_decision_inputs"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_error_exchange-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_error_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_error_exchange"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_error_exchange-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_error_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_error_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_error_exchange-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_error_exchange"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_error_exchange"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_execution-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_execution"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_execution"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_execution-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_execution"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_execution"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_execution-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_execution"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_execution"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_result-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_result"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_result"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_result-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_result"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_result"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_result-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_result"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_result"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_resource-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_resource"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_resource-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_resource"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_resource-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_resource"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_resource"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_core-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_core"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_core-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_core"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_artifact_core-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_core"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_subject-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_subject"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_subject"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_subject-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_subject"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_subject"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_subject-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_subject"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_subject"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_core-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_core"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_core-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_core"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_plan_core-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_plan_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_plan_core"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_inventory-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_inventory"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_inventory-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_inventory"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_inventory-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_inventory"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_registration-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_registration"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_registration-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-report_registration-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_inventory-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_inventory"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_inventory-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_inventory"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_inventory-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_inventory"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_registration-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_registration"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_registration-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_operation_registration-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_operation_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_operation_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_transport_inventory-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_transport_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_transport_inventory"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_transport_inventory-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_transport_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_transport_inventory"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_transport_inventory-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_transport_inventory"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_transport_inventory"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_transport_registration-complete"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_transport_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_transport_registration"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_transport_registration-missing"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_transport_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_transport_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-export_transport_registration-null-root"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_transport_registration"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_transport_registration"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-1-reference_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_reference_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_reference_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-1-manifest_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_manifest_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_manifest_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-1-snapshot_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_snapshot_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_snapshot_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-1-create_request_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_request_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-1-create_response_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_response_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-2-reference_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_reference_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_reference_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-2-manifest_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_manifest_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_manifest_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-2-snapshot_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_snapshot_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_snapshot_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-2-create_request_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_request_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-2-create_response_v1-preserved-approval"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_create_response_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_create_response_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-legacy-selection-tag"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_selection_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_selection_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-legacy-selection-cannot-claim-compound"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_selection_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_selection_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-legacy-exclusion-tag"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_exclusion_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_exclusion_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-legacy-exclusion-no-wrapper-reason"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_exclusion_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_exclusion_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-selected_relationships-over-256"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_manifest_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_manifest_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-excluded_relationships-over-256"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_manifest_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_manifest_v1"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-csv-artifact-media-pair"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_core"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-json-artifact-crossed-media"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_core"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-csv-artifact-crossed-media"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_export_artifact_core"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_export_artifact_core"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-csv-export-request"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_export_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_export_request_v1"
+            }
+          },
+          "required": [
+            "id",
+            "target",
+            "valid",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "const": "composition-report-new-export-no-legacy-format"
+            },
+            "target": {
+              "type": "string",
+              "const": "composition_project_report_export_request_v1"
+            },
+            "valid": {
+              "type": "boolean",
+              "const": false
+            },
+            "value": {
+              "not": {
+                "$ref": "../public/v1/project-workflow.schema.json#/$defs/composition_project_report_export_request_v1"
               }
             }
           },
