@@ -12,7 +12,9 @@ Use [the instruction index](docs/agents/README.md) to find directory guidance.
 Read the [requirement ownership index](docs/requirements/README.md) before
 implementing behavior. Those documents define the accepted target; the
 [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md) records execution and evidence.
-The current checkout has no product runtime. Use the
+The current Rust workspace implements checked immutable UUIDv4 values in
+`arboresce-domain` and retains the existing binding/build proof. The API and
+product runtime remain unfinished. Use the
 [public contract checks](contracts/validation/README.md) for the supplied
 schemas and fixtures. Introduce runtime commands with their owning guidance.
 
@@ -39,6 +41,18 @@ Ordinary use must rely on committed artifacts rather than requiring regeneration
 ## Verification and completion
 
 Use only documented commands.
+For the current Rust workspace use Rust 1.99.0 and run:
+
+```sh
+cargo fmt --all -- --check
+cargo check --locked --offline --workspace --all-targets
+cargo test --locked --offline --workspace -- --nocapture
+cargo clippy --locked --offline --workspace --all-targets -- -D warnings
+```
+
+Where an output router is configured, run its diagnostic first and prefix these
+commands with its documented router. Prepare coverage tools explicitly and follow
+the direct collection and complete source inventory in the testing contract.
 Run the documented formatting, checks, and tests for affected components.
 Source changes must satisfy [the testing and coverage contract](docs/requirements/testing-and-coverage.md),
 including deterministic independently reviewed fixtures, complete collection and

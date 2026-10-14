@@ -111,13 +111,13 @@ Checkpoint: e9aea99fa94903444522ad3a7db3b7a4b6fe1684 [Frozen contract qualificat
 
 ### E201 — Bootstrap measured Rust types on the accepted toolchain
 
-Status: `not_started`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
 Scope: Bootstrap measured Rust types on the accepted toolchain; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `Cargo.toml`, `Cargo.lock`, `rust-toolchain.toml`, `crates/arboresce-domain/`
+Planned paths: `Cargo.toml`, `Cargo.lock`, `rust-toolchain.toml`, `crates/arboresce-domain/`, `crates/arboresce/tests/smoke.rs`, `AGENTS.md`, `README.md`, `docs/requirements/README.md`, `docs/requirements/testing-and-coverage.md`
 
 External prerequisite capabilities: Approve independent identity and revision fixtures. Require independently accepted exact consumed contracts/fixtures/profile evidence before use; partial gates do not qualify unrelated capabilities.
 
@@ -135,7 +135,44 @@ contextual bounds and selection remain separate semantic checks. The Rust fixtur
 table has declarations only, with no parser or oracle functions. No domain crate,
 random ID generation, resource authority, service, decoder or product runtime is
 qualified by fixture preparation. Exact independent fixture acceptance precedes
-consumption; E201 remains not_started until its implementation is claimed.
+consumption. E201 is now claimed for the actual identity implementation; the
+accepted primitive fixture bytes remain unchanged.
+
+Candidate qualification: the standard-library-only `arboresce-domain` library
+checks canonical lower-case UUIDv4 text and binary version/variant bits, retains
+immutable bytes, formats exact canonical text and returns an input-independent
+error. The 34 text and eight binary literals at
+`82019f60732b78e066224216037117c511208a81` precede implementation and remain
+unchanged. The new fixed error literal received independent expected-value
+acceptance before consumption. IDs establish format only; they do not establish
+resource existence, principal authentication, authorization or randomness.
+
+Fresh owning and standalone public-only Rust 1.99.0 checks pass workspace format,
+locked offline all-target check, all five tests plus separate doctests, strict
+Clippy and direct pinned LLVM collection. Both native collections reconcile four
+fresh nonempty test-process profiles, all four actual test objects and the 42
+unique fixture case/PID receipts. The existing proof executes its original name
+output; its source and API remain unchanged. The initial Clippy rejection is
+retained as a failed attempt; only the corrected fresh runs qualify this source.
+
+| Measured Rust source | Covered/total lines | Covered/total regions |
+| --- | --- | --- |
+| `crates/arboresce-domain/src/lib.rs` | 48/48 | 70/71 |
+| `crates/arboresce/src/lib.rs` | 6/6 | 6/6 |
+| `crates/arboresce-domain/tests/support/mod.rs` | 3/3 | 3/3 |
+| Source aggregate | 57/57 | 79/80 |
+
+Each measured file, crate, package and current macOS ARM64 default profile
+exceeds 90% independently for executable lines and regions. The direct complete
+object export includes maintained support omitted by the default product-only
+report. Assertion bodies retain raw execution separately from source metrics;
+the unchanged declaration-only oracle has proven metric-specific N/A. No source
+exclusion applies. This qualifies pure identifier values and the existing proof,
+not an API, SDK/FFI runtime, storage, service, other native target or product
+journey. Independent source/public/qualification review and a distinct delivery
+witness must accept the exact frozen candidate before its owning local commit.
+E202 verification/dependency guards and E203 revisions/clocks/locators are the
+next consumers; whole primitive and product acceptance remain separate gates.
 
 ### E202 — Introduce repository-owned verification and dependency guards
 

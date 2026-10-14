@@ -12,9 +12,11 @@ scope and the [requirement owners](docs/requirements/README.md) for the contract
 
 This checkout supplies requirements, contribution guidance, licensing and
 [checked public contract fixtures](contracts/validation/README.md).
-The runtime, libraries, processing service, API and runtime qualification suites
-are planned implementation. No product build, installation or runtime command is
-available here yet. The [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md)
+The Rust workspace implements [checked domain identifiers](crates/arboresce-domain/README.md)
+and retains the existing binding/build proof. Rust 1.99.0 workspace checks and
+independent identifier tests are available in [repository guidance](AGENTS.md).
+The processing service, API, installation and product runtime remain planned.
+The [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md)
 records implementation and verification separately from accepted requirements.
 
 ## Repository

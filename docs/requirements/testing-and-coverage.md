@@ -1,7 +1,8 @@
 # Testing and source coverage
 
-**Authority:** normative requirements. **Status:** accepted; collection tools and
-product suites must be implemented and qualified before dependent source work.
+**Authority:** normative requirements. **Status:** accepted; the bounded Rust
+identifier suite and direct collection are implemented. Remaining collection
+tools and product suites need their actual qualification before dependent work.
 
 This document owns fixture governance, required test layers, complete collection
 and source coverage. [Acceptance](acceptance.md) owns real experiment and release
@@ -120,7 +121,57 @@ A nightly toolchain is not required solely for these gates. Before repository
 runners exist, direct prepared-tool collection must demonstrate the same complete
 inventory and arithmetic. Implemented runners then replace repeated manual
 orchestration without weakening it. Exact supported invocation belongs with the
-tool once implemented; this document advertises no currently available command.
+tool once implemented. Current direct Rust collection is documented below;
+this does not advertise future service or product commands.
+
+### Current Rust source and direct collection
+
+The current native profile is Rust 1.99.0, macOS ARM64 and the default workspace
+feature set. Prepare `cargo-llvm-cov` 0.9.1 and that selected toolchain's LLVM
+tools before measurement; checks never install tools. The two libraries have
+no third-party dependencies. The binding/build proof remains a placeholder and
+does not qualify an API or FFI runtime.
+
+| Rust path | Measurement role |
+| --- | --- |
+| `crates/arboresce-domain/src/lib.rs` | Checked identifier library; source lines/regions. |
+| `crates/arboresce/src/lib.rs` | Existing binding/build proof; source lines/regions, no MVP runtime claim. |
+| `crates/arboresce-domain/tests/support/mod.rs` | Maintained formatter-failure sink; source lines/regions. |
+| `crates/arboresce-domain/tests/identifiers.rs` | Four assertion bodies; raw execution retained separately from source numerators. |
+| `crates/arboresce/tests/smoke.rs` | Existing proof assertion body and observable name output; separately inventoried. |
+| `crates/arboresce-domain/tests/fixtures/primitives-v1/expected.rs` | Literal declaration-only oracle table; proven metric-specific N/A. |
+
+The additional diagnostic text and JSON files are literal fixture data. No parser,
+builder or oracle function is hidden there. New files require an owning role;
+assertion bodies cannot absorb reusable support to alter source measurement.
+The identifier suite executes every accepted 34 text and eight binary case IDs,
+exact roundtrips, immutable equality/hash and bounded error behavior. Actual
+formatter failures propagate. The existing proof's name-print function executes
+and produces its original literal output. Required suites have five tests, zero
+failed/ignored/filtered cases; separate Cargo doctests remain required.
+
+Choose a fresh external `ARB_COVERAGE_DIR`, distinct from a directory used for
+an uninstrumented build, and collect directly before any custom runner exists:
+
+```sh
+env -u LLVM_PROFILE_FILE \
+  CARGO_TARGET_DIR="$ARB_COVERAGE_DIR" \
+  CARGO_LLVM_COV_TARGET_DIR="$ARB_COVERAGE_DIR" \
+  CARGO_BUILD_BUILD_DIR="$ARB_COVERAGE_DIR" \
+  cargo llvm-cov --locked --offline --workspace --all-targets --no-clean \
+  --json --output-path "$ARB_COVERAGE_DIR/coverage.json" -- --nocapture
+```
+
+Apply the configured output router where present. Keep every fresh nonempty
+native test-process profile and prove it enters aggregation. Reconcile actual
+Cargo test executables, case/PID receipts, source/fixtures/locks, tools and profile
+identities. Export the actual integration-test objects with the selected LLVM
+tools and aggregate profile so maintained support cannot disappear from a
+product-only default report. Gate every required source, file, library, package
+and native profile strictly above 90% for both lines and regions. Raw assertion
+execution remains retained without inflating source metrics. No exclusion applies.
+Qualify the same exact source in a standalone public-only snapshot. Other native,
+service, packaging, live-model and production profiles retain their later gates.
 
 ## Independent deterministic fixtures
 
