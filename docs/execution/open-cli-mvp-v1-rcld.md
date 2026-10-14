@@ -111,7 +111,7 @@ Checkpoint: e9aea99fa94903444522ad3a7db3b7a4b6fe1684 [Frozen contract qualificat
 
 ### E201 — Bootstrap measured Rust types on the accepted toolchain
 
-Status: `in_progress`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `complete`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -125,7 +125,7 @@ Definition of green: Exact Rust 1.99.0 builds useful opaque identities; independ
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
-Fixture prerequisite candidate: the public synthetic
+Accepted fixture prerequisite: the public synthetic
 [primitive package](../../crates/arboresce-domain/tests/fixtures/primitives-v1/README.md)
 supplies literal UUIDv4 text/bytes and checked construction expectations before
 this first domain implementation. Its nine additional revision/clock/date/locator
@@ -135,10 +135,10 @@ contextual bounds and selection remain separate semantic checks. The Rust fixtur
 table has declarations only, with no parser or oracle functions. No domain crate,
 random ID generation, resource authority, service, decoder or product runtime is
 qualified by fixture preparation. Exact independent fixture acceptance precedes
-consumption. E201 is now claimed for the actual identity implementation; the
-accepted primitive fixture bytes remain unchanged.
+consumption. E201 consumed only its independently accepted identity tables;
+the accepted primitive fixture bytes remain unchanged.
 
-Candidate qualification: the standard-library-only `arboresce-domain` library
+Accepted source: the standard-library-only `arboresce-domain` library
 checks canonical lower-case UUIDv4 text and binary version/variant bits, retains
 immutable bytes, formats exact canonical text and returns an input-independent
 error. The 34 text and eight binary literals at
@@ -169,10 +169,13 @@ report. Assertion bodies retain raw execution separately from source metrics;
 the unchanged declaration-only oracle has proven metric-specific N/A. No source
 exclusion applies. This qualifies pure identifier values and the existing proof,
 not an API, SDK/FFI runtime, storage, service, other native target or product
-journey. Independent source/public/qualification review and a distinct delivery
-witness must accept the exact frozen candidate before its owning local commit.
+journey. Separate independent expected-value, source/public/qualification review
+and a distinct delivery witness accepted the exact frozen source before its
+owning local commit.
 E202 verification/dependency guards and E203 revisions/clocks/locators are the
 next consumers; whole primitive and product acceptance remain separate gates.
+
+Checkpoint: 41f44baa8191825f6e82d4ee1231e809d1a95088; Evidence: [Bootstrap verification](open-cli-mvp-v1-rcld.md)
 
 ### E202 — Introduce repository-owned verification and dependency guards
 
