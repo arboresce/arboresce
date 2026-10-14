@@ -1,0 +1,1325 @@
+{
+  "fixture_version": "primitives-v1",
+  "classification": "original public synthetic fixtures",
+  "scope": "Primitive parsed-value and synthetic bound/selection expectations only; no resource authorization, real media, clock service, runtime or product qualification.",
+  "groups": {
+    "revision_parse": [
+      {
+        "id": "content-one",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "1"
+        },
+        "accepted": true,
+        "integer": 1,
+        "roundtrip": {
+          "kind": "content",
+          "value": "1"
+        }
+      },
+      {
+        "id": "content-maximum",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "999999999999999999"
+        },
+        "accepted": true,
+        "integer": 999999999999999999,
+        "roundtrip": {
+          "kind": "content",
+          "value": "999999999999999999"
+        }
+      },
+      {
+        "id": "content-zero",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "0"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-overflow",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "1000000000000000000"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-leading-zero",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "01"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-negative",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "-1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-plus",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "+1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-fraction",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "1.0"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-exponent",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "1e1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-space",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": " 1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-newline",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "1\n"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-unicode-digit",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "１"
+        },
+        "accepted": false
+      },
+      {
+        "id": "content-numeric",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": 1
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-one",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "1"
+        },
+        "accepted": true,
+        "integer": 1,
+        "roundtrip": {
+          "kind": "control",
+          "value": "1"
+        }
+      },
+      {
+        "id": "control-maximum",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "999999999999999999"
+        },
+        "accepted": true,
+        "integer": 999999999999999999,
+        "roundtrip": {
+          "kind": "control",
+          "value": "999999999999999999"
+        }
+      },
+      {
+        "id": "control-zero",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "0"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-overflow",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "1000000000000000000"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-leading-zero",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "01"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-negative",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "-1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-plus",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "+1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-fraction",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "1.0"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-exponent",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "1e1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-space",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": " 1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-newline",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "1\n"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-unicode-digit",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": "１"
+        },
+        "accepted": false
+      },
+      {
+        "id": "control-numeric",
+        "target": "control",
+        "input": {
+          "kind": "control",
+          "value": 1
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-one",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "1"
+        },
+        "accepted": true,
+        "integer": 1,
+        "roundtrip": {
+          "kind": "generation",
+          "value": "1"
+        }
+      },
+      {
+        "id": "generation-maximum",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "999999999999999999"
+        },
+        "accepted": true,
+        "integer": 999999999999999999,
+        "roundtrip": {
+          "kind": "generation",
+          "value": "999999999999999999"
+        }
+      },
+      {
+        "id": "generation-zero",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "0"
+        },
+        "accepted": true,
+        "integer": 0,
+        "roundtrip": {
+          "kind": "generation",
+          "value": "0"
+        }
+      },
+      {
+        "id": "generation-overflow",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "1000000000000000000"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-leading-zero",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "01"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-negative",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "-1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-plus",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "+1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-fraction",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "1.0"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-exponent",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "1e1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-space",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": " 1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-newline",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "1\n"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-unicode-digit",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": "１"
+        },
+        "accepted": false
+      },
+      {
+        "id": "generation-numeric",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": 1
+        },
+        "accepted": false
+      },
+      {
+        "id": "wrong-content-tag",
+        "target": "content",
+        "input": {
+          "kind": "control",
+          "value": "1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "wrong-generation-tag",
+        "target": "generation",
+        "input": {
+          "kind": "content",
+          "value": "1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "extra-revision-field",
+        "target": "content",
+        "input": {
+          "kind": "content",
+          "value": "1",
+          "ignored": true
+        },
+        "accepted": false
+      },
+      {
+        "id": "wrong-control-tag",
+        "target": "control",
+        "input": {
+          "kind": "generation",
+          "value": "1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "missing-revision-kind",
+        "target": "content",
+        "input": {
+          "value": "1"
+        },
+        "accepted": false
+      },
+      {
+        "id": "missing-revision-value",
+        "target": "generation",
+        "input": {
+          "kind": "generation"
+        },
+        "accepted": false
+      },
+      {
+        "id": "null-revision",
+        "target": "content",
+        "input": null,
+        "accepted": false
+      },
+      {
+        "id": "array-revision",
+        "target": "control",
+        "input": [],
+        "accepted": false
+      },
+      {
+        "id": "boolean-revision-value",
+        "target": "generation",
+        "input": {
+          "kind": "generation",
+          "value": true
+        },
+        "accepted": false
+      }
+    ],
+    "revision_advance": [
+      {
+        "id": "content-initial-advance",
+        "kind": "content",
+        "before": "1",
+        "accepted": true,
+        "after": "2",
+        "original_after_attempt": "1"
+      },
+      {
+        "id": "content-last-success-advance",
+        "kind": "content",
+        "before": "999999999999999998",
+        "accepted": true,
+        "after": "999999999999999999",
+        "original_after_attempt": "999999999999999998"
+      },
+      {
+        "id": "content-maximum-advance",
+        "kind": "content",
+        "before": "999999999999999999",
+        "accepted": false,
+        "after": null,
+        "original_after_attempt": "999999999999999999"
+      },
+      {
+        "id": "control-initial-advance",
+        "kind": "control",
+        "before": "1",
+        "accepted": true,
+        "after": "2",
+        "original_after_attempt": "1"
+      },
+      {
+        "id": "control-last-success-advance",
+        "kind": "control",
+        "before": "999999999999999998",
+        "accepted": true,
+        "after": "999999999999999999",
+        "original_after_attempt": "999999999999999998"
+      },
+      {
+        "id": "control-maximum-advance",
+        "kind": "control",
+        "before": "999999999999999999",
+        "accepted": false,
+        "after": null,
+        "original_after_attempt": "999999999999999999"
+      },
+      {
+        "id": "generation-initial-advance",
+        "kind": "generation",
+        "before": "0",
+        "accepted": true,
+        "after": "1",
+        "original_after_attempt": "0"
+      },
+      {
+        "id": "generation-last-success-advance",
+        "kind": "generation",
+        "before": "999999999999999998",
+        "accepted": true,
+        "after": "999999999999999999",
+        "original_after_attempt": "999999999999999998"
+      },
+      {
+        "id": "generation-maximum-advance",
+        "kind": "generation",
+        "before": "999999999999999999",
+        "accepted": false,
+        "after": null,
+        "original_after_attempt": "999999999999999999"
+      }
+    ],
+    "calendar_date": [
+      {
+        "id": "date-1",
+        "input": "0001-01-01",
+        "accepted": true,
+        "year_month_day": [
+          1,
+          1,
+          1
+        ],
+        "roundtrip": "0001-01-01"
+      },
+      {
+        "id": "date-2",
+        "input": "9999-12-31",
+        "accepted": true,
+        "year_month_day": [
+          9999,
+          12,
+          31
+        ],
+        "roundtrip": "9999-12-31"
+      },
+      {
+        "id": "date-3",
+        "input": "2000-02-29",
+        "accepted": true,
+        "year_month_day": [
+          2000,
+          2,
+          29
+        ],
+        "roundtrip": "2000-02-29"
+      },
+      {
+        "id": "date-4",
+        "input": "2024-02-29",
+        "accepted": true,
+        "year_month_day": [
+          2024,
+          2,
+          29
+        ],
+        "roundtrip": "2024-02-29"
+      },
+      {
+        "id": "date-5",
+        "input": "1900-02-28",
+        "accepted": true,
+        "year_month_day": [
+          1900,
+          2,
+          28
+        ],
+        "roundtrip": "1900-02-28"
+      },
+      {
+        "id": "date-6",
+        "input": "2100-03-01",
+        "accepted": true,
+        "year_month_day": [
+          2100,
+          3,
+          1
+        ],
+        "roundtrip": "2100-03-01"
+      },
+      {
+        "id": "date-7",
+        "input": "0000-01-01",
+        "accepted": false
+      },
+      {
+        "id": "date-8",
+        "input": "1900-02-29",
+        "accepted": false
+      },
+      {
+        "id": "date-9",
+        "input": "2100-02-29",
+        "accepted": false
+      },
+      {
+        "id": "date-10",
+        "input": "2026-02-29",
+        "accepted": false
+      },
+      {
+        "id": "date-11",
+        "input": "2026-02-30",
+        "accepted": false
+      },
+      {
+        "id": "date-12",
+        "input": "2026-04-31",
+        "accepted": false
+      },
+      {
+        "id": "date-13",
+        "input": "2026-00-01",
+        "accepted": false
+      },
+      {
+        "id": "date-14",
+        "input": "2026-13-01",
+        "accepted": false
+      },
+      {
+        "id": "date-15",
+        "input": "2026-01-00",
+        "accepted": false
+      },
+      {
+        "id": "date-16",
+        "input": "2026-1-01",
+        "accepted": false
+      },
+      {
+        "id": "date-17",
+        "input": "2026-01-1",
+        "accepted": false
+      },
+      {
+        "id": "date-18",
+        "input": "2026-01-01T00:00:00.000Z",
+        "accepted": false
+      },
+      {
+        "id": "date-19",
+        "input": "2026-01-01\n",
+        "accepted": false
+      },
+      {
+        "id": "date-20",
+        "input": " 2026-01-01",
+        "accepted": false
+      },
+      {
+        "id": "date-21",
+        "input": "２０２６-01-01",
+        "accepted": false
+      }
+    ],
+    "timestamp": [
+      {
+        "id": "instant-1",
+        "input": "0001-01-01T00:00:00.000Z",
+        "accepted": true,
+        "unix_milliseconds": -62135596800000,
+        "roundtrip": "0001-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "instant-2",
+        "input": "1969-12-31T23:59:59.999Z",
+        "accepted": true,
+        "unix_milliseconds": -1,
+        "roundtrip": "1969-12-31T23:59:59.999Z"
+      },
+      {
+        "id": "instant-3",
+        "input": "1970-01-01T00:00:00.000Z",
+        "accepted": true,
+        "unix_milliseconds": 0,
+        "roundtrip": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "instant-4",
+        "input": "2000-02-29T12:34:56.789Z",
+        "accepted": true,
+        "unix_milliseconds": 951827696789,
+        "roundtrip": "2000-02-29T12:34:56.789Z"
+      },
+      {
+        "id": "instant-5",
+        "input": "9999-12-31T23:59:59.999Z",
+        "accepted": true,
+        "unix_milliseconds": 253402300799999,
+        "roundtrip": "9999-12-31T23:59:59.999Z"
+      },
+      {
+        "id": "instant-6",
+        "input": "0000-01-01T00:00:00.000Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-7",
+        "input": "1900-02-29T00:00:00.000Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-8",
+        "input": "2026-02-30T00:00:00.000Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-9",
+        "input": "2026-01-01T24:00:00.000Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-10",
+        "input": "2026-01-01T00:60:00.000Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-11",
+        "input": "2026-01-01T00:00:60.000Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-12",
+        "input": "2026-01-01T00:00:00Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-13",
+        "input": "2026-01-01T00:00:00.00Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-14",
+        "input": "2026-01-01T00:00:00.0000Z",
+        "accepted": false
+      },
+      {
+        "id": "instant-15",
+        "input": "2026-01-01T00:00:00.000+00:00",
+        "accepted": false
+      },
+      {
+        "id": "instant-16",
+        "input": "2026-01-01t00:00:00.000z",
+        "accepted": false
+      },
+      {
+        "id": "instant-17",
+        "input": "2026-01-01",
+        "accepted": false
+      },
+      {
+        "id": "instant-18",
+        "input": "2026-01-01T00:00:00.000Z\n",
+        "accepted": false
+      }
+    ],
+    "clock": [
+      {
+        "id": "injected-repeated-backward-clock",
+        "supplied": [
+          "2026-10-01T00:00:00.123Z",
+          "2026-10-01T00:00:00.123Z",
+          "2026-09-30T23:59:59.999Z"
+        ],
+        "expected_same_sequence": [
+          "2026-10-01T00:00:00.123Z",
+          "2026-10-01T00:00:00.123Z",
+          "2026-09-30T23:59:59.999Z"
+        ],
+        "implies_revision_order": false,
+        "uses_ambient_clock": false
+      }
+    ],
+    "utf8_range": [
+      {
+        "id": "utf8-accent",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 1,
+        "end_byte": 3,
+        "accepted": true,
+        "selected_hex": "c3a9"
+      },
+      {
+        "id": "utf8-emoji",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 3,
+        "end_byte": 7,
+        "accepted": true,
+        "selected_hex": "f09f9982"
+      },
+      {
+        "id": "utf8-newline",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 7,
+        "end_byte": 8,
+        "accepted": true,
+        "selected_hex": "0a"
+      },
+      {
+        "id": "utf8-whole",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 0,
+        "end_byte": 8,
+        "accepted": true,
+        "selected_hex": "41c3a9f09f99820a"
+      },
+      {
+        "id": "utf8-accent-midpoint",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 2,
+        "end_byte": 3,
+        "accepted": false
+      },
+      {
+        "id": "utf8-emoji-midpoint",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 3,
+        "end_byte": 6,
+        "accepted": false
+      },
+      {
+        "id": "utf8-empty",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 3,
+        "end_byte": 3,
+        "accepted": false
+      },
+      {
+        "id": "utf8-reversed",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 7,
+        "end_byte": 3,
+        "accepted": false
+      },
+      {
+        "id": "utf8-beyond",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": 0,
+        "end_byte": 9,
+        "accepted": false
+      },
+      {
+        "id": "utf8-negative",
+        "source_hex": "41c3a9f09f99820a",
+        "start_byte": -1,
+        "end_byte": 1,
+        "accepted": false
+      },
+      {
+        "id": "utf8-invalid-original",
+        "source_hex": "c3",
+        "start_byte": 0,
+        "end_byte": 1,
+        "accepted": false,
+        "lossy_repair_allowed": false
+      }
+    ],
+    "json_pointer": [
+      {
+        "id": "pointer-null",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/0",
+        "accepted": true,
+        "selected_canonical_utf8": "null",
+        "selected_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      },
+      {
+        "id": "pointer-false",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/1",
+        "accepted": true,
+        "selected_canonical_utf8": "false",
+        "selected_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+      },
+      {
+        "id": "pointer-zero",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/2",
+        "accepted": true,
+        "selected_canonical_utf8": "0",
+        "selected_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+      },
+      {
+        "id": "pointer-empty-string",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/3",
+        "accepted": true,
+        "selected_canonical_utf8": "\"\"",
+        "selected_sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+      },
+      {
+        "id": "pointer-empty-key",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/",
+        "accepted": true,
+        "selected_canonical_utf8": "7",
+        "selected_sha256": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+      },
+      {
+        "id": "pointer-root",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "",
+        "accepted": true,
+        "selected_canonical_utf8": "{\"\":7,\"a/b\":{\"~key\":[null,false,0,\"\"]}}",
+        "selected_sha256": "faa33903018979464f46a9590b38226f1cb8bc679a1fb8f9aa9e4ae2b8cf6ab1"
+      },
+      {
+        "id": "pointer-bad-escape",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~2b",
+        "accepted": false
+      },
+      {
+        "id": "pointer-incomplete-escape",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~",
+        "accepted": false
+      },
+      {
+        "id": "pointer-array-leading-zero",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/01",
+        "accepted": false
+      },
+      {
+        "id": "pointer-array-dash",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/-",
+        "accepted": false
+      },
+      {
+        "id": "pointer-array-out-of-range",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/4",
+        "accepted": false
+      },
+      {
+        "id": "pointer-missing",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/missing",
+        "accepted": false
+      },
+      {
+        "id": "pointer-scalar-descent",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "/a~1b/~0key/2/child",
+        "accepted": false
+      },
+      {
+        "id": "pointer-missing-slash",
+        "source_json": "{\"a/b\":{\"~key\":[null,false,0,\"\"]},\"\":7}",
+        "pointer": "a/b",
+        "accepted": false
+      },
+      {
+        "id": "pointer-duplicate-source",
+        "source_json": "{\"x\":1,\"x\":2}",
+        "pointer": "/x",
+        "accepted": false
+      },
+      {
+        "id": "pointer-utf16-key-order",
+        "source_json": "{\"\\ue000\":1,\"😀\":2}",
+        "pointer": "",
+        "accepted": true,
+        "selected_canonical_utf8": "{\"😀\":2,\"\":1}",
+        "selected_sha256": "28c95d1bbb2209223307e62f489020e8f9e0cfa16adf2daf6d88127a1e8dd22a"
+      },
+      {
+        "id": "pointer-escape-once",
+        "source_json": "{\"~1\":4}",
+        "pointer": "/~01",
+        "accepted": true,
+        "selected_canonical_utf8": "4",
+        "selected_sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+      },
+      {
+        "id": "pointer-object-leading-zero",
+        "source_json": "{\"01\":1,\"-\":2}",
+        "pointer": "/01",
+        "accepted": true,
+        "selected_canonical_utf8": "1",
+        "selected_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+      },
+      {
+        "id": "pointer-object-dash",
+        "source_json": "{\"01\":1,\"-\":2}",
+        "pointer": "/-",
+        "accepted": true,
+        "selected_canonical_utf8": "2",
+        "selected_sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+      },
+      {
+        "id": "pointer-negative-zero",
+        "source_json": "-0",
+        "pointer": "",
+        "accepted": true,
+        "selected_canonical_utf8": "0",
+        "selected_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+      },
+      {
+        "id": "pointer-negative-decimal-zero",
+        "source_json": "-0.0",
+        "pointer": "",
+        "accepted": true,
+        "selected_canonical_utf8": "0",
+        "selected_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+      },
+      {
+        "id": "pointer-equivalent-exponent",
+        "source_json": "1.0e+0",
+        "pointer": "",
+        "accepted": true,
+        "selected_canonical_utf8": "1",
+        "selected_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+      },
+      {
+        "id": "pointer-equivalent-fraction",
+        "source_json": "0.1000",
+        "pointer": "",
+        "accepted": true,
+        "selected_canonical_utf8": "0.1",
+        "selected_sha256": "14be4b45f18e0d8c67b4f719b5144eee88497e413709d11d85b096d8e2346310"
+      },
+      {
+        "id": "pointer-excess-precision",
+        "source_json": "0.100000000000000005",
+        "pointer": "",
+        "accepted": false
+      },
+      {
+        "id": "pointer-unsafe-integer",
+        "source_json": "9007199254740992",
+        "pointer": "",
+        "accepted": false
+      },
+      {
+        "id": "pointer-nonfinite-overflow",
+        "source_json": "1e400",
+        "pointer": "",
+        "accepted": false
+      },
+      {
+        "id": "pointer-underflow",
+        "source_json": "1e-400",
+        "pointer": "",
+        "accepted": false
+      },
+      {
+        "id": "pointer-unpaired-surrogate",
+        "source_json": "\"\\ud800\"",
+        "pointer": "",
+        "accepted": false
+      }
+    ],
+    "page_region": [
+      {
+        "id": "page-whole",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": 0,
+        "y": 0,
+        "width": 100,
+        "height": 50,
+        "accepted": true
+      },
+      {
+        "id": "page-last-edge",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": 99,
+        "y": 49,
+        "width": 1,
+        "height": 1,
+        "accepted": true
+      },
+      {
+        "id": "page-outside-right",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": 100,
+        "y": 0,
+        "width": 1,
+        "height": 1,
+        "accepted": false
+      },
+      {
+        "id": "page-outside-bottom",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": 0,
+        "y": 50,
+        "width": 1,
+        "height": 1,
+        "accepted": false
+      },
+      {
+        "id": "page-zero-width",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 1,
+        "accepted": false
+      },
+      {
+        "id": "page-zero-height",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 0,
+        "accepted": false
+      },
+      {
+        "id": "page-missing-page",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 1,
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1,
+        "accepted": false
+      },
+      {
+        "id": "page-negative-origin",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": -1,
+        "y": 0,
+        "width": 1,
+        "height": 1,
+        "accepted": false
+      },
+      {
+        "id": "page-wide-addition",
+        "actual_page_count": 1,
+        "actual_upright_dimensions": [
+          100,
+          50
+        ],
+        "coordinate_space": "upright_pixels_v1",
+        "source_orientation": 1,
+        "page_index": 0,
+        "x": 2147483647,
+        "y": 0,
+        "width": 2147483647,
+        "height": 1,
+        "accepted": false
+      }
+    ],
+    "audio_span": [
+      {
+        "id": "audio-whole-note",
+        "actual_duration_ms": 30000,
+        "actual_channels": 1,
+        "channel_index": 0,
+        "start_ms": 0,
+        "end_ms": 30000,
+        "accepted": true
+      },
+      {
+        "id": "audio-second-channel",
+        "actual_duration_ms": 30000,
+        "actual_channels": 2,
+        "channel_index": 1,
+        "start_ms": 1,
+        "end_ms": 30000,
+        "accepted": true
+      },
+      {
+        "id": "audio-five-minute-end",
+        "actual_duration_ms": 300000,
+        "actual_channels": 1,
+        "channel_index": 0,
+        "start_ms": 299999,
+        "end_ms": 300000,
+        "accepted": true
+      },
+      {
+        "id": "audio-empty",
+        "actual_duration_ms": 30000,
+        "actual_channels": 1,
+        "channel_index": 0,
+        "start_ms": 1,
+        "end_ms": 1,
+        "accepted": false
+      },
+      {
+        "id": "audio-reversed",
+        "actual_duration_ms": 30000,
+        "actual_channels": 1,
+        "channel_index": 0,
+        "start_ms": 100,
+        "end_ms": 99,
+        "accepted": false
+      },
+      {
+        "id": "audio-duration-overflow",
+        "actual_duration_ms": 30000,
+        "actual_channels": 1,
+        "channel_index": 0,
+        "start_ms": 0,
+        "end_ms": 30001,
+        "accepted": false
+      },
+      {
+        "id": "audio-wire-duration-overflow",
+        "actual_duration_ms": 300001,
+        "actual_channels": 1,
+        "channel_index": 0,
+        "start_ms": 0,
+        "end_ms": 300001,
+        "accepted": false
+      },
+      {
+        "id": "audio-absent-channel",
+        "actual_duration_ms": 30000,
+        "actual_channels": 1,
+        "channel_index": 1,
+        "start_ms": 0,
+        "end_ms": 1,
+        "accepted": false
+      },
+      {
+        "id": "audio-wire-channel-overflow",
+        "actual_duration_ms": 30000,
+        "actual_channels": 65537,
+        "channel_index": 65536,
+        "start_ms": 0,
+        "end_ms": 1,
+        "accepted": false
+      },
+      {
+        "id": "audio-negative-start",
+        "actual_duration_ms": 30000,
+        "actual_channels": 1,
+        "channel_index": 0,
+        "start_ms": -1,
+        "end_ms": 1,
+        "accepted": false
+      }
+    ]
+  }
+}

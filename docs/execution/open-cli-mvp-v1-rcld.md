@@ -125,6 +125,18 @@ Definition of green: Exact Rust 1.99.0 builds useful opaque identities; independ
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 
+Fixture prerequisite candidate: the public synthetic
+[primitive package](../../crates/arboresce-domain/tests/fixtures/primitives-v1/README.md)
+supplies literal UUIDv4 text/bytes and checked construction expectations before
+this first domain implementation. Its nine additional revision/clock/date/locator
+groups and 89 selected existing complete wire cases serve E203 after their own
+accepted prerequisite gate. Original wire validity flags qualify shape only;
+contextual bounds and selection remain separate semantic checks. The Rust fixture
+table has declarations only, with no parser or oracle functions. No domain crate,
+random ID generation, resource authority, service, decoder or product runtime is
+qualified by fixture preparation. Exact independent fixture acceptance precedes
+consumption; E201 remains not_started until its implementation is claimed.
+
 ### E202 — Introduce repository-owned verification and dependency guards
 
 Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
