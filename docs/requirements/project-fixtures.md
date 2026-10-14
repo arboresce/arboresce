@@ -134,3 +134,21 @@ allowed only where the oracle defines semantic equivalence. Record actual routes
 costs and data exposure. The canonical case proves a concrete workflow; population
 quality requires an independent held-out corpus, and independent utility requires
 actual authorized users. None is implied by fixture generation or recorded output.
+
+## Scoped fixture consumption and verification scheduling
+
+A versioned independently reviewed package may qualify the complete inputs of a
+bounded consumer before the whole canonical corpus is accepted. Its descriptor
+identifies cases, rights, contracts, digests, oracle meanings, allowed consumers
+and explicit exclusions. Missing groups outside that scope are not a whole-corpus
+pass. The consumer must enforce that scope and qualify every input it actually
+uses. Whole journey/corpus acceptance preserves every original required case.
+
+Use narrow reproducers during red iterations, then complete fresh owning source,
+helper/process collection, strict coverage and independent review before a green
+source checkpoint. Changed consumed inputs invalidate affected evidence; unchanged
+accepted tool/profile inputs may be reconciled as exact reuse, never called a new
+run. Preserve full case inventory, zero required skips and per-native/profile gates.
+After two equivalent full failures, diagnose a concrete cause before another full
+run. Sharding requires reviewed equivalence, complete outcomes and compatible raw
+profile conservation; no arbitrary test reduction or coverage exemption is allowed.
