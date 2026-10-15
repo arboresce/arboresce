@@ -5,6 +5,8 @@ to the current workspace. It is a repository tool, without product authority.
 Its core source and process qualification must pass before dependent use. Whole
 verification and automated coverage collection remain the next increment;
 `verify` and `coverage` return usage failure today.
+The separate report-count command below evaluates supplied reports; it does not
+replace those unfinished collection commands.
 
 Prepare Rust 1.99.0 and the locked public dependencies, then run from the root:
 
@@ -55,3 +57,39 @@ for Cargo qualification. All probes, including broken output streams, use one
 exit or collection fails. Timeout cleanup kills/reaps only the launched child
 with a separate two-second cleanup budget; there are no pipe-reader joins. Its source, builders and observer are measured under
 the [coverage contract](../../docs/requirements/testing-and-coverage.md).
+
+## Supplied report counts
+
+The report-count library and separate native command evaluate an explicit
+supplied source-role inventory against a selected LLVM 3.1.0 export:
+
+```sh
+cargo run --locked --offline -p arboresce-xtask --bin arboresce-report-gate -- \
+  /original/source/root /external/roles.json /external/llvm-export.json
+```
+
+The first argument is the report's original logical source prefix; evaluating
+an archived report does not require that directory to exist. The inventory uses
+version rust-report-roles-v1, a sources array with path/package/role entries,
+and a targets array with kind/name/sources entries. Paths are relative to that
+prefix. Roles are measured or assertion; target kinds are library or binary.
+See the independently approved [literal input contract](../../tests/architecture/fixtures/report-gate-v1/README.md)
+and its complete base example. Every selected file must occur exactly once.
+Every package has measured source, and each target names measured source.
+Directory names confer no exemption. Source, package, repository, library and
+binary scopes use separate prefixes. All applicable source counts must exceed
+90% independently using exact integer arithmetic. Raw totals and region
+remainders must agree; duplicates, malformed counts and overflow fail.
+
+Both UTF-8 JSON inputs are bounded to 67108864 bytes. Duplicate object keys and
+trailing JSON fail. Native help uses stdout/0, usage errors stderr/2, and owned
+input/gate failures fixed stderr/1. Success emits coverage report counts passed
+with LF on stdout/0. Output write/flush failure exits 1. The command echoes no
+input paths or contents. Actual native cases use the measured bounded observer;
+input preparation is measured support, separate from assertion bodies.
+
+This is a supplied-count result. The caller must separately establish actual
+inventory, declaration-only N/A, exact source/tool/run identity, fresh complete
+native process profiles and required test execution. Full raw region/function
+data remains with the original report. The summary adapter neither attests
+those facts nor completes the automated collector or whole verification.

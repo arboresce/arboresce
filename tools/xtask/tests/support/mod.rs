@@ -230,3 +230,4 @@ impl Write for FailedOutput {
         Err(io::Error::other("flush failed"))
     }
 }
+pub mod report_inputs;

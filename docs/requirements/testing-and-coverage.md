@@ -148,6 +148,11 @@ does not qualify an API or FFI runtime.
 | `tools/xtask/tests/support/mod.rs` | Maintained syntax-input builder, process observer and failure sinks; measured support. |
 | `tools/xtask/tests/support/peer.rs` | Actual controlled test-peer binary; measured support and native process. |
 | `tools/xtask/tests/contract.rs` | Assertion bodies; raw execution separate from source metrics. |
+| `tools/xtask/src/coverage.rs` | Supplied LLVM count/role/scope gate; measured source. |
+| `tools/xtask/src/strict_json.rs` | Bounded JSON visitor with duplicate rejection; measured parser support. |
+| `tools/xtask/src/report_command.rs` | Supplied-report file/argument/output boundary; measured command support. |
+| `tools/xtask/src/bin/arboresce-report-gate.rs` | Actual report-count entrypoint; measured source and native binary. |
+| `tools/xtask/tests/support/report_inputs.rs` | Literal input recipe, patch and padding preparation; measured test support. |
 
 The additional diagnostic text and JSON files are literal fixture data. No parser,
 builder or oracle function is hidden there. New files require an owning role;
@@ -185,6 +190,29 @@ and native profile strictly above 90% for both lines and regions. Raw assertion
 execution remains retained without inflating source metrics. No exclusion applies.
 Qualify the same exact source in a standalone public-only snapshot. Other native,
 service, packaging, live-model and production profiles retain their later gates.
+
+### Supplied report counts
+
+The [report-count command](../../tools/xtask/README.md#supplied-report-counts)
+and library evaluate a supplied selected role inventory and LLVM 3.1.0 integer
+summary. The independently reviewed
+[report literals](../../tests/architecture/fixtures/report-gate-v1/README.md)
+own its exact input/output and negative cases. Source roles determine inclusion;
+directory names do not. Raw sums include assertion rows for comparison with
+the overall count summaries, while source gates exclude assertion numerators
+and denominators. File, package, repository, library and binary scopes have
+disjoint identities. Checked aggregation rejects overflow; wider integer
+comparison applies the strict threshold without floating-point rounding.
+Display percentages never override raw counts and consistent region remainders.
+No unproved declaration role is admitted as an empty-source exception.
+
+A supplied-report pass is a count-model result. It does not prove actual source
+inventory, declaration N/A, source/tool/run identity, fresh complete native
+profiles, test selection or whole verification. The actual collector must
+establish each of those prerequisites and retain complete raw data before using
+this result. Direct prepared-tool qualification still applies to all introduced
+source, parser/input support and the actual native command. The complete
+automated collector and whole verification remain unfinished.
 
 ## Independent deterministic fixtures
 

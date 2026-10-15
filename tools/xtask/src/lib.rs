@@ -1,6 +1,9 @@
 //! Explicit local commands and architecture checks, without product authority.
 
 pub mod architecture;
+pub mod coverage;
+pub mod report_command;
+mod strict_json;
 pub mod workspace;
 
 use std::{ffi::OsString, io::Write, process::Command};

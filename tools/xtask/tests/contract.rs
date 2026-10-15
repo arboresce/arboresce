@@ -856,3 +856,222 @@ fn additional_approved_transitive_source_include_aliases() {
     }
     assert_eq!(seen.len(), 8);
 }
+
+#[test]
+fn independently_approved_supplied_report_counts() {
+    use arboresce_xtask::coverage::{Metric, evaluate};
+
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/report-gate-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let input =
+            support::report_inputs::build(&fixture, case).expect("invalid reviewed input recipe");
+        let actual = evaluate(&input.root, &input.inventory, &input.report);
+        if let Some(error) = case["error"].as_str() {
+            assert_eq!(actual.unwrap_err().to_string(), error, "{id}");
+        } else {
+            let actual = actual.unwrap();
+            for (scope, metrics) in case["expected_scopes"].as_object().unwrap() {
+                let counts = actual.scopes.get(scope).unwrap();
+                assert_eq!(
+                    counts.lines.count,
+                    metrics["lines"]["count"].as_u64().unwrap(),
+                    "{id}/{scope}"
+                );
+                assert_eq!(
+                    counts.lines.covered,
+                    metrics["lines"]["covered"].as_u64().unwrap(),
+                    "{id}/{scope}"
+                );
+                assert_eq!(
+                    counts.regions.count,
+                    metrics["regions"]["count"].as_u64().unwrap(),
+                    "{id}/{scope}"
+                );
+                assert_eq!(
+                    counts.regions.covered,
+                    metrics["regions"]["covered"].as_u64().unwrap(),
+                    "{id}/{scope}"
+                );
+            }
+            if let Some(count) = case["expected_scope_count"].as_u64() {
+                assert_eq!(actual.scopes.len() as u64, count, "{id}");
+                let mut files = 0;
+                for (scope, counts) in &actual.scopes {
+                    if scope.starts_with("file:") {
+                        files += 1;
+                        assert_eq!(
+                            counts.lines.count,
+                            case["expected_per_file"]["lines"]["count"]
+                                .as_u64()
+                                .unwrap()
+                        );
+                        assert_eq!(
+                            counts.lines.covered,
+                            case["expected_per_file"]["lines"]["covered"]
+                                .as_u64()
+                                .unwrap()
+                        );
+                        assert_eq!(
+                            counts.regions.count,
+                            case["expected_per_file"]["regions"]["count"]
+                                .as_u64()
+                                .unwrap()
+                        );
+                        assert_eq!(
+                            counts.regions.covered,
+                            case["expected_per_file"]["regions"]["covered"]
+                                .as_u64()
+                                .unwrap()
+                        );
+                    }
+                }
+                assert_eq!(files, case["expected_file_scope_count"].as_u64().unwrap());
+            } else {
+                assert_eq!(
+                    actual.scopes.len(),
+                    case["expected_scopes"].as_object().unwrap().len()
+                );
+            }
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    for case in fixture["metric_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let metric = Metric {
+            count: case["count"].as_u64().unwrap(),
+            covered: case["covered"].as_u64().unwrap(),
+        };
+        assert_eq!(metric.strict(), case["strict"].as_bool().unwrap(), "{id}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    for case in fixture["fixture_builder_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let accepted = if let Some(patch) = case.get("patch") {
+            support::report_inputs::replace(&fixture["base_report"], patch).is_ok()
+        } else {
+            support::report_inputs::build(&fixture, &case["input_case"]).is_ok()
+        };
+        assert_eq!(accepted, case["accepted"].as_bool().unwrap(), "{id}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 88);
+}
+
+#[cfg(unix)]
+#[test]
+fn independently_approved_native_report_boundaries() {
+    use std::{ffi::OsString, os::unix::ffi::OsStringExt};
+
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/report-gate-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["native_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let prepared = support::PreparedRoot::new().unwrap();
+        let selected = if let Some(wanted) = case["report_case"].as_str() {
+            fixture["cases"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .find(|case| case["id"].as_str() == Some(wanted))
+                .unwrap()
+        } else {
+            case
+        };
+        let mut input = support::report_inputs::build(&fixture, selected)
+            .expect("invalid reviewed native input recipe");
+        if let Some(bytes) = case["pad_inventory_to_bytes"].as_u64() {
+            input.inventory = support::report_inputs::pad(input.inventory, bytes).unwrap();
+        }
+        if let Some(bytes) = case["pad_report_to_bytes"].as_u64() {
+            input.report = support::report_inputs::pad(input.report, bytes).unwrap();
+        }
+        let inventory = prepared.path.join("inventory.json");
+        let report = prepared.path.join("report.json");
+        std::fs::write(&inventory, input.inventory).unwrap();
+        std::fs::write(&report, input.report).unwrap();
+        if let Some(which) = case["missing"].as_str() {
+            std::fs::remove_file(if which == "inventory" {
+                &inventory
+            } else {
+                &report
+            })
+            .unwrap();
+        }
+        if let Some(which) = case["directory"].as_str() {
+            let path = if which == "inventory" {
+                &inventory
+            } else {
+                &report
+            };
+            std::fs::remove_file(path).unwrap();
+            std::fs::create_dir(path).unwrap();
+        }
+        let args = case
+            .get("args_override")
+            .unwrap_or(&case["args"])
+            .as_array()
+            .unwrap();
+        let mut args: Vec<OsString> = args
+            .iter()
+            .map(|arg| match arg.as_str().unwrap() {
+                "INVENTORY" => inventory.as_os_str().to_owned(),
+                "REPORT" => report.as_os_str().to_owned(),
+                "/workspace" => OsString::from(&input.root),
+                other => OsString::from(other),
+            })
+            .collect();
+        if let Some(bytes) = case["non_utf8_root_bytes"].as_array() {
+            args[0] = OsString::from_vec(
+                bytes
+                    .iter()
+                    .map(|b| u8::try_from(b.as_u64().unwrap()).unwrap())
+                    .collect(),
+            );
+        }
+        let mut command = Command::new(env!("CARGO_BIN_EXE_arboresce-report-gate"));
+        command.args(args);
+        let closed = match case["close"].as_str() {
+            Some("stdout") => Some(support::ClosedStream::Stdout),
+            Some("stderr") => Some(support::ClosedStream::Stderr),
+            None => None,
+            _ => panic!("invalid reviewed closed-output selector"),
+        };
+        let result = support::observe_with(
+            &mut command,
+            support::Observation {
+                closed,
+                ..support::Observation::default()
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            result.status.code(),
+            Some(i32::try_from(case["exit"].as_u64().unwrap()).unwrap()),
+            "{id}"
+        );
+        assert_eq!(
+            result.stdout,
+            case["stdout"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        assert_eq!(
+            result.stderr,
+            case["stderr"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 23);
+}

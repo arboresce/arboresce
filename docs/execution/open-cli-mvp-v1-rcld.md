@@ -226,6 +226,14 @@ describe that committed source and its unchanged executable inputs; this progres
 annotation does not claim another source qualification. The complete inventory,
 automated coverage/native collector and whole E202 acceptance remain required.
 
+Next source refinement: first introduce a complete, independently tested LLVM
+report-count gate with explicit supplied source roles and target scopes. Its
+library and native command evaluate the supplied report; they do not attest
+current-source inventory, fresh collection, declaration-only N/A, process receipt
+completeness or whole verification. Then integrate actual inventory and fresh
+native collection with that gate. This keeps each source change independently
+green without removing any original requirement or adding a catalogue node.
+
 ### E203 — Implement independent revisions, clocks, dates and locators
 
 Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).

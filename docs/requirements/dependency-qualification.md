@@ -69,6 +69,12 @@ canonical-JSON qualification, SDK/runtime qualification or an inference provider
 Actual tool/source/process qualification remains required before dependent use.
 The domain and existing proof retain their standard-library-only graphs.
 
+The supplied-report gate adds direct `serde` exactly `1.0.229`, with no default
+features and only std. This is the already prepared locked public version;
+its MIT OR Apache-2.0 rights and graph are retained. It supplies the explicit
+duplicate-key-rejecting JSON visitor. This does not select serde for domain
+values, canonical JSON or product transports. No other locked version changes.
+
 ## Technology-specific evidence
 
 The experiment identifiers below refer to the complete criteria in

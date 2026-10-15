@@ -1,0 +1,1702 @@
+{
+  "fixture_version": "supplied_report_gate_v1",
+  "classification": "public original synthetic literals, MIT OR Apache-2.0",
+  "root": "/workspace",
+  "base_inventory": {
+    "version": "rust-report-roles-v1",
+    "sources": [
+      {
+        "path": "src/lib.rs",
+        "package": "fixture",
+        "role": "measured"
+      },
+      {
+        "path": "src/main.rs",
+        "package": "fixture",
+        "role": "measured"
+      },
+      {
+        "path": "tests/cases.rs",
+        "package": "fixture",
+        "role": "assertion"
+      }
+    ],
+    "targets": [
+      {
+        "kind": "library",
+        "name": "fixture",
+        "sources": [
+          "src/lib.rs"
+        ]
+      },
+      {
+        "kind": "binary",
+        "name": "fixture",
+        "sources": [
+          "src/lib.rs",
+          "src/main.rs"
+        ]
+      }
+    ]
+  },
+  "base_report": {
+    "type": "llvm.coverage.json.export",
+    "version": "3.1.0",
+    "data": [
+      {
+        "files": [
+          {
+            "filename": "/workspace/src/lib.rs",
+            "summary": {
+              "lines": {
+                "count": 100,
+                "covered": 91,
+                "percent": 0
+              },
+              "regions": {
+                "count": 100,
+                "covered": 91,
+                "notcovered": 9,
+                "percent": 0
+              }
+            }
+          },
+          {
+            "filename": "/workspace/src/main.rs",
+            "summary": {
+              "lines": {
+                "count": 100,
+                "covered": 95,
+                "percent": 0
+              },
+              "regions": {
+                "count": 100,
+                "covered": 95,
+                "notcovered": 5,
+                "percent": 0
+              }
+            }
+          },
+          {
+            "filename": "/workspace/tests/cases.rs",
+            "summary": {
+              "lines": {
+                "count": 100,
+                "covered": 1,
+                "percent": 0
+              },
+              "regions": {
+                "count": 100,
+                "covered": 1,
+                "notcovered": 99,
+                "percent": 0
+              }
+            }
+          }
+        ],
+        "totals": {
+          "lines": {
+            "count": 300,
+            "covered": 187,
+            "percent": 0
+          },
+          "regions": {
+            "count": 300,
+            "covered": 187,
+            "notcovered": 113,
+            "percent": 0
+          }
+        },
+        "functions": []
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "report-complete-source-scopes",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": null,
+      "expected_scopes": {
+        "file:src/lib.rs": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "file:src/main.rs": {
+          "lines": {
+            "covered": 95,
+            "count": 100
+          },
+          "regions": {
+            "covered": 95,
+            "count": 100
+          }
+        },
+        "repository:Rust": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "package:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "library:fixture": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "binary:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        }
+      }
+    },
+    {
+      "id": "report-ignored-display-percent",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/percent": 90,
+        "/data/0/totals/regions/percent": 999
+      },
+      "error": null,
+      "expected_scopes": {
+        "file:src/lib.rs": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "file:src/main.rs": {
+          "lines": {
+            "covered": 95,
+            "count": 100
+          },
+          "regions": {
+            "covered": 95,
+            "count": 100
+          }
+        },
+        "repository:Rust": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "package:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "library:fixture": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "binary:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        }
+      }
+    },
+    {
+      "id": "report-malformed-json",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_report": "{"
+    },
+    {
+      "id": "report-trailing-json",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_report": "{} {}"
+    },
+    {
+      "id": "report-duplicate-json-key",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_report": "{\"type\":\"llvm.coverage.json.export\",\"type\":\"llvm.coverage.json.export\"}"
+    },
+    {
+      "id": "report-wrong-export-type",
+      "inventory_patch": {},
+      "report_patch": {
+        "/type": "different"
+      },
+      "error": "invalid coverage input"
+    },
+    {
+      "id": "report-unselected-export-version",
+      "inventory_patch": {},
+      "report_patch": {
+        "/version": "2.0.1"
+      },
+      "error": "invalid coverage input"
+    },
+    {
+      "id": "report-missing-export-data",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_report": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\"}"
+    },
+    {
+      "id": "report-empty-data",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data": []
+      },
+      "error": "invalid coverage input"
+    },
+    {
+      "id": "report-mixed-data",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data": [
+          {
+            "files": [
+              {
+                "filename": "/workspace/src/lib.rs",
+                "summary": {
+                  "lines": {
+                    "count": 100,
+                    "covered": 91,
+                    "percent": 0
+                  },
+                  "regions": {
+                    "count": 100,
+                    "covered": 91,
+                    "notcovered": 9,
+                    "percent": 0
+                  }
+                }
+              },
+              {
+                "filename": "/workspace/src/main.rs",
+                "summary": {
+                  "lines": {
+                    "count": 100,
+                    "covered": 95,
+                    "percent": 0
+                  },
+                  "regions": {
+                    "count": 100,
+                    "covered": 95,
+                    "notcovered": 5,
+                    "percent": 0
+                  }
+                }
+              },
+              {
+                "filename": "/workspace/tests/cases.rs",
+                "summary": {
+                  "lines": {
+                    "count": 100,
+                    "covered": 1,
+                    "percent": 0
+                  },
+                  "regions": {
+                    "count": 100,
+                    "covered": 1,
+                    "notcovered": 99,
+                    "percent": 0
+                  }
+                }
+              }
+            ],
+            "totals": {
+              "lines": {
+                "count": 300,
+                "covered": 187,
+                "percent": 0
+              },
+              "regions": {
+                "count": 300,
+                "covered": 187,
+                "notcovered": 113,
+                "percent": 0
+              }
+            },
+            "functions": []
+          },
+          {
+            "files": [
+              {
+                "filename": "/workspace/src/lib.rs",
+                "summary": {
+                  "lines": {
+                    "count": 100,
+                    "covered": 91,
+                    "percent": 0
+                  },
+                  "regions": {
+                    "count": 100,
+                    "covered": 91,
+                    "notcovered": 9,
+                    "percent": 0
+                  }
+                }
+              },
+              {
+                "filename": "/workspace/src/main.rs",
+                "summary": {
+                  "lines": {
+                    "count": 100,
+                    "covered": 95,
+                    "percent": 0
+                  },
+                  "regions": {
+                    "count": 100,
+                    "covered": 95,
+                    "notcovered": 5,
+                    "percent": 0
+                  }
+                }
+              },
+              {
+                "filename": "/workspace/tests/cases.rs",
+                "summary": {
+                  "lines": {
+                    "count": 100,
+                    "covered": 1,
+                    "percent": 0
+                  },
+                  "regions": {
+                    "count": 100,
+                    "covered": 1,
+                    "notcovered": 99,
+                    "percent": 0
+                  }
+                }
+              }
+            ],
+            "totals": {
+              "lines": {
+                "count": 300,
+                "covered": 187,
+                "percent": 0
+              },
+              "regions": {
+                "count": 300,
+                "covered": 187,
+                "notcovered": 113,
+                "percent": 0
+              }
+            },
+            "functions": []
+          }
+        ]
+      },
+      "error": "invalid coverage input"
+    },
+    {
+      "id": "report-empty-files",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files": []
+      },
+      "error": "invalid coverage input"
+    },
+    {
+      "id": "report-wrong-files-type",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files": {}
+      },
+      "error": "invalid coverage input"
+    },
+    {
+      "id": "report-duplicate-file-measurement",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/1/filename": "/workspace/src/lib.rs"
+      },
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-unknown-file",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/1/filename": "/workspace/src/unknown.rs"
+      },
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-missing-file",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files": [
+          {
+            "filename": "/workspace/src/lib.rs",
+            "summary": {
+              "lines": {
+                "count": 100,
+                "covered": 91,
+                "percent": 0
+              },
+              "regions": {
+                "count": 100,
+                "covered": 91,
+                "notcovered": 9,
+                "percent": 0
+              }
+            }
+          },
+          {
+            "filename": "/workspace/src/main.rs",
+            "summary": {
+              "lines": {
+                "count": 100,
+                "covered": 95,
+                "percent": 0
+              },
+              "regions": {
+                "count": 100,
+                "covered": 95,
+                "notcovered": 5,
+                "percent": 0
+              }
+            }
+          }
+        ]
+      },
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-outside-source-root",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/1/filename": "/elsewhere/src/main.rs"
+      },
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-parent-source-component",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/1/filename": "/workspace/src/../src/main.rs"
+      },
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-dot-source-component",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/1/filename": "/workspace/src/./main.rs"
+      },
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-relative-source-root",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "coverage inventory mismatch",
+      "root": "workspace"
+    },
+    {
+      "id": "report-root-trailing-separator",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "coverage inventory mismatch",
+      "root": "/workspace/"
+    },
+    {
+      "id": "report-empty-registered-sources",
+      "inventory_patch": {
+        "/sources": []
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-duplicate-registered-source",
+      "inventory_patch": {
+        "/sources/1/path": "src/lib.rs"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-unknown-source-role",
+      "inventory_patch": {
+        "/sources/0/role": "generated"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-declaration-label-no-proof",
+      "inventory_patch": {
+        "/sources/0/role": "declaration"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-no-measured-source",
+      "inventory_patch": {
+        "/sources/0/role": "assertion",
+        "/sources/1/role": "assertion"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-empty-package",
+      "inventory_patch": {
+        "/sources/0/package": ""
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-control-package",
+      "inventory_patch": {
+        "/sources/0/package": "bad\nname"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-parent-registered-path",
+      "inventory_patch": {
+        "/sources/0/path": "../src/lib.rs"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-absolute-registered-path",
+      "inventory_patch": {
+        "/sources/0/path": "/src/lib.rs"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-unknown-inventory-version",
+      "inventory_patch": {
+        "/version": "unselected"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-empty-targets",
+      "inventory_patch": {
+        "/targets": []
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-duplicate-target",
+      "inventory_patch": {
+        "/targets/1": {
+          "kind": "library",
+          "name": "fixture",
+          "sources": [
+            "src/lib.rs"
+          ]
+        }
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-unknown-target-kind",
+      "inventory_patch": {
+        "/targets/0/kind": "example"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-unknown-target-source",
+      "inventory_patch": {
+        "/targets/0/sources": [
+          "src/missing.rs"
+        ]
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-assertions-as-target-source",
+      "inventory_patch": {
+        "/targets/0/sources": [
+          "tests/cases.rs"
+        ]
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-duplicate-target-source",
+      "inventory_patch": {
+        "/targets/0/sources": [
+          "src/lib.rs",
+          "src/lib.rs"
+        ]
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-empty-target-source",
+      "inventory_patch": {
+        "/targets/0/sources": []
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-empty-target-name",
+      "inventory_patch": {
+        "/targets/0/name": ""
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-missing-summary",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary": null
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-zero-source-lines",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": 0,
+        "/data/0/files/0/summary/lines/covered": 0,
+        "/data/0/totals/lines/count": 200,
+        "/data/0/totals/lines/covered": 96
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-zero-assertion-lines",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/2/summary/lines/count": 0,
+        "/data/0/files/2/summary/lines/covered": 0,
+        "/data/0/totals/lines/count": 200,
+        "/data/0/totals/lines/covered": 186
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-covered-exceeds-count",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/covered": 101,
+        "/data/0/totals/lines/covered": 197
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-negative-count",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": -1
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-fractional-count",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": 100.5
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-float-integral-count",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": 100.0
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-string-count",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": "100"
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-null-count",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": null
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-boolean-count",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": true
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-missing-covered",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines": {
+          "count": 100
+        }
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-inconsistent-region-remainder",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/regions/notcovered": 8
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-missing-region-remainder",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/regions": {
+          "count": 100,
+          "covered": 91
+        }
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-inconsistent-total-lines",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/totals/lines/covered": 188
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-inconsistent-total-regions",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/totals/regions/count": 301,
+        "/data/0/totals/regions/notcovered": 114
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-exact-90-lines",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/covered": 90,
+        "/data/0/totals/lines/covered": 186
+      },
+      "error": "coverage below strict threshold"
+    },
+    {
+      "id": "report-exact-90-regions",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/regions/covered": 90,
+        "/data/0/files/0/summary/regions/notcovered": 10,
+        "/data/0/totals/regions/covered": 186,
+        "/data/0/totals/regions/notcovered": 114
+      },
+      "error": "coverage below strict threshold"
+    },
+    {
+      "id": "report-assertion-cannot-pad-source",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/covered": 89,
+        "/data/0/files/2/summary/lines/covered": 100,
+        "/data/0/totals/lines/covered": 284
+      },
+      "error": "coverage below strict threshold"
+    },
+    {
+      "id": "report-aggregate-overflow",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/summary/lines/count": 18446744073709551615,
+        "/data/0/files/0/summary/lines/covered": 18446744073709551615,
+        "/data/0/totals/lines/count": 199,
+        "/data/0/totals/lines/covered": 95
+      },
+      "error": "invalid coverage counts"
+    },
+    {
+      "id": "report-valid-report-duplicate-root-key",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_report": "{\n  \"type\": \"llvm.coverage.json.export\", \"type\": \"llvm.coverage.json.export\",\n  \"version\": \"3.1.0\",\n  \"data\": [\n    {\n      \"files\": [\n        {\n          \"filename\": \"/workspace/src/lib.rs\",\n          \"summary\": {\n            \"lines\": {\n              \"count\": 100,\n              \"covered\": 91,\n              \"percent\": 0\n            },\n            \"regions\": {\n              \"count\": 100,\n              \"covered\": 91,\n              \"notcovered\": 9,\n              \"percent\": 0\n            }\n          }\n        },\n        {\n          \"filename\": \"/workspace/src/main.rs\",\n          \"summary\": {\n            \"lines\": {\n              \"count\": 100,\n              \"covered\": 95,\n              \"percent\": 0\n            },\n            \"regions\": {\n              \"count\": 100,\n              \"covered\": 95,\n              \"notcovered\": 5,\n              \"percent\": 0\n            }\n          }\n        },\n        {\n          \"filename\": \"/workspace/tests/cases.rs\",\n          \"summary\": {\n            \"lines\": {\n              \"count\": 100,\n              \"covered\": 1,\n              \"percent\": 0\n            },\n            \"regions\": {\n              \"count\": 100,\n              \"covered\": 1,\n              \"notcovered\": 99,\n              \"percent\": 0\n            }\n          }\n        }\n      ],\n      \"totals\": {\n        \"lines\": {\n          \"count\": 300,\n          \"covered\": 187,\n          \"percent\": 0\n        },\n        \"regions\": {\n          \"count\": 300,\n          \"covered\": 187,\n          \"notcovered\": 113,\n          \"percent\": 0\n        }\n      },\n      \"functions\": []\n    }\n  ]\n}"
+    },
+    {
+      "id": "report-valid-report-duplicate-consumed-count",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_report": "{\n  \"type\": \"llvm.coverage.json.export\",\n  \"version\": \"3.1.0\",\n  \"data\": [\n    {\n      \"files\": [\n        {\n          \"filename\": \"/workspace/src/lib.rs\",\n          \"summary\": {\n            \"lines\": {\n              \"count\": 100,\n              \"covered\": 91, \"covered\": 91,\n              \"percent\": 0\n            },\n            \"regions\": {\n              \"count\": 100,\n              \"covered\": 91,\n              \"notcovered\": 9,\n              \"percent\": 0\n            }\n          }\n        },\n        {\n          \"filename\": \"/workspace/src/main.rs\",\n          \"summary\": {\n            \"lines\": {\n              \"count\": 100,\n              \"covered\": 95,\n              \"percent\": 0\n            },\n            \"regions\": {\n              \"count\": 100,\n              \"covered\": 95,\n              \"notcovered\": 5,\n              \"percent\": 0\n            }\n          }\n        },\n        {\n          \"filename\": \"/workspace/tests/cases.rs\",\n          \"summary\": {\n            \"lines\": {\n              \"count\": 100,\n              \"covered\": 1,\n              \"percent\": 0\n            },\n            \"regions\": {\n              \"count\": 100,\n              \"covered\": 1,\n              \"notcovered\": 99,\n              \"percent\": 0\n            }\n          }\n        }\n      ],\n      \"totals\": {\n        \"lines\": {\n          \"count\": 300,\n          \"covered\": 187,\n          \"percent\": 0\n        },\n        \"regions\": {\n          \"count\": 300,\n          \"covered\": 187,\n          \"notcovered\": 113,\n          \"percent\": 0\n        }\n      },\n      \"functions\": []\n    }\n  ]\n}"
+    },
+    {
+      "id": "report-valid-inventory-duplicate-root-key",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_inventory": "{\n  \"version\": \"rust-report-roles-v1\", \"version\": \"rust-report-roles-v1\",\n  \"sources\": [\n    {\n      \"path\": \"src/lib.rs\",\n      \"package\": \"fixture\",\n      \"role\": \"measured\"\n    },\n    {\n      \"path\": \"src/main.rs\",\n      \"package\": \"fixture\",\n      \"role\": \"measured\"\n    },\n    {\n      \"path\": \"tests/cases.rs\",\n      \"package\": \"fixture\",\n      \"role\": \"assertion\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"kind\": \"library\",\n      \"name\": \"fixture\",\n      \"sources\": [\n        \"src/lib.rs\"\n      ]\n    },\n    {\n      \"kind\": \"binary\",\n      \"name\": \"fixture\",\n      \"sources\": [\n        \"src/lib.rs\",\n        \"src/main.rs\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "id": "report-valid-inventory-duplicate-consumed-role",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": "invalid coverage input",
+      "raw_inventory": "{\n  \"version\": \"rust-report-roles-v1\",\n  \"sources\": [\n    {\n      \"path\": \"src/lib.rs\",\n      \"package\": \"fixture\",\n      \"role\": \"measured\", \"role\": \"measured\"\n    },\n    {\n      \"path\": \"src/main.rs\",\n      \"package\": \"fixture\",\n      \"role\": \"measured\"\n    },\n    {\n      \"path\": \"tests/cases.rs\",\n      \"package\": \"fixture\",\n      \"role\": \"assertion\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"kind\": \"library\",\n      \"name\": \"fixture\",\n      \"sources\": [\n        \"src/lib.rs\"\n      ]\n    },\n    {\n      \"kind\": \"binary\",\n      \"name\": \"fixture\",\n      \"sources\": [\n        \"src/lib.rs\",\n        \"src/main.rs\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "id": "report-slash-source-root",
+      "inventory_patch": {},
+      "report_patch": {
+        "/data/0/files/0/filename": "/src/lib.rs",
+        "/data/0/files/1/filename": "/src/main.rs",
+        "/data/0/files/2/filename": "/tests/cases.rs"
+      },
+      "error": null,
+      "root": "/",
+      "expected_scopes": {
+        "file:src/lib.rs": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "file:src/main.rs": {
+          "lines": {
+            "covered": 95,
+            "count": 100
+          },
+          "regions": {
+            "covered": 95,
+            "count": 100
+          }
+        },
+        "repository:Rust": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "package:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "library:fixture": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "binary:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        }
+      }
+    },
+    {
+      "id": "report-source-aggregate-identities-disjoint",
+      "inventory_patch": {
+        "/sources/0/path": "package:fixture",
+        "/sources/1/path": "repository:Rust",
+        "/targets/0/sources": [
+          "package:fixture"
+        ],
+        "/targets/1/sources": [
+          "package:fixture",
+          "repository:Rust"
+        ]
+      },
+      "report_patch": {
+        "/data/0/files/0/filename": "/workspace/package:fixture",
+        "/data/0/files/1/filename": "/workspace/repository:Rust"
+      },
+      "error": null,
+      "expected_scopes": {
+        "file:package:fixture": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "file:repository:Rust": {
+          "lines": {
+            "covered": 95,
+            "count": 100
+          },
+          "regions": {
+            "covered": 95,
+            "count": 100
+          }
+        },
+        "repository:Rust": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "package:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "library:fixture": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "binary:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        }
+      }
+    },
+    {
+      "id": "report-second-package-measured-support",
+      "inventory_patch": {},
+      "report_patch": {},
+      "error": null,
+      "raw_inventory": "{\"version\": \"rust-report-roles-v1\", \"sources\": [{\"path\": \"src/lib.rs\", \"package\": \"fixture\", \"role\": \"measured\"}, {\"path\": \"src/main.rs\", \"package\": \"fixture\", \"role\": \"measured\"}, {\"path\": \"tests/cases.rs\", \"package\": \"fixture\", \"role\": \"assertion\"}, {\"path\": \"tests/support.rs\", \"package\": \"fixture-support\", \"role\": \"measured\"}], \"targets\": [{\"kind\": \"library\", \"name\": \"fixture\", \"sources\": [\"src/lib.rs\"]}, {\"kind\": \"binary\", \"name\": \"fixture\", \"sources\": [\"src/lib.rs\", \"src/main.rs\"]}, {\"kind\": \"library\", \"name\": \"fixture-support\", \"sources\": [\"tests/support.rs\"]}]}",
+      "raw_report": "{\"type\": \"llvm.coverage.json.export\", \"version\": \"3.1.0\", \"data\": [{\"files\": [{\"filename\": \"/workspace/src/lib.rs\", \"summary\": {\"lines\": {\"count\": 100, \"covered\": 91, \"percent\": 0}, \"regions\": {\"count\": 100, \"covered\": 91, \"notcovered\": 9, \"percent\": 0}}}, {\"filename\": \"/workspace/src/main.rs\", \"summary\": {\"lines\": {\"count\": 100, \"covered\": 95, \"percent\": 0}, \"regions\": {\"count\": 100, \"covered\": 95, \"notcovered\": 5, \"percent\": 0}}}, {\"filename\": \"/workspace/tests/cases.rs\", \"summary\": {\"lines\": {\"count\": 100, \"covered\": 1, \"percent\": 0}, \"regions\": {\"count\": 100, \"covered\": 1, \"notcovered\": 99, \"percent\": 0}}}, {\"filename\": \"/workspace/tests/support.rs\", \"summary\": {\"lines\": {\"count\": 100, \"covered\": 93}, \"regions\": {\"count\": 100, \"covered\": 93, \"notcovered\": 7}}}], \"totals\": {\"lines\": {\"count\": 400, \"covered\": 280}, \"regions\": {\"count\": 400, \"covered\": 280, \"notcovered\": 120}}, \"functions\": []}]}",
+      "expected_scopes": {
+        "file:src/lib.rs": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "file:src/main.rs": {
+          "lines": {
+            "covered": 95,
+            "count": 100
+          },
+          "regions": {
+            "covered": 95,
+            "count": 100
+          }
+        },
+        "repository:Rust": {
+          "lines": {
+            "covered": 279,
+            "count": 300
+          },
+          "regions": {
+            "covered": 279,
+            "count": 300
+          }
+        },
+        "package:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "library:fixture": {
+          "lines": {
+            "covered": 91,
+            "count": 100
+          },
+          "regions": {
+            "covered": 91,
+            "count": 100
+          }
+        },
+        "binary:fixture": {
+          "lines": {
+            "covered": 186,
+            "count": 200
+          },
+          "regions": {
+            "covered": 186,
+            "count": 200
+          }
+        },
+        "file:tests/support.rs": {
+          "lines": {
+            "covered": 93,
+            "count": 100
+          },
+          "regions": {
+            "covered": 93,
+            "count": 100
+          }
+        },
+        "package:fixture-support": {
+          "lines": {
+            "covered": 93,
+            "count": 100
+          },
+          "regions": {
+            "covered": 93,
+            "count": 100
+          }
+        },
+        "library:fixture-support": {
+          "lines": {
+            "covered": 93,
+            "count": 100
+          },
+          "regions": {
+            "covered": 93,
+            "count": 100
+          }
+        }
+      }
+    },
+    {
+      "id": "report-assertion-only-second-package",
+      "inventory_patch": {
+        "/sources/2/package": "fixture-assertions"
+      },
+      "report_patch": {},
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-registration-boundary-4096",
+      "inventory_patch": {},
+      "report_patch": {},
+      "generated_inputs": {
+        "count": 4096,
+        "source_prefix": "src/generated_",
+        "source_suffix": ".rs",
+        "package": "fixture",
+        "role": "measured",
+        "metric": {
+          "count": 100,
+          "covered": 91
+        },
+        "totals": {
+          "count": 409600,
+          "covered": 372736
+        }
+      },
+      "error": null,
+      "expected_scope_count": 4099,
+      "expected_file_scope_count": 4096,
+      "expected_per_file": {
+        "lines": {
+          "covered": 91,
+          "count": 100
+        },
+        "regions": {
+          "covered": 91,
+          "count": 100
+        }
+      },
+      "expected_scopes": {
+        "repository:Rust": {
+          "lines": {
+            "covered": 372736,
+            "count": 409600
+          },
+          "regions": {
+            "covered": 372736,
+            "count": 409600
+          }
+        },
+        "package:fixture": {
+          "lines": {
+            "covered": 372736,
+            "count": 409600
+          },
+          "regions": {
+            "covered": 372736,
+            "count": 409600
+          }
+        },
+        "binary:fixture": {
+          "lines": {
+            "covered": 372736,
+            "count": 409600
+          },
+          "regions": {
+            "covered": 372736,
+            "count": 409600
+          }
+        }
+      }
+    },
+    {
+      "id": "report-registration-boundary-4097",
+      "inventory_patch": {},
+      "report_patch": {},
+      "generated_inputs": {
+        "count": 4097,
+        "source_prefix": "src/generated_",
+        "source_suffix": ".rs",
+        "package": "fixture",
+        "role": "measured",
+        "metric": {
+          "count": 100,
+          "covered": 91
+        },
+        "totals": {
+          "count": 409700,
+          "covered": 372827
+        }
+      },
+      "error": "coverage inventory mismatch"
+    },
+    {
+      "id": "report-api-padded-oversize-inventory",
+      "inventory_patch": {},
+      "report_patch": {},
+      "padded_input": {
+        "target": "inventory",
+        "bytes": 67108865
+      },
+      "error": "invalid coverage input"
+    },
+    {
+      "id": "report-api-padded-oversize-report",
+      "inventory_patch": {},
+      "report_patch": {},
+      "padded_input": {
+        "target": "report",
+        "bytes": 67108865
+      },
+      "error": "invalid coverage input"
+    }
+  ],
+  "metric_cases": [
+    {
+      "id": "metric-zero",
+      "count": 0,
+      "covered": 0,
+      "strict": false
+    },
+    {
+      "id": "metric-full",
+      "count": 1,
+      "covered": 1,
+      "strict": true
+    },
+    {
+      "id": "metric-exact90",
+      "count": 10,
+      "covered": 9,
+      "strict": false
+    },
+    {
+      "id": "metric-above90",
+      "count": 100,
+      "covered": 91,
+      "strict": true
+    },
+    {
+      "id": "metric-below90",
+      "count": 100,
+      "covered": 89,
+      "strict": false
+    },
+    {
+      "id": "metric-near-above90",
+      "count": 10000000000,
+      "covered": 9000000001,
+      "strict": true
+    },
+    {
+      "id": "metric-near-below90",
+      "count": 10000000000,
+      "covered": 8999999999,
+      "strict": false
+    },
+    {
+      "id": "metric-maximum-full",
+      "count": 18446744073709551615,
+      "covered": 18446744073709551615,
+      "strict": true
+    },
+    {
+      "id": "metric-maximum-minus-one",
+      "count": 18446744073709551615,
+      "covered": 18446744073709551614,
+      "strict": true
+    },
+    {
+      "id": "metric-covered-over-count",
+      "count": 1,
+      "covered": 2,
+      "strict": false
+    },
+    {
+      "id": "metric-maximum-near-below90",
+      "count": 18446744073709551615,
+      "covered": 16602069666338596453,
+      "strict": false
+    },
+    {
+      "id": "metric-maximum-near-above90",
+      "count": 18446744073709551615,
+      "covered": 16602069666338596454,
+      "strict": true
+    }
+  ],
+  "native_cases": [
+    {
+      "id": "native-report-help",
+      "args": [
+        "--help"
+      ],
+      "exit": 0,
+      "stdout": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n",
+      "stderr": ""
+    },
+    {
+      "id": "native-report-short-help",
+      "args": [
+        "-h"
+      ],
+      "exit": 0,
+      "stdout": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n",
+      "stderr": ""
+    },
+    {
+      "id": "native-report-word-help",
+      "args": [
+        "help"
+      ],
+      "exit": 0,
+      "stdout": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n",
+      "stderr": ""
+    },
+    {
+      "id": "native-report-missing",
+      "args": [],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n"
+    },
+    {
+      "id": "native-report-one",
+      "args": [
+        "/workspace"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n"
+    },
+    {
+      "id": "native-report-two",
+      "args": [
+        "/workspace",
+        "INVENTORY"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n"
+    },
+    {
+      "id": "native-report-extra",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT",
+        "extra"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n"
+    },
+    {
+      "id": "native-report-help-extra",
+      "args": [
+        "--help",
+        "extra"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n"
+    },
+    {
+      "id": "native-report-success",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "exit": 0,
+      "stdout": "coverage report counts passed\n",
+      "stderr": ""
+    },
+    {
+      "id": "native-report-invalid-root",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "root": "workspace",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: coverage inventory mismatch\n"
+    },
+    {
+      "id": "native-report-missing-inventory",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "missing": "inventory",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n"
+    },
+    {
+      "id": "native-report-missing-report",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "missing": "report",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n"
+    },
+    {
+      "id": "native-report-malformed-inventory",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "raw_inventory": "{",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n"
+    },
+    {
+      "id": "native-report-malformed-report",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "raw_report": "{",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n"
+    },
+    {
+      "id": "native-report-threshold",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "report_case": "report-exact-90-lines",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: coverage below strict threshold\n"
+    },
+    {
+      "id": "native-report-closed-stdout",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "close": "stdout",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "coverage report output failed\n"
+    },
+    {
+      "id": "native-report-closed-stderr",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "close": "stderr",
+      "args_override": [],
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "id": "native-report-over-limit-inventory",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n",
+      "pad_inventory_to_bytes": 67108865
+    },
+    {
+      "id": "native-report-over-limit-report",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n",
+      "pad_report_to_bytes": 67108865
+    },
+    {
+      "id": "native-report-directory-inventory",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "directory": "inventory",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n"
+    },
+    {
+      "id": "native-report-exact-limit-report",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "pad_report_to_bytes": 67108864,
+      "exit": 0,
+      "stdout": "coverage report counts passed\n",
+      "stderr": ""
+    },
+    {
+      "id": "native-report-non-utf8-root",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "non_utf8_root_bytes": [
+        255
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-report-gate: invalid coverage input\n"
+    },
+    {
+      "id": "native-report-exact-limit-inventory",
+      "args": [
+        "/workspace",
+        "INVENTORY",
+        "REPORT"
+      ],
+      "pad_inventory_to_bytes": 67108864,
+      "exit": 0,
+      "stdout": "coverage report counts passed\n",
+      "stderr": ""
+    }
+  ],
+  "fixture_builder_cases": [
+    {
+      "id": "report-builder-unknown-pointer",
+      "patch": {
+        "/absent": 0
+      },
+      "accepted": false
+    },
+    {
+      "id": "report-builder-non-object-patch",
+      "patch": [],
+      "accepted": false
+    },
+    {
+      "id": "report-builder-valid-pointer",
+      "patch": {
+        "/version": "3.1.0"
+      },
+      "accepted": true
+    },
+    {
+      "id": "report-builder-generated-too-many",
+      "input_case": {
+        "generated_inputs": {
+          "count": 4098,
+          "source_prefix": "src/generated_",
+          "source_suffix": ".rs",
+          "package": "fixture",
+          "role": "measured",
+          "metric": {
+            "count": 100,
+            "covered": 91
+          },
+          "totals": {
+            "count": 100,
+            "covered": 91
+          }
+        }
+      },
+      "accepted": false
+    },
+    {
+      "id": "report-builder-generated-missing-total",
+      "input_case": {
+        "generated_inputs": {
+          "count": 1,
+          "source_prefix": "src/generated_",
+          "source_suffix": ".rs",
+          "package": "fixture",
+          "role": "measured",
+          "metric": {
+            "count": 100,
+            "covered": 91
+          },
+          "totals": {
+            "covered": 91
+          }
+        }
+      },
+      "accepted": false
+    },
+    {
+      "id": "report-builder-unknown-pad-target",
+      "input_case": {
+        "padded_input": {
+          "target": "other",
+          "bytes": 67108865
+        }
+      },
+      "accepted": false
+    },
+    {
+      "id": "report-builder-pad-shorter-than-json",
+      "input_case": {
+        "padded_input": {
+          "target": "report",
+          "bytes": 1
+        }
+      },
+      "accepted": false
+    }
+  ]
+}
