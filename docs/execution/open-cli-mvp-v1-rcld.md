@@ -3,9 +3,9 @@
 Plan version: 3
 
 Status: owner-approved target. E200, E201 and the registered primitive-fixture
-leaf are accepted for their stated scopes. E202 is `in_progress`; its first
-architecture/dispatch source increment is accepted, while the complete coverage
-runner and whole checkpoint remain unfinished. Other implementation slices
+leaf and the complete E202 verification checkpoint are independently accepted.
+E202 includes the maintained fresh native collector on its selected qualified
+profile. Other implementation slices
 retain their recorded states. The previous sequence is superseded, not completed. Earlier
 adoption/contract evidence keeps its historical scope; it does not qualify further
 contract changes or runtime. Current available behavior remains
@@ -182,7 +182,7 @@ Checkpoint: 41f44baa8191825f6e82d4ee1231e809d1a95088; Evidence: [Bootstrap verif
 
 ### E202 — Introduce repository-owned verification and dependency guards
 
-Status: `in_progress`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `complete`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -207,6 +207,11 @@ tool commit cannot close its pending coverage or whole-checkpoint gate. Dependen
 profiles are explicit and amended with the first qualified consumer, rather than
 granting effectful domain or workflow imports by omission. SDK-path checks do not
 qualify an actual Temporal runtime. No new product command is introduced here.
+
+#### Historical source increments
+
+The following source increments retain the status and remaining obligations
+recorded at their own acceptance; the current whole-checkpoint result follows.
 
 Accepted first source increment: `4629ca3d04c5f33c79398c9c7d2cb6c07f084dca`
 introduces resolved dependency/source architecture guards and real workspace
@@ -291,6 +296,49 @@ all other 217 source inputs unchanged; it does not claim another run. The initia
 non-root Unix/macOS profile retains broader native and real-input obligations.
 The maintained collector, own harness launching, complete test/profile freshness
 reconciliation and whole E202 acceptance remain required. No catalogue node closes.
+
+#### Accepted maintained collector and whole checkpoint
+
+The maintained native collector is accepted at
+`ed995cd2a1c8c91165f607342b29449858a77737`. Fresh owning and public-only
+standalone Rust 1.99.0, cargo-llvm-cov 0.9.1, non-root macOS ARM64 default-feature
+runs each passed all 53 tests, 1,175 tool cases and 42 retained identifier cases,
+with zero failed, ignored or filtered cases. All 34 maintained source/support
+files and all 51 source, package, repository, library and native-binary scopes
+exceed 90% for the required line and region metrics. Both complete exports have
+6762/6965 measured lines and 13600/14668 regions; three assertion source files remain
+separate and the unchanged declaration table retains metric-specific N/A.
+
+Each lane binds all 246 public input files, 38 Rust paths, eight typed targets,
+15 selected tools and their complete declared resources/configurations. It
+retains 16 native objects, all 168 fresh nonempty raw profiles and 575 matching
+actual launch/completion pairs. Before/after source, tool, configuration and
+resource identities agree. Actual harness listing/execution reconciles all
+registered tests and case identities. Each ordinary binary independently passes
+its complete actual crate-local source closure and own-profile coverage.
+
+The actual global aggregation consumes every raw profile exactly once through
+25 retained LLVM merge commands. All 50 production merge invocations per lane
+have at most eight inputs; complete command graphs and intermediate profiles
+remain evidence. Actual eight/nine-input comparisons against direct selected
+LLVM merging produce identical complete exports. The original 64 KiB receipt
+limit and shared 180-second profile-phase budget remain unchanged. Earlier red
+runs remain failures and are retained.
+
+Independent source/public/native qualification and a distinct delivery witness
+accepted the exact source before and after its local commit. Whole E202 includes
+the actual format/check/test/Clippy/coverage runner, architecture negatives,
+permitted deterministic dependency guards, complete inventory and native
+process/profile reconciliation for this selected profile. These SDK/dependency
+guards do not qualify a Temporal runtime. Product workflows, other native or
+release profiles, actual human/live-model/user assurance and packaged recovery
+retain their separate checkpoints.
+
+This historical progress annotation changes only the owning RCLD. All other
+245 qualified public inputs are unchanged; no fresh run on these annotated bytes
+is claimed.
+
+Checkpoint: ed995cd2a1c8c91165f607342b29449858a77737; Evidence: [Complete verification qualification](open-cli-mvp-v1-rcld.md)
 
 ### E203 — Implement independent revisions, clocks, dates and locators
 
