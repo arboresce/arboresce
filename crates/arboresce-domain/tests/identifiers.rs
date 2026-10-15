@@ -7,6 +7,225 @@ mod expected;
 mod support;
 
 #[test]
+fn observed_and_recorded_pairs() {
+    use support::event_support as e;
+    let fixture = e::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["pairs"].as_array().unwrap() {
+        let id = format!("event-pairs-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        if let Some(pair) = row.get("input_pair") {
+            let old = e::event(&pair[0]);
+            let new = e::event(&pair[1]);
+            assert_eq!(e::event_output(old), row["expected_pair"][0], "{id}");
+            assert_eq!(e::event_output(new), row["expected_pair"][1], "{id}");
+            assert_eq!(old == new, row["expected_equal"].as_bool().unwrap());
+            assert_eq!(
+                [old, new].into_iter().collect::<HashSet<_>>().len() as u64,
+                row["expected_set_size"].as_u64().unwrap()
+            );
+            assert_eq!(e::event_output(old), row["expected_pair"][0], "{id}");
+        } else {
+            assert_eq!(
+                e::event_output(e::event(&row["input"])),
+                row["expected"],
+                "{id}"
+            );
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 31);
+}
+
+#[test]
+fn attribution_and_calendar_policy() {
+    use support::event_support as e;
+    let fixture = e::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["policies"].as_array().unwrap() {
+        let id = format!("event-policies-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let result = e::reporting(&row["observed"], &row["policy"]);
+        if row["accepted"] == true {
+            assert_eq!(
+                e::reporting_output(result.expect(&id)),
+                row["expected"],
+                "{id}"
+            );
+        } else {
+            let error = result.unwrap_err();
+            assert_eq!(format!("{error:?}"), row["error"], "{id}");
+            assert_eq!(error.to_string(), row["message"], "{id}");
+            assert!(Error::source(&error).is_none());
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 42);
+}
+
+#[test]
+fn injected_event_time_receipts() {
+    use arboresce_domain::{Clock, EventTimes};
+    use serde_json::json;
+    use support::event_support as e;
+    let fixture = e::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["clock"].as_array().unwrap() {
+        let id = format!("event-clock-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let steps = row["steps"].as_array().unwrap();
+        let supplied: Vec<_> = steps
+            .iter()
+            .map(|step| {
+                if step["supplied"].is_string() {
+                    json!({"ok":step["supplied"]})
+                } else {
+                    step["supplied"].clone()
+                }
+            })
+            .collect();
+        let mut clock = support::SuppliedClock::new(&supplied);
+        let observed = (!row["observed"].is_null()).then(|| e::observed(&row["observed"]));
+        let mut prior = Vec::new();
+        for step in steps {
+            let source: &mut dyn Clock<Error = String> = &mut clock;
+            let result = EventTimes::record(source, observed);
+            assert_eq!(clock.calls as u64, step["expected_calls"].as_u64().unwrap());
+            if step["success"] == true {
+                let value = result.expect(&id);
+                assert_eq!(e::event_output(value), step["expected"], "{id}");
+                prior.push((value, step["expected"].clone()));
+            } else {
+                assert_eq!(
+                    result,
+                    Err(step["expected_error"].as_str().unwrap().to_owned()),
+                    "{id}"
+                );
+            }
+            for (value, expected) in &prior {
+                assert_eq!(e::event_output(*value), *expected, "{id}");
+            }
+        }
+        assert_eq!(
+            clock.calls as u64,
+            row["expected_total_calls"].as_u64().unwrap()
+        );
+        assert!(row["previous_successes_unchanged"].as_bool().unwrap());
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 12);
+}
+
+#[test]
+fn unsupported_observed_time_input() {
+    use arboresce_domain::{InvalidObservedTime, ObservedTime, ObservedValue};
+    use support::event_support as e;
+    let fixture = e::fixture();
+    let attribution = e::attribution(&fixture["bases"]["attributions"][0]);
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["lexical"].as_array().unwrap() {
+        let id = format!("event-lexical-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let result = ObservedValue::from_text(
+            row["precision"].as_str().unwrap(),
+            row["input"].as_str().unwrap(),
+        );
+        if row["accepted"] == true {
+            assert_eq!(e::value_output(result.expect(&id)), row["expected"], "{id}");
+        } else {
+            assert_eq!(result, Err(InvalidObservedTime), "{id}");
+            assert_eq!(InvalidObservedTime.to_string(), row["message"]);
+            assert_eq!(format!("{:?}", InvalidObservedTime), row["error"]);
+            let optional = result.map(|value| Some(ObservedTime::new(value, attribution)));
+            assert_eq!(optional, Err(InvalidObservedTime));
+            assert!(!row["expected_optional_observed_success"].as_bool().unwrap());
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 37);
+}
+
+#[test]
+fn event_time_identity_and_traits() {
+    use arboresce_domain::{InvalidObservedTime, TimePolicyError};
+    use support::event_support as e;
+    let fixture = e::fixture();
+    let expected = &fixture["trait_expectations"];
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["traits"].as_array().unwrap() {
+        let id = format!("event-traits-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let target = row["target"].as_str().unwrap();
+        let first = e::identity(target, &row["input_pair"][0]);
+        let second = e::identity(target, &row["input_pair"][1]);
+        let copied = first;
+        let cloned = e::cloned(&first);
+        assert_eq!(
+            copied == first && cloned == first,
+            expected["copied_or_cloned_equal"].as_bool().unwrap()
+        );
+        assert_eq!(
+            [first, copied, cloned]
+                .into_iter()
+                .collect::<HashSet<_>>()
+                .len() as u64,
+            expected["same_value_set_size"].as_u64().unwrap()
+        );
+        assert_eq!(first == second, row["expected_equal"].as_bool().unwrap());
+        assert_eq!(
+            [first, second].into_iter().collect::<HashSet<_>>().len() as u64,
+            row["expected_set_size"].as_u64().unwrap()
+        );
+        assert_eq!(
+            e::identity_output(first),
+            row["expected_roundtrip_pair"][0],
+            "{id}"
+        );
+        assert_eq!(
+            e::identity_output(second),
+            row["expected_roundtrip_pair"][1],
+            "{id}"
+        );
+        if let e::Identity::Attribution(value) = first {
+            assert_eq!(
+                value.organization_id().to_string(),
+                row["expected_organization_pair"][0]
+            );
+            let e::Identity::Attribution(other) = second else {
+                unreachable!()
+            };
+            assert_eq!(
+                other.organization_id().to_string(),
+                row["expected_organization_pair"][1]
+            );
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 32);
+    let recorded = e::event(&fixture["groups"]["pairs"][0]["input"]).recorded();
+    assert_eq!(
+        write!(&mut support::RejectedOutput, "{recorded}").is_err(),
+        expected["formatter_error_propagates"].as_bool().unwrap()
+    );
+    let errors: [&dyn Error; 4] = [
+        &InvalidObservedTime,
+        &TimePolicyError::MissingPolicy,
+        &TimePolicyError::UnsupportedProfile,
+        &TimePolicyError::ForeignOrganization,
+    ];
+    for error in errors {
+        assert_eq!(
+            error.source().is_none(),
+            expected["error_source_none"].as_bool().unwrap()
+        );
+        assert_eq!(
+            write!(&mut support::RejectedOutput, "{error}").is_err(),
+            expected["formatter_error_propagates"].as_bool().unwrap()
+        );
+    }
+}
+
+#[test]
 fn complete_original_locator_wire_cases() {
     use arboresce_domain::{InvalidLocatorWire, MAX_LOCATOR_WIRE_OUTPUT_BYTES};
     use support::record_support as r;

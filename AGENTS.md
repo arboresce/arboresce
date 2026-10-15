@@ -16,6 +16,9 @@ The current Rust workspace implements checked immutable UUIDv4, independent
 revision, Gregorian date and UTC millisecond values in `arboresce-domain`, with
 an injected clock interface, pure UTF-8/page/audio bounds, complete tagged
 revision JSON admission and checked immutable locator/reference wire values.
+It also supplies attributed observed/recorded time values and an explicit UTC
+calendar policy foundation. These pure values do not establish actual clocks,
+policy membership or qualified IANA consumers.
 It retains the
 existing binding/build proof. The API and
 product runtime remain unfinished. Use the

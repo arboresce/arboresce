@@ -2,6 +2,11 @@
 
 use std::{error::Error, fmt, str::FromStr};
 
+mod event_time;
+pub use event_time::{
+    EventTimes, InvalidObservedTime, ObservedTime, ObservedValue, RecordedTime, ReportingDate,
+    TimeAttribution, TimePolicyError, UtcCalendarPolicy,
+};
 mod record_json;
 pub use record_json::{InvalidLocatorWire, MAX_LOCATOR_WIRE_BYTES, MAX_LOCATOR_WIRE_OUTPUT_BYTES};
 mod references;

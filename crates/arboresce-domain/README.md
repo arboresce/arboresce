@@ -84,9 +84,41 @@ complete identity expectations before consumption.
 
 Wire metadata and pointer syntax do not resolve a canonical representation,
 verify referenced bytes, select source JSON, compute JCS, admit media or grant
-access. General source JSON/JCS, processing and selected-value budgets,
-source-observed attribution and timezone policy retain their owning gates. A UTC parser does not
-decide an ambiguous local event's timezone or convert a receipt date into midnight.
+access. General source JSON/JCS and aggregate/selected processing budgets retain
+their owning gates.
+
+`RecordedTime` is distinct from optional attributed `ObservedTime`. The latter
+retains an `ObservedValue::Date` or `Instant` and a complete original,
+representation or asserted organization/principal reference. The pure
+`ObservedValue::from_text` factory accepts exact precision names `date` and `instant` and delegates to the
+existing checked primitives. Unsupported names, local/offset times and invalid
+text fail with an input-independent error. They never become successful absent
+observed time. Date-only precision never acquires midnight or an inferred zone.
+
+`EventTimes` preserves both meanings in an immutable pair, including future event
+times and earlier receipt times. Direct typed construction does not read an actual
+clock. `record` invokes a supplied fallible `Clock` exactly once and propagates
+its exact caller-owned error. Repeats and backwards values impose no revision
+order. Constructing a later correction preserves the earlier pair; actual history
+persistence and applicability periods remain with their owning consumers.
+
+`UtcCalendarPolicy` requires explicit organization, policy ID, content revision
+and the exact foundation profile `utc_calendar_v1`, whose declared calendar is
+UTC. `ObservedTime::reporting_date` rejects missing policy or a mismatch with the
+attribution's owning organization. Its `ReportingDate` retains the complete
+observed value/attribution, policy identity/revision/profile and derived date.
+A date preserves itself; an instant uses its explicit UTC date. A projected date
+does not assign an instant or source timezone to an original date-only assertion.
+
+These checked references establish no organization policy membership, source
+truth, authenticated authorship or authority. This foundation has no default,
+ambient timezone or IANA resolver. Later relative dates, review periods/deadlines
+and financial reports still require their actual selected IANA rules, policy
+versions, membership and ambiguity qualification. The independent
+[event-time fixtures](tests/fixtures/event-times-v1/README.md) retain complete
+pairs, errors, clock call counts, precision and policy expectations before this
+consumer. Whole source/native qualification and all actual clock/service/product
+gates remain required.
 
 Validation proves format. Resource existence, ownership, authenticated principal
 identity, random generation and ordering belong to their actual consumers.

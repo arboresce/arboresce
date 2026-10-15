@@ -452,6 +452,35 @@ Pointer selection, observed-time attribution/precision, explicit timezone policy
 and whole E203 acceptance remain mandatory. Wire metadata supplies no actual
 media, canonical identity resolution, authorization or product qualification.
 
+Accepted immutable locator/reference wire source increment:
+`b7fa71e1a84e33c93151c29f62022157c03748c4` implements those complete bounded
+records, original unsigned tokens and immutable pointer syntax. Both fresh
+owning and public-only standalone Rust 1.99.0 macOS ARM64 lanes passed 77 tests,
+all 3092 case IDs, all 58 strict scopes and complete native/profile reconciliation.
+Both aggregate exports have 8331/8550 measured lines and 16429/17572 regions.
+Complete LLVM records retain partial generic instantiation metrics without a
+universal claim. Actual source/public/native review and a distinct delivery witness
+accepted the exact source before and after its local commit. Metadata and pointer
+syntax establish no actual media, source selection, canonical identity or authority.
+
+Next bounded source increment: distinct recorded UTC values and optional
+attributed observed dates/instants, with complete original/representation/principal
+assertion references. Pure text intake accepts exact date/instant precision and
+uses the unchanged checked primitives. A receipt factory calls its supplied
+fallible clock once and preserves exact errors, repeated or backwards values.
+An explicitly selected versioned UTC foundation policy requires matching
+attribution organization and retains its full reference alongside the original
+observed value and resulting reporting date. No date gains an instant or inferred
+source timezone. No default/ambient zone or new JSON wire union is introduced.
+Independent expectations admit 154 cases before this consumer. Six precision-name
+discriminators were corrected before admission, retaining every expected result.
+Fresh complete owning/standalone/source/native/public and distinct qualification
+remain required. Actual clock observations, policy membership, authenticated
+attribution, stored history/applicability periods and later owning IANA-rule,
+relative-date, deadline and financial-report gates remain separate and mandatory.
+Source JSON/JCS, aggregate processing and selected depth/node/output budgets,
+actual JSON Pointer selection and whole E203 acceptance remain required.
+
 Accepted scalar source increment:
 `c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked
 content/control/generation values, exact decimal payloads and bounded advancement.

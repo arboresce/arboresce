@@ -1,5 +1,151 @@
 use std::fmt;
 
+pub mod event_support {
+    use arboresce_domain::{
+        EventTimes, ObservedTime, ObservedValue, OriginalReference, RecordedTime, ReportingDate,
+        RepresentationReference, TimeAttribution, TimePolicyError, UtcCalendarPolicy,
+    };
+    use serde_json::{Value, json};
+
+    pub fn fixture() -> Value {
+        serde_json::from_str(include_str!("../fixtures/event-times-v1/cases.json")).unwrap()
+    }
+
+    pub fn attribution(input: &Value) -> TimeAttribution {
+        match input["kind"].as_str().unwrap() {
+            "original" => TimeAttribution::Original(
+                OriginalReference::from_json(&serde_json::to_vec(&input["reference"]).unwrap())
+                    .unwrap(),
+            ),
+            "representation" => TimeAttribution::Representation(
+                RepresentationReference::from_json(
+                    &serde_json::to_vec(&input["reference"]).unwrap(),
+                )
+                .unwrap(),
+            ),
+            "principal" => TimeAttribution::Principal {
+                organization_id: input["organization_id"].as_str().unwrap().parse().unwrap(),
+                principal_id: input["principal_id"].as_str().unwrap().parse().unwrap(),
+            },
+            _ => panic!("unknown frozen attribution"),
+        }
+    }
+
+    pub fn value_output(value: ObservedValue) -> Value {
+        match value {
+            ObservedValue::Date(date) => json!({"precision":"date","input":date.to_string()}),
+            ObservedValue::Instant(instant) => {
+                json!({"precision":"instant","input":instant.to_string()})
+            }
+        }
+    }
+
+    pub fn observed(input: &Value) -> ObservedTime {
+        ObservedTime::new(
+            ObservedValue::from_text(
+                input["value"]["precision"].as_str().unwrap(),
+                input["value"]["input"].as_str().unwrap(),
+            )
+            .unwrap(),
+            attribution(&input["attribution"]),
+        )
+    }
+
+    pub fn attribution_output(value: TimeAttribution) -> Value {
+        match value {
+            TimeAttribution::Original(original) => {
+                json!({"kind":"original","reference":super::record_support::original_output(original)})
+            }
+            TimeAttribution::Representation(representation) => {
+                json!({"kind":"representation","reference":super::record_support::representation_output(representation)})
+            }
+            TimeAttribution::Principal {
+                organization_id,
+                principal_id,
+            } => {
+                json!({"kind":"principal","organization_id":organization_id.to_string(),"principal_id":principal_id.to_string()})
+            }
+        }
+    }
+
+    pub fn observed_output(value: ObservedTime) -> Value {
+        json!({"value":value_output(value.value()),"attribution":attribution_output(value.attribution()),"organization_id":value.organization_id().to_string()})
+    }
+
+    pub fn event(input: &Value) -> EventTimes {
+        let observed = (!input["observed"].is_null()).then(|| observed(&input["observed"]));
+        EventTimes::new(
+            RecordedTime::new(input["recorded_at"].as_str().unwrap().parse().unwrap()),
+            observed,
+        )
+    }
+
+    pub fn event_output(value: EventTimes) -> Value {
+        let recorded = value.recorded();
+        let timestamp = recorded.timestamp().to_string();
+        assert_eq!(recorded.to_string(), timestamp);
+        json!({"recorded_at":timestamp,"observed":value.observed().map(observed_output)})
+    }
+
+    pub fn policy(input: &Value) -> Result<Option<UtcCalendarPolicy>, TimePolicyError> {
+        if input.is_null() {
+            return Ok(None);
+        }
+        UtcCalendarPolicy::new(
+            input["organization_id"].as_str().unwrap().parse().unwrap(),
+            input["policy_id"].as_str().unwrap().parse().unwrap(),
+            input["version"].as_str().unwrap().parse().unwrap(),
+            input["profile"].as_str().unwrap(),
+        )
+        .map(Some)
+    }
+
+    pub fn policy_output(value: UtcCalendarPolicy) -> Value {
+        json!({"organization_id":value.organization_id().to_string(),"policy_id":value.policy_id().to_string(),"version":value.version().to_string(),"profile":value.profile(),"timezone":value.timezone()})
+    }
+
+    pub fn reporting(input: &Value, selected: &Value) -> Result<ReportingDate, TimePolicyError> {
+        observed(input).reporting_date(policy(selected)?)
+    }
+
+    pub fn reporting_output(value: ReportingDate) -> Value {
+        json!({"date":value.date().to_string(),"observed":observed_output(value.observed()),"policy":policy_output(value.policy())})
+    }
+
+    #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+    pub enum Identity {
+        Event(EventTimes),
+        Attribution(TimeAttribution),
+        Policy(UtcCalendarPolicy),
+        Reporting(ReportingDate),
+    }
+
+    pub fn identity(target: &str, input: &Value) -> Identity {
+        match target {
+            "event_times" => Identity::Event(event(input)),
+            "attribution" => Identity::Attribution(attribution(input)),
+            "policy" => Identity::Policy(policy(input).unwrap().unwrap()),
+            "reporting" => {
+                Identity::Reporting(reporting(&input["observed"], &input["policy"]).unwrap())
+            }
+            _ => panic!("unknown frozen time identity"),
+        }
+    }
+
+    pub fn identity_output(value: Identity) -> Value {
+        match value {
+            Identity::Event(value) => event_output(value),
+            Identity::Attribution(value) => attribution_output(value),
+            Identity::Policy(value) => policy_output(value),
+            Identity::Reporting(value) => reporting_output(value),
+        }
+    }
+
+    pub fn cloned<T: Clone>(value: &T) -> T {
+        value.clone()
+    }
+}
+
 pub mod record_support {
     use arboresce_domain::{
         AudioSpanLocator, ByteIdentity, DeclaredOriginal, InvalidLocatorWire, JsonPointer,
