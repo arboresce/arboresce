@@ -2,7 +2,7 @@
 
 Plan version: 3
 
-Status: owner-approved target. E200, E201 and the registered primitive-fixture
+Status: owner-approved target. E200, E201, E203, the registered primitive-fixture
 leaf and the complete E202 verification checkpoint are independently accepted.
 E202 includes the maintained fresh native collector on its selected qualified
 profile. Other implementation slices
@@ -342,7 +342,7 @@ Checkpoint: ed995cd2a1c8c91165f607342b29449858a77737; Evidence: [Complete verifi
 
 ### E203 — Implement independent revisions, clocks, dates and locators
 
-Status: `in_progress`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `complete`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -355,6 +355,44 @@ External prerequisite capabilities: Approve independent identity and revision fi
 Definition of green: Content/control revisions, overflow, observed versus recorded time, timezone ambiguity and typed pixel/audio locators pass independent boundary vectors.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
+
+Accepted whole E203: the pure domain foundation and its independent Python
+source reference are accepted at `d3d8720abd5e0f92f6b5d98a853cb20a839e5baf`.
+Independent whole source/completeness and expected/qualification reviews and a
+distinct delivery witness accepted the exact committed inputs. This includes
+distinct identities/revisions and closed raw wire admission; Gregorian dates,
+injected UTC clocks and attributed observed/recorded precision; typed locators
+and references; whole-source JSON, original numbers, canonical selection and
+quotas; and deterministic clock/identity/seed/barrier/isolation support exercised
+by these consumers. The explicit UTC projection rejects unsupported local/offset
+profiles; it does not qualify an additional timezone database or policy.
+
+Fresh owning and public-only standalone Rust 1.99.0 macOS ARM64 default-feature
+lanes each passed 93 tests, 4,503 case IDs and all 61 strict scopes across 44
+measured files. Each retained 184 fresh raw profiles and 614 matched process
+launch/completion pairs. Fresh owning and public-only standalone Python lanes
+each passed 2,667 tests and 101 subtests, all 15 strict scopes across 12 maintained
+source/helper paths, and reconciled all 97 retained raw profiles and 96 children.
+Both language lanes qualified the same 283 public inputs. Independent finite
+agreement joins the unchanged 919 source/pointer/raw-number decisions and 22
+semantic traits, with 28 separate published formatter pairs. Pointer negatives
+retain their acceptance-only oracle; this is no universal equivalence claim.
+
+The independently accepted resource profiles retain their stated structural,
+allocation/work and runtime limits. Python native probes passed all 76 cases
+both ordinarily and in an actual 1 MiB-stack worker. The unchanged Rust source
+and selected native/resource proof remain accepted. Source and distinct delivery
+reviews passed before and after the source-reference commit. This documentation
+annotation alone does not claim another executable run on its changed bytes.
+
+Actual clocks, broader timezone policy, media and source authority, application
+ports, real service adapters, expanded native qualification, client/signature/
+money acceptance, human/live-model/user evidence, recovery and production remain
+required at their consuming gates. Whole E203 creates no product or service
+acceptance and waives none of those obligations.
+
+Historical bounded increment records follow. Their pending statements describe
+their original checkpoints and are superseded by the whole acceptance above.
 
 Implementation refinement: first deliver checked scalar content/control/generation
 values, exact decimal payload parsing, typed unsigned construction and immutable
@@ -600,6 +638,8 @@ strict maintained-source/helper/process evidence, independent Rust/Python
 agreement and fresh affected owning/public-only standalone qualification remain
 required before this increment is accepted. Whole E203 remains `in_progress`;
 this pure reference creates no processing-service or product acceptance.
+
+Checkpoint: d3d8720abd5e0f92f6b5d98a853cb20a839e5baf; Evidence: [Whole pure domain qualification](open-cli-mvp-v1-rcld.md)
 
 ### E204 — Create focused application ports and migration harness
 
