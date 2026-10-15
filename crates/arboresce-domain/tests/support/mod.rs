@@ -1,5 +1,302 @@
 use std::fmt;
 
+pub mod record_support {
+    use arboresce_domain::{
+        AudioSpanLocator, ByteIdentity, DeclaredOriginal, InvalidLocatorWire, JsonPointer,
+        JsonPointerLocator, Orientation, OriginalReference, PageRegionLocator,
+        RepresentationReference, Sha256Digest, TranscriptSegment, Utf8RangeLocator, WireLocator,
+    };
+    use serde_json::{Value, json};
+    use std::{collections::HashSet, fmt, fmt::Write};
+
+    pub fn fixture() -> Value {
+        serde_json::from_str(include_str!("../fixtures/locator-wire-v1/cases.json")).unwrap()
+    }
+    pub fn original_cases() -> Value {
+        serde_json::from_str(include_str!(
+            "../../../../contracts/validation/observation-v1.cases.json"
+        ))
+        .unwrap()
+    }
+
+    #[derive(Clone, Debug, Eq, Hash, PartialEq)]
+    pub enum Record {
+        Bytes(ByteIdentity),
+        Declared(DeclaredOriginal),
+        Original(OriginalReference),
+        Representation(RepresentationReference),
+        Transcript(TranscriptSegment),
+        Locator(WireLocator),
+    }
+    impl fmt::Display for Record {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            match self {
+                Self::Bytes(v) => v.fmt(f),
+                Self::Declared(v) => v.fmt(f),
+                Self::Original(v) => v.fmt(f),
+                Self::Representation(v) => v.fmt(f),
+                Self::Transcript(v) => v.fmt(f),
+                Self::Locator(v) => v.fmt(f),
+            }
+        }
+    }
+
+    pub fn read(target: &str, input: &[u8]) -> Result<Record, InvalidLocatorWire> {
+        match target {
+            "byte_identity" => ByteIdentity::from_json(input).map(Record::Bytes),
+            "declared_original" => DeclaredOriginal::from_json(input).map(Record::Declared),
+            "original_reference" => OriginalReference::from_json(input).map(Record::Original),
+            "representation_reference" => {
+                RepresentationReference::from_json(input).map(Record::Representation)
+            }
+            "transcript_segment" => TranscriptSegment::from_json(input).map(Record::Transcript),
+            "utf8_range" => Utf8RangeLocator::from_json(input).map(|v| Record::Locator(v.into())),
+            "json_pointer" => {
+                JsonPointerLocator::from_json(input).map(|v| Record::Locator(v.into()))
+            }
+            "page_region" => PageRegionLocator::from_json(input).map(|v| Record::Locator(v.into())),
+            "audio_span" => AudioSpanLocator::from_json(input).map(|v| Record::Locator(v.into())),
+            "locator" => WireLocator::from_json(input).map(Record::Locator),
+            _ => panic!("unknown frozen record target"),
+        }
+    }
+
+    pub fn source_output(v: DeclaredOriginal) -> Value {
+        json!({"format":v.format().as_str(),"media_type":v.media_type(),"sha256":v.sha256().to_string(),"byte_length":v.byte_length()})
+    }
+    pub fn bytes_output(v: ByteIdentity) -> Value {
+        json!({"sha256":v.sha256().to_string(),"byte_length":v.byte_length()})
+    }
+    pub fn original_output(v: OriginalReference) -> Value {
+        json!({"organization_id":v.organization_id().to_string(),"artifact_id":v.artifact_id().to_string(),"version_id":v.version_id().to_string(),"source":source_output(v.source())})
+    }
+    pub fn representation_output(v: RepresentationReference) -> Value {
+        json!({"representation_id":v.representation_id().to_string(),"original":original_output(v.original()),"bytes":bytes_output(v.bytes()),"profile_digest":v.profile_digest().to_string()})
+    }
+    pub fn transcript_output(v: TranscriptSegment) -> Value {
+        json!({"transcript":representation_output(v.transcript()),"segment_index":v.segment_index()})
+    }
+    pub fn output(value: &Record) -> Value {
+        match value {
+            Record::Bytes(v) => bytes_output(*v),
+            Record::Declared(v) => source_output(*v),
+            Record::Original(v) => original_output(*v),
+            Record::Representation(v) => representation_output(*v),
+            Record::Transcript(v) => transcript_output(*v),
+            Record::Locator(v) => {
+                let mut out = json!({"kind":v.kind(),"representation":representation_output(v.representation())});
+                match v {
+                    WireLocator::Utf8Range(v) => {
+                        assert_eq!(v.representation(), value_representation(value));
+                        out["start_byte"] = v.start_byte().into();
+                        out["end_byte"] = v.end_byte().into();
+                    }
+                    WireLocator::JsonPointer(v) => {
+                        assert_eq!(v.representation(), value_representation(value));
+                        out["pointer"] = v.pointer().as_str().into();
+                        out["canonicalization"] = v.canonicalization().into();
+                        out["selected_value_sha256"] = v.selected_value_sha256().to_string().into();
+                    }
+                    WireLocator::PageRegion(v) => {
+                        assert_eq!(v.representation(), value_representation(value));
+                        let [x, y, width, height] = v.rectangle();
+                        out["page_index"] = v.page_index().into();
+                        out["render_sha256"] = v.render_sha256().to_string().into();
+                        out["source_orientation"] = v.source_orientation().exif().into();
+                        out["coordinate_space"] = v.coordinate_space().into();
+                        out["x"] = x.into();
+                        out["y"] = y.into();
+                        out["width"] = width.into();
+                        out["height"] = height.into();
+                    }
+                    WireLocator::AudioSpan(v) => {
+                        assert_eq!(v.representation(), value_representation(value));
+                        out["start_ms"] = v.start_ms().into();
+                        out["end_ms"] = v.end_ms().into();
+                        out["channel_index"] = v.channel_index().into();
+                        if let Some(t) = v.transcript_segment() {
+                            out["transcript_segment"] = transcript_output(t);
+                        }
+                    }
+                }
+                out
+            }
+        }
+    }
+    fn value_representation(value: &Record) -> RepresentationReference {
+        match value {
+            Record::Locator(v) => v.representation(),
+            _ => panic!("prepared locator only"),
+        }
+    }
+
+    fn digest(v: &Value) -> Sha256Digest {
+        v.as_str().unwrap().parse().unwrap()
+    }
+    fn declared(v: &Value) -> Result<DeclaredOriginal, InvalidLocatorWire> {
+        DeclaredOriginal::new(
+            v["format"].as_str().unwrap().parse()?,
+            digest(&v["sha256"]),
+            v["byte_length"].as_u64().unwrap(),
+        )
+    }
+    fn bytes(v: &Value) -> Result<ByteIdentity, InvalidLocatorWire> {
+        ByteIdentity::new(digest(&v["sha256"]), v["byte_length"].as_u64().unwrap())
+    }
+    fn original(v: &Value) -> Result<OriginalReference, InvalidLocatorWire> {
+        Ok(OriginalReference::new(
+            v["organization_id"].as_str().unwrap().parse().unwrap(),
+            v["artifact_id"].as_str().unwrap().parse().unwrap(),
+            v["version_id"].as_str().unwrap().parse().unwrap(),
+            declared(&v["source"])?,
+        ))
+    }
+    fn representation(v: &Value) -> Result<RepresentationReference, InvalidLocatorWire> {
+        Ok(RepresentationReference::new(
+            v["representation_id"].as_str().unwrap().parse().unwrap(),
+            original(&v["original"])?,
+            bytes(&v["bytes"])?,
+            digest(&v["profile_digest"]),
+        ))
+    }
+    fn transcript(v: &Value) -> Result<TranscriptSegment, InvalidLocatorWire> {
+        TranscriptSegment::new(
+            representation(&v["transcript"])?,
+            v["segment_index"].as_u64().unwrap(),
+        )
+    }
+
+    /// Numeric construction uses the original input's typed integer, never an expected field.
+    pub fn construct(target: &str, v: &Value) -> Result<Record, InvalidLocatorWire> {
+        match target {
+            "byte_identity" => bytes(v).map(Record::Bytes),
+            "declared_original" => declared(v).map(Record::Declared),
+            "original_reference" => original(v).map(Record::Original),
+            "representation_reference" => representation(v).map(Record::Representation),
+            "transcript_segment" => transcript(v).map(Record::Transcript),
+            "utf8_range" => Utf8RangeLocator::new(
+                representation(&v["representation"])?,
+                v["start_byte"].as_u64().unwrap(),
+                v["end_byte"].as_u64().unwrap(),
+            )
+            .map(|x| Record::Locator(x.into())),
+            "json_pointer" => Ok(Record::Locator(
+                JsonPointerLocator::new(
+                    representation(&v["representation"])?,
+                    JsonPointer::parse(v["pointer"].as_str().unwrap())?,
+                    digest(&v["selected_value_sha256"]),
+                )
+                .into(),
+            )),
+            "page_region" => PageRegionLocator::new(
+                representation(&v["representation"])?,
+                v["page_index"].as_u64().unwrap(),
+                digest(&v["render_sha256"]),
+                Orientation::from_exif(v["source_orientation"].as_i64().unwrap())
+                    .map_err(|_| InvalidLocatorWire)?,
+                [
+                    v["x"].as_u64().unwrap(),
+                    v["y"].as_u64().unwrap(),
+                    v["width"].as_u64().unwrap(),
+                    v["height"].as_u64().unwrap(),
+                ],
+            )
+            .map(|x| Record::Locator(x.into())),
+            "audio_span" => {
+                let segment = v.get("transcript_segment").map(transcript).transpose()?;
+                AudioSpanLocator::new(
+                    representation(&v["representation"])?,
+                    v["start_ms"].as_u64().unwrap(),
+                    v["end_ms"].as_u64().unwrap(),
+                    v["channel_index"].as_u64().unwrap(),
+                    segment,
+                )
+                .map(|x| Record::Locator(x.into()))
+            }
+            _ => panic!("unknown frozen construction target"),
+        }
+    }
+
+    pub fn replace(root: &mut Value, path: &[Value], replacement: Value) {
+        let mut current = root;
+        for part in path {
+            current = &mut current[part.as_str().unwrap()];
+        }
+        *current = replacement;
+    }
+    pub fn field_input(fixture: &Value, row: &Value) -> Vec<u8> {
+        let mut value = fixture["bases"][row["base"].as_str().unwrap()].clone();
+        let marker = "$record_original_numeric_token$";
+        replace(&mut value, row["path"].as_array().unwrap(), marker.into());
+        let serialized = serde_json::to_string(&value).unwrap();
+        let quoted = serde_json::to_string(marker).unwrap();
+        assert_eq!(serialized.matches(&quoted).count(), 1);
+        serialized
+            .replacen(&quoted, row["token"].as_str().unwrap(), 1)
+            .into_bytes()
+    }
+    pub fn raw_input(row: &Value) -> Vec<u8> {
+        super::wire_bytes(row)
+    }
+    pub fn pointer_input(row: &Value) -> String {
+        if let Some(r) = row.get("recipe") {
+            format!(
+                "{}{}",
+                r["prefix"].as_str().unwrap(),
+                r["unit"]
+                    .as_str()
+                    .unwrap()
+                    .repeat(r["count"].as_u64().unwrap().try_into().unwrap())
+            )
+        } else {
+            row["pointer"].as_str().unwrap().to_owned()
+        }
+    }
+
+    pub fn same_traits(value: &Record) -> (bool, usize, bool) {
+        fn copy<T: Copy>(v: T) -> T {
+            v
+        }
+        match value {
+            Record::Bytes(v) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Declared(v) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Original(v) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Representation(v) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Transcript(v) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Locator(WireLocator::Utf8Range(v)) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Locator(WireLocator::PageRegion(v)) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Locator(WireLocator::AudioSpan(v)) => {
+                assert_eq!(copy(*v), *v);
+            }
+            Record::Locator(WireLocator::JsonPointer(v)) => {
+                assert_eq!(v.clone(), *v);
+            }
+        }
+        let cloned = value.clone();
+        let set: HashSet<_> = [value.clone(), cloned.clone()].into_iter().collect();
+        let mut rejected = super::RejectedOutput;
+        (
+            cloned == *value,
+            set.len(),
+            write!(&mut rejected, "{value}").is_err(),
+        )
+    }
+}
+
 /// A prepared formatter sink that rejects output without touching user state.
 pub struct RejectedOutput;
 

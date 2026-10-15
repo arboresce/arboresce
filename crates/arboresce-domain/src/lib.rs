@@ -2,6 +2,19 @@
 
 use std::{error::Error, fmt, str::FromStr};
 
+mod record_json;
+pub use record_json::{InvalidLocatorWire, MAX_LOCATOR_WIRE_BYTES, MAX_LOCATOR_WIRE_OUTPUT_BYTES};
+mod references;
+pub use references::{
+    ByteIdentity, DeclaredOriginal, OriginalReference, RepresentationReference, Sha256Digest,
+    SourceFormat, TranscriptSegment, UnsignedJsonInteger,
+};
+mod locator_wire;
+pub use locator_wire::{
+    AudioSpanLocator, JsonPointer, JsonPointerLocator, PageRegionLocator, Utf8RangeLocator,
+    WireLocator,
+};
+
 mod locators;
 pub use locators::{
     AudioBounds, AudioSpan, InvalidLocator, MAX_AUDIO_END_MS, MAX_BYTE_OFFSET, MAX_PIXEL_COMPONENT,

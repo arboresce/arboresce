@@ -58,9 +58,34 @@ byte selections, bounds, full-page edge transforms and failures.
 
 The supplied numeric page/audio bounds do not establish a qualified decoder,
 render identity, source reference, codec, sample conversion or authority. Large
-synthetic bounds exercise arithmetic capacities only. Complete locator wire and
-representation admission remain separate. Remaining wire/general raw-JSON admission, JCS,
-budgets, source-observed attribution and timezone policy retain their owning gates. A UTC parser does not
+synthetic bounds exercise arithmetic capacities only.
+
+`DeclaredOriginal`, `OriginalReference`, `ByteIdentity` and
+`RepresentationReference` preserve complete checked immutable metadata. The seven
+source formats retain exact MIME and length bounds; representation byte identity
+is independently bounded. `Sha256Digest` is a checked digest value and computes
+no hash. `UnsignedJsonInteger` checks original decimal tokens before coercion;
+each consuming field retains its own narrower range.
+
+`Utf8RangeLocator`, `JsonPointerLocator`, `PageRegionLocator` and `AudioSpanLocator`
+are complete closed wire shapes, combined by `WireLocator`. Typed entry points
+enforce their own kind, retain the exact reference tuple and optional transcript,
+and emit complete escaped JSON. These wire values can retain equal or reversed
+intervals; the separate semantic values above check actual contextual ranges.
+`JsonPointer` retains its original string and once-decoded tokens, with 4096-scalar
+and 64-token capacities. It preserves controls, Unicode and empty-key meaning
+without normalization or percent decoding; debug output omits pointer content.
+The specialized known-record reader checks one MiB before UTF-8/traversal,
+rejects decoded duplicate or unknown fields and supports only its bounded acyclic
+record graph. Complete outputs stay below 32768 bytes. The independent
+[record fixtures](tests/fixtures/locator-wire-v1/README.md) retain all 89 original
+parsed-wire cases and add original-token, constructor, Unicode, closed-shape and
+complete identity expectations before consumption.
+
+Wire metadata and pointer syntax do not resolve a canonical representation,
+verify referenced bytes, select source JSON, compute JCS, admit media or grant
+access. General source JSON/JCS, processing and selected-value budgets,
+source-observed attribution and timezone policy retain their owning gates. A UTC parser does not
 decide an ambiguous local event's timezone or convert a receipt date into midnight.
 
 Validation proves format. Resource existence, ownership, authenticated principal
@@ -69,7 +94,7 @@ The library has no transport, storage, ambient clock or random source.
 
 The independently reviewed [identity tables](tests/fixtures/primitives-v1/README.md)
 provide exact bytes, roundtrips and rejections before implementation. Remaining
-wire/JSON Pointer and whole primitive fixtures retain their complete implementation gates.
+source JSON Pointer and whole primitive fixtures retain their complete implementation gates.
 This library does not establish an API service or MVP runtime.
 
 Use Rust 1.99.0 and the repository's workspace format/check/test/Clippy commands.

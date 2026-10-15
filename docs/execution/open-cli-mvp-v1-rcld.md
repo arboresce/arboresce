@@ -411,7 +411,7 @@ native/profile collection. Independent source/public/native review and a distinc
 witness accepted the exact source before and after its local commit. Supplied
 numeric metadata establishes no actual media, rendering, source identity or authority.
 
-Next bounded source increment: complete closed tagged revision objects from raw
+Tagged revision implementation refinement: complete closed tagged revision objects from raw
 JSON bytes, retaining distinct checked scalars and explicit typed-tag admission.
 Independent expectations preserve all 48 parsed revision cases and add 92 raw
 byte/duplicate/escape/typed-tag/size cases and four trait cases before consumption.
@@ -421,6 +421,36 @@ Canonical complete wire display is separate from unchanged scalar decimal APIs.
 Other wire/unsigned-token/immutable-reference admission, general source JSON/JCS,
 depth/node/output budgets, JSON Pointer, observed-time/zone and whole E203
 acceptance remain required. No transport, storage or product gate is inferred.
+
+Accepted tagged revision-wire source increment:
+`0bf3ff63bbd294f949e02d469895cd54221ba1f1` implements those bounded closed
+objects and exact scalar variants. Both fresh owning and public-only standalone
+Rust 1.99.0 macOS ARM64 lanes passed 70 tests, all 55 strict scopes and complete
+native/profile reconciliation. Independent source/public/native review and a
+distinct witness accepted the source before and after its local commit. The
+owning aggregate is 7484/7692 lines and 14930/16016 regions; standalone is
+7481/7692 lines and 14926/16016 regions. Only unchanged readiness polling differs;
+both actual sets retain every threshold and denominator. This is historical
+acceptance of that exact source, without a general JSON or product claim.
+
+Next bounded source increment: complete immutable declared-original, byte,
+original and representation references plus four distinct locator wire shapes
+and optional transcript segments. A private field-directed reader uses the
+existing one-MiB envelope, at most ten members and five acyclic containers,
+bounded decoded fields, strict Unicode/escapes/duplicates and original unsigned
+integer tokens. Complete escaped output has a proven 32768-byte bound. Pointer
+syntax preserves its original string and once-decoded tokens independently of
+actual source selection. The revision parser and existing semantic locator types
+remain unchanged. All 89 original parsed-wire outcomes retain their exact shape
+meaning, including equal/reversed intervals. The independently admitted package
+adds 1387 case IDs before this consumer, including explicit complete immutable
+identity pairs. An initial identity-coverage finding was repaired additively
+before consumption; no earlier expected result changed. Fresh complete owning,
+standalone, source/native/public and distinct acceptance remain required.
+Source JSON/JCS processing and selected-depth/node/output budgets, actual JSON
+Pointer selection, observed-time attribution/precision, explicit timezone policy
+and whole E203 acceptance remain mandatory. Wire metadata supplies no actual
+media, canonical identity resolution, authorization or product qualification.
 
 Accepted scalar source increment:
 `c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked

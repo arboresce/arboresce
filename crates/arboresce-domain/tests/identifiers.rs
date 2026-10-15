@@ -7,6 +7,440 @@ mod expected;
 mod support;
 
 #[test]
+fn complete_original_locator_wire_cases() {
+    use arboresce_domain::{InvalidLocatorWire, MAX_LOCATOR_WIRE_OUTPUT_BYTES};
+    use support::record_support as r;
+    let fixture = r::fixture();
+    let originals = r::original_cases();
+    let mut seen = HashSet::new();
+    for id in fixture["original_wire_case_ids"].as_array().unwrap() {
+        let id = id.as_str().unwrap();
+        let event = format!("record-original-{id}");
+        assert!(seen.insert(event.clone()));
+        let row = originals["cases"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        let input = serde_json::to_vec(&row["value"]).unwrap();
+        let actual = r::read(row["target"].as_str().unwrap(), &input);
+        if row["valid"] == true {
+            let actual = actual.unwrap();
+            assert_eq!(r::output(&actual), row["value"], "{id}");
+            let serialized = actual.to_string();
+            assert!(serialized.len() <= MAX_LOCATOR_WIRE_OUTPUT_BYTES);
+            assert_eq!(
+                serde_json::from_str::<serde_json::Value>(&serialized).unwrap(),
+                row["value"],
+                "{id}"
+            );
+        } else {
+            assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 89);
+}
+
+#[test]
+fn raw_unsigned_locator_fields() {
+    use arboresce_domain::InvalidLocatorWire;
+    use support::record_support as r;
+    let fixture = r::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["fields"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        let target = row["base"].as_str().unwrap();
+        let event = format!("record-fields-{id}");
+        assert!(seen.insert(event.clone()));
+        let actual = r::read(target, &r::field_input(&fixture, row));
+        if row["accepted"] == true {
+            let mut expected = fixture["bases"][target].clone();
+            r::replace(
+                &mut expected,
+                row["path"].as_array().unwrap(),
+                row["expected_integer"].clone(),
+            );
+            let actual = actual.unwrap();
+            assert_eq!(r::output(&actual), expected, "{id}");
+            assert_eq!(
+                serde_json::from_str::<serde_json::Value>(&actual.to_string()).unwrap(),
+                expected,
+                "{id}"
+            );
+        } else {
+            assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+        }
+        let token = row["token"].as_str().unwrap();
+        if (token == "0"
+            || token
+                .as_bytes()
+                .first()
+                .is_some_and(|b| matches!(b, b'1'..=b'9')))
+            && token.bytes().all(|b| b.is_ascii_digit())
+        {
+            let number = token.parse::<u64>().unwrap();
+            let mut input = fixture["bases"][target].clone();
+            r::replace(&mut input, row["path"].as_array().unwrap(), number.into());
+            let constructed = r::construct(target, &input);
+            if row["accepted"] == true {
+                assert_eq!(r::output(&constructed.unwrap()), input, "{id}");
+            } else {
+                assert_eq!(constructed, Err(InvalidLocatorWire), "{id}");
+            }
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 600);
+}
+
+#[test]
+fn declared_original_profiles_and_constructors() {
+    use arboresce_domain::{
+        ByteIdentity, DeclaredOriginal, InvalidLocatorWire, Sha256Digest, SourceFormat,
+        UnsignedJsonInteger,
+    };
+    use support::record_support as r;
+    let fixture = r::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["values"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        let event = format!("record-values-{id}");
+        assert!(seen.insert(event.clone()));
+        match row["call"].as_str().unwrap() {
+            "declared" => {
+                let format = row["format"]
+                    .as_str()
+                    .unwrap()
+                    .parse::<SourceFormat>()
+                    .unwrap();
+                let length = row["byte_length"].as_u64().unwrap();
+                assert_eq!(format.as_str(), row["format"]);
+                assert_eq!(format.media_type(), row["media_type"]);
+                let actual =
+                    DeclaredOriginal::new(format, Sha256Digest::from_bytes([0xaa; 32]), length);
+                let input = serde_json::json!({"format":row["format"],"media_type":row["media_type"],"sha256":"a".repeat(64),"byte_length":length});
+                let wire = DeclaredOriginal::from_json(&serde_json::to_vec(&input).unwrap());
+                assert_eq!(actual, wire, "{id}");
+                if row["accepted"] == true {
+                    let value = actual.unwrap();
+                    assert_eq!(r::source_output(value), input, "{id}");
+                    assert_eq!(
+                        serde_json::from_str::<serde_json::Value>(&value.to_string()).unwrap(),
+                        input
+                    );
+                } else {
+                    assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+                }
+            }
+            "unsigned" => {
+                let token = row["token"].as_str().unwrap();
+                let actual = UnsignedJsonInteger::from_token(token.as_bytes());
+                assert_eq!(actual, token.parse::<UnsignedJsonInteger>());
+                if row["accepted"] == true {
+                    let value = actual.unwrap();
+                    assert_eq!(value.value(), row["expected_integer"].as_u64().unwrap());
+                    assert_eq!(value.to_string(), token);
+                    assert_eq!([value, value].into_iter().collect::<HashSet<_>>().len(), 1);
+                    assert!(format!("{value:?}").contains("UnsignedJsonInteger"));
+                    assert!(write!(&mut support::RejectedOutput, "{value}").is_err());
+                } else {
+                    assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+                }
+                if let Some(input) = row.get("new_input") {
+                    let input = input.as_u64().unwrap();
+                    let actual = UnsignedJsonInteger::new(input);
+                    let bytes = ByteIdentity::new(Sha256Digest::from_bytes([0; 32]), input);
+                    assert_eq!(actual.is_ok(), row["new_accepted"].as_bool().unwrap());
+                    assert_eq!(bytes.is_ok(), row["new_accepted"].as_bool().unwrap());
+                    if let Ok(v) = bytes {
+                        assert_eq!(v.byte_length(), input);
+                    }
+                }
+            }
+            "digest" => {
+                let actual = row["input"].as_str().unwrap().parse::<Sha256Digest>();
+                if row["accepted"] == true {
+                    let value = actual.unwrap();
+                    let expected = row["expected_hex"].as_str().unwrap();
+                    assert_eq!(value.to_string(), expected);
+                    assert_eq!(value.as_bytes().as_slice(), support::decode_hex(expected));
+                    assert_eq!(Sha256Digest::from_bytes(*value.as_bytes()), value);
+                    assert_eq!([value, value].into_iter().collect::<HashSet<_>>().len(), 1);
+                    assert!(format!("{value:?}").contains("Sha256Digest"));
+                    assert!(write!(&mut support::RejectedOutput, "{value}").is_err());
+                } else {
+                    assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+                }
+            }
+            _ => panic!("unknown frozen value call"),
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 56);
+}
+
+#[test]
+fn pointer_syntax_and_decoded_tokens() {
+    use arboresce_domain::{InvalidLocatorWire, JsonPointer};
+    use support::record_support as r;
+    let fixture = r::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["pointers"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        let event = format!("record-pointers-{id}");
+        assert!(seen.insert(event.clone()));
+        let input = r::pointer_input(row);
+        let actual = JsonPointer::parse(&input);
+        assert_eq!(actual, input.parse::<JsonPointer>());
+        if row["accepted"] == true {
+            let value = actual.unwrap();
+            assert_eq!(value.as_str(), input);
+            let tokens: Vec<_> = value.tokens().collect();
+            let expected = if row["tokens"].is_array() {
+                row["tokens"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|v| v.as_str().unwrap().to_owned())
+                    .collect::<Vec<_>>()
+            } else {
+                let recipe = &row["expected_single_token_repeat"];
+                vec![
+                    recipe["unit"]
+                        .as_str()
+                        .unwrap()
+                        .repeat(recipe["count"].as_u64().unwrap().try_into().unwrap()),
+                ]
+            };
+            assert_eq!(tokens, expected, "{id}");
+            assert_eq!(value.tokens().len(), expected.len());
+            let cloned = value.clone();
+            assert_eq!(value, cloned);
+            assert_eq!(
+                [value.clone(), cloned]
+                    .into_iter()
+                    .collect::<HashSet<_>>()
+                    .len(),
+                1
+            );
+            if !input.is_empty() {
+                assert!(!format!("{value:?}").contains(&input), "{id}");
+            }
+            assert!(write!(&mut support::RejectedOutput, "{value:?}").is_err());
+        } else {
+            assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 27);
+}
+
+#[test]
+fn closed_nested_record_json() {
+    use arboresce_domain::InvalidLocatorWire;
+    use support::record_support as r;
+    let fixture = r::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["objects"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        let event = format!("record-objects-{id}");
+        assert!(seen.insert(event.clone()));
+        let actual = r::read(row["target"].as_str().unwrap(), &r::raw_input(row));
+        if row["accepted"] == true {
+            let actual = actual.unwrap();
+            assert_eq!(r::output(&actual), row["roundtrip"]);
+            assert_eq!(
+                serde_json::from_str::<serde_json::Value>(&actual.to_string()).unwrap(),
+                row["roundtrip"]
+            );
+        } else {
+            assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 458);
+}
+
+#[test]
+fn raw_record_text_and_input_boundaries() {
+    use arboresce_domain::{InvalidLocatorWire, MAX_LOCATOR_WIRE_OUTPUT_BYTES};
+    use support::record_support as r;
+    let fixture = r::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["text"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        let event = format!("record-text-{id}");
+        assert!(seen.insert(event.clone()));
+        let input = r::raw_input(row);
+        if let Some(size) = row.get("expected_input_bytes") {
+            assert_eq!(input.len() as u64, size.as_u64().unwrap());
+        }
+        let actual = r::read(row["target"].as_str().unwrap(), &input);
+        if row["accepted"] == true {
+            let actual = actual.unwrap();
+            assert_eq!(r::output(&actual), row["roundtrip"], "{id}");
+            let out = actual.to_string();
+            assert!(out.len() <= MAX_LOCATOR_WIRE_OUTPUT_BYTES);
+            assert_eq!(
+                serde_json::from_str::<serde_json::Value>(&out).unwrap(),
+                row["roundtrip"],
+                "{id}"
+            );
+            if let Some(expected) = row.get("output_utf8") {
+                assert_eq!(out, expected.as_str().unwrap(), "{id}");
+            }
+        } else {
+            assert_eq!(actual, Err(InvalidLocatorWire), "{id}");
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 44);
+}
+
+#[test]
+fn reference_locator_traits_and_getters() {
+    use arboresce_domain::{
+        InvalidLocatorWire, MAX_LOCATOR_WIRE_BYTES, MAX_LOCATOR_WIRE_OUTPUT_BYTES,
+    };
+    use support::record_support as r;
+    let fixture = r::fixture();
+    let expected = &fixture["trait_expectations"];
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["traits"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        let event = format!("record-traits-{id}");
+        assert!(seen.insert(event.clone()));
+        match row["call"].as_str().unwrap() {
+            "record" => {
+                let target = row["target"].as_str().unwrap();
+                let input = &row["roundtrip"];
+                let actual = r::read(target, &serde_json::to_vec(input).unwrap()).unwrap();
+                assert_eq!(r::output(&actual), *input);
+                assert_eq!(r::construct(target, input).unwrap(), actual);
+                let traits = r::same_traits(&actual);
+                assert_eq!(
+                    traits,
+                    (
+                        expected["copied_or_cloned_equal"].as_bool().unwrap(),
+                        expected["same_value_set_size"].as_u64().unwrap() as usize,
+                        expected["formatter_error_propagates"].as_bool().unwrap()
+                    )
+                );
+                if row["debug_must_omit_pointer"] == true {
+                    assert!(!format!("{actual:?}").contains(input["pointer"].as_str().unwrap()));
+                }
+            }
+            "identity" | "optional" => {
+                let target = row["target"].as_str().unwrap();
+                let inputs = if let Some(pair) = row.get("input_pair") {
+                    pair.as_array().unwrap().clone()
+                } else {
+                    let first = fixture["bases"][row["base"].as_str().unwrap()].clone();
+                    let mut second = first.clone();
+                    r::replace(
+                        &mut second,
+                        row["path"].as_array().unwrap(),
+                        row["replacement"].clone(),
+                    );
+                    vec![first, second]
+                };
+                let a = r::read(target, &serde_json::to_vec(&inputs[0]).unwrap()).unwrap();
+                let b = r::read(target, &serde_json::to_vec(&inputs[1]).unwrap()).unwrap();
+                assert_eq!(
+                    a == b,
+                    row.get("expected_equal")
+                        .unwrap_or(&expected["different_values_equal"])
+                        .as_bool()
+                        .unwrap(),
+                    "{id}"
+                );
+                assert_eq!(
+                    [a.clone(), b.clone()]
+                        .into_iter()
+                        .collect::<HashSet<_>>()
+                        .len() as u64,
+                    row.get("expected_set_size")
+                        .unwrap_or(&expected["different_value_set_size"])
+                        .as_u64()
+                        .unwrap(),
+                    "{id}"
+                );
+                let outputs = vec![r::output(&a), r::output(&b)];
+                assert_eq!(
+                    outputs,
+                    row.get("expected_roundtrip_pair")
+                        .map(|v| v.as_array().unwrap())
+                        .unwrap_or(&inputs)
+                        .to_vec(),
+                    "{id}"
+                );
+                assert_eq!(r::construct(target, &inputs[0]).unwrap(), a);
+                assert_eq!(r::construct(target, &inputs[1]).unwrap(), b);
+            }
+            "union" => {
+                let target = row["base"].as_str().unwrap();
+                let input = &fixture["bases"][target];
+                let bytes = serde_json::to_vec(input).unwrap();
+                let actual = r::read("locator", &bytes).unwrap();
+                assert_eq!(r::read(target, &bytes).unwrap(), actual);
+                assert_eq!(r::construct(target, input).unwrap(), actual);
+                assert_eq!(r::output(&actual)["kind"], row["kind"]);
+                assert_eq!(r::output(&actual), *input);
+                for other in ["utf8_range", "json_pointer", "page_region", "audio_span"] {
+                    assert_eq!(r::read(other, &bytes).is_ok(), other == target);
+                }
+            }
+            "distinct_kinds" => {
+                let inputs = row["input_values"].as_array().unwrap();
+                let values: Vec<_> = inputs
+                    .iter()
+                    .map(|i| r::read("locator", &serde_json::to_vec(i).unwrap()).unwrap())
+                    .collect();
+                assert_eq!(
+                    values.iter().cloned().collect::<HashSet<_>>().len() as u64,
+                    row["expected_set_size"].as_u64().unwrap()
+                );
+                let mut pairs = Vec::new();
+                for a in 0..values.len() {
+                    for b in a + 1..values.len() {
+                        pairs.push(values[a] == values[b]);
+                    }
+                }
+                assert_eq!(serde_json::json!(pairs), row["expected_pairwise_equal"]);
+                assert_eq!(
+                    serde_json::json!(values.iter().map(r::output).collect::<Vec<_>>()),
+                    row["expected_roundtrips"]
+                );
+            }
+            "error" => {
+                let error = r::read("byte_identity", b"protected invalid input").unwrap_err();
+                assert_eq!(error, InvalidLocatorWire);
+                assert_eq!(error.to_string(), row["display"]);
+                assert_eq!(format!("{error:?}"), row["debug"]);
+                assert_eq!(
+                    error.source().is_none(),
+                    expected["error_source_none"].as_bool().unwrap()
+                );
+                assert!(write!(&mut support::RejectedOutput, "{error}").is_err());
+                assert_eq!(
+                    MAX_LOCATOR_WIRE_BYTES as u64,
+                    row["input_maximum"].as_u64().unwrap()
+                );
+                assert_eq!(
+                    MAX_LOCATOR_WIRE_OUTPUT_BYTES as u64,
+                    row["output_maximum"].as_u64().unwrap()
+                );
+            }
+            _ => panic!("unknown frozen record trait call"),
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 113);
+}
+
+#[test]
 fn complete_literal_text_inventory() {
     assert_eq!(expected::ID_CASES.len(), 34);
     let mut seen = HashSet::new();
