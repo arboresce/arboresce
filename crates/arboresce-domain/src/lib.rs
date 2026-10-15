@@ -2,6 +2,11 @@
 
 use std::{error::Error, fmt, str::FromStr};
 
+mod locators;
+pub use locators::{
+    AudioBounds, AudioSpan, InvalidLocator, MAX_AUDIO_END_MS, MAX_BYTE_OFFSET, MAX_PIXEL_COMPONENT,
+    Orientation, PageBounds, PageRegion, Utf8Selection,
+};
 mod revisions;
 pub use revisions::{
     ContentRevision, ControlRevision, Generation, MAX_REVISION_VALUE, RevisionError,

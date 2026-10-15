@@ -30,8 +30,23 @@ and failures remain the supplier's exact outcomes; time confers no revision orde
 The [time value fixtures](tests/fixtures/time-values-v1/README.md) retain independent
 date, instant, clock, construction and formatter expectations.
 
-Closed wire/raw-JSON admission, JCS, budgets, locators, source-observed attribution
-and timezone policy retain their complete owning gates. A UTC parser does not
+`Utf8Selection` borrows a checked, nonempty byte range from exact valid UTF-8
+input. It rejects invalid whole input and non-boundary offsets without replacement
+or normalization; debug output omits the text. `PageRegion::from_upright` checks
+provided page and pixel bounds without another orientation transform.
+`PageRegion::from_raw` first checks the physical raw bounds, maps all four pixel-edge
+corners using one of the eight checked Exif orientations, then applies the wire
+component limits to the upright rectangle. `AudioSpan`
+checks a half-open integer-millisecond range against the supplied duration,
+channel count and wire capacities. The
+[locator fixtures](tests/fixtures/locator-values-v1/README.md) retain independent
+byte selections, bounds, full-page edge transforms and failures.
+
+The supplied numeric page/audio bounds do not establish a qualified decoder,
+render identity, source reference, codec, sample conversion or authority. Large
+synthetic bounds exercise arithmetic capacities only. Complete locator wire and
+representation admission remain separate. Closed wire/raw-JSON admission, JCS,
+budgets, source-observed attribution and timezone policy retain their owning gates. A UTC parser does not
 decide an ambiguous local event's timezone or convert a receipt date into midnight.
 
 Validation proves format. Resource existence, ownership, authenticated principal
@@ -40,7 +55,7 @@ The library has no transport, storage, ambient clock or random source.
 
 The independently reviewed [identity tables](tests/fixtures/primitives-v1/README.md)
 provide exact bytes, roundtrips and rejections before implementation. Remaining
-wire/locator and whole primitive fixtures retain their complete implementation gates.
+wire/JSON Pointer and whole primitive fixtures retain their complete implementation gates.
 This library does not establish an API service or MVP runtime.
 
 Use Rust 1.99.0 and the repository's workspace format/check/test/Clippy commands.

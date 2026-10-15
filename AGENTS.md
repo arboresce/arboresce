@@ -14,7 +14,8 @@ implementing behavior. Those documents define the accepted target; the
 [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md) records execution and evidence.
 The current Rust workspace implements checked immutable UUIDv4, independent
 revision, Gregorian date and UTC millisecond values in `arboresce-domain`, with
-an injected clock interface, and retains the existing binding/build proof. The API and
+an injected clock interface and pure UTF-8/page/audio bounds. It retains the
+existing binding/build proof. The API and
 product runtime remain unfinished. Use the
 [public contract checks](contracts/validation/README.md) for the supplied
 schemas and fixtures. Introduce runtime commands with their owning guidance.

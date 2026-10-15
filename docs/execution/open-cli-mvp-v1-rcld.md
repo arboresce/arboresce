@@ -382,6 +382,27 @@ formatter and interleaved failure expectations before this consumer. Source-obse
 attribution/precision, ambiguous-local timezone policy, all wire/JSON/JCS/budget/
 locator requirements and whole E203 acceptance remain separate and required.
 
+Accepted date/UTC/injected-clock source increment:
+`e31ee31743095e6d18e0c7f1cc797d5327ca4f7c` implements distinct immutable
+Gregorian dates, exact signed UTC milliseconds and a fallible supplied clock.
+Both fresh owning and public-only standalone Rust 1.99.0 macOS ARM64 default-feature
+lanes passed 62 tests, all 53 strict scopes and complete native/profile collection.
+Independent source/public/native review and a distinct witness accepted the exact
+source before and after its local commit. This historical record retains the
+scope of that source and supplies no actual clock, event attribution or product gate.
+
+Next bounded source increment: borrowed exact UTF-8 selections, checked upright
+page bounds, all eight Exif pixel-edge transforms over all four raw corners,
+and integer audio/channel intervals. Independent literals include interior and
+full-page orientation variants, isolated pixel-capacity failures and complete
+immutable-value/formatter expectations. Raw rectangles satisfy physical bounds
+before transformation; stored upright coordinates alone receive wire component
+limits, including when a mirrored raw origin exceeds those limits. Supplied numeric metadata exercises
+capacity and bounds only; it does not qualify actual media, rendering, profile,
+representation/render identity, current authority or complete locator wire input.
+Whole original-token, raw JSON/JCS/budget, JSON Pointer, observed-time/zone and
+actual source/process/profile acceptance requirements remain intact.
+
 Accepted scalar source increment:
 `c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked
 content/control/generation values, exact decimal payloads and bounded advancement.

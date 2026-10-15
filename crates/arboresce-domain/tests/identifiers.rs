@@ -414,3 +414,309 @@ fn time_traits_and_formatter_failures() {
     }
     assert_eq!(seen.len(), 2);
 }
+
+#[test]
+fn checked_utf8_byte_selections() {
+    use arboresce_domain::InvalidLocator;
+    let original = support::primitive_fixture();
+    let fixture = support::locator_fixture();
+    let mut seen = HashSet::new();
+    for case in original["groups"]["utf8_range"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .chain(fixture["utf8_ranges"].as_array().unwrap())
+    {
+        let id = case["id"].as_str().unwrap();
+        let actual = support::utf8_output(
+            case["source_hex"].as_str().unwrap(),
+            case["start_byte"].as_i64().unwrap(),
+            case["end_byte"].as_i64().unwrap(),
+        );
+        if case["accepted"] == true {
+            let expected = case
+                .get("expected")
+                .unwrap_or(&fixture["original_admitted_values"][id]);
+            assert_eq!(actual.unwrap(), *expected, "{id}");
+        } else {
+            assert_eq!(actual, Err(InvalidLocator), "{id}");
+        }
+        let event = if id.starts_with("locator-") {
+            id.to_owned()
+        } else {
+            format!("locator-{id}")
+        };
+        assert!(seen.insert(event.clone()));
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 30);
+}
+
+#[test]
+fn checked_upright_page_bounds() {
+    use arboresce_domain::InvalidLocator;
+    let original = support::primitive_fixture();
+    let fixture = support::locator_fixture();
+    let mut seen = HashSet::new();
+    for case in original["groups"]["page_region"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .chain(fixture["page_regions"].as_array().unwrap())
+    {
+        let id = case["id"].as_str().unwrap();
+        let actual = support::page_case(case).map(support::page_output);
+        if case["accepted"] == true {
+            let expected = case
+                .get("expected")
+                .unwrap_or(&fixture["original_admitted_values"][id]);
+            assert_eq!(actual.unwrap(), *expected, "{id}");
+        } else {
+            assert_eq!(actual, Err(InvalidLocator), "{id}");
+        }
+        let event = if id.starts_with("locator-") {
+            id.to_owned()
+        } else {
+            format!("locator-{id}")
+        };
+        assert!(seen.insert(event.clone()));
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 38);
+}
+
+#[test]
+fn all_orientation_pixel_edges() {
+    use arboresce_domain::{InvalidLocator, Orientation, PageBounds, PageRegion};
+    use serde_json::json;
+    let fixture = support::locator_fixture();
+    let mut seen = HashSet::new();
+    for case in fixture["orientations"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let orientation =
+            Orientation::from_exif(case["source_orientation"].as_i64().unwrap()).unwrap();
+        let raw_dimensions = support::pair(&case["raw_dimensions"]);
+        assert_eq!(
+            json!(orientation.upright_dimensions(raw_dimensions).unwrap()),
+            case["upright_dimensions"],
+            "{id}"
+        );
+        let bounds = PageBounds {
+            page_count: support::fixture_u32(&case["actual_page_count"]),
+            width: raw_dimensions[0],
+            height: raw_dimensions[1],
+        };
+        // Both independently frozen variants execute under every orientation ID.
+        for sample in [case, &case["full_page"]] {
+            let input = sample["raw_corners"].as_array().unwrap();
+            let expected = sample["expected_corners"].as_array().unwrap();
+            assert_eq!(input.len(), 4, "{id}");
+            assert_eq!(expected.len(), 4, "{id}");
+            for (point, expected) in input.iter().zip(expected) {
+                assert_eq!(
+                    json!(
+                        orientation
+                            .map_edge(raw_dimensions, support::pair(point))
+                            .unwrap()
+                    ),
+                    *expected,
+                    "{id}"
+                );
+            }
+            let page = PageRegion::from_raw(
+                bounds,
+                case["page_index"].as_i64().unwrap(),
+                orientation,
+                support::coordinates(&sample["raw_rectangle"]),
+            )
+            .unwrap();
+            let actual = support::page_output(page);
+            assert_eq!(actual["coordinates"], sample["expected_rectangle"], "{id}");
+            assert_eq!(actual["page_index"], case["page_index"], "{id}");
+            assert_eq!(
+                actual["source_orientation"], case["source_orientation"],
+                "{id}"
+            );
+            assert_eq!(
+                actual["bounds"]["page_count"], case["actual_page_count"],
+                "{id}"
+            );
+            assert_eq!(
+                actual["bounds"]["width"], case["upright_dimensions"][0],
+                "{id}"
+            );
+            assert_eq!(
+                actual["bounds"]["height"], case["upright_dimensions"][1],
+                "{id}"
+            );
+            assert_eq!(
+                actual["coordinate_space"], fixture["api"]["coordinate_space"],
+                "{id}"
+            );
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    for case in fixture["orientation_errors"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(
+            Orientation::from_exif(case["input"].as_i64().unwrap()),
+            Err(InvalidLocator),
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    for case in fixture["edge_errors"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let orientation =
+            Orientation::from_exif(case["source_orientation"].as_i64().unwrap()).unwrap();
+        assert_eq!(
+            orientation.map_edge(
+                support::pair(&case["raw_dimensions"]),
+                support::pair(&case["point"])
+            ),
+            Err(InvalidLocator),
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    for case in fixture["raw_page_values"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let dimensions = support::pair(&case["raw_dimensions"]);
+        let orientation =
+            Orientation::from_exif(case["source_orientation"].as_i64().unwrap()).unwrap();
+        let input = case["raw_corners"].as_array().unwrap();
+        let expected = case["expected_corners"].as_array().unwrap();
+        assert_eq!(input.len(), 4, "{id}");
+        assert_eq!(expected.len(), 4, "{id}");
+        for (point, expected) in input.iter().zip(expected) {
+            assert_eq!(
+                json!(
+                    orientation
+                        .map_edge(dimensions, support::pair(point))
+                        .unwrap()
+                ),
+                *expected,
+                "{id}"
+            );
+        }
+        let bounds = PageBounds {
+            page_count: support::fixture_u32(&case["actual_page_count"]),
+            width: dimensions[0],
+            height: dimensions[1],
+        };
+        let page = PageRegion::from_raw(
+            bounds,
+            case["page_index"].as_i64().unwrap(),
+            orientation,
+            support::coordinates(&case["raw_rectangle"]),
+        )
+        .unwrap();
+        assert_eq!(support::page_output(page), case["expected"], "{id}");
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    for case in fixture["raw_page_errors"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let dims = support::pair(&case["raw_dimensions"]);
+        let bounds = PageBounds {
+            page_count: support::fixture_u32(&case["actual_page_count"]),
+            width: dims[0],
+            height: dims[1],
+        };
+        let orientation =
+            Orientation::from_exif(case["source_orientation"].as_i64().unwrap()).unwrap();
+        assert_eq!(
+            PageRegion::from_raw(
+                bounds,
+                case["page_index"].as_i64().unwrap(),
+                orientation,
+                support::coordinates(&case["raw_rectangle"])
+            ),
+            Err(InvalidLocator),
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 43);
+}
+
+#[test]
+fn checked_audio_span_bounds() {
+    use arboresce_domain::InvalidLocator;
+    let original = support::primitive_fixture();
+    let fixture = support::locator_fixture();
+    let mut seen = HashSet::new();
+    for case in original["groups"]["audio_span"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .chain(fixture["audio_spans"].as_array().unwrap())
+    {
+        let id = case["id"].as_str().unwrap();
+        let actual = support::audio_case(case).map(support::audio_output);
+        if case["accepted"] == true {
+            let expected = case
+                .get("expected")
+                .unwrap_or(&fixture["original_admitted_values"][id]);
+            assert_eq!(actual.unwrap(), *expected, "{id}");
+        } else {
+            assert_eq!(actual, Err(InvalidLocator), "{id}");
+        }
+        let event = if id.starts_with("locator-") {
+            id.to_owned()
+        } else {
+            format!("locator-{id}")
+        };
+        assert!(seen.insert(event.clone()));
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 24);
+}
+
+#[test]
+fn locator_traits_and_input_independent_errors() {
+    use arboresce_domain::{
+        InvalidLocator, MAX_AUDIO_END_MS, MAX_BYTE_OFFSET, MAX_PIXEL_COMPONENT, Utf8Selection,
+    };
+    let fixture = support::locator_fixture();
+    assert_eq!(
+        MAX_BYTE_OFFSET,
+        fixture["api"]["max_byte_offset"].as_u64().unwrap()
+    );
+    assert_eq!(
+        u64::from(MAX_PIXEL_COMPONENT),
+        fixture["api"]["max_pixel_component"].as_u64().unwrap()
+    );
+    assert_eq!(
+        u64::from(MAX_AUDIO_END_MS),
+        fixture["api"]["max_audio_end_ms"].as_u64().unwrap()
+    );
+    let error = Utf8Selection::new(b"\xff", 0, 1).unwrap_err();
+    assert_eq!(error, InvalidLocator);
+    assert_eq!(error.to_string(), fixture["api"]["error"]);
+    assert_eq!(
+        Error::source(&error).is_none(),
+        fixture["api"]["error_source_none"].as_bool().unwrap()
+    );
+    let mut rejected = support::RejectedOutput;
+    assert_eq!(
+        write!(&mut rejected, "{error}").is_err(),
+        fixture["api"]["error_formatter_failure_propagates"]
+            .as_bool()
+            .unwrap()
+    );
+    let value = Utf8Selection::new(b"synthetic text", 0, 9).unwrap();
+    assert!(write!(&mut rejected, "{value:?}").is_err());
+    let mut seen = HashSet::new();
+    for case in fixture["traits"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(support::locator_traits(case), case["expected"], "{id}");
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 4);
+}
