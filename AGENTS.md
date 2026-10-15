@@ -53,6 +53,9 @@ cargo clippy --locked --offline --workspace --all-targets -- -D warnings
 Where an output router is configured, run its diagnostic first and prefix these
 commands with its documented router. Prepare coverage tools explicitly and follow
 the direct collection and complete source inventory in the testing contract.
+The first [local verification tool](tools/xtask/README.md) implements architecture
+checks and delegates these commands. Its core qualification precedes dependent
+use; whole verification and automated coverage collection remain unfinished.
 Run the documented formatting, checks, and tests for affected components.
 Source changes must satisfy [the testing and coverage contract](docs/requirements/testing-and-coverage.md),
 including deterministic independently reviewed fixtures, complete collection and

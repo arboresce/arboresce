@@ -1,0 +1,36 @@
+{
+  "fixture_version": "architecture_target_suffix_v3",
+  "classification": "public original synthetic literals under MIT OR Apache-2.0",
+  "preserves": "guard-v1 96 and guard-v2 91 accepted cases unchanged",
+  "inventory_cases": [
+    {
+      "id": "inventory-non-rs-forbidden-library",
+      "change": "domain lib target src_path=src/runtime.txt containing explicit std::fs::read; innocuous src/lib.rs retained",
+      "error": "forbidden architecture source"
+    },
+    {
+      "id": "inventory-non-rs-forbidden-binary",
+      "change": "domain bin target src_path=src/runtime.txt containing explicit std::fs::read; innocuous src/lib.rs retained",
+      "error": "forbidden architecture source"
+    },
+    {
+      "id": "inventory-non-rs-pure-only-library",
+      "change": "domain lib target src_path=src/runtime.txt containing a pure value function; remove default src/lib.rs",
+      "error": null
+    }
+  ],
+  "source_cases": [
+    {
+      "id": "regression-resume-unwind-direct",
+      "layer": "domain",
+      "rust": "pub fn n() { std::panic::resume_unwind(Box::new(\"payload\")); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-resume-unwind-alias",
+      "layer": "adapter",
+      "rust": "use std::panic::resume_unwind as r; pub fn n() { r(Box::new(\"payload\")); }",
+      "accepted": false
+    }
+  ]
+}

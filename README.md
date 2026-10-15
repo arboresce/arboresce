@@ -15,6 +15,9 @@ This checkout supplies requirements, contribution guidance, licensing and
 The Rust workspace implements [checked domain identifiers](crates/arboresce-domain/README.md)
 and retains the existing binding/build proof. Rust 1.99.0 workspace checks and
 independent identifier tests are available in [repository guidance](AGENTS.md).
+The first [repository tool](tools/xtask/README.md) implements architecture checks
+and explicit verification-command delegation; its qualification is separate
+from the remaining complete-coverage runner.
 The processing service, API, installation and product runtime remain planned.
 The [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md)
 records implementation and verification separately from accepted requirements.

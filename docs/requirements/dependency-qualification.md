@@ -58,6 +58,17 @@ identity. Update affected locks intentionally with dependency changes, then use
 locked verification. Do not update unrelated dependencies as incidental cleanup.
 Source, lock, configuration, tool or profile changes invalidate affected evidence.
 
+## Current verification-tool parser selection
+
+The local architecture/dispatch tool selects `serde_json` exactly `1.0.151`,
+`syn` exactly `2.0.119` with full/parsing/visit and no default features, and
+`proc-macro2` exactly `1.0.106` with no default features. Their locked public
+graphs and MIT OR Apache-2.0 rights are prepared before offline verification.
+They parse Cargo metadata and Rust source; they are not domain dependencies,
+canonical-JSON qualification, SDK/runtime qualification or an inference provider.
+Actual tool/source/process qualification remains required before dependent use.
+The domain and existing proof retain their standard-library-only graphs.
+
 ## Technology-specific evidence
 
 The experiment identifiers below refer to the complete criteria in

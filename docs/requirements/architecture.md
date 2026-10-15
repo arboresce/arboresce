@@ -78,6 +78,33 @@ Pyright and pytest through the owning verification lane. Reusable test helpers
 are maintained source; placing a parser or harness in a test directory does not
 remove its architectural or measurement obligations.
 
+## Current local guard profile
+
+The first [repository tool](../../tools/xtask/README.md) checks the actual resolved
+Cargo graph and current production source directories. Its initial role registry
+recognizes the existing binding/build proof, standard-library-only domain and
+verification tool at version 0.0.0. Unknown packages or dependency kinds fail.
+The inward application and supported deterministic SDK 1.0.0 profiles have
+independent synthetic policy examples; actual application/workflow packages and
+runtime qualification remain future consumers. Amend explicit pure dependency,
+role and supported API profiles with their first qualified consumers. A current
+unselected dependency is not a permanent prohibition on qualified pure libraries.
+
+Production import/path checks reject configured I/O, clock, random, concrete
+infrastructure and unsupported SDK surfaces. They reject root aliases and unsafe
+or panic/unwrap paths, including raw spellings, UFCS calls and imported panic
+aliases/functions, while preserving safe defaults, pure value imports and supported
+workflow namespaces. Platform I/O remains outside pure layers; selected ffi/raw
+value imports remain allowed. Cargo production targets must name actual files
+under their owning src root; only the exact registered test-peer bin has its own
+measured support path. Unknown target kinds fail. Explicit module path attributes
+and source include! are unselected until a consumer qualifies complete source
+inventory; ordinary modules and text/byte resource inclusion remain allowed. Controlled development dependencies permit isolated test composition
+and confer no production import authority. Syntax checks complement actual
+compiler checks and independent review; they do not certify arbitrary Rust data
+flow, macro expansion, authorization or Temporal compatibility. Source inventory,
+maintained helpers and native collection retain the complete testing contract.
+
 ## Sources of truth
 
 The focused [project profile](project-workflow.md) adds canonical Party/project

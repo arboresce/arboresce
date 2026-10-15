@@ -129,7 +129,8 @@ this does not advertise future service or product commands.
 The current native profile is Rust 1.99.0, macOS ARM64 and the default workspace
 feature set. Prepare `cargo-llvm-cov` 0.9.1 and that selected toolchain's LLVM
 tools before measurement; checks never install tools. The two libraries have
-no third-party dependencies. The binding/build proof remains a placeholder and
+no third-party dependencies. The first verification tool has separately pinned
+public parser dependencies. The binding/build proof remains a placeholder and
 does not qualify an API or FFI runtime.
 
 | Rust path | Measurement role |
@@ -140,6 +141,13 @@ does not qualify an API or FFI runtime.
 | `crates/arboresce-domain/tests/identifiers.rs` | Four assertion bodies; raw execution retained separately from source numerators. |
 | `crates/arboresce/tests/smoke.rs` | Existing proof assertion body and observable name output; separately inventoried. |
 | `crates/arboresce-domain/tests/fixtures/primitives-v1/expected.rs` | Literal declaration-only oracle table; proven metric-specific N/A. |
+| `tools/xtask/src/lib.rs` | Explicit command/stream execution; measured source. |
+| `tools/xtask/src/main.rs` | Actual verification-tool entrypoint; measured source and native binary. |
+| `tools/xtask/src/architecture.rs` | Dependency/syntax/import guard; measured source. |
+| `tools/xtask/src/workspace.rs` | Resolved-graph and source-directory guard; measured source. |
+| `tools/xtask/tests/support/mod.rs` | Maintained syntax-input builder, process observer and failure sinks; measured support. |
+| `tools/xtask/tests/support/peer.rs` | Actual controlled test-peer binary; measured support and native process. |
+| `tools/xtask/tests/contract.rs` | Assertion bodies; raw execution separate from source metrics. |
 
 The additional diagnostic text and JSON files are literal fixture data. No parser,
 builder or oracle function is hidden there. New files require an owning role;
@@ -147,8 +155,13 @@ assertion bodies cannot absorb reusable support to alter source measurement.
 The identifier suite executes every accepted 34 text and eight binary case IDs,
 exact roundtrips, immutable equality/hash and bounded error behavior. Actual
 formatter failures propagate. The existing proof's name-print function executes
-and produces its original literal output. Required suites have five tests, zero
-failed/ignored/filtered cases; separate Cargo doctests remain required.
+and produces its original literal output. The tool retains all 96 independently
+accepted policy/command/intake IDs, malformed/duplicate graph and source-path
+negatives, actual native output/exit and controlled child boundaries. Peer/vector
+success is not actual Cargo evidence: separately observe every real delegated
+workspace command. Required suites and separate Cargo doctests have zero
+failed/ignored/filtered cases. All introduced support and entrypoints remain in
+the measured source/native scope; no source is exempted by its test location.
 
 Choose a fresh external `ARB_COVERAGE_DIR`, distinct from a directory used for
 an uninstrumented build, and collect directly before any custom runner exists:

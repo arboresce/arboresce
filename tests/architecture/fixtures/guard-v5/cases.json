@@ -1,0 +1,41 @@
+{
+  "fixture_version": "verification_support_failures_v5",
+  "classification": "public original synthetic test-support and native collector literals, MIT OR Apache-2.0",
+  "preserves": "prior199cases unchanged",
+  "output_case": {
+    "id": "observer-owned-peer-output-over-budget",
+    "program": "actual built test-peer",
+    "mode": "metadata",
+    "input_recipe": {
+      "byte": 120,
+      "count": 8388609,
+      "sha256": "942d6013edf5b8bf6c141eadd970afb4d1dec9f2d6d92dbe93f4be90748037ed"
+    },
+    "collector_byte_limit": 8388608,
+    "expected_child_exit": 0,
+    "expected_error_kind": "InvalidData",
+    "expected_cleanup": "only that child is reaped; its fresh Rust profile is required"
+  },
+  "fixture_failure_cases": [
+    {
+      "id": "fixture-source-root-file-conflict",
+      "setup": "fresh prepared root: regular file at crates; metadata() attempts owning source directory",
+      "expected_error_kind": "NotADirectory"
+    },
+    {
+      "id": "fixture-manifest-directory-conflict",
+      "setup": "fresh prepared root: directory at crates/arboresce/Cargo.toml; metadata() attempts manifest write",
+      "expected_error_kind": "IsADirectory"
+    },
+    {
+      "id": "fixture-source-directory-conflict",
+      "setup": "fresh prepared root: directory at crates/arboresce/src/lib.rs; metadata() attempts source write",
+      "expected_error_kind": "IsADirectory"
+    },
+    {
+      "id": "fixture-duplicate-peer-directory",
+      "setup": "fresh prepared root: cargo_peer() succeeds once; second registration must fail without replacing its existing symlink",
+      "expected_error_kind": "AlreadyExists"
+    }
+  ]
+}

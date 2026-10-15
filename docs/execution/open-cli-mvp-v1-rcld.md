@@ -179,19 +179,31 @@ Checkpoint: 41f44baa8191825f6e82d4ee1231e809d1a95088; Evidence: [Bootstrap verif
 
 ### E202 — Introduce repository-owned verification and dependency guards
 
-Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
 Scope: Introduce repository-owned verification and dependency guards; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
 
-Planned paths: `tools/xtask/`, `tests/architecture/`, `docs/requirements/testing-and-coverage.md`
+Planned paths: `tools/xtask/`, `tests/architecture/`, `Cargo.toml`, `Cargo.lock`, `AGENTS.md`, `README.md`, `docs/requirements/architecture.md`, `docs/requirements/dependency-qualification.md`, `docs/requirements/testing-and-coverage.md`
 
 External prerequisite capabilities: None beyond the owning prerequisites.. Require independently accepted exact consumed contracts/fixtures/profile evidence before use; partial gates do not qualify unrelated capabilities.
 
 Definition of green: Actual formatting/check/test/Clippy/coverage commands cover all selected packages/processes; forbidden domain imports and permitted deterministic workflow boundaries are independently tested.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
+
+Implementation refinement: deliver independently green source increments within
+this checkpoint. The first adds useful architecture checks and actual workspace
+format/check/test/Clippy dispatch using independently approved literal cases.
+The second adds complete source inventory, coverage collection and strict native
+process/profile gates, including the maintained runner and its support. Direct
+prepared-tool qualification precedes reliance on either increment. E202 remains
+in_progress until every original requirement is independently accepted; a core
+tool commit cannot close its pending coverage or whole-checkpoint gate. Dependency
+profiles are explicit and amended with the first qualified consumer, rather than
+granting effectful domain or workflow imports by omission. SDK-path checks do not
+qualify an actual Temporal runtime. No new product command is introduced here.
 
 ### E203 — Implement independent revisions, clocks, dates and locators
 

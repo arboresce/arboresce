@@ -1,0 +1,49 @@
+{
+  "fixture_version": "architecture_include_alias_v4",
+  "classification": "original public synthetic literals under MIT OR Apache-2.0",
+  "preserves": "all prior guard packages unchanged",
+  "source_cases": [
+    {
+      "id": "regression-standard-include-import",
+      "layer": "domain",
+      "rust": "use std::include;",
+      "accepted": false
+    },
+    {
+      "id": "regression-standard-include-alias",
+      "layer": "domain",
+      "rust": "use std::include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-core-include-alias",
+      "layer": "adapter",
+      "rust": "use core::include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-include-alias",
+      "layer": "domain",
+      "rust": "use r#std::r#include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-group-include-alias",
+      "layer": "domain",
+      "rust": "use std::{include as external}; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-string-data-alias",
+      "layer": "domain",
+      "rust": "use std::include_str as text; pub const S: &str = text!(\"readme.txt\");",
+      "accepted": true
+    },
+    {
+      "id": "regression-bytes-data-alias",
+      "layer": "domain",
+      "rust": "use std::include_bytes as bytes; pub const S: &[u8] = bytes!(\"bytes.bin\");",
+      "accepted": true
+    }
+  ]
+}

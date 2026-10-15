@@ -1,0 +1,42 @@
+{
+  "fixture_version": "architecture_grouped_self_v6",
+  "classification": "public original synthetic literals, MIT OR Apache-2.0",
+  "source_cases": [
+    {
+      "id": "regression-standard-root-self-alias",
+      "layer": "domain",
+      "rust": "use std::{self as ambient}; pub fn n() { let _ = ambient::fs::read(\"x\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-core-root-self-alias",
+      "layer": "domain",
+      "rust": "use core::{self as hidden};",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-standard-root-self-alias",
+      "layer": "domain",
+      "rust": "use r#std::{self as ambient}; pub fn n() { let _ = ambient::fs::read(\"x\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-application-root-self-alias",
+      "layer": "application",
+      "rust": "use std::{self as ambient}; pub fn n() { let _ = ambient::env::vars(); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-pure-format-module-self",
+      "layer": "domain",
+      "rust": "use std::fmt::{self as values}; pub fn n() -> values::Result { Ok(()) }",
+      "accepted": true
+    },
+    {
+      "id": "regression-selected-domain-module-self",
+      "layer": "application",
+      "rust": "use arboresce_domain::{self as values};",
+      "accepted": true
+    }
+  ]
+}

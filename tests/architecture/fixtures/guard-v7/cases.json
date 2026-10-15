@@ -1,0 +1,54 @@
+{
+  "fixture_version": "architecture_transitive_include_v7",
+  "classification": "public original synthetic literals, MIT OR Apache-2.0",
+  "source_cases": [
+    {
+      "id": "include-v7-extern-standard-root",
+      "layer": "tool",
+      "rust": "extern crate std as ambient; use ambient::include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "include-v7-extern-core-root",
+      "layer": "tool",
+      "rust": "extern crate core as ambient; use ambient::include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "include-v7-use-standard-root",
+      "layer": "tool",
+      "rust": "use std as ambient; use ambient::include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "include-v7-grouped-standard-root",
+      "layer": "composition",
+      "rust": "use std::{self as ambient}; use ambient::{include as external}; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "include-v7-raw-leaf",
+      "layer": "adapter",
+      "rust": "extern crate std as ambient; use ambient::r#include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "include-v7-unknown-root",
+      "layer": "proof",
+      "rust": "use local_macros::include as external; external!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "include-v7-text-resource",
+      "layer": "tool",
+      "rust": "extern crate std as ambient; use ambient::include_str as resource; const TEXT: &str = resource!(\"data.txt\");",
+      "accepted": true
+    },
+    {
+      "id": "include-v7-byte-resource",
+      "layer": "tool",
+      "rust": "extern crate std as ambient; use ambient::include_bytes as resource; const DATA: &[u8] = resource!(\"data.bin\");",
+      "accepted": true
+    }
+  ]
+}

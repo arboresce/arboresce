@@ -1,0 +1,774 @@
+{
+  "fixture_version": "architecture_dispatch_v1",
+  "classification": "public synthetic independently authored literals",
+  "scope": "E202 first architecture/dispatch increment only; coverage and whole verify remain pending",
+  "dependency_profile": "domain currently std-only; application selected domain0.0.0; workflow selected domain/application0.0.0 and deterministic SDK1.0.0; new qualified pure profiles are explicit amendments",
+  "dependency_cases": [
+    {
+      "id": "dependency-domain-unselected-pure",
+      "layer": "domain",
+      "package": "serde",
+      "version": "1.0.229",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-database",
+      "layer": "domain",
+      "package": "sqlx",
+      "version": "0.8.6",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-http",
+      "layer": "domain",
+      "package": "reqwest",
+      "version": "0.12.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-runtime",
+      "layer": "domain",
+      "package": "tokio",
+      "version": "1.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-temporal",
+      "layer": "domain",
+      "package": "temporalio-sdk",
+      "version": "1.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-application",
+      "layer": "domain",
+      "package": "arboresce-application",
+      "version": "0.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-proof",
+      "layer": "domain",
+      "package": "arboresce",
+      "version": "0.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-build-effect",
+      "layer": "domain",
+      "package": "sqlx",
+      "version": "0.8.6",
+      "kind": "build",
+      "accepted": false
+    },
+    {
+      "id": "dependency-domain-controlled-test-adapter",
+      "layer": "domain",
+      "package": "reqwest",
+      "version": "0.12.0",
+      "kind": "dev",
+      "accepted": true
+    },
+    {
+      "id": "dependency-application-domain",
+      "layer": "application",
+      "package": "arboresce-domain",
+      "version": "0.0.0",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-application-domain-build",
+      "layer": "application",
+      "package": "arboresce-domain",
+      "version": "0.0.0",
+      "kind": "build",
+      "accepted": true
+    },
+    {
+      "id": "dependency-application-domain-unselected-version",
+      "layer": "application",
+      "package": "arboresce-domain",
+      "version": "0.0.1",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-application-database",
+      "layer": "application",
+      "package": "arboresce-postgres",
+      "version": "0.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-application-temporal",
+      "layer": "application",
+      "package": "temporalio-sdk",
+      "version": "1.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-workflow-domain",
+      "layer": "workflow",
+      "package": "arboresce-domain",
+      "version": "0.0.0",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-workflow-application",
+      "layer": "workflow",
+      "package": "arboresce-application",
+      "version": "0.0.0",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-workflow-deterministic-sdk",
+      "layer": "workflow",
+      "package": "temporalio-sdk",
+      "version": "1.0.0",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-workflow-sdk-old-version",
+      "layer": "workflow",
+      "package": "temporalio-sdk",
+      "version": "0.5.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-workflow-core-internals",
+      "layer": "workflow",
+      "package": "temporalio-sdk-core",
+      "version": "0.9.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-workflow-client",
+      "layer": "workflow",
+      "package": "temporalio-client",
+      "version": "1.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-workflow-direct-network",
+      "layer": "workflow",
+      "package": "reqwest",
+      "version": "0.12.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-workflow-direct-runtime",
+      "layer": "workflow",
+      "package": "tokio",
+      "version": "1.0.0",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-adapter-effect",
+      "layer": "adapter",
+      "package": "sqlx",
+      "version": "0.8.6",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-composition-runtime",
+      "layer": "composition",
+      "package": "tokio",
+      "version": "1.0.0",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-tool-parser",
+      "layer": "tool",
+      "package": "syn",
+      "version": "2.0.119",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-proof-existing-output",
+      "layer": "proof",
+      "package": "arboresce",
+      "version": "0.0.0",
+      "kind": "normal",
+      "accepted": true
+    },
+    {
+      "id": "dependency-unknown-kind",
+      "layer": "tool",
+      "package": "syn",
+      "version": "2.0.119",
+      "kind": "optional",
+      "accepted": false
+    },
+    {
+      "id": "dependency-unknown-layer",
+      "layer": "transport",
+      "package": "syn",
+      "version": "2.0.119",
+      "kind": "normal",
+      "accepted": false
+    },
+    {
+      "id": "dependency-renamed-database",
+      "layer": "domain",
+      "package": "sqlx",
+      "version": "0.8.6",
+      "kind": "normal",
+      "accepted": false,
+      "rename": "domain_api"
+    }
+  ],
+  "source_cases": [
+    {
+      "id": "source-current-import",
+      "layer": "domain",
+      "rust": "use std::{error::Error, fmt, str::FromStr}; pub struct Id([u8;16]);",
+      "accepted": true
+    },
+    {
+      "id": "source-no-import",
+      "layer": "domain",
+      "rust": "pub fn n() -> u8 { 1 }",
+      "accepted": true
+    },
+    {
+      "id": "source-duration",
+      "layer": "domain",
+      "rust": "use std::time::Duration; pub fn n() -> Duration { Duration::from_secs(1) }",
+      "accepted": true
+    },
+    {
+      "id": "source-io",
+      "layer": "domain",
+      "rust": "use std::io::Read;",
+      "accepted": false
+    },
+    {
+      "id": "source-renamed-fs",
+      "layer": "domain",
+      "rust": "use std::{fs as disk, fmt};",
+      "accepted": false
+    },
+    {
+      "id": "source-qualified-net",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = std::net::TcpStream::connect(\"localhost:9\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-environment",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = std::env::var(\"MODE\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-process",
+      "layer": "domain",
+      "rust": "use std::process::Command;",
+      "accepted": false
+    },
+    {
+      "id": "source-thread",
+      "layer": "domain",
+      "rust": "pub fn n() { std::thread::yield_now(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-clock",
+      "layer": "domain",
+      "rust": "use std::time::SystemTime;",
+      "accepted": false
+    },
+    {
+      "id": "source-instant",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = std::time::Instant::now(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-time-glob",
+      "layer": "domain",
+      "rust": "use std::time::*;",
+      "accepted": false
+    },
+    {
+      "id": "source-time-prefix-alias",
+      "layer": "domain",
+      "rust": "use std::time as clock;",
+      "accepted": false
+    },
+    {
+      "id": "source-output",
+      "layer": "domain",
+      "rust": "pub fn n() { println!(\"hello\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-qualified-output",
+      "layer": "domain",
+      "rust": "pub fn n() { std::eprintln!(\"hello\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-random",
+      "layer": "domain",
+      "rust": "use rand::random;",
+      "accepted": false
+    },
+    {
+      "id": "source-http",
+      "layer": "domain",
+      "rust": "use reqwest::Client;",
+      "accepted": false
+    },
+    {
+      "id": "source-db",
+      "layer": "domain",
+      "rust": "use sqlx::Row;",
+      "accepted": false
+    },
+    {
+      "id": "source-domain-sdk",
+      "layer": "domain",
+      "rust": "use temporalio_sdk::WorkflowContext;",
+      "accepted": false
+    },
+    {
+      "id": "source-string-is-data",
+      "layer": "domain",
+      "rust": "pub const TEXT: &str = \"use std::fs; panic!();\";",
+      "accepted": true
+    },
+    {
+      "id": "source-unwrap",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.unwrap() }",
+      "accepted": false
+    },
+    {
+      "id": "source-expect",
+      "layer": "application",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.expect(\"required\") }",
+      "accepted": false
+    },
+    {
+      "id": "source-tool-panic",
+      "layer": "tool",
+      "rust": "pub fn n() { panic!(\"invalid\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-tool-unsafe",
+      "layer": "tool",
+      "rust": "pub fn n() { unsafe { core::ptr::read(0 as *const u8); } }",
+      "accepted": false
+    },
+    {
+      "id": "source-sdk-context",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::{WorkflowContext, TimerOptions};",
+      "accepted": true
+    },
+    {
+      "id": "source-sdk-workflow-api",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::workflows;",
+      "accepted": true
+    },
+    {
+      "id": "source-sdk-root-alias",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk as sdk;",
+      "accepted": false
+    },
+    {
+      "id": "source-sdk-glob",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::*;",
+      "accepted": false
+    },
+    {
+      "id": "source-worker-runtime",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::Runtime;",
+      "accepted": false
+    },
+    {
+      "id": "source-activity-executor",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::activities::ActivityContext;",
+      "accepted": false
+    },
+    {
+      "id": "source-core-path",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk_core::CoreRuntime;",
+      "accepted": false
+    },
+    {
+      "id": "source-workflow-random",
+      "layer": "workflow",
+      "rust": "pub fn n() { let _ = rand::random::<u64>(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-workflow-fs",
+      "layer": "workflow",
+      "rust": "use std::fs::File;",
+      "accepted": false
+    },
+    {
+      "id": "source-application-db",
+      "layer": "application",
+      "rust": "use arboresce_postgres::Pool;",
+      "accepted": false
+    },
+    {
+      "id": "source-application-sdk",
+      "layer": "application",
+      "rust": "use temporalio_sdk::WorkflowContext;",
+      "accepted": false
+    },
+    {
+      "id": "source-domain-port",
+      "layer": "application",
+      "rust": "use arboresce_domain::Identifier; pub trait Port { fn get(&self) -> Option<Identifier>; }",
+      "accepted": true
+    },
+    {
+      "id": "source-adapter-db",
+      "layer": "adapter",
+      "rust": "use sqlx::Pool;",
+      "accepted": true
+    },
+    {
+      "id": "source-composition-sdk",
+      "layer": "composition",
+      "rust": "use temporalio_sdk::Runtime;",
+      "accepted": true
+    },
+    {
+      "id": "source-tool-fs",
+      "layer": "tool",
+      "rust": "use std::fs::File;",
+      "accepted": true
+    },
+    {
+      "id": "source-proof-output",
+      "layer": "proof",
+      "rust": "pub fn n() { println!(\"Arboresce\"); }",
+      "accepted": true
+    },
+    {
+      "id": "source-invalid-rust",
+      "layer": "domain",
+      "rust": "pub fn {",
+      "accepted": false
+    },
+    {
+      "id": "source-unknown-layer",
+      "layer": "transport",
+      "rust": "pub fn n() {}",
+      "accepted": false
+    },
+    {
+      "id": "source-safe-renamed-group",
+      "layer": "domain",
+      "rust": "use std::{fmt as formatting, str::{self, FromStr}};",
+      "accepted": true
+    },
+    {
+      "id": "source-safe-format-glob",
+      "layer": "domain",
+      "rust": "use std::fmt::*;",
+      "accepted": true
+    },
+    {
+      "id": "source-unsafe-function",
+      "layer": "tool",
+      "rust": "pub unsafe fn n() {}",
+      "accepted": false
+    },
+    {
+      "id": "source-unsafe-implementation",
+      "layer": "tool",
+      "rust": "pub trait T {} unsafe impl T for () {}",
+      "accepted": false
+    },
+    {
+      "id": "source-unsafe-trait",
+      "layer": "tool",
+      "rust": "pub unsafe trait T {}",
+      "accepted": false
+    },
+    {
+      "id": "source-unsafe-foreign-block",
+      "layer": "tool",
+      "rust": "unsafe extern \"C\" { fn n(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-safe-sdk-type-alias",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::WorkflowContext as Context;",
+      "accepted": true
+    },
+    {
+      "id": "source-sdk-workflow-glob",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::workflows::*;",
+      "accepted": false
+    },
+    {
+      "id": "source-std-root-use-alias",
+      "layer": "domain",
+      "rust": "use std as platform;",
+      "accepted": false
+    },
+    {
+      "id": "source-std-root-extern-alias",
+      "layer": "domain",
+      "rust": "extern crate std as platform;",
+      "accepted": false
+    },
+    {
+      "id": "source-sdk-root-extern-alias",
+      "layer": "workflow",
+      "rust": "extern crate temporalio_sdk as sdk;",
+      "accepted": false
+    }
+  ],
+  "command_cases": [
+    {
+      "id": "command-architecture",
+      "args": [
+        "architecture"
+      ],
+      "action": "architecture",
+      "cargo_args": [
+        "metadata",
+        "--locked",
+        "--offline",
+        "--format-version",
+        "1"
+      ]
+    },
+    {
+      "id": "command-fmt",
+      "args": [
+        "fmt"
+      ],
+      "action": "fmt",
+      "cargo_args": [
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ]
+    },
+    {
+      "id": "command-check",
+      "args": [
+        "check"
+      ],
+      "action": "check",
+      "cargo_args": [
+        "check",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets"
+      ]
+    },
+    {
+      "id": "command-test",
+      "args": [
+        "test"
+      ],
+      "action": "test",
+      "cargo_args": [
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "id": "command-clippy",
+      "args": [
+        "clippy"
+      ],
+      "action": "clippy",
+      "cargo_args": [
+        "clippy",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ]
+    },
+    {
+      "id": "command-help-0",
+      "args": [
+        "--help"
+      ],
+      "action": "help",
+      "cargo_args": []
+    },
+    {
+      "id": "command-help-1",
+      "args": [
+        "-h"
+      ],
+      "action": "help",
+      "cargo_args": []
+    },
+    {
+      "id": "command-help-2",
+      "args": [
+        "help"
+      ],
+      "action": "help",
+      "cargo_args": []
+    },
+    {
+      "id": "command-missing",
+      "args": [],
+      "action": null,
+      "cargo_args": []
+    },
+    {
+      "id": "command-unknown",
+      "args": [
+        "verify"
+      ],
+      "action": null,
+      "cargo_args": []
+    },
+    {
+      "id": "command-coverage-pending",
+      "args": [
+        "coverage"
+      ],
+      "action": null,
+      "cargo_args": []
+    },
+    {
+      "id": "command-extra",
+      "args": [
+        "check",
+        "--offline"
+      ],
+      "action": null,
+      "cargo_args": []
+    },
+    {
+      "id": "command-help-extra",
+      "args": [
+        "help",
+        "check"
+      ],
+      "action": null,
+      "cargo_args": []
+    }
+  ],
+  "outputs": {
+    "usage_utf8": "usage: cargo run --locked --offline -p arboresce-xtask -- <architecture|fmt|check|test|clippy>\n",
+    "architecture_success_utf8": "architecture checks passed\n",
+    "command_failure_utf8": "verification command failed\n",
+    "invalid_input_utf8": "invalid verification input",
+    "dependency_failure_utf8": "unqualified architecture dependency",
+    "source_failure_utf8": "forbidden architecture source"
+  },
+  "invalid_os_intake": {
+    "id": "non-utf8-command-intake",
+    "bytes_hex": "ff",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "usage: cargo run --locked --offline -p arboresce-xtask -- <architecture|fmt|check|test|clippy>\n"
+  },
+  "native_outcomes": {
+    "help_exit": 0,
+    "usage_exit": 2,
+    "guard_rejection_exit": 1,
+    "missing_cargo_exit": 1,
+    "output_failure_exit": 1,
+    "successful_child_exit": 0,
+    "failed_child_exit_preserved": 101
+  },
+  "output_profile": {
+    "display_texts": "invalid_input_utf8, dependency_failure_utf8 and source_failure_utf8 are fixed Display text without LF; they contain no input or path",
+    "help": {
+      "exit": 0,
+      "stdout": "usage: cargo run --locked --offline -p arboresce-xtask -- <architecture|fmt|check|test|clippy>\n",
+      "stderr": ""
+    },
+    "usage": {
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: cargo run --locked --offline -p arboresce-xtask -- <architecture|fmt|check|test|clippy>\n"
+    },
+    "architecture_success": {
+      "exit": 0,
+      "stdout": "architecture checks passed\n",
+      "stderr": ""
+    },
+    "invalid_guard_input": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-xtask: invalid verification input\n"
+    },
+    "unqualified_dependency": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-xtask: unqualified architecture dependency\n"
+    },
+    "forbidden_source": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-xtask: forbidden architecture source\n"
+    },
+    "spawn_or_unobserved_child_failure": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "verification command failed\n"
+    },
+    "failed_child_forwarding": {
+      "example_child_exit": 101,
+      "example_child_stdout": "child stdout\n",
+      "example_child_stderr": "child stderr\n",
+      "expected_exit": 101,
+      "expected_stdout": "child stdout\n",
+      "expected_stderr": "child stderr\n",
+      "parent_added_stdout": "",
+      "parent_added_stderr": ""
+    },
+    "child_policy": "fmt/check/test/Clippy delegate actual Cargo execution and inherit exact stdout/stderr; child nonzero exits remain nonzero without an added success/failure frame. Architecture consumes metadata stdout, forwards actual Cargo stderr diagnostics, rejects child failure, and emits its own success only after guard acceptance. Vector/peer checks do not prove actual Cargo execution.",
+    "output_failure": "failure to write or flush an owned help/guard line produces exit1; never claim success from an already-written line"
+  }
+}

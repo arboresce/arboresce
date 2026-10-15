@@ -1,0 +1,556 @@
+{
+  "fixture_version": "architecture_regressions_v2",
+  "classification": "public original synthetic independently authored literals",
+  "preserves": "guard-v1 immutable 96-case package; this version adds cases and never replaces its expected answers",
+  "source_cases": [
+    {
+      "id": "regression-option-ufcs-unwrap",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { Option::unwrap(v) }",
+      "accepted": false
+    },
+    {
+      "id": "regression-option-qualified-expect",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { std::option::Option::expect(v, \"required\") }",
+      "accepted": false
+    },
+    {
+      "id": "regression-result-ufcs-unwrap-err",
+      "layer": "domain",
+      "rust": "pub fn n(v: Result<u8,u8>) -> u8 { Result::unwrap_err(v) }",
+      "accepted": false
+    },
+    {
+      "id": "regression-result-qualified-expect-err",
+      "layer": "domain",
+      "rust": "pub fn n(v: Result<u8,u8>) -> u8 { core::result::Result::expect_err(v, \"required\") }",
+      "accepted": false
+    },
+    {
+      "id": "regression-method-unwrap-err",
+      "layer": "domain",
+      "rust": "pub fn n(v: Result<u8,u8>) -> u8 { v.unwrap_err() }",
+      "accepted": false
+    },
+    {
+      "id": "regression-method-expect-err",
+      "layer": "domain",
+      "rust": "pub fn n(v: Result<u8,u8>) -> u8 { v.expect_err(\"required\") }",
+      "accepted": false
+    },
+    {
+      "id": "regression-option-safe-default",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.unwrap_or_default() }",
+      "accepted": true
+    },
+    {
+      "id": "regression-option-safe-value",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.unwrap_or(1) }",
+      "accepted": true
+    },
+    {
+      "id": "regression-option-safe-lazy",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.unwrap_or_else(|| 1) }",
+      "accepted": true
+    },
+    {
+      "id": "regression-panic-alias-std",
+      "layer": "domain",
+      "rust": "use std::panic as p; pub fn n() { p!(\"bad\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-panic-alias-core",
+      "layer": "domain",
+      "rust": "use core::panic as p; pub fn n() { p!(\"bad\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-panic-group-alias",
+      "layer": "domain",
+      "rust": "use std::{panic as p}; pub fn n() { p!(\"bad\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-panic-any-direct",
+      "layer": "domain",
+      "rust": "pub fn n() { std::panic::panic_any(0u8); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-panic-any-alias",
+      "layer": "domain",
+      "rust": "use std::panic::panic_any as p; pub fn n() { p(0u8); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-panic-module-alias",
+      "layer": "domain",
+      "rust": "use std::panic as p; pub fn n() { p::panic_any(0u8); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-panic-wildcard",
+      "layer": "domain",
+      "rust": "use std::panic::*; pub fn n() { panic_any(0u8); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-panic-pure-marker",
+      "layer": "domain",
+      "rust": "use std::panic::AssertUnwindSafe; pub fn n() { let _ = AssertUnwindSafe(1u8); }",
+      "accepted": true
+    },
+    {
+      "id": "regression-adapter-panic-alias",
+      "layer": "adapter",
+      "rust": "use std::panic as p; pub fn n() { p!(\"bad\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-adapter-panic-any",
+      "layer": "adapter",
+      "rust": "pub fn n() { std::panic::panic_any(0u8); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-standard-root",
+      "layer": "domain",
+      "rust": "use r#std::fs::File;",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-effect-module",
+      "layer": "domain",
+      "rust": "use std::r#fs::File;",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-method-unwrap",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.r#unwrap() }",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-method-expect",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.r#expect(\"required\") }",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-panic-macro",
+      "layer": "domain",
+      "rust": "pub fn n() { r#panic!(\"bad\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-panic-alias",
+      "layer": "domain",
+      "rust": "use r#std::r#panic as p; pub fn n() { p!(\"bad\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-safe-value",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { v.r#unwrap_or(1) }",
+      "accepted": true
+    },
+    {
+      "id": "regression-raw-pure-import",
+      "layer": "domain",
+      "rust": "use r#std::r#time::Duration;",
+      "accepted": true
+    },
+    {
+      "id": "regression-platform-symlink",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = std::os::unix::fs::symlink(\"a\", \"b\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-platform-network",
+      "layer": "domain",
+      "rust": "use std::os::unix::net::UnixStream;",
+      "accepted": false
+    },
+    {
+      "id": "regression-platform-descriptor",
+      "layer": "domain",
+      "rust": "use std::os::fd::OwnedFd;",
+      "accepted": false
+    },
+    {
+      "id": "regression-platform-root-alias",
+      "layer": "domain",
+      "rust": "use std::os as p; pub fn n() { let _ = p::unix::fs::symlink(\"a\", \"b\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-platform-family-alias",
+      "layer": "domain",
+      "rust": "use std::os::unix as p; pub fn n() { let _ = p::fs::symlink(\"a\", \"b\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-platform-group-alias",
+      "layer": "domain",
+      "rust": "use std::os::{unix as p}; pub fn n() { let _ = p::fs::symlink(\"a\", \"b\"); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-platform-ffi-values",
+      "layer": "domain",
+      "rust": "use std::os::unix::ffi::OsStrExt;",
+      "accepted": true
+    },
+    {
+      "id": "regression-platform-raw-values",
+      "layer": "domain",
+      "rust": "use std::os::raw::c_int;",
+      "accepted": true
+    },
+    {
+      "id": "regression-adapter-platform-io",
+      "layer": "adapter",
+      "rust": "use std::os::unix::net::UnixStream;",
+      "accepted": true
+    },
+    {
+      "id": "regression-format-nested-io",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = format!(\"{}\", std::fs::read_to_string(\"a\").unwrap_or_default()); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-format-harmless-string",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = format!(\"{}\", \"std::fs::unwrap panic\"); }",
+      "accepted": true
+    },
+    {
+      "id": "regression-format-raw-nested-io",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = format!(\"{}\", r#std::r#fs::read_to_string(\"a\").unwrap_or_default()); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-macro-unwrap-err",
+      "layer": "domain",
+      "rust": "pub fn n(v: Result<u8,u8>) { let _ = format!(\"{}\", v.unwrap_err()); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-macro-safe-default",
+      "layer": "domain",
+      "rust": "pub fn n(v: Option<u8>) { let _ = format!(\"{}\", v.unwrap_or_default()); }",
+      "accepted": true
+    },
+    {
+      "id": "regression-external-module-path",
+      "layer": "domain",
+      "rust": "#[path = \"../outside.rs\"] mod outside;",
+      "accepted": false
+    },
+    {
+      "id": "regression-local-module-path-unselected",
+      "layer": "domain",
+      "rust": "#[path = \"inside.rs\"] mod inside;",
+      "accepted": false
+    },
+    {
+      "id": "regression-external-include",
+      "layer": "domain",
+      "rust": "include!(\"../outside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-local-include-unselected",
+      "layer": "domain",
+      "rust": "include!(\"inside.rs\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-computed-include-unselected",
+      "layer": "domain",
+      "rust": "include!(concat!(env!(\"OUT_DIR\"), \"/generated.rs\"));",
+      "accepted": false
+    },
+    {
+      "id": "regression-text-resource-include",
+      "layer": "domain",
+      "rust": "pub const S: &str = include_str!(\"readme.txt\");",
+      "accepted": true
+    },
+    {
+      "id": "regression-byte-resource-include",
+      "layer": "domain",
+      "rust": "pub const S: &[u8] = include_bytes!(\"bytes.bin\");",
+      "accepted": true
+    },
+    {
+      "id": "regression-ordinary-module",
+      "layer": "domain",
+      "rust": "mod inside;",
+      "accepted": true
+    },
+    {
+      "id": "regression-unsafe-method",
+      "layer": "domain",
+      "rust": "struct X; impl X { pub unsafe fn n() {} }",
+      "accepted": false
+    },
+    {
+      "id": "regression-unsafe-trait",
+      "layer": "domain",
+      "rust": "unsafe trait X {}",
+      "accepted": false
+    },
+    {
+      "id": "regression-unsafe-impl",
+      "layer": "domain",
+      "rust": "struct X; trait T {} unsafe impl T for X {}",
+      "accepted": false
+    },
+    {
+      "id": "regression-unsafe-foreign",
+      "layer": "domain",
+      "rust": "unsafe extern \"C\" { fn n(); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-unknown-role",
+      "layer": "unselected",
+      "rust": "pub fn n() {}",
+      "accepted": false
+    },
+    {
+      "id": "regression-workflow-supported-group",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::{WorkflowContext, TimerOptions};",
+      "accepted": true
+    },
+    {
+      "id": "regression-workflow-raw-supported",
+      "layer": "workflow",
+      "rust": "use r#temporalio_sdk::r#WorkflowContext;",
+      "accepted": true
+    },
+    {
+      "id": "regression-workflow-sdk-wildcard",
+      "layer": "workflow",
+      "rust": "use temporalio_sdk::workflows::*;",
+      "accepted": false
+    },
+    {
+      "id": "regression-application-pure-duration",
+      "layer": "application",
+      "rust": "use std::time::Duration;",
+      "accepted": true
+    },
+    {
+      "id": "regression-core-duration-value",
+      "layer": "domain",
+      "rust": "use core::time::Duration;",
+      "accepted": true
+    },
+    {
+      "id": "regression-clock-module-self",
+      "layer": "domain",
+      "rust": "use std::time::{self};",
+      "accepted": false
+    },
+    {
+      "id": "regression-clock-module-glob",
+      "layer": "domain",
+      "rust": "use std::time::*;",
+      "accepted": false
+    },
+    {
+      "id": "regression-global-qualified-clock",
+      "layer": "domain",
+      "rust": "pub fn n() { let _ = ::std::time::Instant::now(); }",
+      "accepted": false
+    },
+    {
+      "id": "regression-alias-option-ufcs",
+      "layer": "domain",
+      "rust": "use std::option::Option as O; pub fn n(v: O<u8>) -> u8 { O::unwrap(v) }",
+      "accepted": false
+    },
+    {
+      "id": "regression-alias-result-ufcs",
+      "layer": "domain",
+      "rust": "use std::result::Result as R; pub fn n(v: R<u8,u8>) -> u8 { R::expect(v, \"required\") }",
+      "accepted": false
+    },
+    {
+      "id": "regression-adapter-ufcs-panic",
+      "layer": "adapter",
+      "rust": "pub fn n(v: Option<u8>) -> u8 { Option::unwrap(v) }",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-inward-domain",
+      "layer": "application",
+      "rust": "use r#arboresce_domain::Identifier;",
+      "accepted": true
+    },
+    {
+      "id": "regression-raw-outward-adapter",
+      "layer": "application",
+      "rust": "use r#arboresce_adapter::X;",
+      "accepted": false
+    },
+    {
+      "id": "regression-invalid-syntax",
+      "layer": "domain",
+      "rust": "pub fn {",
+      "accepted": false
+    },
+    {
+      "id": "regression-qualified-env-macro",
+      "layer": "domain",
+      "rust": "pub const S: &str = std::env!(\"HOME\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-raw-qualified-env-macro",
+      "layer": "domain",
+      "rust": "pub const S: &str = r#std::r#env!(\"HOME\");",
+      "accepted": false
+    },
+    {
+      "id": "regression-conditional-module-path",
+      "layer": "domain",
+      "rust": "#[cfg_attr(any(), path = \"../outside.rs\")] mod outside;",
+      "accepted": false
+    },
+    {
+      "id": "regression-module-doc-string",
+      "layer": "domain",
+      "rust": "#[doc = \"path = ../outside.rs\"] mod inside;",
+      "accepted": true
+    }
+  ],
+  "inventory_cases": [
+    {
+      "id": "inventory-custom-library-outside-src",
+      "change": "domain lib target src_path=package/outside.rs",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-custom-binary-outside-src",
+      "change": "domain bin target src_path=package/outside.rs",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-missing-targets",
+      "change": "remove package targets",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-empty-targets",
+      "change": "package targets=[]",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-unknown-target-kind",
+      "change": "target kind=[unselected]",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-missing-target-file",
+      "change": "target src_path=package/src/missing.rs",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-outside-workspace-root",
+      "change": "workspace_root names another existing prepared root",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-source-root-symlink",
+      "change": "replace domain src with a symlink to proof src",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-unregistered-peer-target",
+      "change": "domain bin target src_path=package/tests/support/peer.rs",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-empty-target-kinds",
+      "change": "target kind=[]",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-duplicate-target-names",
+      "change": "repeat package target name",
+      "error": "invalid verification input"
+    },
+    {
+      "id": "inventory-default-targets",
+      "change": "ordinary lib target under each owning src",
+      "error": null
+    },
+    {
+      "id": "inventory-registered-test-peer",
+      "change": "arboresce-xtask-test-peer bin at tools/xtask/tests/support/peer.rs; separate measured support",
+      "error": null
+    }
+  ],
+  "observer_cases": [
+    {
+      "id": "observer-native-success",
+      "native_program": "prepared absolute /usr/bin/true",
+      "budget_ms": 30000,
+      "poll_ms": 5,
+      "expected": "exit0, empty stdout/stderr",
+      "initial_observation_delay_ms": 0
+    },
+    {
+      "id": "observer-native-timeout",
+      "native_program": "prepared absolute /bin/sleep 5",
+      "budget_ms": 10,
+      "poll_ms": 5,
+      "expected": "TimedOut; kill and reap only that spawned child",
+      "initial_observation_delay_ms": 0
+    },
+    {
+      "id": "observer-native-late-observation",
+      "native_program": "prepared absolute /usr/bin/true",
+      "budget_ms": 10,
+      "poll_ms": 50,
+      "expected": "TimedOut even if the process completed before late observation",
+      "initial_observation_delay_ms": 50
+    },
+    {
+      "id": "observer-spawn-error",
+      "native_program": "task-owned nonexistent absolute path",
+      "budget_ms": 30000,
+      "poll_ms": 5,
+      "expected": "NotFound; no child recorded",
+      "initial_observation_delay_ms": 0
+    },
+    {
+      "id": "observer-broken-stdout",
+      "native_program": "actual tool help; preclosed std::io::pipe write end on stdout",
+      "budget_ms": 30000,
+      "poll_ms": 5,
+      "expected": "exit1, empty stdout, verification command failed LF on stderr",
+      "initial_observation_delay_ms": 0
+    },
+    {
+      "id": "observer-broken-stderr",
+      "native_program": "actual tool unknown; preclosed std::io::pipe write end on stderr",
+      "budget_ms": 30000,
+      "poll_ms": 5,
+      "expected": "exit1, empty stdout/stderr",
+      "initial_observation_delay_ms": 0
+    }
+  ]
+}
