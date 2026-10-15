@@ -342,7 +342,7 @@ Checkpoint: ed995cd2a1c8c91165f607342b29449858a77737; Evidence: [Complete verifi
 
 ### E203 — Implement independent revisions, clocks, dates and locators
 
-Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -355,6 +355,22 @@ External prerequisite capabilities: Approve independent identity and revision fi
 Definition of green: Content/control revisions, overflow, observed versus recorded time, timezone ambiguity and typed pixel/audio locators pass independent boundary vectors.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
+
+Implementation refinement: first deliver checked scalar content/control/generation
+values, exact decimal payload parsing, typed unsigned construction and immutable
+bounded advancement. The public runtime remains standard-library-only. A pinned
+development-only fixture decoder reads independently frozen cases; all existing
+identifier and verification cases remain required. This subincrement supplies
+useful domain values for later typed revision comparisons, without claiming raw
+wire admission or stored compare-and-swap effects.
+
+Whole E203 remains in_progress until the complete closed tagged wire objects,
+original-token validation, raw source JSON/JCS and depth/node/output budgets,
+observed/recorded injected time, calendar dates, exact UTF-8/JSON Pointer/page/audio
+locators and all independent source/process qualification are accepted. The
+previously frozen primitive semantics and selected wire vectors retain their exact
+meaning. No catalogue node, actual clock/media input, application port, service or
+product workflow is completed by the scalar subincrement.
 
 ### E204 — Create focused application ports and migration harness
 

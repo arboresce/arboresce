@@ -2,6 +2,11 @@
 
 use std::{error::Error, fmt, str::FromStr};
 
+mod revisions;
+pub use revisions::{
+    ContentRevision, ControlRevision, Generation, MAX_REVISION_VALUE, RevisionError,
+};
+
 /// A canonical lower-case UUIDv4 value.
 ///
 /// Validation establishes format, not resource existence, authorization,

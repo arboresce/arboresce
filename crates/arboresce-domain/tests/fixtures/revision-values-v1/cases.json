@@ -1,0 +1,885 @@
+{
+  "version": "revision-values-v1",
+  "classification": "Original public synthetic boundary fixtures under MIT OR Apache-2.0; no customer records or credentials.",
+  "scope": "Checked scalar payload/numeric value and immutable advance APIs only. This does not qualify closed tagged wire JSON, raw tokens, canonical JSON, clocks, dates or locators.",
+  "sources": {
+    "docs/requirements/common-contract.md": "64ce5e000773f23dfcad41d4883fbb5fa70e5954dcb137167f3e3d168afca9ac",
+    "crates/arboresce-domain/tests/fixtures/primitives-v1/semantics.json": "6b9234920e3774f21a5b69698ceef5fa361b8824a4f32c6da830e702d65808f7"
+  },
+  "maximum": 999999999999999999,
+  "api": {
+    "invalid_error": "invalid canonical revision value",
+    "exhausted_error": "revision cannot advance",
+    "error_source": null,
+    "types_distinct": true
+  },
+  "payloads": [
+    {
+      "id": "revision-content-payload-one",
+      "kind": "content",
+      "input": "1",
+      "expected": {
+        "accepted": true,
+        "canonical": "1"
+      }
+    },
+    {
+      "id": "revision-content-payload-nine",
+      "kind": "content",
+      "input": "9",
+      "expected": {
+        "accepted": true,
+        "canonical": "9"
+      }
+    },
+    {
+      "id": "revision-content-payload-maximum",
+      "kind": "content",
+      "input": "999999999999999999",
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999999"
+      }
+    },
+    {
+      "id": "revision-content-payload-last-before-maximum",
+      "kind": "content",
+      "input": "999999999999999998",
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999998"
+      }
+    },
+    {
+      "id": "revision-content-payload-exact-large",
+      "kind": "content",
+      "input": "123456789012345678",
+      "expected": {
+        "accepted": true,
+        "canonical": "123456789012345678"
+      }
+    },
+    {
+      "id": "revision-content-payload-zero",
+      "kind": "content",
+      "input": "0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-empty",
+      "kind": "content",
+      "input": "",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-leading-zero",
+      "kind": "content",
+      "input": "01",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-double-zero",
+      "kind": "content",
+      "input": "00",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-plus",
+      "kind": "content",
+      "input": "+1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-negative",
+      "kind": "content",
+      "input": "-1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-fraction",
+      "kind": "content",
+      "input": "1.0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-exponent",
+      "kind": "content",
+      "input": "1e0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-leading-space",
+      "kind": "content",
+      "input": " 1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-trailing-space",
+      "kind": "content",
+      "input": "1 ",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-newline",
+      "kind": "content",
+      "input": "1\n",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-unicode-digit",
+      "kind": "content",
+      "input": "١",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-non-ascii",
+      "kind": "content",
+      "input": "é",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-nul",
+      "kind": "content",
+      "input": "1\u0000",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-above-maximum",
+      "kind": "content",
+      "input": "1000000000000000000",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-overflow",
+      "kind": "content",
+      "input": "18446744073709551616",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-payload-non-digit",
+      "kind": "content",
+      "input": "a1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-one",
+      "kind": "control",
+      "input": "1",
+      "expected": {
+        "accepted": true,
+        "canonical": "1"
+      }
+    },
+    {
+      "id": "revision-control-payload-nine",
+      "kind": "control",
+      "input": "9",
+      "expected": {
+        "accepted": true,
+        "canonical": "9"
+      }
+    },
+    {
+      "id": "revision-control-payload-maximum",
+      "kind": "control",
+      "input": "999999999999999999",
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999999"
+      }
+    },
+    {
+      "id": "revision-control-payload-last-before-maximum",
+      "kind": "control",
+      "input": "999999999999999998",
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999998"
+      }
+    },
+    {
+      "id": "revision-control-payload-exact-large",
+      "kind": "control",
+      "input": "123456789012345678",
+      "expected": {
+        "accepted": true,
+        "canonical": "123456789012345678"
+      }
+    },
+    {
+      "id": "revision-control-payload-zero",
+      "kind": "control",
+      "input": "0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-empty",
+      "kind": "control",
+      "input": "",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-leading-zero",
+      "kind": "control",
+      "input": "01",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-double-zero",
+      "kind": "control",
+      "input": "00",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-plus",
+      "kind": "control",
+      "input": "+1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-negative",
+      "kind": "control",
+      "input": "-1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-fraction",
+      "kind": "control",
+      "input": "1.0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-exponent",
+      "kind": "control",
+      "input": "1e0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-leading-space",
+      "kind": "control",
+      "input": " 1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-trailing-space",
+      "kind": "control",
+      "input": "1 ",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-newline",
+      "kind": "control",
+      "input": "1\n",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-unicode-digit",
+      "kind": "control",
+      "input": "١",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-non-ascii",
+      "kind": "control",
+      "input": "é",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-nul",
+      "kind": "control",
+      "input": "1\u0000",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-above-maximum",
+      "kind": "control",
+      "input": "1000000000000000000",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-overflow",
+      "kind": "control",
+      "input": "18446744073709551616",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-payload-non-digit",
+      "kind": "control",
+      "input": "a1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-one",
+      "kind": "generation",
+      "input": "1",
+      "expected": {
+        "accepted": true,
+        "canonical": "1"
+      }
+    },
+    {
+      "id": "revision-generation-payload-nine",
+      "kind": "generation",
+      "input": "9",
+      "expected": {
+        "accepted": true,
+        "canonical": "9"
+      }
+    },
+    {
+      "id": "revision-generation-payload-maximum",
+      "kind": "generation",
+      "input": "999999999999999999",
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999999"
+      }
+    },
+    {
+      "id": "revision-generation-payload-last-before-maximum",
+      "kind": "generation",
+      "input": "999999999999999998",
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999998"
+      }
+    },
+    {
+      "id": "revision-generation-payload-exact-large",
+      "kind": "generation",
+      "input": "123456789012345678",
+      "expected": {
+        "accepted": true,
+        "canonical": "123456789012345678"
+      }
+    },
+    {
+      "id": "revision-generation-payload-zero",
+      "kind": "generation",
+      "input": "0",
+      "expected": {
+        "accepted": true,
+        "canonical": "0"
+      }
+    },
+    {
+      "id": "revision-generation-payload-empty",
+      "kind": "generation",
+      "input": "",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-leading-zero",
+      "kind": "generation",
+      "input": "01",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-double-zero",
+      "kind": "generation",
+      "input": "00",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-plus",
+      "kind": "generation",
+      "input": "+1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-negative",
+      "kind": "generation",
+      "input": "-1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-fraction",
+      "kind": "generation",
+      "input": "1.0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-exponent",
+      "kind": "generation",
+      "input": "1e0",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-leading-space",
+      "kind": "generation",
+      "input": " 1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-trailing-space",
+      "kind": "generation",
+      "input": "1 ",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-newline",
+      "kind": "generation",
+      "input": "1\n",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-unicode-digit",
+      "kind": "generation",
+      "input": "١",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-non-ascii",
+      "kind": "generation",
+      "input": "é",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-nul",
+      "kind": "generation",
+      "input": "1\u0000",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-above-maximum",
+      "kind": "generation",
+      "input": "1000000000000000000",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-overflow",
+      "kind": "generation",
+      "input": "18446744073709551616",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-payload-non-digit",
+      "kind": "generation",
+      "input": "a1",
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    }
+  ],
+  "numeric": [
+    {
+      "id": "revision-content-numeric-zero",
+      "kind": "content",
+      "input": 0,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-numeric-one",
+      "kind": "content",
+      "input": 1,
+      "expected": {
+        "accepted": true,
+        "canonical": "1"
+      }
+    },
+    {
+      "id": "revision-content-numeric-maximum",
+      "kind": "content",
+      "input": 999999999999999999,
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999999"
+      }
+    },
+    {
+      "id": "revision-content-numeric-above-maximum",
+      "kind": "content",
+      "input": 1000000000000000000,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-content-numeric-u64-maximum",
+      "kind": "content",
+      "input": 18446744073709551615,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-numeric-zero",
+      "kind": "control",
+      "input": 0,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-numeric-one",
+      "kind": "control",
+      "input": 1,
+      "expected": {
+        "accepted": true,
+        "canonical": "1"
+      }
+    },
+    {
+      "id": "revision-control-numeric-maximum",
+      "kind": "control",
+      "input": 999999999999999999,
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999999"
+      }
+    },
+    {
+      "id": "revision-control-numeric-above-maximum",
+      "kind": "control",
+      "input": 1000000000000000000,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-control-numeric-u64-maximum",
+      "kind": "control",
+      "input": 18446744073709551615,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-numeric-zero",
+      "kind": "generation",
+      "input": 0,
+      "expected": {
+        "accepted": true,
+        "canonical": "0"
+      }
+    },
+    {
+      "id": "revision-generation-numeric-one",
+      "kind": "generation",
+      "input": 1,
+      "expected": {
+        "accepted": true,
+        "canonical": "1"
+      }
+    },
+    {
+      "id": "revision-generation-numeric-maximum",
+      "kind": "generation",
+      "input": 999999999999999999,
+      "expected": {
+        "accepted": true,
+        "canonical": "999999999999999999"
+      }
+    },
+    {
+      "id": "revision-generation-numeric-above-maximum",
+      "kind": "generation",
+      "input": 1000000000000000000,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    },
+    {
+      "id": "revision-generation-numeric-u64-maximum",
+      "kind": "generation",
+      "input": 18446744073709551615,
+      "expected": {
+        "accepted": false,
+        "canonical": null
+      }
+    }
+  ],
+  "advance": [
+    {
+      "id": "revision-content-initial-advance",
+      "kind": "content",
+      "before": "1",
+      "accepted": true,
+      "after": "2",
+      "original_after_attempt": "1",
+      "source_id": "content-initial-advance"
+    },
+    {
+      "id": "revision-content-last-success-advance",
+      "kind": "content",
+      "before": "999999999999999998",
+      "accepted": true,
+      "after": "999999999999999999",
+      "original_after_attempt": "999999999999999998",
+      "source_id": "content-last-success-advance"
+    },
+    {
+      "id": "revision-content-maximum-advance",
+      "kind": "content",
+      "before": "999999999999999999",
+      "accepted": false,
+      "after": null,
+      "original_after_attempt": "999999999999999999",
+      "source_id": "content-maximum-advance"
+    },
+    {
+      "id": "revision-control-initial-advance",
+      "kind": "control",
+      "before": "1",
+      "accepted": true,
+      "after": "2",
+      "original_after_attempt": "1",
+      "source_id": "control-initial-advance"
+    },
+    {
+      "id": "revision-control-last-success-advance",
+      "kind": "control",
+      "before": "999999999999999998",
+      "accepted": true,
+      "after": "999999999999999999",
+      "original_after_attempt": "999999999999999998",
+      "source_id": "control-last-success-advance"
+    },
+    {
+      "id": "revision-control-maximum-advance",
+      "kind": "control",
+      "before": "999999999999999999",
+      "accepted": false,
+      "after": null,
+      "original_after_attempt": "999999999999999999",
+      "source_id": "control-maximum-advance"
+    },
+    {
+      "id": "revision-generation-initial-advance",
+      "kind": "generation",
+      "before": "0",
+      "accepted": true,
+      "after": "1",
+      "original_after_attempt": "0",
+      "source_id": "generation-initial-advance"
+    },
+    {
+      "id": "revision-generation-last-success-advance",
+      "kind": "generation",
+      "before": "999999999999999998",
+      "accepted": true,
+      "after": "999999999999999999",
+      "original_after_attempt": "999999999999999998",
+      "source_id": "generation-last-success-advance"
+    },
+    {
+      "id": "revision-generation-maximum-advance",
+      "kind": "generation",
+      "before": "999999999999999999",
+      "accepted": false,
+      "after": null,
+      "original_after_attempt": "999999999999999999",
+      "source_id": "generation-maximum-advance"
+    }
+  ],
+  "traits": [
+    {
+      "id": "revision-content-value-traits",
+      "kind": "content",
+      "values": [
+        1,
+        2
+      ],
+      "expected": {
+        "copied_equal": true,
+        "ordered": true,
+        "distinct_set_size": 2,
+        "debug_first": "ContentRevision(1)",
+        "canonical_first": "1",
+        "canonical_second": "2",
+        "formatter_error_propagates": true
+      }
+    },
+    {
+      "id": "revision-control-value-traits",
+      "kind": "control",
+      "values": [
+        1,
+        2
+      ],
+      "expected": {
+        "copied_equal": true,
+        "ordered": true,
+        "distinct_set_size": 2,
+        "debug_first": "ControlRevision(1)",
+        "canonical_first": "1",
+        "canonical_second": "2",
+        "formatter_error_propagates": true
+      }
+    },
+    {
+      "id": "revision-generation-value-traits",
+      "kind": "generation",
+      "values": [
+        1,
+        2
+      ],
+      "expected": {
+        "copied_equal": true,
+        "ordered": true,
+        "distinct_set_size": 2,
+        "debug_first": "Generation(1)",
+        "canonical_first": "1",
+        "canonical_second": "2",
+        "formatter_error_propagates": true
+      }
+    }
+  ]
+}

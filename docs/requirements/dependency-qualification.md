@@ -67,7 +67,7 @@ graphs and MIT OR Apache-2.0 rights are prepared before offline verification.
 They parse Cargo metadata and Rust source; they are not domain dependencies,
 canonical-JSON qualification, SDK/runtime qualification or an inference provider.
 Actual tool/source/process qualification remains required before dependent use.
-The domain and existing proof retain their standard-library-only graphs.
+The domain and existing proof retain their standard-library-only production graphs.
 
 The supplied-report gate adds direct `serde` exactly `1.0.229`, with no default
 features and only std. This is the already prepared locked public version;
@@ -81,8 +81,22 @@ checksum-verified crate archives before offline qualification. `generic-array`
 retains MIT rights; the other added packages retain their declared MIT/Apache-2.0
 dual rights. This is a tool-only dependency and does not select product signing,
 canonical encoding or domain cryptography. Existing selected package versions and
-the standard-library-only domain/proof graphs remain unchanged. Availability of
+the standard-library-only domain/proof production graphs remain unchanged. Availability of
 an extracted source directory alone is not package-archive preparation evidence.
+
+## Checked revision fixture decoder selection
+
+The checked revision-value tests select `serde_json` exactly `1.0.151` as a
+development-only dependency, using the already prepared locked MIT OR Apache-2.0
+graph. No external package version or host tool changes. The test decoder reads
+independently frozen literal fixture JSON and preserves typed unsigned integer
+values without floating-point coercion. Its maintained support is measured and
+its full owning and standalone qualification precedes accepted reliance.
+
+This selection adds no normal or build dependency to the domain runtime, which
+remains standard-library-only. It does not qualify admission of user JSON,
+original numeric tokens, tagged wire objects or JCS. Those consumers retain their
+own dependency selection, raw-source, semantic and budget gates.
 
 ## Technology-specific evidence
 
