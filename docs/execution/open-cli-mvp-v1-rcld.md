@@ -372,6 +372,37 @@ previously frozen primitive semantics and selected wire vectors retain their exa
 meaning. No catalogue node, actual clock/media input, application port, service or
 product workflow is completed by the scalar subincrement.
 
+Accepted scalar source increment:
+`c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked
+content/control/generation values, exact decimal payloads and bounded advancement.
+The independently frozen 93 scalar cases preserve all earlier identity and tool
+cases. Production remains standard-library-only; the existing pinned JSON decoder
+is development-only and does not admit original wire input.
+
+Fresh owning and public-only standalone Rust 1.99.0, cargo-llvm-cov 0.9.1,
+non-root macOS ARM64 default-feature runs each passed 57 tests, all 1,175 tool,
+42 identifier and 93 scalar case IDs, with zero failed, ignored or filtered cases.
+All 35 maintained source/support files and all 52 required scopes exceed 90% for
+executable lines and regions. Both complete exports have 6839/7046 measured lines
+and 13729/14801 regions. The revision module covers 38/38 lines and 52/52 regions;
+complete LLVM exports retain all instantiation records, without a universal
+instantiation-coverage claim.
+
+Each lane reconciles all 249 public inputs, 39 Rust paths and eight typed targets,
+16 native objects, all 168 fresh raw profiles and 575 matched launch/completion
+pairs. Source/tool/configuration/resource identities agree before and after each
+run. All profiles enter the retained global merge graph exactly once; the
+eight-input merge bound, receipt limit and phase deadline remain unchanged.
+Independent source/public/native review and a distinct delivery witness passed
+before and after the exact source commit. The first full attempt rejected an
+unsupported case-event prefix; that failure remains retained. The corrected
+tests use the collector's existing generic prefix without changing tool policy.
+
+This historical annotation changes only the owning RCLD; all other 248 qualified
+public inputs remain unchanged. It does not claim a fresh run on annotated bytes.
+Whole E203 remains in_progress with every wire/JCS/budget/time/date/locator and
+actual qualification requirement above intact.
+
 ### E204 — Create focused application ports and migration harness
 
 Status: `not_started`. Prerequisites: E203. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
