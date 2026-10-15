@@ -116,6 +116,27 @@ compiler checks and independent review; they do not certify arbitrary Rust data
 flow, macro expansion, authorization or Temporal compatibility. Source inventory,
 maintained helpers and native collection retain the complete testing contract.
 
+The explicit `jcs-source-v1` domain profile selects the separately pinned
+[source graph and serializer subset](dependency-qualification.md#selected-source-json-profile).
+Its source guard admits only the normalized `std::io::Write`, `std::io::Result`
+and `std::io::ErrorKind` type paths and exact `ErrorKind::FileTooLarge` variant
+for the bounded private in-memory writer. The frozen UFCS
+`<W as std::io::Write>::write_all` form retains checks of its self type and
+generic arguments. No `std::io::Error`, root/module/self/glob import or arbitrary
+associated suffix is selected. In particular `Error::last_os_error` cannot read
+ambient OS state. The selected macro-token profile conservatively rejects `use`
+and `extern` imports rather than claiming general macro expansion analysis.
+All existing panic/unsafe/inclusion and platform I/O guards remain active.
+
+Dispatch requires the exact domain owner, version and complete selected graph,
+then applies to every actual production target, including non-rs target paths,
+and recursively found unimported source. The public `check_source` API and the
+Initial and number-profile source policies retain their earlier closed meanings.
+Pure writer type access alone does not grant filesystem, network, console or
+ambient-clock authority. The independent
+[source-profile cases](../../tests/architecture/fixtures/qualified-source-dependencies-v1/README.md)
+precede this exception; actual source/helper/native qualification remains required.
+
 ## Sources of truth
 
 The focused [project profile](project-workflow.md) adds canonical Party/project

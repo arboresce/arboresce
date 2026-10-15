@@ -120,12 +120,23 @@ pub fn check_dependency(
 
 /// Check syntax and the configured explicit import/path boundaries.
 pub fn check_source(layer: Layer, source: &str) -> Result<(), GuardError> {
+    check_source_selected(layer, source, false)
+}
+
+/// Selected by the owning complete workspace graph, never a source filename.
+/// This admits in-memory writer types, not ambient I/O or general macro imports.
+pub(crate) fn check_source_selected(
+    layer: Layer,
+    source: &str,
+    pure_writer: bool,
+) -> Result<(), GuardError> {
     if source.len() > MAX_SOURCE_BYTES {
         return Err(GuardError::InvalidInput);
     }
     let file = syn::parse_file(source).map_err(|_| GuardError::InvalidInput)?;
     let mut guard = SourceGuard {
         layer,
+        pure_writer: pure_writer && layer == Layer::Domain,
         denied: false,
     };
     guard.visit_file(&file);
@@ -138,6 +149,7 @@ pub fn check_source(layer: Layer, source: &str) -> Result<(), GuardError> {
 
 struct SourceGuard {
     layer: Layer,
+    pure_writer: bool,
     denied: bool,
 }
 
@@ -155,13 +167,21 @@ impl SourceGuard {
             return;
         }
         let second = parts.get(1).map(String::as_str);
+        let writer_type = self.pure_writer
+            && !glob
+            && first == "std"
+            && second == Some("io")
+            && ((parts.len() == 3
+                && matches!(parts[2].as_str(), "Write" | "Result" | "ErrorKind"))
+                || (parts.len() == 4 && parts[2] == "ErrorKind" && parts[3] == "FileTooLarge"));
         let denied = match first {
             "std" | "core" => {
                 (importing && parts.len() == 1)
                     || matches!(
                         second,
-                        Some("io" | "fs" | "net" | "env" | "process" | "thread" | "random")
+                        Some("fs" | "net" | "env" | "process" | "thread" | "random")
                     )
+                    || (second == Some("io") && !writer_type)
                     || (second == Some("os")
                         && !(parts.get(2).is_some_and(|p| p == "raw")
                             || (parts
@@ -246,6 +266,7 @@ impl SourceGuard {
                 TokenTree::Ident(ident) => {
                     let spelling = word(ident);
                     self.denied |= matches!(spelling.as_str(), "unsafe" | "include")
+                        || (self.pure_writer && matches!(spelling.as_str(), "use" | "extern"))
                         || panic_name(&spelling)
                         || (self.layer.pure()
                             && matches!(
@@ -275,6 +296,32 @@ impl SourceGuard {
 }
 
 impl<'ast> Visit<'ast> for SourceGuard {
+    fn visit_expr_path(&mut self, n: &'ast syn::ExprPath) {
+        // Syn stores a UFCS trait method in one path. Admit only the frozen
+        // Write::write_all form, while still visiting self and all arguments.
+        if self.pure_writer
+            && let Some(qualified) = &n.qself
+            && qualified.position == 3
+            && n.path.segments.len() == 4
+            && n.path.segments.iter().map(|s| word(&s.ident)).eq([
+                "std",
+                "io",
+                "Write",
+                "write_all",
+            ])
+        {
+            for attribute in &n.attrs {
+                self.visit_attribute(attribute);
+            }
+            self.visit_qself(qualified);
+            for segment in &n.path.segments {
+                self.visit_path_arguments(&segment.arguments);
+            }
+            return;
+        }
+        visit::visit_expr_path(self, n);
+    }
+
     fn visit_item_use(&mut self, n: &'ast syn::ItemUse) {
         self.imports(&n.tree, &mut Vec::new());
     }

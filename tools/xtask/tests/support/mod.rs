@@ -584,6 +584,48 @@ pub mod native_trace {
     }
 }
 
+pub mod qualified_source {
+    use super::{PreparedRoot, qualified_number};
+    use serde_json::Value;
+    use std::{fs, io};
+
+    pub fn fixture() -> Value {
+        serde_json::from_str(include_str!(
+            "../../../../tests/architecture/fixtures/qualified-source-dependencies-v1/cases.json"
+        ))
+        .unwrap()
+    }
+
+    /// Actual input metadata and source placement, without expected decisions.
+    pub fn metadata(
+        root: &PreparedRoot,
+        input: &Value,
+        source_case: Option<&Value>,
+    ) -> io::Result<Value> {
+        let mut metadata = qualified_number::metadata(root, input)?;
+        if let Some(row) = source_case {
+            let directory = root.path.join("crates/arboresce-domain");
+            let path = match row["placement"].as_str().unwrap_or("main") {
+                "unimported" => directory.join("src/unimported.rs"),
+                "non-rs-target" => {
+                    let path = directory.join("src/actual.txt");
+                    let package = metadata["packages"]
+                        .as_array_mut()
+                        .unwrap()
+                        .iter_mut()
+                        .find(|p| p["id"] == "arboresce-domain")
+                        .unwrap();
+                    package["targets"][0]["src_path"] = serde_json::json!(path);
+                    path
+                }
+                _ => directory.join("src/lib.rs"),
+            };
+            fs::write(path, row["source"].as_str().unwrap())?;
+        }
+        Ok(metadata)
+    }
+}
+
 pub mod qualified_number {
     use super::PreparedRoot;
     use serde_json::{Value, json};

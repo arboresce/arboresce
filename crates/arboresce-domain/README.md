@@ -120,6 +120,25 @@ pairs, errors, clock call counts, precision and policy expectations before this
 consumer. Whole source/native qualification and all actual clock/service/product
 gates remain required.
 
+`SourceJson::parse` checks complete raw source bytes under the separate
+[source processing profile](../../docs/requirements/resource-profiles.md#bounded-source-json-processing).
+It rejects invalid UTF-8, grammar, Unicode, decoded duplicate keys and unsupported
+original numbers throughout the source before any path selection. Ownership is
+flat: child indices do not recursively own descendants. The caller's bytes are
+never modified. The supplied complete source has its own byte identity.
+
+`select` resolves a checked `JsonPointer`, preserves exact object names and
+requires canonical unsigned array index spelling. It preflights selected depth,
+nodes and complete escaped size, then uses the selected vetted JCS adapter and
+bounded in-memory writer. `CanonicalJsonSelection` exposes immutable `as_bytes`,
+`byte_length` and `sha256`; it returns no partial output or digest. Its equality
+and hash include complete canonical bytes. Debug and fixed error diagnostics
+retain no source or selected content. The
+[source fixtures](tests/fixtures/source-json-v1/README.md) preserve independent
+literal, boundary, property, mutation, trait and original pointer expectations.
+These APIs do not establish acquisition retention, shared Python identity,
+signature validity or an operational processing service.
+
 Validation proves format. Resource existence, ownership, authenticated principal
 identity, random generation and ordering belong to their actual consumers.
 The library has no transport, storage, ambient clock or random source.

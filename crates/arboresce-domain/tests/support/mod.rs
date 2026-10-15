@@ -1,5 +1,78 @@
 use std::fmt;
 
+pub mod source_support {
+    use arboresce_domain::{CanonicalJsonSelection, JsonPointer, SourceJson};
+    use serde_json::Value;
+
+    pub fn fixture() -> Value {
+        serde_json::from_str(include_str!("../fixtures/source-json-v1/cases.json")).unwrap()
+    }
+
+    /// Materialize the frozen recipe's bytes without deriving expected meaning.
+    pub fn recipe(input: &Value) -> Vec<u8> {
+        if let Some(text) = input.as_str() {
+            return text.as_bytes().to_vec();
+        }
+        if let Some(parts) = input.get("parts") {
+            return parts.as_array().unwrap().iter().flat_map(recipe).collect();
+        }
+        if let Some(text) = input.get("repeat") {
+            return text
+                .as_str()
+                .unwrap()
+                .repeat(input["count"].as_u64().unwrap() as usize)
+                .into_bytes();
+        }
+        let count = input["object_members"].as_u64().unwrap() as usize;
+        let prefix = input["key_prefix"].as_str().unwrap();
+        let mut output = vec![b'{'];
+        for offset in 0..count {
+            if offset != 0 {
+                output.push(b',');
+            }
+            let index = if input["reverse"] == true {
+                count - offset - 1
+            } else {
+                offset
+            };
+            output.extend(serde_json::to_vec(&format!("{prefix}{index:06}")).unwrap());
+            output.push(b':');
+            output.extend(input["value_utf8"].as_str().unwrap().as_bytes());
+        }
+        if let Some(extra) = input.get("additional_members") {
+            for (index, member) in extra.as_array().unwrap().iter().enumerate() {
+                if count + index != 0 {
+                    output.push(b',');
+                }
+                output.extend(serde_json::to_vec(member["key"].as_str().unwrap()).unwrap());
+                output.push(b':');
+                output.extend(member["value_utf8"].as_str().unwrap().as_bytes());
+            }
+        }
+        output.push(b'}');
+        output
+    }
+
+    pub fn source(row: &Value) -> Vec<u8> {
+        if let Some(bytes) = row.get("source_bytes") {
+            return bytes
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|v| v.as_u64().unwrap() as u8)
+                .collect();
+        }
+        recipe(row.get("source_utf8").unwrap_or(&row["source_recipe"]))
+    }
+
+    /// Actual stage observation only. No oracle enters the parser or selector.
+    pub fn select(source: &[u8], pointer: &str) -> Result<CanonicalJsonSelection, &'static str> {
+        let source = SourceJson::parse(source).map_err(|_| "parse")?;
+        let pointer = JsonPointer::parse(pointer).map_err(|_| "pointer")?;
+        source.select(&pointer).map_err(|_| "select")
+    }
+}
+
 pub mod number_support {
     use arboresce_domain::CanonicalJsonNumber;
     use serde_json::{Value, json};

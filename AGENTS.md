@@ -22,6 +22,10 @@ policy membership or qualified IANA consumers.
 The scalar canonical-number consumer selects explicit pure canonicalizer and
 software SHA-256 dependencies. Its bounded token API and versioned dependency
 guard retain separate full source-JSON, selection and whole-checkpoint gates.
+The source JSON consumer adds complete bounded raw-source admission and pure
+canonical selection through the explicit `jcs-source-v1` profile. Its processing
+limits and private checked serializer retain separate compiler/resource/native,
+Python agreement and whole-checkpoint acceptance gates.
 It retains the
 existing binding/build proof. The API and
 product runtime remain unfinished. Use the

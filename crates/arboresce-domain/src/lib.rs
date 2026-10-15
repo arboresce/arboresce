@@ -8,6 +8,14 @@ pub use canonical_number::{
     MAX_JSON_NUMBER_TOKEN_BYTES,
 };
 
+mod source_json;
+pub use source_json::{
+    CanonicalJsonSelection, InvalidJsonSelection, InvalidSourceJson, MAX_JSON_ARRAY_ELEMENTS,
+    MAX_JSON_OBJECT_MEMBERS, MAX_JSON_SOURCE_BYTES, MAX_JSON_SOURCE_DEPTH, MAX_JSON_SOURCE_MEMBERS,
+    MAX_JSON_SOURCE_NODES, MAX_SELECTED_JSON_BYTES, MAX_SELECTED_JSON_DEPTH,
+    MAX_SELECTED_JSON_NODES, SourceJson,
+};
+
 mod event_time;
 pub use event_time::{
     EventTimes, InvalidObservedTime, ObservedTime, ObservedValue, RecordedTime, ReportingDate,

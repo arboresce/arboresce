@@ -160,7 +160,8 @@ The v1 selection profile makes these additional, deliberate choices:
   Maximum canonical output is 10485760 bytes. These ceilings bound traversal,
   hashing and retained canonical work; they do not declare decoder performance
   or reduce the acquisition limit for retaining a valid original.
-- JSON source parsing has a separately declared, qualified processing profile
+- JSON source parsing has a separately declared, qualified
+  [processing profile](resource-profiles.md#bounded-source-json-processing)
   for aggregate depth, members, allocation and execution budgets. Check that
   profile before traversal; a short pointer is not permission to parse an
   unbounded document. Stream canonical output through a checked byte budget

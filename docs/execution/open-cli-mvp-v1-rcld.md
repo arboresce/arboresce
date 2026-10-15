@@ -531,6 +531,27 @@ Full source JSON parsing/JCS, aggregate processing, selected
 depth/node/output budgets, actual pointer selection, cross-language identity and
 whole E203 acceptance remain mandatory. No service or product gate is inferred.
 
+Next bounded source increment: complete `SourceJson` admission and immutable
+`CanonicalJsonSelection` under `source-json-processing-v1`. Independently frozen
+raw grammar, Unicode, off-path failures, exact decimal, UTF-16 ordering, pointer,
+trait, property/mutation and otherwise-valid exact/one-over boundaries precede
+the consumer. The original 28 pointer cases remain unchanged. Whole input and
+selected quotas are distinct; the combined maximum reaches depth 128 with a
+64-token pointer and selected depth 64, 65536 nodes and 10 MiB output. A flat owned
+node vector and child indices preserve bounded error cleanup. Complete original
+validation precedes selection and no partial digest is exposed.
+
+The separate versioned source dependency profile adds only already locked
+serde/serde_json direct roots, retaining all 23 registry records and exact old
+Initial/number policy meanings. Its minimal in-memory writer-type exception
+excludes Error and ambient last_os_error; conservative macro-import checks and
+exact qualified writer calls preserve nested source guards. Independent review
+found the broader unconsumed Error proposal unsafe; it was narrowed before
+consumer use. Actual source/resource/compiler/native proof, complete fresh owning
+and public-only standalone strict qualification, source/public review and distinct
+delivery remain required. Narrow successful tests do not qualify this increment.
+Qualified Python agreement still precedes shared selected identity and whole E203.
+
 Accepted scalar source increment:
 `c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked
 content/control/generation values, exact decimal payloads and bounded advancement.

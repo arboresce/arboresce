@@ -10,6 +10,44 @@ use arboresce_xtask::{
 mod support;
 
 #[test]
+fn qualified_source_dependency_profiles() {
+    let fixture = support::qualified_source::fixture();
+    let mut seen = BTreeSet::new();
+    for row in fixture["cases"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mut input = fixture["base_input"].clone();
+        for patch in row["patches"].as_array().unwrap() {
+            *input.pointer_mut(patch["path"].as_str().unwrap()).unwrap() = patch["value"].clone();
+        }
+        let root = support::PreparedRoot::new().unwrap();
+        let metadata = support::qualified_source::metadata(&root, &input, None).unwrap();
+        let actual = check_workspace(&root.path, &metadata.to_string());
+        assert_eq!(actual.is_ok(), row["accepted"], "{id}: {actual:?}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 121);
+    for row in fixture["source_cases"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mut input = fixture["base_input"].clone();
+        input["profile"] = row["profile"].clone();
+        if row["profile"] == "initial-v1" {
+            input["graph"]["roots"] = serde_json::json!([]);
+        }
+        if row["profile"] == "jcs-number-v1" {
+            input["graph"] = support::qualified_number::fixture()["base_input"]["graph"].clone();
+        }
+        let root = support::PreparedRoot::new().unwrap();
+        let metadata = support::qualified_source::metadata(&root, &input, Some(row)).unwrap();
+        let actual = check_workspace(&root.path, &metadata.to_string());
+        assert_eq!(actual.is_ok(), row["accepted"], "{id}: {actual:?}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 197);
+}
+
+#[test]
 fn qualified_number_dependency_profiles() {
     let fixture = support::qualified_number::fixture();
     let mut seen = BTreeSet::new();

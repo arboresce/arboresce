@@ -55,6 +55,70 @@ profile amendment that preserves the earlier criterion and its result. Local
 inference has its own hardware/context envelope; hosted-inference memory does not
 qualify a local model. Unsupported format or scale is rejected and documented.
 
+## Bounded source JSON processing
+
+`source-json-processing-v1` is the separate pure parsing and selection profile
+for the [source JSON semantics](observation-contract.md#json-pointer-and-selected-value-identity).
+It does not inherit control-object key, string, minimum-length or depth limits.
+Admission checks the entire original, including values outside the selected path.
+An unsupported selection does not authorize deletion or alteration of an original
+retained by acquisition.
+
+| Dimension | Inclusive ceiling |
+| --- | --- |
+| Original UTF-8 input | 10485760 bytes, checked before decoding |
+| Whole value depth, root counted as one | 128 |
+| Whole value nodes, excluding object keys | 262144 |
+| Total object members | 131072 |
+| Members in one object | 65536 |
+| Elements in one array | 131072 |
+| Original numeric token | 4096 ASCII bytes, with exact decimal admission |
+| Selected value depth, root counted as one | 64 |
+| Selected value nodes, excluding keys | 65536 |
+| Complete selected canonical output | 10485760 bytes |
+
+The requested-payload/stack estimate has a 1073741824-byte ceiling. The logical
+byte/fixed-node work estimate has a 68719476736-unit ceiling. With I,N,M the whole
+input bytes, nodes and members, C,S the selected canonical bytes and nodes, D the
+whole depth and Ds the selected depth, their reservation models are:
+
+```text
+estimated bytes = 8I + 512N + 256M + 32C + 1024S + 8192D + 1048576
+logical work   = 64(I+C) + 8192N + 256(I+M)*18 + 16Ds*C + 4096S + 1048576
+```
+
+The structural ceilings imply conservative maxima of 656408576 estimated bytes
+and 63418925056 work units. These are reservation estimates, not allocator or
+RSS measurements, machine instructions, latency or pure host-OOM recovery.
+They do not replace actual supported-platform native maxima, wall/CPU/memory
+measurements, process limits and failure supervision. Own fallible reservation
+errors reject admission. String decoding, scalar formatting and the selected
+canonicalizer also use infallible allocations; unavailable host memory may abort
+the consuming process.
+
+The source proof must bind actual compiler layouts (Node at most 128 and Member
+at most 32 bytes), explicit capped minimum/doubling requests, child-index storage,
+single-token decoder scratch and nonrecursive owned cleanup. For N>=2, Node
+old/new overlap is at most384N bytes and array child slots at most 32(N-1), jointly
+below 512N. At N=1 the initial four slots use512 bytes and no child edges exist.
+Member storage at most 128M plus two exact-size index buffers at 16M fits 256M.
+Decoded text, one-token scratch/result and relocation overlap must fit 8I.
+
+Selected exact escaped output length is checked before opaque JCS object work.
+Completed sibling properties and active prefixes partition selected content;
+popping an object retains properties while copying into its parent or output.
+The 32C allowance must cover this overlap, requested vector growth, final output,
+key re-decode and UTF-16 storage; 1024S separately covers fixed container overhead.
+Control escaping can expand sixfold. A final writer cap alone is insufficient.
+Actual parser/serializer frames must establish 8192D stack dominance. Own decoded
+key merge/equality checks take at most 17 passes; 18 is the surrounding-work factor,
+not the pinned BTree insertion comparison bound. The selected Rust1.99 BTree has
+at most six levels at 65536 keys, hence at most 66 comparisons per insertion.
+Formatter callbacks allocate boxed writer references; charge their repeated
+escape activity and complete output/hash passes to I+C. Nested copy/growth work
+must fit 16Ds*C. Independently review these source and compiler obligations and
+exercise actual maximum and otherwise-valid one-over inputs before acceptance.
+
 ## Listing and selection profile qualification
 
 The [selection contract](selection-contract.md) owns exact wire compositions and

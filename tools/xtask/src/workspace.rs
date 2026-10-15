@@ -10,7 +10,7 @@ use sha2::{Digest, Sha256};
 
 use crate::{
     Action,
-    architecture::{GuardError, Layer, check_dependency, check_source},
+    architecture::{GuardError, Layer, check_dependency, check_source_selected},
 };
 
 const MAX_METADATA_BYTES: usize = 8 * 1024 * 1024;
@@ -79,6 +79,7 @@ pub fn registered_layer(name: &str, version: &str) -> Result<Layer, GuardError> 
 enum DependencyProfile {
     Initial,
     JcsNumberV1,
+    JcsSourceV1,
 }
 
 impl DependencyProfile {
@@ -97,6 +98,13 @@ impl DependencyProfile {
             {
                 Ok(Self::JcsNumberV1)
             }
+            Some(Value::String(name))
+                if name == "jcs-source-v1"
+                    && text(package, "name")? == "arboresce-domain"
+                    && text(package, "version")? == "0.0.0" =>
+            {
+                Ok(Self::JcsSourceV1)
+            }
             _ => Err(GuardError::Dependency),
         }
     }
@@ -112,6 +120,11 @@ impl DependencyProfile {
         }
         match (kind, text(package, "name")?, text(package, "version")?) {
             ("normal", "serde_json_canonicalizer", "0.4.1") | ("normal", "sha2", "0.10.9") => {
+                Ok(())
+            }
+            ("normal", "serde", "1.0.229") | ("normal", "serde_json", "1.0.151")
+                if self == Self::JcsSourceV1 =>
+            {
                 Ok(())
             }
             _ => Err(GuardError::Dependency),
@@ -180,12 +193,21 @@ fn selected_edges<'a>(
 
 /// Bind the complete selected closure, including conditional/build edges and
 /// workspace-unified features. This internal tool encoding is not product JCS.
-fn check_number_graph(
+fn check_qualified_graph(
+    profile: DependencyProfile,
     owner: &Value,
     packages: &CargoRows<'_>,
     nodes: &CargoRows<'_>,
 ) -> Result<(), GuardError> {
-    const GRAPH_SHA256: &str = "d6d37e664f5971fa19c2d73ae893a46d74a5d89302083987d0f39c5d9f4dd014";
+    let expected_sha256 = match profile {
+        DependencyProfile::JcsNumberV1 => {
+            "d6d37e664f5971fa19c2d73ae893a46d74a5d89302083987d0f39c5d9f4dd014"
+        }
+        DependencyProfile::JcsSourceV1 => {
+            "5f819d934d2598938c580eafa2b79186a9b34351e82b6976cf27e7dec00beb8f"
+        }
+        DependencyProfile::Initial => return Err(GuardError::Dependency),
+    };
     let (roots, mut pending) = selected_edges(owner, packages, true)?;
     let mut seen = BTreeSet::new();
     let mut records = BTreeMap::new();
@@ -214,7 +236,7 @@ fn check_number_graph(
     let graph = json!({"owner_features":selected_features(owner)?,"roots":roots,
         "packages":records.into_values().collect::<Vec<_>>()});
     let bytes = serde_json::to_vec(&graph).map_err(|_| GuardError::InvalidInput)?;
-    if format!("{:x}", Sha256::digest(bytes)) != GRAPH_SHA256 {
+    if format!("{:x}", Sha256::digest(bytes)) != expected_sha256 {
         return Err(GuardError::Dependency);
     }
     Ok(())
@@ -278,8 +300,8 @@ pub fn check_workspace(root: &Path, metadata: &str) -> Result<(), GuardError> {
                 profile.check(layer, target, kind)?;
             }
         }
-        if profile == DependencyProfile::JcsNumberV1 {
-            check_number_graph(node, &packages, &nodes)?;
+        if profile != DependencyProfile::Initial {
+            check_qualified_graph(profile, node, &packages, &nodes)?;
         }
         let manifest = Path::new(text(package, "manifest_path")?)
             .canonicalize()
@@ -290,9 +312,15 @@ pub fn check_workspace(root: &Path, metadata: &str) -> Result<(), GuardError> {
         let package_root = manifest.parent().ok_or(GuardError::InvalidInput)?;
         let mut files = check_targets(&root, package_root, package)?;
         for source in &files {
-            check_file(source, layer)?;
+            check_file(source, layer, profile)?;
         }
-        scan_sources(package_root, &package_root.join("src"), layer, &mut files)?;
+        scan_sources(
+            package_root,
+            &package_root.join("src"),
+            layer,
+            profile,
+            &mut files,
+        )?;
         if files.is_empty() {
             return Err(GuardError::InvalidInput);
         }
@@ -365,6 +393,7 @@ fn scan_sources(
     root: &Path,
     directory: &Path,
     layer: Layer,
+    profile: DependencyProfile,
     sources: &mut BTreeSet<PathBuf>,
 ) -> Result<(), GuardError> {
     if fs::symlink_metadata(directory)
@@ -389,25 +418,25 @@ fn scan_sources(
             return Err(GuardError::InvalidInput);
         }
         if kind.is_dir() {
-            scan_sources(root, &path, layer, sources)?;
+            scan_sources(root, &path, layer, profile, sources)?;
         } else if path.extension().is_some_and(|x| x == "rs") {
             if sources.len() >= MAX_SOURCE_FILES && !sources.contains(&path) {
                 return Err(GuardError::InvalidInput);
             }
             if sources.insert(path.clone()) {
-                check_file(&path, layer)?;
+                check_file(&path, layer, profile)?;
             }
         }
     }
     Ok(())
 }
 
-fn check_file(path: &Path, layer: Layer) -> Result<(), GuardError> {
+fn check_file(path: &Path, layer: Layer, profile: DependencyProfile) -> Result<(), GuardError> {
     let mut source = String::new();
     fs::File::open(path)
         .map_err(|_| GuardError::InvalidInput)?
         .take(MAX_SOURCE_BYTES + 1)
         .read_to_string(&mut source)
         .map_err(|_| GuardError::InvalidInput)?;
-    check_source(layer, &source)
+    check_source_selected(layer, &source, profile == DependencyProfile::JcsSourceV1)
 }

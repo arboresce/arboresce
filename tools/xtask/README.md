@@ -46,8 +46,8 @@ dev dependencies grant no production import authority. Configured syntax/import
 guards complement independent code review and actual compiler checks; they do
 not certify arbitrary data flow or an actual SDK/runtime.
 
-The domain's explicit package metadata `architecture-profile = "jcs-number-v1"`
-selects the first pure scalar-number dependency graph. The actual workspace
+The explicit package profile `jcs-number-v1` retains the first pure scalar-number
+dependency graph. The actual workspace
 checker dispatches that profile and binds exact normal roots, aliases, kinds,
 conditions, complete transitive normal/build graph and effective features.
 The [selected inputs](../../tests/architecture/fixtures/qualified-number-dependencies-v1/README.md)
@@ -56,6 +56,30 @@ Initial profile; unknown/wrong-type selections or selection by another owner fai
 The graph fingerprint is a fixed internal tool encoding, not domain JCS. Changes
 require a new reviewed profile and fresh affected qualification. Controlled dev
 edges grant no production authority; source checks remain required.
+
+The domain now selects `architecture-profile = "jcs-source-v1"` for the bounded
+source parser and private JCS adapter. It adds only the already locked exact
+serde/serde_json direct roots and binds the separately frozen complete graph.
+Its [source-profile fixtures](../../tests/architecture/fixtures/qualified-source-dependencies-v1/README.md)
+retain all earlier graph/policy meanings and test the selected in-memory writer
+type exception. Only Write/Result/ErrorKind and FileTooLarge are selected; Error
+and its ambient last_os_error are closed. Macro imports are conservatively
+rejected in this profile. Actual targets and recursive/unimported source receive
+the same selected policy. Public check_source, Initial and number source guards
+remain unchanged; this does not certify arbitrary data flow or macro expansion.
+
+For selected domain frame inspection, retain compiler assembly with the exact
+toolchain and profile. This is evidence for the source processing stack model,
+alongside actual maximum native inputs; it does not replace strict collection:
+
+```sh
+cargo rustc --locked --offline -p arboresce-domain --lib -- --emit=asm
+RUSTFLAGS='-C instrument-coverage --cfg=coverage' cargo rustc --locked --offline -p arboresce-domain --lib -- --emit=asm
+```
+
+Apply the output router as above. Compiler assembly, raw runs and measurements
+belong outside the source tree. Inspect actual generated frames and called
+dependencies before claiming a stack bound.
 
 The independently approved [literals](../../tests/architecture/fixtures/guard-v1/README.md)
 freeze policy, command vectors and streams. Native controlled Cargo peers prove

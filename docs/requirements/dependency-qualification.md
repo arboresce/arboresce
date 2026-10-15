@@ -150,6 +150,40 @@ selection, cross-language agreement and E10 signing remain required at their
 consumers. Preserve every closed Initial fixture meaning and all actual source,
 native, service, release and whole-checkpoint gates.
 
+## Selected source JSON profile
+
+`jcs-source-v1` selects the same 23 locked registry packages, archives and effective
+features as the scalar profile, adding direct normal `serde` exactly 1.0.229 and
+`serde_json` exactly 1.0.151 roots for the private checked AST adapter and bounded
+single-string decoder. It retains the canonicalizer 0.4.1 and software sha2 0.10.9
+roots. No derive, arbitrary_precision, preserve_order or additional SHA feature
+is selected. Preserve every existing registry lock record. The full conservative
+normal/build graph's internal tool-JSON SHA-256 is
+`5f819d934d2598938c580eafa2b79186a9b34351e82b6976cf27e7dec00beb8f`.
+The [selected source dependency inputs](../../tests/architecture/fixtures/qualified-source-dependencies-v1/README.md)
+bind exact roots, aliases, conditions, package origins, versions, features,
+archive checksums and distinct source rights. Old Initial and number profiles
+retain their meanings and separate literal fixtures.
+
+Own complete UTF-8/grammar/duplicate/raw-number validation precedes selection.
+Only one already-delimited quoted token enters `serde_json::from_slice::<String>`;
+general `Value` source intake and approximate original numeric conversion are
+unselected. Only private checked nodes implement Serialize: null, booleans,
+admitted finite scalar numbers, strings, sequences and maps. Preflight exact
+escaped size, nodes and depth before canonicalizer `to_writer` with a bounded
+in-memory destination. Raw fragments, convenience pipe, unsafe conversion,
+arbitrary framework values and public Serialize surfaces remain unselected.
+
+The expanded vetted subset includes JCS UTF-16 key sorting, duplicate checks,
+key/value buffers, nested object completion, all string escapes and the internal
+bounded encoded-key `Value::String` re-decode. It has separate allocation/work/
+stack obligations in [the processing profile](resource-profiles.md#bounded-source-json-processing).
+Verify exact archive and source-rights hashes before offline consumption. Fresh
+owning and public-only standalone source/native/strict qualification is required;
+locked resolution is not behavioral qualification. Independently qualified Python
+agreement still precedes shared selected identity and whole domain completion.
+Signing, money, transport and real service qualification remain separate consumers.
+
 ## Technology-specific evidence
 
 The experiment identifiers below refer to the complete criteria in

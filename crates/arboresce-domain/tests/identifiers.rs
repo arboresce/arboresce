@@ -6,6 +6,205 @@ use arboresce_domain::{Identifier, InvalidIdentifier};
 mod expected;
 mod support;
 
+fn assert_source_selection(row: &serde_json::Value) {
+    use support::source_support as s;
+    let source = s::source(row);
+    let id = row["id"].as_str().unwrap();
+    if let Some(length) = row.get("original_bytes") {
+        use sha2::{Digest, Sha256};
+        assert_eq!(source.len() as u64, length.as_u64().unwrap(), "{id}");
+        assert_eq!(
+            format!("{:x}", Sha256::digest(&source)),
+            row["source_sha256"],
+            "{id}"
+        );
+    }
+    let expected = &row["expected"];
+    match s::select(&source, row["pointer"].as_str().unwrap()) {
+        Ok(value) => {
+            assert_eq!(expected["stage"], "success", "{id}");
+            let canonical = s::recipe(
+                expected
+                    .get("canonical_utf8")
+                    .unwrap_or(&expected["canonical_recipe"]),
+            );
+            assert_eq!(value.as_bytes(), canonical, "{id}");
+            assert_eq!(
+                value.byte_length() as u64,
+                expected["canonical_bytes"],
+                "{id}"
+            );
+            assert_eq!(value.sha256().to_string(), expected["sha256"], "{id}");
+        }
+        Err(stage) => assert_eq!(stage, expected["stage"].as_str().unwrap(), "{id}"),
+    }
+    println!("collector case={id} pid={}", std::process::id());
+}
+
+#[test]
+fn complete_source_json_literal_selection() {
+    let fixture = support::source_support::fixture();
+    let rows = fixture["literal_cases"].as_array().unwrap();
+    assert_eq!(rows.len(), 86);
+    let mut seen = HashSet::new();
+    for row in rows {
+        assert!(seen.insert(row["id"].as_str().unwrap()));
+        assert_source_selection(row);
+    }
+}
+
+#[test]
+fn complete_source_json_boundary_selection() {
+    use arboresce_domain::*;
+    let fixture = support::source_support::fixture();
+    let profile = &fixture["processing_profile"];
+    for (name, actual) in [
+        ("input_bytes", MAX_JSON_SOURCE_BYTES),
+        ("whole_depth", MAX_JSON_SOURCE_DEPTH),
+        ("whole_nodes", MAX_JSON_SOURCE_NODES),
+        ("total_object_members", MAX_JSON_SOURCE_MEMBERS),
+        ("per_object_members", MAX_JSON_OBJECT_MEMBERS),
+        ("per_array_elements", MAX_JSON_ARRAY_ELEMENTS),
+        ("number_token_bytes", MAX_JSON_NUMBER_TOKEN_BYTES),
+        ("selected_depth", MAX_SELECTED_JSON_DEPTH),
+        ("selected_nodes", MAX_SELECTED_JSON_NODES),
+        ("selected_output_bytes", MAX_SELECTED_JSON_BYTES),
+    ] {
+        assert_eq!(profile[name], actual as u64);
+    }
+    let rows = fixture["boundary_cases"].as_array().unwrap();
+    assert_eq!(rows.len(), 41);
+    let mut seen = HashSet::new();
+    for row in rows {
+        assert!(seen.insert(row["id"].as_str().unwrap()));
+        assert_source_selection(row);
+    }
+}
+
+#[test]
+fn bounded_source_json_properties() {
+    let fixture = support::source_support::fixture();
+    let rows = fixture["property_cases"].as_array().unwrap();
+    assert_eq!(rows.len(), 640);
+    let mut seen = HashSet::new();
+    for row in rows {
+        assert!(seen.insert(row["id"].as_str().unwrap()));
+        assert_source_selection(row);
+    }
+}
+
+#[test]
+fn original_json_pointer_selected_identities() {
+    use support::source_support as s;
+    let fixture: serde_json::Value =
+        serde_json::from_str(include_str!("fixtures/primitives-v1/semantics.json")).unwrap();
+    let rows = fixture["groups"]["json_pointer"].as_array().unwrap();
+    assert_eq!(rows.len(), 28);
+    let mut seen = HashSet::new();
+    for row in rows {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let result = s::select(
+            row["source_json"].as_str().unwrap().as_bytes(),
+            row["pointer"].as_str().unwrap(),
+        );
+        assert_eq!(result.is_ok(), row["accepted"], "{id}");
+        if let Ok(value) = result {
+            assert_eq!(
+                value.as_bytes(),
+                row["selected_canonical_utf8"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+            assert_eq!(value.sha256().to_string(), row["selected_sha256"], "{id}");
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
+fn immutable_canonical_selection_values() {
+    use arboresce_domain::{JsonPointer, SourceJson};
+    use support::source_support as s;
+    let fixture = s::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["traits"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        if let Some(left) = row.get("left") {
+            let a = s::select(left.as_str().unwrap().as_bytes(), "").unwrap();
+            let b = s::select(row["right"].as_str().unwrap().as_bytes(), "").unwrap();
+            assert_eq!(a == b, row["expected_equal"]);
+            assert_eq!(a.as_bytes() == b.as_bytes(), row["expected_equal"]);
+            assert_eq!(a.sha256() == b.sha256(), row["expected_equal"]);
+        } else {
+            let original = row["source"].as_str().unwrap().as_bytes();
+            let saved = original.to_vec();
+            match SourceJson::parse(original) {
+                Err(error) => {
+                    assert_eq!(error.to_string(), row["display"]);
+                    assert_eq!(format!("{error:?}"), row["debug"]);
+                    assert!(error.source().is_none());
+                    assert!(write!(&mut support::RejectedOutput, "{error}").is_err());
+                }
+                Ok(source) => {
+                    if id == "source-json-redacted-source-debug" {
+                        assert_eq!(format!("{source:?}"), row["debug"]);
+                        assert!(write!(&mut support::RejectedOutput, "{source:?}").is_err());
+                    } else {
+                        if let Some(invalid) = row.get("invalid_pointer") {
+                            assert!(
+                                source
+                                    .select(&JsonPointer::parse(invalid.as_str().unwrap()).unwrap())
+                                    .is_err()
+                            );
+                        }
+                        let pointer =
+                            JsonPointer::parse(row["pointer"].as_str().unwrap_or("")).unwrap();
+                        match source.select(&pointer) {
+                            Err(error) => {
+                                assert_eq!(error.to_string(), row["display"]);
+                                assert_eq!(format!("{error:?}"), row["debug"]);
+                                assert!(error.source().is_none());
+                                assert!(write!(&mut support::RejectedOutput, "{error}").is_err());
+                            }
+                            Ok(value) => {
+                                assert_eq!(value, source.select(&pointer).unwrap());
+                                assert_eq!(value, value.clone());
+                                assert_eq!(
+                                    [value.clone(), value.clone()]
+                                        .into_iter()
+                                        .collect::<HashSet<_>>()
+                                        .len(),
+                                    1
+                                );
+                                if let Some(canonical) = row.get("canonical") {
+                                    assert_eq!(
+                                        value.as_bytes(),
+                                        canonical.as_str().unwrap().as_bytes()
+                                    );
+                                }
+                                if let Some(length) = row.get("byte_length") {
+                                    assert_eq!(
+                                        value.byte_length() as u64,
+                                        length.as_u64().unwrap()
+                                    );
+                                }
+                                if let Some(debug) = row.get("debug") {
+                                    assert_eq!(format!("{value:?}"), debug.as_str().unwrap());
+                                }
+                                assert!(write!(&mut support::RejectedOutput, "{value:?}").is_err());
+                            }
+                        }
+                    }
+                }
+            }
+            assert_eq!(original, saved);
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 12);
+}
+
 #[test]
 fn canonical_number_literals() {
     use arboresce_domain::{
