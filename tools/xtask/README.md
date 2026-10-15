@@ -2,14 +2,14 @@
 
 The first implementation delegates architecture, format, check, test and Clippy
 to the current workspace. It is a repository tool, without product authority.
-Its core source and process qualification must pass before dependent use. Whole
-verification and automated coverage collection remain the next increment;
-`verify` and `coverage` return usage failure today.
+Its core source and process qualification must pass before dependent use. The
+separate prepared native collector is described below. The original dispatcher
+still returns usage failure for the `verify` and `coverage` aliases.
 The separate report-count command below evaluates supplied reports; it does not
-replace those unfinished collection commands.
+replace actual native collection.
 The source-inventory command observes actual files and Cargo targets. Its own
-source/process qualification precedes dependent use; fresh coverage collection
-and whole verification remain separate requirements.
+source/process qualification precedes dependent use; the complete collector
+applies its inventory and coverage gates to a fresh observed run.
 
 Prepare Rust 1.99.0 and the locked public dependencies, then run from the root:
 
@@ -99,7 +99,7 @@ This is a supplied-count result. The caller must separately establish actual
 inventory, declaration-only N/A, exact source/tool/run identity, fresh complete
 native process profiles and required test execution. Full raw region/function
 data remains with the original report. The summary adapter neither attests
-those facts nor completes the automated collector or whole verification.
+those facts nor establishes whole verification.
 
 ## Actual source inventory
 
@@ -138,10 +138,10 @@ contains `coverage_roles`, the measured/assertion projection accepted by the
 report-count gate. Actual Cargo library names, including underscores, identify
 its library scopes. No zero metric is converted to fictional 100%.
 
-This is a point-in-time inventory. The complete collector must still bind actual
-toolchain/instrumenter/configuration/features, compare complete before/after
-inputs, reconcile all test identities and fresh native profiles, export raw
-regions and invoke the count gate. The inventory command alone does not attest
+This is a point-in-time inventory. The complete collector separately binds actual
+toolchain/instrumenter/configuration/features, compares complete before/after
+inputs, reconciles all test identities and fresh native profiles, exports raw
+regions and invokes the count gate. The inventory command alone does not attest
 run freshness, complete process collection or whole verification.
 
 
@@ -149,8 +149,8 @@ run freshness, complete process collection or whole verification.
 
 The measurement library records owned native launches and actual completion only
 when the caller explicitly selects `ARBORESCE_NATIVE_CONTEXT`. Ordinary operation
-without that request creates no measurement files. This component does not yet
-supply the complete collector or attest a complete set of profiles.
+without that request creates no measurement files. This component alone does
+not attest a complete set of profiles.
 
 The caller creates an external context directory with regular `context.json`,
 `launches` and `exits` entries. The independently reviewed
@@ -180,7 +180,54 @@ stream, trace and timeout cleanup errors as well as successful collection.
 
 All existing owned spawn/status/output paths use this boundary. The controlled
 peer exercises real operating-system executables and failure collection; it
-cannot qualify actual Cargo. Whole collection still must select prepared tools,
-freeze complete before/after inputs, reconcile every selected/executed test and
-native profile, retain complete raw LLVM data and invoke the count gate. These
-remaining gates cannot be inferred from successful receipt unit/native cases.
+cannot qualify actual Cargo. The complete collector selects prepared tools,
+freezes complete before/after inputs, reconciles every selected/executed test and
+native profile, retains complete raw LLVM data and invokes the count gate. These
+gates cannot be inferred from successful receipt unit/native cases.
+
+## Prepared native collection
+
+The separate `arboresce-verify` executable implements the initial prepared
+Rust 1.99.0, cargo-llvm-cov 0.9.1, macOS ARM64 default-feature profile. Prepare
+the declared tools and resources beforehand, then supply their absolute paths:
+
+```sh
+cargo run --locked --offline -p arboresce-xtask --bin arboresce-verify -- \
+  prepare /source/root /prepared/rust-sysroot /prepared/cargo-llvm-cov \
+  /prepared/cargo-home /evidence/prepared.json
+cargo run --locked --offline -p arboresce-xtask --bin arboresce-verify -- \
+  /source/root /source/root/tests/architecture/rust-source-roles-v1.json \
+  /source/root/tests/architecture/rust-test-suites-v1.json \
+  /evidence/prepared.json /evidence/fresh-run
+```
+
+Apply the configured build-output router. Evidence paths must be outside the
+source inventory, and the run directory must not exist. Preparation creates
+the manifest and its retained `.evidence` directory; it installs or fetches
+nothing. The collector verifies the selected compiler's actual sysroot, every
+declared tool and complete runtime resource tree, ancestor Cargo configuration,
+and the immutable source and test manifests before and after collection.
+
+The [test registry](../../tests/architecture/rust-test-suites-v1.json) declares
+all current required and incidental harnesses, exact test names and literal case
+identities. Actual Cargo metadata and fresh no-run artifacts must match it.
+Every harness is listed and run directly; incidental empty harnesses remain
+evidence and never count as required suites. Optional ordinary-binary exercises
+declare exact arguments, exit status and complete UTF-8 streams. Every selected
+native PID needs its own matching launch, actual completion and fresh profile.
+
+Complete raw profiles, commands, streams, receipts, inventory, LLVM reports and
+scope counts remain in the evidence directory on success or failure. Each
+ordinary binary's coverage uses its exact image and own profiles, with the
+complete crate-local dependency closure from the matching hashed Cargo image's
+Rust dependency file. Shared libraries retain their complete independent scopes.
+No module may be omitted by naming only its entrypoint. Source, package,
+repository, library and binary coverage must each exceed 90% where required.
+
+Success emits exactly one JSON record and LF with exit 0. Help uses stdout/0,
+usage errors stderr/2, and intake, execution, identity, coverage or output failure
+stderr/1. Output failure invalidates even a previously written success frame.
+The [coverage contract](../../docs/requirements/testing-and-coverage.md) owns
+the exact limits and conservation requirements. These are tooling capabilities;
+their whole owning and standalone acceptance, and product runtime qualification,
+require their separately recorded complete evidence.

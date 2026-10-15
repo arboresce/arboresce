@@ -1,0 +1,2730 @@
+{
+  "version": "native-collector-artifact-fixtures-v1",
+  "base": {
+    "root": "/source",
+    "target": "/out/target",
+    "metadata": {
+      "workspace_root": "/source",
+      "workspace_members": [
+        "owned"
+      ],
+      "packages": [
+        {
+          "id": "owned",
+          "name": "arboresce-xtask",
+          "version": "0.0.0",
+          "targets": [
+            {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            }
+          ]
+        },
+        {
+          "id": "external",
+          "name": "serde",
+          "version": "1.0.229",
+          "targets": [
+            {
+              "name": "serde",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/cargo/serde/lib.rs"
+            }
+          ]
+        }
+      ],
+      "resolve": {
+        "nodes": [
+          {
+            "id": "owned",
+            "features": []
+          },
+          {
+            "id": "external",
+            "features": [
+              "std"
+            ]
+          }
+        ]
+      }
+    },
+    "registry": {
+      "version": "rust-test-suites-v1",
+      "profile": "rust-1.99.0-macos-arm64-default-v1",
+      "features": {
+        "arboresce-xtask": []
+      },
+      "harnesses": [
+        {
+          "package": "arboresce-xtask",
+          "kind": "lib",
+          "name": "arboresce_xtask",
+          "required": false,
+          "tests": []
+        },
+        {
+          "package": "arboresce-xtask",
+          "kind": "bin",
+          "name": "tool",
+          "required": false,
+          "tests": []
+        },
+        {
+          "package": "arboresce-xtask",
+          "kind": "test",
+          "name": "contract",
+          "required": true,
+          "tests": [
+            {
+              "name": "works",
+              "prefix": null,
+              "case_ids": []
+            }
+          ]
+        }
+      ],
+      "native_binaries": [
+        {
+          "package": "arboresce-xtask",
+          "kind": "bin",
+          "name": "tool",
+          "sources": [
+            "tools/xtask/src/main.rs"
+          ]
+        }
+      ],
+      "doctests": [
+        {
+          "package": "arboresce-xtask",
+          "tests": 0
+        }
+      ]
+    },
+    "artifacts": [
+      {
+        "reason": "compiler-artifact",
+        "package_id": "owned",
+        "target": {
+          "name": "arboresce_xtask",
+          "kind": [
+            "lib"
+          ],
+          "src_path": "/source/tools/xtask/src/lib.rs"
+        },
+        "profile": {
+          "test": false
+        },
+        "executable": null,
+        "filenames": [
+          "/out/target/debug/deps/libarboresce_xtask.rlib"
+        ],
+        "fresh": false,
+        "features": []
+      },
+      {
+        "reason": "compiler-artifact",
+        "package_id": "owned",
+        "target": {
+          "name": "arboresce_xtask",
+          "kind": [
+            "lib"
+          ],
+          "src_path": "/source/tools/xtask/src/lib.rs"
+        },
+        "profile": {
+          "test": true
+        },
+        "executable": "/out/target/debug/deps/lib-a",
+        "filenames": [
+          "/out/target/debug/deps/lib-a"
+        ],
+        "fresh": false,
+        "features": []
+      },
+      {
+        "reason": "compiler-artifact",
+        "package_id": "owned",
+        "target": {
+          "name": "tool",
+          "kind": [
+            "bin"
+          ],
+          "src_path": "/source/tools/xtask/src/main.rs"
+        },
+        "profile": {
+          "test": true
+        },
+        "executable": "/out/target/debug/deps/tool-b",
+        "filenames": [
+          "/out/target/debug/deps/tool-b"
+        ],
+        "fresh": false,
+        "features": []
+      },
+      {
+        "reason": "compiler-artifact",
+        "package_id": "owned",
+        "target": {
+          "name": "contract",
+          "kind": [
+            "test"
+          ],
+          "src_path": "/source/tools/xtask/tests/contract.rs"
+        },
+        "profile": {
+          "test": true
+        },
+        "executable": "/out/target/debug/deps/contract-c",
+        "filenames": [
+          "/out/target/debug/deps/contract-c"
+        ],
+        "fresh": false,
+        "features": []
+      },
+      {
+        "reason": "compiler-artifact",
+        "package_id": "owned",
+        "target": {
+          "name": "tool",
+          "kind": [
+            "bin"
+          ],
+          "src_path": "/source/tools/xtask/src/main.rs"
+        },
+        "profile": {
+          "test": false
+        },
+        "executable": "/out/target/debug/tool",
+        "filenames": [
+          "/out/target/debug/tool"
+        ],
+        "fresh": false,
+        "features": []
+      },
+      {
+        "reason": "build-finished",
+        "success": true
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "collector-artifact-complete",
+      "patch": {},
+      "expected": {
+        "value": {
+          "harnesses": 3,
+          "binaries": 1,
+          "objects": [
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "binary",
+              "path": "/out/target/debug/tool",
+              "source": "tools/xtask/src/main.rs",
+              "sources": [
+                "tools/xtask/src/main.rs"
+              ]
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "harness",
+              "path": "/out/target/debug/deps/tool-b",
+              "source": "tools/xtask/src/main.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "lib",
+              "name": "arboresce_xtask",
+              "role": "harness",
+              "path": "/out/target/debug/deps/lib-a",
+              "source": "tools/xtask/src/lib.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "test",
+              "name": "contract",
+              "role": "harness",
+              "path": "/out/target/debug/deps/contract-c",
+              "source": "tools/xtask/tests/contract.rs",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "collector-artifact-missing-required-harness",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-missing-ordinary-binary",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-duplicate-artifact",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-duplicate-path",
+      "patch": {
+        "/artifacts/2/executable": "/out/target/debug/deps/lib-a",
+        "/artifacts/2/filenames": [
+          "/out/target/debug/deps/lib-a"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-outside-output",
+      "patch": {
+        "/artifacts/4/executable": "/elsewhere/tool",
+        "/artifacts/4/filenames": [
+          "/elsewhere/tool"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-source-path-disagreement",
+      "patch": {
+        "/artifacts/4/target/src_path": "/source/tools/xtask/src/other.rs"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-unknown-package",
+      "patch": {
+        "/artifacts/4/package_id": "unknown"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-unknown-target",
+      "patch": {
+        "/artifacts/4/target/name": "unregistered"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-unknown-kind",
+      "patch": {
+        "/artifacts/4/target/kind": [
+          "example"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-ambiguous-target-kind",
+      "patch": {
+        "/artifacts/4/target/kind": [
+          "bin",
+          "test"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-unknown-owned-fresh-artifact",
+      "patch": {
+        "/artifacts/4/fresh": true
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-missing-profile-test",
+      "patch": {
+        "/artifacts/4/profile": {}
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-nonboolean-profile-test",
+      "patch": {
+        "/artifacts/4/profile/test": "false"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-missing-executable-filename",
+      "patch": {
+        "/artifacts/4/filenames": []
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-failed-build",
+      "patch": {
+        "/artifacts/5/success": false
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-missing-build-finished",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-repeated-build-finished",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-post-finish-artifact",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-unregistered-reason",
+      "patch": {
+        "/artifacts/0/reason": "arbitrary"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-version",
+      "patch": {
+        "/registry/version": "old"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-profile",
+      "patch": {
+        "/registry/profile": "unqualified"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-features",
+      "patch": {
+        "/registry/features/arboresce-xtask": [
+          "undeclared"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-harness-duplicate",
+      "patch": {
+        "/registry/harnesses": [
+          {
+            "package": "arboresce-xtask",
+            "kind": "lib",
+            "name": "arboresce_xtask",
+            "required": false,
+            "tests": []
+          },
+          {
+            "package": "arboresce-xtask",
+            "kind": "bin",
+            "name": "tool",
+            "required": false,
+            "tests": []
+          },
+          {
+            "package": "arboresce-xtask",
+            "kind": "test",
+            "name": "contract",
+            "required": true,
+            "tests": [
+              {
+                "name": "works",
+                "prefix": null,
+                "case_ids": []
+              }
+            ]
+          },
+          {
+            "package": "arboresce-xtask",
+            "kind": "lib",
+            "name": "arboresce_xtask",
+            "required": false,
+            "tests": []
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-harness-empty-required",
+      "patch": {
+        "/registry/harnesses/2/tests": []
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-no-required",
+      "patch": {
+        "/registry/harnesses/2/required": false,
+        "/registry/harnesses/2/tests": []
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-incidental-with-tests",
+      "patch": {
+        "/registry/harnesses/0/tests": [
+          {
+            "name": "works",
+            "prefix": null,
+            "case_ids": []
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-missing-binary",
+      "patch": {
+        "/registry/native_binaries": []
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-empty-closure",
+      "patch": {
+        "/registry/native_binaries/0/sources": []
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-missing-binary-entry",
+      "patch": {
+        "/registry/native_binaries/0/sources": [
+          "tools/xtask/src/other.rs"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-duplicate-closure-source",
+      "patch": {
+        "/registry/native_binaries/0/sources": [
+          "tools/xtask/src/main.rs",
+          "tools/xtask/src/main.rs"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-invalid-test-metadata",
+      "patch": {
+        "/registry/harnesses/2/tests": [
+          {
+            "name": "works",
+            "case_ids": [],
+            "unexpected": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-duplicate-test-name",
+      "patch": {
+        "/registry/harnesses/2/tests": [
+          {
+            "name": "works",
+            "prefix": null,
+            "case_ids": []
+          },
+          {
+            "name": "works",
+            "prefix": null,
+            "case_ids": []
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-missing-doctest",
+      "patch": {
+        "/registry/doctests": []
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-new-doctest",
+      "patch": {
+        "/registry/doctests/0/tests": 1
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-known-external-library",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "external",
+            "target": {
+              "name": "serde",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/cargo/serde/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libserde.rlib"
+            ],
+            "fresh": false,
+            "features": [
+              "std"
+            ]
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "value": {
+          "harnesses": 3,
+          "binaries": 1,
+          "objects": [
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "binary",
+              "path": "/out/target/debug/tool",
+              "source": "tools/xtask/src/main.rs",
+              "sources": [
+                "tools/xtask/src/main.rs"
+              ]
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "harness",
+              "path": "/out/target/debug/deps/tool-b",
+              "source": "tools/xtask/src/main.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "lib",
+              "name": "arboresce_xtask",
+              "role": "harness",
+              "path": "/out/target/debug/deps/lib-a",
+              "source": "tools/xtask/src/lib.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "test",
+              "name": "contract",
+              "role": "harness",
+              "path": "/out/target/debug/deps/contract-c",
+              "source": "tools/xtask/tests/contract.rs",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "collector-artifact-known-external-build-script",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "build-script-executed",
+            "package_id": "external"
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "value": {
+          "harnesses": 3,
+          "binaries": 1,
+          "objects": [
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "binary",
+              "path": "/out/target/debug/tool",
+              "source": "tools/xtask/src/main.rs",
+              "sources": [
+                "tools/xtask/src/main.rs"
+              ]
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "harness",
+              "path": "/out/target/debug/deps/tool-b",
+              "source": "tools/xtask/src/main.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "lib",
+              "name": "arboresce_xtask",
+              "role": "harness",
+              "path": "/out/target/debug/deps/lib-a",
+              "source": "tools/xtask/src/lib.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "test",
+              "name": "contract",
+              "role": "harness",
+              "path": "/out/target/debug/deps/contract-c",
+              "source": "tools/xtask/tests/contract.rs",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "collector-artifact-unknown-build-script",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "build-script-executed",
+            "package_id": "unknown"
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-owned-unregistered-build-script",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "build-script-executed",
+            "package_id": "owned"
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-diagnostic-retained",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-message",
+            "package_id": "owned",
+            "message": {
+              "level": "warning",
+              "rendered": "retained warning\n"
+            }
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "value": {
+          "harnesses": 3,
+          "binaries": 1,
+          "objects": [
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "binary",
+              "path": "/out/target/debug/tool",
+              "source": "tools/xtask/src/main.rs",
+              "sources": [
+                "tools/xtask/src/main.rs"
+              ]
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "harness",
+              "path": "/out/target/debug/deps/tool-b",
+              "source": "tools/xtask/src/main.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "lib",
+              "name": "arboresce_xtask",
+              "role": "harness",
+              "path": "/out/target/debug/deps/lib-a",
+              "source": "tools/xtask/src/lib.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "test",
+              "name": "contract",
+              "role": "harness",
+              "path": "/out/target/debug/deps/contract-c",
+              "source": "tools/xtask/tests/contract.rs",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "collector-artifact-compiler-error-diagnostic",
+      "patch": {
+        "/artifacts": [
+          {
+            "reason": "compiler-message",
+            "package_id": "owned",
+            "message": {
+              "level": "error",
+              "rendered": "error\n"
+            }
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-compiled-feature-mismatch",
+      "patch": {
+        "/artifacts/4/features": [
+          "unreviewed"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-missing-workspace-feature-map",
+      "patch": {
+        "/registry/features": {}
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-unknown-workspace-feature-map",
+      "patch": {
+        "/registry/features": {
+          "arboresce-xtask": [],
+          "unknown": []
+        }
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-unknown-workspace-member",
+      "patch": {
+        "/metadata/workspace_members": [
+          "owned",
+          "unknown"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-registry-missing-workspace-member",
+      "patch": {
+        "/metadata/workspace_members": []
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-duplicate-metadata-target-key",
+      "patch": {
+        "/metadata/packages/0/targets": [
+          {
+            "name": "arboresce_xtask",
+            "kind": [
+              "lib"
+            ],
+            "src_path": "/source/tools/xtask/src/lib.rs"
+          },
+          {
+            "name": "tool",
+            "kind": [
+              "bin"
+            ],
+            "src_path": "/source/tools/xtask/src/main.rs"
+          },
+          {
+            "name": "contract",
+            "kind": [
+              "test"
+            ],
+            "src_path": "/source/tools/xtask/tests/contract.rs"
+          },
+          {
+            "name": "arboresce_xtask",
+            "kind": [
+              "lib"
+            ],
+            "src_path": "/source/tools/xtask/src/lib.rs"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-target-prefix-sibling",
+      "patch": {
+        "/artifacts/4/executable": "/out/target-other/tool",
+        "/artifacts/4/filenames": [
+          "/out/target-other/tool"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-target-parent-traversal",
+      "patch": {
+        "/artifacts/4/executable": "/out/target/../tool",
+        "/artifacts/4/filenames": [
+          "/out/target/../tool"
+        ]
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-multiple-owned-packages-same-test-target",
+      "patch": {
+        "/metadata": {
+          "workspace_root": "/source",
+          "workspace_members": [
+            "owned",
+            "owned2"
+          ],
+          "packages": [
+            {
+              "id": "owned",
+              "name": "arboresce-xtask",
+              "version": "0.0.0",
+              "targets": [
+                {
+                  "name": "arboresce_xtask",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "/source/tools/xtask/src/lib.rs"
+                },
+                {
+                  "name": "tool",
+                  "kind": [
+                    "bin"
+                  ],
+                  "src_path": "/source/tools/xtask/src/main.rs"
+                },
+                {
+                  "name": "contract",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "/source/tools/xtask/tests/contract.rs"
+                }
+              ]
+            },
+            {
+              "id": "external",
+              "name": "serde",
+              "version": "1.0.229",
+              "targets": [
+                {
+                  "name": "serde",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "/cargo/serde/lib.rs"
+                }
+              ]
+            },
+            {
+              "id": "owned2",
+              "name": "arboresce-domain",
+              "version": "0.0.0",
+              "targets": [
+                {
+                  "name": "arboresce_domain",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "/source/crates/arboresce-domain/src/lib.rs"
+                },
+                {
+                  "name": "contract",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "/source/crates/arboresce-domain/tests/contract.rs"
+                }
+              ]
+            }
+          ],
+          "resolve": {
+            "nodes": [
+              {
+                "id": "owned",
+                "features": []
+              },
+              {
+                "id": "external",
+                "features": [
+                  "std"
+                ]
+              },
+              {
+                "id": "owned2",
+                "features": []
+              }
+            ]
+          }
+        },
+        "/registry": {
+          "version": "rust-test-suites-v1",
+          "profile": "rust-1.99.0-macos-arm64-default-v1",
+          "features": {
+            "arboresce-xtask": [],
+            "arboresce-domain": []
+          },
+          "harnesses": [
+            {
+              "package": "arboresce-xtask",
+              "kind": "lib",
+              "name": "arboresce_xtask",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "test",
+              "name": "contract",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            },
+            {
+              "package": "arboresce-domain",
+              "kind": "lib",
+              "name": "arboresce_domain",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-domain",
+              "kind": "test",
+              "name": "contract",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            }
+          ],
+          "native_binaries": [
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "sources": [
+                "tools/xtask/src/main.rs"
+              ]
+            }
+          ],
+          "doctests": [
+            {
+              "package": "arboresce-xtask",
+              "tests": 0
+            },
+            {
+              "package": "arboresce-domain",
+              "tests": 0
+            }
+          ]
+        },
+        "/artifacts": [
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": null,
+            "filenames": [
+              "/out/target/debug/deps/libarboresce_xtask.rlib"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "arboresce_xtask",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/tools/xtask/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/lib-a",
+            "filenames": [
+              "/out/target/debug/deps/lib-a"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/tool-b",
+            "filenames": [
+              "/out/target/debug/deps/tool-b"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/tools/xtask/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "executable": "/out/target/debug/deps/contract-c",
+            "filenames": [
+              "/out/target/debug/deps/contract-c"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned",
+            "target": {
+              "name": "tool",
+              "kind": [
+                "bin"
+              ],
+              "src_path": "/source/tools/xtask/src/main.rs"
+            },
+            "profile": {
+              "test": false
+            },
+            "executable": "/out/target/debug/tool",
+            "filenames": [
+              "/out/target/debug/tool"
+            ],
+            "fresh": false,
+            "features": []
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned2",
+            "target": {
+              "name": "arboresce_domain",
+              "kind": [
+                "lib"
+              ],
+              "src_path": "/source/crates/arboresce-domain/src/lib.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "features": [],
+            "executable": "/out/target/debug/deps/domain-lib-d",
+            "filenames": [
+              "/out/target/debug/deps/domain-lib-d"
+            ],
+            "fresh": false
+          },
+          {
+            "reason": "compiler-artifact",
+            "package_id": "owned2",
+            "target": {
+              "name": "contract",
+              "kind": [
+                "test"
+              ],
+              "src_path": "/source/crates/arboresce-domain/tests/contract.rs"
+            },
+            "profile": {
+              "test": true
+            },
+            "features": [],
+            "executable": "/out/target/debug/deps/domain-contract-e",
+            "filenames": [
+              "/out/target/debug/deps/domain-contract-e"
+            ],
+            "fresh": false
+          },
+          {
+            "reason": "build-finished",
+            "success": true
+          }
+        ]
+      },
+      "expected": {
+        "value": {
+          "harnesses": 5,
+          "binaries": 1,
+          "objects": [
+            {
+              "package": "arboresce-domain",
+              "kind": "lib",
+              "name": "arboresce_domain",
+              "role": "harness",
+              "path": "/out/target/debug/deps/domain-lib-d",
+              "source": "crates/arboresce-domain/src/lib.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-domain",
+              "kind": "test",
+              "name": "contract",
+              "role": "harness",
+              "path": "/out/target/debug/deps/domain-contract-e",
+              "source": "crates/arboresce-domain/tests/contract.rs",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "binary",
+              "path": "/out/target/debug/tool",
+              "source": "tools/xtask/src/main.rs",
+              "sources": [
+                "tools/xtask/src/main.rs"
+              ]
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "bin",
+              "name": "tool",
+              "role": "harness",
+              "path": "/out/target/debug/deps/tool-b",
+              "source": "tools/xtask/src/main.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "lib",
+              "name": "arboresce_xtask",
+              "role": "harness",
+              "path": "/out/target/debug/deps/lib-a",
+              "source": "tools/xtask/src/lib.rs",
+              "required": false,
+              "tests": []
+            },
+            {
+              "package": "arboresce-xtask",
+              "kind": "test",
+              "name": "contract",
+              "role": "harness",
+              "path": "/out/target/debug/deps/contract-c",
+              "source": "tools/xtask/tests/contract.rs",
+              "required": true,
+              "tests": [
+                {
+                  "name": "works",
+                  "prefix": null,
+                  "case_ids": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "raw_cases": [
+    {
+      "id": "collector-artifact-raw-malformed",
+      "raw": "{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"arboresce_xtask\",\"kind\":[\"lib\"],\"src_path\":\"/source/tools/xtask/src/lib.rs\"},\"profile\":{\"test\":false},\"executable\":null,\"filenames\":[\"/out/target/debug/deps/libarboresce_xtask.rlib\"],\"fresh\":falsX,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"arboresce_xtask\",\"kind\":[\"lib\"],\"src_path\":\"/source/tools/xtask/src/lib.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/lib-a\",\"filenames\":[\"/out/target/debug/deps/lib-a\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"tool\",\"kind\":[\"bin\"],\"src_path\":\"/source/tools/xtask/src/main.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/tool-b\",\"filenames\":[\"/out/target/debug/deps/tool-b\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"contract\",\"kind\":[\"test\"],\"src_path\":\"/source/tools/xtask/tests/contract.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/contract-c\",\"filenames\":[\"/out/target/debug/deps/contract-c\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"tool\",\"kind\":[\"bin\"],\"src_path\":\"/source/tools/xtask/src/main.rs\"},\"profile\":{\"test\":false},\"executable\":\"/out/target/debug/tool\",\"filenames\":[\"/out/target/debug/tool\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"build-finished\",\"success\":true}\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-raw-duplicate-key",
+      "raw": "{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"arboresce_xtask\",\"kind\":[\"lib\"],\"src_path\":\"/source/tools/xtask/src/lib.rs\"},\"profile\":{\"test\":false},\"executable\":null,\"filenames\":[\"/out/target/debug/deps/libarboresce_xtask.rlib\"],\"fresh\":false,\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"arboresce_xtask\",\"kind\":[\"lib\"],\"src_path\":\"/source/tools/xtask/src/lib.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/lib-a\",\"filenames\":[\"/out/target/debug/deps/lib-a\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"tool\",\"kind\":[\"bin\"],\"src_path\":\"/source/tools/xtask/src/main.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/tool-b\",\"filenames\":[\"/out/target/debug/deps/tool-b\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"contract\",\"kind\":[\"test\"],\"src_path\":\"/source/tools/xtask/tests/contract.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/contract-c\",\"filenames\":[\"/out/target/debug/deps/contract-c\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"tool\",\"kind\":[\"bin\"],\"src_path\":\"/source/tools/xtask/src/main.rs\"},\"profile\":{\"test\":false},\"executable\":\"/out/target/debug/tool\",\"filenames\":[\"/out/target/debug/tool\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"build-finished\",\"success\":true}\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-artifact-raw-truncated-final-line",
+      "raw": "{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"arboresce_xtask\",\"kind\":[\"lib\"],\"src_path\":\"/source/tools/xtask/src/lib.rs\"},\"profile\":{\"test\":false},\"executable\":null,\"filenames\":[\"/out/target/debug/deps/libarboresce_xtask.rlib\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"arboresce_xtask\",\"kind\":[\"lib\"],\"src_path\":\"/source/tools/xtask/src/lib.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/lib-a\",\"filenames\":[\"/out/target/debug/deps/lib-a\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"tool\",\"kind\":[\"bin\"],\"src_path\":\"/source/tools/xtask/src/main.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/tool-b\",\"filenames\":[\"/out/target/debug/deps/tool-b\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"contract\",\"kind\":[\"test\"],\"src_path\":\"/source/tools/xtask/tests/contract.rs\"},\"profile\":{\"test\":true},\"executable\":\"/out/target/debug/deps/contract-c\",\"filenames\":[\"/out/target/debug/deps/contract-c\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"compiler-artifact\",\"package_id\":\"owned\",\"target\":{\"name\":\"tool\",\"kind\":[\"bin\"],\"src_path\":\"/source/tools/xtask/src/main.rs\"},\"profile\":{\"test\":false},\"executable\":\"/out/target/debug/tool\",\"filenames\":[\"/out/target/debug/tool\"],\"fresh\":false,\"features\":[]}\n{\"reason\":\"build-finished\",\"success\":true}",
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    }
+  ]
+}

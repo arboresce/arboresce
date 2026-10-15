@@ -1,3 +1,10 @@
 [workspace]
 members = ["crates/arboresce", "crates/arboresce-domain", "tools/xtask"]
 resolver = "3"
+
+# Hash complete toolchains within the verified input budgets.
+[profile.dev.package.sha2]
+opt-level = 3
+
+[profile.test.package.sha2]
+opt-level = 3

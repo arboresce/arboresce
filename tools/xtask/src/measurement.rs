@@ -276,6 +276,14 @@ pub fn spawn(command: &mut Command) -> io::Result<Child> {
     Ok(child)
 }
 
+/// An explicit nested request owns this invocation instead of ambient selection.
+pub fn spawn_with(command: &mut Command, request: &Request) -> io::Result<Child> {
+    let prepared = request.prepare(command)?;
+    let mut child = command.spawn()?;
+    prepared.record(&mut child)?;
+    Ok(child)
+}
+
 pub fn complete(child: &mut Child) -> io::Result<()> {
     if let Some(request) = active()? {
         request.complete(child)?;

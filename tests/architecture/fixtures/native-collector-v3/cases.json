@@ -1,0 +1,1907 @@
+{
+  "version": "native-collector-intake-fixtures-v1",
+  "base_prepared": {
+    "version": "native-prepared-tools-v1",
+    "profile": "rust-1.99.0-macos-arm64-default-v1",
+    "sysroot": "/prepared/rust",
+    "cargo_home": "/prepared/cargo-home",
+    "tools": {
+      "cargo": {
+        "program": "/prepared/bin/cargo",
+        "executable": "/prepared/real/cargo",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "rustc": {
+        "program": "/prepared/bin/rustc",
+        "executable": "/prepared/real/rustc",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "rustdoc": {
+        "program": "/prepared/bin/rustdoc",
+        "executable": "/prepared/real/rustdoc",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "cargo-fmt": {
+        "program": "/prepared/bin/cargo-fmt",
+        "executable": "/prepared/real/cargo-fmt",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "rustfmt": {
+        "program": "/prepared/bin/rustfmt",
+        "executable": "/prepared/real/rustfmt",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "cargo-clippy": {
+        "program": "/prepared/bin/cargo-clippy",
+        "executable": "/prepared/real/cargo-clippy",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "clippy-driver": {
+        "program": "/prepared/bin/clippy-driver",
+        "executable": "/prepared/real/clippy-driver",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "cargo-llvm-cov": {
+        "program": "/prepared/bin/cargo-llvm-cov",
+        "executable": "/prepared/real/cargo-llvm-cov",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "llvm-cov": {
+        "program": "/prepared/bin/llvm-cov",
+        "executable": "/prepared/real/llvm-cov",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "llvm-profdata": {
+        "program": "/prepared/bin/llvm-profdata",
+        "executable": "/prepared/real/llvm-profdata",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "true": {
+        "program": "/prepared/bin/true",
+        "executable": "/prepared/real/true",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "false": {
+        "program": "/prepared/bin/false",
+        "executable": "/prepared/real/false",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "echo": {
+        "program": "/prepared/bin/echo",
+        "executable": "/prepared/real/echo",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "sleep": {
+        "program": "/prepared/bin/sleep",
+        "executable": "/prepared/real/sleep",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "mkfifo": {
+        "program": "/prepared/bin/mkfifo",
+        "executable": "/prepared/real/mkfifo",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    },
+    "resources": {
+      "bin/rustc": {
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "size": 20
+      },
+      "lib/rustlib/aarch64-apple-darwin/lib/std.rlib": {
+        "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "size": 30
+      },
+      "libexec/rust-analyzer-proc-macro-srv": {
+        "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "size": 40
+      }
+    },
+    "configs": {},
+    "versions": {
+      "rustc": "1.99.0",
+      "cargo": "1.99.0",
+      "cargo-llvm-cov": "0.9.1",
+      "host": "aarch64-apple-darwin",
+      "rust_llvm": "23.1.1",
+      "llvm-cov": "23.1.1",
+      "llvm-profdata": "23.1.1"
+    },
+    "outer": null
+  },
+  "cases": [
+    {
+      "id": "collector-prepared-valid",
+      "action": "prepared",
+      "patch": {},
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "id": "collector-prepared-wrong-version",
+      "action": "prepared",
+      "patch": {
+        "/version": "native-prepared-tools-v0"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-wrong-profile",
+      "action": "prepared",
+      "patch": {
+        "/profile": "unqualified"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-relative-sysroot",
+      "action": "prepared",
+      "patch": {
+        "/sysroot": "prepared/rust"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-relative-cargo-home",
+      "action": "prepared",
+      "patch": {
+        "/cargo_home": "prepared/cargo-home"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-missing-tools",
+      "action": "prepared",
+      "patch": {
+        "/tools": {}
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-unknown-tool",
+      "action": "prepared",
+      "patch": {
+        "/tools": {
+          "cargo": {
+            "program": "/prepared/bin/cargo",
+            "executable": "/prepared/real/cargo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustc": {
+            "program": "/prepared/bin/rustc",
+            "executable": "/prepared/real/rustc",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustdoc": {
+            "program": "/prepared/bin/rustdoc",
+            "executable": "/prepared/real/rustdoc",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-fmt": {
+            "program": "/prepared/bin/cargo-fmt",
+            "executable": "/prepared/real/cargo-fmt",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustfmt": {
+            "program": "/prepared/bin/rustfmt",
+            "executable": "/prepared/real/rustfmt",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-clippy": {
+            "program": "/prepared/bin/cargo-clippy",
+            "executable": "/prepared/real/cargo-clippy",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "clippy-driver": {
+            "program": "/prepared/bin/clippy-driver",
+            "executable": "/prepared/real/clippy-driver",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-llvm-cov": {
+            "program": "/prepared/bin/cargo-llvm-cov",
+            "executable": "/prepared/real/cargo-llvm-cov",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "llvm-cov": {
+            "program": "/prepared/bin/llvm-cov",
+            "executable": "/prepared/real/llvm-cov",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "llvm-profdata": {
+            "program": "/prepared/bin/llvm-profdata",
+            "executable": "/prepared/real/llvm-profdata",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "true": {
+            "program": "/prepared/bin/true",
+            "executable": "/prepared/real/true",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "false": {
+            "program": "/prepared/bin/false",
+            "executable": "/prepared/real/false",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "echo": {
+            "program": "/prepared/bin/echo",
+            "executable": "/prepared/real/echo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "sleep": {
+            "program": "/prepared/bin/sleep",
+            "executable": "/prepared/real/sleep",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "unknown": {
+            "program": "/prepared/bin/cargo",
+            "executable": "/prepared/real/cargo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "mkfifo": {
+            "program": "/prepared/bin/mkfifo",
+            "executable": "/prepared/real/mkfifo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-missing-selected-rustdoc",
+      "action": "prepared",
+      "patch": {
+        "/tools": {
+          "cargo": {
+            "program": "/prepared/bin/cargo",
+            "executable": "/prepared/real/cargo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustc": {
+            "program": "/prepared/bin/rustc",
+            "executable": "/prepared/real/rustc",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-fmt": {
+            "program": "/prepared/bin/cargo-fmt",
+            "executable": "/prepared/real/cargo-fmt",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustfmt": {
+            "program": "/prepared/bin/rustfmt",
+            "executable": "/prepared/real/rustfmt",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-clippy": {
+            "program": "/prepared/bin/cargo-clippy",
+            "executable": "/prepared/real/cargo-clippy",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "clippy-driver": {
+            "program": "/prepared/bin/clippy-driver",
+            "executable": "/prepared/real/clippy-driver",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-llvm-cov": {
+            "program": "/prepared/bin/cargo-llvm-cov",
+            "executable": "/prepared/real/cargo-llvm-cov",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "llvm-cov": {
+            "program": "/prepared/bin/llvm-cov",
+            "executable": "/prepared/real/llvm-cov",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "llvm-profdata": {
+            "program": "/prepared/bin/llvm-profdata",
+            "executable": "/prepared/real/llvm-profdata",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "true": {
+            "program": "/prepared/bin/true",
+            "executable": "/prepared/real/true",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "false": {
+            "program": "/prepared/bin/false",
+            "executable": "/prepared/real/false",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "echo": {
+            "program": "/prepared/bin/echo",
+            "executable": "/prepared/real/echo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "sleep": {
+            "program": "/prepared/bin/sleep",
+            "executable": "/prepared/real/sleep",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "mkfifo": {
+            "program": "/prepared/bin/mkfifo",
+            "executable": "/prepared/real/mkfifo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-relative-program",
+      "action": "prepared",
+      "patch": {
+        "/tools/cargo/program": "cargo"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-relative-executable",
+      "action": "prepared",
+      "patch": {
+        "/tools/cargo/executable": "cargo"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-malformed-tool-digest",
+      "action": "prepared",
+      "patch": {
+        "/tools/cargo/sha256": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-empty-resources",
+      "action": "prepared",
+      "patch": {
+        "/resources": {}
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-missing-bin-resource",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "lib/rustlib/aarch64-apple-darwin/lib/std.rlib": {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "size": 30
+          },
+          "libexec/rust-analyzer-proc-macro-srv": {
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "size": 40
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-missing-lib-resource",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "bin/rustc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 20
+          },
+          "libexec/rust-analyzer-proc-macro-srv": {
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "size": 40
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-missing-libexec-resource",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "bin/rustc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 20
+          },
+          "lib/rustlib/aarch64-apple-darwin/lib/std.rlib": {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "size": 30
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-escaping-resource",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "bin/rustc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 20
+          },
+          "lib/rustlib/aarch64-apple-darwin/lib/std.rlib": {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "size": 30
+          },
+          "libexec/rust-analyzer-proc-macro-srv": {
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "size": 40
+          },
+          "../outside": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 20
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-unknown-resource-root",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "bin/rustc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 20
+          },
+          "lib/rustlib/aarch64-apple-darwin/lib/std.rlib": {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "size": 30
+          },
+          "libexec/rust-analyzer-proc-macro-srv": {
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "size": 40
+          },
+          "share/extra": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 20
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-resource-too-large",
+      "action": "prepared",
+      "patch": {
+        "/resources/bin~1rustc/size": 1073741825
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-bad-resource-hash",
+      "action": "prepared",
+      "patch": {
+        "/resources/bin~1rustc/sha256": "bad"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-relative-config",
+      "action": "prepared",
+      "patch": {
+        "/configs": {
+          "relative/config.toml": {
+            "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "size": 10
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-valid-config",
+      "action": "prepared",
+      "patch": {
+        "/configs": {
+          "/prepared/cargo-home/config.toml": {
+            "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "size": 10
+          }
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "id": "collector-prepared-old-rustc",
+      "action": "prepared",
+      "patch": {
+        "/versions/rustc": "1.98.0"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-old-cargo",
+      "action": "prepared",
+      "patch": {
+        "/versions/cargo": "1.98.0"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-wrong-plugin",
+      "action": "prepared",
+      "patch": {
+        "/versions/cargo-llvm-cov": "0.9.0"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-wrong-host",
+      "action": "prepared",
+      "patch": {
+        "/versions/host": "x86_64-unknown-linux-gnu"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-cov-llvm-mismatch",
+      "action": "prepared",
+      "patch": {
+        "/versions/llvm-cov": "22.1.0"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-profdata-llvm-mismatch",
+      "action": "prepared",
+      "patch": {
+        "/versions/llvm-profdata": "22.1.0"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-empty-rust-llvm",
+      "action": "prepared",
+      "patch": {
+        "/versions/rust_llvm": ""
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-explicit-outer",
+      "action": "prepared",
+      "patch": {
+        "/outer": {
+          "context": "/outer/context",
+          "environment": {
+            "ARBORESCE_NATIVE_CONTEXT": "/outer/context",
+            "LLVM_PROFILE_FILE": "/outer/raw/arboresce-%p-%12m.profraw"
+          }
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "id": "collector-prepared-invalid-outer-context",
+      "action": "prepared",
+      "patch": {
+        "/outer": {
+          "context": "relative",
+          "environment": {
+            "ARBORESCE_NATIVE_CONTEXT": "/outer/context",
+            "LLVM_PROFILE_FILE": "/outer/raw/arboresce-%p-%12m.profraw"
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-outer-context-env-mismatch",
+      "action": "prepared",
+      "patch": {
+        "/outer": {
+          "context": "/outer/context",
+          "environment": {
+            "ARBORESCE_NATIVE_CONTEXT": "/another/context",
+            "LLVM_PROFILE_FILE": "/outer/raw/arboresce-%p-%12m.profraw"
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-outer-missing-profile",
+      "action": "prepared",
+      "patch": {
+        "/outer": {
+          "context": "/outer/context",
+          "environment": {
+            "ARBORESCE_NATIVE_CONTEXT": "/outer/context"
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-outer-unknown-env",
+      "action": "prepared",
+      "patch": {
+        "/outer": {
+          "context": "/outer/context",
+          "environment": {
+            "ARBORESCE_NATIVE_CONTEXT": "/outer/context",
+            "LLVM_PROFILE_FILE": "/outer/raw/arboresce-%p-%12m.profraw",
+            "UNREVIEWED_WRAPPER": "yes"
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-profile-zero-incidental-valid",
+      "action": "profile",
+      "raw": "Instrumentation level: Front-end\nFunctions shown: 0\nTotal functions: 0\nMaximum function count: 0\nMaximum internal block count: 0\nTotal number of blocks: 0\nTotal count: 0\n",
+      "expected": {
+        "value": {
+          "functions": 0,
+          "positive_functions": 0
+        }
+      }
+    },
+    {
+      "id": "collector-profile-positive-valid",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "value": {
+          "functions": 1,
+          "positive_functions": 1
+        }
+      }
+    },
+    {
+      "id": "collector-profile-multiple-valid",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\n  unused:\n    Hash: 0xabcd\n    Counters: 1\n    Function count: 0\n    Block counts: []\nInstrumentation level: Front-end\nFunctions shown: 2\nTotal functions: 2\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 3\nTotal count: 5\n",
+      "expected": {
+        "value": {
+          "functions": 2,
+          "positive_functions": 1
+        }
+      }
+    },
+    {
+      "id": "collector-profile-block-only-positive",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 0\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 0\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 2\n",
+      "expected": {
+        "value": {
+          "functions": 1,
+          "positive_functions": 1
+        }
+      }
+    },
+    {
+      "id": "collector-profile-truncated",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-unknown-level",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: IR\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-wrong-shown",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 2\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-wrong-total-functions",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 2\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-wrong-max-function",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 4\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-wrong-max-block",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 4\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-wrong-block-count",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 1\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-wrong-total-count",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 4\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-incomplete-counters",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 3\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-negative-counter",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: -1\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-float-counter",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3.0\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-malformed-hash",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: nonsense\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-repeated-function",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\n  sample:\n    Hash: 0xabcd\n    Counters: 1\n    Function count: 0\n    Block counts: []\nInstrumentation level: Front-end\nFunctions shown: 2\nTotal functions: 2\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 3\nTotal count: 5\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-trailing-junk",
+      "action": "profile",
+      "raw": "Counters:\n  sample:\n    Hash: 0x1234\n    Counters: 2\n    Function count: 3\n    Block counts: [2]\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 3\nMaximum internal block count: 2\nTotal number of blocks: 2\nTotal count: 5\nunparsed\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-profile-empty",
+      "action": "profile",
+      "raw": "",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-intake-regular",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": "abc"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "value": {
+          "a": {
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+            "size": 3
+          }
+        }
+      }
+    },
+    {
+      "id": "collector-intake-empty-file",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": ""
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "value": {
+          "a": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "collector-intake-two-total-boundary",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": "abc"
+        },
+        "b": {
+          "file": "abc"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "value": {
+          "a": {
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+            "size": 3
+          },
+          "b": {
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+            "size": 3
+          }
+        }
+      }
+    },
+    {
+      "id": "collector-intake-nested-depth-boundary",
+      "action": "intake",
+      "entries": {
+        "x/y/a": {
+          "file": "abc"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "value": {
+          "x/y/a": {
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+            "size": 3
+          }
+        }
+      }
+    },
+    {
+      "id": "collector-intake-empty-directory",
+      "action": "intake",
+      "entries": {},
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "value": {}
+      }
+    },
+    {
+      "id": "collector-intake-missing-root",
+      "action": "intake",
+      "entries": {},
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      },
+      "missing_root": true
+    },
+    {
+      "id": "collector-intake-root-is-file",
+      "action": "intake",
+      "entries": {},
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      },
+      "root_file": true
+    },
+    {
+      "id": "collector-intake-symlink-file",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": "abc"
+        },
+        "b": {
+          "symlink": "a"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-symlink-directory",
+      "action": "intake",
+      "entries": {
+        "a/b": {
+          "file": "abc"
+        },
+        "c": {
+          "symlink": "a"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-dangling-symlink",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "symlink": "missing"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-fifo",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "fifo": true
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-file-limit",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": "abcde"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-total-limit",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": "abcd"
+        },
+        "b": {
+          "file": "abc"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-file-count-limit",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": ""
+        },
+        "b": {
+          "file": ""
+        },
+        "c": {
+          "file": ""
+        },
+        "d": {
+          "file": ""
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-depth-limit",
+      "action": "intake",
+      "entries": {
+        "x/y/z/a": {
+          "file": "abc"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-intake-control-name",
+      "action": "intake",
+      "entries": {
+        "bad\nname": {
+          "file": "abc"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-nest-success",
+      "action": "nest",
+      "mode": "success",
+      "expected": {
+        "a_launches": 0,
+        "a_exits": 0,
+        "b_launches": 1,
+        "b_exits": 1,
+        "ambient_context_unchanged": true,
+        "same_actual_pid": true,
+        "child_reaped": true,
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "stdout_size": 0,
+        "stderr_size": 0,
+        "invocations": 1,
+        "A_bytes_unchanged": true
+      },
+      "recipe": {
+        "probe": "owned measured peer receives A through its Command environment; explicit B Request for one child launch and every completion/cleanup; no global environment mutation",
+        "program": "/usr/bin/true",
+        "arguments": [],
+        "budget_ms": 30000,
+        "poll_ms": 1,
+        "initial_observation_delay_ms": 0,
+        "cleanup_budget_ms": 2000,
+        "output_limit_bytes": 8388608,
+        "preserve_A_context_bytes_and_directory_entries": true
+      }
+    },
+    {
+      "id": "collector-nest-nonzero",
+      "action": "nest",
+      "mode": "nonzero",
+      "expected": {
+        "a_launches": 0,
+        "a_exits": 0,
+        "b_launches": 1,
+        "b_exits": 1,
+        "ambient_context_unchanged": true,
+        "same_actual_pid": true,
+        "child_reaped": true,
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 1,
+        "signal": null,
+        "stdout_size": 0,
+        "stderr_size": 0,
+        "invocations": 1,
+        "A_bytes_unchanged": true
+      },
+      "recipe": {
+        "probe": "owned measured peer receives A through its Command environment; explicit B Request for one child launch and every completion/cleanup; no global environment mutation",
+        "program": "/usr/bin/false",
+        "arguments": [],
+        "budget_ms": 30000,
+        "poll_ms": 1,
+        "initial_observation_delay_ms": 0,
+        "cleanup_budget_ms": 2000,
+        "output_limit_bytes": 8388608,
+        "preserve_A_context_bytes_and_directory_entries": true
+      }
+    },
+    {
+      "id": "collector-nest-timeout",
+      "action": "nest",
+      "mode": "timeout",
+      "expected": {
+        "a_launches": 0,
+        "a_exits": 0,
+        "b_launches": 1,
+        "b_exits": 1,
+        "ambient_context_unchanged": true,
+        "same_actual_pid": true,
+        "child_reaped": true,
+        "operation_ok": false,
+        "error_kind": "TimedOut",
+        "exit": null,
+        "signal": 9,
+        "stdout_size": 0,
+        "stderr_size": 0,
+        "invocations": 1,
+        "A_bytes_unchanged": true
+      },
+      "recipe": {
+        "probe": "owned measured peer receives A through its Command environment; explicit B Request for one child launch and every completion/cleanup; no global environment mutation",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ],
+        "budget_ms": 20,
+        "poll_ms": 1,
+        "initial_observation_delay_ms": 0,
+        "cleanup_budget_ms": 2000,
+        "output_limit_bytes": 8388608,
+        "preserve_A_context_bytes_and_directory_entries": true
+      }
+    },
+    {
+      "id": "collector-nest-output-limit",
+      "action": "nest",
+      "mode": "output-limit",
+      "expected": {
+        "a_launches": 0,
+        "a_exits": 0,
+        "b_launches": 1,
+        "b_exits": 1,
+        "ambient_context_unchanged": true,
+        "same_actual_pid": true,
+        "child_reaped": true,
+        "operation_ok": false,
+        "error_kind": "InvalidData",
+        "exit": 0,
+        "signal": null,
+        "stdout_size": 8388609,
+        "stderr_size": 0,
+        "invocations": 1,
+        "A_bytes_unchanged": true
+      },
+      "recipe": {
+        "probe": "owned measured peer receives A through its Command environment; explicit B Request for one child launch and every completion/cleanup; no global environment mutation",
+        "program": "actual-built-native-peer",
+        "arguments": [],
+        "budget_ms": 30000,
+        "poll_ms": 1,
+        "initial_observation_delay_ms": 0,
+        "cleanup_budget_ms": 2000,
+        "output_limit_bytes": 8388608,
+        "preserve_A_context_bytes_and_directory_entries": true,
+        "peer_environment": {
+          "ARBORESCE_XTASK_TEST_PEER": "metadata",
+          "ARBORESCE_XTASK_TEST_METADATA": "task-owned file containing exactly8388609 x bytes"
+        },
+        "inner_native_profile_directory": "B-only retained raw directory, not A raw set"
+      }
+    },
+    {
+      "id": "collector-nest-ambient-without-declaration",
+      "action": "outer-negative",
+      "mode": "undeclared",
+      "expected": {
+        "error": "invalid collector nesting"
+      },
+      "recipe": {
+        "base": "A request is valid and immutable; actual parent writes this current native collector/probe PID launch; executable/current argv/cwd match; declared map equals ambient instrumentation",
+        "mutation": "omit declared outer while actual ambient A remains"
+      }
+    },
+    {
+      "id": "collector-nest-outer-env-mismatch",
+      "action": "outer-negative",
+      "mode": "mismatch",
+      "expected": {
+        "error": "invalid collector nesting"
+      },
+      "recipe": {
+        "base": "A request is valid and immutable; actual parent writes this current native collector/probe PID launch; executable/current argv/cwd match; declared map equals ambient instrumentation",
+        "mutation": "change declared LLVM_PROFILE_FILE value only"
+      }
+    },
+    {
+      "id": "collector-nest-missing-actual-launch",
+      "action": "outer-negative",
+      "mode": "missing-launch",
+      "expected": {
+        "error": "invalid collector nesting"
+      },
+      "recipe": {
+        "base": "A request is valid and immutable; actual parent writes this current native collector/probe PID launch; executable/current argv/cwd match; declared map equals ambient instrumentation",
+        "mutation": "remove only the task-owned A launch file for actual current PID before validation"
+      }
+    },
+    {
+      "id": "collector-nest-wrong-actual-identity",
+      "action": "outer-negative",
+      "mode": "wrong-identity",
+      "expected": {
+        "error": "invalid collector nesting"
+      },
+      "recipe": {
+        "base": "A request is valid and immutable; actual parent writes this current native collector/probe PID launch; executable/current argv/cwd match; declared map equals ambient instrumentation",
+        "mutation": "change only the task-owned actual PID launch executable_sha256 to lowercase64hex zero digest"
+      }
+    },
+    {
+      "id": "collector-native-help",
+      "action": "cli",
+      "args": [
+        "--help"
+      ],
+      "expected": {
+        "exit": 0,
+        "stdout": "usage: arboresce-verify prepare <workspace> <sysroot> <cargo-llvm-cov> <cargo-home> <prepared.json> [<outer-context>]\n       arboresce-verify <workspace> <roles.json> <tests.json> <prepared.json> <fresh-output>\n",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "collector-native-no-arguments",
+      "action": "cli",
+      "args": [],
+      "expected": {
+        "exit": 2,
+        "stdout": "",
+        "stderr": "usage: arboresce-verify prepare <workspace> <sysroot> <cargo-llvm-cov> <cargo-home> <prepared.json> [<outer-context>]\n       arboresce-verify <workspace> <roles.json> <tests.json> <prepared.json> <fresh-output>\n"
+      }
+    },
+    {
+      "id": "collector-native-unknown",
+      "action": "cli",
+      "args": [
+        "unknown"
+      ],
+      "expected": {
+        "exit": 2,
+        "stdout": "",
+        "stderr": "usage: arboresce-verify prepare <workspace> <sysroot> <cargo-llvm-cov> <cargo-home> <prepared.json> [<outer-context>]\n       arboresce-verify <workspace> <roles.json> <tests.json> <prepared.json> <fresh-output>\n"
+      }
+    },
+    {
+      "id": "collector-native-real-mini",
+      "action": "mini",
+      "mutation": false,
+      "expected": {
+        "exit": 0,
+        "required_suites": 3,
+        "tests": 3,
+        "objects": 6,
+        "profiles": 12,
+        "native_binaries": 0,
+        "strict_scopes": 10,
+        "zero_failed_ignored_filtered": true,
+        "all_actual_tools": true,
+        "outer_context_preserved": true,
+        "success_record": {
+          "version": "native-verification-result-v1",
+          "status": "PASS",
+          "required_suites": 3,
+          "tests": 3,
+          "objects": 6,
+          "profiles": 12,
+          "native_binaries": 0,
+          "strict_scopes": 10
+        }
+      },
+      "recipe": {
+        "preparation": "same actual collector prepare with explicit installed sysroot/plugin/Cargo-home; actual A launch validates current native collector identity",
+        "workspace": "mini_workspace_files plus mini_mutation_files only for mutation=true",
+        "mutation_timing": "none"
+      }
+    },
+    {
+      "id": "collector-native-real-mini-source-change",
+      "action": "mini",
+      "mutation": true,
+      "expected": {
+        "exit": 1,
+        "stderr_contains": "collector inputs changed",
+        "failed_output_retained": true,
+        "outer_context_preserved": true,
+        "stderr": "arboresce-verify: collector inputs changed\n"
+      },
+      "recipe": {
+        "preparation": "same actual collector prepare with explicit installed sysroot/plugin/Cargo-home; actual A launch validates current native collector identity",
+        "workspace": "mini_workspace_files plus mini_mutation_files only for mutation=true",
+        "mutation_timing": "inside actual required test execution before that test returns, with exact captured witness"
+      }
+    },
+    {
+      "id": "collector-intake-per-file-boundary",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": "abcd"
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "value": {
+          "a": {
+            "sha256": "88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589",
+            "size": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "collector-intake-file-count-boundary",
+      "action": "intake",
+      "entries": {
+        "a": {
+          "file": ""
+        },
+        "b": {
+          "file": ""
+        },
+        "c": {
+          "file": ""
+        }
+      },
+      "limits": {
+        "files": 3,
+        "per_file": 4,
+        "total": 6,
+        "depth": 2
+      },
+      "expected": {
+        "value": {
+          "a": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 0
+          },
+          "b": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 0
+          },
+          "c": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "collector-prepared-resource-count-exact",
+      "action": "prepared-resource-recipe",
+      "recipe": {
+        "files": 16384,
+        "size": 0,
+        "first_paths": [
+          "bin/rustc",
+          "lib/std.rlib",
+          "libexec/proc"
+        ],
+        "remaining_prefix": "lib/resource-"
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "id": "collector-prepared-resource-count-over",
+      "action": "prepared-resource-recipe",
+      "recipe": {
+        "files": 16385,
+        "size": 0,
+        "first_paths": [
+          "bin/rustc",
+          "lib/std.rlib",
+          "libexec/proc"
+        ],
+        "remaining_prefix": "lib/resource-"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-prepared-resource-per-file-exact",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "bin/rustc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "lib/rustlib/aarch64-apple-darwin/lib/std.rlib": {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "size": 30
+          },
+          "libexec/rust-analyzer-proc-macro-srv": {
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "size": 40
+          }
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "id": "collector-prepared-resource-total-exact",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "bin/rustc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "lib/std.rlib": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "lib/llvm.dylib": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "libexec/proc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          }
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "id": "collector-prepared-resource-total-over",
+      "action": "prepared",
+      "patch": {
+        "/resources": {
+          "bin/rustc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "lib/std.rlib": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "lib/llvm.dylib": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "libexec/proc": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 1073741824
+          },
+          "lib/one-byte": {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "size": 1
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-profile-max-u64-valid",
+      "action": "profile",
+      "raw": "Counters:\n  maximum:\n    Hash: 0x1234\n    Counters: 1\n    Function count: 18446744073709551615\n    Block counts: []\nInstrumentation level: Front-end\nFunctions shown: 1\nTotal functions: 1\nMaximum function count: 18446744073709551615\nMaximum internal block count: 0\nTotal number of blocks: 1\nTotal count: 18446744073709551615\n",
+      "expected": {
+        "value": {
+          "functions": 1,
+          "positive_functions": 1
+        }
+      }
+    },
+    {
+      "id": "collector-profile-coherent-aggregate-u64-overflow",
+      "action": "profile",
+      "raw": "Counters:\n  maximum:\n    Hash: 0x1234\n    Counters: 1\n    Function count: 18446744073709551615\n    Block counts: []\n  one_more:\n    Hash: 0xabcd\n    Counters: 1\n    Function count: 1\n    Block counts: []\nInstrumentation level: Front-end\nFunctions shown: 2\nTotal functions: 2\nMaximum function count: 18446744073709551615\nMaximum internal block count: 0\nTotal number of blocks: 2\nTotal count: 18446744073709551616\n",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-native-non-utf8-intake",
+      "action": "cli",
+      "args": [
+        {
+          "bytes": [
+            255
+          ]
+        },
+        "roles.json",
+        "tests.json",
+        "prepared.json",
+        "fresh-output"
+      ],
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "arboresce-verify: invalid collector input\n"
+      }
+    },
+    {
+      "id": "collector-native-closed-stdout",
+      "action": "cli",
+      "args": [
+        "--help"
+      ],
+      "closed": "stdout",
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "collector output failed\n"
+      }
+    },
+    {
+      "id": "collector-native-closed-stderr",
+      "action": "cli",
+      "args": [
+        "unknown"
+      ],
+      "closed": "stderr",
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "collector-native-real-mini-closed-success-output",
+      "action": "mini",
+      "mutation": false,
+      "closed": "stdout",
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "collector output failed\n",
+        "complete_result_evidence_retained": true,
+        "outer_context_preserved": true
+      }
+    },
+    {
+      "id": "collector-native-final-flush-failure",
+      "action": "api-final-flush",
+      "success_record": {
+        "version": "native-verification-result-v1",
+        "status": "PASS",
+        "required_suites": 3,
+        "tests": 3,
+        "objects": 6,
+        "profiles": 12,
+        "native_binaries": 0,
+        "strict_scopes": 10
+      },
+      "writer": {
+        "write_succeeds": true,
+        "flush_fails": true
+      },
+      "expected": {
+        "exit": 1,
+        "written_stdout": "{\"native_binaries\":0,\"objects\":6,\"profiles\":12,\"required_suites\":3,\"status\":\"PASS\",\"strict_scopes\":10,\"tests\":3,\"version\":\"native-verification-result-v1\"}\n",
+        "stderr": "collector output failed\n",
+        "prior_frame_invalidated_by_exit": true
+      }
+    },
+    {
+      "id": "collector-prepared-missing-native-fifo-tool",
+      "action": "prepared",
+      "patch": {
+        "/tools": {
+          "cargo": {
+            "program": "/prepared/bin/cargo",
+            "executable": "/prepared/real/cargo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustc": {
+            "program": "/prepared/bin/rustc",
+            "executable": "/prepared/real/rustc",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustdoc": {
+            "program": "/prepared/bin/rustdoc",
+            "executable": "/prepared/real/rustdoc",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-fmt": {
+            "program": "/prepared/bin/cargo-fmt",
+            "executable": "/prepared/real/cargo-fmt",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "rustfmt": {
+            "program": "/prepared/bin/rustfmt",
+            "executable": "/prepared/real/rustfmt",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-clippy": {
+            "program": "/prepared/bin/cargo-clippy",
+            "executable": "/prepared/real/cargo-clippy",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "clippy-driver": {
+            "program": "/prepared/bin/clippy-driver",
+            "executable": "/prepared/real/clippy-driver",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "cargo-llvm-cov": {
+            "program": "/prepared/bin/cargo-llvm-cov",
+            "executable": "/prepared/real/cargo-llvm-cov",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "llvm-cov": {
+            "program": "/prepared/bin/llvm-cov",
+            "executable": "/prepared/real/llvm-cov",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "llvm-profdata": {
+            "program": "/prepared/bin/llvm-profdata",
+            "executable": "/prepared/real/llvm-profdata",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "true": {
+            "program": "/prepared/bin/true",
+            "executable": "/prepared/real/true",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "false": {
+            "program": "/prepared/bin/false",
+            "executable": "/prepared/real/false",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "echo": {
+            "program": "/prepared/bin/echo",
+            "executable": "/prepared/real/echo",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "sleep": {
+            "program": "/prepared/bin/sleep",
+            "executable": "/prepared/real/sleep",
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          }
+        }
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-native-postspawn-gate-io-cleanup",
+      "action": "postspawn-io",
+      "recipe": {
+        "program": "sleep",
+        "arguments": [
+          "30"
+        ],
+        "mutation_mode": "ready-only",
+        "failure": "Create task-owned ready directory before spawn; after actual sleep launch and local receipt, the real fs::write ready operation fails IsADirectory. No launch/receipt corruption; no global environment mutation.",
+        "cleanup_budget_ns": 2000000000,
+        "completion": "Retain actual terminate/reap trace and matching launch/completion for local explicit request; ambient parent invocation completion attempted independently too."
+      },
+      "expected": {
+        "error_kind": "IsADirectory",
+        "signal": 9,
+        "exit": null,
+        "reaped": true,
+        "within_cleanup_budget": true,
+        "local_launches": 1,
+        "local_exits": 1,
+        "same_actual_pid": true,
+        "matching_launch_hash": true,
+        "local_completion": true,
+        "ambient_completion": true,
+        "ambient_environment_unchanged": true
+      }
+    }
+  ],
+  "mini_workspace_files": {
+    "Cargo.toml": "[workspace]\nmembers = [\"crates/arboresce\", \"crates/arboresce-domain\", \"tools/xtask\"]\nresolver = \"3\"\n",
+    "Cargo.lock": "# This file is automatically @generated by Cargo.\n# It is not intended for manual editing.\nversion = 4\n\n[[package]]\nname = \"arboresce\"\nversion = \"0.0.0\"\n\n[[package]]\nname = \"arboresce-domain\"\nversion = \"0.0.0\"\n\n[[package]]\nname = \"arboresce-xtask\"\nversion = \"0.0.0\"\n",
+    "rust-toolchain.toml": "[toolchain]\nchannel = \"1.99.0\"\n",
+    "README.md": "# Collector protocol workspace\n\nThis literal fixture has no collector integration test.\n",
+    "crates/arboresce/Cargo.toml": "[package]\nname = \"arboresce\"\nversion = \"0.0.0\"\nedition = \"2024\"\nrust-version = \"1.99.0\"\n",
+    "crates/arboresce/src/lib.rs": "pub fn value() -> u8 {\n    1\n}\n",
+    "crates/arboresce/tests/value.rs": "#[test]\nfn exact_value() {\n    assert_eq!(arboresce::value(), 1);\n}\n",
+    "crates/arboresce-domain/Cargo.toml": "[package]\nname = \"arboresce-domain\"\nversion = \"0.0.0\"\nedition = \"2024\"\nrust-version = \"1.99.0\"\n",
+    "crates/arboresce-domain/src/lib.rs": "pub fn value() -> u8 {\n    1\n}\n",
+    "crates/arboresce-domain/tests/value.rs": "#[test]\nfn exact_value() {\n    assert_eq!(arboresce_domain::value(), 1);\n}\n",
+    "tools/xtask/Cargo.toml": "[package]\nname = \"arboresce-xtask\"\nversion = \"0.0.0\"\nedition = \"2024\"\nrust-version = \"1.99.0\"\n",
+    "tools/xtask/src/lib.rs": "pub fn value() -> u8 {\n    1\n}\n",
+    "tools/xtask/tests/value.rs": "#[test]\nfn exact_value() {\n    assert_eq!(arboresce_xtask::value(), 1);\n}\n",
+    "roles.json": "{\n  \"version\": \"rust-source-roles-v1\",\n  \"sources\": [\n    {\n      \"path\": \"crates/arboresce/src/lib.rs\",\n      \"package\": \"arboresce\",\n      \"role\": \"measured\"\n    },\n    {\n      \"path\": \"crates/arboresce/tests/value.rs\",\n      \"package\": \"arboresce\",\n      \"role\": \"assertion\"\n    },\n    {\n      \"path\": \"crates/arboresce-domain/src/lib.rs\",\n      \"package\": \"arboresce-domain\",\n      \"role\": \"measured\"\n    },\n    {\n      \"path\": \"crates/arboresce-domain/tests/value.rs\",\n      \"package\": \"arboresce-domain\",\n      \"role\": \"assertion\"\n    },\n    {\n      \"path\": \"tools/xtask/src/lib.rs\",\n      \"package\": \"arboresce-xtask\",\n      \"role\": \"measured\"\n    },\n    {\n      \"path\": \"tools/xtask/tests/value.rs\",\n      \"package\": \"arboresce-xtask\",\n      \"role\": \"assertion\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"kind\": \"library\",\n      \"name\": \"arboresce\",\n      \"sources\": [\n        \"crates/arboresce/src/lib.rs\"\n      ]\n    },\n    {\n      \"kind\": \"library\",\n      \"name\": \"arboresce_domain\",\n      \"sources\": [\n        \"crates/arboresce-domain/src/lib.rs\"\n      ]\n    },\n    {\n      \"kind\": \"library\",\n      \"name\": \"arboresce_xtask\",\n      \"sources\": [\n        \"tools/xtask/src/lib.rs\"\n      ]\n    }\n  ],\n  \"generated_sources\": []\n}\n",
+    "tests.json": "{\n  \"version\": \"rust-test-suites-v1\",\n  \"profile\": \"rust-1.99.0-macos-arm64-default-v1\",\n  \"harnesses\": [\n    {\n      \"package\": \"arboresce\",\n      \"kind\": \"lib\",\n      \"name\": \"arboresce\",\n      \"required\": false,\n      \"tests\": []\n    },\n    {\n      \"package\": \"arboresce\",\n      \"kind\": \"test\",\n      \"name\": \"value\",\n      \"required\": true,\n      \"tests\": [\n        {\n          \"name\": \"exact_value\",\n          \"prefix\": null,\n          \"case_ids\": []\n        }\n      ]\n    },\n    {\n      \"package\": \"arboresce-domain\",\n      \"kind\": \"lib\",\n      \"name\": \"arboresce_domain\",\n      \"required\": false,\n      \"tests\": []\n    },\n    {\n      \"package\": \"arboresce-domain\",\n      \"kind\": \"test\",\n      \"name\": \"value\",\n      \"required\": true,\n      \"tests\": [\n        {\n          \"name\": \"exact_value\",\n          \"prefix\": null,\n          \"case_ids\": []\n        }\n      ]\n    },\n    {\n      \"package\": \"arboresce-xtask\",\n      \"kind\": \"lib\",\n      \"name\": \"arboresce_xtask\",\n      \"required\": false,\n      \"tests\": []\n    },\n    {\n      \"package\": \"arboresce-xtask\",\n      \"kind\": \"test\",\n      \"name\": \"value\",\n      \"required\": true,\n      \"tests\": [\n        {\n          \"name\": \"exact_value\",\n          \"prefix\": null,\n          \"case_ids\": []\n        }\n      ]\n    }\n  ],\n  \"native_binaries\": [],\n  \"doctests\": [\n    {\n      \"package\": \"arboresce\",\n      \"tests\": 0\n    },\n    {\n      \"package\": \"arboresce-domain\",\n      \"tests\": 0\n    },\n    {\n      \"package\": \"arboresce-xtask\",\n      \"tests\": 0\n    }\n  ],\n  \"features\": {\n    \"arboresce\": [],\n    \"arboresce-domain\": [],\n    \"arboresce-xtask\": []\n  }\n}\n"
+  },
+  "tool_names": [
+    "cargo",
+    "rustc",
+    "rustdoc",
+    "cargo-fmt",
+    "rustfmt",
+    "cargo-clippy",
+    "clippy-driver",
+    "cargo-llvm-cov",
+    "llvm-cov",
+    "llvm-profdata",
+    "true",
+    "false",
+    "echo",
+    "sleep",
+    "mkfifo"
+  ],
+  "usage_utf8": "usage: arboresce-verify prepare <workspace> <sysroot> <cargo-llvm-cov> <cargo-home> <prepared.json> [<outer-context>]\n       arboresce-verify <workspace> <roles.json> <tests.json> <prepared.json> <fresh-output>\n",
+  "outer_environment_keys": [
+    "ARBORESCE_NATIVE_CONTEXT",
+    "LLVM_PROFILE_FILE",
+    "RUSTFLAGS",
+    "RUSTDOCFLAGS",
+    "CARGO_ENCODED_RUSTFLAGS",
+    "CARGO_ENCODED_RUSTDOCFLAGS",
+    "RUSTC_WRAPPER",
+    "RUSTC_WORKSPACE_WRAPPER",
+    "CARGO_BUILD_TARGET",
+    "CARGO_LLVM_COV_TARGET_DIR",
+    "CARGO_LLVM_COV_BUILD_DIR",
+    "CARGO_LLVM_COV",
+    "CARGO_LLVM_COV_SHOW_ENV",
+    "__CARGO_LLVM_COV_RUSTC_WRAPPER",
+    "__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS",
+    "__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES",
+    "RUSTC",
+    "RUSTDOC",
+    "RUSTFMT",
+    "CARGO_BUILD_RUSTC",
+    "CARGO_BUILD_RUSTDOC",
+    "CLIPPY_DRIVER_PATH"
+  ],
+  "mini_mutation_files": {
+    "tools/xtask/tests/value.rs": "#[test]\nfn exact_value() {\n    assert_eq!(arboresce_xtask::value(), 1);\n    let path = std::path::Path::new(env!(\"CARGO_MANIFEST_DIR\")).join(\"../../README.md\");\n    std::fs::write(path, b\"Collector mutation witness.\\n\").unwrap();\n    println!(\"collector mutation witness: README.md\");\n}\n"
+  },
+  "mini_mutation_witness": {
+    "path": "README.md",
+    "before_utf8": "# Collector protocol workspace\n\nThis literal fixture has no collector integration test.\n",
+    "after_utf8": "Collector mutation witness.\n",
+    "actual_test": "arboresce-xtask:test:value::exact_value",
+    "captured_stdout_line": "collector mutation witness: README.md\n",
+    "no_external_watcher": true
+  }
+}

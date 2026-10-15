@@ -143,6 +143,7 @@ fn observe_identity_with(command: &mut Command, options: Observation) -> io::Res
             budget: options.budget,
             poll: options.poll,
             initial_delay: options.initial_delay,
+            request: None,
         },
         started,
         &mut std::io::stdout().lock(),
@@ -217,4 +218,7 @@ impl Write for ObservationTrace {
 pub mod inventory_inputs;
 pub mod report_inputs;
 
+pub mod collection_inputs;
+pub mod collection_mini;
+pub mod collection_native;
 pub mod measurement_inputs;

@@ -10,6 +10,1145 @@ use arboresce_xtask::{
 mod support;
 
 #[test]
+fn independently_approved_collector_version_text() {
+    use arboresce_xtask::collection;
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v7/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["action"] == "versions")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let streams = ["cargo", "rustc", "plugin", "cov", "profdata"]
+            .map(|key| support::collection_inputs::literal_bytes(&case["recipe"][key]));
+        let actual = match collection::versions_from(streams.each_ref().map(Vec::as_slice)) {
+            Ok(value) => json!({"value":value}),
+            Err(error) => json!({"error":error.to_string()}),
+        };
+        assert_eq!(actual, case["expected"], "{id}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 19);
+}
+
+#[test]
+fn independently_approved_collector_physical_boundaries() {
+    use serde_json::Value;
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v7/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap().iter().filter(|c| {
+        matches!(
+            c["action"].as_str(),
+            Some(
+                "fresh"
+                    | "objects"
+                    | "receipts"
+                    | "profile-name"
+                    | "dependency"
+                    | "configs"
+                    | "json"
+                    | "dependency-malformed"
+                    | "compiled-sources"
+                    | "binary-counts"
+                    | "preflight"
+            )
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let owner = support::PreparedRoot::new().unwrap();
+        let actual = support::collection_inputs::boundary(&owner, case).unwrap();
+        assert_eq!(
+            actual,
+            case["expected"],
+            "{id}; retained {}",
+            owner.path.display()
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 72);
+}
+
+#[test]
+fn independently_approved_collector_preparation_failures() {
+    use serde_json::Value;
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v7/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["action"] == "preparation")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let owner = support::PreparedRoot::new().unwrap();
+        assert_eq!(
+            support::collection_inputs::preparation_failure(&owner, case).unwrap(),
+            case["expected"],
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 16);
+}
+
+#[test]
+fn independently_approved_collector_native_boundaries() {
+    use serde_json::Value;
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v7/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap().iter().filter(|c| {
+        matches!(
+            c["action"].as_str(),
+            Some("probe-error" | "capture-error" | "postspawn-io")
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        if case["action"] == "postspawn-io" {
+            assert_eq!(
+                support::collection_native::postspawn_io(case).unwrap(),
+                case["expected"],
+                "{id}"
+            );
+        } else if case["action"] == "capture-error" {
+            assert_eq!(
+                support::collection_native::pre_spawn(case).unwrap(),
+                case["expected"],
+                "{id}"
+            );
+        } else {
+            let error = support::collection_native::probe(&case["recipe"]).unwrap_err();
+            let message = error.to_string();
+            let payload = message
+                .strip_prefix(case["expected"]["error_contains"].as_str().unwrap())
+                .unwrap();
+            let actual: Value = serde_json::from_str(payload).unwrap();
+            assert_eq!(actual["exit"], case["expected"]["peer_exit"], "{id}");
+            assert!(actual["signal"].is_null());
+            assert!(actual["stdout"].as_array().unwrap().is_empty());
+            let stderr = String::from_utf8(support::collection_inputs::literal_bytes(
+                &serde_json::json!({"bytes":actual["stderr"]}),
+            ))
+            .unwrap();
+            assert!(
+                stderr.starts_with(case["expected"]["peer_stderr_prefix"].as_str().unwrap()),
+                "{id}"
+            );
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 5);
+}
+
+#[test]
+fn independently_approved_collector_boundary_modules() {
+    use arboresce_xtask::collection_modules;
+    use serde_json::Value;
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v7/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["action"] == "module")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let object = support::collection_inputs::hex(case, "object_hex").unwrap();
+        let profile = support::collection_inputs::hex(case, "profile_hex").unwrap();
+        assert_eq!(
+            collection_modules::matching(&object, &profile)
+                .unwrap_err()
+                .to_string(),
+            case["expected"]["error"],
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 6);
+}
+
+#[test]
+fn independently_approved_collector_native_exercise_vectors() {
+    use arboresce_xtask::{collection_artifacts, inventory::sha256};
+    use serde_json::json;
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v6/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap().iter().filter(|case| {
+        matches!(
+            case["action"].as_str(),
+            Some("exercise" | "exercise-recipe")
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let binary = support::collection_inputs::exercise_binary(case);
+        match collection_artifacts::exercises(&binary) {
+            Ok(vectors) => {
+                let actual = vectors
+                    .iter()
+                    .map(|v| {
+                        json!({"arguments":v.arguments,"exit":v.exit,
+                    "stdout_size":v.stdout.len(),"stdout_sha256":sha256(&v.stdout),
+                    "stderr_size":v.stderr.len(),"stderr_sha256":sha256(&v.stderr)})
+                    })
+                    .collect::<Vec<_>>();
+                assert_eq!(json!(actual), case["expected"]["value"], "{id}");
+            }
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 29);
+}
+
+#[test]
+fn independently_approved_collector_real_mini_workspaces() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|case| case["action"] == "mini")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mini = support::collection_mini::Mini::run(&fixture, case).unwrap();
+        assert_eq!(
+            mini.actual.status.code().unwrap() as i64,
+            case["expected"]["exit"].as_i64().unwrap(),
+            "{id}; retained {}",
+            mini.owner.display()
+        );
+        assert!(mini.outer_preserved().unwrap(), "{id}");
+        if case["mutation"] == true {
+            assert_eq!(
+                mini.actual.stderr,
+                case["expected"]["stderr"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+            assert!(mini.actual.stdout.is_empty());
+            assert_eq!(
+                std::fs::read(mini.source.join("README.md")).unwrap(),
+                b"Collector mutation witness.\n"
+            );
+            let captured = std::fs::read_dir(mini.output.join("commands"))
+                .unwrap()
+                .map(|entry| std::fs::read(entry.unwrap().path().join("stdout")).unwrap())
+                .collect::<Vec<_>>();
+            let witness = fixture["mini_mutation_witness"]["captured_stdout_line"]
+                .as_str()
+                .unwrap();
+            assert!(
+                captured.iter().any(|bytes| bytes
+                    .windows(witness.len())
+                    .any(|window| window == witness.as_bytes())),
+                "{id}"
+            );
+            assert_eq!(
+                mini.record("source-before.json").unwrap()["source"]["README.md"]["sha256"],
+                arboresce_xtask::inventory::sha256(
+                    fixture["mini_workspace_files"]["README.md"]
+                        .as_str()
+                        .unwrap()
+                        .as_bytes()
+                )
+            );
+        } else if case["closed"] == "stdout" {
+            assert_eq!(
+                mini.actual.stderr,
+                case["expected"]["stderr"].as_str().unwrap().as_bytes()
+            );
+            assert!(mini.actual.stdout.is_empty());
+            assert_eq!(mini.record("result.json").unwrap()["status"], "PASS");
+        } else {
+            assert!(mini.actual.stderr.is_empty());
+            assert_eq!(mini.successful().unwrap(), case["expected"], "{id}");
+            assert_eq!(
+                mini.actual.stdout,
+                format!("{}\n", case["expected"]["success_record"]).as_bytes()
+            );
+            support::collection_mini::assert_real_mini_identity(&mini);
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 3);
+}
+
+#[test]
+fn independently_approved_collector_native_profile_substitution() {
+    use arboresce_xtask::{
+        collection_modules, collection_profiles, collection_runner::Runner, inventory::sha256,
+    };
+    use std::{collections::BTreeMap, fs};
+    let base: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v5/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|case| case["action"] == "mini-profile-swap")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mini = support::collection_mini::Mini::run(&base, case).unwrap();
+        assert_eq!(
+            mini.actual.status.code().unwrap() as i64,
+            case["expected"]["exit"].as_i64().unwrap(),
+            "{id}; retained {}",
+            mini.owner.display()
+        );
+        assert!(mini.actual.stdout.is_empty());
+        assert_eq!(
+            mini.actual.stderr,
+            case["expected"]["stderr"].as_str().unwrap().as_bytes()
+        );
+        assert!(mini.unchanged_source().unwrap());
+        assert!(mini.outer_preserved().unwrap());
+        let proof = mini.output.join("profile-substitution");
+        let target =
+            std::path::PathBuf::from(fs::read_to_string(proof.join("target-path")).unwrap());
+        let replacement_path =
+            std::path::PathBuf::from(fs::read_to_string(proof.join("replacement-path")).unwrap());
+        let before = fs::read(proof.join("before.profraw")).unwrap();
+        let replacement = fs::read(proof.join("replacement.profraw")).unwrap();
+        assert_eq!(fs::read(&target).unwrap(), replacement);
+        assert_eq!(fs::read(&replacement_path).unwrap(), replacement);
+        assert_ne!(before, replacement);
+        let pid = |path: &std::path::Path| {
+            path.file_name()
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .strip_prefix("arboresce-")
+                .unwrap()
+                .split('-')
+                .next()
+                .unwrap()
+                .parse::<u32>()
+                .unwrap()
+        };
+        let target_pid = pid(&target);
+        let other_pid = pid(&replacement_path);
+        assert_ne!(target_pid, other_pid);
+        let context = mini.output.join("context");
+        let launches = [target_pid, other_pid].map(|pid| {
+            serde_json::from_slice::<serde_json::Value>(
+                &fs::read(context.join("launches").join(format!("{pid}.json"))).unwrap(),
+            )
+            .unwrap()
+        });
+        assert_ne!(
+            launches[0]["executable_sha256"],
+            launches[1]["executable_sha256"]
+        );
+        let objects = mini.record("objects.json").unwrap();
+        for (index, bytes) in [&before, &replacement].iter().enumerate() {
+            let object = objects
+                .as_array()
+                .unwrap()
+                .iter()
+                .find(|o| o["sha256"] == launches[index]["executable_sha256"])
+                .unwrap();
+            let object_bytes = fs::read(object["path"].as_str().unwrap()).unwrap();
+            assert_eq!(sha256(&object_bytes), object["sha256"]);
+            collection_modules::matching(&object_bytes, bytes).unwrap();
+        }
+        let wrong = objects
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|o| o["sha256"] == launches[0]["executable_sha256"])
+            .unwrap();
+        assert!(
+            collection_modules::matching(
+                &fs::read(wrong["path"].as_str().unwrap()).unwrap(),
+                &replacement
+            )
+            .is_err()
+        );
+        let launch_names = fs::read_dir(context.join("launches"))
+            .unwrap()
+            .map(|e| e.unwrap().file_name())
+            .collect::<BTreeSet<_>>();
+        let exit_names = fs::read_dir(context.join("exits"))
+            .unwrap()
+            .map(|e| e.unwrap().file_name())
+            .collect::<BTreeSet<_>>();
+        assert_eq!(launch_names, exit_names);
+        for (pid, launch) in [target_pid, other_pid].iter().zip(launches.iter()) {
+            let launch_bytes =
+                fs::read(context.join("launches").join(format!("{pid}.json"))).unwrap();
+            let exit: serde_json::Value = serde_json::from_slice(
+                &fs::read(context.join("exits").join(format!("{pid}.json"))).unwrap(),
+            )
+            .unwrap();
+            assert_eq!(exit["launch_sha256"], sha256(&launch_bytes));
+            assert_eq!(exit["exit"], 0);
+            assert_eq!(launch["pid"], *pid);
+        }
+        let output = mini.owner.join("profile-proof");
+        fs::create_dir(&output).unwrap();
+        let mut runner = Runner::new(&mini.source, &output, &mini.manifest).unwrap();
+        for name in ["before.profraw", "replacement.profraw"] {
+            let path = proof.join(name);
+            let actual = runner
+                .success(
+                    "llvm-profdata",
+                    &[
+                        "show",
+                        "--all-functions",
+                        "--counts",
+                        path.to_str().unwrap(),
+                    ],
+                    30,
+                    &BTreeMap::new(),
+                    &output.join("target"),
+                )
+                .unwrap();
+            let counts =
+                collection_profiles::inspect(std::str::from_utf8(&actual.output.stdout).unwrap())
+                    .unwrap();
+            assert_eq!(
+                counts["functions"].as_u64().unwrap() == 0,
+                case["mode"] == "zero"
+            );
+        }
+        let witness = case["witness"].as_str().unwrap().as_bytes();
+        assert!(mini.commands().unwrap().iter().any(|(path, _, _)| {
+            fs::read(path.join("stdout"))
+                .unwrap()
+                .windows(witness.len())
+                .any(|w| w == witness)
+        }));
+        assert!(!mini.output.join("result.json").exists());
+        assert_eq!(case["expected"]["actual_profile_replaced"], true);
+        assert_eq!(case["expected"]["source_unchanged"], true);
+        assert_eq!(case["expected"]["receipt_set_preserved"], true);
+        assert_eq!(case["expected"]["proof_retained"], true);
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 2);
+}
+
+#[test]
+fn independently_approved_collector_real_native_binary_modules() {
+    use arboresce_xtask::collection_inputs;
+    use serde_json::json;
+    use std::fs;
+    let base: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v6/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|case| case["action"] == "mini-binary")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mini = support::collection_mini::Mini::run(&base, case).unwrap();
+        assert_eq!(
+            mini.actual.status.code().unwrap() as i64,
+            case["expected"]["exit"].as_i64().unwrap(),
+            "{id}; retained {}",
+            mini.owner.display()
+        );
+        assert_eq!(
+            mini.actual.stderr,
+            case["expected"]["stderr"].as_str().unwrap().as_bytes()
+        );
+        assert!(mini.unchanged_source().unwrap());
+        assert!(mini.outer_preserved().unwrap());
+        let objects = mini.record("objects.json").unwrap();
+        let binary = objects
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|o| o["role"] == "binary")
+            .unwrap();
+        let exercised = mini.record("native-exercises.json").unwrap();
+        let actual = exercised.as_array().unwrap();
+        assert_eq!(actual.len(), 2);
+        assert_eq!(actual[0]["arguments"], json!([]));
+        assert_eq!(actual[0]["exit"], 0);
+        assert_eq!(actual[1]["arguments"], json!(["--failure"]));
+        assert_eq!(actual[1]["exit"], 255);
+        assert_eq!(
+            actual[0]["stdout_sha256"],
+            "10159baf262b43a92d95db59dae1f72c645127301661e0a3ce4e38b295a97c58"
+        );
+        assert_eq!(
+            actual[1]["stderr_sha256"],
+            "92e33578c3788e4379042de27928686e83a61b7f2b6f8903e08b5d4655abd353"
+        );
+        for row in actual {
+            assert_eq!(row["object_sha256"], binary["sha256"]);
+            let command = mini
+                .commands()
+                .unwrap()
+                .into_iter()
+                .find(|(_, _, c)| c["pid"] == row["pid"])
+                .unwrap();
+            assert_eq!(
+                fs::read(command.0.join("stdout")).unwrap(),
+                if row["exit"] == 0 {
+                    b"7\n".as_slice()
+                } else {
+                    b""
+                }
+            );
+            assert_eq!(
+                fs::read(command.0.join("stderr")).unwrap(),
+                if row["exit"] == 0 {
+                    b"".as_slice()
+                } else {
+                    "échec\n".as_bytes()
+                }
+            );
+            assert_eq!(command.2["exit"], row["exit"]);
+        }
+        if mini.actual.status.success() {
+            assert_eq!(
+                mini.record("result.json").unwrap(),
+                case["expected"]["stdout_record"]
+            );
+            assert_eq!(
+                mini.actual.stdout,
+                format!("{}\n", case["expected"]["stdout_record"]).as_bytes()
+            );
+            support::collection_mini::assert_mini_module_pairs(
+                &mini,
+                case["expected"]["module_gate_pairs"].as_u64().unwrap() as usize,
+            );
+            let facts = mini.record("collection-facts.json").unwrap();
+            let [scope] = facts["binary_scopes"].as_array().unwrap().as_slice() else {
+                panic!("{id}")
+            };
+            assert_eq!(scope["actual_sources"], case["expected"]["binary_sources"]);
+            assert_eq!(
+                scope["registered_sources"],
+                case["expected"]["binary_sources"]
+            );
+            assert_eq!(
+                scope["profile_pids"].as_array().unwrap().len(),
+                case["expected"]["binary_profile_pids"].as_u64().unwrap() as usize
+            );
+            assert_eq!(
+                scope["profile_pids"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|v| v.as_u64().unwrap())
+                    .collect::<BTreeSet<_>>(),
+                actual.iter().map(|r| r["pid"].as_u64().unwrap()).collect()
+            );
+        } else {
+            assert!(mini.actual.stdout.is_empty());
+            assert!(!mini.output.join("result.json").exists());
+            assert_eq!(case["expected"]["failed_output_retained"], true);
+            if case["expected"]["entrypoint_only_rejected"] == true {
+                let facts = mini.record("collection-facts.json").unwrap();
+                let path = std::path::Path::new(
+                    facts["binary_scopes"][0]["dependency_target"]
+                        .as_str()
+                        .unwrap(),
+                );
+                let raw = fs::read_to_string(path.with_extension("d")).unwrap();
+                let sources = collection_inputs::dependencies(&raw, path.to_str().unwrap())
+                    .unwrap()
+                    .into_iter()
+                    .map(|p| {
+                        mini.source
+                            .join(p)
+                            .canonicalize()
+                            .unwrap()
+                            .strip_prefix(&mini.source)
+                            .unwrap()
+                            .to_str()
+                            .unwrap()
+                            .to_owned()
+                    })
+                    .collect::<BTreeSet<_>>();
+                assert_eq!(
+                    json!(sources),
+                    case["expected"]["actual_dependency_sources"]
+                );
+                assert_eq!(
+                    binary["sources"],
+                    json!(["tools/xtask/src/bin/fixture-native/main.rs"])
+                );
+            } else {
+                let registered: serde_json::Value =
+                    serde_json::from_str(case["source_override"]["tests.json"].as_str().unwrap())
+                        .unwrap();
+                assert_eq!(
+                    registered["native_binaries"][0]["exercises"][1]["stderr_utf8"],
+                    "wrong\n"
+                );
+                assert_eq!(case["expected"]["mismatch_in_second_vector"], true);
+                assert_eq!(case["expected"]["actual_stdout"], "7\n");
+                assert_eq!(case["expected"]["actual_second_exit"], 255);
+                assert_eq!(case["expected"]["actual_second_stderr"], "échec\n");
+            }
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 3);
+}
+
+#[test]
+fn independently_approved_collector_module_identity() {
+    use arboresce_xtask::collection_modules;
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v5/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|case| case["action"] == "module")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let object = support::collection_inputs::hex(case, "object_hex").unwrap();
+        let profile = support::collection_inputs::hex(case, "profile_hex").unwrap();
+        match collection_modules::matching(&object, &profile) {
+            Ok(()) => assert_eq!(case["expected"]["value"], true, "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    let case = fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|case| case["action"] == "module-ambiguity")
+        .unwrap();
+    let base = fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|case| case["id"] == "collector-module-exact")
+        .unwrap();
+    let module =
+        collection_modules::object(&support::collection_inputs::hex(base, "object_hex").unwrap())
+            .unwrap();
+    assert_eq!(
+        collection_modules::unique(&[module.clone(), module])
+            .unwrap_err()
+            .to_string(),
+        case["expected"]["error"]
+    );
+    println!(
+        "xtask case={} pid={}",
+        case["id"].as_str().unwrap(),
+        std::process::id()
+    );
+    assert_eq!(seen.len(), 63);
+}
+
+#[test]
+fn independently_approved_collector_runtime_identity() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v5/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|case| case["action"] == "runtime")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let input =
+            support::report_inputs::replace(&fixture["base_runtime"], &case["patch"]).unwrap();
+        match arboresce_xtask::collection_prepared::runtime(
+            &input,
+            case["actual_sysroot"].as_str().unwrap(),
+        ) {
+            Ok(()) => assert_eq!(case["expected"]["value"], true, "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 7);
+}
+
+#[test]
+fn independently_approved_collector_bounded_reads_and_final_objects() {
+    use arboresce_xtask::{collection_inputs, collection_prepared as prepared};
+    use std::time::{Duration, Instant};
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v5/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap().iter().filter(|case| {
+        matches!(
+            case["action"].as_str(),
+            Some("read" | "dependency-read" | "object-freshness")
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let owner = support::PreparedRoot::new().unwrap();
+        let deadline = if case["recipe"]["expired"] == true {
+            Instant::now() - Duration::from_millis(1)
+        } else {
+            Instant::now() + Duration::from_secs(30)
+        };
+        let actual = if case["action"] == "object-freshness" {
+            let (path, hash) = support::collection_inputs::object_change(&owner, case).unwrap();
+            prepared::unchanged_object(&path, &hash, deadline).map(|()| serde_json::json!(true))
+        } else {
+            let path = support::collection_inputs::read(&owner, case).unwrap();
+            let limit = case["limit"]
+                .as_u64()
+                .unwrap_or(collection_inputs::MAX_PROTOCOL_BYTES as u64);
+            prepared::read_text(&path, limit, deadline).and_then(|(raw, _)| {
+                if case["action"] == "dependency-read" {
+                    collection_inputs::dependencies(&raw, "/output/image")
+                        .map(|set| serde_json::to_value(set).unwrap())
+                } else {
+                    Ok(raw.into())
+                }
+            })
+        };
+        match actual {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 15);
+}
+
+#[test]
+fn independently_approved_collector_final_output_deadline() {
+    use std::time::{Duration, Instant};
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v5/cases.json"
+    ))
+    .unwrap();
+    let case = fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|case| case["action"] == "api-deadline-output")
+        .unwrap();
+    let prior: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let value = &prior["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|case| case["action"] == "api-final-flush")
+        .unwrap()["success_record"];
+    let deadline = Instant::now() + Duration::from_millis(100);
+    let mut writer = support::collection_inputs::DeadlineOutput {
+        bytes: Vec::new(),
+        deadline,
+    };
+    let mut stderr = Vec::new();
+    let exit = arboresce_xtask::collection::finish_until(value, deadline, &mut writer, &mut stderr);
+    assert_eq!(exit as u64, case["expected"]["exit"].as_u64().unwrap());
+    assert_eq!(writer.bytes, format!("{value}\n").as_bytes());
+    assert_eq!(
+        stderr,
+        case["expected"]["stderr"].as_str().unwrap().as_bytes()
+    );
+    println!(
+        "xtask case={} pid={}",
+        case["id"].as_str().unwrap(),
+        std::process::id()
+    );
+}
+
+#[test]
+fn independently_approved_collector_native_cli() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["action"] == "cli")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let actual = support::collection_native::cli(case).unwrap();
+        assert_eq!(
+            actual.status.code().unwrap(),
+            case["expected"]["exit"].as_i64().unwrap() as i32,
+            "{id}"
+        );
+        assert_eq!(
+            actual.stdout,
+            case["expected"]["stdout"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        assert_eq!(
+            actual.stderr,
+            case["expected"]["stderr"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 6);
+}
+
+#[test]
+fn independently_approved_collector_explicit_nesting() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap().iter().filter(|c| {
+        matches!(
+            c["action"].as_str(),
+            Some("nest" | "outer-negative" | "postspawn-io")
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let actual = if case["action"] == "postspawn-io" {
+            support::collection_native::postspawn_io(case)
+        } else {
+            support::collection_native::probe(case)
+        }
+        .unwrap();
+        assert_eq!(actual, case["expected"], "{id}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 9);
+}
+
+#[test]
+fn independently_approved_collector_final_flush() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let case = fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|c| c["action"] == "api-final-flush")
+        .unwrap();
+    let mut writer = support::FailedOutput {
+        write_fails: false,
+        bytes: Vec::new(),
+    };
+    let mut stderr = Vec::new();
+    let exit =
+        arboresce_xtask::collection::finish(&case["success_record"], &mut writer, &mut stderr);
+    assert_eq!(exit as u64, case["expected"]["exit"].as_u64().unwrap());
+    assert_eq!(
+        writer.bytes,
+        case["expected"]["written_stdout"]
+            .as_str()
+            .unwrap()
+            .as_bytes()
+    );
+    assert_eq!(
+        stderr,
+        case["expected"]["stderr"].as_str().unwrap().as_bytes()
+    );
+    println!(
+        "xtask case={} pid={}",
+        case["id"].as_str().unwrap(),
+        std::process::id()
+    );
+}
+
+#[test]
+fn independently_approved_collector_prepared_tool_facts() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap().iter().filter(|c| {
+        matches!(
+            c["action"].as_str(),
+            Some("prepared" | "prepared-resource-recipe")
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let input = support::collection_inputs::prepared(&fixture["base_prepared"], case).unwrap();
+        match arboresce_xtask::collection_prepared::validate(&input) {
+            Ok(()) => assert_eq!(case["expected"]["value"], true, "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 39);
+}
+
+#[test]
+fn independently_approved_collector_physical_file_intake() {
+    use std::time::{Duration, Instant};
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["action"] == "intake")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let owner = support::PreparedRoot::new().unwrap();
+        let root = support::collection_inputs::physical(&owner, case).unwrap();
+        let limits = arboresce_xtask::collection_prepared::Limits {
+            files: case["limits"]["files"].as_u64().unwrap() as usize,
+            per_file: case["limits"]["per_file"].as_u64().unwrap(),
+            total: case["limits"]["total"].as_u64().unwrap(),
+            depth: case["limits"]["depth"].as_u64().unwrap() as usize,
+        };
+        match arboresce_xtask::collection_prepared::tree(
+            &root,
+            limits,
+            Instant::now() + Duration::from_secs(30),
+        ) {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 18);
+}
+
+#[test]
+fn independently_approved_collector_complete_profile_text() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["action"] == "profile")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        match arboresce_xtask::collection_profiles::inspect(case["raw"].as_str().unwrap()) {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 21);
+}
+
+#[test]
+fn independently_approved_collector_cargo_artifact_selection() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v4/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let input = support::report_inputs::replace(&fixture["base"], &case["patch"]).unwrap();
+        let raw = input["artifacts"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|record| format!("{record}\n"))
+            .collect::<String>();
+        let actual = arboresce_xtask::collection_artifacts::select(
+            input["root"].as_str().unwrap(),
+            input["target"].as_str().unwrap(),
+            &input["metadata"],
+            &input["registry"],
+            &raw,
+        );
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        match actual {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    for case in fixture["raw_cases"].as_array().unwrap() {
+        let input = &fixture["base"];
+        let actual = arboresce_xtask::collection_artifacts::select(
+            input["root"].as_str().unwrap(),
+            input["target"].as_str().unwrap(),
+            &input["metadata"],
+            &input["registry"],
+            case["raw"].as_str().unwrap(),
+        );
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(
+            actual.unwrap_err().to_string(),
+            case["expected"]["error"],
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 53);
+}
+
+#[test]
+fn independently_approved_collector_process_profile_conservation() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v2/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let facts =
+            support::report_inputs::replace(&fixture["base_facts"], &case["patch"]).unwrap();
+        match arboresce_xtask::collection_receipts::evaluate(&facts) {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 87);
+}
+
+#[test]
+fn independently_approved_collector_instrumentation_and_compilation_inputs() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v1/cases.json"
+    ))
+    .unwrap();
+    assert_eq!(fixture["cases"].as_array().unwrap().len(), 103);
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let action = case["action"].as_str().unwrap();
+        let raw = case["raw"].as_str().unwrap();
+        let actual = match action {
+            "environment" => {
+                let names = case["crate_names"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|v| v.as_str().unwrap().to_owned())
+                    .collect();
+                arboresce_xtask::collection_inputs::environment(
+                    raw,
+                    case["target"].as_str().unwrap(),
+                    case["wrapper"].as_str().unwrap(),
+                    &names,
+                    case["workspace_name"].as_str().unwrap(),
+                )
+                .map(|value| serde_json::to_value(value).unwrap())
+            }
+            "dependencies" => arboresce_xtask::collection_inputs::dependencies(
+                raw,
+                case["target"].as_str().unwrap(),
+            )
+            .map(|value| serde_json::to_value(value).unwrap()),
+            _ => continue,
+        };
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        match actual {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 47);
+}
+
+#[test]
+fn independently_approved_collector_selection_and_execution_inputs() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let raw = case["raw"].as_str().unwrap();
+        let actual = match case["action"].as_str().unwrap() {
+            "list" => arboresce_xtask::collection_tests::list(raw)
+                .map(|value| serde_json::to_value(value).unwrap()),
+            "execution" => arboresce_xtask::collection_tests::execution(
+                raw,
+                &case["tests"],
+                u32::try_from(case["pid"].as_u64().unwrap()).unwrap(),
+            )
+            .map(|value| serde_json::to_value(value).unwrap()),
+            _ => continue,
+        };
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        match actual {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 56);
+}
+
+#[test]
 fn complete_approved_dependency_and_source_cases() {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(
         "../../../tests/architecture/fixtures/guard-v1/cases.json"

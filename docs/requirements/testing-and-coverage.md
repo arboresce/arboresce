@@ -407,3 +407,134 @@ prepared tools/configuration/features, collect all test/process/profile identiti
 compare complete inputs before/after, merge every fresh raw profile, retain full
 raw regions and apply the accepted inventory/count gates. It must meaningfully
 reject lost, stale, empty, mixed-context and incomplete profiles before acceptance.
+
+### Maintained native collector contract
+
+This section defines the next collector implementation; it is not an acceptance
+claim. The initial profile remains Rust 1.99.0, stable cargo-llvm-cov 0.9.1,
+macOS ARM64, the current non-root user and default workspace features. Actual
+owning and public-only standalone qualification must precede whole verification
+acceptance. Existing coverage scopes and denominators remain required.
+
+The dev and test profiles optimize only the pinned external SHA-256 dependency
+at level3 so complete toolchain hashing fits the input budgets. Maintained source
+keeps its ordinary debug profile and every strict coverage gate. This profile
+change requires fresh complete qualification; it does not reduce input discovery,
+hashing, cases, counters or deadlines.
+
+Preparation is explicit. A local prepared-tool manifest binds invoked program
+spelling, canonical executable bytes, selected Rust sysroot runtime resources,
+Cargo home, all discovered Cargo configurations and the effective tool/feature/
+target policy. Its resource inventory covers sysroot bin/lib/libexec, including
+codegen, standard libraries, LLVM and instrumentation support. Source-role, test
+and prepared manifests are separately bound even when external to the workspace.
+Compare complete source, resource, configuration and tool identities before and
+after; additions, removals and renames invalidate the run. Never install tools or
+fetch dependencies during preparation or verification. Require actual selected
+Cargo/rustc 1.99.0, cargo-llvm-cov 0.9.1 and matching selected LLVM versions.
+
+The output directory must be fresh, external to the canonical source workspace
+and explicitly selected. Retain all failed output. Create an immutable context
+whose run/source identity binds complete inputs and the prepared/native profile.
+Capture actual locked/offline Cargo metadata and instrumented --no-run JSON
+artifacts. Distinguish test harnesses from ordinary native binaries: only harnesses
+receive libtest list/run arguments. Reconcile actual artifacts, packages, targets,
+features and compiled source identity with a reviewed registry. Unknown selection
+or changed ownership fails. Required suites are nonempty. Explicitly incidental
+empty harnesses are listed and executed, retain valid profiles, and never count
+as required-suite passes. Separately execute actual Cargo doctests; the initial
+registered zero-example profile cannot admit newly discovered examples.
+
+Use stable libtest --show-output --test-threads=1 and retain complete transcripts.
+Freeze exact selected/executed names, complete success summaries and each test's
+literal event IDs. Recognize events only as complete lines in that successful
+test's captured stdout section, with its actual harness PID. Nested JSON/trace
+text is not an event. Child diagnostics can interrupt a pending test's result
+line; they cannot supply another selected name, success summary or case event.
+Duplicate, unknown, missing, truncated, failed, ignored and filtered results fail.
+The registry and transcript grammar need independent literals before consumption.
+
+Every exercised instrumented object needs its actual launch, completion and one
+fresh nonempty profile per PID in the initial profile. Every raw profile needs a
+matching object and process under the same immutable context. Repeated observation
+is one invocation. Retain valid listing and incidental-empty profiles; required
+suites and ordinary native binaries also need positive counters. Prepared external
+tools retain actual launch/status and executable identities without a requirement
+to emit this project's Rust profiles. Inspect and conserve the exact raw set and
+its unchanged bytes, merge every profile and export every owned object with full
+raw regions/functions. Lost, duplicate, stale, empty, mixed or unknown sets fail.
+Use a bounded merge fan-in of eight inputs per invocation, retaining every
+intermediate indexed profile and the complete actual merge command graph. Repeat
+grouping until the final invocation has at most eight inputs. Every selected raw
+profile must reach the final aggregate exactly once. This preserves the 64 KiB
+receipt limit and the shared merge-phase deadline as the raw set grows. Compare
+the actual full export against a direct selected-tool merge at the eight/nine
+boundary; supplied counters cannot qualify that comparison.
+
+In addition to all existing aggregate/source/package/library/typed-target gates,
+gate each actual binary crate's complete owned source/module regions independently
+with only that binary's PID profiles and exact object. Establish the closure from
+actual Cargo compilation dependency information and compare it with the reviewed
+registry. Include transitive modules, generated executable source and code compiled
+directly into multiple binaries in every applicable closure. Shared-library code
+retains its complete independent file/crate/library denominator. Current thin
+entrypoints do not create an entrypoint-only exemption for later modules. Unknown
+or changed closure fails until reviewed. Earlier aggregate results do not establish
+these additional per-binary measurements.
+
+Nesting requires an explicit prepared-manifest declaration of outer context A.
+Validate this collector's actual launch identity under A; its own final flushed
+profile and exit remain A's parent's responsibility. Create distinct context B
+and raw directory for the workspace being collected. Every B child uses the same
+captured B Request for launch and completion, including errors and cleanup; its
+per-Command environment selects B. Preserve ambient A in the collector process.
+Never reload A to complete B children, mutate global environment, or combine or
+remove the two raw sets. Without explicit nesting, inherited measurement and
+instrumentation overrides fail. A running collector cannot attest its own final
+exit/profile; actual outer owning/standalone qualification closes that evidence.
+
+Use phase-specific budgets: metadata/version/instrumentation/list/profile inspection
+30 seconds; format 60; check/Clippy 180; instrumented build/required suite 300;
+incidental empty run 30; doctest/merge/export 180. Input/resource/finalization
+work has a 180-second budget. Receipt, hash and output collection count inside
+their phase. Retain the shared observer's 8 MiB per stream and separate two-second
+owned-child cleanup. Runtime resources allow at most 16384 files, 1 GiB per file
+and 4 GiB total; raw profiles allow 4096 files, 64 MiB each and 4 GiB total;
+collector receipts allow 64 KiB each. Existing source and JSON bounds remain.
+Over-limit, truncated or late evidence fails. Success follows all final identity,
+selection, process/profile and arithmetic gates; final output failure is failure.
+
+The actual native integration uses the same collector executable on a literal
+standalone three-package workspace whose graph has no collector integration test.
+It performs real Cargo/Rust/LLVM work and retains artifacts, receipts and profiles.
+An intentional task-owned source-mutation variant must fail final input equality.
+No flag skips outer required tests to prevent recursion. This proves the collector
+protocol; actual complete owning/standalone self/source/native qualification and
+independent whole-checkpoint acceptance remain separate mandatory gates.
+
+The maintained collector invokes the selected cargo-llvm-cov program directly for
+show-env. Its default profile stem is the actual workspace directory basename.
+It verifies selected rustc --print sysroot and the prepared Rust/LLVM tool locations
+against the resource tree actually inventoried. Raw profile content is matched to
+the selected object's complete static instrumentation data, encoded names and
+counter layout for the admitted ARM64 MachO/LLVM23 rawv11 profile; a PID or filename
+alone does not establish object identity. The complete LLVM parser remains required.
+All actual compiled object bytes are reopened and compared during finalization.
+Dependency files use bounded regular-file intake. One enclosing deadline applies
+to each declared180-second input, profile/binary and finalization phase, including
+its nested hashing, parsing, receipts, commands and final result output.
+
+The selected wrapper crate-name set includes normalized workspace member package
+names, their _tests aliases and every actual member target name. Compare complete
+sets; retained repeated aliases do not authorize unknown or missing names.
+
+A registered ordinary native binary may declare independently reviewed exercises
+with exact argument vectors, exit and complete bounded stdout/stderr expectations.
+The collector runs those commands directly with B receipts, the30-second observer
+and one enclosing180-second native-exercise phase. It adds no libtest flags.
+An absent/empty exercise list preserves required-test-driven native collection.
+The additional literal three-package mini has a transitive binary module and real
+native exercise, plus output-mismatch and omitted-module failures. It preserves
+all original tests/scopes and proves actual compiled closure rather than an
+entrypoint-only native denominator. Task-owned conflicting plugin-discovery input
+is never admitted as a selected tool or copied executable alias.

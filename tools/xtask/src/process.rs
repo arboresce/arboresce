@@ -14,6 +14,7 @@ pub struct Observation {
     pub budget: Duration,
     pub poll: Duration,
     pub initial_delay: Duration,
+    pub request: Option<crate::measurement::Request>,
 }
 
 impl Default for Observation {
@@ -22,6 +23,7 @@ impl Default for Observation {
             budget: Duration::from_secs(30),
             poll: Duration::from_millis(5),
             initial_delay: Duration::ZERO,
+            request: None,
         }
     }
 }
@@ -125,7 +127,10 @@ pub fn observe(
         }
         result
     })();
-    let recorded = crate::measurement::complete(child);
+    let recorded = match options.request {
+        Some(request) => request.complete(child),
+        None => crate::measurement::complete(child),
+    };
     result.and_then(|output| {
         recorded?;
         if Instant::now() >= deadline {

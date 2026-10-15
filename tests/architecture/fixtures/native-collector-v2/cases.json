@@ -1,0 +1,5569 @@
+{
+  "version": "native-collector-conservation-fixtures-v1",
+  "scope": "Pure validation of independently supplied observed collection facts, not actual producer or native qualification",
+  "base_facts": {
+    "version": "native-collection-facts-v1",
+    "context": {
+      "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "context_path": [
+        47,
+        99,
+        111,
+        108,
+        108,
+        101,
+        99,
+        116,
+        111,
+        114,
+        45,
+        111,
+        117,
+        116,
+        112,
+        117,
+        116,
+        47,
+        110,
+        97,
+        116,
+        105,
+        118,
+        101,
+        45,
+        99,
+        111,
+        110,
+        116,
+        101,
+        120,
+        116
+      ],
+      "driver_pid": 10,
+      "started_ns": 100,
+      "finished_ns": 200
+    },
+    "inputs_before": {
+      "source": {
+        "src/main.rs": {
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "size": 20
+        },
+        "tests/check.rs": {
+          "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "size": 30
+        },
+        "tests/second.rs": {
+          "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "size": 30
+        }
+      },
+      "manifests": {
+        "roles": "3333333333333333333333333333333333333333333333333333333333333333",
+        "tests": "4444444444444444444444444444444444444444444444444444444444444444",
+        "prepared": "5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "tools": {
+        "cargo": "9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "resources": {
+        "bin/rustc": {
+          "sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+          "size": 20
+        }
+      },
+      "configs": {},
+      "native": {
+        "profile": "rust-1.99.0-macos-arm64-default-v1",
+        "features": []
+      }
+    },
+    "inputs_after": {
+      "source": {
+        "src/main.rs": {
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "size": 20
+        },
+        "tests/check.rs": {
+          "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "size": 30
+        },
+        "tests/second.rs": {
+          "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "size": 30
+        }
+      },
+      "manifests": {
+        "roles": "3333333333333333333333333333333333333333333333333333333333333333",
+        "tests": "4444444444444444444444444444444444444444444444444444444444444444",
+        "prepared": "5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "tools": {
+        "cargo": "9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "resources": {
+        "bin/rustc": {
+          "sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+          "size": 20
+        }
+      },
+      "configs": {},
+      "native": {
+        "profile": "rust-1.99.0-macos-arm64-default-v1",
+        "features": []
+      }
+    },
+    "objects": [
+      {
+        "path": "/collector-output/target/debug/deps/native-abc",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "package": "sample",
+        "kind": "bin",
+        "name": "native",
+        "role": "binary",
+        "sources": [
+          "src/main.rs"
+        ]
+      },
+      {
+        "path": "/collector-output/target/debug/deps/check-def",
+        "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "package": "sample",
+        "kind": "test",
+        "name": "check",
+        "role": "harness",
+        "required": true,
+        "test_count": 1
+      },
+      {
+        "path": "/collector-output/target/debug/deps/second-fed",
+        "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "package": "sample",
+        "kind": "test",
+        "name": "second",
+        "role": "harness",
+        "required": true,
+        "test_count": 1
+      }
+    ],
+    "commands": [
+      {
+        "pid": 13,
+        "role": "list",
+        "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "pid": 14,
+        "role": "run",
+        "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "pid": 15,
+        "role": "list",
+        "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      {
+        "pid": 16,
+        "role": "run",
+        "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    ],
+    "launches": [
+      {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 11,
+          "parent_pid": 10,
+          "version": "native-launch-v1",
+          "executable": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            97,
+            98,
+            99
+          ],
+          "executable_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "program": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            97,
+            98,
+            99
+          ],
+          "arguments": [],
+          "cwd": [
+            47,
+            119,
+            111,
+            114,
+            107,
+            115,
+            112,
+            97,
+            99,
+            101
+          ]
+        }
+      },
+      {
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 13,
+          "parent_pid": 10,
+          "version": "native-launch-v1",
+          "executable": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            99,
+            104,
+            101,
+            99,
+            107,
+            45,
+            100,
+            101,
+            102
+          ],
+          "executable_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "program": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            99,
+            104,
+            101,
+            99,
+            107,
+            45,
+            100,
+            101,
+            102
+          ],
+          "arguments": [
+            [
+              45,
+              45,
+              108,
+              105,
+              115,
+              116
+            ],
+            [
+              45,
+              45,
+              102,
+              111,
+              114,
+              109,
+              97,
+              116,
+              61,
+              116,
+              101,
+              114,
+              115,
+              101
+            ]
+          ],
+          "cwd": [
+            47,
+            119,
+            111,
+            114,
+            107,
+            115,
+            112,
+            97,
+            99,
+            101
+          ]
+        }
+      },
+      {
+        "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 14,
+          "parent_pid": 10,
+          "version": "native-launch-v1",
+          "executable": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            99,
+            104,
+            101,
+            99,
+            107,
+            45,
+            100,
+            101,
+            102
+          ],
+          "executable_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "program": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            99,
+            104,
+            101,
+            99,
+            107,
+            45,
+            100,
+            101,
+            102
+          ],
+          "arguments": [
+            [
+              45,
+              45,
+              115,
+              104,
+              111,
+              119,
+              45,
+              111,
+              117,
+              116,
+              112,
+              117,
+              116
+            ],
+            [
+              45,
+              45,
+              116,
+              101,
+              115,
+              116,
+              45,
+              116,
+              104,
+              114,
+              101,
+              97,
+              100,
+              115,
+              61,
+              49
+            ],
+            [
+              45,
+              45,
+              99,
+              111,
+              108,
+              111,
+              114,
+              61,
+              110,
+              101,
+              118,
+              101,
+              114
+            ]
+          ],
+          "cwd": [
+            47,
+            119,
+            111,
+            114,
+            107,
+            115,
+            112,
+            97,
+            99,
+            101
+          ]
+        }
+      },
+      {
+        "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 21,
+          "parent_pid": 10,
+          "version": "native-launch-v1",
+          "executable": [
+            47,
+            112,
+            114,
+            101,
+            112,
+            97,
+            114,
+            101,
+            100,
+            47,
+            99,
+            97,
+            114,
+            103,
+            111
+          ],
+          "executable_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+          "program": [
+            47,
+            112,
+            114,
+            101,
+            112,
+            97,
+            114,
+            101,
+            100,
+            47,
+            99,
+            97,
+            114,
+            103,
+            111
+          ],
+          "arguments": [],
+          "cwd": [
+            47,
+            119,
+            111,
+            114,
+            107,
+            115,
+            112,
+            97,
+            99,
+            101
+          ]
+        }
+      },
+      {
+        "sha256": "000000000000000000000000000000000000000000000000000000000000000f",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 15,
+          "parent_pid": 10,
+          "version": "native-launch-v1",
+          "executable": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            115,
+            101,
+            99,
+            111,
+            110,
+            100,
+            45,
+            102,
+            101,
+            100
+          ],
+          "executable_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "program": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            115,
+            101,
+            99,
+            111,
+            110,
+            100,
+            45,
+            102,
+            101,
+            100
+          ],
+          "arguments": [
+            [
+              45,
+              45,
+              108,
+              105,
+              115,
+              116
+            ],
+            [
+              45,
+              45,
+              102,
+              111,
+              114,
+              109,
+              97,
+              116,
+              61,
+              116,
+              101,
+              114,
+              115,
+              101
+            ]
+          ],
+          "cwd": [
+            47,
+            119,
+            111,
+            114,
+            107,
+            115,
+            112,
+            97,
+            99,
+            101
+          ]
+        }
+      },
+      {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000010",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 16,
+          "parent_pid": 10,
+          "version": "native-launch-v1",
+          "executable": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            115,
+            101,
+            99,
+            111,
+            110,
+            100,
+            45,
+            102,
+            101,
+            100
+          ],
+          "executable_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "program": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            116,
+            97,
+            114,
+            103,
+            101,
+            116,
+            47,
+            100,
+            101,
+            98,
+            117,
+            103,
+            47,
+            100,
+            101,
+            112,
+            115,
+            47,
+            115,
+            101,
+            99,
+            111,
+            110,
+            100,
+            45,
+            102,
+            101,
+            100
+          ],
+          "arguments": [
+            [
+              45,
+              45,
+              115,
+              104,
+              111,
+              119,
+              45,
+              111,
+              117,
+              116,
+              112,
+              117,
+              116
+            ],
+            [
+              45,
+              45,
+              116,
+              101,
+              115,
+              116,
+              45,
+              116,
+              104,
+              114,
+              101,
+              97,
+              100,
+              115,
+              61,
+              49
+            ],
+            [
+              45,
+              45,
+              99,
+              111,
+              108,
+              111,
+              114,
+              61,
+              110,
+              101,
+              118,
+              101,
+              114
+            ]
+          ],
+          "cwd": [
+            47,
+            119,
+            111,
+            114,
+            107,
+            115,
+            112,
+            97,
+            99,
+            101
+          ]
+        }
+      }
+    ],
+    "exits": [
+      {
+        "sha256": "000000000000000000000000000000000000000000000000000000000000000b",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 11,
+          "parent_pid": 10,
+          "version": "native-exit-v1",
+          "launch_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "exit": 0,
+          "signal": null
+        }
+      },
+      {
+        "sha256": "000000000000000000000000000000000000000000000000000000000000000d",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 13,
+          "parent_pid": 10,
+          "version": "native-exit-v1",
+          "launch_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "exit": 0,
+          "signal": null
+        }
+      },
+      {
+        "sha256": "000000000000000000000000000000000000000000000000000000000000000e",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 14,
+          "parent_pid": 10,
+          "version": "native-exit-v1",
+          "launch_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+          "exit": 0,
+          "signal": null
+        }
+      },
+      {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000015",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 21,
+          "parent_pid": 10,
+          "version": "native-exit-v1",
+          "launch_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+          "exit": 0,
+          "signal": null
+        }
+      },
+      {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000019",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 15,
+          "parent_pid": 10,
+          "version": "native-exit-v1",
+          "launch_sha256": "000000000000000000000000000000000000000000000000000000000000000f",
+          "exit": 0,
+          "signal": null
+        }
+      },
+      {
+        "sha256": "000000000000000000000000000000000000000000000000000000000000001a",
+        "record": {
+          "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "context_path": [
+            47,
+            99,
+            111,
+            108,
+            108,
+            101,
+            99,
+            116,
+            111,
+            114,
+            45,
+            111,
+            117,
+            116,
+            112,
+            117,
+            116,
+            47,
+            110,
+            97,
+            116,
+            105,
+            118,
+            101,
+            45,
+            99,
+            111,
+            110,
+            116,
+            101,
+            120,
+            116
+          ],
+          "pid": 16,
+          "parent_pid": 10,
+          "version": "native-exit-v1",
+          "launch_sha256": "0000000000000000000000000000000000000000000000000000000000000010",
+          "exit": 0,
+          "signal": null
+        }
+      }
+    ],
+    "profiles": [
+      {
+        "name": "arboresce-11-101_0.profraw",
+        "pid": 11,
+        "object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "size": 128,
+        "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+        "after_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+        "modified_ns": 150,
+        "functions": 10,
+        "positive_functions": 8
+      },
+      {
+        "name": "arboresce-13-101_0.profraw",
+        "pid": 13,
+        "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "size": 128,
+        "sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+        "after_sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+        "modified_ns": 150,
+        "functions": 4,
+        "positive_functions": 0
+      },
+      {
+        "name": "arboresce-14-101_0.profraw",
+        "pid": 14,
+        "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "size": 128,
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+        "after_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+        "modified_ns": 150,
+        "functions": 4,
+        "positive_functions": 4
+      },
+      {
+        "name": "arboresce-15-102_0.profraw",
+        "pid": 15,
+        "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "size": 128,
+        "sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+        "after_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+        "modified_ns": 150,
+        "functions": 4,
+        "positive_functions": 0
+      },
+      {
+        "name": "arboresce-16-102_0.profraw",
+        "pid": 16,
+        "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "size": 128,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "modified_ns": 150,
+        "functions": 4,
+        "positive_functions": 4
+      }
+    ],
+    "raw_after": {
+      "arboresce-11-101_0.profraw": {
+        "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+        "size": 128
+      },
+      "arboresce-13-101_0.profraw": {
+        "sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+        "size": 128
+      },
+      "arboresce-14-101_0.profraw": {
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+        "size": 128
+      },
+      "arboresce-15-102_0.profraw": {
+        "sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+        "size": 128
+      },
+      "arboresce-16-102_0.profraw": {
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "size": 128
+      }
+    },
+    "binary_scopes": [
+      {
+        "name": "native",
+        "object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "actual_sources": [
+          "src/main.rs"
+        ],
+        "registered_sources": [
+          "src/main.rs"
+        ],
+        "profile_pids": [
+          11
+        ],
+        "counts": {
+          "src/main.rs": {
+            "count": 20,
+            "covered": 19,
+            "notcovered": 1
+          }
+        }
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "collector-conservation-valid",
+      "patch": {},
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-lost-profile",
+      "patch": {
+        "/profiles": [
+          {
+            "name": "arboresce-11-101_0.profraw",
+            "pid": 11,
+            "object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "size": 128,
+            "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "after_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "modified_ns": 150,
+            "functions": 10,
+            "positive_functions": 8
+          },
+          {
+            "name": "arboresce-13-101_0.profraw",
+            "pid": 13,
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "size": 128,
+            "sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+            "after_sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+            "modified_ns": 150,
+            "functions": 4,
+            "positive_functions": 0
+          },
+          {
+            "name": "arboresce-15-102_0.profraw",
+            "pid": 15,
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "size": 128,
+            "sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+            "after_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+            "modified_ns": 150,
+            "functions": 4,
+            "positive_functions": 0
+          },
+          {
+            "name": "arboresce-16-102_0.profraw",
+            "pid": 16,
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "size": 128,
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "modified_ns": 150,
+            "functions": 4,
+            "positive_functions": 4
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-empty-profile",
+      "patch": {
+        "/profiles/0/size": 0,
+        "/raw_after/arboresce-11-101_0.profraw/size": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-stale-profile",
+      "patch": {
+        "/profiles/0/modified_ns": 99
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-future-profile",
+      "patch": {
+        "/profiles/0/modified_ns": 201
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-changed-profile-bytes",
+      "patch": {
+        "/profiles/0/after_sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-unknown-profile",
+      "patch": {
+        "/profiles/0/pid": 99
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-profile-object",
+      "patch": {
+        "/profiles/0/object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-profile-filename-pid",
+      "patch": {
+        "/profiles/0/name": "arboresce-99-101_0.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-profile",
+      "patch": {
+        "/profiles": [
+          {
+            "name": "arboresce-11-101_0.profraw",
+            "pid": 11,
+            "object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "size": 128,
+            "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "after_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "modified_ns": 150,
+            "functions": 10,
+            "positive_functions": 8
+          },
+          {
+            "name": "arboresce-13-101_0.profraw",
+            "pid": 13,
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "size": 128,
+            "sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+            "after_sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+            "modified_ns": 150,
+            "functions": 4,
+            "positive_functions": 0
+          },
+          {
+            "name": "arboresce-14-101_0.profraw",
+            "pid": 14,
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "size": 128,
+            "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+            "after_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+            "modified_ns": 150,
+            "functions": 4,
+            "positive_functions": 4
+          },
+          {
+            "name": "arboresce-15-102_0.profraw",
+            "pid": 15,
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "size": 128,
+            "sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+            "after_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+            "modified_ns": 150,
+            "functions": 4,
+            "positive_functions": 0
+          },
+          {
+            "name": "arboresce-16-102_0.profraw",
+            "pid": 16,
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "size": 128,
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "modified_ns": 150,
+            "functions": 4,
+            "positive_functions": 4
+          },
+          {
+            "name": "arboresce-11-101_0.profraw",
+            "pid": 11,
+            "object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "size": 128,
+            "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "after_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "modified_ns": 150,
+            "functions": 10,
+            "positive_functions": 8
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-profile-pid",
+      "patch": {
+        "/profiles/1/pid": 11,
+        "/profiles/1/name": "arboresce-11-102_0.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-empty-native-counters",
+      "patch": {
+        "/profiles/0/positive_functions": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-empty-required-counters",
+      "patch": {
+        "/profiles/2/positive_functions": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-invalid-counter-counts",
+      "patch": {
+        "/profiles/0/positive_functions": 11
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-zero-profile-size",
+      "patch": {
+        "/profiles/1/size": 0,
+        "/raw_after/arboresce-13-101_0.profraw/size": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-changed-raw-set",
+      "patch": {
+        "/raw_after": {
+          "arboresce-11-101_0.profraw": {
+            "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+            "size": 128
+          },
+          "arboresce-13-101_0.profraw": {
+            "sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+            "size": 128
+          },
+          "arboresce-15-102_0.profraw": {
+            "sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+            "size": 128
+          },
+          "arboresce-16-102_0.profraw": {
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "size": 128
+          }
+        }
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-changed-raw-hash",
+      "patch": {
+        "/raw_after/arboresce-11-101_0.profraw/sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-lost-launch",
+      "patch": {
+        "/launches": [
+          {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 13,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "executable_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  102,
+                  111,
+                  114,
+                  109,
+                  97,
+                  116,
+                  61,
+                  116,
+                  101,
+                  114,
+                  115,
+                  101
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 14,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "executable_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  115,
+                  104,
+                  111,
+                  119,
+                  45,
+                  111,
+                  117,
+                  116,
+                  112,
+                  117,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  116,
+                  101,
+                  115,
+                  116,
+                  45,
+                  116,
+                  104,
+                  114,
+                  101,
+                  97,
+                  100,
+                  115,
+                  61,
+                  49
+                ],
+                [
+                  45,
+                  45,
+                  99,
+                  111,
+                  108,
+                  111,
+                  114,
+                  61,
+                  110,
+                  101,
+                  118,
+                  101,
+                  114
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 21,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                112,
+                114,
+                101,
+                112,
+                97,
+                114,
+                101,
+                100,
+                47,
+                99,
+                97,
+                114,
+                103,
+                111
+              ],
+              "executable_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+              "program": [
+                47,
+                112,
+                114,
+                101,
+                112,
+                97,
+                114,
+                101,
+                100,
+                47,
+                99,
+                97,
+                114,
+                103,
+                111
+              ],
+              "arguments": [],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000f",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 15,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "executable_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  102,
+                  111,
+                  114,
+                  109,
+                  97,
+                  116,
+                  61,
+                  116,
+                  101,
+                  114,
+                  115,
+                  101
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000010",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 16,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "executable_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  115,
+                  104,
+                  111,
+                  119,
+                  45,
+                  111,
+                  117,
+                  116,
+                  112,
+                  117,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  116,
+                  101,
+                  115,
+                  116,
+                  45,
+                  116,
+                  104,
+                  114,
+                  101,
+                  97,
+                  100,
+                  115,
+                  61,
+                  49
+                ],
+                [
+                  45,
+                  45,
+                  99,
+                  111,
+                  108,
+                  111,
+                  114,
+                  61,
+                  110,
+                  101,
+                  118,
+                  101,
+                  114
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-lost-exit",
+      "patch": {
+        "/exits": [
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000d",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 13,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000e",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 14,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000015",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 21,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000019",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 15,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "000000000000000000000000000000000000000000000000000000000000000f",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000001a",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 16,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "0000000000000000000000000000000000000000000000000000000000000010",
+              "exit": 0,
+              "signal": null
+            }
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-launch",
+      "patch": {
+        "/launches": [
+          {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 11,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                97,
+                98,
+                99
+              ],
+              "executable_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                97,
+                98,
+                99
+              ],
+              "arguments": [],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 13,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "executable_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  102,
+                  111,
+                  114,
+                  109,
+                  97,
+                  116,
+                  61,
+                  116,
+                  101,
+                  114,
+                  115,
+                  101
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 14,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "executable_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                99,
+                104,
+                101,
+                99,
+                107,
+                45,
+                100,
+                101,
+                102
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  115,
+                  104,
+                  111,
+                  119,
+                  45,
+                  111,
+                  117,
+                  116,
+                  112,
+                  117,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  116,
+                  101,
+                  115,
+                  116,
+                  45,
+                  116,
+                  104,
+                  114,
+                  101,
+                  97,
+                  100,
+                  115,
+                  61,
+                  49
+                ],
+                [
+                  45,
+                  45,
+                  99,
+                  111,
+                  108,
+                  111,
+                  114,
+                  61,
+                  110,
+                  101,
+                  118,
+                  101,
+                  114
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 21,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                112,
+                114,
+                101,
+                112,
+                97,
+                114,
+                101,
+                100,
+                47,
+                99,
+                97,
+                114,
+                103,
+                111
+              ],
+              "executable_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+              "program": [
+                47,
+                112,
+                114,
+                101,
+                112,
+                97,
+                114,
+                101,
+                100,
+                47,
+                99,
+                97,
+                114,
+                103,
+                111
+              ],
+              "arguments": [],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000f",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 15,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "executable_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  102,
+                  111,
+                  114,
+                  109,
+                  97,
+                  116,
+                  61,
+                  116,
+                  101,
+                  114,
+                  115,
+                  101
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000010",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 16,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "executable_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                115,
+                101,
+                99,
+                111,
+                110,
+                100,
+                45,
+                102,
+                101,
+                100
+              ],
+              "arguments": [
+                [
+                  45,
+                  45,
+                  115,
+                  104,
+                  111,
+                  119,
+                  45,
+                  111,
+                  117,
+                  116,
+                  112,
+                  117,
+                  116
+                ],
+                [
+                  45,
+                  45,
+                  116,
+                  101,
+                  115,
+                  116,
+                  45,
+                  116,
+                  104,
+                  114,
+                  101,
+                  97,
+                  100,
+                  115,
+                  61,
+                  49
+                ],
+                [
+                  45,
+                  45,
+                  99,
+                  111,
+                  108,
+                  111,
+                  114,
+                  61,
+                  110,
+                  101,
+                  118,
+                  101,
+                  114
+                ]
+              ],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          },
+          {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 11,
+              "parent_pid": 10,
+              "version": "native-launch-v1",
+              "executable": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                97,
+                98,
+                99
+              ],
+              "executable_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "program": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                116,
+                97,
+                114,
+                103,
+                101,
+                116,
+                47,
+                100,
+                101,
+                98,
+                117,
+                103,
+                47,
+                100,
+                101,
+                112,
+                115,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                97,
+                98,
+                99
+              ],
+              "arguments": [],
+              "cwd": [
+                47,
+                119,
+                111,
+                114,
+                107,
+                115,
+                112,
+                97,
+                99,
+                101
+              ]
+            }
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-exit",
+      "patch": {
+        "/exits": [
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000b",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 11,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000d",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 13,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000e",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 14,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000015",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 21,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000019",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 15,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "000000000000000000000000000000000000000000000000000000000000000f",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000001a",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 16,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "0000000000000000000000000000000000000000000000000000000000000010",
+              "exit": 0,
+              "signal": null
+            }
+          },
+          {
+            "sha256": "000000000000000000000000000000000000000000000000000000000000000b",
+            "record": {
+              "run_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "context_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "context_path": [
+                47,
+                99,
+                111,
+                108,
+                108,
+                101,
+                99,
+                116,
+                111,
+                114,
+                45,
+                111,
+                117,
+                116,
+                112,
+                117,
+                116,
+                47,
+                110,
+                97,
+                116,
+                105,
+                118,
+                101,
+                45,
+                99,
+                111,
+                110,
+                116,
+                101,
+                120,
+                116
+              ],
+              "pid": 11,
+              "parent_pid": 10,
+              "version": "native-exit-v1",
+              "launch_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "exit": 0,
+              "signal": null
+            }
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-mixed-launch-run",
+      "patch": {
+        "/launches/0/record/run_id": "ffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-mixed-launch-source",
+      "patch": {
+        "/launches/0/record/source_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-mixed-launch-context",
+      "patch": {
+        "/launches/0/record/context_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-mixed-context-path",
+      "patch": {
+        "/launches/0/record/context_path": [
+          47,
+          100,
+          105,
+          102,
+          102,
+          101,
+          114,
+          101,
+          110,
+          116,
+          47,
+          99,
+          111,
+          110,
+          116,
+          101,
+          120,
+          116
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-mixed-exit-run",
+      "patch": {
+        "/exits/0/record/run_id": "ffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-mixed-exit-source",
+      "patch": {
+        "/exits/0/record/source_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-mixed-exit-parent",
+      "patch": {
+        "/exits/0/record/parent_pid": 99
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-launch-digest",
+      "patch": {
+        "/exits/0/record/launch_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-contradictory-status",
+      "patch": {
+        "/exits/0/record/signal": 9
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-no-status",
+      "patch": {
+        "/exits/0/record/exit": null
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-invalid-exit",
+      "patch": {
+        "/exits/0/record/exit": -1
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-invalid-signal",
+      "patch": {
+        "/exits/0/record/exit": null,
+        "/exits/0/record/signal": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-unknown-executable",
+      "patch": {
+        "/launches/0/record/executable_sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-unknown-parent",
+      "patch": {
+        "/launches/0/record/parent_pid": 99,
+        "/exits/0/record/parent_pid": 99
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-missing-list-command",
+      "patch": {
+        "/commands": [
+          {
+            "pid": 14,
+            "role": "run",
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "pid": 15,
+            "role": "list",
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "pid": 16,
+            "role": "run",
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-missing-run-command",
+      "patch": {
+        "/commands": [
+          {
+            "pid": 13,
+            "role": "list",
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "pid": 15,
+            "role": "list",
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "pid": 16,
+            "role": "run",
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-run-command",
+      "patch": {
+        "/commands": [
+          {
+            "pid": 13,
+            "role": "list",
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "pid": 14,
+            "role": "run",
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "pid": 15,
+            "role": "list",
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "pid": 16,
+            "role": "run",
+            "object_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "pid": 14,
+            "role": "run",
+            "object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-unknown-command-role",
+      "patch": {
+        "/commands/1/role": "ignored"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-command-object",
+      "patch": {
+        "/commands/1/object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-required-empty",
+      "patch": {
+        "/objects/1/test_count": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-required-nonzero-exit",
+      "patch": {
+        "/exits/2/record/exit": 1
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-object",
+      "patch": {
+        "/objects": [
+          {
+            "path": "/collector-output/target/debug/deps/native-abc",
+            "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "package": "sample",
+            "kind": "bin",
+            "name": "native",
+            "role": "binary",
+            "sources": [
+              "src/main.rs"
+            ]
+          },
+          {
+            "path": "/collector-output/target/debug/deps/check-def",
+            "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "package": "sample",
+            "kind": "test",
+            "name": "check",
+            "role": "harness",
+            "required": true,
+            "test_count": 1
+          },
+          {
+            "path": "/collector-output/target/debug/deps/second-fed",
+            "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "package": "sample",
+            "kind": "test",
+            "name": "second",
+            "role": "harness",
+            "required": true,
+            "test_count": 1
+          },
+          {
+            "path": "/collector-output/target/debug/deps/native-abc",
+            "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "package": "sample",
+            "kind": "bin",
+            "name": "native",
+            "role": "binary",
+            "sources": [
+              "src/main.rs"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-object-hash",
+      "patch": {
+        "/objects/1/sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-unknown-object-role",
+      "patch": {
+        "/objects/1/role": "unmeasured"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-binary-scope-object",
+      "patch": {
+        "/binary_scopes/0/object_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-missing-binary-scope",
+      "patch": {
+        "/binary_scopes": []
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-duplicate-binary-scope",
+      "patch": {
+        "/binary_scopes": [
+          {
+            "name": "native",
+            "object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "actual_sources": [
+              "src/main.rs"
+            ],
+            "registered_sources": [
+              "src/main.rs"
+            ],
+            "profile_pids": [
+              11
+            ],
+            "counts": {
+              "src/main.rs": {
+                "count": 20,
+                "covered": 19,
+                "notcovered": 1
+              }
+            }
+          },
+          {
+            "name": "native",
+            "object_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "actual_sources": [
+              "src/main.rs"
+            ],
+            "registered_sources": [
+              "src/main.rs"
+            ],
+            "profile_pids": [
+              11
+            ],
+            "counts": {
+              "src/main.rs": {
+                "count": 20,
+                "covered": 19,
+                "notcovered": 1
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-incomplete-compiled-closure",
+      "patch": {
+        "/binary_scopes/0/actual_sources": []
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-unknown-compiled-module",
+      "patch": {
+        "/binary_scopes/0/actual_sources": [
+          "src/main.rs",
+          "src/unknown.rs"
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-registered-closure",
+      "patch": {
+        "/binary_scopes/0/registered_sources": [
+          "src/other.rs"
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-binary-profile-set",
+      "patch": {
+        "/binary_scopes/0/profile_pids": [
+          14
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-empty-binary-profile-set",
+      "patch": {
+        "/binary_scopes/0/profile_pids": []
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-exactly-ninety-binary-regions",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs/covered": 18,
+        "/binary_scopes/0/counts/src~1main.rs/notcovered": 2
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-below-ninety-binary-regions",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs/covered": 17,
+        "/binary_scopes/0/counts/src~1main.rs/notcovered": 3
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-zero-binary-denominator",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs/count": 0,
+        "/binary_scopes/0/counts/src~1main.rs/covered": 0,
+        "/binary_scopes/0/counts/src~1main.rs/notcovered": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-overcovered-binary-regions",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs/covered": 21
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-bad-binary-region-remainder",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs/notcovered": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-missing-binary-source-counts",
+      "patch": {
+        "/binary_scopes/0/counts": {}
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-float-binary-count",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs/count": 20.5
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-source-change",
+      "patch": {
+        "/inputs_after/source/src~1main.rs/sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-source-addition",
+      "patch": {
+        "/inputs_after/source": {
+          "src/main.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 20
+          },
+          "tests/check.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "tests/second.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "new.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 10
+          }
+        }
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-source-removal",
+      "patch": {
+        "/inputs_after/source": {
+          "src/main.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 20
+          },
+          "tests/second.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          }
+        }
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-source-rename",
+      "patch": {
+        "/inputs_after/source": {
+          "src/renamed.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 20
+          },
+          "tests/check.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "tests/second.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          }
+        }
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-tool-change",
+      "patch": {
+        "/inputs_after/tools/cargo": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-resource-change",
+      "patch": {
+        "/inputs_after/resources/bin~1rustc/sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-config-addition",
+      "patch": {
+        "/inputs_after/configs": {
+          "/extra/config.toml": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-external-manifest-change",
+      "patch": {
+        "/inputs_after/manifests/roles": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-native-change",
+      "patch": {
+        "/inputs_after/native/profile": "different"
+      },
+      "expected": {
+        "error": "collector inputs changed"
+      }
+    },
+    {
+      "id": "collector-conservation-native-real-nonzero-allowed",
+      "patch": {
+        "/exits/0/record/exit": 2
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-external-real-nonzero-allowed",
+      "patch": {
+        "/exits/3/record/exit": 1
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-native-real-signal-allowed",
+      "patch": {
+        "/exits/0/record/exit": null,
+        "/exits/0/record/signal": 9
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-incidental-zero-harness",
+      "patch": {
+        "/objects/1/required": false,
+        "/objects/1/test_count": 0,
+        "/profiles/2/functions": 0,
+        "/profiles/2/positive_functions": 0
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 1,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-valid-list-zero-functions",
+      "patch": {
+        "/profiles/1/functions": 0
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-version",
+      "patch": {
+        "/version": "unregistered"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-conservation-empty-required-aggregate",
+      "patch": {
+        "/objects/1/required": false,
+        "/objects/1/test_count": 0,
+        "/objects/2/required": false,
+        "/objects/2/test_count": 0,
+        "/profiles/2/functions": 0,
+        "/profiles/2/positive_functions": 0,
+        "/profiles/4/functions": 0,
+        "/profiles/4/positive_functions": 0
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-empty-complete-object-profile-set",
+      "patch": {
+        "/objects": [],
+        "/commands": [],
+        "/launches": [],
+        "/exits": [],
+        "/profiles": [],
+        "/raw_after": {},
+        "/binary_scopes": []
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-list-argv",
+      "patch": {
+        "/launches/1/record/arguments": []
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-wrong-run-argv",
+      "patch": {
+        "/launches/2/record/arguments": [
+          [
+            45,
+            45,
+            110,
+            111,
+            99,
+            97,
+            112,
+            116,
+            117,
+            114,
+            101
+          ]
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-valid-owned-parent",
+      "patch": {
+        "/launches/0/record/parent_pid": 14,
+        "/exits/0/record/parent_pid": 14
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-self-parent",
+      "patch": {
+        "/launches/0/record/parent_pid": 11,
+        "/exits/0/record/parent_pid": 11
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-owned-parent-cycle",
+      "patch": {
+        "/launches/0/record/parent_pid": 14,
+        "/exits/0/record/parent_pid": 14,
+        "/launches/2/record/parent_pid": 11,
+        "/exits/2/record/parent_pid": 11
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-known-digest-wrong-executable-path",
+      "patch": {
+        "/launches/0/record/executable": [
+          47,
+          100,
+          105,
+          102,
+          102,
+          101,
+          114,
+          101,
+          110,
+          116,
+          47,
+          110,
+          97,
+          116,
+          105,
+          118,
+          101,
+          45,
+          97,
+          98,
+          99
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-valid-complete-multiple-module-closure",
+      "patch": {
+        "/objects/0/sources": [
+          "src/main.rs",
+          "src/worker.rs"
+        ],
+        "/binary_scopes/0/actual_sources": [
+          "src/main.rs",
+          "src/worker.rs"
+        ],
+        "/binary_scopes/0/registered_sources": [
+          "src/main.rs",
+          "src/worker.rs"
+        ],
+        "/binary_scopes/0/counts": {
+          "src/main.rs": {
+            "count": 20,
+            "covered": 19,
+            "notcovered": 1
+          },
+          "src/worker.rs": {
+            "count": 10,
+            "covered": 10,
+            "notcovered": 0
+          }
+        },
+        "/inputs_before/source": {
+          "src/main.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 20
+          },
+          "tests/check.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "tests/second.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "src/worker.rs": {
+            "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+            "size": 40
+          }
+        },
+        "/inputs_after/source": {
+          "src/main.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 20
+          },
+          "tests/check.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "tests/second.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "src/worker.rs": {
+            "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+            "size": 40
+          }
+        }
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-u64-near-ninety-fail",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs": {
+          "count": 18446744073709551615,
+          "covered": 16602069666338596453,
+          "notcovered": 1844674407370955162
+        }
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-conservation-u64-near-ninety-pass",
+      "patch": {
+        "/binary_scopes/0/counts/src~1main.rs": {
+          "count": 18446744073709551615,
+          "covered": 16602069666338596454,
+          "notcovered": 1844674407370955161
+        }
+      },
+      "expected": {
+        "value": {
+          "objects": 3,
+          "profiles": 5,
+          "native_binaries": 1,
+          "harnesses": 2,
+          "required_suites": 2,
+          "external_processes": 1,
+          "launch_exit_pairs": 6
+        }
+      }
+    },
+    {
+      "id": "collector-conservation-coherent-binary-aggregate-overflow",
+      "patch": {
+        "/objects/0/sources": [
+          "src/main.rs",
+          "src/worker.rs"
+        ],
+        "/binary_scopes/0/actual_sources": [
+          "src/main.rs",
+          "src/worker.rs"
+        ],
+        "/binary_scopes/0/registered_sources": [
+          "src/main.rs",
+          "src/worker.rs"
+        ],
+        "/binary_scopes/0/counts": {
+          "src/main.rs": {
+            "count": 18446744073709551615,
+            "covered": 18446744073709551615,
+            "notcovered": 0
+          },
+          "src/worker.rs": {
+            "count": 20,
+            "covered": 19,
+            "notcovered": 1
+          }
+        },
+        "/inputs_before/source": {
+          "src/main.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 20
+          },
+          "tests/check.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "tests/second.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "src/worker.rs": {
+            "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+            "size": 40
+          }
+        },
+        "/inputs_after/source": {
+          "src/main.rs": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "size": 20
+          },
+          "tests/check.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "tests/second.rs": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 30
+          },
+          "src/worker.rs": {
+            "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+            "size": 40
+          }
+        }
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    }
+  ]
+}

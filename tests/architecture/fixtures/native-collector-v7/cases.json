@@ -1,0 +1,2691 @@
+{
+  "version": "native-collector-boundaries-v1",
+  "cases": [
+    {
+      "id": "collector-boundary-versions-exact",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "value": {
+          "cargo": "1.99.0",
+          "rustc": "1.99.0",
+          "host": "aarch64-apple-darwin",
+          "rust_llvm": "23.1.0",
+          "cargo-llvm-cov": "0.9.1",
+          "llvm-cov": "23.1.0",
+          "llvm-profdata": "23.1.0"
+        }
+      }
+    },
+    {
+      "id": "collector-boundary-versions-cargo-prefix",
+      "action": "versions",
+      "recipe": {
+        "cargo": "Cargo 1.99.0\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-cargo-empty",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo \n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-plugin-prefix",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-plugin-no-newline",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-llvm-no-rust-marker",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "  LLVM version 23.1.0\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-llvm-wrong-toolchain",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "  LLVM version 23.1.0-rust-1.98.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-llvm-missing-field",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-llvm-duplicate-field",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\nLLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-release-missing",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-release-duplicate",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\nrelease: 1.99.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-host-missing",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-host-duplicate",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\nhost: aarch64-apple-darwin\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-llvm-version-missing",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-llvm-version-duplicate",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid prepared collector tools"
+      }
+    },
+    {
+      "id": "collector-boundary-versions-nonutf8",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": {
+          "bytes": [
+            255
+          ]
+        },
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-output-fresh",
+      "action": "fresh",
+      "recipe": {
+        "mode": "fresh"
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "id": "collector-boundary-output-exists",
+      "action": "fresh",
+      "recipe": {
+        "mode": "exists"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-output-inside-source",
+      "action": "fresh",
+      "recipe": {
+        "mode": "inside-source"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-output-ancestor",
+      "action": "fresh",
+      "recipe": {
+        "mode": "ancestor"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-output-missing-parent",
+      "action": "fresh",
+      "recipe": {
+        "mode": "missing-parent"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-output-filesystem-root",
+      "action": "fresh",
+      "recipe": {
+        "mode": "filesystem-root"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-object-harness",
+      "action": "objects",
+      "recipe": {
+        "mode": "regular",
+        "selection": {
+          "objects": [
+            {
+              "role": "harness",
+              "tests": [
+                "alpha",
+                "beta"
+              ],
+              "path": "$object"
+            }
+          ]
+        },
+        "payload_utf8": "object\n",
+        "mode_octal": "0755",
+        "symlink_target": "actual-object"
+      },
+      "expected": {
+        "value": [
+          {
+            "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330",
+            "test_count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "collector-boundary-object-missing",
+      "action": "objects",
+      "recipe": {
+        "mode": "missing",
+        "selection": {
+          "objects": [
+            {
+              "path": "$object"
+            }
+          ]
+        },
+        "payload_utf8": "object\n",
+        "mode_octal": "0755",
+        "symlink_target": "actual-object"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-object-nonexec",
+      "action": "objects",
+      "recipe": {
+        "mode": "nonexec",
+        "selection": {
+          "objects": [
+            {
+              "path": "$object"
+            }
+          ]
+        },
+        "payload_utf8": "object\n",
+        "mode_octal": "0644",
+        "symlink_target": "actual-object"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-object-symlink",
+      "action": "objects",
+      "recipe": {
+        "mode": "symlink",
+        "selection": {
+          "objects": [
+            {
+              "path": "$object"
+            }
+          ]
+        },
+        "payload_utf8": "object\n",
+        "mode_octal": "0755",
+        "symlink_target": "actual-object"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-object-tests-shape",
+      "action": "objects",
+      "recipe": {
+        "mode": "regular",
+        "selection": {
+          "objects": [
+            {
+              "role": "harness",
+              "tests": {},
+              "path": "$object"
+            }
+          ]
+        },
+        "payload_utf8": "object\n",
+        "mode_octal": "0755",
+        "symlink_target": "actual-object"
+      },
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-object-selection-shape",
+      "action": "objects",
+      "recipe": {
+        "mode": "regular",
+        "selection": {
+          "objects": {}
+        },
+        "payload_utf8": "object\n",
+        "mode_octal": "0755",
+        "symlink_target": "actual-object"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-object-missing-path",
+      "action": "objects",
+      "recipe": {
+        "mode": "regular",
+        "selection": {
+          "objects": [
+            {}
+          ]
+        },
+        "payload_utf8": "object\n",
+        "mode_octal": "0755",
+        "symlink_target": "actual-object"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-receipt-valid",
+      "action": "receipts",
+      "recipe": {
+        "filename": "7.json",
+        "content": "{\"version\":\"native-launch-v1\",\"pid\":7}\n",
+        "mode": "file"
+      },
+      "expected": {
+        "value": [
+          {
+            "pid": 7,
+            "version": "native-launch-v1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "collector-boundary-receipt-filename",
+      "action": "receipts",
+      "recipe": {
+        "filename": "8.json",
+        "content": "{\"version\":\"native-launch-v1\",\"pid\":7}\n",
+        "mode": "file"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-receipt-version",
+      "action": "receipts",
+      "recipe": {
+        "filename": "7.json",
+        "content": "{\"version\":\"wrong\",\"pid\":7}\n",
+        "mode": "file"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-receipt-pid-type",
+      "action": "receipts",
+      "recipe": {
+        "filename": "7.json",
+        "content": "{\"version\":\"native-launch-v1\",\"pid\":\"7\"}\n",
+        "mode": "file"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-receipt-json",
+      "action": "receipts",
+      "recipe": {
+        "filename": "7.json",
+        "content": "{",
+        "mode": "file"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-receipt-nonregular",
+      "action": "receipts",
+      "recipe": {
+        "filename": "7.json",
+        "content": "",
+        "mode": "directory"
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-valid",
+      "action": "profile-name",
+      "recipe": {
+        "name": "arboresce-7-signature.profraw"
+      },
+      "expected": {
+        "value": 7
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-prefix",
+      "action": "profile-name",
+      "recipe": {
+        "name": "other-7-signature.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-suffix",
+      "action": "profile-name",
+      "recipe": {
+        "name": "arboresce-7-signature.raw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-separator",
+      "action": "profile-name",
+      "recipe": {
+        "name": "arboresce-7.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-empty-signature",
+      "action": "profile-name",
+      "recipe": {
+        "name": "arboresce-7-.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-empty-pid",
+      "action": "profile-name",
+      "recipe": {
+        "name": "arboresce--sig.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-nondigit",
+      "action": "profile-name",
+      "recipe": {
+        "name": "arboresce-7x-sig.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-profile-name-overflow",
+      "action": "profile-name",
+      "recipe": {
+        "name": "arboresce-18446744073709551616-sig.profraw"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-unique",
+      "action": "dependency",
+      "recipe": {
+        "mode": "unique",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {
+          "unrelated": {
+            "file": "skip\n"
+          },
+          "fixture_native-not-a-valid-hash": {
+            "file": "object\n"
+          },
+          "fixture_native-1111111111111111": {
+            "symlink": "../fixture-native"
+          },
+          "fixture_native-2222222222222222": {
+            "file": "other\n"
+          },
+          "fixture_native-0123456789abcdef": {
+            "file": "object\n"
+          },
+          "fixture_native-0123456789abcdef.d": {
+            "file": "dependency body\n"
+          }
+        },
+        "total_entries": 6
+      },
+      "expected": {
+        "value": {
+          "candidate": "fixture_native-0123456789abcdef",
+          "dependency": "dependency body\n"
+        }
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-none",
+      "action": "dependency",
+      "recipe": {
+        "mode": "none",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {
+          "unrelated": {
+            "file": "skip\n"
+          },
+          "fixture_native-not-a-valid-hash": {
+            "file": "object\n"
+          },
+          "fixture_native-1111111111111111": {
+            "symlink": "../fixture-native"
+          },
+          "fixture_native-2222222222222222": {
+            "file": "other\n"
+          }
+        },
+        "total_entries": 4
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-duplicate",
+      "action": "dependency",
+      "recipe": {
+        "mode": "duplicate",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {
+          "unrelated": {
+            "file": "skip\n"
+          },
+          "fixture_native-not-a-valid-hash": {
+            "file": "object\n"
+          },
+          "fixture_native-1111111111111111": {
+            "symlink": "../fixture-native"
+          },
+          "fixture_native-2222222222222222": {
+            "file": "other\n"
+          },
+          "fixture_native-0123456789abcdef": {
+            "file": "object\n"
+          },
+          "fixture_native-0123456789abcdef.d": {
+            "file": "dependency body\n"
+          },
+          "fixture_native-fedcba9876543210": {
+            "file": "object\n"
+          },
+          "fixture_native-fedcba9876543210.d": {
+            "file": "second dependency body\n"
+          }
+        },
+        "total_entries": 8
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-missing-directory",
+      "action": "dependency",
+      "recipe": {
+        "mode": "missing-directory",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {},
+        "total_entries": 0
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-missing-dependency",
+      "action": "dependency",
+      "recipe": {
+        "mode": "missing-dependency",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {
+          "unrelated": {
+            "file": "skip\n"
+          },
+          "fixture_native-not-a-valid-hash": {
+            "file": "object\n"
+          },
+          "fixture_native-1111111111111111": {
+            "symlink": "../fixture-native"
+          },
+          "fixture_native-2222222222222222": {
+            "file": "other\n"
+          },
+          "fixture_native-0123456789abcdef": {
+            "file": "object\n"
+          }
+        },
+        "total_entries": 5
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-oversized-dependency",
+      "action": "dependency",
+      "recipe": {
+        "mode": "oversized-dependency",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {
+          "unrelated": {
+            "file": "skip\n"
+          },
+          "fixture_native-not-a-valid-hash": {
+            "file": "object\n"
+          },
+          "fixture_native-1111111111111111": {
+            "symlink": "../fixture-native"
+          },
+          "fixture_native-2222222222222222": {
+            "file": "other\n"
+          },
+          "fixture_native-0123456789abcdef": {
+            "file": "object\n"
+          },
+          "fixture_native-0123456789abcdef.d": {
+            "file": "dependency body\n",
+            "size": 8388609
+          }
+        },
+        "total_entries": 6
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-too-many-entries",
+      "action": "dependency",
+      "recipe": {
+        "mode": "too-many-entries",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "additional_files": {
+          "count": 4095,
+          "prefix": "skip-",
+          "payload_utf8": "skip\n"
+        },
+        "total_entries": 4097,
+        "entries": {
+          "fixture_native-0123456789abcdef": {
+            "file": "object\n"
+          },
+          "fixture_native-0123456789abcdef.d": {
+            "file": "dependency body\n"
+          }
+        }
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-boundary-configs-discovery-change",
+      "action": "configs",
+      "recipe": {
+        "mode": "changes"
+      },
+      "expected": {
+        "value": {
+          "initial": [
+            ".cargo/config",
+            "home/config.toml"
+          ],
+          "added": true,
+          "content_changed": true,
+          "removed": true,
+          "external_unchanged": true
+        }
+      }
+    },
+    {
+      "id": "collector-boundary-configs-nonregular",
+      "action": "configs",
+      "recipe": {
+        "mode": "nonregular"
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-boundary-json-valid",
+      "action": "json",
+      "recipe": {
+        "raw": "{\"value\":7}\n"
+      },
+      "expected": {
+        "value": {
+          "value": 7
+        }
+      }
+    },
+    {
+      "id": "collector-boundary-json-duplicate",
+      "action": "json",
+      "recipe": {
+        "raw": "{\"value\":7,\"value\":8}"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-json-truncated",
+      "action": "json",
+      "recipe": {
+        "raw": "{\"value\":"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-json-nonutf8",
+      "action": "json",
+      "recipe": {
+        "raw": {
+          "bytes": [
+            255
+          ]
+        }
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-patch",
+      "action": "preparation",
+      "recipe": {
+        "target": "prepared",
+        "input": {
+          "action": "prepared",
+          "patch": {
+            "/absent/value": 0
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-files-missing",
+      "action": "preparation",
+      "recipe": {
+        "target": "prepared",
+        "input": {
+          "recipe": {}
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-files-type",
+      "action": "preparation",
+      "recipe": {
+        "target": "prepared",
+        "input": {
+          "recipe": {
+            "files": "1"
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-files-limit",
+      "action": "preparation",
+      "recipe": {
+        "target": "prepared",
+        "input": {
+          "recipe": {
+            "files": 16386,
+            "first_paths": [],
+            "remaining_prefix": "bin/",
+            "size": 1
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-first-paths",
+      "action": "preparation",
+      "recipe": {
+        "target": "prepared",
+        "input": {
+          "recipe": {
+            "files": 1,
+            "first_paths": {},
+            "remaining_prefix": "bin/",
+            "size": 1
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-prefix",
+      "action": "preparation",
+      "recipe": {
+        "target": "prepared",
+        "input": {
+          "recipe": {
+            "files": 1,
+            "first_paths": []
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-path-type",
+      "action": "preparation",
+      "recipe": {
+        "target": "prepared",
+        "input": {
+          "recipe": {
+            "files": 1,
+            "first_paths": [
+              0
+            ],
+            "remaining_prefix": "bin/"
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-entries-missing",
+      "action": "preparation",
+      "recipe": {
+        "target": "physical",
+        "input": {}
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-entry-unknown",
+      "action": "preparation",
+      "recipe": {
+        "target": "physical",
+        "input": {
+          "entries": {
+            "unknown": {}
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-read-missing-size",
+      "action": "preparation",
+      "recipe": {
+        "target": "read",
+        "input": {
+          "recipe": {}
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-read-zero-size",
+      "action": "preparation",
+      "recipe": {
+        "target": "read",
+        "input": {
+          "recipe": {
+            "total_bytes": 0,
+            "prefix": ""
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-read-size-limit",
+      "action": "preparation",
+      "recipe": {
+        "target": "read",
+        "input": {
+          "recipe": {
+            "total_bytes": 67108865,
+            "prefix": ""
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-read-prefix",
+      "action": "preparation",
+      "recipe": {
+        "target": "read",
+        "input": {
+          "recipe": {
+            "total_bytes": 1
+          }
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-hex-odd",
+      "action": "preparation",
+      "recipe": {
+        "target": "hex",
+        "input": {
+          "data": "0"
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-hex-character",
+      "action": "preparation",
+      "recipe": {
+        "target": "hex",
+        "input": {
+          "data": "gg"
+        }
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-preparation-hex-missing",
+      "action": "preparation",
+      "recipe": {
+        "target": "hex",
+        "input": {}
+      },
+      "expected": {
+        "error_kind": "Other",
+        "message": "collector fixture preparation failed"
+      }
+    },
+    {
+      "id": "collector-boundary-probe-missing-program",
+      "action": "probe-error",
+      "recipe": {
+        "action": "nest",
+        "mode": "missing-program",
+        "recipe": {
+          "program": "./confirmed-missing-program",
+          "arguments": [],
+          "budget_ms": 1000,
+          "poll_ms": 1,
+          "initial_observation_delay_ms": 0
+        }
+      },
+      "expected": {
+        "error_contains": "native collector probe failed:",
+        "peer_exit": 1,
+        "peer_stderr_prefix": "collector probe failed: "
+      }
+    },
+    {
+      "id": "collector-boundary-capture-pre-spawn-collision",
+      "action": "capture-error",
+      "recipe": {
+        "mode": "collision"
+      },
+      "expected": {
+        "error_kind": "AlreadyExists",
+        "spawned": false
+      }
+    },
+    {
+      "id": "collector-boundary-capture-pre-spawn-missing",
+      "action": "capture-error",
+      "recipe": {
+        "mode": "missing"
+      },
+      "expected": {
+        "error_kind": "NotFound",
+        "spawned": false
+      }
+    },
+    {
+      "id": "collector-boundary-module-command-count",
+      "action": "module",
+      "object_hex": "cffaedfe0c00000100000000020000002800000038010000000000000000000019000000380100005f5f44415441000000000000000000000000000001000000001000000000000000000000000000000702000000000000030000000300000003000000000000005f5f6c6c766d5f7072665f64617461005f5f44415441000000000000000000005801000001000000900000000000000058010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f636e7473005f5f4441544100000000000000000000e8010000010000001800000000000000e8010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f6e616d65735f5f44415441000000000000000000000002000001000000070000000000000000020000030000000000000000000000000000000000000000000000000000004124bc0a9335c27f1100000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000580000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000005006161016262",
+      "profile_hex": "8172666f72706cff0b00000000000000000000000000000002000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000004124bc0a9335c27f1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000c8ffffffffffffff0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000500616101626200",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-module-unconsumed-command-table",
+      "action": "module",
+      "object_hex": "cffaedfe0c00000100000000020000000000000038010000000000000000000019000000380100005f5f44415441000000000000000000000000000001000000001000000000000000000000000000000702000000000000030000000300000003000000000000005f5f6c6c766d5f7072665f64617461005f5f44415441000000000000000000005801000001000000900000000000000058010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f636e7473005f5f4441544100000000000000000000e8010000010000001800000000000000e8010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f6e616d65735f5f44415441000000000000000000000002000001000000070000000000000000020000030000000000000000000000000000000000000000000000000000004124bc0a9335c27f1100000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000580000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000005006161016262",
+      "profile_hex": "8172666f72706cff0b00000000000000000000000000000002000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000004124bc0a9335c27f1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000c8ffffffffffffff0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000500616101626200",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-module-vm-end-overflow",
+      "action": "module",
+      "object_hex": "cffaedfe0c00000100000000020000000100000038010000000000000000000019000000380100005f5f4441544100000000000000000000ffffffffffffffff001000000000000000000000000000000702000000000000030000000300000003000000000000005f5f6c6c766d5f7072665f64617461005f5f44415441000000000000000000005801000001000000900000000000000058010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f636e7473005f5f4441544100000000000000000000e8010000010000001800000000000000e8010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f6e616d65735f5f44415441000000000000000000000002000001000000070000000000000000020000030000000000000000000000000000000000000000000000000000004124bc0a9335c27f1100000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000580000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000005006161016262",
+      "profile_hex": "8172666f72706cff0b00000000000000000000000000000002000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000004124bc0a9335c27f1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000c8ffffffffffffff0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000500616101626200",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-module-section-segment-name",
+      "action": "module",
+      "object_hex": "cffaedfe0c00000100000000020000000100000038010000000000000000000019000000380100005f5f44415441000000000000000000000000000001000000001000000000000000000000000000000702000000000000030000000300000003000000000000005f5f6c6c766d5f7072665f6461746100585f44415441000000000000000000005801000001000000900000000000000058010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f636e7473005f5f4441544100000000000000000000e8010000010000001800000000000000e8010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f6e616d65735f5f44415441000000000000000000000002000001000000070000000000000000020000030000000000000000000000000000000000000000000000000000004124bc0a9335c27f1100000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000580000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000005006161016262",
+      "profile_hex": "8172666f72706cff0b00000000000000000000000000000002000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000004124bc0a9335c27f1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000c8ffffffffffffff0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000500616101626200",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-module-counter-section-not-word",
+      "action": "module",
+      "object_hex": "cffaedfe0c00000100000000020000000100000038010000000000000000000019000000380100005f5f44415441000000000000000000000000000001000000001000000000000000000000000000000702000000000000030000000300000003000000000000005f5f6c6c766d5f7072665f64617461005f5f44415441000000000000000000005801000001000000900000000000000058010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f636e7473005f5f4441544100000000000000000000e8010000010000001700000000000000e8010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f6e616d65735f5f44415441000000000000000000000002000001000000070000000000000000020000030000000000000000000000000000000000000000000000000000004124bc0a9335c27f1100000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000580000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000005006161016262",
+      "profile_hex": "8172666f72706cff0b00000000000000000000000000000002000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000004124bc0a9335c27f1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000c8ffffffffffffff0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000500616101626200",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-module-raw-unowned-counter",
+      "action": "module",
+      "object_hex": "cffaedfe0c00000100000000020000000100000038010000000000000000000019000000380100005f5f44415441000000000000000000000000000001000000001000000000000000000000000000000702000000000000030000000300000003000000000000005f5f6c6c766d5f7072665f64617461005f5f44415441000000000000000000005801000001000000900000000000000058010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f636e7473005f5f4441544100000000000000000000e8010000010000001800000000000000e8010000030000000000000000000000000000000000000000000000000000005f5f6c6c766d5f7072665f6e616d65735f5f44415441000000000000000000000002000001000000070000000000000000020000030000000000000000000000000000000000000000000000000000004124bc0a9335c27f1100000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000580000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000005006161016262",
+      "profile_hex": "8172666f72706cff0b00000000000000000000000000000002000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000004124bc0a9335c27f1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000021ad0bd836b90d082200000000000000c8ffffffffffffff00000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000500616101626200",
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-boundary-runner-timeout",
+      "action": "mini-runner",
+      "recipe": {
+        "mode": "timeout",
+        "phase_budget_ms": 250,
+        "cleanup_budget_ns": 2000000000
+      },
+      "expected": {
+        "error": "collector command failed",
+        "signal": 9,
+        "exit": null,
+        "reaped": true,
+        "completion_error": true,
+        "local_launches": 1,
+        "local_exits": 1,
+        "matching_actual_pid": true,
+        "matching_launch_hash": true,
+        "within_cleanup_budget": true
+      }
+    },
+    {
+      "id": "collector-boundary-runner-false",
+      "action": "mini-runner",
+      "recipe": {
+        "mode": "false",
+        "phase_budget_ms": 250,
+        "cleanup_budget_ns": 2000000000
+      },
+      "expected": {
+        "error": "collector command failed",
+        "exit": 1,
+        "signal": null,
+        "completion_error": false
+      }
+    },
+    {
+      "id": "collector-boundary-runner-changed",
+      "action": "mini-runner",
+      "recipe": {
+        "mode": "changed",
+        "phase_budget_ms": 250,
+        "cleanup_budget_ns": 2000000000
+      },
+      "expected": {
+        "error": "collector inputs changed",
+        "spawned": false
+      }
+    },
+    {
+      "id": "collector-boundary-dependency-entry-limit",
+      "action": "dependency",
+      "recipe": {
+        "mode": "entry-limit",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {
+          "fixture_native-0123456789abcdef": {
+            "file": "object\n"
+          },
+          "fixture_native-0123456789abcdef.d": {
+            "file": "dependency body\n"
+          }
+        },
+        "total_entries": 4096,
+        "additional_files": {
+          "count": 4094,
+          "prefix": "skip-",
+          "payload_utf8": "skip\n"
+        }
+      },
+      "expected": {
+        "value": {
+          "candidate": "fixture_native-0123456789abcdef",
+          "dependency": "dependency body\n"
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-version-cargo-nonutf8",
+      "action": "versions",
+      "recipe": {
+        "cargo": {
+          "bytes": [
+            255
+          ]
+        },
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-final-boundary-version-plugin-nonutf8",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": {
+          "bytes": [
+            255
+          ]
+        },
+        "cov": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n",
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-final-boundary-version-cov-nonutf8",
+      "action": "versions",
+      "recipe": {
+        "cargo": "cargo 1.99.0 (selected-build)\n",
+        "rustc": "rustc 1.99.0\nrelease: 1.99.0\nhost: aarch64-apple-darwin\nLLVM version: 23.1.0\n",
+        "plugin": "cargo-llvm-cov 0.9.1\n",
+        "cov": {
+          "bytes": [
+            255
+          ]
+        },
+        "profdata": "LLVM\n  LLVM version 23.1.0-rust-1.99.0-stable\n"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-final-boundary-dependency-missing-path",
+      "action": "dependency-malformed",
+      "recipe": {
+        "object": {}
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-final-boundary-dependency-missing-parent",
+      "action": "dependency-malformed",
+      "recipe": {
+        "object": {
+          "path": "/",
+          "name": "fixture-native"
+        }
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-dependency-missing-name",
+      "action": "dependency-malformed",
+      "recipe": {
+        "object": {
+          "path": "$owner/image"
+        }
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-final-boundary-dependency-expired",
+      "action": "dependency",
+      "recipe": {
+        "mode": "unique",
+        "image": {
+          "name": "fixture-native",
+          "payload_utf8": "object\n",
+          "mode_octal": "0755",
+          "sha256": "eab32d918fc1c07d87eddb59a45086666f9117538d6d9c40ee0efeda635bd330"
+        },
+        "entries": {
+          "unrelated": {
+            "file": "skip\n"
+          },
+          "fixture_native-not-a-valid-hash": {
+            "file": "object\n"
+          },
+          "fixture_native-1111111111111111": {
+            "symlink": "../fixture-native"
+          },
+          "fixture_native-2222222222222222": {
+            "file": "other\n"
+          },
+          "fixture_native-0123456789abcdef": {
+            "file": "object\n"
+          },
+          "fixture_native-0123456789abcdef.d": {
+            "file": "dependency body\n"
+          }
+        },
+        "total_entries": 6,
+        "expired_deadline": true
+      },
+      "expected": {
+        "error": "collector file intake failed"
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-exact",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          }
+        },
+        "snapshot": {
+          "files": {
+            "src/main.rs": {},
+            "notes.txt": {},
+            "NOTICE": {}
+          },
+          "sources": [
+            {
+              "path": "src/main.rs"
+            }
+          ]
+        },
+        "dependency": "$target: src/main.rs notes.txt NOTICE\n"
+      },
+      "expected": {
+        "value": [
+          "src/main.rs"
+        ]
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-missing-source",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          }
+        },
+        "snapshot": {
+          "files": {
+            "src/main.rs": {},
+            "notes.txt": {},
+            "NOTICE": {}
+          },
+          "sources": [
+            {
+              "path": "src/main.rs"
+            }
+          ]
+        },
+        "dependency": "$target: src/missing.rs\n"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-escape",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          },
+          "../outside.rs": {
+            "file": "fn outside() {}\n"
+          }
+        },
+        "snapshot": {
+          "files": {
+            "src/main.rs": {},
+            "notes.txt": {},
+            "NOTICE": {}
+          },
+          "sources": [
+            {
+              "path": "src/main.rs"
+            }
+          ]
+        },
+        "dependency": "$target: ../outside.rs\n"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-files-shape",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          }
+        },
+        "snapshot": {
+          "files": [],
+          "sources": [
+            {
+              "path": "src/main.rs"
+            }
+          ]
+        },
+        "dependency": "$target: src/main.rs notes.txt NOTICE\n"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-absent-file",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          }
+        },
+        "snapshot": {
+          "files": {
+            "notes.txt": {},
+            "NOTICE": {}
+          },
+          "sources": [
+            {
+              "path": "src/main.rs"
+            }
+          ]
+        },
+        "dependency": "$target: src/main.rs notes.txt NOTICE\n"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-sources-shape",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          }
+        },
+        "snapshot": {
+          "files": {
+            "src/main.rs": {},
+            "notes.txt": {},
+            "NOTICE": {}
+          },
+          "sources": {}
+        },
+        "dependency": "$target: src/main.rs notes.txt NOTICE\n"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-unregistered-rust",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          }
+        },
+        "snapshot": {
+          "files": {
+            "src/main.rs": {},
+            "notes.txt": {},
+            "NOTICE": {}
+          },
+          "sources": []
+        },
+        "dependency": "$target: src/main.rs notes.txt NOTICE\n"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-compiled-dependency-shape",
+      "action": "compiled-sources",
+      "recipe": {
+        "entries": {
+          "src/main.rs": {
+            "file": "fn main() {}\n"
+          },
+          "notes.txt": {
+            "file": "component text\n"
+          },
+          "NOTICE": {
+            "file": "component notice\n"
+          }
+        },
+        "snapshot": {
+          "files": {
+            "src/main.rs": {},
+            "notes.txt": {},
+            "NOTICE": {}
+          },
+          "sources": [
+            {
+              "path": "src/main.rs"
+            }
+          ]
+        },
+        "dependency": "other: src/main.rs\n"
+      },
+      "expected": {
+        "error": "collector artifact mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-binary-report-exact",
+      "action": "binary-counts",
+      "recipe": {
+        "actual_sources": [
+          "src/main.rs"
+        ],
+        "report_utf8": "{\"data\": [{\"files\": [{\"filename\": \"$root/src/main.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}, {\"filename\": \"$root/src/ignored.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}]}]}"
+      },
+      "expected": {
+        "value": {
+          "src/main.rs": {
+            "count": 2,
+            "covered": 2,
+            "notcovered": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-binary-report-files-shape",
+      "action": "binary-counts",
+      "recipe": {
+        "actual_sources": [
+          "src/main.rs"
+        ],
+        "report_utf8": "{\"data\": [{\"files\": {}}]}"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-binary-report-filename-missing",
+      "action": "binary-counts",
+      "recipe": {
+        "actual_sources": [
+          "src/main.rs"
+        ],
+        "report_utf8": "{\"data\": [{\"files\": [{\"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}, {\"filename\": \"$root/src/ignored.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}]}]}"
+      },
+      "expected": {
+        "error": "invalid collector input"
+      }
+    },
+    {
+      "id": "collector-final-boundary-binary-report-outside",
+      "action": "binary-counts",
+      "recipe": {
+        "actual_sources": [
+          "src/main.rs"
+        ],
+        "report_utf8": "{\"data\": [{\"files\": [{\"filename\": \"/outside/source.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}, {\"filename\": \"$root/src/ignored.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}]}]}"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-binary-report-duplicate",
+      "action": "binary-counts",
+      "recipe": {
+        "actual_sources": [
+          "src/main.rs"
+        ],
+        "report_utf8": "{\"data\": [{\"files\": [{\"filename\": \"$root/src/main.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}, {\"filename\": \"$root/src/ignored.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}, {\"filename\": \"$root/src/main.rs\", \"summary\": {\"regions\": {\"count\": 2, \"covered\": 2, \"notcovered\": 0}}}]}]}"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-binary-report-json",
+      "action": "binary-counts",
+      "recipe": {
+        "actual_sources": [
+          "src/main.rs"
+        ],
+        "report_utf8": "{"
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-final-boundary-prepare-root",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "prepare",
+          "$fixture/missing-source",
+          "$fixture/sysroot",
+          "$fixture/plugin",
+          "$fixture/home",
+          "$fixture/manifest.json"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-prepare-sysroot",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "prepare",
+          "$fixture/source",
+          "$fixture/missing-sysroot",
+          "$fixture/plugin",
+          "$fixture/home",
+          "$fixture/manifest.json"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-prepare-home",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "prepare",
+          "$fixture/source",
+          "$fixture/sysroot",
+          "$fixture/plugin",
+          "$fixture/missing-home",
+          "$fixture/manifest.json"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-prepare-existing-manifest",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          },
+          "manifest.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "prepare",
+          "$fixture/source",
+          "$fixture/sysroot",
+          "$fixture/plugin",
+          "$fixture/home",
+          "$fixture/manifest.json"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-prepare-inside-source",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "prepare",
+          "$fixture/source",
+          "$fixture/sysroot",
+          "$fixture/plugin",
+          "$fixture/home",
+          "$fixture/source/manifest.json"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-prepare-evidence",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          },
+          "manifest.json.evidence/owned": {
+            "file": "Existing evidence.\n"
+          }
+        },
+        "args": [
+          "prepare",
+          "$fixture/source",
+          "$fixture/sysroot",
+          "$fixture/plugin",
+          "$fixture/home",
+          "$fixture/manifest.json"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-prepare-outer",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "prepare",
+          "$fixture/source",
+          "$fixture/sysroot",
+          "$fixture/plugin",
+          "$fixture/home",
+          "$fixture/manifest.json",
+          "$fixture/missing-outer"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-collect-root",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          },
+          "manifest.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "$fixture/missing-source",
+          "$fixture/roles.json",
+          "$fixture/tests.json",
+          "$fixture/manifest.json",
+          "$fixture/output"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector input\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-collect-roles",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          },
+          "manifest.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "$fixture/source",
+          "$fixture/roles.json",
+          "$fixture/tests.json",
+          "$fixture/manifest.json",
+          "$fixture/output"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: collector file intake failed\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-collect-tests",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "manifest.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "$fixture/source",
+          "$fixture/roles.json",
+          "$fixture/tests.json",
+          "$fixture/manifest.json",
+          "$fixture/output"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: collector file intake failed\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-collect-manifest",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "$fixture/source",
+          "$fixture/roles.json",
+          "$fixture/tests.json",
+          "$fixture/manifest.json",
+          "$fixture/output"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: collector file intake failed\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-collect-prepared",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          },
+          "manifest.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "$fixture/source",
+          "$fixture/roles.json",
+          "$fixture/tests.json",
+          "$fixture/manifest.json",
+          "$fixture/output"
+        ]
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid prepared collector tools\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-collect-outer",
+      "action": "preflight",
+      "recipe": {
+        "entries": {
+          "source/README.md": {
+            "file": "Preflight component source.\n"
+          },
+          "sysroot/placeholder": {
+            "file": "Not a runtime.\n"
+          },
+          "home/placeholder": {
+            "file": "Owned home.\n"
+          },
+          "plugin": {
+            "file": "Unused component placeholder.\n"
+          },
+          "roles.json": {
+            "file": "{}\n"
+          },
+          "tests.json": {
+            "file": "{}\n"
+          },
+          "manifest.json": {
+            "file": "{}\n"
+          }
+        },
+        "args": [
+          "$fixture/source",
+          "$fixture/roles.json",
+          "$fixture/tests.json",
+          "$fixture/manifest.json",
+          "$fixture/output"
+        ],
+        "prepared": {
+          "version": "native-prepared-tools-v1",
+          "profile": "rust-1.99.0-macos-arm64-default-v1",
+          "sysroot": "/prepared/rust",
+          "cargo_home": "/prepared/cargo-home",
+          "tools": {
+            "cargo": {
+              "program": "/prepared/bin/cargo",
+              "executable": "/prepared/real/cargo",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "rustc": {
+              "program": "/prepared/bin/rustc",
+              "executable": "/prepared/real/rustc",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "rustdoc": {
+              "program": "/prepared/bin/rustdoc",
+              "executable": "/prepared/real/rustdoc",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "cargo-fmt": {
+              "program": "/prepared/bin/cargo-fmt",
+              "executable": "/prepared/real/cargo-fmt",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "rustfmt": {
+              "program": "/prepared/bin/rustfmt",
+              "executable": "/prepared/real/rustfmt",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "cargo-clippy": {
+              "program": "/prepared/bin/cargo-clippy",
+              "executable": "/prepared/real/cargo-clippy",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "clippy-driver": {
+              "program": "/prepared/bin/clippy-driver",
+              "executable": "/prepared/real/clippy-driver",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "cargo-llvm-cov": {
+              "program": "/prepared/bin/cargo-llvm-cov",
+              "executable": "/prepared/real/cargo-llvm-cov",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "llvm-cov": {
+              "program": "/prepared/bin/llvm-cov",
+              "executable": "/prepared/real/llvm-cov",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "llvm-profdata": {
+              "program": "/prepared/bin/llvm-profdata",
+              "executable": "/prepared/real/llvm-profdata",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "true": {
+              "program": "/prepared/bin/true",
+              "executable": "/prepared/real/true",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "false": {
+              "program": "/prepared/bin/false",
+              "executable": "/prepared/real/false",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "echo": {
+              "program": "/prepared/bin/echo",
+              "executable": "/prepared/real/echo",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "sleep": {
+              "program": "/prepared/bin/sleep",
+              "executable": "/prepared/real/sleep",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "mkfifo": {
+              "program": "/prepared/bin/mkfifo",
+              "executable": "/prepared/real/mkfifo",
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            }
+          },
+          "resources": {
+            "bin/rustc": {
+              "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+              "size": 20
+            },
+            "lib/rustlib/aarch64-apple-darwin/lib/std.rlib": {
+              "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+              "size": 30
+            },
+            "libexec/rust-analyzer-proc-macro-srv": {
+              "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+              "size": 40
+            }
+          },
+          "configs": {},
+          "versions": {
+            "rustc": "1.99.0",
+            "cargo": "1.99.0",
+            "cargo-llvm-cov": "0.9.1",
+            "host": "aarch64-apple-darwin",
+            "rust_llvm": "23.1.1",
+            "llvm-cov": "23.1.1",
+            "llvm-profdata": "23.1.1"
+          },
+          "outer": null
+        },
+        "different_outer": true
+      },
+      "expected": {
+        "value": {
+          "exit": 1,
+          "stdout": "",
+          "stderr": "arboresce-verify: invalid collector nesting\n",
+          "tool_commands": 0
+        }
+      }
+    },
+    {
+      "id": "collector-final-boundary-mini-missing-image",
+      "action": "mini-preflight",
+      "recipe": {
+        "mode": "missing-image",
+        "stage": "observe-tools",
+        "fixture_file": "roles.json",
+        "invalid_roles_utf8": "{}\n",
+        "output": "separate case-owned output and manifest, never overwrite successful collection or its source",
+        "outer": "capture actual child with original Mini.outer and declared LLVM_PROFILE_FILE; use explicit local outer request only when original Mini had no inherited context",
+        "preservation": "Hash every pre-existing source and retained collection file before/after and preserve all those bytes. New case output is separate. Actual new outer-context launch/exit/profile additions may occur outside the inner case-output tree, as required by capture; retain and reconcile those real PID/hash/status/profile additions separately. Never overwrite or ignore baseline evidence.",
+        "tool": "echo",
+        "missing_program": "$case/confirmed-missing-image",
+        "replace_selected_fields": [
+          "program",
+          "executable"
+        ]
+      },
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "arboresce-verify: invalid prepared collector tools\n",
+        "stage": "observe-tools",
+        "tool_commands": 0,
+        "no_later_launches": true,
+        "baseline_source_and_evidence_unchanged": true
+      }
+    },
+    {
+      "id": "collector-final-boundary-mini-wrong-sysroot",
+      "action": "mini-preflight",
+      "recipe": {
+        "mode": "wrong-sysroot",
+        "stage": "observe-runtime",
+        "fixture_file": "roles.json",
+        "invalid_roles_utf8": "{}\n",
+        "output": "separate case-owned output and manifest, never overwrite successful collection or its source",
+        "outer": "capture actual child with original Mini.outer and declared LLVM_PROFILE_FILE; use explicit local outer request only when original Mini had no inherited context",
+        "preservation": "Hash every pre-existing source and retained collection file before/after and preserve all those bytes. New case output is separate. Actual new outer-context launch/exit/profile additions may occur outside the inner case-output tree, as required by capture; retain and reconcile those real PID/hash/status/profile additions separately. Never overwrite or ignore baseline evidence.",
+        "declared_sysroot": "$case/wrong-runtime",
+        "entries": {
+          "bin/resource": {
+            "file": "Different owned runtime.\n"
+          },
+          "lib/resource": {
+            "file": "Different owned runtime.\n"
+          },
+          "libexec/resource": {
+            "file": "Different owned runtime.\n"
+          }
+        }
+      },
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "arboresce-verify: invalid prepared collector tools\n",
+        "stage": "observe-runtime",
+        "tool_commands": 1,
+        "no_later_launches": true,
+        "baseline_source_and_evidence_unchanged": true
+      }
+    },
+    {
+      "id": "collector-final-boundary-mini-changed-resources",
+      "action": "mini-preflight",
+      "recipe": {
+        "mode": "changed-resources",
+        "stage": "compare-prepared",
+        "fixture_file": "roles.json",
+        "invalid_roles_utf8": "{}\n",
+        "output": "separate case-owned output and manifest, never overwrite successful collection or its source",
+        "outer": "capture actual child with original Mini.outer and declared LLVM_PROFILE_FILE; use explicit local outer request only when original Mini had no inherited context",
+        "preservation": "Hash every pre-existing source and retained collection file before/after and preserve all those bytes. New case output is separate. Actual new outer-context launch/exit/profile additions may occur outside the inner case-output tree, as required by capture; retain and reconcile those real PID/hash/status/profile additions separately. Never overwrite or ignore baseline evidence.",
+        "resource": "first lexicographic existing resource key",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "arboresce-verify: invalid prepared collector tools\n",
+        "stage": "compare-prepared",
+        "tool_commands": 6,
+        "no_later_launches": true,
+        "baseline_source_and_evidence_unchanged": true
+      }
+    },
+    {
+      "id": "collector-final-boundary-mini-invalid-roles",
+      "action": "mini-preflight",
+      "recipe": {
+        "mode": "invalid-roles",
+        "stage": "inventory",
+        "fixture_file": "roles.json",
+        "invalid_roles_utf8": "{}\n",
+        "output": "separate case-owned output and manifest, never overwrite successful collection or its source",
+        "outer": "capture actual child with original Mini.outer and declared LLVM_PROFILE_FILE; use explicit local outer request only when original Mini had no inherited context",
+        "preservation": "Hash every pre-existing source and retained collection file before/after and preserve all those bytes. New case output is separate. Actual new outer-context launch/exit/profile additions may occur outside the inner case-output tree, as required by capture; retain and reconcile those real PID/hash/status/profile additions separately. Never overwrite or ignore baseline evidence.",
+        "roles_path": "$case/invalid-roles.json"
+      },
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "arboresce-verify: collector artifact mismatch\n",
+        "stage": "inventory",
+        "tool_commands": 7,
+        "no_later_launches": true,
+        "baseline_source_and_evidence_unchanged": true
+      }
+    },
+    {
+      "id": "collector-final-boundary-native-missing-command-context",
+      "action": "postspawn-io",
+      "recipe": {
+        "program": "sleep",
+        "arguments": [
+          "30"
+        ],
+        "mutation_mode": "ready-only",
+        "failure": "Actual selected sleep launch and explicit local receipt succeed, but the required per-Command mutation context is absent. No global environment mutation.",
+        "cleanup_budget_ns": 2000000000,
+        "completion": "Retain actual terminate/reap trace and matching launch/completion for local explicit request; ambient parent invocation completion attempted independently too.",
+        "omit_command_context": true
+      },
+      "expected": {
+        "error_kind": "Other",
+        "signal": 9,
+        "exit": null,
+        "reaped": true,
+        "within_cleanup_budget": true,
+        "local_launches": 1,
+        "local_exits": 1,
+        "same_actual_pid": true,
+        "matching_launch_hash": true,
+        "local_completion": true,
+        "ambient_completion": true,
+        "ambient_environment_unchanged": true
+      }
+    },
+    {
+      "id": "collector-final-boundary-native-denied-launch-record",
+      "action": "postspawn-io",
+      "recipe": {
+        "program": "sleep",
+        "arguments": [
+          "30"
+        ],
+        "mutation_mode": "ready-only",
+        "failure": "Make only the task-owned local launch directory0555 and prove actual create_new PermissionDenied before spawn. Actual selected sleep then fails PreparedLaunch.record; restore directory mode immediately after capture. Retain original PermissionDenied trace, outer NotFound from local completion, actual kill/reap and separate ambient completion result; no local receipt is fabricated.",
+        "cleanup_budget_ns": 2000000000,
+        "completion": "Retain actual kill/reap and independently attempted local/ambient completions. Local recording failed, so require zero local launches/exits and a failed local completion; never fabricate a local receipt pair. Preserve original PermissionDenied trace separately from returned NotFound. A successful ambient completion API may be a no-op only in an ordinary unmeasured narrow invocation; full qualification must retain the actual active ambient receipt.",
+        "block_local_launches": true
+      },
+      "expected": {
+        "capture_error_kind": "NotFound",
+        "setup_error_kind": "PermissionDenied",
+        "signal": 9,
+        "exit": null,
+        "reaped": true,
+        "within_cleanup_budget": true,
+        "write_denial_proven": true,
+        "permissions_restored": true,
+        "local_launches": 0,
+        "local_exits": 0,
+        "local_completion": false,
+        "ambient_completion": true,
+        "ambient_environment_unchanged": true
+      }
+    },
+    {
+      "id": "collector-bounded-merge-8",
+      "action": "mini-merge",
+      "recipe": {
+        "profiles": 8,
+        "selection": "First lexicographic names from the successful actual mini raw profile inventory. All retained bytes/module identities stay original.",
+        "fan_in": 8,
+        "reference": "One direct invocation of the same selected llvm-profdata merge -sparse over the identical selected real raw paths.",
+        "exports": "Export all actual mini objects from both indexed profiles with the same selected llvm-cov and compare complete parsed outputs.",
+        "preservation": "All original raw profiles and baseline source stay unchanged; new outputs/commands are case-owned. Actual outer tool receipts remain retained."
+      },
+      "expected": {
+        "selected_profiles": 8,
+        "bounded_merge_commands": 1,
+        "reference_merge_commands": 1,
+        "export_commands": 2,
+        "max_inputs_per_bounded_merge": 8,
+        "every_selected_raw_consumed_once": true,
+        "complete_exports_equal": true,
+        "original_raw_unchanged": true,
+        "original_source_unchanged": true
+      }
+    },
+    {
+      "id": "collector-bounded-merge-9",
+      "action": "mini-merge",
+      "recipe": {
+        "profiles": 9,
+        "selection": "First lexicographic names from the successful actual mini raw profile inventory. All retained bytes/module identities stay original.",
+        "fan_in": 8,
+        "reference": "One direct invocation of the same selected llvm-profdata merge -sparse over the identical selected real raw paths.",
+        "exports": "Export all actual mini objects from both indexed profiles with the same selected llvm-cov and compare complete parsed outputs.",
+        "preservation": "All original raw profiles and baseline source stay unchanged; new outputs/commands are case-owned. Actual outer tool receipts remain retained."
+      },
+      "expected": {
+        "selected_profiles": 9,
+        "bounded_merge_commands": 3,
+        "reference_merge_commands": 1,
+        "export_commands": 2,
+        "max_inputs_per_bounded_merge": 8,
+        "every_selected_raw_consumed_once": true,
+        "complete_exports_equal": true,
+        "original_raw_unchanged": true,
+        "original_source_unchanged": true
+      }
+    }
+  ]
+}

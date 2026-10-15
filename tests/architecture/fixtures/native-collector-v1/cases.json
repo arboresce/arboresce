@@ -1,0 +1,1809 @@
+{
+  "version": "native-collector-protocol-fixtures-v1",
+  "scope": "Instrumentation assignment, actual compilation dependency and stable libtest transcript protocols only; no whole collector qualification",
+  "cases": [
+    {
+      "id": "collector-env-valid",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "value": {
+          "LLVM_PROFILE_FILE": "/collector-output/target/arboresce-%p-%12m.profraw",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER": "1",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS": "-C\u001finstrument-coverage\u001f--cfg=coverage",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES": "demo,demo_tests,demo",
+          "RUSTC_WRAPPER": "/prepared/cargo-llvm-cov",
+          "CARGO_LLVM_COV": "1",
+          "CARGO_LLVM_COV_SHOW_ENV": "1",
+          "CARGO_LLVM_COV_TARGET_DIR": "/collector-output/target",
+          "CARGO_LLVM_COV_BUILD_DIR": "/collector-output/target"
+        }
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-safe-unquoted",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER=1\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "value": {
+          "LLVM_PROFILE_FILE": "/collector-output/target/arboresce-%p-%12m.profraw",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER": "1",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS": "-C\u001finstrument-coverage\u001f--cfg=coverage",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES": "demo,demo_tests,demo",
+          "RUSTC_WRAPPER": "/prepared/cargo-llvm-cov",
+          "CARGO_LLVM_COV": "1",
+          "CARGO_LLVM_COV_SHOW_ENV": "1",
+          "CARGO_LLVM_COV_TARGET_DIR": "/collector-output/target",
+          "CARGO_LLVM_COV_BUILD_DIR": "/collector-output/target"
+        }
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-quoted-apostrophe",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector'\\''s-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector'\\''s-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector'\\''s-output/target'\n",
+      "expected": {
+        "value": {
+          "LLVM_PROFILE_FILE": "/collector's-output/target/arboresce-%p-%12m.profraw",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER": "1",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS": "-C\u001finstrument-coverage\u001f--cfg=coverage",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES": "demo,demo_tests,demo",
+          "RUSTC_WRAPPER": "/prepared/cargo-llvm-cov",
+          "CARGO_LLVM_COV": "1",
+          "CARGO_LLVM_COV_SHOW_ENV": "1",
+          "CARGO_LLVM_COV_TARGET_DIR": "/collector's-output/target",
+          "CARGO_LLVM_COV_BUILD_DIR": "/collector's-output/target"
+        }
+      },
+      "target": "/collector's-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='0'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov_show_env",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='0'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov_rustc_wrapper",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='0'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-rustc_wrapper",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/different/tool'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-llvm_profile_file",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/old/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov_target_dir",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/old/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov_build_dir",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/old/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov_rustc_wrapper_rustflags",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=other'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov_rustc_wrapper_crate_names",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-wrong-cargo_llvm_cov_rustc_wrapper_crate_names-unknown",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,unknown'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-empty",
+      "action": "environment",
+      "raw": "",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-missing-key",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-duplicate-key",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\nCARGO_LLVM_COV='1'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-unknown-key",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\nUNREVIEWED='1'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-unclosed-quote",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-trailing-shell-command",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1';false\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-unquoted-substitution",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV=$(true)\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-unquoted-backtick",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV=`true`\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-export-prefix",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nexport CARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-invalid-crate-token",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,bad/name'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-embedded-assignment-space",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV = '1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-env-truncated-final-line",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "arboresce"
+    },
+    {
+      "id": "collector-dep-valid",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc.d: src/main.rs src/support.rs assets/reference.txt\n\n/collector-output/target/debug/deps/demo-abc: src/main.rs src/support.rs assets/reference.txt\n\nsrc/main.rs:\nsrc/support.rs:\nassets/reference.txt:\n# env-dep:CARGO_MANIFEST_DIR=/workspace\n",
+      "expected": {
+        "value": [
+          "assets/reference.txt",
+          "src/main.rs",
+          "src/support.rs"
+        ]
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-escaped-spaces",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/main.rs src/a\\ b.rs\n",
+      "expected": {
+        "value": [
+          "src/a b.rs",
+          "src/main.rs"
+        ]
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-escaped-colon-hash-backslash",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/a\\:b.rs src/a\\#b.rs src/a\\\\b.rs\n",
+      "expected": {
+        "value": [
+          "src/a#b.rs",
+          "src/a:b.rs",
+          "src/a\\b.rs"
+        ]
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-continued-rule",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/main.rs \\\n src/support.rs\n",
+      "expected": {
+        "value": [
+          "src/main.rs",
+          "src/support.rs"
+        ]
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-missing-target",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abcx.d: src/main.rs src/support.rs assets/reference.txt\n\n/collector-output/target/debug/deps/demo-abcx: src/main.rs src/support.rs assets/reference.txt\n\nsrc/main.rs:\nsrc/support.rs:\nassets/reference.txt:\n# env-dep:CARGO_MANIFEST_DIR=/workspace\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-duplicate-target",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc.d: src/main.rs src/support.rs assets/reference.txt\n\n/collector-output/target/debug/deps/demo-abc: src/main.rs src/support.rs assets/reference.txt\n\nsrc/main.rs:\nsrc/support.rs:\nassets/reference.txt:\n# env-dep:CARGO_MANIFEST_DIR=/workspace\n/collector-output/target/debug/deps/demo-abc: src/main.rs\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-duplicate-dependency",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/main.rs src/main.rs\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-empty-owned-rule",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc:\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-dangling-escape",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/main.rs\\\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-unknown-escape",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/a\\q.rs\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-unescaped-second-colon",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/a:b.rs\n",
+      "expected": {
+        "value": [
+          "src/a:b.rs"
+        ]
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-missing-rule-colon",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc src/main.rs\n",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-truncated-rule",
+      "action": "dependencies",
+      "raw": "/collector-output/target/debug/deps/demo-abc: src/main.rs",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-dep-empty",
+      "action": "dependencies",
+      "raw": "",
+      "expected": {
+        "error": "collector artifact mismatch"
+      },
+      "target": "/collector-output/target/debug/deps/demo-abc"
+    },
+    {
+      "id": "collector-list-valid",
+      "action": "list",
+      "raw": "alpha: test\nbeta: test\n",
+      "expected": {
+        "value": [
+          "alpha",
+          "beta"
+        ]
+      }
+    },
+    {
+      "id": "collector-list-empty",
+      "action": "list",
+      "raw": "",
+      "expected": {
+        "value": []
+      }
+    },
+    {
+      "id": "collector-list-namespace",
+      "action": "list",
+      "raw": "module::alpha: test\n",
+      "expected": {
+        "value": [
+          "module::alpha"
+        ]
+      }
+    },
+    {
+      "id": "collector-list-duplicate",
+      "action": "list",
+      "raw": "alpha: test\nalpha: test\n",
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-list-benchmark",
+      "action": "list",
+      "raw": "alpha: benchmark\n",
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-list-unknown-kind",
+      "action": "list",
+      "raw": "alpha: other\n",
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-list-empty-name",
+      "action": "list",
+      "raw": ": test\n",
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-list-whitespace-name",
+      "action": "list",
+      "raw": "alpha beta: test\n",
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-list-truncated",
+      "action": "list",
+      "raw": "alpha: test",
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-list-extra-summary",
+      "action": "list",
+      "raw": "alpha: test\n1 test, 0 benchmarks\n",
+      "expected": {
+        "error": "collector test selection mismatch"
+      }
+    },
+    {
+      "id": "collector-run-valid",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "value": {
+          "alpha": [
+            "sample-good"
+          ],
+          "beta": []
+        }
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-interleaved-diagnostic",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... child diagnostic\nanother diagnostic\nok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "value": {
+          "alpha": [
+            "sample-good"
+          ],
+          "beta": []
+        }
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-incidental-empty",
+      "action": "execution",
+      "raw": "\nrunning 0 tests\n\nsuccesses:\n\nsuccesses:\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "expected": {
+        "value": {}
+      },
+      "tests": [],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-no-output",
+      "action": "execution",
+      "raw": "\nrunning 1 test\ntest beta ... ok\n\nsuccesses:\n\nsuccesses:\n    beta\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "expected": {
+        "value": {
+          "beta": []
+        }
+      },
+      "tests": [
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-wrong-header-count",
+      "action": "execution",
+      "raw": "\nrunning 1 test\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-missing-test-name",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-duplicate-test-name",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest alpha ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-unknown-test-name",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest other ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-failed",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... FAILED\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-ignored",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ignored\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-filtered",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-nonzero-ignored-summary",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-nonzero-failed-summary",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-wrong-passed-summary",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-duplicate-summary",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-missing-summary",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-truncated-summary",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-nonfinite-time",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in NaNs\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-missing-case",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-duplicate-case",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-unknown-case",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=other-case pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-wrong-case-pid",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=18\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-case-outside-section",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... xtask case=sample-good pid=17\nok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-case-in-wrong-test",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- beta stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-nested-json-is-not-event",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\n{\"payload\":\"xtask case=sample-good pid=17\"}\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-spoofed-success-text",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... child diagnostic\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\nok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-duplicate-output-section",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-unknown-output-section",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- other stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-duplicate-success-name",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    alpha\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-unknown-success-name",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    other\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-trailing-junk",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\nunframed trailing data\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-missing-final-lf",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-case-trailing-junk",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17 garbage\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-empty",
+      "action": "execution",
+      "raw": "",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-invalid-registry-name",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "invalid collector input"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "bad name",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-duplicate-registry-name",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "invalid collector input"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-unknown-event-prefix",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "invalid collector input"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "other case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-missing-event-prefix",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "invalid collector input"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": null,
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-duplicate-registry-case",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "invalid collector input"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good",
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-nested-payload-is-ignored",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n{\"payload\":\"xtask case=unregistered-fake pid=17\"}\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "value": {
+          "alpha": [
+            "sample-good"
+          ],
+          "beta": []
+        }
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-unsorted-identifier-and-collector-events",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nidentifier case=id-z pid=17\nidentifier case=id-a pid=17\n\n---- beta stdout ----\ncollector case=case-z pid=17\ncollector case=case-a pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "value": {
+          "alpha": [
+            "id-a",
+            "id-z"
+          ],
+          "beta": [
+            "case-a",
+            "case-z"
+          ]
+        }
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "identifier case=",
+          "case_ids": [
+            "id-a",
+            "id-z"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": "collector case=",
+          "case_ids": [
+            "case-a",
+            "case-z"
+          ]
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-wrong-recognized-prefix",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nidentifier case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-event-in-null-prefix-section",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n---- beta stdout ----\ncollector case=unexpected pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-reversed-selected-order",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest beta ... ok\ntest alpha ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    alpha\n    beta\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-run-reversed-success-order",
+      "action": "execution",
+      "raw": "\nrunning 2 tests\ntest alpha ... ok\ntest beta ... ok\n\nsuccesses:\n\n---- alpha stdout ----\nxtask case=sample-good pid=17\n\n\nsuccesses:\n    beta\n    alpha\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+      "expected": {
+        "error": "collector test execution mismatch"
+      },
+      "tests": [
+        {
+          "name": "alpha",
+          "prefix": "xtask case=",
+          "case_ids": [
+            "sample-good"
+          ]
+        },
+        {
+          "name": "beta",
+          "prefix": null,
+          "case_ids": []
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-dep-escaped-selected-target",
+      "action": "dependencies",
+      "raw": "/collector\\ output/target/debug/deps/demo-abc: src/main.rs src/support.rs\n",
+      "target": "/collector output/target/debug/deps/demo-abc",
+      "expected": {
+        "value": [
+          "src/main.rs",
+          "src/support.rs"
+        ]
+      }
+    },
+    {
+      "id": "collector-dep-raw-selected-space",
+      "action": "dependencies",
+      "raw": "/collector output/target/debug/deps/demo-abc.d: /workspace/src\\ path/main.rs\n\n/collector output/target/debug/deps/demo-abc: /workspace/src\\ path/main.rs\n\n/workspace/src\\ path/main.rs:\n",
+      "target": "/collector output/target/debug/deps/demo-abc",
+      "expected": {
+        "value": [
+          "/workspace/src path/main.rs"
+        ]
+      }
+    },
+    {
+      "id": "collector-dep-raw-selected-colon",
+      "action": "dependencies",
+      "raw": "/collector:output/target/debug/deps/demo-abc.d: /workspace/src:part/main.rs\n\n/collector:output/target/debug/deps/demo-abc: /workspace/src:part/main.rs\n\n/workspace/src:part/main.rs:\n",
+      "target": "/collector:output/target/debug/deps/demo-abc",
+      "expected": {
+        "value": [
+          "/workspace/src:part/main.rs"
+        ]
+      }
+    },
+    {
+      "id": "collector-dep-raw-hash",
+      "action": "dependencies",
+      "raw": "/collector#output/target/debug/deps/demo-abc.d: /workspace/src#part/main.rs\n\n/collector#output/target/debug/deps/demo-abc: /workspace/src#part/main.rs\n\n/workspace/src#part/main.rs:\n",
+      "target": "/collector#output/target/debug/deps/demo-abc",
+      "expected": {
+        "value": [
+          "/workspace/src#part/main.rs"
+        ]
+      }
+    },
+    {
+      "id": "collector-dep-raw-dollar",
+      "action": "dependencies",
+      "raw": "/collector$output/target/debug/deps/demo-abc.d: /workspace/src$part/main.rs\n\n/collector$output/target/debug/deps/demo-abc: /workspace/src$part/main.rs\n\n/workspace/src$part/main.rs:\n",
+      "target": "/collector$output/target/debug/deps/demo-abc",
+      "expected": {
+        "value": [
+          "/workspace/src$part/main.rs"
+        ]
+      }
+    },
+    {
+      "id": "collector-dep-raw-apostrophe",
+      "action": "dependencies",
+      "raw": "/collector'output/target/debug/deps/demo-abc.d: /workspace/src'part/main.rs\n\n/collector'output/target/debug/deps/demo-abc: /workspace/src'part/main.rs\n\n/workspace/src'part/main.rs:\n",
+      "target": "/collector'output/target/debug/deps/demo-abc",
+      "expected": {
+        "value": [
+          "/workspace/src'part/main.rs"
+        ]
+      }
+    },
+    {
+      "id": "collector-run-missing-prefix-with-unexpected-key",
+      "action": "execution",
+      "raw": "\nrunning 1 test\ntest beta ... ok\n\nsuccesses:\n\nsuccesses:\n    beta\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "expected": {
+        "error": "invalid collector input"
+      },
+      "tests": [
+        {
+          "name": "beta",
+          "case_ids": [],
+          "unexpected": true
+        }
+      ],
+      "pid": 17
+    },
+    {
+      "id": "collector-env-workspace-basename",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/source-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "value": {
+          "LLVM_PROFILE_FILE": "/collector-output/target/source-%p-%12m.profraw",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER": "1",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS": "-C\u001finstrument-coverage\u001f--cfg=coverage",
+          "__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES": "demo,demo_tests,demo",
+          "RUSTC_WRAPPER": "/prepared/cargo-llvm-cov",
+          "CARGO_LLVM_COV": "1",
+          "CARGO_LLVM_COV_SHOW_ENV": "1",
+          "CARGO_LLVM_COV_TARGET_DIR": "/collector-output/target",
+          "CARGO_LLVM_COV_BUILD_DIR": "/collector-output/target"
+        }
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "source"
+    },
+    {
+      "id": "collector-env-wrong-workspace-basename",
+      "action": "environment",
+      "raw": "LLVM_PROFILE_FILE='/collector-output/target/arboresce-%p-%12m.profraw'\n__CARGO_LLVM_COV_RUSTC_WRAPPER='1'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS='-C\u001finstrument-coverage\u001f--cfg=coverage'\n__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES='demo,demo_tests,demo'\nRUSTC_WRAPPER='/prepared/cargo-llvm-cov'\nCARGO_LLVM_COV='1'\nCARGO_LLVM_COV_SHOW_ENV='1'\nCARGO_LLVM_COV_TARGET_DIR='/collector-output/target'\nCARGO_LLVM_COV_BUILD_DIR='/collector-output/target'\n",
+      "expected": {
+        "error": "invalid instrumentation environment"
+      },
+      "target": "/collector-output/target",
+      "wrapper": "/prepared/cargo-llvm-cov",
+      "crate_names": [
+        "demo",
+        "demo_tests"
+      ],
+      "workspace_name": "source"
+    }
+  ]
+}

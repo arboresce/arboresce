@@ -1,6 +1,15 @@
 //! Explicit local commands and architecture checks, without product authority.
 
 pub mod architecture;
+pub mod collection;
+pub mod collection_artifacts;
+pub mod collection_inputs;
+pub mod collection_modules;
+pub mod collection_prepared;
+pub mod collection_profiles;
+pub mod collection_receipts;
+pub mod collection_runner;
+pub mod collection_tests;
 pub mod coverage;
 pub mod inventory;
 pub mod inventory_command;
