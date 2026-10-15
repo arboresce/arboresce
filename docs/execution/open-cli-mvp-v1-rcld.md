@@ -272,13 +272,25 @@ test, fixture, role and tool inputs; only this progress annotation differs.
 The maintained fresh collector, complete run identity and whole E202 acceptance
 remain required. No product-runtime or broader native qualification is inferred.
 
-Next maintained collector component: explicit native launch/completion receipts,
-selected executable identity and bounded owned observation across existing process
-paths. It has separate independently reviewed literal expectations and measured
-support; actual source/native/standalone qualification and independent delivery
-must precede acceptance. A receipt component cannot close complete collection,
-profile/test reconciliation or whole E202. The initial current Unix/macOS profile
-retains all later native and real-input obligations.
+Accepted explicit native receipt component:
+`37578a0440afb6b1bb1ce1111f13b83e3175f0f9` binds selected executable,
+argument, source and run identity to actual immutable child launch/completion
+receipts, with bounded owned status/output collection. Seventy-five independently
+reviewed new literal cases preserve all 508 earlier tool and 42 identifier cases.
+Fresh owning and public-only standalone Rust 1.99.0 runs each passed ten commands,
+30 tests and all 32 strict source scopes, with 2459/2516 measured lines and
+4567/4850 regions. Each lane retains fourteen objects, all 121 fresh raw profiles,
+140 matched launch/exit pairs and 111 owned Rust PID/profile joins; ten actual
+Cargo harness profiles remain separately retained. Both actual inventory/report
+consumers passed against 218 stable inputs, 25 Rust paths and seven typed targets.
+The original 21-tool snapshots remain unchanged; two additional operating-system
+tool identities come from explicitly labeled actual earlier receipts. Independent
+source/public review and a distinct delivery witness passed before and after the
+exact local source commit. This annotation records historical qualification with
+all other 217 source inputs unchanged; it does not claim another run. The initial
+non-root Unix/macOS profile retains broader native and real-input obligations.
+The maintained collector, own harness launching, complete test/profile freshness
+reconciliation and whole E202 acceptance remain required. No catalogue node closes.
 
 ### E203 — Implement independent revisions, clocks, dates and locators
 
