@@ -2,8 +2,11 @@
 
 Plan version: 3
 
-Status: owner-approved target; E200 retains accepted contract-milestone status
-and the other 67 original top-level implementation slices and two registered core leaves remain `not_started`. The previous sequence is superseded, not completed. Earlier
+Status: owner-approved target. E200, E201 and the registered primitive-fixture
+leaf are accepted for their stated scopes. E202 is `in_progress`; its first
+architecture/dispatch source increment is accepted, while the complete coverage
+runner and whole checkpoint remain unfinished. Other implementation slices
+retain their recorded states. The previous sequence is superseded, not completed. Earlier
 adoption/contract evidence keeps its historical scope; it does not qualify further
 contract changes or runtime. Current available behavior remains
 separately described by the repository guidance.
@@ -204,6 +207,24 @@ tool commit cannot close its pending coverage or whole-checkpoint gate. Dependen
 profiles are explicit and amended with the first qualified consumer, rather than
 granting effectful domain or workflow imports by omission. SDK-path checks do not
 qualify an actual Temporal runtime. No new product command is introduced here.
+
+Accepted first source increment: `4629ca3d04c5f33c79398c9c7d2cb6c07f084dca`
+introduces resolved dependency/source architecture guards and real workspace
+format/check/test/Clippy dispatch. Seven independently reviewed literal packages
+retain 218 unique tool cases, including equivalent alias forms and actual bounded
+native process/collection failures. Fresh owning and standalone public-only
+Rust 1.99.0 lanes each passed ten direct/delegated commands and 20 tests, including
+the 42 retained identifier cases, with zero failed, ignored or filtered cases.
+Complete ten-object exports include all 48 fresh nonempty profiles per lane;
+the exact raw sets merge identically to the actual Cargo aggregates. All nine
+maintained source/support files and all 16 required scopes exceed 90% for lines
+and regions. The source aggregate is 792/815 lines and 1372/1449 regions;
+assertion bodies remain separate and the literal declaration table retains
+metric-specific N/A. Independent source/public review and a distinct delivery
+witness accepted the exact source before and after its local commit. These facts
+describe that committed source and its unchanged executable inputs; this progress
+annotation does not claim another source qualification. The complete inventory,
+automated coverage/native collector and whole E202 acceptance remain required.
 
 ### E203 — Implement independent revisions, clocks, dates and locators
 
