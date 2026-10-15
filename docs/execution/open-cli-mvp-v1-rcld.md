@@ -583,6 +583,24 @@ public inputs remain unchanged. It does not claim a fresh run on annotated bytes
 Whole E203 remains in_progress with every wire/JCS/budget/time/date/locator and
 actual qualification requirement above intact.
 
+Independent Python source-reference increment:
+`contracts/validation/src/arboresce_contract_validation/source_json.py` supplies
+whole-source admission and immutable canonical selections through the separately
+selected pinned Python JCS writer. The unchanged shared source, raw-number and
+original pointer packages retain their exact meanings. The independently frozen
+80-case Python supplement covers exact types, input-independent failures,
+construction/mutation/copy, private identity-key equality/inequality/ordinal hashes,
+all dictionary resize boundaries and wide/escaped/long-prefix resource cases.
+The unsigned export/control subset remains unchanged.
+
+The separately owned Python reference estimate accounts Unicode decoder/encoder
+capacity and regex chunk/header/list lifetimes under the original hard caps.
+Actual installed ABI/build/native paths, complete current Python collection,
+strict maintained-source/helper/process evidence, independent Rust/Python
+agreement and fresh affected owning/public-only standalone qualification remain
+required before this increment is accepted. Whole E203 remains `in_progress`;
+this pure reference creates no processing-service or product acceptance.
+
 ### E204 — Create focused application ports and migration harness
 
 Status: `not_started`. Prerequisites: E203. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).

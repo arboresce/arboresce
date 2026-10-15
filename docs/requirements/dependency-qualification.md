@@ -184,6 +184,47 @@ locked resolution is not behavioral qualification. Independently qualified Pytho
 agreement still precedes shared selected identity and whole domain completion.
 Signing, money, transport and real service qualification remain separate consumers.
 
+## Independent Python source JSON reference
+
+The contract-validation environment selects `rfc8785` exactly `0.1.4`, without
+extras or normal transitive packages, in its existing uv `0.12.10` and CPython
+`3.14.7` profile. Preserve every existing locked package record. The published
+wheel SHA-256 is `520d690b448ecf0703691c76e1a34a24ddcd4fc5bc41d589cb7c58ec651bcd48`;
+the source archive SHA-256 is
+`e545841329fe0eee4f6a3b44e7034343100c12b4ec566dc06ca9735681deb4da`.
+Inspect actual archive hashes, wheel records and source before consumption.
+Retain Apache-2.0 rights and the adapted Andrew Rundgren reference notices.
+The [upstream release](https://github.com/trailofbits/rfc8785.py/tree/v0.1.4)
+and [package metadata](https://pypi.org/project/rfc8785/0.1.4/) identify the
+selected dependency; a download or lock resolution does not qualify behavior.
+
+Own whole UTF-8, grammar, duplicate, original-number and structural admission
+precedes any pointer or serializer work. Only delimited quoted tokens enter the
+pinned standard-library decoder. Original decimals must equal the independent
+JCS shortest decimal after bounded finite binary64 conversion. The full writer
+receives only checked private built-in containers/scalars and owned string-key
+capsules. Those keys retain Unicode content and encoding, with coherent identity
+equality/inequality and immutable per-object ordinal hashes. No caller subclass,
+ordinary-string lookup, deletion or cross-object key reuse enters that subset.
+Original exact decoded strings own duplicate and pointer semantics. Independently
+bind the actual general-key dictionary, resize/copy and sorted-item paths.
+
+Use a private write-all-or-raise sink after exact escaped-length preflight, then
+check final length before freezing and hashing. Expected rejections return static
+stage values, with no input-bearing exception or partial digest. `hashlib` supplies
+complete SHA-256; record its actual provider/backend and native build identity.
+This Python selection does not claim the Rust force-soft implementation or its
+allocator/frame model. Qualify its separate
+[reference resource profile](resource-profiles.md#python-source-json-reference).
+Retain exact installed interpreter/libpython/native metadata and build provenance;
+an upstream source tag alone is not proof of installed patched-machine behavior.
+
+Independent common vectors, original pointer cases, complete current Python
+collection/source/helper/process/strict coverage and native maxima precede shared
+Rust/Python selected identity. The existing unsigned export/control subset remains
+separate. This pure reference selection does not qualify processing services,
+financial calculations, signing, recovery or production behavior.
+
 ## Technology-specific evidence
 
 The experiment identifiers below refer to the complete criteria in

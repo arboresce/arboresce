@@ -1,0 +1,1376 @@
+{
+  "fixture_version": "source-json-python-api-v1",
+  "classification": "Original public synthetic Python interface expectations; no real human, model or operational evidence.",
+  "scope": "Supplement the unchanged shared complete-source/number/pointer literals. Expected API decisions are frozen before the Python consumer; helpers only build inputs and report actual values.",
+  "api": {
+    "source": "SourceJson.parse(exact bytes) -> SourceJson | SourceFailure",
+    "selection": "SourceJson.select(exact str) -> CanonicalJsonSelection | SourceFailure",
+    "getters": [
+      "as_bytes()",
+      "byte_length()",
+      "sha256()"
+    ],
+    "source_repr": "SourceJson(<redacted>)",
+    "selection_repr": "CanonicalJsonSelection(<redacted>)",
+    "expected_failure": "Static SourceFailure enum member with stage; never a traceback-bearing input exception.",
+    "privacy": "Normal public construction, assignment and deletion cannot install unchecked or mutable state; reflective private-state bypass and caller formatting are outside the processing API.",
+    "canonical_bytes_type": "type(selection.as_bytes()) is bytes"
+  },
+  "source_type_cases": [
+    {
+      "id": "py-source-type-bytes",
+      "kind": "bytes",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "success",
+        "canonical_utf8": "null",
+        "canonical_bytes": 4,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-source-type-bytearray",
+      "kind": "bytearray",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-source-type-memoryview",
+      "kind": "memoryview",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-source-type-str",
+      "kind": "str",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-source-type-bytes_subclass",
+      "kind": "bytes_subclass",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-source-type-none",
+      "kind": "none",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-source-type-bool",
+      "kind": "bool",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-source-type-int",
+      "kind": "int",
+      "source_utf8": "null",
+      "pointer": "",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    }
+  ],
+  "pointer_type_cases": [
+    {
+      "id": "py-pointer-type-str",
+      "kind": "str",
+      "source_utf8": "{\"a\":null}",
+      "pointer": "/a",
+      "expected": {
+        "stage": "success",
+        "canonical_utf8": "null",
+        "canonical_bytes": 4,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-type-str_subclass",
+      "kind": "str_subclass",
+      "source_utf8": "{\"a\":null}",
+      "pointer": "/a",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-type-bytes",
+      "kind": "bytes",
+      "source_utf8": "{\"a\":null}",
+      "pointer": "/a",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-type-memoryview",
+      "kind": "memoryview",
+      "source_utf8": "{\"a\":null}",
+      "pointer": "/a",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-type-none",
+      "kind": "none",
+      "source_utf8": "{\"a\":null}",
+      "pointer": "/a",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-type-bool",
+      "kind": "bool",
+      "source_utf8": "{\"a\":null}",
+      "pointer": "/a",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-type-int",
+      "kind": "int",
+      "source_utf8": "{\"a\":null}",
+      "pointer": "/a",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-unpaired-high-surrogate",
+      "kind": "str",
+      "source_utf8": "null",
+      "pointer": "/\ud800",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-pointer-unpaired-low-surrogate",
+      "kind": "str",
+      "source_utf8": "null",
+      "pointer": "/\udfff",
+      "expected": {
+        "stage": "pointer"
+      },
+      "expected_callbacks": 0
+    },
+    {
+      "id": "py-complete-source-before-bad-pointer",
+      "kind": "str",
+      "source_utf8": "{\"a\":}",
+      "pointer": "/\ud800",
+      "expected": {
+        "stage": "parse"
+      },
+      "expected_callbacks": 0
+    }
+  ],
+  "api_cases": [
+    {
+      "id": "py-source-direct-constructor",
+      "action": "source_constructor",
+      "expected": "TypeError"
+    },
+    {
+      "id": "py-selection-direct-constructor",
+      "action": "selection_constructor",
+      "expected": "TypeError"
+    },
+    {
+      "id": "py-source-assignment",
+      "action": "source_assignment",
+      "source_utf8": "null",
+      "expected": "AttributeError"
+    },
+    {
+      "id": "py-source-deletion",
+      "action": "source_deletion",
+      "source_utf8": "null",
+      "expected": "AttributeError"
+    },
+    {
+      "id": "py-selection-assignment",
+      "action": "selection_assignment",
+      "source_utf8": "null",
+      "expected": "AttributeError"
+    },
+    {
+      "id": "py-selection-deletion",
+      "action": "selection_deletion",
+      "source_utf8": "null",
+      "expected": "AttributeError"
+    },
+    {
+      "id": "py-source-no-instance-dict",
+      "action": "source_dict",
+      "source_utf8": "null",
+      "expected": "TypeError"
+    },
+    {
+      "id": "py-selection-no-instance-dict",
+      "action": "selection_dict",
+      "source_utf8": "null",
+      "expected": "TypeError"
+    },
+    {
+      "id": "py-selection-shallow-copy",
+      "action": "copy",
+      "source_utf8": "[1,2]",
+      "expected_equal": true,
+      "expected_same_object": true
+    },
+    {
+      "id": "py-selection-deep-copy",
+      "action": "deepcopy",
+      "source_utf8": "[1,2]",
+      "expected_equal": true,
+      "expected_same_object": true
+    },
+    {
+      "id": "py-selection-no-cross-type-equality",
+      "action": "foreign_equality",
+      "source_utf8": "null",
+      "expected": false
+    },
+    {
+      "id": "py-selection-bytes-immutable",
+      "action": "bytes_mutation",
+      "source_utf8": "null",
+      "expected": "TypeError"
+    },
+    {
+      "id": "py-selection-utf8-length",
+      "action": "getters",
+      "source_utf8": "\"\u00e9\ud83d\ude42\"",
+      "pointer": "",
+      "canonical_utf8": "\"\u00e9\ud83d\ude42\"",
+      "byte_length": 8,
+      "sha256": "c27f4aef30482939533e09708cd5128efcb97e34d77e567669d91e450c7e68be"
+    },
+    {
+      "id": "py-selection-digest-is-bytes",
+      "action": "digest",
+      "source_utf8": "null",
+      "expected_type": "bytes",
+      "expected_length": 32,
+      "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    }
+  ],
+  "failure_cases": [
+    {
+      "id": "py-source-failure-value",
+      "source_utf8": "{\"fixture\":}",
+      "pointer": "",
+      "stage": "parse",
+      "display": "invalid source JSON",
+      "debug": "InvalidSourceJson",
+      "is_exception": false,
+      "context": null
+    },
+    {
+      "id": "py-pointer-failure-value",
+      "source_utf8": "null",
+      "pointer": "/~2",
+      "stage": "pointer",
+      "display": "invalid JSON pointer",
+      "debug": "InvalidJsonPointer",
+      "is_exception": false,
+      "context": null
+    },
+    {
+      "id": "py-selection-failure-value",
+      "source_utf8": "null",
+      "pointer": "/fixture",
+      "stage": "select",
+      "display": "invalid JSON selection",
+      "debug": "InvalidJsonSelection",
+      "is_exception": false,
+      "context": null
+    }
+  ],
+  "recipes": {
+    "preparation": "Prepare exact source/pointer values first, then reset the per-case callback counter to zero immediately before SourceJson.parse and any subsequent select. Do not inspect/format hostile values between reset and invocation. Helpers dispatch only these named recipes; never eval recipe text.",
+    "source_kinds": {
+      "bytes": "source_utf8.encode(\"utf-8\") as exact bytes",
+      "bytearray": "bytearray(source_utf8.encode(\"utf-8\"))",
+      "memoryview": "memoryview(source_utf8.encode(\"utf-8\"))",
+      "str": "source_utf8 as exact str",
+      "bytes_subclass": "bytes.__new__(HostileBytes, source_utf8.encode(\"utf-8\"))",
+      "none": "None",
+      "bool": "True",
+      "int": "0"
+    },
+    "pointer_kinds": {
+      "str": "pointer as exact str",
+      "str_subclass": "str.__new__(HostileStr, pointer)",
+      "bytes": "pointer.encode(\"utf-8\") as exact bytes",
+      "memoryview": "memoryview(pointer.encode(\"utf-8\"))",
+      "none": "None",
+      "bool": "True",
+      "int": "0"
+    },
+    "hostile_subclasses": {
+      "HostileBytes": {
+        "base": "bytes",
+        "methods": [
+          "__bytes__",
+          "__len__",
+          "__iter__",
+          "__getitem__"
+        ]
+      },
+      "HostileStr": {
+        "base": "str",
+        "methods": [
+          "__str__",
+          "__len__",
+          "__iter__",
+          "__getitem__",
+          "encode"
+        ]
+      },
+      "method_behavior": "Every overridden method increments the shared per-case callback counter and raises RuntimeError(\"unexpected conversion callback\"). No custom construction override. Preparation uses only the named built-in __new__ factories. Reset after preparation."
+    },
+    "action_setup": "For every action with source_utf8, parse its exact UTF-8 bytes. For every selection action, select the exact empty string unless that row explicitly supplies pointer. Require successful admission before applying the action.",
+    "actions": {
+      "source_constructor": {
+        "attempts": [
+          "SourceJson()",
+          "SourceJson(b\"null\")",
+          "SourceJson(_nodes=())"
+        ],
+        "requirement": "Every separate attempt raises TypeError; a no-argument missing-required-argument check alone is insufficient."
+      },
+      "selection_constructor": {
+        "attempts": [
+          "CanonicalJsonSelection()",
+          "CanonicalJsonSelection(b\"null\", bytes(32))",
+          "CanonicalJsonSelection(_canonical=b\"null\", _digest=bytes(32))"
+        ],
+        "requirement": "Every separate attempt raises TypeError; unchecked data cannot enter through the normal constructor."
+      },
+      "source_assignment": "setattr(source, \"_nodes\", ())",
+      "source_deletion": "delattr(source, \"_nodes\")",
+      "selection_assignment": "setattr(selection, \"_canonical\", b\"false\")",
+      "selection_deletion": "delattr(selection, \"_digest\")",
+      "source_dict": "vars(source)",
+      "selection_dict": "vars(selection)",
+      "copy": "copy.copy(selection); the selection is the whole [1,2] at the empty pointer",
+      "deepcopy": "copy.deepcopy(selection); the selection is the whole [1,2] at the empty pointer",
+      "foreign_equality": "selection == b\"null\" with exact bytes operand",
+      "bytes_mutation": "selection.as_bytes()[0] = 0x78",
+      "getters": "Observe type(as_bytes()) is bytes, exact canonical bytes, byte_length(), and sha256().hex().",
+      "digest": "Observe type(sha256()) is bytes, len(sha256()), and sha256().hex()."
+    },
+    "result_types": "Every successful selection must return exact built-in bytes from as_bytes() and exact built-in bytes of length 32 from sha256(). A read-only memoryview is insufficient.",
+    "failure_observation": "Observe stage, str(value), repr(value), isinstance(value, BaseException), getattr(value, \"__context__\", None), and getattr(value, \"__cause__\", None). The latter two are both None. Never return or print the source or pointer."
+  },
+  "adapter_protocol_cases": [
+    {
+      "id": "py-key-same-identity",
+      "action": "self",
+      "text": "a",
+      "ordinal": 0,
+      "equal": true,
+      "unequal": false,
+      "reflected_equal": true,
+      "reflected_unequal": false,
+      "expected_hash": 0
+    },
+    {
+      "id": "py-key-plain-same-text",
+      "action": "plain",
+      "text": "a",
+      "ordinal": 0,
+      "equal": false,
+      "unequal": true,
+      "reflected_equal": false,
+      "reflected_unequal": true,
+      "expected_hash": 0
+    },
+    {
+      "id": "py-key-distinct-same-text-ordinal",
+      "action": "capsule",
+      "text": "a",
+      "ordinal": 0,
+      "other_text": "a",
+      "other_ordinal": 0,
+      "equal": false,
+      "unequal": true,
+      "reflected_equal": false,
+      "reflected_unequal": true,
+      "expected_hash": 0
+    },
+    {
+      "id": "py-key-distinct-text-ordinal",
+      "action": "capsule",
+      "text": "a",
+      "ordinal": 0,
+      "other_text": "b",
+      "other_ordinal": 0,
+      "equal": false,
+      "unequal": true,
+      "reflected_equal": false,
+      "reflected_unequal": true,
+      "expected_hash": 0
+    },
+    {
+      "id": "py-key-distinct-nested-ordinal",
+      "action": "capsule",
+      "text": "b",
+      "ordinal": 0,
+      "other_text": "b",
+      "other_ordinal": 1,
+      "equal": false,
+      "unequal": true,
+      "reflected_equal": false,
+      "reflected_unequal": true,
+      "expected_hash": 0
+    },
+    {
+      "id": "py-key-selected-maximum-ordinal",
+      "action": "self",
+      "text": "m065534",
+      "ordinal": 65534,
+      "equal": true,
+      "unequal": false,
+      "reflected_equal": true,
+      "reflected_unequal": false,
+      "expected_hash": 65534
+    },
+    {
+      "id": "py-key-ordinal-assignment",
+      "action": "assignment",
+      "text": "a",
+      "ordinal": 0,
+      "attribute": "_ordinal",
+      "assigned_value": 1,
+      "expected": "AttributeError"
+    },
+    {
+      "id": "py-key-ordinal-deletion",
+      "action": "deletion",
+      "text": "a",
+      "ordinal": 0,
+      "attribute": "_ordinal",
+      "expected": "AttributeError"
+    },
+    {
+      "id": "py-key-direct-construction",
+      "action": "constructor",
+      "attempts": [
+        "_CanonicalKey()",
+        "_CanonicalKey(\"a\")",
+        "_CanonicalKey(\"a\", 0)",
+        "_CanonicalKey(_ordinal=0)"
+      ],
+      "expected": "TypeError"
+    }
+  ],
+  "adapter_boundary_cases": [
+    {
+      "id": "py-key-dict-boundary-0",
+      "source_recipe": {
+        "object_members": 0,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 2,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 0,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 2,
+        "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-1",
+      "source_recipe": {
+        "object_members": 1,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 13,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 1,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 13,
+        "sha256": "2388277e6c030efb4c34189808ebc93d5410d80b7089d79dbd7fb7e46a556e49"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-5",
+      "source_recipe": {
+        "object_members": 5,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 61,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 5,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 61,
+        "sha256": "38c0d9cd70759f791693ead5d5da4db7b97d104f65d3179e0abf29d98af61f84"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-6",
+      "source_recipe": {
+        "object_members": 6,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 73,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 6,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 73,
+        "sha256": "c729e04c370c06da77856dc804568f744b2318de7cfd42f6f970f7cd80650055"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-10",
+      "source_recipe": {
+        "object_members": 10,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 121,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 10,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 121,
+        "sha256": "50516d3c10ec41a3ab3712084f3e23dd2a03cf73dbbe33d362acd32a0150de90"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-11",
+      "source_recipe": {
+        "object_members": 11,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 133,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 11,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 133,
+        "sha256": "a21ba306d31fcc7dd265788937272584336c7c20c5f352477ee88def5c137436"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-21",
+      "source_recipe": {
+        "object_members": 21,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 253,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 21,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 253,
+        "sha256": "6bbd049b2e553d4fac24959e4d32415837bef911dad868470b01bbb447df56ea"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-22",
+      "source_recipe": {
+        "object_members": 22,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 265,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 22,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 265,
+        "sha256": "2814333fdf6feae06b0301c402bd21e6d055b2881a07d23303bfbd330c567161"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-42",
+      "source_recipe": {
+        "object_members": 42,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 505,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 42,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 505,
+        "sha256": "44378b61d346bff61f7f6f82c6223f81ee4fcc92be3cdc85dce3d23e7aa7499b"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-43",
+      "source_recipe": {
+        "object_members": 43,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 517,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 43,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 517,
+        "sha256": "5c3dc0eca0fb0461d5af70e18e77415b8e1313d1ec1a3df3e6128842c393518c"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-85",
+      "source_recipe": {
+        "object_members": 85,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 1021,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 85,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 1021,
+        "sha256": "2d4d262c315fb3d7f39f1b4cab317973ca8d0a3ac1571e939896cbba21faa8be"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-86",
+      "source_recipe": {
+        "object_members": 86,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 1033,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 86,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 1033,
+        "sha256": "3f15fdaa2857dd29f79648c28f942010473acec22ee1b8b92e14e88f46fac745"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-170",
+      "source_recipe": {
+        "object_members": 170,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 2041,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 170,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 2041,
+        "sha256": "da93ab71ee46294027648aa6c24c4d0a0646ba4dcbea24a95ea8cad37e4f65f1"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-171",
+      "source_recipe": {
+        "object_members": 171,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 2053,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 171,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 2053,
+        "sha256": "bb76742c2fc8f72d6ed565f51dcfef671adec5a567cc23ccf8e14b62306dc077"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-341",
+      "source_recipe": {
+        "object_members": 341,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 4093,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 341,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 4093,
+        "sha256": "9e704f7034334faaf82a7c35ddd05b6b51122d71d0e8bfd2eff06a8900cc109a"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-342",
+      "source_recipe": {
+        "object_members": 342,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 4105,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 342,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 4105,
+        "sha256": "6e84aa56b8c3844036254cbda2fb87a7f9f83ddd92be84eea95a90ab44fa54a1"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-682",
+      "source_recipe": {
+        "object_members": 682,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 8185,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 682,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 8185,
+        "sha256": "4f3b89c3b75b63bb1b028d3b776d742b84923498ba321fec2b2cb9000f7e678f"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-683",
+      "source_recipe": {
+        "object_members": 683,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 8197,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 683,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 8197,
+        "sha256": "04fe24cc36bc103359247426f84f54dd787faec0b3b4da04eeacb4d698537908"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-1365",
+      "source_recipe": {
+        "object_members": 1365,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 16381,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 1365,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 16381,
+        "sha256": "c976313a09c24d96d8f8da273eab62a9198330e8f5d3a0570e3b6ddfd589e70b"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-1366",
+      "source_recipe": {
+        "object_members": 1366,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 16393,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 1366,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 16393,
+        "sha256": "323201293bb18cc42f933c4f6f54a0276a2ba6072ba26e967911b1a011e8b603"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-2730",
+      "source_recipe": {
+        "object_members": 2730,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 32761,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 2730,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 32761,
+        "sha256": "c59fc2eed141f211d86fe6e62a5a165ac56d2499485addfbca2e5cbf1704accc"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-2731",
+      "source_recipe": {
+        "object_members": 2731,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 32773,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 2731,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 32773,
+        "sha256": "be914063377c83ca6baa63ef9010e05c7031c7d6745b7957c395d84e0482980e"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-5461",
+      "source_recipe": {
+        "object_members": 5461,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 65533,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 5461,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 65533,
+        "sha256": "fdbbb780b528511f5a8440a70679aff61eb9cfd6a8e681f4e2eda2e7a811e961"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-5462",
+      "source_recipe": {
+        "object_members": 5462,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 65545,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 5462,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 65545,
+        "sha256": "42c65db5bcbd71a9f8e41e4fd808178eacbf46c77b1855e9ad5d884a303df54d"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-10922",
+      "source_recipe": {
+        "object_members": 10922,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 131065,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 10922,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 131065,
+        "sha256": "02299115b0d8ee5186f0c6ab0dbb5f257a6386f17c5106ef0f35827b15edb0d6"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-10923",
+      "source_recipe": {
+        "object_members": 10923,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 131077,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 10923,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 131077,
+        "sha256": "9c07bf46a93080140855a296cb85488b10280b34a1d221401698c5e85aa7eb16"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-21845",
+      "source_recipe": {
+        "object_members": 21845,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 262141,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 21845,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 262141,
+        "sha256": "577944a8637c67f2aa3ab2336cd9c98b53d1b3c0783fffc50cc0726ff3d337d7"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-21846",
+      "source_recipe": {
+        "object_members": 21846,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 262153,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 21846,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 262153,
+        "sha256": "3c0ee970488e28b20d848605b9bbec541bd05a9ce8488bffcb910a4d3b4d1d11"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-43690",
+      "source_recipe": {
+        "object_members": 43690,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 524281,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 43690,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 524281,
+        "sha256": "2d21c7e877ba81f5ff0b6e962ea144088eccdb3c6e1990a2d797456459510696"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-43691",
+      "source_recipe": {
+        "object_members": 43691,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 524293,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 43691,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 524293,
+        "sha256": "5554d1a295cd4c37eab98eb178eb80f8d81f829761821e54b1d63093577b7572"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    },
+    {
+      "id": "py-key-dict-boundary-65535",
+      "source_recipe": {
+        "object_members": 65535,
+        "key_prefix": "m",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 786421,
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 65535,
+          "key_prefix": "m",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 786421,
+        "sha256": "b87e0de048c5559cf5bcb5d604cee733d877d4e975b3ad5c147cae4c9cb03889"
+      },
+      "invariant": "Only internally created identity capsules at ordinal0..count-1; fresh append-only general-key dict and its pinned canonicalizer copy retain order/hashes. No ordinary lookup, deletion or cross-object reuse."
+    }
+  ],
+  "adapter_literal_cases": [
+    {
+      "id": "py-key-nested-same-text-different-ordinal",
+      "source_utf8": "{\"b\":{\"c\":2,\"b\":3},\"a\":{\"b\":0,\"a\":1}}",
+      "pointer": "",
+      "expected": {
+        "stage": "success",
+        "canonical_utf8": "{\"a\":{\"a\":1,\"b\":0},\"b\":{\"b\":3,\"c\":2}}",
+        "canonical_bytes": 37,
+        "sha256": "aaca0df3cb2c49f4a7c6be58c418e85e5077ea687806bed8b9d108e915b1309b"
+      }
+    }
+  ],
+  "adapter_contract": {
+    "privacy": "The private adapter is not a public tree or ordinary-string key abstraction. Duplicate admission and pointer lookup use original exact strings. Helpers use only owned factories to exercise the serializer protocol; no caller key enters parse/select.",
+    "protocol": "__eq__ returns self is other; __ne__ returns self is not other; __hash__ returns immutable per-object ordinal0..M-1, always exact bool/int as appropriate. Inherited encode preserves string content; construction and ordinal mutation are sealed.",
+    "observation": "Protocol helper returns actual equality/inequality in both operand orders, hash and inherited UTF-16/UTF-8 bytes, or the exception class name from every separate constructor/mutation attempt. Boundary helpers only expand literal input recipes and report actual selection; expected canonical recipes/hashes remain in assertions.",
+    "bounds": "Maximum selected object has65535 members because its root counts toward65536 selected nodes. Source objects may have65536 members but cannot be selected whole; unchanged common boundary cases retain that rejection.",
+    "shared_discriminators": "Also consume every unchanged shared Unicode/UTF-16/empty/control/supplementary/decoded-duplicate/property vector; this supplement does not replace them.",
+    "thresholds": [
+      6,
+      11,
+      22,
+      43,
+      86,
+      171,
+      342,
+      683,
+      1366,
+      2731,
+      5462,
+      10923,
+      21846,
+      43691
+    ]
+  },
+  "recipe_contract": {
+    "object_members": "For object_members=count, indices are the exact integers range(0,count). Each key is key_prefix followed by its index as six-digit zero-padded ASCII decimal (format(index,\"06d\")). Emit the JSON string key, colon, and the exact value_utf8 token. reverse=true reverses only member order. Enclose with { and }, join members by comma, and add no whitespace, BOM or newline. An empty count emits {}. Source and expected recipes use this same byte-construction formula with their independently declared member order; neither computes selection, duplicate, numeric or canonicalization decisions.",
+    "other": "Common parts/repeat/additional_members input recipes retain the exact recipe_contract in crates/arboresce-domain/tests/fixtures/source-json-v1/cases.json. No fixture text is executed."
+  },
+  "resource_cases": [
+    {
+      "id": "py-resource-wide-escaped-string-output-max",
+      "source_recipe": {
+        "parts": [
+          "\"",
+          {
+            "repeat": "\u0100\\n",
+            "count": 2621438
+          },
+          "\ud83d\ude42aa\""
+        ]
+      },
+      "pointer": "",
+      "original_bytes": 10485760,
+      "source_sha256": "828888f398ce9f6cdfc47e1ec294d29f5a5d12883b69d3c36ce6640487fef5e5",
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "parts": [
+            "\"",
+            {
+              "repeat": "\u0100\\n",
+              "count": 2621438
+            },
+            "\ud83d\ude42aa\""
+          ]
+        },
+        "canonical_bytes": 10485760,
+        "sha256": "828888f398ce9f6cdfc47e1ec294d29f5a5d12883b69d3c36ce6640487fef5e5"
+      },
+      "isolates": "Otherwise-valid wide string/key and many short nonmatching regex chunks with escaped newline; exact selected byte bound. No caller callback or real operational evidence."
+    },
+    {
+      "id": "py-resource-wide-escaped-key-output-max",
+      "source_recipe": {
+        "parts": [
+          "{\"",
+          {
+            "repeat": "\u0100\\n",
+            "count": 2621437
+          },
+          "\ud83d\ude42aa\":0}"
+        ]
+      },
+      "pointer": "",
+      "original_bytes": 10485760,
+      "source_sha256": "b0f9d644626b74275e3d2d500b42fc6d8cde5d4b5353fc84e9fcac34c85a8d19",
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "parts": [
+            "{\"",
+            {
+              "repeat": "\u0100\\n",
+              "count": 2621437
+            },
+            "\ud83d\ude42aa\":0}"
+          ]
+        },
+        "canonical_bytes": 10485760,
+        "sha256": "b0f9d644626b74275e3d2d500b42fc6d8cde5d4b5353fc84e9fcac34c85a8d19"
+      },
+      "isolates": "Otherwise-valid wide string/key and many short nonmatching regex chunks with escaped newline; exact selected byte bound. No caller callback or real operational evidence."
+    },
+    {
+      "id": "py-resource-wide-escaped-key-output-one-over",
+      "source_recipe": {
+        "parts": [
+          "{\"",
+          {
+            "repeat": "\u0100\\n",
+            "count": 2621434
+          },
+          "\ud83d\ude42\":1e15}"
+        ]
+      },
+      "pointer": "",
+      "original_bytes": 10485749,
+      "source_sha256": "61a33c252dbebf77176895272de856ff92da51a178f46eb8c61ea8896acc9ef9",
+      "expected": {
+        "stage": "select"
+      },
+      "isolates": "Otherwise-valid wide string/key and many short nonmatching regex chunks with escaped newline; exact selected byte bound. No caller callback or real operational evidence."
+    },
+    {
+      "id": "py-resource-long-wide-prefix-members-65535",
+      "source_recipe": {
+        "object_members": 65535,
+        "key_prefix": "\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\ud83d\ude42",
+        "reverse": true,
+        "value_utf8": "0"
+      },
+      "pointer": "",
+      "original_bytes": 7274386,
+      "source_sha256": "0f696cd24704b86f50c980064c626aa4e50f491fafe4a075c9caf9e647c67c72",
+      "expected": {
+        "stage": "success",
+        "canonical_recipe": {
+          "object_members": 65535,
+          "key_prefix": "\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\u0100\ud83d\ude42",
+          "reverse": false,
+          "value_utf8": "0"
+        },
+        "canonical_bytes": 7274386,
+        "sha256": "bd26040debd2221991d2ff3ea6dcfc1ce8046d5da658d468684b885a0c33a304"
+      },
+      "isolates": "Maximum selected object member/node count with long common wide prefix, complete own merge and canonicalizer one-run ordering."
+    }
+  ]
+}

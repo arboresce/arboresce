@@ -119,6 +119,56 @@ escape activity and complete output/hash passes to I+C. Nested copy/growth work
 must fit 16Ds*C. Independently review these source and compiler obligations and
 exercise actual maximum and otherwise-valid one-over inputs before acceptance.
 
+### Python source JSON reference
+
+`source-json-python-reference-v1` retains every original and selected structural,
+numeric, pointer and byte ceiling above. It selects the exact prepared CPython
+and independent JCS subset in
+[dependency qualification](dependency-qualification.md#independent-python-source-json-reference).
+Its separate requested-payload/interpreter-frame reservation model is:
+
+```text
+estimated bytes = 32I + 512N + 256M + 40C + 1024S + 8192D + 1048576
+logical work   = 64(I+C) + 8192N + 256(I+M)*18 + 16Ds*C + 4096S + 1048576
+```
+
+The structural maximum is 991952896 estimated bytes and 63418925056 work units,
+within the unchanged 1073741824-byte and 68719476736-unit caps. The Rust model
+and its accepted evidence remain distinct. This estimate does not bound physical
+RSS, arbitrary host/runtime configuration, OS/library stack use or host-OOM survival.
+Actual native/process/platform measurements and independent proof remain required
+before the reference profile is accepted.
+
+The input term covers original bytes, whole wide Unicode text, one quoted slice,
+decoder old/new/promotion/shrink buffers and substring scratch, retained decoded
+values, UTF-8 surrogate checking, cached UTF-16 keys and bounded numeric copies.
+Use actual pinned object layouts. The node/member terms include immutable records,
+metric/index/float/Unicode headers, list growth and tuple overlap, active ancestor
+collections, merge scratch and flat rejection cleanup. Members and array edges
+partition the admitted tree; keys do not count as value nodes.
+
+Exact selected escaped size/depth/count precede private list/dict/key construction.
+The selected fixed-node term covers key/ordinal/container/item/sort objects and
+shallow-copy table/index storage. UTF-16-sorted private keys use distinct ordinal
+hashes in fresh append-only general-key dictionaries; copies preserve hash/order.
+The independent writer's UTF-16 sort sees one ascending run. Prove these exact
+paths without a randomized hash-seed assumption or ordinary-string key mixing.
+
+The output term also covers regex escaping's nonmatching string chunks and their
+headers/reference lists, wide Unicode joins, UTF-8 encoding, key/sort payloads and
+BytesIO growth/final ownership. A byte-buffer-only estimate is insufficient.
+Account simultaneous lifetimes and relocation. The private sink checks growth
+before append and exact final length before complete output/digest publication.
+
+Source/code-frame evidence must bind the installed interpreter ABI, recursive
+parser/tree/serializer and rejection/deallocation paths, dependency callbacks and
+ordinary native runtime assumptions. A successful small-stack probe alone is not
+a universal stack proof. Retain exact archive/build/backend/allocator provenance,
+actual maxima, otherwise-valid one-over, wide escaping, long-prefix and dictionary
+resize discriminators, complete strict source/helper/process collection and
+independent Rust/Python agreement. Service and operating qualification remain at
+their actual consuming gates.
+
 ## Listing and selection profile qualification
 
 The [selection contract](selection-contract.md) owns exact wire compositions and
