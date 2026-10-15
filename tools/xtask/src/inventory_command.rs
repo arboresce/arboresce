@@ -3,7 +3,7 @@ use std::{
     fs,
     io::{self, Write},
     path::{Path, PathBuf},
-    process::{Command, Output, Stdio},
+    process::{Output, Stdio},
     sync::atomic::{AtomicU64, Ordering},
     time::Instant,
 };
@@ -42,14 +42,14 @@ fn metadata(root: &Path, trace: &mut impl Write) -> io::Result<Output> {
     let scratch = Scratch::new()?;
     let stdout = scratch.0.join("stdout");
     let stderr = scratch.0.join("stderr");
-    let mut command = Command::new("cargo");
+    let mut command = crate::measurement::command("cargo", Some(root))?;
     command
         .args(Action::Architecture.cargo_args())
         .current_dir(root)
         .stdout(Stdio::from(fs::File::create_new(&stdout)?))
         .stderr(Stdio::from(fs::File::create_new(&stderr)?));
     let started = Instant::now();
-    let mut child = command.spawn()?;
+    let mut child = crate::measurement::spawn(&mut command)?;
     process::observe(
         &mut child,
         &stdout,

@@ -1,0 +1,638 @@
+{
+  "version": "native-measurement-fixtures-v1",
+  "rights": "New independently reviewed synthetic fixtures under the repository MIT OR Apache-2.0 terms. No customer, model or third-party payloads.",
+  "context": {
+    "version": "native-measurement-v1",
+    "run_id": "0123456789abcdef0123456789abcdef",
+    "source_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "context_limit_bytes": 32768,
+  "executable_limit_bytes": 67108864,
+  "cases": [
+    {
+      "id": "measurement-context-valid",
+      "operation": "context",
+      "expected_error": null
+    },
+    {
+      "id": "measurement-context-empty",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "raw": ""
+    },
+    {
+      "id": "measurement-context-malformed",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "raw": "{"
+    },
+    {
+      "id": "measurement-context-duplicate",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "raw": "{\"version\":\"native-measurement-v1\",\"run_id\":\"0123456789abcdef0123456789abcdef\",\"source_sha256\":\"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\",\"version\":\"native-measurement-v1\"}"
+    },
+    {
+      "id": "measurement-context-array",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "raw": "[]"
+    },
+    {
+      "id": "measurement-context-version-5",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "set": {
+        "version": "unknown"
+      }
+    },
+    {
+      "id": "measurement-context-run_id-6",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "set": {
+        "run_id": ""
+      }
+    },
+    {
+      "id": "measurement-context-run_id-7",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "set": {
+        "run_id": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      }
+    },
+    {
+      "id": "measurement-context-source_sha256-8",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "set": {
+        "source_sha256": "000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "id": "measurement-context-source_sha256-9",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "set": {
+        "source_sha256": "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+      }
+    },
+    {
+      "id": "measurement-context-run_id-10",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "set": {
+        "run_id": null
+      }
+    },
+    {
+      "id": "measurement-context-extra-key",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "set": {
+        "extra": 1
+      }
+    },
+    {
+      "id": "measurement-context-missing-key",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "remove": "source_sha256"
+    },
+    {
+      "id": "measurement-missing-root",
+      "operation": "context",
+      "expected_error": "NotFound",
+      "prepare": "missing-root"
+    },
+    {
+      "id": "measurement-root-file",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "root-file"
+    },
+    {
+      "id": "measurement-root-link",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "root-link"
+    },
+    {
+      "id": "measurement-missing-context",
+      "operation": "context",
+      "expected_error": "NotFound",
+      "prepare": "missing-context"
+    },
+    {
+      "id": "measurement-context-directory",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "context-directory"
+    },
+    {
+      "id": "measurement-context-link",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "context-link"
+    },
+    {
+      "id": "measurement-context-oversized",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "context-oversized",
+      "context_padding_bytes": 32769
+    },
+    {
+      "id": "measurement-missing-launches",
+      "operation": "context",
+      "expected_error": "NotFound",
+      "prepare": "missing-launches"
+    },
+    {
+      "id": "measurement-launches-file",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "launches-file"
+    },
+    {
+      "id": "measurement-launches-link",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "launches-link"
+    },
+    {
+      "id": "measurement-missing-exits",
+      "operation": "context",
+      "expected_error": "NotFound",
+      "prepare": "missing-exits"
+    },
+    {
+      "id": "measurement-exits-file",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "exits-file"
+    },
+    {
+      "id": "measurement-exits-link",
+      "operation": "context",
+      "expected_error": "InvalidData",
+      "prepare": "exits-link"
+    },
+    {
+      "id": "measurement-launch-exit-zero",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0
+    },
+    {
+      "id": "measurement-launch-exit-one",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 1,
+      "program": "/usr/bin/false"
+    },
+    {
+      "id": "measurement-launch-cwd",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0,
+      "cwd": "subdir"
+    },
+    {
+      "id": "measurement-launch-relative-program",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0,
+      "program_mode": "relative"
+    },
+    {
+      "id": "measurement-launch-path-program",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0,
+      "program_mode": "path"
+    },
+    {
+      "id": "measurement-launch-path-symlink",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0,
+      "program_mode": "path-link"
+    },
+    {
+      "id": "measurement-launch-byte-argument",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0,
+      "argument_bytes": [
+        102,
+        111,
+        128
+      ]
+    },
+    {
+      "id": "measurement-launch-empty-argument",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0,
+      "argument_bytes": []
+    },
+    {
+      "id": "measurement-repeat-exit-identical",
+      "operation": "launch",
+      "expected_error": null,
+      "expected_exit": 0,
+      "repeat": "identical"
+    },
+    {
+      "id": "measurement-program-missing",
+      "operation": "launch",
+      "expected_error": "NotFound",
+      "program_mode": "missing"
+    },
+    {
+      "id": "measurement-program-directory",
+      "operation": "launch",
+      "expected_error": "InvalidData",
+      "program_mode": "directory"
+    },
+    {
+      "id": "measurement-program-not-executable",
+      "operation": "launch",
+      "expected_error": "InvalidData",
+      "program_mode": "not-executable"
+    },
+    {
+      "id": "measurement-program-oversized",
+      "operation": "launch",
+      "expected_error": "InvalidData",
+      "program_mode": "oversized"
+    },
+    {
+      "id": "measurement-path-empty",
+      "operation": "launch",
+      "expected_error": "NotFound",
+      "program_mode": "path-empty"
+    },
+    {
+      "id": "measurement-path-removed",
+      "operation": "launch",
+      "expected_error": "NotFound",
+      "program_mode": "path-removed"
+    },
+    {
+      "id": "measurement-cwd-missing",
+      "operation": "launch",
+      "expected_error": "NotFound",
+      "cwd": "missing"
+    },
+    {
+      "id": "measurement-launch-collision",
+      "operation": "launch",
+      "expected_error": "AlreadyExists",
+      "collision": "launch",
+      "program": "/bin/sleep",
+      "arguments": [
+        "30"
+      ],
+      "expected_exit": null,
+      "expected_signal": 9,
+      "expected_running_before_collision": true,
+      "cleanup_budget_ms": 2000,
+      "collision_bytes": "retained collision\n",
+      "expected_spawn_count": 1
+    },
+    {
+      "id": "measurement-exit-conflict",
+      "operation": "launch",
+      "expected_error": "AlreadyExists",
+      "collision": "exit"
+    },
+    {
+      "id": "measurement-launch-removed-before-exit",
+      "operation": "launch",
+      "expected_error": "NotFound",
+      "after": "remove-launch"
+    },
+    {
+      "id": "measurement-launch-context-changed",
+      "operation": "launch",
+      "expected_error": "InvalidData",
+      "after": "change-launch",
+      "after_launch_set": {
+        "run_id": "fedcba9876543210fedcba9876543210"
+      }
+    },
+    {
+      "id": "measurement-exit-link",
+      "operation": "launch",
+      "expected_error": "InvalidData",
+      "collision": "exit-link"
+    },
+    {
+      "id": "measurement-native-status-disabled",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-status",
+      "context": false,
+      "program": "/usr/bin/true",
+      "expected_exit": 0,
+      "expected_stdout": "",
+      "expected_stderr": "",
+      "expected_receipts": 0,
+      "expected_child_exit": null
+    },
+    {
+      "id": "measurement-native-output-disabled",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-output",
+      "context": false,
+      "program": "/bin/echo",
+      "expected_exit": 0,
+      "expected_stdout": "measurement child\n",
+      "expected_stderr": "",
+      "expected_receipts": 0,
+      "expected_child_exit": null
+    },
+    {
+      "id": "measurement-native-status-active",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-status",
+      "context": true,
+      "program": "/usr/bin/true",
+      "expected_exit": 0,
+      "expected_stdout": "",
+      "expected_stderr": "",
+      "expected_receipts": 1,
+      "expected_child_exit": 0
+    },
+    {
+      "id": "measurement-native-status-nonzero",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-status",
+      "context": true,
+      "program": "/usr/bin/false",
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "expected_stderr": "",
+      "expected_receipts": 1,
+      "expected_child_exit": 1
+    },
+    {
+      "id": "measurement-native-output-active",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-output",
+      "context": true,
+      "program": "/bin/echo",
+      "expected_exit": 0,
+      "expected_stdout": "measurement child\n",
+      "expected_stderr": "",
+      "expected_receipts": 1,
+      "expected_child_exit": 0
+    },
+    {
+      "id": "measurement-native-status-missing",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-status",
+      "context": true,
+      "program": "/missing-native-tool",
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "expected_stderr": "native measurement failed\n",
+      "expected_receipts": 0,
+      "expected_child_exit": null
+    },
+    {
+      "id": "measurement-native-context-invalid",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-status",
+      "context": "invalid",
+      "program": "/usr/bin/true",
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "expected_stderr": "native measurement failed\n",
+      "expected_receipts": 0,
+      "expected_child_exit": null
+    },
+    {
+      "id": "measurement-native-output-missing",
+      "operation": "native",
+      "expected_error": null,
+      "mode": "measured-output",
+      "context": true,
+      "program": "/missing-native-tool",
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "expected_stderr": "native measurement failed\n",
+      "expected_receipts": 0,
+      "expected_child_exit": null
+    },
+    {
+      "id": "measurement-context-trailing-json",
+      "operation": "context",
+      "raw": "{\"version\": \"native-measurement-v1\", \"run_id\": \"0123456789abcdef0123456789abcdef\", \"source_sha256\": \"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\"} {}",
+      "expected_error": "InvalidData"
+    },
+    {
+      "id": "measurement-context-exact-byte-limit",
+      "operation": "context",
+      "context_padding_bytes": 32768,
+      "expected_error": null
+    },
+    {
+      "id": "measurement-program-exact-byte-limit",
+      "operation": "prepare",
+      "program_mode": "exact-limit",
+      "expected_error": null
+    },
+    {
+      "id": "measurement-complete-while-running",
+      "operation": "launch",
+      "program": "/bin/sleep",
+      "arguments": [
+        "30"
+      ],
+      "complete_while_running": true,
+      "expected_error": "WouldBlock",
+      "expected_running_before_completion": true,
+      "cleanup_budget_ms": 2000,
+      "expected_exit": null,
+      "expected_signal": 9,
+      "expected_spawn_count": 1
+    },
+    {
+      "id": "measurement-bounded-status-timeout",
+      "operation": "wait",
+      "program": "/bin/sleep",
+      "arguments": [
+        "30"
+      ],
+      "budget_ms": 0,
+      "expected_error": "TimedOut",
+      "expected_running_before_completion": true,
+      "cleanup_budget_ms": 2000,
+      "expected_exit": null,
+      "expected_signal": 9,
+      "expected_spawn_count": 1
+    },
+    {
+      "id": "measurement-native-missing-output",
+      "operation": "native",
+      "mode": "measured-missing-output",
+      "context": true,
+      "program": "/usr/bin/true",
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "expected_stderr": "native measurement failed\n",
+      "expected_receipts": 1,
+      "expected_child_exit": 0
+    },
+    {
+      "id": "measurement-native-broken-trace",
+      "operation": "native",
+      "mode": "measured-broken-trace",
+      "context": true,
+      "program": "/usr/bin/true",
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "expected_stderr": "native measurement failed\n",
+      "expected_receipts": 1,
+      "expected_child_exit": 0
+    },
+    {
+      "id": "measurement-bounded-status-cached-too-late",
+      "operation": "wait",
+      "program": "/usr/bin/true",
+      "prepare_exited": true,
+      "budget_ms": 0,
+      "expected_error": "TimedOut",
+      "expected_running_before_completion": false,
+      "cleanup_budget_ms": 2000,
+      "expected_exit": 0,
+      "expected_signal": null,
+      "expected_spawn_count": 1
+    },
+    {
+      "id": "measurement-bare-program-must-be-bound",
+      "operation": "launch",
+      "program_mode": "path",
+      "skip_selection": true,
+      "expected_error": "InvalidData"
+    },
+    {
+      "id": "measurement-selected-path-cannot-fall-through",
+      "operation": "launch",
+      "program_mode": "path-access-failure",
+      "expected_error": "PermissionDenied",
+      "expected_spawn_count": 0,
+      "first_mode": 257,
+      "second_mode": 493
+    },
+    {
+      "id": "measurement-native-selected-status",
+      "operation": "native",
+      "mode": "measured-selected-status",
+      "context": true,
+      "program": "true",
+      "path": "/usr/bin:/bin",
+      "expected_program": "/usr/bin/true",
+      "expected_executable": "/usr/bin/true",
+      "expected_exit": 0,
+      "expected_stdout": "",
+      "expected_stderr": "",
+      "expected_receipts": 1,
+      "expected_child_exit": 0
+    },
+    {
+      "id": "measurement-delegated-budget-fmt",
+      "operation": "budget",
+      "action": "fmt",
+      "expected_budget_ms": 60000,
+      "expected_error": null
+    },
+    {
+      "id": "measurement-delegated-budget-check",
+      "operation": "budget",
+      "action": "check",
+      "expected_budget_ms": 180000,
+      "expected_error": null
+    },
+    {
+      "id": "measurement-delegated-budget-test",
+      "operation": "budget",
+      "action": "test",
+      "expected_budget_ms": 300000,
+      "expected_error": null
+    },
+    {
+      "id": "measurement-delegated-budget-clippy",
+      "operation": "budget",
+      "action": "clippy",
+      "expected_budget_ms": 180000,
+      "expected_error": null
+    },
+    {
+      "id": "measurement-builder-unknown-preparation",
+      "operation": "preparation",
+      "prepare": "unknown-recipe",
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "measurement-builder-unknown-program",
+      "operation": "preparation",
+      "program_mode": "unknown-program",
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "measurement-path-byte-argument-and-removed-environment",
+      "operation": "launch",
+      "program_mode": "path",
+      "argument_bytes": [
+        102,
+        111,
+        128
+      ],
+      "remove_environment": "ARBORESCE_MEASUREMENT_FIXTURE_REMOVED",
+      "expected_error": null,
+      "expected_exit": 0
+    },
+    {
+      "id": "measurement-native-selected-missing",
+      "operation": "native",
+      "mode": "measured-selected-status",
+      "context": true,
+      "program": "missing-measurement-native-tool",
+      "path": "/usr/bin:/bin",
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "expected_stderr": "native measurement failed\n",
+      "expected_receipts": 0,
+      "expected_child_exit": null
+    },
+    {
+      "id": "measurement-context-changed-after-prepare",
+      "operation": "launch",
+      "program": "/bin/sleep",
+      "arguments": [
+        "30"
+      ],
+      "before_record_set_context": {
+        "run_id": "fedcba9876543210fedcba9876543210"
+      },
+      "expected_running_before_record": true,
+      "expected_error": "InvalidData",
+      "expected_exit": null,
+      "expected_signal": 9,
+      "cleanup_budget_ms": 2000,
+      "expected_spawn_count": 1,
+      "expected_receipts": 0
+    }
+  ]
+}

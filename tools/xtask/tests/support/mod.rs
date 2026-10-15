@@ -109,6 +109,14 @@ pub fn observe(command: &mut Command) -> io::Result<Output> {
 }
 
 pub fn observe_with(command: &mut Command, options: Observation) -> io::Result<Output> {
+    observe_identity_with(command, options).map(|(_, output)| output)
+}
+
+pub fn observe_identity(command: &mut Command) -> io::Result<(u32, Output)> {
+    observe_identity_with(command, Observation::default())
+}
+
+fn observe_identity_with(command: &mut Command, options: Observation) -> io::Result<(u32, Output)> {
     let prepared = PreparedRoot::new()?;
     let stdout_path = prepared.path.join("stdout");
     let stderr_path = prepared.path.join("stderr");
@@ -125,7 +133,8 @@ pub fn observe_with(command: &mut Command, options: Observation) -> io::Result<O
         Stdio::from(stderr)
     });
     let started = Instant::now();
-    let mut child = command.spawn()?;
+    let mut child = arboresce_xtask::measurement::spawn(command)?;
+    let pid = child.id();
     arboresce_xtask::process::observe(
         &mut child,
         &stdout_path,
@@ -138,6 +147,7 @@ pub fn observe_with(command: &mut Command, options: Observation) -> io::Result<O
         started,
         &mut std::io::stdout().lock(),
     )
+    .map(|output| (pid, output))
 }
 
 pub struct FailedOutput {
@@ -206,3 +216,5 @@ impl Write for ObservationTrace {
 #[cfg(unix)]
 pub mod inventory_inputs;
 pub mod report_inputs;
+
+pub mod measurement_inputs;

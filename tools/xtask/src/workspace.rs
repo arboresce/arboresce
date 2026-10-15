@@ -3,7 +3,6 @@ use std::{
     fs,
     io::{Read, Write},
     path::{Path, PathBuf},
-    process::Command,
 };
 
 use serde_json::Value;
@@ -26,10 +25,10 @@ pub enum RunError {
 
 pub fn check_current() -> Result<(), RunError> {
     let root = std::env::current_dir().map_err(|_| RunError::Command)?;
-    let output = Command::new("cargo")
-        .args(Action::Architecture.cargo_args())
-        .output()
-        .map_err(|_| RunError::Command)?;
+    let mut command =
+        crate::measurement::command("cargo", Some(&root)).map_err(|_| RunError::Command)?;
+    command.args(Action::Architecture.cargo_args());
+    let output = crate::process::output(&mut command).map_err(|_| RunError::Command)?;
     let mut stderr = std::io::stderr().lock();
     stderr
         .write_all(&output.stderr)

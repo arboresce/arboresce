@@ -1497,7 +1497,7 @@ fn independently_approved_inventory_process_failures() {
             .stdout(Stdio::from(fs::File::create_new(&stdout).unwrap()))
             .stderr(Stdio::from(fs::File::create_new(&stderr).unwrap()));
         let started = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        let mut child = command.spawn().unwrap();
+        let mut child = arboresce_xtask::measurement::spawn(&mut command).unwrap();
         let mut preparation_trace = Vec::new();
         if !running {
             let prepared = observe(
@@ -1597,4 +1597,645 @@ fn independently_approved_inventory_process_failures() {
         println!("xtask case={id} pid={}", std::process::id());
     }
     assert_eq!(seen.len(), 11);
+}
+
+#[test]
+fn independently_approved_native_measurement_contexts() {
+    use arboresce_xtask::measurement::Request;
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-measurement-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap().iter().filter(|c| {
+        matches!(
+            c["operation"].as_str(),
+            Some("context" | "budget" | "preparation")
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        if case["operation"] == "budget" {
+            let action =
+                Action::parse(&[OsString::from(case["action"].as_str().unwrap())]).unwrap();
+            assert_eq!(
+                action.operation_budget().as_millis(),
+                case["expected_budget_ms"].as_u64().unwrap() as u128,
+                "{id}"
+            );
+            println!("xtask case={id} pid={}", std::process::id());
+            continue;
+        }
+        if case["operation"] == "preparation" {
+            let error = if case.get("program_mode").is_some() {
+                let input =
+                    support::measurement_inputs::Input::new(&fixture["context"], case).unwrap();
+                input
+                    .command(case)
+                    .expect_err("builder must reject unknown program recipe")
+            } else {
+                support::measurement_inputs::Input::new(&fixture["context"], case)
+                    .err()
+                    .expect("builder must reject unknown preparation recipe")
+            };
+            assert_eq!(
+                serde_json::json!(format!("{:?}", error.kind())),
+                case["expected_error"],
+                "{id}"
+            );
+            println!("xtask case={id} pid={}", std::process::id());
+            continue;
+        }
+        let input = support::measurement_inputs::Input::new(&fixture["context"], case).unwrap();
+        let result = Request::open(&input.root);
+        if let Some(expected) = case["expected_error"].as_str() {
+            assert_eq!(
+                format!("{:?}", result.err().expect(id).kind()),
+                expected,
+                "{id}"
+            );
+        } else {
+            assert!(result.is_ok(), "{id}");
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 34);
+}
+
+#[test]
+fn independently_approved_native_measurement_launches_and_completion() {
+    use arboresce_xtask::{
+        measurement::{self, Request},
+        process,
+    };
+    use serde_json::json;
+    use sha2::{Digest, Sha256};
+    use std::{
+        fs,
+        os::unix::{ffi::OsStrExt, fs::symlink, process::ExitStatusExt},
+        time::{Duration, Instant},
+    };
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-measurement-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| matches!(c["operation"].as_str(), Some("launch" | "prepare" | "wait")))
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let input = support::measurement_inputs::Input::new(&fixture["context"], case).unwrap();
+        let request = Request::open(&input.root).unwrap();
+        let mut command = input.command(case).unwrap();
+        if !command.get_program().as_bytes().contains(&b'/') && case["skip_selection"] != true {
+            match measurement::selected_program(&command) {
+                Ok(selected) => {
+                    command = support::measurement_inputs::bind_selected(&command, &selected)
+                }
+                Err(error) => {
+                    assert_eq!(
+                        json!(format!("{:?}", error.kind())),
+                        case["expected_error"],
+                        "{id}"
+                    );
+                    assert_eq!(
+                        std::fs::read_dir(input.root.join("launches"))
+                            .unwrap()
+                            .count(),
+                        0
+                    );
+                    assert_eq!(
+                        std::fs::read_dir(input.root.join("exits")).unwrap().count(),
+                        0
+                    );
+                    println!("xtask case={id} pid={}", std::process::id());
+                    continue;
+                }
+            }
+        }
+        if let Some(key) = case["remove_environment"].as_str() {
+            assert_eq!(
+                command
+                    .get_envs()
+                    .find(|(name, _)| *name == key)
+                    .map(|(_, value)| value),
+                Some(None),
+                "{id}"
+            );
+        }
+        let prepared = match request.prepare(&mut command) {
+            Ok(prepared) => prepared,
+            Err(error) => {
+                assert_eq!(
+                    json!(format!("{:?}", error.kind())),
+                    case["expected_error"],
+                    "{id}"
+                );
+                assert_eq!(
+                    fs::read_dir(input.root.join("launches")).unwrap().count(),
+                    0,
+                    "{id}"
+                );
+                assert_eq!(
+                    fs::read_dir(input.root.join("exits")).unwrap().count(),
+                    0,
+                    "{id}"
+                );
+                println!("xtask case={id} pid={}", std::process::id());
+                continue;
+            }
+        };
+        if case["operation"] == "prepare" {
+            assert!(case["expected_error"].is_null(), "{id}");
+            assert_eq!(
+                fs::read_dir(input.root.join("launches")).unwrap().count(),
+                0
+            );
+            println!("xtask case={id} pid={}", std::process::id());
+            continue;
+        }
+        let mut child = match measurement::spawn(&mut command) {
+            Ok(child) => child,
+            Err(error) => {
+                assert_eq!(
+                    json!(format!("{:?}", error.kind())),
+                    case["expected_error"],
+                    "{id}"
+                );
+                assert_eq!(case["expected_spawn_count"], 0, "{id}");
+                assert_eq!(
+                    fs::read_dir(input.root.join("launches")).unwrap().count(),
+                    0
+                );
+                assert_eq!(fs::read_dir(input.root.join("exits")).unwrap().count(), 0);
+                println!("xtask case={id} pid={}", std::process::id());
+                continue;
+            }
+        };
+        let pid = child.id();
+        let launch_path = input.root.join("launches").join(format!("{pid}.json"));
+        let exit_path = input.root.join("exits").join(format!("{pid}.json"));
+        let mut running = child.try_wait().unwrap().is_none();
+        let mut started = Instant::now();
+        if case["collision"] == "launch" || case.get("before_record_set_context").is_some() {
+            let expected_running = case
+                .get("expected_running_before_record")
+                .unwrap_or(&case["expected_running_before_collision"]);
+            assert_eq!(json!(running), *expected_running, "{id}");
+            let original_context_bytes = fs::read(input.root.join("context.json")).unwrap();
+            let mut changed_context = None;
+            if case["collision"] == "launch" {
+                fs::write(&launch_path, case["collision_bytes"].as_str().unwrap()).unwrap();
+            } else {
+                let mut context: serde_json::Value =
+                    serde_json::from_slice(&original_context_bytes).unwrap();
+                assert_eq!(context, fixture["context"], "{id}");
+                context.as_object_mut().unwrap().extend(
+                    case["before_record_set_context"]
+                        .as_object()
+                        .unwrap()
+                        .clone(),
+                );
+                let bytes = context.to_string().into_bytes();
+                fs::write(input.root.join("context.json"), &bytes).unwrap();
+                changed_context = Some(bytes);
+            }
+            let error = prepared.record(&mut child).unwrap_err();
+            assert_eq!(
+                json!(format!("{:?}", error.kind())),
+                case["expected_error"],
+                "{id}"
+            );
+            assert!(
+                started.elapsed().as_millis()
+                    <= case["cleanup_budget_ms"].as_u64().unwrap() as u128,
+                "{id}"
+            );
+            let status = child
+                .try_wait()
+                .unwrap()
+                .expect("actual owned child reaped");
+            assert_eq!(json!(status.code()), case["expected_exit"], "{id}");
+            assert_eq!(json!(status.signal()), case["expected_signal"], "{id}");
+            if let Some(ref bytes) = changed_context {
+                assert_eq!(
+                    fs::read(input.root.join("context.json")).unwrap(),
+                    *bytes,
+                    "{id}"
+                );
+                assert_eq!(
+                    fs::read_dir(input.root.join("launches")).unwrap().count(),
+                    case["expected_receipts"].as_u64().unwrap() as usize,
+                    "{id}"
+                );
+            } else {
+                assert_eq!(
+                    fs::read(&launch_path).unwrap(),
+                    case["collision_bytes"].as_str().unwrap().as_bytes(),
+                    "{id}"
+                );
+            }
+            assert!(!exit_path.exists(), "{id}");
+            measurement::complete(&mut child).unwrap();
+            println!(
+                "xtask measurement observation {}",
+                json!({"case":id,"pid":pid,"initial_running":running,"exit":status.code(),"signal":status.signal(),"elapsed_ms":started.elapsed().as_millis(),"reaped":true,"error":format!("{:?}",error.kind()),"launch_collision_bytes":case["collision_bytes"],"context_before":original_context_bytes,"context_after":changed_context,"spawn_count":1})
+            );
+            println!("xtask case={id} pid={}", std::process::id());
+            continue;
+        }
+        prepared
+            .record(&mut child)
+            .unwrap_or_else(|e| panic!("{id}: {e}"));
+        let original_launch_bytes = fs::read(&launch_path).unwrap();
+        let launch: serde_json::Value = serde_json::from_slice(&original_launch_bytes).unwrap();
+        assert_eq!(launch["version"], "native-launch-v1", "{id}");
+        assert_eq!(launch["pid"], pid, "{id}");
+        assert_eq!(launch["parent_pid"], std::process::id(), "{id}");
+        assert_eq!(launch["run_id"], fixture["context"]["run_id"], "{id}");
+        assert_eq!(
+            launch["source_sha256"], fixture["context"]["source_sha256"],
+            "{id}"
+        );
+        assert_eq!(
+            launch["context_path"],
+            json!(input.root.canonicalize().unwrap().as_os_str().as_bytes()),
+            "{id}"
+        );
+        assert_eq!(
+            launch["context_sha256"],
+            format!(
+                "{:x}",
+                Sha256::digest(fs::read(input.root.join("context.json")).unwrap())
+            ),
+            "{id}"
+        );
+        let executable_bytes: Vec<u8> =
+            serde_json::from_value(launch["executable"].clone()).unwrap();
+        let executable = std::path::Path::new(std::ffi::OsStr::from_bytes(&executable_bytes));
+        assert!(executable.is_absolute());
+        assert_eq!(executable.canonicalize().unwrap(), executable);
+        assert_eq!(
+            launch["executable_sha256"],
+            format!("{:x}", Sha256::digest(fs::read(executable).unwrap())),
+            "{id}"
+        );
+        assert_eq!(
+            launch["program"],
+            json!(command.get_program().as_bytes()),
+            "{id}"
+        );
+        assert_eq!(
+            launch["arguments"],
+            json!(command.get_args().map(|a| a.as_bytes()).collect::<Vec<_>>()),
+            "{id}"
+        );
+        assert_eq!(
+            launch["cwd"],
+            json!(
+                command
+                    .get_current_dir()
+                    .unwrap()
+                    .canonicalize()
+                    .unwrap()
+                    .as_os_str()
+                    .as_bytes()
+            ),
+            "{id}"
+        );
+        if case["prepare_exited"] == true {
+            let prepared_status = process::wait(&mut child, Duration::from_secs(30)).unwrap();
+            assert_eq!(prepared_status.code(), Some(0), "{id}");
+            assert_eq!(child.try_wait().unwrap(), Some(prepared_status), "{id}");
+            running = false;
+            started = Instant::now();
+        }
+        let actual = if case["complete_while_running"] == true {
+            assert_eq!(
+                json!(running),
+                case["expected_running_before_completion"],
+                "{id}"
+            );
+            let error = request.complete(&mut child).unwrap_err();
+            assert_eq!(
+                json!(format!("{:?}", error.kind())),
+                case["expected_error"],
+                "{id}"
+            );
+            assert!(!exit_path.exists(), "{id}");
+            process::terminate(&mut child).unwrap();
+            measurement::complete(&mut child).unwrap();
+            request.complete(&mut child).unwrap();
+            Some(format!("{:?}", error.kind()))
+        } else if case["operation"] == "wait" {
+            assert_eq!(
+                json!(running),
+                case["expected_running_before_completion"],
+                "{id}"
+            );
+            let error = process::wait(
+                &mut child,
+                Duration::from_millis(case["budget_ms"].as_u64().unwrap()),
+            )
+            .unwrap_err();
+            assert_eq!(
+                json!(format!("{:?}", error.kind())),
+                case["expected_error"],
+                "{id}"
+            );
+            request.complete(&mut child).unwrap();
+            Some(format!("{:?}", error.kind()))
+        } else {
+            let actual_status = process::wait(&mut child, Duration::from_secs(30)).unwrap();
+            assert_eq!(
+                process::terminate(&mut child).unwrap(),
+                actual_status,
+                "{id}"
+            );
+            match case["after"].as_str().unwrap_or("") {
+                "remove-launch" => fs::remove_file(&launch_path).unwrap(),
+                "change-launch" => {
+                    let mut changed = launch.clone();
+                    changed
+                        .as_object_mut()
+                        .unwrap()
+                        .extend(case["after_launch_set"].as_object().unwrap().clone());
+                    fs::write(&launch_path, changed.to_string()).unwrap();
+                }
+                "" => {}
+                _ => panic!("unknown reviewed launch mutation"),
+            }
+            if case["collision"] == "exit" {
+                fs::write(&exit_path, b"existing completion\n").unwrap();
+            }
+            if case["collision"] == "exit-link" {
+                fs::write(
+                    input.owner.path.join("exit-target"),
+                    b"existing completion\n",
+                )
+                .unwrap();
+                symlink(input.owner.path.join("exit-target"), &exit_path).unwrap();
+            }
+            let completed = request.complete(&mut child);
+            if let Some(expected) = case["expected_error"].as_str() {
+                assert_eq!(
+                    format!("{:?}", completed.unwrap_err().kind()),
+                    expected,
+                    "{id}"
+                );
+                if matches!(case["collision"].as_str(), Some("exit" | "exit-link")) {
+                    assert_eq!(
+                        fs::read(&exit_path).unwrap(),
+                        b"existing completion\n",
+                        "{id}"
+                    );
+                }
+                Some(expected.to_owned())
+            } else {
+                completed.unwrap_or_else(|e| panic!("{id}: {e}"));
+                None
+            }
+        };
+        let status = child
+            .try_wait()
+            .unwrap()
+            .expect("actual owned child reaped");
+        if let Some(expected) = case.get("expected_exit") {
+            assert_eq!(json!(status.code()), *expected, "{id}");
+        }
+        assert_eq!(
+            json!(status.signal()),
+            case.get("expected_signal")
+                .cloned()
+                .unwrap_or(serde_json::Value::Null),
+            "{id}"
+        );
+        if let Some(budget) = case["cleanup_budget_ms"].as_u64() {
+            assert!(started.elapsed().as_millis() <= budget as u128, "{id}");
+        }
+        let exit = if actual.is_none()
+            || case["complete_while_running"] == true
+            || case["operation"] == "wait"
+        {
+            let bytes = fs::read(&exit_path).unwrap();
+            let exit: serde_json::Value = serde_json::from_slice(&bytes).unwrap();
+            assert_eq!(exit["version"], "native-exit-v1", "{id}");
+            for key in [
+                "pid",
+                "parent_pid",
+                "run_id",
+                "source_sha256",
+                "context_path",
+                "context_sha256",
+            ] {
+                assert_eq!(exit[key], launch[key], "{id}: {key}");
+            }
+            assert_eq!(
+                exit["launch_sha256"],
+                format!("{:x}", Sha256::digest(&original_launch_bytes)),
+                "{id}"
+            );
+            assert_eq!(exit["exit"], json!(status.code()), "{id}");
+            assert_eq!(exit["signal"], json!(status.signal()), "{id}");
+            if case["repeat"] == "identical" {
+                let modified = fs::metadata(&exit_path).unwrap().modified().unwrap();
+                request.complete(&mut child).unwrap();
+                assert_eq!(fs::read(&exit_path).unwrap(), bytes, "{id}");
+                assert_eq!(
+                    fs::metadata(&exit_path).unwrap().modified().unwrap(),
+                    modified,
+                    "{id}"
+                );
+            }
+            exit
+        } else {
+            serde_json::Value::Null
+        };
+        println!(
+            "xtask measurement observation {}",
+            json!({"case":id,"pid":pid,"exit":status.code(),"signal":status.signal(),"initial_running":running,"reaped":true,"launch":launch,"completion":exit,"error":actual,"elapsed_ms":started.elapsed().as_millis(),"spawn_count":1})
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 29);
+}
+
+#[test]
+fn independently_approved_native_measurement_activation_and_failure_receipts() {
+    use arboresce_xtask::measurement;
+    use serde_json::json;
+    use sha2::{Digest, Sha256};
+    use std::{fs, os::unix::ffi::OsStrExt};
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-measurement-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["operation"] == "native")
+    {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let input = support::measurement_inputs::Input::new(&fixture["context"], case).unwrap();
+        if case["context"] == "invalid" {
+            fs::write(input.root.join("context.json"), b"{}").unwrap();
+        }
+        let mut command = Command::new(env!("CARGO_BIN_EXE_arboresce-xtask-test-peer"));
+        command
+            .env("ARBORESCE_XTASK_TEST_PEER", case["mode"].as_str().unwrap())
+            .env(
+                "ARBORESCE_NATIVE_PROGRAM",
+                case["program"].as_str().unwrap(),
+            )
+            .current_dir(&input.owner.path);
+        if let Some(path) = case["path"].as_str() {
+            command.env("PATH", path);
+        }
+        if case["context"] == false {
+            command.env_remove(measurement::ENV);
+        } else {
+            command.env(measurement::ENV, &input.root);
+        }
+        let (peer_pid, output) =
+            support::observe_identity(&mut command).unwrap_or_else(|e| panic!("{id}: {e}"));
+        assert_eq!(json!(output.status.code()), case["expected_exit"], "{id}");
+        assert_eq!(
+            output.stdout,
+            case["expected_stdout"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        assert_eq!(
+            output.stderr,
+            case["expected_stderr"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        let launches: Vec<_> = fs::read_dir(input.root.join("launches"))
+            .unwrap()
+            .map(|p| p.unwrap().path())
+            .collect();
+        let exits: Vec<_> = fs::read_dir(input.root.join("exits"))
+            .unwrap()
+            .map(|p| p.unwrap().path())
+            .collect();
+        assert_eq!(
+            launches.len() as u64,
+            case["expected_receipts"].as_u64().unwrap(),
+            "{id}"
+        );
+        assert_eq!(exits.len(), launches.len(), "{id}");
+        let mut receipts = Vec::new();
+        for path in launches {
+            let launch_bytes = fs::read(&path).unwrap();
+            let launch: serde_json::Value = serde_json::from_slice(&launch_bytes).unwrap();
+            let exit: serde_json::Value = serde_json::from_slice(
+                &fs::read(input.root.join("exits").join(path.file_name().unwrap())).unwrap(),
+            )
+            .unwrap();
+            assert_eq!(launch["version"], "native-launch-v1", "{id}");
+            assert_eq!(exit["version"], "native-exit-v1", "{id}");
+            assert_eq!(launch["parent_pid"], peer_pid, "{id}");
+            assert_ne!(launch["pid"], peer_pid, "{id}");
+            assert!(launch["pid"].as_u64().unwrap() > 0, "{id}");
+            for key in [
+                "pid",
+                "parent_pid",
+                "run_id",
+                "source_sha256",
+                "context_path",
+                "context_sha256",
+            ] {
+                assert_eq!(exit[key], launch[key], "{id}: {key}");
+            }
+            assert_eq!(launch["run_id"], fixture["context"]["run_id"], "{id}");
+            assert_eq!(
+                launch["source_sha256"], fixture["context"]["source_sha256"],
+                "{id}"
+            );
+            assert_eq!(
+                launch["context_path"],
+                json!(input.root.canonicalize().unwrap().as_os_str().as_bytes()),
+                "{id}"
+            );
+            assert_eq!(
+                launch["context_sha256"],
+                format!(
+                    "{:x}",
+                    Sha256::digest(fs::read(input.root.join("context.json")).unwrap())
+                ),
+                "{id}"
+            );
+            let executable = std::path::Path::new(
+                case.get("expected_executable")
+                    .unwrap_or(&case["program"])
+                    .as_str()
+                    .unwrap(),
+            )
+            .canonicalize()
+            .unwrap();
+            assert_eq!(
+                launch["executable"],
+                json!(executable.as_os_str().as_bytes()),
+                "{id}"
+            );
+            assert_eq!(
+                launch["executable_sha256"],
+                format!("{:x}", Sha256::digest(fs::read(&executable).unwrap())),
+                "{id}"
+            );
+            assert_eq!(
+                launch["program"],
+                json!(
+                    case.get("expected_program")
+                        .unwrap_or(&case["program"])
+                        .as_str()
+                        .unwrap()
+                        .as_bytes()
+                ),
+                "{id}"
+            );
+            assert_eq!(
+                launch["arguments"],
+                if case["mode"] == "measured-output" {
+                    json!([b"measurement child".as_slice()])
+                } else {
+                    json!([])
+                },
+                "{id}"
+            );
+            assert_eq!(
+                launch["cwd"],
+                json!(
+                    input
+                        .owner
+                        .path
+                        .canonicalize()
+                        .unwrap()
+                        .as_os_str()
+                        .as_bytes()
+                ),
+                "{id}"
+            );
+            assert_eq!(exit["exit"], case["expected_child_exit"], "{id}");
+            assert_eq!(exit["signal"], serde_json::Value::Null, "{id}");
+            assert_eq!(
+                exit["launch_sha256"],
+                format!("{:x}", Sha256::digest(&launch_bytes)),
+                "{id}"
+            );
+            receipts.push(json!({"launch":launch,"completion":exit}));
+        }
+        println!(
+            "xtask measurement native {}",
+            json!({"case":id,"pid":peer_pid,"exit":output.status.code(),"stdout":output.stdout,"stderr":output.stderr,"receipts":receipts})
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 12);
 }

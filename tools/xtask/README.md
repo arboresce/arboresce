@@ -24,6 +24,10 @@ cargo run --locked --offline -p arboresce-xtask -- clippy
 Apply the configured build-output router and its diagnostic where present.
 Formatting checks never rewrite sources. Build, test and lint use locked offline
 workspace commands; Cargo streams and nonzero exits pass through unchanged.
+Delegated format/check/test/Clippy have explicit 60/180/300/180-second operation
+budgets. A timeout fails and performs bounded cleanup of the owned child.
+These budgets are qualified against actual workspace work; native fixture and
+metadata observation retain their separate 30-second budget.
 Help goes to stdout; usage goes to stderr with exit 2. Missing commands and
 owned output write/flush failures exit 1. Architecture consumes Cargo metadata
 stdout, preserves Cargo diagnostics on stderr, checks the actual resolved graph
@@ -139,3 +143,44 @@ toolchain/instrumenter/configuration/features, compare complete before/after
 inputs, reconcile all test identities and fresh native profiles, export raw
 regions and invoke the count gate. The inventory command alone does not attest
 run freshness, complete process collection or whole verification.
+
+
+## Explicit native launch receipts
+
+The measurement library records owned native launches and actual completion only
+when the caller explicitly selects `ARBORESCE_NATIVE_CONTEXT`. Ordinary operation
+without that request creates no measurement files. This component does not yet
+supply the complete collector or attest a complete set of profiles.
+
+The caller creates an external context directory with regular `context.json`,
+`launches` and `exits` entries. The independently reviewed
+[receipt inputs](../../tests/architecture/fixtures/native-measurement-v1/README.md)
+own its bounded versioned schema, exact identities, preparation rules and literal
+failure expectations. The initial profile is the current non-root Unix/macOS
+qualification. The context and immutable receipt writers are caller-owned;
+these records are local evidence, without an operating-system attestation claim.
+They contain byte-preserving local paths and must not be published as-is.
+
+Select a bare program to a concrete absolute path before constructing its active
+spawn Command. Retain the selected symlink spelling for tools with basename
+dispatch. The selector observes effective cwd and explicit command PATH, including
+removal; there is no fallback PATH. Preparation rejects an unbound bare program.
+It binds the canonical executable digest, actual Command program spelling,
+positional argument bytes and actual cwd. Preparation and spawn must use the
+same unchanged Command, without a custom argv[0] override. A selected inaccessible
+image fails at spawn; exec search cannot silently run a different image.
+
+Each successful launch exclusively writes its actual child/parent PID and
+context/run/source identity. Completion derives exit and signal from that same
+actual Child, binds the launch digest and exclusively writes a matching receipt.
+An identical repeated completion preserves the existing bytes; a conflicting or
+symlinked receipt fails. Failed launch recording performs bounded kill/reap of
+only that owned child. Shared observation attempts completion recording after
+stream, trace and timeout cleanup errors as well as successful collection.
+
+All existing owned spawn/status/output paths use this boundary. The controlled
+peer exercises real operating-system executables and failure collection; it
+cannot qualify actual Cargo. Whole collection still must select prepared tools,
+freeze complete before/after inputs, reconcile every selected/executed test and
+native profile, retain complete raw LLVM data and invoke the count gate. These
+remaining gates cannot be inferred from successful receipt unit/native cases.

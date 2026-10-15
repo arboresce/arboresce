@@ -272,6 +272,14 @@ test, fixture, role and tool inputs; only this progress annotation differs.
 The maintained fresh collector, complete run identity and whole E202 acceptance
 remain required. No product-runtime or broader native qualification is inferred.
 
+Next maintained collector component: explicit native launch/completion receipts,
+selected executable identity and bounded owned observation across existing process
+paths. It has separate independently reviewed literal expectations and measured
+support; actual source/native/standalone qualification and independent delivery
+must precede acceptance. A receipt component cannot close complete collection,
+profile/test reconciliation or whole E202. The initial current Unix/macOS profile
+retains all later native and real-input obligations.
+
 ### E203 — Implement independent revisions, clocks, dates and locators
 
 Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).

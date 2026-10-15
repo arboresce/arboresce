@@ -155,7 +155,9 @@ does not qualify an API or FFI runtime.
 | `tools/xtask/tests/support/report_inputs.rs` | Literal input recipe, patch and padding preparation; measured test support. |
 | `tools/xtask/src/inventory.rs` | Actual file/source/target inventory, SHA-256 input identity and declaration proof; measured source. |
 | `tools/xtask/src/inventory_command.rs` | Actual Cargo metadata and inventory command boundary; measured source. |
-| `tools/xtask/src/process.rs` | Shared bounded native observation/collection and owned-child cleanup; measured source, moved from maintained support. |
+| `tools/xtask/src/process.rs` | Shared bounded native status/output observation, actual completion and owned-child cleanup; measured source. |
+| `tools/xtask/src/measurement.rs` | Explicit native request, selected executable, immutable launch/completion identity; measured source. |
+| `tools/xtask/tests/support/measurement_inputs.rs` | Maintained context, permission and executable-input preparation; measured support. |
 | `tools/xtask/src/bin/arboresce-source-inventory.rs` | Actual inventory entrypoint; measured source and native binary. |
 | `tools/xtask/tests/support/inventory_inputs.rs` | Maintained actual-filesystem model preparation; measured support. |
 
@@ -371,3 +373,37 @@ run. Preserve full case inventory, zero required skips and per-native/profile ga
 After two equivalent full failures, diagnose a concrete cause before another full
 run. Sharding requires reviewed equivalence, complete outcomes and compatible raw
 profile conservation; no arbitrary test reduction or coverage exemption is allowed.
+
+
+### Explicit native receipt component
+
+The receipt library and shared process paths implement an explicit measurement
+request, separate from the complete fresh collector. Their owning literal
+[receipt inputs](../../tests/architecture/fixtures/native-measurement-v1/README.md)
+require independently reviewed request validation, concrete executable selection,
+exact byte-preserving identity, actual Child completion, exclusive/idempotent
+records and bounded owned cleanup. All reusable support remains measured.
+This initial qualification profile uses the current non-root Unix/macOS user;
+other platform and privilege profiles retain their own consuming gates.
+
+No request means no measurement-file side effects. A caller-owned immutable
+context and writer bind one run/source identity. A bare executable request is
+resolved against the intended cwd and explicit PATH before constructing the
+actual spawn Command. Its selected absolute program prevents kernel fallback to
+a different image. Active preparation rejects any still-bare program; preparation
+and spawn use the same unchanged Command, without custom argv[0]. Local paths
+are byte arrays in local diagnostic evidence, not publication-safe evidence.
+
+Completion comes from that same actual Child, including signal and cached status.
+The deadline precedes status acceptance and is checked after receipt completion.
+Native fixture and metadata observation retain a 30-second collection budget and
+separate two-second owned cleanup. Delegated format/check/test/Clippy use reviewed
+60/180/300/180-second budgets, allowing the observed complete workload. A timeout
+fails. Larger future workspaces must qualify their actual commands and budgets.
+
+Receipt success does not attest native profile existence, complete execution,
+actual Cargo or the whole verification tool. The collector must still bind exact
+prepared tools/configuration/features, collect all test/process/profile identities,
+compare complete inputs before/after, merge every fresh raw profile, retain full
+raw regions and apply the accepted inventory/count gates. It must meaningfully
+reject lost, stale, empty, mixed-context and incomplete profiles before acceptance.

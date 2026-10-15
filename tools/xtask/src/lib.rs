@@ -4,12 +4,13 @@ pub mod architecture;
 pub mod coverage;
 pub mod inventory;
 pub mod inventory_command;
+pub mod measurement;
 pub mod process;
 pub mod report_command;
 mod strict_json;
 pub mod workspace;
 
-use std::{ffi::OsString, io::Write, process::Command};
+use std::{ffi::OsString, io::Write};
 
 pub const USAGE: &str = "usage: cargo run --locked --offline -p arboresce-xtask -- <architecture|fmt|check|test|clippy>\n";
 pub const COMMAND_FAILURE: &str = "verification command failed\n";
@@ -47,6 +48,14 @@ impl Action {
             Self::Clippy => "clippy",
             Self::Help => "help",
         }
+    }
+
+    pub const fn operation_budget(self) -> std::time::Duration {
+        std::time::Duration::from_secs(match self {
+            Self::Format => 60,
+            Self::Test => 300,
+            _ => 180,
+        })
     }
 
     pub const fn cargo_args(self) -> &'static [&'static str] {
@@ -128,7 +137,10 @@ pub fn execute(action: Action) -> u8 {
             }
         };
     }
-    match Command::new("cargo").args(action.cargo_args()).status() {
+    match measurement::command("cargo", None)
+        .and_then(|mut command| measurement::spawn(command.args(action.cargo_args())))
+        .and_then(|mut child| process::wait(&mut child, action.operation_budget()))
+    {
         Ok(status) => match status.code().and_then(|code| u8::try_from(code).ok()) {
             Some(code) => code,
             None => failed(),
