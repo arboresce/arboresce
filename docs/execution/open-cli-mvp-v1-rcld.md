@@ -255,6 +255,23 @@ fresh complete profile collection and whole-checkpoint acceptance using the
 accepted count gate and qualified inventory. These useful subincrements preserve
 all original requirements and leave E202 in_progress; no catalogue node is added.
 
+Accepted actual inventory source increment:
+`dac8e531ab5479577bfaa801a208c5b2af82421f` adds actual file identities,
+workspace-member source ownership, typed Cargo targets, generated-source bounds
+and pinned declaration-only proof. Fresh owning and public-only standalone
+Rust 1.99.0 lanes each passed ten commands, 27 tests, all 508 tool and 42 retained
+identifier cases, fourteen-object/109-profile collection and all 30 strict scopes.
+The measured source aggregate is 1921/1961 lines and 3585/3787 regions. Each actual
+inventory observed 214 public inputs, 23 Rust paths and seven targets; its role
+projection passed the count gate against the complete LLVM export. Source/public
+review and a distinct delivery witness accepted the exact source before and
+after commit. Preparation failures remain separate from product rejections;
+the invalid-byte Path case does not qualify physical filesystem or Linux behavior.
+This annotation reconciles that historical qualification with unchanged executable,
+test, fixture, role and tool inputs; only this progress annotation differs.
+The maintained fresh collector, complete run identity and whole E202 acceptance
+remain required. No product-runtime or broader native qualification is inferred.
+
 ### E203 — Implement independent revisions, clocks, dates and locators
 
 Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
