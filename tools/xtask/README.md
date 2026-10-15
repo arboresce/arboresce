@@ -7,6 +7,9 @@ verification and automated coverage collection remain the next increment;
 `verify` and `coverage` return usage failure today.
 The separate report-count command below evaluates supplied reports; it does not
 replace those unfinished collection commands.
+The source-inventory command observes actual files and Cargo targets. Its own
+source/process qualification precedes dependent use; fresh coverage collection
+and whole verification remain separate requirements.
 
 Prepare Rust 1.99.0 and the locked public dependencies, then run from the root:
 
@@ -93,3 +96,46 @@ inventory, declaration-only N/A, exact source/tool/run identity, fresh complete
 native process profiles and required test execution. Full raw region/function
 data remains with the original report. The summary adapter neither attests
 those facts nor completes the automated collector or whole verification.
+
+## Actual source inventory
+
+The inventory library observes the filesystem and reconciles explicitly supplied
+Cargo metadata. The separate native command obtains actual offline Cargo metadata
+and applies the architecture guard before producing that inventory:
+
+```sh
+cargo run --locked --offline -p arboresce-xtask --bin arboresce-source-inventory -- \
+  /source/root /source/root/tests/architecture/rust-source-roles-v1.json
+```
+
+Apply the configured output router. Success writes one JSON record and LF with
+exit 0. Help uses stdout/0 and usage stderr/2; intake, discovery, metadata, guard
+and output failures exit 1. Actual Cargo stderr is preserved. Metadata capture
+reuses the measured bounded process observer: a fresh owned scratch directory,
+one 30-second observation/collection budget, 8 MiB per captured stream and bounded
+two-second owned-child cleanup. Its actual exit, PID and raw streams remain in
+the record's `metadata_trace`. The command does not install tools or fetch crates.
+The trace is local diagnostic evidence and can contain local Cargo paths.
+
+The independently reviewed [inventory inputs](../../tests/architecture/fixtures/source-inventory-v1/README.md)
+own path boundaries, exact file/count/depth/total limits, workspace-member
+ownership, typed targets, generated outputs and declaration proof. Discovery
+uses actual files rather than Git's index and retains exact SHA-256/size for every
+included input. The versioned [roles](../../tests/architecture/rust-source-roles-v1.json)
+register maintained support as measured source; assertion bodies remain separate.
+Every discovered Rust file and actual Cargo target entrypoint has exactly one
+role. Unknown or missing files/targets fail. Standard runtime paths cannot omit
+maintained source trees, and explicit generated paths are reopened without
+symlinked ancestors even inside a build boundary.
+
+Declaration-only N/A needs both its independently reviewed exact digest and a
+bounded value-only syntax proof, including nested type syntax. The record also
+contains `coverage_roles`, the measured/assertion projection accepted by the
+report-count gate. Actual Cargo library names, including underscores, identify
+its library scopes. No zero metric is converted to fictional 100%.
+
+This is a point-in-time inventory. The complete collector must still bind actual
+toolchain/instrumenter/configuration/features, compare complete before/after
+inputs, reconcile all test identities and fresh native profiles, export raw
+regions and invoke the count gate. The inventory command alone does not attest
+run freshness, complete process collection or whole verification.

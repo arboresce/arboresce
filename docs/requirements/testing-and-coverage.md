@@ -153,6 +153,11 @@ does not qualify an API or FFI runtime.
 | `tools/xtask/src/report_command.rs` | Supplied-report file/argument/output boundary; measured command support. |
 | `tools/xtask/src/bin/arboresce-report-gate.rs` | Actual report-count entrypoint; measured source and native binary. |
 | `tools/xtask/tests/support/report_inputs.rs` | Literal input recipe, patch and padding preparation; measured test support. |
+| `tools/xtask/src/inventory.rs` | Actual file/source/target inventory, SHA-256 input identity and declaration proof; measured source. |
+| `tools/xtask/src/inventory_command.rs` | Actual Cargo metadata and inventory command boundary; measured source. |
+| `tools/xtask/src/process.rs` | Shared bounded native observation/collection and owned-child cleanup; measured source, moved from maintained support. |
+| `tools/xtask/src/bin/arboresce-source-inventory.rs` | Actual inventory entrypoint; measured source and native binary. |
+| `tools/xtask/tests/support/inventory_inputs.rs` | Maintained actual-filesystem model preparation; measured support. |
 
 The additional diagnostic text and JSON files are literal fixture data. No parser,
 builder or oracle function is hidden there. New files require an owning role;
@@ -213,6 +218,36 @@ establish each of those prerequisites and retain complete raw data before using
 this result. Direct prepared-tool qualification still applies to all introduced
 source, parser/input support and the actual native command. The complete
 automated collector and whole verification remain unfinished.
+
+### Actual file and Cargo target inventory
+
+The [source-inventory command](../../tools/xtask/README.md#actual-source-inventory)
+obtains actual offline Cargo metadata, applies the architecture guard and observes
+actual included files. Its library explicitly accepts supplied metadata. The
+reviewed [source profile](../../tests/architecture/rust-source-roles-v1.json)
+registers every current Rust path and actual typed Cargo target. Maintained
+builders and process support stay measured, while assertion-only bodies remain
+separate. Actual Cargo library names identify scopes. Included source, fixtures,
+schemas, manifests, locks and configuration receive exact SHA-256/size identities;
+this is discovery rather than Git-only enumeration. Explicit generated outputs
+remain included inside build boundaries and cannot traverse symlinked ancestors.
+
+A declaration N/A needs the independently reviewed exact digest and a recursive
+value-only syntax proof, including type syntax. Unregistered sources, nonmember
+owners, unknown targets, unsupported declarations and malformed/duplicate inputs
+fail. The [literal inventory contract](../../tests/architecture/fixtures/source-inventory-v1/README.md)
+owns exact bounds and path precedence. A typed invalid-byte Path probe does not
+qualify a filesystem that permits such filenames; the actual macOS preparation
+failure and future native/filesystem qualification remain distinct.
+
+The native command retains actual Cargo PID/exit/raw-stream observations through
+the shared measured observer. Its own source, helper and actual native behavior
+need complete direct prepared-tool qualification before dependent use. A snapshot
+does not attest before/after freshness, exact external tool/configuration/feature
+identity, executed test completeness or complete native profiles. The complete
+fresh collector must establish those facts, preserve raw regions and reconcile
+all profiles before consuming the snapshot and the supplied-report count gate.
+Whole automated verification remains unfinished until that full gate is accepted.
 
 ## Independent deterministic fixtures
 

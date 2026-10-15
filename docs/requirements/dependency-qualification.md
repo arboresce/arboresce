@@ -75,6 +75,15 @@ its MIT OR Apache-2.0 rights and graph are retained. It supplies the explicit
 duplicate-key-rejecting JSON visitor. This does not select serde for domain
 values, canonical JSON or product transports. No other locked version changes.
 
+The inventory selects `sha2` exactly `0.10.9`, with no default features, for
+SHA-256 file identity. Its exact locked public graph is prepared from cached,
+checksum-verified crate archives before offline qualification. `generic-array`
+retains MIT rights; the other added packages retain their declared MIT/Apache-2.0
+dual rights. This is a tool-only dependency and does not select product signing,
+canonical encoding or domain cryptography. Existing selected package versions and
+the standard-library-only domain/proof graphs remain unchanged. Availability of
+an extracted source directory alone is not package-archive preparation evidence.
+
 ## Technology-specific evidence
 
 The experiment identifiers below refer to the complete criteria in

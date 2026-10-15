@@ -1,0 +1,3491 @@
+{
+  "version": "source-inventory-fixtures-v1",
+  "rights": "New independently reviewed synthetic fixtures under the repository MIT OR Apache-2.0 terms. No customer, model or third-party payloads.",
+  "base_files": {
+    "Cargo.toml": "[workspace]\nmembers = [\"pkg\"]\nresolver = \"3\"\n",
+    "pkg/Cargo.toml": "[package]\nname = \"arboresce-domain\"\nversion = \"0.0.0\"\nedition = \"2024\"\n",
+    "pkg/src/lib.rs": "pub fn value() -> u8 { 7 }\n",
+    "pkg/tests/suite.rs": "#[test]\nfn check() { assert_eq!(7, 7); }\n",
+    "pkg/tests/literals.rs": "pub struct V { pub value: u8 }\npub const VALUES: &[V] = &[V { value: 7 }];\n"
+  },
+  "base_profile": {
+    "version": "rust-source-roles-v1",
+    "generated_sources": [],
+    "sources": [
+      {
+        "path": "pkg/src/lib.rs",
+        "package": "arboresce-domain",
+        "role": "measured"
+      },
+      {
+        "path": "pkg/tests/suite.rs",
+        "package": "arboresce-domain",
+        "role": "assertion"
+      },
+      {
+        "path": "pkg/tests/literals.rs",
+        "package": "arboresce-domain",
+        "role": "declaration",
+        "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+      }
+    ],
+    "targets": [
+      {
+        "kind": "library",
+        "name": "arboresce-domain",
+        "sources": [
+          "pkg/src/lib.rs"
+        ]
+      }
+    ]
+  },
+  "base_metadata": {
+    "workspace_members": [
+      "member"
+    ],
+    "packages": [
+      {
+        "id": "member",
+        "name": "arboresce-domain",
+        "manifest_path": "$ROOT/pkg/Cargo.toml",
+        "targets": [
+          {
+            "name": "arboresce-domain",
+            "kind": [
+              "lib"
+            ],
+            "src_path": "$ROOT/pkg/src/lib.rs"
+          },
+          {
+            "name": "suite",
+            "kind": [
+              "test"
+            ],
+            "src_path": "$ROOT/pkg/tests/suite.rs"
+          }
+        ]
+      }
+    ],
+    "workspace_root": "$ROOT"
+  },
+  "cases": [
+    {
+      "id": "inventory-complete",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-new-data-input",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "renamed-fixture.txt",
+          "text": "abc"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "renamed-fixture.txt": {
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+            "size": 3
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-empty-data-input",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "empty.txt",
+          "text": ""
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "empty.txt": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 0
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-wrong-profile-version",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "wrong"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-missing-generated-list",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "remove_profile": [
+        "generated_sources"
+      ],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-missing-source-list",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "remove_profile": [
+        "sources"
+      ],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-empty-source-list",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources",
+          "value": []
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-missing-role",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/role",
+          "remove": true
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-unknown-role",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/role",
+          "value": "unmeasured"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-duplicate-source",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/1",
+          "value": {
+            "path": "pkg/src/lib.rs",
+            "package": "arboresce-domain",
+            "role": "measured"
+          }
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-unregistered-source",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/src/new.rs",
+          "text": "pub fn extra() {}\n"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-deleted-source",
+      "file_operations": [
+        {
+          "op": "remove",
+          "path": "pkg/src/lib.rs"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/0/src_path",
+          "value": "$ROOT/pkg/tests/suite.rs"
+        }
+      ],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-renamed-source",
+      "file_operations": [
+        {
+          "op": "rename",
+          "path": "pkg/src/lib.rs",
+          "to": "pkg/src/renamed.rs"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/0/src_path",
+          "value": "$ROOT/pkg/src/renamed.rs"
+        }
+      ],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-wrong-source-package",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/package",
+          "value": "other"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-parent-source-path",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/path",
+          "value": "pkg/../pkg/src/lib.rs"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-absolute-source-path",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/path",
+          "value": "/pkg/src/lib.rs"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-backslash-source-path",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/path",
+          "value": "pkg\\src\\lib.rs"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-empty-source-path",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/path",
+          "value": ""
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-control-source-path",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/path",
+          "value": "pkg/src/a\n.rs"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-duplicate-profile-key",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "profile_raw": "{\"generated_sources\":[],\"sources\":[{\"package\":\"arboresce-domain\",\"path\":\"pkg/src/lib.rs\",\"role\":\"measured\"},{\"package\":\"arboresce-domain\",\"path\":\"pkg/tests/suite.rs\",\"role\":\"assertion\"},{\"declaration_sha256\":\"e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6\",\"package\":\"arboresce-domain\",\"path\":\"pkg/tests/literals.rs\",\"role\":\"declaration\"}],\"targets\":[{\"kind\":\"library\",\"name\":\"arboresce-domain\",\"sources\":[\"pkg/src/lib.rs\"]}],\"version\":\"rust-source-roles-v1\",\"version\":\"rust-source-roles-v1\"}",
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-duplicate-metadata-key",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "metadata_raw": "{\"packages\":[{\"id\":\"member\",\"manifest_path\":\"$ROOT/pkg/Cargo.toml\",\"name\":\"arboresce-domain\",\"targets\":[{\"kind\":[\"lib\"],\"name\":\"arboresce-domain\",\"src_path\":\"$ROOT/pkg/src/lib.rs\"},{\"kind\":[\"test\"],\"name\":\"suite\",\"src_path\":\"$ROOT/pkg/tests/suite.rs\"}]}],\"workspace_members\":[\"member\"],\"workspace_root\":\"$ROOT\",\"workspace_root\":\"$ROOT\"}",
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-invalid-profile-json",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "profile_raw": "{",
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-invalid-metadata-json",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "metadata_raw": "{",
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-wrong-workspace-root",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/workspace_root",
+          "value": "$ROOT/pkg"
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-no-workspace-members",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/workspace_members",
+          "value": []
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-duplicate-workspace-member",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/workspace_members",
+          "value": [
+            "member",
+            "member"
+          ]
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-missing-workspace-package",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/workspace_members",
+          "value": [
+            "missing"
+          ]
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-duplicate-package-id",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages",
+          "value": [
+            {
+              "id": "member",
+              "name": "arboresce-domain",
+              "manifest_path": "$ROOT/pkg/Cargo.toml",
+              "targets": [
+                {
+                  "name": "arboresce-domain",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/pkg/src/lib.rs"
+                },
+                {
+                  "name": "suite",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "$ROOT/pkg/tests/suite.rs"
+                }
+              ]
+            },
+            {
+              "id": "member",
+              "name": "arboresce-domain",
+              "manifest_path": "$ROOT/pkg/Cargo.toml",
+              "targets": [
+                {
+                  "name": "arboresce-domain",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/pkg/src/lib.rs"
+                },
+                {
+                  "name": "suite",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "$ROOT/pkg/tests/suite.rs"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-duplicate-package-name",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages",
+          "value": [
+            {
+              "id": "member",
+              "name": "arboresce-domain",
+              "manifest_path": "$ROOT/pkg/Cargo.toml",
+              "targets": [
+                {
+                  "name": "arboresce-domain",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/pkg/src/lib.rs"
+                },
+                {
+                  "name": "suite",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "$ROOT/pkg/tests/suite.rs"
+                }
+              ]
+            },
+            {
+              "id": "second",
+              "name": "arboresce-domain",
+              "manifest_path": "$ROOT/pkg/Cargo.toml",
+              "targets": [
+                {
+                  "name": "arboresce-domain",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/pkg/src/lib.rs"
+                },
+                {
+                  "name": "suite",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "$ROOT/pkg/tests/suite.rs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/workspace_members",
+          "value": [
+            "member",
+            "second"
+          ]
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-missing-manifest",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/manifest_path",
+          "value": "$ROOT/missing/Cargo.toml"
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-foreign-manifest",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/manifest_path",
+          "value": "$ROOT/../Cargo.toml"
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-no-targets",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets",
+          "value": []
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "source-inventory-unknown-target-kind",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/0/kind",
+          "value": [
+            "unknown"
+          ]
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-duplicate-actual-target",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/1",
+          "value": {
+            "name": "arboresce-domain",
+            "kind": [
+              "lib"
+            ],
+            "src_path": "$ROOT/pkg/src/lib.rs"
+          }
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-missing-actual-source",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/0/src_path",
+          "value": "$ROOT/pkg/absent.rs"
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-outside-package-target",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/0/src_path",
+          "value": "$ROOT/Cargo.toml"
+        }
+      ],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-missing-profile-targets",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "remove_profile": [
+        "targets"
+      ],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-empty-profile-targets",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets",
+          "value": []
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-unknown-profile-target",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets/0/name",
+          "value": "other"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-wrong-profile-target-kind",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets/0/kind",
+          "value": "binary"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-duplicate-profile-target",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets",
+          "value": [
+            {
+              "kind": "library",
+              "name": "arboresce-domain",
+              "sources": [
+                "pkg/src/lib.rs"
+              ]
+            },
+            {
+              "kind": "library",
+              "name": "arboresce-domain",
+              "sources": [
+                "pkg/src/lib.rs"
+              ]
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-empty-target-sources",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets/0/sources",
+          "value": []
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-duplicate-target-source",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets/0/sources",
+          "value": [
+            "pkg/src/lib.rs",
+            "pkg/src/lib.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-omitted-target-entry",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/1/role",
+          "value": "measured"
+        },
+        {
+          "pointer": "/targets/0/sources",
+          "value": [
+            "pkg/tests/suite.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-assertion-in-source-target",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets/0/sources",
+          "value": [
+            "pkg/src/lib.rs",
+            "pkg/tests/suite.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-declaration-in-source-target",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/targets/0/sources",
+          "value": [
+            "pkg/src/lib.rs",
+            "pkg/tests/literals.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Targets"
+      }
+    },
+    {
+      "id": "inventory-missing-declaration-proof",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "remove": true
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-wrong-declaration-proof",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-changed-declaration",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub struct V { pub value: u8 }\npub const VALUES: &[V] = &[V { value: 7 }];\n\n"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-function",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub fn hidden() {}\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "84b91410f867940c7d84b0864f1e6884d7b8401f48cf886bab49b8c1be267d04"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-const-call",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub const VALUE: u8 = hidden();\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "229b3403e7b7aed9f0d6324937ec1deabaa9e6d7e9decab7e5cc7e070c1a0382"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-macro",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "make!();\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "ed4fcaf8ec59670a015c8eff20879795b696b139a2e72c5517f75cea9512f930"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-attribute",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "#[derive(Clone)]\npub struct V;\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "64b803f542388cbdd006ea8a11c5879e73850c2a1107359d49b62d4ff0aee857"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-nested-attribute",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub struct V { #[cfg(unix)] pub value: u8 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "3e58715aad4895695f54f7dec53dfdaede1daf1dcd0ba05424a757f75ff0d969"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-impl",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub struct V;\nimpl V { pub fn hidden() {} }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "b35fb98d8c5542babcd7757cfc5d78b83e8729f4e03ea657469efce640a73919"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-module",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "mod hidden { pub fn value() {} }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "1fe263fdf9e23cd74652cebb961c810c9405979a70a166410d9bf27aaedc8e5d"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-generic",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub struct V<const N: usize>;\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "d24faafea868c70fb5bbb9467e387e043f799aeda2a7b53fdacd5999aebb7c1f"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-mutable-reference",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub const V: &mut u8 = &mut 1;\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "4c51e51d279b5e8a6bf6b6418c30cdbc2e083e55fd0a441fb6fe85b4eb975071"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-malformed",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub ???"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "292f4931a1d254a9acfbfe6da6674b4eaa1d6c7e38382a142d2801ae02867e04"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-empty",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": ""
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-irrelevant-proof-on-measured",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0",
+          "value": {
+            "path": "pkg/src/lib.rs",
+            "package": "arboresce-domain",
+            "role": "measured",
+            "declaration_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-symlink-source",
+      "file_operations": [
+        {
+          "op": "symlink",
+          "path": "pkg/src/link.rs",
+          "target": "lib.rs"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-symlink-data",
+      "file_operations": [
+        {
+          "op": "symlink",
+          "path": "data-link",
+          "target": "Cargo.toml"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-symlink-directory",
+      "file_operations": [
+        {
+          "op": "symlink",
+          "path": "linked-dir",
+          "target": "pkg"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-oversize-file",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "too-large.bin",
+          "size": 67108865
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-file-count-limit",
+      "file_operations": [
+        {
+          "op": "many_files",
+          "count": 4092
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-directory-depth-limit",
+      "file_operations": [
+        {
+          "op": "deep_directory",
+          "depth": 33
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-undeclared-runtime-source",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/path",
+          "value": "target/generated.rs"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-declared-generated-output",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "target/generated.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "target/generated.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "target/generated.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-generated-output",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/.venv/generated.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/.venv/generated.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/.venv/generated.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "pkg/.venv/generated.rs": {
+            "sha256": "80a913cc4b9639d6be01994a14a218f3438e4243d9c77b3723b5111ab786cec8",
+            "size": 31
+          }
+        },
+        "source_paths": [
+          "pkg/.venv/generated.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/.venv/generated.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-missing-generated-output",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/generated/missing.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-duplicate-generated-output",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/src/lib.rs",
+            "pkg/src/lib.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-parent-generated-output",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "../generated.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
+    },
+    {
+      "id": "inventory-non-rs-target",
+      "file_operations": [
+        {
+          "op": "rename",
+          "path": "pkg/src/lib.rs",
+          "to": "pkg/src/lib.source"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/0/path",
+          "value": "pkg/src/lib.source"
+        },
+        {
+          "pointer": "/targets/0/sources",
+          "value": [
+            "pkg/src/lib.source"
+          ]
+        }
+      ],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/0/src_path",
+          "value": "$ROOT/pkg/src/lib.source"
+        }
+      ],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "pkg/src/lib.source": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.source",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.source",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-non-rs-target-unregistered",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/src/other.source",
+          "text": "pub fn value() -> u8 { 7 }\n"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages/0/targets/0/src_path",
+          "value": "$ROOT/pkg/src/other.source"
+        }
+      ],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-changed-data-input",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "Cargo.toml",
+          "text": "abc"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+            "size": 3
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-runtime-boundaries",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "target/cache.rs",
+          "text": "not source"
+        },
+        {
+          "op": "write",
+          "path": ".git/config",
+          "text": "host git state"
+        },
+        {
+          "op": "write",
+          "path": "pkg/.venv/site.py",
+          "text": "runtime cache"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-file-boundary",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "largest-valid.bin",
+          "size": 67108864
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "largest-valid.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-file-count-boundary",
+      "file_operations": [
+        {
+          "op": "many_files",
+          "count": 4091
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1,
+        "generated_empty_files": {
+          "count": 4091,
+          "prefix": "extras/item-",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "file_count": 4096
+      }
+    },
+    {
+      "id": "inventory-directory-depth-boundary",
+      "file_operations": [
+        {
+          "op": "deep_directory",
+          "depth": 32
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/data": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 0
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-removed-ordinary-input",
+      "file_operations": [
+        {
+          "op": "remove",
+          "path": "Cargo.toml"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-renamed-ordinary-input",
+      "file_operations": [
+        {
+          "op": "rename",
+          "path": "Cargo.toml",
+          "to": "workspace-notes.txt"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "workspace-notes.txt": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-total-size-boundary",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "total-0.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-1.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-2.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-3.bin",
+          "size": 67108605
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "total-0.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          },
+          "total-1.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          },
+          "total-2.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          },
+          "total-3.bin": {
+            "sha256": "dd4db970efd7e59c01bb61e41d50c949f7f3f13e92da3e0b7b9c72f8c1f0618d",
+            "size": 67108605
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-total-size-first-invalid",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "total-0.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-1.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-2.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-3.bin",
+          "size": 67108606
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-owned-unix-socket",
+      "file_operations": [
+        {
+          "op": "unix_socket",
+          "path": "owned-socket"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-nonmember-source-owner",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "deps/foreign/Cargo.toml",
+          "text": "[package]\nname = \"foreign\"\nversion = \"0.0.0\"\nedition = \"2024\"\n"
+        },
+        {
+          "op": "write",
+          "path": "deps/foreign/src/lib.rs",
+          "text": "pub fn foreign() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "deps/foreign/src/lib.rs",
+              "package": "foreign",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [
+        {
+          "pointer": "/packages",
+          "value": [
+            {
+              "id": "member",
+              "name": "arboresce-domain",
+              "manifest_path": "$ROOT/pkg/Cargo.toml",
+              "targets": [
+                {
+                  "name": "arboresce-domain",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/pkg/src/lib.rs"
+                },
+                {
+                  "name": "suite",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "$ROOT/pkg/tests/suite.rs"
+                }
+              ]
+            },
+            {
+              "id": "foreign",
+              "name": "foreign",
+              "manifest_path": "$ROOT/deps/foreign/Cargo.toml",
+              "targets": [
+                {
+                  "name": "foreign",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/deps/foreign/src/lib.rs"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-nonmember-metadata-allowed",
+      "file_operations": [],
+      "profile_patch": [],
+      "metadata_patch": [
+        {
+          "pointer": "/packages",
+          "value": [
+            {
+              "id": "member",
+              "name": "arboresce-domain",
+              "manifest_path": "$ROOT/pkg/Cargo.toml",
+              "targets": [
+                {
+                  "name": "arboresce-domain",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/pkg/src/lib.rs"
+                },
+                {
+                  "name": "suite",
+                  "kind": [
+                    "test"
+                  ],
+                  "src_path": "$ROOT/pkg/tests/suite.rs"
+                }
+              ]
+            },
+            {
+              "id": "external",
+              "name": "external",
+              "manifest_path": "$ROOT/../registry/external/Cargo.toml",
+              "targets": [
+                {
+                  "name": "external",
+                  "kind": [
+                    "lib"
+                  ],
+                  "src_path": "$ROOT/../registry/external/src/lib.rs"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-owned-build-source-unregistered",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/src/build/mod.rs",
+          "text": "pub fn build_support() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-owned-build-source-registered",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/src/build/mod.rs",
+          "text": "pub fn build_support() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/src/build/mod.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "pkg/src/build/mod.rs": {
+            "sha256": "4fd81f76021b9f125cd1f4f40b0bba9d175f17762e009c0514ca9a9460ac1f09",
+            "size": 35
+          }
+        },
+        "source_paths": [
+          "pkg/src/build/mod.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/build/mod.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-generated-symlink-ancestor",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/target/out.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        },
+        {
+          "op": "symlink",
+          "path": "pkg/.venv",
+          "target": "target"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/.venv/out.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/.venv/out.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-declaration-nested-function",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub struct V { pub x: [u8; { fn hidden() {} 1 }] }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "f21c9a35a937d14757b24bd52836560afffa2b415b9a5c3be0f65254e37468fc"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-type-macro",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub struct V { pub x: hidden!() }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "c06f8419eb488c762e7434025e70b1b2f6dcce3016dff50f2c5a3574d2b829f3"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-declaration-value-tuple-type",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub struct V { pub pair: (u8, bool) }\npub const N: u8 = 7;\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "5972d2ec42469411930fce8a12551a2414ff1f8c6ae1a0cef44dd73a3622b573"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "5972d2ec42469411930fce8a12551a2414ff1f8c6ae1a0cef44dd73a3622b573",
+            "size": 59
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-declaration-qualified-none",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub const V: Option<u8> = <Option<u8>>::None;\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "755787a47ed1dfc08001411cee10a59288dcf9331806b2a5f0fd4dd65c608fc5"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-generated-depth-32",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs": {
+            "sha256": "80a913cc4b9639d6be01994a14a218f3438e4243d9c77b3723b5111ab786cec8",
+            "size": 31
+          }
+        },
+        "source_paths": [
+          "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-generated-depth-33",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-declaration-repeat-length-plain",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub const VALUES: [u8; 1] = [0; 1];\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "6789e0ffb891e0808d39fb5a776e1b3850d6ff32cbdb7efb9d18d0e71180b798"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "6789e0ffb891e0808d39fb5a776e1b3850d6ff32cbdb7efb9d18d0e71180b798",
+            "size": 36
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-declaration-repeat-length-attribute",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub const VALUES: [u8; 1] = [0; #[custom] 1];\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "8c7295b8ef14aee34cb4a9808e8dad23da9cef99ff583ff11ecd0e564524b49d"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    }
+  ],
+  "native_cases": [
+    {
+      "id": "inventory-native-help",
+      "mode": "help",
+      "exit": 0,
+      "stdout": "usage: arboresce-source-inventory <workspace> <roles.json>\n",
+      "stderr": ""
+    },
+    {
+      "id": "inventory-native-short-help",
+      "mode": "-h",
+      "exit": 0,
+      "stdout": "usage: arboresce-source-inventory <workspace> <roles.json>\n",
+      "stderr": ""
+    },
+    {
+      "id": "inventory-native-long-help",
+      "mode": "--help",
+      "exit": 0,
+      "stdout": "usage: arboresce-source-inventory <workspace> <roles.json>\n",
+      "stderr": ""
+    },
+    {
+      "id": "inventory-native-empty",
+      "mode": "empty",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: arboresce-source-inventory <workspace> <roles.json>\n"
+    },
+    {
+      "id": "inventory-native-arity",
+      "mode": "arity",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: arboresce-source-inventory <workspace> <roles.json>\n"
+    },
+    {
+      "id": "inventory-native-missing-root",
+      "mode": "missing-root",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-source-inventory: invalid inventory input\n"
+    },
+    {
+      "id": "inventory-native-missing-profile",
+      "mode": "missing-profile",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-source-inventory: invalid inventory input\n"
+    },
+    {
+      "id": "inventory-native-invalid-profile",
+      "mode": "invalid-profile",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-source-inventory: invalid inventory input\n"
+    },
+    {
+      "id": "inventory-native-directory-profile",
+      "mode": "directory-profile",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-source-inventory: invalid inventory input\n"
+    },
+    {
+      "id": "inventory-native-non-utf8-root",
+      "mode": "non-utf8-root",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-source-inventory: invalid inventory input\n"
+    },
+    {
+      "id": "inventory-native-closed-help",
+      "mode": "closed-help",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "source inventory output failed\n"
+    },
+    {
+      "id": "inventory-native-metadata-unavailable",
+      "mode": "metadata-unavailable",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-source-inventory: cargo metadata failed\n"
+    },
+    {
+      "id": "inventory-native-current-public-checkout",
+      "mode": "actual",
+      "exit": 0,
+      "stdout_json_version": "rust-source-inventory-v1",
+      "stderr": "",
+      "literal_file": {
+        "path": "LICENSE-MIT",
+        "sha256": "1434e89c553388e6b12b6c2c992beb5f3c6be2b5f0998d13e61dfe348c388f39",
+        "size": 1068
+      },
+      "literal_na": {
+        "path": "crates/arboresce-domain/tests/fixtures/primitives-v1/expected.rs",
+        "sha256": "eeff7601ea3dde8b8737c32a53655318ff87748ce425836a35378f0e68e0b8c2"
+      },
+      "source_count": 23,
+      "target_count": 7
+    },
+    {
+      "id": "inventory-native-actual-invalid-manifest",
+      "mode": "bad-manifest",
+      "exit": 1,
+      "stdout": "",
+      "stderr_suffix": "arboresce-source-inventory: cargo metadata failed\n",
+      "stderr_contains": "error:",
+      "close": null
+    },
+    {
+      "id": "inventory-native-controlled-invalid-metadata",
+      "mode": "peer-invalid",
+      "exit": 1,
+      "stdout": "",
+      "stderr_suffix": "arboresce-source-inventory: inventory Cargo target mismatch\n",
+      "stderr_contains": "xtask observation",
+      "close": null
+    },
+    {
+      "id": "inventory-native-controlled-invalid-metadata-bytes",
+      "mode": "peer-bytes",
+      "exit": 1,
+      "stdout": "",
+      "stderr_suffix": "arboresce-source-inventory: invalid inventory input\n",
+      "stderr_contains": "xtask observation",
+      "close": null
+    },
+    {
+      "id": "inventory-native-actual-role-rejection",
+      "mode": "bad-role",
+      "exit": 1,
+      "stdout": "",
+      "stderr_suffix": "arboresce-source-inventory: inventory source role mismatch\n",
+      "stderr_contains": "xtask observation",
+      "close": null
+    },
+    {
+      "id": "inventory-native-actual-missing-generated",
+      "mode": "missing-generated",
+      "exit": 1,
+      "stdout": "",
+      "stderr_suffix": "arboresce-source-inventory: inventory file discovery failed\n",
+      "stderr_contains": "xtask observation",
+      "close": null
+    },
+    {
+      "id": "inventory-native-actual-declaration-proof",
+      "mode": "bad-declaration",
+      "exit": 1,
+      "stdout": "",
+      "stderr_suffix": "arboresce-source-inventory: unproved declaration-only source\n",
+      "stderr_contains": "xtask observation",
+      "close": null
+    },
+    {
+      "id": "inventory-native-actual-closed-output",
+      "mode": "closed-actual",
+      "exit": 1,
+      "stdout": "",
+      "stderr_suffix": "source inventory output failed\n",
+      "stderr_contains": "xtask observation",
+      "close": "stdout"
+    },
+    {
+      "id": "inventory-native-closed-usage",
+      "mode": "closed-usage",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "",
+      "close": "stderr"
+    },
+    {
+      "id": "inventory-native-controlled-stderr-failure",
+      "mode": "peer-warning-closed-stderr",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "",
+      "close": "stderr"
+    },
+    {
+      "id": "inventory-native-profile-too-large",
+      "mode": "profile-too-large",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "arboresce-source-inventory: invalid inventory input\n",
+      "profile_padding_bytes": 67108865,
+      "profile_payload": "complete-current-role-profile-json-followed-only-by-ascii-space-padding"
+    }
+  ],
+  "sha256_cases": [
+    {
+      "id": "inventory-sha256-empty",
+      "input": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "inventory-sha256-abc",
+      "input": "abc",
+      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+    }
+  ],
+  "path_cases": [
+    {
+      "id": "inventory-non-utf8-filename",
+      "bytes": [
+        255
+      ],
+      "expected_error": "Files",
+      "scope": "Rust Path normalization boundary only. Physical invalid-byte filename preparation failed with EILSEQ92 on the selected macOS filesystem; this does not qualify a filesystem that permits such filenames."
+    }
+  ],
+  "stream_cases": [
+    {
+      "id": "inventory-stream-help-write",
+      "args": [
+        "--help"
+      ],
+      "write_fails": true,
+      "selected": "stdout",
+      "exit": 1,
+      "other_stream": "source inventory output failed\n"
+    },
+    {
+      "id": "inventory-stream-help-flush",
+      "args": [
+        "--help"
+      ],
+      "write_fails": false,
+      "selected": "stdout",
+      "exit": 1,
+      "other_stream": "source inventory output failed\n"
+    },
+    {
+      "id": "inventory-stream-usage-write",
+      "args": [],
+      "write_fails": true,
+      "selected": "stderr",
+      "exit": 1,
+      "other_stream": ""
+    },
+    {
+      "id": "inventory-stream-usage-flush",
+      "args": [],
+      "write_fails": false,
+      "selected": "stderr",
+      "exit": 1,
+      "other_stream": ""
+    }
+  ],
+  "recipe_cases": [
+    {
+      "id": "inventory-recipe-base-object",
+      "fixture_changes": {
+        "base_files": null
+      },
+      "case_changes": {},
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-base-text",
+      "fixture_changes": {
+        "base_files": {
+          "data": 5
+        }
+      },
+      "case_changes": {},
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-empty-path",
+      "fixture_changes": {
+        "base_files": {
+          "": "data"
+        }
+      },
+      "case_changes": {},
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-backslash-path",
+      "fixture_changes": {
+        "base_files": {
+          "a\\b": "data"
+        }
+      },
+      "case_changes": {},
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-absolute-path",
+      "fixture_changes": {
+        "base_files": {
+          "/unowned": "data"
+        }
+      },
+      "case_changes": {},
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-parent-path",
+      "fixture_changes": {
+        "base_files": {
+          "../unowned": "data"
+        }
+      },
+      "case_changes": {},
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-operation-list",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": null
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-operation-name",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {}
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-unknown-operation",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "invent"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-write-path",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "write",
+            "path": 4,
+            "text": "x"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-write-text",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "write",
+            "path": "data",
+            "text": 4
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-write-parent-conflict",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "write",
+            "path": "Cargo.toml/data",
+            "text": "x"
+          }
+        ]
+      },
+      "expected_error": "AlreadyExists"
+    },
+    {
+      "id": "inventory-recipe-write-symlink-ancestor",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "symlink",
+            "path": "link",
+            "target": "pkg"
+          },
+          {
+            "op": "write",
+            "path": "link/data",
+            "text": "x"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-remove-missing",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "remove",
+            "path": "missing"
+          }
+        ]
+      },
+      "expected_error": "NotFound"
+    },
+    {
+      "id": "inventory-recipe-rename-parent",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "rename",
+            "path": "Cargo.toml",
+            "to": "../escape"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-rename-missing",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "rename",
+            "path": "missing",
+            "to": "new"
+          }
+        ]
+      },
+      "expected_error": "NotFound"
+    },
+    {
+      "id": "inventory-recipe-symlink-target",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "symlink",
+            "path": "link",
+            "target": "../escape"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-symlink-existing",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "symlink",
+            "path": "Cargo.toml",
+            "target": "pkg"
+          }
+        ]
+      },
+      "expected_error": "AlreadyExists"
+    },
+    {
+      "id": "inventory-recipe-sparse-limit",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "sparse",
+            "path": "data",
+            "size": 67108866
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-sparse-type",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "sparse",
+            "path": "data",
+            "size": -1
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-sparse-existing",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "sparse",
+            "path": "Cargo.toml",
+            "size": 0
+          }
+        ]
+      },
+      "expected_error": "AlreadyExists"
+    },
+    {
+      "id": "inventory-recipe-count-limit",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "many_files",
+            "count": 4098
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-count-type",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "many_files",
+            "count": "1"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-depth-limit",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "deep_directory",
+            "depth": 34
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-depth-type",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "deep_directory",
+            "depth": -1
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-socket-path",
+      "fixture_changes": {},
+      "case_changes": {
+        "file_operations": [
+          {
+            "op": "unix_socket",
+            "path": "../socket"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-patch-array",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": null
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-patch-pointer",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": [
+          {}
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-patch-value",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": [
+          {
+            "pointer": "/sources"
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-patch-absent",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": [
+          {
+            "pointer": "/missing",
+            "value": []
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-remove-pointer",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": [
+          {
+            "pointer": "missing",
+            "remove": true
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-remove-absent",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": [
+          {
+            "pointer": "/missing",
+            "remove": true
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-remove-parent",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": [
+          {
+            "pointer": "/sources/0/path/missing",
+            "remove": true
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-remove-profile-array",
+      "fixture_changes": {},
+      "case_changes": {
+        "remove_profile": 1
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-remove-profile-name",
+      "fixture_changes": {},
+      "case_changes": {
+        "remove_profile": [
+          1
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-remove-profile-absent",
+      "fixture_changes": {},
+      "case_changes": {
+        "remove_profile": [
+          "missing"
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-remove-profile-object",
+      "fixture_changes": {
+        "base_profile": []
+      },
+      "case_changes": {
+        "remove_profile": [
+          "version"
+        ]
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-metadata-patch-array",
+      "fixture_changes": {},
+      "case_changes": {
+        "metadata_patch": null
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-profile-raw-text",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_raw": 1
+      },
+      "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-metadata-raw-text",
+      "fixture_changes": {},
+      "case_changes": {
+        "metadata_raw": 1
+      },
+      "expected_error": "InvalidInput"
+    }
+  ],
+  "process_cases": [
+    {
+      "id": "inventory-observer-missing-stdout",
+      "mode": "missing-stdout",
+      "expected_error": "NotFound",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-missing-stderr",
+      "mode": "missing-stderr",
+      "expected_error": "NotFound",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-directory-stdout",
+      "mode": "directory-stdout",
+      "expected_error": "IsADirectory",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-first-trace-failure",
+      "mode": "trace",
+      "fail_after_lines": 0,
+      "expected_error": "Other",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-outcome-trace-failure",
+      "mode": "trace",
+      "fail_after_lines": 1,
+      "expected_error": "Other",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-observation-trace-failure",
+      "mode": "trace",
+      "fail_after_lines": 2,
+      "expected_error": "Other",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-cleanup-trace-failure",
+      "mode": "running",
+      "fail_after_lines": 0,
+      "budget_ms": 0,
+      "expected_error": "Other",
+      "expected_exit": null,
+      "expected_signal": 9
+    },
+    {
+      "id": "inventory-observer-error-trace-failure",
+      "mode": "missing-stdout",
+      "fail_after_lines": 3,
+      "expected_error": "Other",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-late-collection",
+      "mode": "late",
+      "budget_ms": 20,
+      "delay_after_first_line_ms": 40,
+      "expected_error": "TimedOut",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-terminal-trace-deadline",
+      "mode": "late",
+      "budget_ms": 20,
+      "delay_after_line": 3,
+      "delay_after_first_line_ms": 40,
+      "expected_error": "TimedOut",
+      "expected_exit": 0
+    },
+    {
+      "id": "inventory-observer-complete-success",
+      "mode": "success",
+      "expected_error": null,
+      "expected_exit": 0,
+      "expected_stdout": "child stdout\n",
+      "expected_stderr": "child stderr\n"
+    }
+  ]
+}

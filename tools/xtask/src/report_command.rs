@@ -14,7 +14,7 @@ pub const USAGE: &str =
     "usage: arboresce-report-gate <source-root> <inventory.json> <llvm-export.json>\n";
 pub const OUTPUT_FAILURE: &str = "coverage report output failed\n";
 
-fn read_input(path: &Path) -> Result<String, GateError> {
+pub(crate) fn read_input(path: &Path) -> Result<String, GateError> {
     let metadata = fs::metadata(path).map_err(|_| GateError::InvalidInput)?;
     if !metadata.is_file() || metadata.len() > MAX_INPUT_BYTES as u64 {
         return Err(GateError::InvalidInput);

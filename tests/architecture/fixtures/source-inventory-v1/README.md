@@ -1,0 +1,167 @@
+# Actual source inventory fixtures
+
+These new synthetic literals use the repository MIT OR Apache-2.0 terms. They
+contain no customer material or provider recordings. Expected meanings are
+reviewed before their consumer is implemented or qualified. They are one complete
+bounded consumer package, not a whole corpus or product acceptance.
+
+`cases.json` owns filesystem-model inputs and expected file SHA-256/size, source
+roles, target counts and rejection categories. `$ROOT` is replaced only with the
+fresh model directory in supplied Cargo metadata. These metadata records and
+source strings are syntax/data inputs, not fake Cargo executions or runtime proof.
+The native positive instead runs actual prepared offline Cargo metadata against
+the current public checkout. Its retained output includes a bounded process trace.
+
+The library inventories actual regular files without relying on Git. Exclusions
+are exact direct children of the checkout root and actual workspace-package roots:
+`target`, `build`, `dist`, `.venv`, `node_modules`, `__pycache__`, `.pytest_cache`,
+`.ruff_cache` and `.mypy_cache`. The existing `contracts/validation` tool root has
+the same runtime-cache boundaries. Only the checkout root's `.git` is a Git
+boundary. An actual workspace root or non-root target source directory beneath
+one of those paths takes precedence and must remain discoverable. In particular,
+`pkg/src/build/mod.rs` and similarly named maintained source are never omitted.
+No maintained handwritten source may hide in a runtime boundary. Explicit
+`generated_sources` are nevertheless reopened, hashed and role checked inside
+an excluded path; every reopened path component must be real and nonsymlinked.
+Symlinked included files/directories, special entries, non-UTF-8 or non-normalized
+paths, files above 64 MiB, more than 4096 included files or more than 32 nested
+directories fail. Total included size is bounded at 256 MiB. The exact limits pass;
+the first invalid sizes/count/depth fail without a competing invalid bound.
+Missing generated output fails; new, deleted or renamed ordinary inputs change
+its exact snapshot. Every discovered `.rs` and actual supplied workspace-member
+Cargo target source, including a non-`.rs` entrypoint, needs exactly one role.
+Unknown sources cannot silently disappear. All source owners must be actual
+workspace members and contain their sources beneath their actual manifest
+directory. Nonmember dependency metadata may describe packages and targets outside
+the checkout; it is normal Cargo data and is not followed or registered as owned
+source. A real in-root nonmember source still cannot receive a false member role.
+
+The profile uses `rust-source-roles-v1`, a `sources` list, a `targets` list and an
+explicit unique `generated_sources` list. Roles are `measured`, `assertion` and
+`declaration`. Sources cannot duplicate paths or carry an irrelevant declaration
+proof. Measured/assertion rows form a `rust-report-roles-v1` projection for the
+accepted count gate. Inventory alone does not prove a role's semantic correctness;
+independent review still owns assertion/support classification.
+
+A declaration role needs the exact independently reviewed `declaration_sha256`
+and a nonempty syntax proof limited to unannotated nongeneric structs and literal
+constant tables. Struct fields have no attributes. Constant expressions are
+restricted to literals, arrays/repeats, immutable references, named struct literals,
+unqualified `None`, and single-argument unqualified `Some` construction. Type syntax recursively permits
+only value types (paths with type arguments, immutable references, arrays with
+literal integer lengths, slices, and tuples). Function/block expressions, macros
+or custom attributes inside a field type are forbidden too. Functions, imports, macros,
+modules, impls, custom attributes, mutable references and arbitrary calls fail,
+even with a matching hash. Only that frozen source's line/region metrics are N/A;
+it is never reported as fictional 100%.
+
+Each actual supplied Cargo library/binary has exactly one typed target entry.
+The target's measured sources belong to its actual package and include its actual
+entrypoint. Duplicate, unknown, missing or wrong-kind targets, empty/duplicate
+source lists, assertion/declaration members, foreign manifest paths and nonmember
+owners fail. Actual test/bench entrypoints remain separately registered source;
+this inventory does not claim test execution or process-profile completeness.
+Native Cargo architecture checks precede acceptance of its metadata. A caller's
+supplied metadata in the library is explicitly not tool-provenance evidence.
+
+The native command accepts exactly `<workspace> <roles.json>` and emits one JSON
+record plus a newline. Help aliases, usage, intake, output errors and actual exit
+statuses are literal below. It reads the profile with the same 64 MiB regular-file
+bounds as the accepted report command, then runs prepared `cargo metadata
+--locked --offline --format-version 1` in the selected workspace. Metadata collection
+reuses the previously qualified bounded process observer, moved into measured
+production support without changing its old observed semantics. Fresh task-owned
+scratch files avoid pipe-reader joins; the actual child trace is retained in the
+record. This command does not install tools, prove exact selected tool hashes,
+collect coverage, attest before/after freshness or close whole verification.
+
+The SHA-256 empty/abc answers are standard independent literals. Positive model
+fingerprints are frozen from the stated literal bytes before implementation and
+must be independently checked. Preparation failures are test failures, never
+production rejections. Every JSON-pointer patch must already exist (or use an
+explicitly declared add operation); the model starts with an explicit
+`workspace_root: "$ROOT"`. Replacement of that marker cannot invent fields. Oversize/count/depth models exercise their stated bound;
+real native commands and the two fresh full qualification lanes provide actual
+Cargo/process/LLVM evidence separately. The maintained builder and moved observer
+remain measured source. Existing accepted 329 tool and 42 identifier IDs retain
+all of their original bytes and meanings.
+
+
+## Platform and stream boundaries
+
+The selected macOS filesystem returned EILSEQ (92) while trying to prepare a
+physical invalid-UTF-8 filename. That actual narrow attempt is a preparation
+failure, not an inventory rejection or passing test. The same required byte-path
+rejection now has an explicit `path_cases` unit scope: a Rust `Path` value with
+those bytes is rejected by the normalization boundary used by discovery. It is
+not evidence of directory enumeration on a filesystem permitting invalid-byte
+names. Each later supported filesystem/native profile must qualify its actual
+behavior; no Linux/native requirement is closed here.
+
+Additional native cases preserve actual failed Cargo diagnostics, role/generated/
+declaration errors and closed streams. `peer-*` modes select the already declared
+controlled Cargo test peer and cannot qualify real Cargo; actual invalid-manifest
+and public-checkout cases run real prepared Cargo separately. Variable PID/trace
+prefixes remain complete raw observations, with fixed suffixes and required
+witness text rather than invented literal PIDs. Failed JSON output retains its
+metadata trace on stderr when writable. The `stream_cases` use failing writers
+for exact API write/flush semantics; they do not impersonate native processes.
+
+The public source and helper stay measured. The previously admitted 108 semantic
+answers are retained, with the invalid-byte input explicitly reassigned to its
+supported path-value boundary. Added type/native/stream answers are reviewed
+before their consumers are exercised. Physical preparation failures remain in
+the actual evidence; none is counted as a successful product or native gate.
+
+The native `profile-too-large` recipe is exactly 67108865 bytes: the complete
+valid selected actual role-profile JSON, followed only by ASCII spaces to that
+literal size. Its input remains otherwise valid JSON and roles, so ignoring the
+byte bound would pass. Sparse/NUL or malformed placeholder data cannot supply
+this byte-limit witness.
+
+## Preparation and observation failures
+
+`recipe_cases` replace only the stated top-level fixture/case fields before
+calling the maintained filesystem builder. They require the literal preparation
+error and never call inventory production code after a failed preparation. This
+checks malformed, absent, oversized and escaping recipes, symlink ancestors and
+real file conflicts. It cannot turn a preparation error into a product rejection.
+All previously admitted 124 case inputs and answers stay unchanged.
+
+`process_cases` exercise the shared observer with real owned processes and
+regular output files. Each normal peer exits and is reaped before observation;
+its known exit and raw output remain independently observable. Missing/directory
+stream paths test read failures. A one-shot writer fails at the start of the
+selected zero-based trace line, then accepts cleanup records. The running case
+uses actual `/bin/sleep 1`, a zero budget and a first-line trace failure; owned
+cleanup must still kill and reap it with signal 9. These are observation failures,
+not successful native collection or fake peer exit codes.
+
+The late-collection case starts observing an already reaped peer with a 20 ms
+budget. Completing its first trace line deliberately takes 40 ms; actual output
+collection must then fail the deadline check and retain cleanup. Writer timing
+is a controlled API input, not a claimed slow filesystem or production service.
+Each case retains actual child PID, wait status, raw streams, trace and observed
+error. Every fresh Rust peer profile remains required in the full measured run.
+
+Generated outputs inside excluded runtime paths obey the same directory-depth
+bound as walked files. The paired models contain exactly 32 and 33 directory
+ancestors, correctly owned measured source and otherwise identical inputs.
+Plain repeat lengths remain admissible declaration data; a custom attribute on
+the length literal invalidates that proof even when its source hash matches.
+
+The terminal-trace deadline case delays completion of trace line three by 40 ms
+with the same 20 ms budget. A success trace is provisional until the observation
+returns: writing/serializing it must also finish within the budget. On overrun,
+the observer must return TimedOut, reap the child and preserve the failure trace.
+No emitted provisional within_budget field can turn that failed run into a pass.
+
+The completed-peer precondition also uses the shared measured bounded observer
+on the same child, with its default 30-second budget and owned-child cleanup.
+Its preparation trace is retained separately, and the actual cached wait status
+is checked before injecting a case fault. Repeated observation is one process
+invocation and one required raw profile. No unbounded wait prepares these cases.
+The complete-success discriminator uses the same measured trace writer without
+a fault or delay and requires actual status 0 and both exact peer output streams.
+This positive API case complements the error cases; its controlled peer does
+not qualify actual Cargo, production work or the complete collector.

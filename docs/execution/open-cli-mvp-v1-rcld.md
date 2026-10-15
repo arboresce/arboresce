@@ -247,6 +247,14 @@ qualification with unchanged executable inputs; it does not claim a new run.
 Actual complete inventory, declaration N/A proof, source/tool/run binding, fresh
 native/process collection and whole E202 acceptance remain unfinished.
 
+Next bounded source increment: implement actual filesystem/source/Cargo-target
+inventory, exact file identities and pinned declaration-only proof, with an actual
+bounded Cargo metadata command. Independently qualify the complete introduced
+source, moved observer, maintained builder and actual native command. Then finish
+fresh complete profile collection and whole-checkpoint acceptance using the
+accepted count gate and qualified inventory. These useful subincrements preserve
+all original requirements and leave E202 in_progress; no catalogue node is added.
+
 ### E203 — Implement independent revisions, clocks, dates and locators
 
 Status: `not_started`. Prerequisites: E201. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).

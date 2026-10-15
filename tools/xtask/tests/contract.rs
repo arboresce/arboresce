@@ -1075,3 +1075,526 @@ fn independently_approved_native_report_boundaries() {
     }
     assert_eq!(seen.len(), 23);
 }
+
+#[cfg(unix)]
+#[test]
+fn independently_approved_actual_inventory_models() {
+    use arboresce_xtask::inventory::{portable_path, sha256, snapshot};
+    use serde_json::{Value, json};
+
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/source-inventory-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let prepared = support::inventory_inputs::prepare(&fixture, case)
+            .unwrap_or_else(|error| panic!("{id}: reviewed recipe preparation failed: {error}"));
+        let actual = snapshot(&prepared.root, &prepared.profile, &prepared.metadata);
+        if let Some(wanted) = case["expected"]["error"].as_str() {
+            assert_eq!(format!("{:?}", actual.unwrap_err()), wanted, "{id}");
+        } else {
+            let actual = actual.unwrap_or_else(|error| panic!("{id}: {error}"));
+            assert_eq!(actual["version"], "rust-source-inventory-v1", "{id}");
+            let mut files = case["expected"]["files"].clone();
+            if let Some(recipe) = case["expected"].get("generated_empty_files") {
+                for index in 0..recipe["count"].as_u64().unwrap() {
+                    files[format!("{}{index}", recipe["prefix"].as_str().unwrap())] =
+                        json!({"sha256":recipe["sha256"],"size":0});
+                }
+                assert_eq!(
+                    actual["files"].as_object().unwrap().len(),
+                    case["expected"]["file_count"].as_u64().unwrap() as usize,
+                    "{id}"
+                );
+            }
+            assert_eq!(actual["files"], files, "{id}");
+            for (actual_rows, expected_rows) in [
+                (&actual["sources"], &case["expected"]["source_paths"]),
+                (
+                    &actual["coverage_roles"]["sources"],
+                    &case["expected"]["coverage_source_paths"],
+                ),
+            ] {
+                let paths: BTreeSet<_> = actual_rows
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|row| row["path"].as_str().unwrap())
+                    .collect();
+                let wanted: BTreeSet<_> = expected_rows
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|row| row.as_str().unwrap())
+                    .collect();
+                assert_eq!(paths, wanted, "{id}");
+            }
+            assert_eq!(
+                actual["targets"].as_array().unwrap().len(),
+                case["expected"]["target_count"].as_u64().unwrap() as usize,
+                "{id}"
+            );
+            assert_eq!(actual["coverage_roles"]["version"], "rust-report-roles-v1");
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    for case in fixture["sha256_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(
+            sha256(case["input"].as_str().unwrap().as_bytes()),
+            case["sha256"].as_str().unwrap(),
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    for case in fixture["path_cases"].as_array().unwrap() {
+        use std::{os::unix::ffi::OsStringExt, path::PathBuf};
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let bytes = case["bytes"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|b| u8::try_from(b.as_u64().unwrap()).unwrap())
+            .collect();
+        let path = PathBuf::from(OsString::from_vec(bytes));
+        assert_eq!(
+            format!("{:?}", portable_path(&path).unwrap_err()),
+            case["expected_error"].as_str().unwrap(),
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 101);
+}
+
+#[cfg(unix)]
+#[test]
+fn independently_approved_source_inventory_native_boundary() {
+    use serde_json::Value;
+    use std::{fs, os::unix::ffi::OsStringExt, path::Path};
+
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/source-inventory-v1/cases.json"
+    ))
+    .unwrap();
+    let raw_profile = include_str!("../../../tests/architecture/rust-source-roles-v1.json");
+    let profile: Value = serde_json::from_str(raw_profile).unwrap();
+    let root = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["native_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let temporary = support::PreparedRoot::new().unwrap();
+        let temp_profile = temporary.path.join("profile.json");
+        let mut command = Command::new(env!("CARGO_BIN_EXE_arboresce-source-inventory"));
+        let mut closed = match case["close"].as_str() {
+            Some("stdout") => Some(support::ClosedStream::Stdout),
+            Some("stderr") => Some(support::ClosedStream::Stderr),
+            None => None,
+            _ => panic!("invalid reviewed closed stream"),
+        };
+        match case["mode"].as_str().unwrap() {
+            "help" | "-h" | "--help" => {
+                command.arg(case["mode"].as_str().unwrap());
+            }
+            "empty" | "closed-usage" => {}
+            "arity" => {
+                command.args(["one", "two", "three"]);
+            }
+            "missing-root" => {
+                command
+                    .arg(temporary.path.join("absent"))
+                    .arg(&temp_profile);
+            }
+            "missing-profile" => {
+                command.arg(root).arg(&temp_profile);
+            }
+            "invalid-profile" => {
+                fs::write(&temp_profile, "{").unwrap();
+                command.arg(root).arg(&temp_profile);
+            }
+            "directory-profile" => {
+                command.arg(root).arg(&temporary.path);
+            }
+            "non-utf8-root" => {
+                command
+                    .arg(OsString::from_vec(vec![0xff]))
+                    .arg(&temp_profile);
+            }
+            "closed-help" => {
+                command.arg("--help");
+                closed = Some(support::ClosedStream::Stdout);
+            }
+            "metadata-unavailable" => {
+                command
+                    .arg(root)
+                    .arg(root.join("tests/architecture/rust-source-roles-v1.json"));
+                command.env("PATH", &temporary.path);
+            }
+            "actual" | "closed-actual" => {
+                command
+                    .arg(root)
+                    .arg(root.join("tests/architecture/rust-source-roles-v1.json"));
+            }
+            "bad-manifest" => {
+                fs::write(temporary.path.join("Cargo.toml"), "invalid toml [").unwrap();
+                fs::write(&temp_profile, raw_profile).unwrap();
+                command.arg(&temporary.path).arg(&temp_profile);
+                command.env("RUSTUP_TOOLCHAIN", "1.99.0");
+            }
+            "peer-invalid" | "peer-bytes" | "peer-warning-closed-stderr" => {
+                let bin = temporary.cargo_peer().unwrap();
+                let mut paths = vec![bin];
+                paths.extend(std::env::split_paths(&std::env::var_os("PATH").unwrap()));
+                command.env("PATH", std::env::join_paths(paths).unwrap());
+                let mode = match case["mode"].as_str().unwrap() {
+                    "peer-invalid" => "metadata-invalid",
+                    "peer-warning-closed-stderr" => "metadata-warning",
+                    "peer-bytes" => {
+                        let bytes = temporary.path.join("metadata.bytes");
+                        fs::write(&bytes, [0xff]).unwrap();
+                        command.env("ARBORESCE_XTASK_TEST_METADATA", bytes);
+                        "metadata"
+                    }
+                    _ => unreachable!(),
+                };
+                command.env("ARBORESCE_XTASK_TEST_PEER", mode);
+                command
+                    .arg(root)
+                    .arg(root.join("tests/architecture/rust-source-roles-v1.json"));
+            }
+            "bad-role" | "missing-generated" | "bad-declaration" => {
+                let mut input = profile.clone();
+                match case["mode"].as_str().unwrap() {
+                    "bad-role" => input["sources"][0]["role"] = "unsupported".into(),
+                    "missing-generated" => {
+                        input["generated_sources"] = serde_json::json!(["missing-generated.rs"])
+                    }
+                    "bad-declaration" => {
+                        let row = input["sources"]
+                            .as_array_mut()
+                            .unwrap()
+                            .iter_mut()
+                            .find(|s| s["role"] == "declaration")
+                            .unwrap();
+                        row["declaration_sha256"] = "0".repeat(64).into();
+                    }
+                    _ => unreachable!(),
+                }
+                fs::write(&temp_profile, input.to_string()).unwrap();
+                command.arg(root).arg(&temp_profile);
+            }
+            "profile-too-large" => {
+                assert_eq!(
+                    case["profile_payload"],
+                    "complete-current-role-profile-json-followed-only-by-ascii-space-padding"
+                );
+                let bytes = support::report_inputs::pad(
+                    raw_profile.to_owned(),
+                    case["profile_padding_bytes"].as_u64().unwrap(),
+                )
+                .unwrap();
+                fs::write(&temp_profile, bytes).unwrap();
+                command.arg(root).arg(&temp_profile);
+            }
+            _ => panic!("unknown reviewed native inventory case"),
+        }
+        let result = support::observe_with(
+            &mut command,
+            support::Observation {
+                closed,
+                ..support::Observation::default()
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            result.status.code(),
+            Some(case["exit"].as_i64().unwrap() as i32),
+            "{id}"
+        );
+        if let Some(suffix) = case["stderr_suffix"].as_str() {
+            let error = std::str::from_utf8(&result.stderr).unwrap();
+            assert!(
+                error.ends_with(suffix),
+                "{id}: missing complete error suffix"
+            );
+            assert!(
+                error.contains(case["stderr_contains"].as_str().unwrap()),
+                "{id}: missing decisive diagnostic witness"
+            );
+        } else {
+            assert_eq!(
+                result.stderr,
+                case["stderr"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+        }
+        if case["mode"] == "actual" {
+            let actual: Value = serde_json::from_slice(&result.stdout).unwrap();
+            assert_eq!(actual["version"], case["stdout_json_version"], "{id}");
+            let literal = &case["literal_file"];
+            let file = &actual["files"][literal["path"].as_str().unwrap()];
+            assert_eq!(file["sha256"], literal["sha256"], "{id}");
+            assert_eq!(file["size"], literal["size"], "{id}");
+            let sources = actual["sources"].as_array().unwrap();
+            assert_eq!(
+                sources.len(),
+                case["source_count"].as_u64().unwrap() as usize,
+                "{id}"
+            );
+            assert_eq!(actual["sources"], profile["sources"], "{id}");
+            assert_eq!(actual["targets"], profile["targets"], "{id}");
+            assert_eq!(
+                actual["targets"].as_array().unwrap().len(),
+                case["target_count"].as_u64().unwrap() as usize,
+                "{id}"
+            );
+            let declaration = sources
+                .iter()
+                .find(|s| s["path"] == case["literal_na"]["path"])
+                .unwrap();
+            assert_eq!(declaration["role"], "declaration", "{id}");
+            assert_eq!(
+                declaration["declaration_sha256"], case["literal_na"]["sha256"],
+                "{id}"
+            );
+            assert!(
+                actual["metadata_trace"]
+                    .as_str()
+                    .unwrap()
+                    .contains("within_budget"),
+                "{id}"
+            );
+        } else {
+            assert_eq!(
+                result.stdout,
+                case["stdout"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 23);
+}
+
+#[test]
+fn independently_approved_inventory_api_stream_failures() {
+    use arboresce_xtask::inventory_command;
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/source-inventory-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["stream_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let args: Vec<OsString> = case["args"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|v| OsString::from(v.as_str().unwrap()))
+            .collect();
+        let mut failed = support::FailedOutput {
+            write_fails: case["write_fails"].as_bool().unwrap(),
+            bytes: Vec::new(),
+        };
+        let mut other = Vec::new();
+        let code = match case["selected"].as_str().unwrap() {
+            "stdout" => inventory_command::run(&args, &mut failed, &mut other),
+            "stderr" => inventory_command::run(&args, &mut other, &mut failed),
+            _ => panic!("invalid reviewed stream selector"),
+        };
+        assert_eq!(code, case["exit"].as_u64().unwrap() as u8, "{id}");
+        assert_eq!(
+            other,
+            case["other_stream"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 4);
+}
+
+#[cfg(unix)]
+#[test]
+fn independently_approved_inventory_preparation_failures() {
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/source-inventory-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["recipe_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mut model = fixture.clone();
+        let mut recipe = json!({"file_operations":[],"profile_patch":[],"metadata_patch":[]});
+        for (target, changes) in [
+            (&mut model, &case["fixture_changes"]),
+            (&mut recipe, &case["case_changes"]),
+        ] {
+            for (key, value) in changes.as_object().unwrap() {
+                target[key] = value.clone();
+            }
+        }
+        let error = match support::inventory_inputs::prepare(&model, &recipe) {
+            Err(error) => error,
+            Ok(_) => panic!("{id}: malformed preparation unexpectedly succeeded"),
+        };
+        assert_eq!(
+            format!("{:?}", error.kind()),
+            case["expected_error"].as_str().unwrap(),
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 40);
+}
+
+#[cfg(unix)]
+#[test]
+fn independently_approved_inventory_process_failures() {
+    use arboresce_xtask::process::{Observation, observe};
+    use serde_json::json;
+    use std::{
+        fs,
+        io::Write,
+        os::unix::process::ExitStatusExt,
+        process::Stdio,
+        time::{Duration, Instant, SystemTime, UNIX_EPOCH},
+    };
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/source-inventory-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["process_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let root = support::PreparedRoot::new().unwrap();
+        let stdout = root.path.join("stdout");
+        let stderr = root.path.join("stderr");
+        let running = case["mode"] == "running";
+        let mut command = if running {
+            let mut command = Command::new("/bin/sleep");
+            command.arg("1");
+            command
+        } else {
+            let mut command = Command::new(env!("CARGO_BIN_EXE_arboresce-xtask-test-peer"));
+            command.env("ARBORESCE_XTASK_TEST_PEER", "pass");
+            command
+        };
+        command
+            .stdout(Stdio::from(fs::File::create_new(&stdout).unwrap()))
+            .stderr(Stdio::from(fs::File::create_new(&stderr).unwrap()));
+        let started = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+        let mut child = command.spawn().unwrap();
+        let mut preparation_trace = Vec::new();
+        if !running {
+            let prepared = observe(
+                &mut child,
+                &stdout,
+                &stderr,
+                Observation::default(),
+                Instant::now(),
+                &mut preparation_trace,
+            )
+            .unwrap_or_else(|error| panic!("{id}: bounded peer preparation failed: {error}"));
+            assert_eq!(prepared.status.code(), Some(0), "{id}");
+            assert_eq!(child.try_wait().unwrap().unwrap().code(), Some(0), "{id}");
+        }
+        let raw_stdout = fs::read(&stdout).unwrap();
+        let raw_stderr = fs::read(&stderr).unwrap();
+        assert_eq!(
+            raw_stdout,
+            if running {
+                b"".as_slice()
+            } else {
+                b"child stdout\n"
+            },
+            "{id}"
+        );
+        assert_eq!(
+            raw_stderr,
+            if running {
+                b"".as_slice()
+            } else {
+                b"child stderr\n"
+            },
+            "{id}"
+        );
+        match case["mode"].as_str().unwrap() {
+            "missing-stdout" => fs::remove_file(&stdout).unwrap(),
+            "missing-stderr" => fs::remove_file(&stderr).unwrap(),
+            "directory-stdout" => {
+                fs::remove_file(&stdout).unwrap();
+                fs::create_dir(&stdout).unwrap();
+            }
+            "trace" | "running" | "late" | "success" => {}
+            _ => panic!("unknown reviewed observation input"),
+        }
+        let mut trace = support::ObservationTrace::new(
+            case["fail_after_lines"].as_u64().map(|n| n as usize),
+            case["delay_after_line"].as_u64().unwrap_or(1) as usize,
+            Duration::from_millis(case["delay_after_first_line_ms"].as_u64().unwrap_or(0)),
+        );
+        let actual = observe(
+            &mut child,
+            &stdout,
+            &stderr,
+            Observation {
+                budget: Duration::from_millis(case["budget_ms"].as_u64().unwrap_or(30_000)),
+                ..Observation::default()
+            },
+            Instant::now(),
+            &mut trace,
+        );
+        trace.flush().unwrap();
+        let error = if let Some(wanted) = case["expected_error"].as_str() {
+            let error = actual.unwrap_err();
+            assert_eq!(format!("{:?}", error.kind()), wanted, "{id}");
+            json!(format!("{:?}", error.kind()))
+        } else {
+            let output = actual.unwrap_or_else(|error| panic!("{id}: {error}"));
+            assert_eq!(output.status.code(), Some(0), "{id}");
+            assert_eq!(
+                output.stdout,
+                case["expected_stdout"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+            assert_eq!(
+                output.stderr,
+                case["expected_stderr"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+            serde_json::Value::Null
+        };
+        let status = child
+            .try_wait()
+            .unwrap()
+            .expect("owned child must be reaped");
+        assert_eq!(json!(status.code()), case["expected_exit"], "{id}");
+        assert_eq!(json!(status.signal()), case["expected_signal"], "{id}");
+        println!(
+            "xtask process observation {}",
+            json!({
+                "case":id,"pid":child.id(),"exit":status.code(),"signal":status.signal(),
+                "stdout":raw_stdout,"stderr":raw_stderr,"trace":trace.bytes,
+                "error":error,"reaped":true,"preparation_trace":preparation_trace,
+                "started_ms":started.as_millis(),
+                "finished_ms":SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis(),
+            })
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 11);
+}

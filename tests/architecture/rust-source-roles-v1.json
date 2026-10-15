@@ -1,0 +1,217 @@
+{
+  "version": "rust-source-roles-v1",
+  "sources": [
+    {
+      "path": "crates/arboresce-domain/src/lib.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/tests/fixtures/primitives-v1/expected.rs",
+      "package": "arboresce-domain",
+      "role": "declaration",
+      "declaration_sha256": "eeff7601ea3dde8b8737c32a53655318ff87748ce425836a35378f0e68e0b8c2"
+    },
+    {
+      "path": "crates/arboresce-domain/tests/identifiers.rs",
+      "package": "arboresce-domain",
+      "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-domain/tests/support/mod.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce/src/lib.rs",
+      "package": "arboresce",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce/tests/smoke.rs",
+      "package": "arboresce",
+      "role": "assertion"
+    },
+    {
+      "path": "tools/xtask/src/architecture.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/bin/arboresce-report-gate.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/bin/arboresce-source-inventory.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/coverage.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/inventory.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/inventory_command.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/lib.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/main.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/process.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/report_command.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/strict_json.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/workspace.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/tests/contract.rs",
+      "package": "arboresce-xtask",
+      "role": "assertion"
+    },
+    {
+      "path": "tools/xtask/tests/support/inventory_inputs.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/tests/support/mod.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/tests/support/peer.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/tests/support/report_inputs.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "library",
+      "name": "arboresce",
+      "sources": [
+        "crates/arboresce/src/lib.rs"
+      ]
+    },
+    {
+      "kind": "library",
+      "name": "arboresce_domain",
+      "sources": [
+        "crates/arboresce-domain/src/lib.rs"
+      ]
+    },
+    {
+      "kind": "library",
+      "name": "arboresce_xtask",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs"
+      ]
+    },
+    {
+      "kind": "binary",
+      "name": "arboresce-xtask",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/main.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs"
+      ]
+    },
+    {
+      "kind": "binary",
+      "name": "arboresce-xtask-test-peer",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs",
+        "tools/xtask/tests/support/peer.rs"
+      ]
+    },
+    {
+      "kind": "binary",
+      "name": "arboresce-report-gate",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/bin/arboresce-report-gate.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs"
+      ]
+    },
+    {
+      "kind": "binary",
+      "name": "arboresce-source-inventory",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/bin/arboresce-source-inventory.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs"
+      ]
+    }
+  ],
+  "generated_sources": []
+}

@@ -1,15 +1,13 @@
 use std::{
     fs,
-    io::{self, Read, Write},
+    io::{self, Write},
     path::{Path, PathBuf},
-    process::{Child, Command, Output, Stdio},
+    process::{Command, Output, Stdio},
     sync::atomic::{AtomicU64, Ordering},
-    thread,
     time::{Duration, Instant},
 };
 
 static NEXT: AtomicU64 = AtomicU64::new(0);
-const MAX_OUTPUT_BYTES: u64 = 8 * 1024 * 1024;
 
 pub struct PreparedRoot {
     pub path: PathBuf,
@@ -104,43 +102,6 @@ fn closed_pipe() -> io::Result<Stdio> {
     Ok(Stdio::from(writer))
 }
 
-fn read_output(path: &Path) -> io::Result<Vec<u8>> {
-    let mut bytes = Vec::new();
-    fs::File::open(path)?
-        .take(MAX_OUTPUT_BYTES + 1)
-        .read_to_end(&mut bytes)?;
-    if bytes.len() as u64 > MAX_OUTPUT_BYTES {
-        return Err(io::Error::new(
-            io::ErrorKind::InvalidData,
-            "native output limit exceeded",
-        ));
-    }
-    Ok(bytes)
-}
-
-fn cleanup(child: &mut Child) -> io::Result<()> {
-    let initial = child.try_wait()?;
-    println!(
-        "xtask cleanup observation {}",
-        serde_json::json!({"pid":child.id(),"was_running":initial.is_none(),"exit":initial.and_then(|status| status.code())})
-    );
-    if initial.is_none() {
-        child.kill()?;
-        let deadline = Instant::now() + Duration::from_secs(2);
-        while child.try_wait()?.is_none() {
-            if Instant::now() >= deadline {
-                return Err(io::Error::new(
-                    io::ErrorKind::TimedOut,
-                    "native cleanup did not finish",
-                ));
-            }
-            thread::sleep(Duration::from_millis(1));
-        }
-    }
-    println!("xtask cleanup pid={} reaped=true", child.id());
-    Ok(())
-}
-
 /// Actual native processes share one bounded observation/collection path.
 /// Regular task-owned files avoid blocking pipe-reader joins and inherited pipes.
 pub fn observe(command: &mut Command) -> io::Result<Output> {
@@ -165,52 +126,18 @@ pub fn observe_with(command: &mut Command, options: Observation) -> io::Result<O
     });
     let started = Instant::now();
     let mut child = command.spawn()?;
-    let process_id = child.id();
-    let deadline = started + options.budget;
-    thread::sleep(options.initial_delay);
-    let result = (|| {
-        loop {
-            if Instant::now() >= deadline {
-                return Err(io::Error::new(
-                    io::ErrorKind::TimedOut,
-                    "native outcome observed too late",
-                ));
-            }
-            if let Some(status) = child.try_wait()? {
-                println!(
-                    "xtask native exited pid={process_id} exit={:?}",
-                    status.code()
-                );
-                let stdout = read_output(&stdout_path)?;
-                let stderr = read_output(&stderr_path)?;
-                if Instant::now() >= deadline {
-                    return Err(io::Error::new(
-                        io::ErrorKind::TimedOut,
-                        "native collection finished too late",
-                    ));
-                }
-                println!("xtask native pid={process_id} exit={:?}", status.code());
-                println!(
-                    "xtask observation {}",
-                    serde_json::json!({"pid":process_id,"exit":status.code(),"stdout":stdout,"stderr":stderr,"within_budget":true})
-                );
-                return Ok(Output {
-                    status,
-                    stdout,
-                    stderr,
-                });
-            }
-            thread::sleep(options.poll);
-        }
-    })();
-    if let Err(ref error) = result {
-        cleanup(&mut child)?;
-        println!(
-            "xtask native pid={process_id} error={:?} cleanup=reaped",
-            error.kind()
-        );
-    }
-    result
+    arboresce_xtask::process::observe(
+        &mut child,
+        &stdout_path,
+        &stderr_path,
+        arboresce_xtask::process::Observation {
+            budget: options.budget,
+            poll: options.poll,
+            initial_delay: options.initial_delay,
+        },
+        started,
+        &mut std::io::stdout().lock(),
+    )
 }
 
 pub struct FailedOutput {
@@ -230,4 +157,52 @@ impl Write for FailedOutput {
         Err(io::Error::other("flush failed"))
     }
 }
+
+/// A one-shot trace fault and optional real delay at a complete line boundary.
+pub struct ObservationTrace {
+    pub bytes: Vec<u8>,
+    pub fail_after_lines: Option<usize>,
+    pub delay_after_line: usize,
+    pub delay: Duration,
+    failed: bool,
+    lines: usize,
+}
+
+impl ObservationTrace {
+    pub fn new(fail_after_lines: Option<usize>, delay_after_line: usize, delay: Duration) -> Self {
+        Self {
+            bytes: Vec::new(),
+            fail_after_lines,
+            delay_after_line,
+            delay,
+            failed: false,
+            lines: 0,
+        }
+    }
+}
+
+impl Write for ObservationTrace {
+    fn write(&mut self, bytes: &[u8]) -> io::Result<usize> {
+        if !self.failed && self.fail_after_lines == Some(self.lines) {
+            self.failed = true;
+            return Err(io::Error::other("controlled trace write failure"));
+        }
+        self.bytes.extend_from_slice(bytes);
+        for byte in bytes {
+            if *byte == b'\n' {
+                self.lines += 1;
+                if self.lines == self.delay_after_line {
+                    std::thread::sleep(self.delay);
+                }
+            }
+        }
+        Ok(bytes.len())
+    }
+
+    fn flush(&mut self) -> io::Result<()> {
+        Ok(())
+    }
+}
+#[cfg(unix)]
+pub mod inventory_inputs;
 pub mod report_inputs;

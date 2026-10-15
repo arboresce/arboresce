@@ -2,6 +2,9 @@
 
 pub mod architecture;
 pub mod coverage;
+pub mod inventory;
+pub mod inventory_command;
+pub mod process;
 pub mod report_command;
 mod strict_json;
 pub mod workspace;
