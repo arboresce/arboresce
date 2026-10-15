@@ -82,3 +82,78 @@ pub fn revision_traits(kind: &str, values: &[Value]) -> Value {
         _ => panic!("unknown prepared revision fixture kind"),
     }
 }
+
+/// Read independent original date/time/clock vectors without changing them.
+pub fn primitive_fixture() -> Value {
+    serde_json::from_str(include_str!("../fixtures/primitives-v1/semantics.json")).unwrap()
+}
+
+pub fn time_fixture() -> Value {
+    serde_json::from_str(include_str!("../fixtures/time-values-v1/cases.json")).unwrap()
+}
+
+use arboresce_domain::{CalendarDate, Clock, UtcTimestamp};
+use std::collections::VecDeque;
+
+/// Prepared test supplier; failures are supplied alongside the successful values.
+pub struct SuppliedClock {
+    outcomes: VecDeque<Result<UtcTimestamp, String>>,
+    pub calls: usize,
+}
+
+impl SuppliedClock {
+    pub fn new(outcomes: &[Value]) -> Self {
+        Self {
+            outcomes: outcomes
+                .iter()
+                .map(|row| match row.get("ok") {
+                    Some(value) => Ok(value.as_str().unwrap().parse().unwrap()),
+                    None => Err(row["error"].as_str().unwrap().to_owned()),
+                })
+                .collect(),
+            calls: 0,
+        }
+    }
+}
+
+impl Clock for SuppliedClock {
+    type Error = String;
+
+    fn now(&mut self) -> Result<UtcTimestamp, Self::Error> {
+        self.calls += 1;
+        self.outcomes.pop_front().expect("prepared clock exhausted")
+    }
+}
+
+/// Exercise object-safe clock injection while preserving exact caller outcomes.
+pub fn read_clock(clock: &mut dyn Clock<Error = String>, count: usize) -> Value {
+    Value::Array(
+        (0..count)
+            .map(|_| match clock.now() {
+                Ok(value) => json!({"ok":value.to_string()}),
+                Err(error) => json!({"error":error}),
+            })
+            .collect(),
+    )
+}
+
+pub fn time_traits(kind: &str, values: &[Value]) -> Value {
+    use std::{collections::HashSet, fmt::Write};
+    macro_rules! traits {
+        ($value:ty, $prefix:literal) => {{
+            let first = values[0].as_str().unwrap().parse::<$value>().unwrap();
+            let second = values[1].as_str().unwrap().parse::<$value>().unwrap();
+            let copied = first;
+            let set: HashSet<_> = [first, copied, second].into_iter().collect();
+            let mut output = RejectedOutput;
+            json!({"copied_equal":copied==first,"ordered":first<second,"distinct_set_size":set.len(),
+                "debug_prefix":if format!("{first:?}").starts_with($prefix) {$prefix} else {"invalid"},
+                "formatter_error_propagates":write!(&mut output,"{first}").is_err()})
+        }};
+    }
+    match kind {
+        "date" => traits!(CalendarDate, "CalendarDate {"),
+        "timestamp" => traits!(UtcTimestamp, "UtcTimestamp {"),
+        _ => panic!("unknown prepared time fixture kind"),
+    }
+}

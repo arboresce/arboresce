@@ -1,0 +1,726 @@
+{
+  "fixture_version": "time-values-v1",
+  "classification": "original public synthetic fixtures",
+  "scope": "Pure Gregorian date/UTC millisecond value construction and explicitly supplied clock expectations only; no ambient clock, timezone conversion, event attribution, service or product qualification.",
+  "sources": {
+    "docs/requirements/common-contract.md": "64ce5e000773f23dfcad41d4883fbb5fa70e5954dcb137167f3e3d168afca9ac",
+    "docs/requirements/data-model.md": "d3caa22d11b9587715e29c360e2c33119a21dfc9042affdfae50c717c98ce289",
+    "crates/arboresce-domain/tests/fixtures/primitives-v1/semantics.json": "6b9234920e3774f21a5b69698ceef5fa361b8824a4f32c6da830e702d65808f7"
+  },
+  "original_groups": {
+    "calendar_date": 21,
+    "timestamp": 18,
+    "clock": 1
+  },
+  "api": {
+    "date_error": "invalid Gregorian calendar date",
+    "timestamp_error": "invalid UTC millisecond timestamp",
+    "types_distinct": true,
+    "clock": "Clock::now(&mut self) -> Result<UtcTimestamp, Self::Error>; no default implementation or ambient source"
+  },
+  "calendar_components": [
+    {
+      "id": "time-date-parts-month-01",
+      "input": [
+        2024,
+        1,
+        31
+      ],
+      "accepted": true,
+      "canonical": "2024-01-31"
+    },
+    {
+      "id": "time-date-parts-month-02",
+      "input": [
+        2024,
+        2,
+        29
+      ],
+      "accepted": true,
+      "canonical": "2024-02-29"
+    },
+    {
+      "id": "time-date-parts-month-03",
+      "input": [
+        2024,
+        3,
+        31
+      ],
+      "accepted": true,
+      "canonical": "2024-03-31"
+    },
+    {
+      "id": "time-date-parts-month-04",
+      "input": [
+        2024,
+        4,
+        30
+      ],
+      "accepted": true,
+      "canonical": "2024-04-30"
+    },
+    {
+      "id": "time-date-parts-month-05",
+      "input": [
+        2024,
+        5,
+        31
+      ],
+      "accepted": true,
+      "canonical": "2024-05-31"
+    },
+    {
+      "id": "time-date-parts-month-06",
+      "input": [
+        2024,
+        6,
+        30
+      ],
+      "accepted": true,
+      "canonical": "2024-06-30"
+    },
+    {
+      "id": "time-date-parts-month-07",
+      "input": [
+        2024,
+        7,
+        31
+      ],
+      "accepted": true,
+      "canonical": "2024-07-31"
+    },
+    {
+      "id": "time-date-parts-month-08",
+      "input": [
+        2024,
+        8,
+        31
+      ],
+      "accepted": true,
+      "canonical": "2024-08-31"
+    },
+    {
+      "id": "time-date-parts-month-09",
+      "input": [
+        2024,
+        9,
+        30
+      ],
+      "accepted": true,
+      "canonical": "2024-09-30"
+    },
+    {
+      "id": "time-date-parts-month-10",
+      "input": [
+        2024,
+        10,
+        31
+      ],
+      "accepted": true,
+      "canonical": "2024-10-31"
+    },
+    {
+      "id": "time-date-parts-month-11",
+      "input": [
+        2024,
+        11,
+        30
+      ],
+      "accepted": true,
+      "canonical": "2024-11-30"
+    },
+    {
+      "id": "time-date-parts-month-12",
+      "input": [
+        2024,
+        12,
+        31
+      ],
+      "accepted": true,
+      "canonical": "2024-12-31"
+    },
+    {
+      "id": "time-date-parts-zero-year",
+      "input": [
+        0,
+        1,
+        1
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-above-year",
+      "input": [
+        10000,
+        1,
+        1
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-u16-year",
+      "input": [
+        65535,
+        1,
+        1
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-zero-month",
+      "input": [
+        2026,
+        0,
+        1
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-above-month",
+      "input": [
+        2026,
+        13,
+        1
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-u8-month",
+      "input": [
+        2026,
+        255,
+        1
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-zero-day",
+      "input": [
+        2026,
+        1,
+        0
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-above-day",
+      "input": [
+        2026,
+        1,
+        32
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-u8-day",
+      "input": [
+        2026,
+        1,
+        255
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-century1900",
+      "input": [
+        1900,
+        2,
+        29
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-century2100",
+      "input": [
+        2100,
+        2,
+        29
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-april31",
+      "input": [
+        2026,
+        4,
+        31
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-date-parts-common-feb29",
+      "input": [
+        2026,
+        2,
+        29
+      ],
+      "accepted": false
+    }
+  ],
+  "timestamp_components": [
+    {
+      "id": "time-instant-parts-epoch",
+      "date": "1970-01-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "1970-01-01T00:00:00.000Z",
+      "unix_milliseconds": 0
+    },
+    {
+      "id": "time-instant-parts-day-end",
+      "date": "1970-01-01",
+      "input": [
+        23,
+        59,
+        59,
+        999
+      ],
+      "accepted": true,
+      "canonical": "1970-01-01T23:59:59.999Z",
+      "unix_milliseconds": 86399999
+    },
+    {
+      "id": "time-instant-parts-leap-march",
+      "date": "2024-03-01",
+      "input": [
+        12,
+        34,
+        56,
+        789
+      ],
+      "accepted": true,
+      "canonical": "2024-03-01T12:34:56.789Z",
+      "unix_milliseconds": 1709296496789
+    },
+    {
+      "id": "time-instant-parts-month-01",
+      "date": "2024-01-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-01-01T00:00:00.000Z",
+      "unix_milliseconds": 1704067200000
+    },
+    {
+      "id": "time-instant-parts-month-02",
+      "date": "2024-02-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-02-01T00:00:00.000Z",
+      "unix_milliseconds": 1706745600000
+    },
+    {
+      "id": "time-instant-parts-month-03",
+      "date": "2024-03-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-03-01T00:00:00.000Z",
+      "unix_milliseconds": 1709251200000
+    },
+    {
+      "id": "time-instant-parts-month-04",
+      "date": "2024-04-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-04-01T00:00:00.000Z",
+      "unix_milliseconds": 1711929600000
+    },
+    {
+      "id": "time-instant-parts-month-05",
+      "date": "2024-05-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-05-01T00:00:00.000Z",
+      "unix_milliseconds": 1714521600000
+    },
+    {
+      "id": "time-instant-parts-month-06",
+      "date": "2024-06-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-06-01T00:00:00.000Z",
+      "unix_milliseconds": 1717200000000
+    },
+    {
+      "id": "time-instant-parts-month-07",
+      "date": "2024-07-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-07-01T00:00:00.000Z",
+      "unix_milliseconds": 1719792000000
+    },
+    {
+      "id": "time-instant-parts-month-08",
+      "date": "2024-08-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-08-01T00:00:00.000Z",
+      "unix_milliseconds": 1722470400000
+    },
+    {
+      "id": "time-instant-parts-month-09",
+      "date": "2024-09-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-09-01T00:00:00.000Z",
+      "unix_milliseconds": 1725148800000
+    },
+    {
+      "id": "time-instant-parts-month-10",
+      "date": "2024-10-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-10-01T00:00:00.000Z",
+      "unix_milliseconds": 1727740800000
+    },
+    {
+      "id": "time-instant-parts-month-11",
+      "date": "2024-11-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-11-01T00:00:00.000Z",
+      "unix_milliseconds": 1730419200000
+    },
+    {
+      "id": "time-instant-parts-month-12",
+      "date": "2024-12-01",
+      "input": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "accepted": true,
+      "canonical": "2024-12-01T00:00:00.000Z",
+      "unix_milliseconds": 1733011200000
+    },
+    {
+      "id": "time-instant-parts-hour24",
+      "date": "1970-01-01",
+      "input": [
+        24,
+        0,
+        0,
+        0
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-instant-parts-hour255",
+      "date": "1970-01-01",
+      "input": [
+        255,
+        0,
+        0,
+        0
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-instant-parts-minute60",
+      "date": "1970-01-01",
+      "input": [
+        0,
+        60,
+        0,
+        0
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-instant-parts-minute255",
+      "date": "1970-01-01",
+      "input": [
+        0,
+        255,
+        0,
+        0
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-instant-parts-second60",
+      "date": "1970-01-01",
+      "input": [
+        0,
+        0,
+        60,
+        0
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-instant-parts-second255",
+      "date": "1970-01-01",
+      "input": [
+        0,
+        0,
+        255,
+        0
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-instant-parts-millisecond1000",
+      "date": "1970-01-01",
+      "input": [
+        0,
+        0,
+        0,
+        1000
+      ],
+      "accepted": false
+    },
+    {
+      "id": "time-instant-parts-millisecond65535",
+      "date": "1970-01-01",
+      "input": [
+        0,
+        0,
+        0,
+        65535
+      ],
+      "accepted": false
+    }
+  ],
+  "calendar_lexical": [
+    {
+      "id": "time-date-lexical-empty",
+      "input": "",
+      "accepted": false
+    },
+    {
+      "id": "time-date-lexical-year-letter",
+      "input": "20a6-01-01",
+      "accepted": false
+    },
+    {
+      "id": "time-date-lexical-month-letter",
+      "input": "2026-a1-01",
+      "accepted": false
+    },
+    {
+      "id": "time-date-lexical-day-letter",
+      "input": "2026-01-a1",
+      "accepted": false
+    },
+    {
+      "id": "time-date-lexical-first-separator",
+      "input": "2026/01-01",
+      "accepted": false
+    },
+    {
+      "id": "time-date-lexical-second-separator",
+      "input": "2026-01/01",
+      "accepted": false
+    },
+    {
+      "id": "time-date-lexical-nul",
+      "input": "2026-01-0\u0000",
+      "accepted": false
+    }
+  ],
+  "timestamp_lexical": [
+    {
+      "id": "time-instant-lexical-empty",
+      "input": "",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-hour-letter",
+      "input": "2026-01-01Ta0:00:00.000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-minute-letter",
+      "input": "2026-01-01T00:a0:00.000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-second-letter",
+      "input": "2026-01-01T00:00:a0.000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-millisecond-letter",
+      "input": "2026-01-01T00:00:00.a00Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-date-letter",
+      "input": "202a-01-01T00:00:00.000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-first-colon",
+      "input": "2026-01-01T00/00:00.000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-second-colon",
+      "input": "2026-01-01T00:00/00.000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-dot",
+      "input": "2026-01-01T00:00:00/000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-suffix",
+      "input": "2026-01-01T00:00:00.000X",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-nul",
+      "input": "2026-01-01T00:00:00.00\u0000Z",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-ambiguous-local",
+      "input": "2026-11-01T01:30:00.000",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-explicit-offset",
+      "input": "2026-11-01T01:30:00.000-04:00",
+      "accepted": false
+    },
+    {
+      "id": "time-instant-lexical-unicode-time",
+      "input": "2026-01-01Té:00:00.000Z",
+      "accepted": false
+    }
+  ],
+  "traits": [
+    {
+      "id": "time-date-traits",
+      "kind": "date",
+      "values": [
+        "1969-12-31",
+        "1970-01-01"
+      ],
+      "expected": {
+        "copied_equal": true,
+        "ordered": true,
+        "distinct_set_size": 2,
+        "debug_prefix": "CalendarDate {",
+        "formatter_error_propagates": true
+      }
+    },
+    {
+      "id": "time-timestamp-traits",
+      "kind": "timestamp",
+      "values": [
+        "1969-12-31T23:59:59.999Z",
+        "1970-01-01T00:00:00.000Z"
+      ],
+      "expected": {
+        "copied_equal": true,
+        "ordered": true,
+        "distinct_set_size": 2,
+        "debug_prefix": "UtcTimestamp {",
+        "formatter_error_propagates": true
+      }
+    }
+  ],
+  "clock_api": {
+    "id": "time-clock-errors",
+    "expected_errors": 2,
+    "expected_successful_reads": 3,
+    "expected_total_calls": 5,
+    "supplied": [
+      {
+        "ok": "2026-10-01T00:00:00.123Z"
+      },
+      {
+        "error": "clock-source-unavailable"
+      },
+      {
+        "ok": "2026-10-01T00:00:00.123Z"
+      },
+      {
+        "error": "clock-source-out-of-range"
+      },
+      {
+        "ok": "2026-09-30T23:59:59.999Z"
+      }
+    ],
+    "expected_returned": [
+      {
+        "ok": "2026-10-01T00:00:00.123Z"
+      },
+      {
+        "error": "clock-source-unavailable"
+      },
+      {
+        "ok": "2026-10-01T00:00:00.123Z"
+      },
+      {
+        "error": "clock-source-out-of-range"
+      },
+      {
+        "ok": "2026-09-30T23:59:59.999Z"
+      }
+    ]
+  }
+}

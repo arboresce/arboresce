@@ -372,6 +372,16 @@ previously frozen primitive semantics and selected wire vectors retain their exa
 meaning. No catalogue node, actual clock/media input, application port, service or
 product workflow is completed by the scalar subincrement.
 
+Next bounded source increment: implement distinct immutable Gregorian dates and
+exact UTC millisecond timestamps, checked component construction and a fallible
+injected clock with no default ambient source. Preserve date-only meaning, exact
+pre-epoch arithmetic, repeated/backward supplied values and caller-defined failures.
+The independently admitted supplemental time package retains the original 21 date,
+18 timestamp and one clock vectors and adds explicit component, lexical, trait,
+formatter and interleaved failure expectations before this consumer. Source-observed
+attribution/precision, ambiguous-local timezone policy, all wire/JSON/JCS/budget/
+locator requirements and whole E203 acceptance remain separate and required.
+
 Accepted scalar source increment:
 `c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked
 content/control/generation values, exact decimal payloads and bounded advancement.

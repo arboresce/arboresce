@@ -2,7 +2,7 @@
 
 These documents define the accepted engine MVP and production qualification
 target. The current checkout supplies documentation, licensing, checked
-parsed-value contract fixtures and the measured Rust identifier library. The
+parsed-value contract fixtures and the measured Rust domain value library. The
 API, processing service, distributions and product runtime remain unfinished;
 adopted requirements do not establish their implementation or qualification.
 The [rolling plan](../execution/open-cli-mvp-v1-rcld.md) records

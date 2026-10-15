@@ -1,4 +1,4 @@
-//! Checked opaque identifier values, independent of transport and storage.
+//! Checked domain values, independent of transport and storage.
 
 use std::{error::Error, fmt, str::FromStr};
 
@@ -6,6 +6,8 @@ mod revisions;
 pub use revisions::{
     ContentRevision, ControlRevision, Generation, MAX_REVISION_VALUE, RevisionError,
 };
+mod time;
+pub use time::{CalendarDate, Clock, InvalidCalendarDate, InvalidUtcTimestamp, UtcTimestamp};
 
 /// A canonical lower-case UUIDv4 value.
 ///

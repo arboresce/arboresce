@@ -12,8 +12,9 @@ Use [the instruction index](docs/agents/README.md) to find directory guidance.
 Read the [requirement ownership index](docs/requirements/README.md) before
 implementing behavior. Those documents define the accepted target; the
 [rolling plan](docs/execution/open-cli-mvp-v1-rcld.md) records execution and evidence.
-The current Rust workspace implements checked immutable UUIDv4 values in
-`arboresce-domain` and retains the existing binding/build proof. The API and
+The current Rust workspace implements checked immutable UUIDv4, independent
+revision, Gregorian date and UTC millisecond values in `arboresce-domain`, with
+an injected clock interface, and retains the existing binding/build proof. The API and
 product runtime remain unfinished. Use the
 [public contract checks](contracts/validation/README.md) for the supplied
 schemas and fixtures. Introduce runtime commands with their owning guidance.
@@ -54,8 +55,9 @@ Where an output router is configured, run its diagnostic first and prefix these
 commands with its documented router. Prepare coverage tools explicitly and follow
 the direct collection and complete source inventory in the testing contract.
 The first [local verification tool](tools/xtask/README.md) implements architecture
-checks and delegates these commands. Its core qualification precedes dependent
-use; whole verification and automated coverage collection remain unfinished.
+checks and delegates these commands. Its maintained fresh collector is qualified
+for the selected Rust 1.99.0 non-root macOS ARM64 default-feature profile. Follow
+the rolling plan for exact accepted inputs and remaining profile/runtime gates.
 Run the documented formatting, checks, and tests for affected components.
 Source changes must satisfy [the testing and coverage contract](docs/requirements/testing-and-coverage.md),
 including deterministic independently reviewed fixtures, complete collection and
