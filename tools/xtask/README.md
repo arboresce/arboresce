@@ -36,7 +36,8 @@ with their owning sources, then emits its own success line. A
 guard failure is a fixed stderr line with exit 1 and no success output.
 
 The initial role registry recognizes only the current proof, domain and tool
-packages at version 0.0.0. The domain remains standard-library-only. Pure
+packages at version 0.0.0. Its closed Initial profile retains the original
+standard-library-only domain examples. Pure
 application and deterministic workflow profiles are tested explicitly, including
 SDK 1.0.0 rather than a blanket SDK prohibition. New packages, pure dependencies
 and supported SDK surfaces require their owning profile and first-consumer
@@ -44,6 +45,17 @@ qualification; unknown entries cannot become approved by omission. Controlled
 dev dependencies grant no production import authority. Configured syntax/import
 guards complement independent code review and actual compiler checks; they do
 not certify arbitrary data flow or an actual SDK/runtime.
+
+The domain's explicit package metadata `architecture-profile = "jcs-number-v1"`
+selects the first pure scalar-number dependency graph. The actual workspace
+checker dispatches that profile and binds exact normal roots, aliases, kinds,
+conditions, complete transitive normal/build graph and effective features.
+The [selected inputs](../../tests/architecture/fixtures/qualified-number-dependencies-v1/README.md)
+retain separate resolvable policy contexts. Missing metadata uses the unchanged
+Initial profile; unknown/wrong-type selections or selection by another owner fail.
+The graph fingerprint is a fixed internal tool encoding, not domain JCS. Changes
+require a new reviewed profile and fresh affected qualification. Controlled dev
+edges grant no production authority; source checks remain required.
 
 The independently approved [literals](../../tests/architecture/fixtures/guard-v1/README.md)
 freeze policy, command vectors and streams. Native controlled Cargo peers prove
@@ -177,6 +189,31 @@ An identical repeated completion preserves the existing bytes; a conflicting or
 symlinked receipt fails. Failed launch recording performs bounded kill/reap of
 only that owned child. Shared observation attempts completion recording after
 stream, trace and timeout cleanup errors as well as successful collection.
+
+Complete observation records stream borrowed byte slices through an 8 KiB
+buffer in the existing sorted-field JSON representation. The writer explicitly
+flushes inside the observation deadline and discards pending bytes on every
+error before owned cleanup; buffer destruction cannot retry failed output.
+Underlying I/O kinds, numeric byte arrays, full captured streams, the 8 MiB
+per-stream limit and all existing deadlines remain unchanged. The
+[native trace fixtures](../../tests/architecture/fixtures/native-trace-v1/README.md)
+check whole trace bytes and hashes, both full stream boundaries, short writes,
+write/flush/work-exhaustion errors and a genuinely late successful flush. They
+retain real child streams and physical launch/completion receipts on every
+outcome. Passing controlled peer cases alone cannot qualify actual Cargo or the
+complete collection lane.
+
+Preparation regressions additionally prove a real launch-directory write denial
+before spawning an owned, still-running selected OS child, plus missing receipt
+and occupied trace-directory errors after real test-peer completion. Assertions
+receive the actual preparation error and retained diagnostic, then inspect real
+status, streams and receipts. Each failure independently attempts bounded owned
+termination and explicit, fallback and ambient completion; missing explicit
+launch evidence cannot become a fabricated pair. Only owned permissions are
+restored, and the owned missing directory is retained by rename. Unsupported
+write-denial preparation fails. The existing cleanup budget includes launch
+recording's own termination. Successful preparation still leaves the explicit
+observer completion solely to the tested observer.
 
 All existing owned spawn/status/output paths use this boundary. The controlled
 peer exercises real operating-system executables and failure collection; it

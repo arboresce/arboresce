@@ -1,0 +1,782 @@
+{
+  "fixture_version": "native-trace-v1",
+  "classification": "Original public synthetic byte recipes and expected native observation outcomes under MIT OR Apache-2.0; no customer data or credentials",
+  "profile": {
+    "captured_bytes_per_stream": 8388608,
+    "buffer_payload_bytes": 8192,
+    "normal_observation_ms": 30000,
+    "required_harness_observation_ms": 300000,
+    "collector_phase_ms": 180000,
+    "complete_records": true,
+    "normalization": "Only the actual PID in the two native status prefixes and observation.pid is replaced with0 for fixed whole-trace byte/hash comparison; every other byte, sorted field order, LF and byte-array element stays unchanged.",
+    "writer_work": "Loose deterministic write-call ceilings discriminate buffered complete records from one write per JSON byte.9000covers both8MiB0xff streams expanded to~64MiB; partial-write case has its own larger ceiling relative to output size. This does not increase any runtime resource/deadline ceiling.",
+    "error_policy": "An IO failure discards pending observation-buffer bytes without Drop replay; explicit required cleanup/error traces may follow. Preserve underlying IO kind. A failed serialization does not trigger a second flush. Final successful flush remains inside operation deadline.",
+    "native_receipts": "A real owned test-peer process emits both prepared byte files in a dedicated trace-streams mode. A separate explicit test context records its actual launch/status; no exit completion is recorded during bounded preparation wait. observe must create the explicit completion on success and all errors. Ambient context, where present, is completed separately after checking explicit receipt and remains unchanged.",
+    "preparation_failures": "Three real owned filesystem failures before observe. Launch denial is proved by failed create_new before spawn; already-selected /bin/sleep10 must still be running before B recording and is actually killed/reaped. No fabricated B receipt is allowed. Other test-peer children really exit0 before missing-exits/read_dir and trace-path/create_new faults. Rename only the owned empty B exits directory to preserve it. Independent local fallback A records every real child/status even when B cannot; ambient source context, where active, completes separately without mutation. Restore only owned launch permissions promptly; unsupported/root write denial is failure, never skip/PASS. The original preparation error and all cleanup/completion outcomes are retained. Successful old14 preparation still leaves B completion solely to observe."
+  },
+  "cases": [
+    {
+      "id": "empty",
+      "recipe": {
+        "stdout": {
+          "bytes": []
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1,
+        "normalized_trace": {
+          "normalized_pid": 0,
+          "bytes": 153,
+          "sha256": "d0a3d3881205d99f94d77526483c6016d3481fe0a6ec288b3f4c6df6364533d4"
+        },
+        "trace_write_budget_respected": true
+      }
+    },
+    {
+      "id": "binary-streams",
+      "recipe": {
+        "stdout": {
+          "bytes": [
+            0,
+            1,
+            10,
+            13,
+            34,
+            92,
+            127,
+            128,
+            255
+          ]
+        },
+        "stderr": {
+          "bytes": [
+            255,
+            128,
+            127,
+            92,
+            34,
+            13,
+            10,
+            1,
+            0
+          ]
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 9,
+          "sha256": "95ba80df79173b90a908a98e670637aa5885926b5715c3fff9e95bd72e733c59"
+        },
+        "stderr": {
+          "bytes": 9,
+          "sha256": "be4852f2194a0a4da733d0826429b7e6576e5580e1a7521cc8cff2e3ae67c3f8"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1,
+        "normalized_trace": {
+          "normalized_pid": 0,
+          "bytes": 207,
+          "sha256": "4f629c3910053a74160f49e9b387bc46b007d3d393dc206cdf3d856098a412d6"
+        },
+        "trace_write_budget_respected": true
+      }
+    },
+    {
+      "id": "one-mib-bounded-writes",
+      "recipe": {
+        "stdout": {
+          "repeat_byte": 255,
+          "count": 1048576
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 1024,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 1048576,
+          "sha256": "f5fb04aa5b882706b9309e885f19477261336ef76a150c3b4d3489dfac3953ec"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1,
+        "normalized_trace": {
+          "normalized_pid": 0,
+          "bytes": 4194456,
+          "sha256": "d711ab5db16578937f52c17c8f6b16eae7c1e9e0ded6406bd9e2cf7142d3d68c"
+        },
+        "trace_write_budget_respected": true
+      }
+    },
+    {
+      "id": "stdout-exact-limit",
+      "recipe": {
+        "stdout": {
+          "repeat_byte": 255,
+          "count": 8388608
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 8388608,
+          "sha256": "9f9b02f5ee6cbef5e018c1ee424095fc21a842ea6968c0d36114b5930dab2ba1"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1,
+        "normalized_trace": {
+          "normalized_pid": 0,
+          "bytes": 33554584,
+          "sha256": "82ed09ccabb9f9228d808ddff794634d70ee900609e3e5783e258da7a84412a8"
+        },
+        "trace_write_budget_respected": true
+      }
+    },
+    {
+      "id": "stderr-exact-limit",
+      "recipe": {
+        "stdout": {
+          "bytes": []
+        },
+        "stderr": {
+          "repeat_byte": 255,
+          "count": 8388608
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 8388608,
+          "sha256": "9f9b02f5ee6cbef5e018c1ee424095fc21a842ea6968c0d36114b5930dab2ba1"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1,
+        "normalized_trace": {
+          "normalized_pid": 0,
+          "bytes": 33554584,
+          "sha256": "ecc5381364e14ab9f91c967acfa9a122ba4a098add8e844189d654288bdf75aa"
+        },
+        "trace_write_budget_respected": true
+      }
+    },
+    {
+      "id": "both-exact-limits",
+      "recipe": {
+        "stdout": {
+          "repeat_byte": 255,
+          "count": 8388608
+        },
+        "stderr": {
+          "repeat_byte": 255,
+          "count": 8388608
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 8388608,
+          "sha256": "9f9b02f5ee6cbef5e018c1ee424095fc21a842ea6968c0d36114b5930dab2ba1"
+        },
+        "stderr": {
+          "bytes": 8388608,
+          "sha256": "9f9b02f5ee6cbef5e018c1ee424095fc21a842ea6968c0d36114b5930dab2ba1"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1,
+        "normalized_trace": {
+          "normalized_pid": 0,
+          "bytes": 67109015,
+          "sha256": "c9ba2778d4eef5dc6445542b50d5585d2132373590de4cde72e78c6c77b1a1eb"
+        },
+        "trace_write_budget_respected": true
+      }
+    },
+    {
+      "id": "partial-writes",
+      "recipe": {
+        "stdout": {
+          "repeat_byte": 255,
+          "count": 1048576
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 6000,
+        "max_write_bytes": 1024,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": true,
+        "error_kind": null,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 1048576,
+          "sha256": "f5fb04aa5b882706b9309e885f19477261336ef76a150c3b4d3489dfac3953ec"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1,
+        "normalized_trace": {
+          "normalized_pid": 0,
+          "bytes": 4194456,
+          "sha256": "d711ab5db16578937f52c17c8f6b16eae7c1e9e0ded6406bd9e2cf7142d3d68c"
+        },
+        "trace_write_budget_respected": true
+      }
+    },
+    {
+      "id": "stdout-one-over",
+      "recipe": {
+        "stdout": {
+          "repeat_byte": 255,
+          "count": 8388609
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": false,
+        "error_kind": "InvalidData",
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 8388609,
+          "sha256": "79fb747e323844e2f11684c58af1f0046d23173fbcee8b18c694b588009e3c1c"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": false,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 0
+      }
+    },
+    {
+      "id": "stderr-one-over",
+      "recipe": {
+        "stdout": {
+          "bytes": []
+        },
+        "stderr": {
+          "repeat_byte": 255,
+          "count": 8388609
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": false,
+        "error_kind": "InvalidData",
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 8388609,
+          "sha256": "79fb747e323844e2f11684c58af1f0046d23173fbcee8b18c694b588009e3c1c"
+        },
+        "observation_bytes_complete": false,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 0
+      }
+    },
+    {
+      "id": "first-write-error",
+      "recipe": {
+        "stdout": {
+          "bytes": [
+            97,
+            98,
+            99
+          ]
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": 0,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": false,
+        "error_kind": "BrokenPipe",
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 3,
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": false,
+        "first_successful_post_io_error_write": "cleanup",
+        "flush_calls": 0
+      }
+    },
+    {
+      "id": "frame-write-error",
+      "recipe": {
+        "stdout": {
+          "repeat_byte": 255,
+          "count": 1048576
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": 4096,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": false,
+        "error_kind": "BrokenPipe",
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 1048576,
+          "sha256": "f5fb04aa5b882706b9309e885f19477261336ef76a150c3b4d3489dfac3953ec"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": false,
+        "first_successful_post_io_error_write": "cleanup",
+        "flush_calls": 0
+      }
+    },
+    {
+      "id": "flush-error",
+      "recipe": {
+        "stdout": {
+          "bytes": [
+            97,
+            98,
+            99
+          ]
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": "BrokenPipe",
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": false,
+        "error_kind": "BrokenPipe",
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 3,
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "cleanup",
+        "flush_calls": 1
+      }
+    },
+    {
+      "id": "late-successful-flush",
+      "recipe": {
+        "stdout": {
+          "bytes": [
+            97,
+            98,
+            99
+          ]
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 9000,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 200,
+        "observation_budget_ms": 50
+      },
+      "expected": {
+        "operation_ok": false,
+        "error_kind": "TimedOut",
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 3,
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": true,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 1
+      }
+    },
+    {
+      "id": "write-work-exhaustion",
+      "recipe": {
+        "stdout": {
+          "repeat_byte": 255,
+          "count": 1048576
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "max_trace_writes": 64,
+        "max_write_bytes": null,
+        "fail_once_after_bytes": null,
+        "flush_error_once": null,
+        "flush_delay_ms": 0,
+        "observation_budget_ms": 30000
+      },
+      "expected": {
+        "operation_ok": false,
+        "error_kind": "BrokenPipe",
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "explicit_completion_present": true,
+        "explicit_launch_binding_matches": true,
+        "stdout": {
+          "bytes": 1048576,
+          "sha256": "f5fb04aa5b882706b9309e885f19477261336ef76a150c3b4d3489dfac3953ec"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "observation_bytes_complete": false,
+        "first_successful_post_io_error_write": "none",
+        "flush_calls": 0
+      }
+    }
+  ],
+  "scope": "Exact native observer trace and resource repair only. Every old fixture outcome and Initial/selectednumber meaning stays unchanged. No whole domain, product/native-release/recovery/human/live/service qualification is inferred.",
+  "preparation_cases": [
+    {
+      "id": "preparation-denied-live-launch",
+      "recipe": {
+        "preparation_fault": "launch-denied",
+        "program": "/bin/sleep",
+        "arguments": [
+          "10"
+        ],
+        "stdout": {
+          "bytes": []
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "preparation_budget_ms": 30000,
+        "cleanup_budget_ns": 2000000000
+      },
+      "expected": {
+        "error_kind": "PermissionDenied",
+        "original_error_preserved": true,
+        "exit": null,
+        "signal": 9,
+        "reaped": true,
+        "observe_entered": false,
+        "termination_attempted": true,
+        "termination_ok": true,
+        "explicit_completion_attempted": true,
+        "explicit_completion_ok": false,
+        "explicit_completion_error": "NotFound",
+        "fallback_completion_attempted": true,
+        "fallback_completion_ok": true,
+        "ambient_completion_attempted": true,
+        "ambient_completion_ok": true,
+        "actual_fallback_launch_exit_binding": true,
+        "explicit_launch_present": false,
+        "explicit_completion_present": false,
+        "actual_explicit_launch_exit_binding": false,
+        "permissions_restored": true,
+        "within_cleanup_budget": true,
+        "child_was_running_before_record": true,
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "write_denial_proven": true
+      }
+    },
+    {
+      "id": "preparation-missing-exits",
+      "recipe": {
+        "preparation_fault": "missing-exits",
+        "program": "test-peer",
+        "arguments": [],
+        "stdout": {
+          "bytes": [
+            97,
+            98,
+            99
+          ]
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "preparation_budget_ms": 30000,
+        "cleanup_budget_ns": 2000000000
+      },
+      "expected": {
+        "error_kind": "NotFound",
+        "original_error_preserved": true,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "observe_entered": false,
+        "termination_attempted": true,
+        "termination_ok": true,
+        "explicit_completion_attempted": true,
+        "explicit_completion_ok": false,
+        "explicit_completion_error": "NotFound",
+        "fallback_completion_attempted": true,
+        "fallback_completion_ok": true,
+        "ambient_completion_attempted": true,
+        "ambient_completion_ok": true,
+        "actual_fallback_launch_exit_binding": true,
+        "explicit_launch_present": true,
+        "explicit_completion_present": false,
+        "actual_explicit_launch_exit_binding": false,
+        "permissions_restored": true,
+        "within_cleanup_budget": true,
+        "child_was_running_before_record": false,
+        "stdout": {
+          "bytes": 3,
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "original_exit_directory_absent": true,
+        "preserved_exit_directory_present": true
+      }
+    },
+    {
+      "id": "preparation-trace-conflict",
+      "recipe": {
+        "preparation_fault": "trace-conflict",
+        "program": "test-peer",
+        "arguments": [],
+        "stdout": {
+          "bytes": [
+            97,
+            98,
+            99
+          ]
+        },
+        "stderr": {
+          "bytes": []
+        },
+        "preparation_budget_ms": 30000,
+        "cleanup_budget_ns": 2000000000
+      },
+      "expected": {
+        "error_kind": "AlreadyExists",
+        "original_error_preserved": true,
+        "exit": 0,
+        "signal": null,
+        "reaped": true,
+        "observe_entered": false,
+        "termination_attempted": true,
+        "termination_ok": true,
+        "explicit_completion_attempted": true,
+        "explicit_completion_ok": true,
+        "explicit_completion_error": null,
+        "fallback_completion_attempted": true,
+        "fallback_completion_ok": true,
+        "ambient_completion_attempted": true,
+        "ambient_completion_ok": true,
+        "actual_fallback_launch_exit_binding": true,
+        "explicit_launch_present": true,
+        "explicit_completion_present": true,
+        "actual_explicit_launch_exit_binding": true,
+        "permissions_restored": true,
+        "within_cleanup_budget": true,
+        "child_was_running_before_record": false,
+        "stdout": {
+          "bytes": 3,
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "trace_path_is_directory": true
+      }
+    }
+  ]
+}

@@ -10,6 +10,26 @@ use arboresce_xtask::{
 mod support;
 
 #[test]
+fn qualified_number_dependency_profiles() {
+    let fixture = support::qualified_number::fixture();
+    let mut seen = BTreeSet::new();
+    for row in fixture["cases"].as_array().unwrap() {
+        let id = format!("number-graph-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let mut input = fixture["base_input"].clone();
+        for patch in row["patches"].as_array().unwrap() {
+            *input.pointer_mut(patch["path"].as_str().unwrap()).unwrap() = patch["value"].clone();
+        }
+        let root = support::PreparedRoot::new().unwrap();
+        let metadata = support::qualified_number::metadata(&root, &input).unwrap();
+        let actual = check_workspace(&root.path, &metadata.to_string());
+        assert_eq!(actual.is_ok(), row["accepted"], "{id}: {actual:?}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 74);
+}
+
+#[test]
 fn independently_approved_collector_version_text() {
     use arboresce_xtask::collection;
     use serde_json::{Value, json};
@@ -3377,4 +3397,70 @@ fn independently_approved_native_measurement_activation_and_failure_receipts() {
         println!("xtask case={id} pid={}", std::process::id());
     }
     assert_eq!(seen.len(), 12);
+}
+
+#[test]
+fn complete_native_trace_streams_and_failures() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-trace-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = std::collections::BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let id = format!("trace-stream-{}", case["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let summary = support::native_trace::observe(&case["recipe"])
+            .unwrap_or_else(|error| panic!("{id}: {error}"));
+        println!("xtask native trace {summary}");
+        for (key, expected) in case["expected"].as_object().unwrap() {
+            assert_eq!(summary["observed"][key], *expected, "{id}: {key}");
+        }
+        for key in [
+            "explicit_completion_absent_before_observe",
+            "ambient_completion_succeeded",
+            "captured_inputs_exact",
+        ] {
+            assert_eq!(summary["proof"][key], true, "{id}: {key}");
+        }
+        if !case["recipe"]["fail_once_after_bytes"].is_null() {
+            assert_eq!(
+                summary["proof"]["one_shot_failure_after_actual_bytes"],
+                case["recipe"]["fail_once_after_bytes"],
+                "{id}: actual fault threshold"
+            );
+        }
+        if case["recipe"]["flush_delay_ms"].as_u64().unwrap() > 0 {
+            assert_eq!(summary["proof"]["delayed_flushes_returned"], 1, "{id}");
+            assert!(
+                summary["proof"]["observation_elapsed_ms"].as_u64().unwrap()
+                    >= case["recipe"]["flush_delay_ms"].as_u64().unwrap(),
+                "{id}: actual delayed successful flush"
+            );
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    for case in fixture["preparation_cases"].as_array().unwrap() {
+        let id = format!("trace-stream-{}", case["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let (retained, error) = support::native_trace::preparation(&case["recipe"])
+            .unwrap_or_else(|error| panic!("{id}: {error}"));
+        assert_eq!(
+            format!("{:?}", error.kind()),
+            case["expected"]["error_kind"].as_str().unwrap(),
+            "{id}: actual Err"
+        );
+        let summary =
+            support::native_trace::preparation_observation(&retained, &error, &case["recipe"])
+                .unwrap_or_else(|error| panic!("{id}: {error}"));
+        println!("xtask native preparation {summary}");
+        for (key, expected) in case["expected"].as_object().unwrap() {
+            assert_eq!(summary["observed"][key], *expected, "{id}: {key}");
+        }
+        assert_eq!(
+            summary["observed"]["ambient_environment_unchanged"], true,
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 17);
 }

@@ -481,6 +481,56 @@ relative-date, deadline and financial-report gates remain separate and mandatory
 Source JSON/JCS, aggregate processing and selected depth/node/output budgets,
 actual JSON Pointer selection and whole E203 acceptance remain required.
 
+Accepted attributed event-time foundation:
+`d072ccd03b59350b4c2b7e0a874d6024492beeba` supplies distinct recorded and
+attributed observed values, one-call fallible receipt creation and explicit
+organization-matched UTC calendar policy references. Both fresh owning and
+public-only standalone Rust 1.99.0 macOS ARM64 lanes passed 82 tests, all 3246
+case IDs and all 59 strict scopes. Actual independent source/public/native and
+distinct acceptance passed before and after the exact local commit. Later IANA
+rules, actual clocks, authority and history remain separate mandatory consumers.
+
+Next bounded source increment: one immutable `CanonicalJsonNumber` under the
+separate `canonical-json-number-v1` scalar profile. Check complete numeric grammar
+and the 4096-byte raw bound; preserve original decimal meaning until exact
+comparison with shortest vetted JCS output after finite binary64 conversion.
+Retain signed/fractional semantics, safe bounds, negative zero, long insignificant
+zeros and padded exponents; reject unsupported precision and nonzero underflow.
+Complete canonical bytes, length and SHA-256 share immutable canonical-value
+identity without exposing approximate floats or serializer framework types.
+
+The explicitly selected pure dependency graph uses canonicalizer 0.4.1 and
+software SHA2 0.10.9. Its versioned actual metadata guard binds all selected
+normal/build versions, aliases, conditional edges and effective features while
+retaining the literal closed Initial guard. Independently admitted expectations
+contain 236 new case IDs before this consumer. Twenty-three masked wrong-version
+recipes were corrected with stable graph IDs before admission; every expected
+outcome and earlier case stayed unchanged. Dependency source/right/archive
+preparation is separate from actual source and native qualification. The vetted
+subset invokes only primitive-f64 to_vec, including its bounded vector, boxed
+writer reference and formatting scratch. No generic JSON allocation claim follows.
+Fresh complete owning/standalone/source/native/public and distinct qualification
+remain required. The first complete number run passed its child tests but failed
+because complete native trace recording exceeded the unchanged deadline. Retain
+that red evidence. Borrowed serialization and explicitly flushed 8 KiB buffering
+preserve the exact numeric-array record while discarding pending bytes before
+error cleanup. Fourteen separately admitted real-process cases require complete
+trace hashes at both stream limits, short writes, preserved I/O errors, no hidden
+buffer-drop retries, actual delayed-flush failure and physical completion on
+every outcome. Fresh complete owning and public-only standalone qualification
+of the amended source remain required; no deadline or stream cap is raised.
+The next complete run passed all 87 tests and 3496 cases but failed the unchanged
+strict coverage gate on the new preparation-error helper path. Retain that red
+run as well. Three additional independently admitted filesystem-failure cases
+require actual live-child cleanup after proved launch write denial and truthful
+independent completions after missing-receipt-directory and trace-path conflicts.
+Real fallback receipts preserve actual status when the explicit context fails;
+no matching explicit pair is fabricated. The resulting 3499-case candidate still
+requires fresh complete source, owning, standalone and native qualification.
+Full source JSON parsing/JCS, aggregate processing, selected
+depth/node/output budgets, actual pointer selection, cross-language identity and
+whole E203 acceptance remain mandatory. No service or product gate is inferred.
+
 Accepted scalar source increment:
 `c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked
 content/control/generation values, exact decimal payloads and bounded advancement.

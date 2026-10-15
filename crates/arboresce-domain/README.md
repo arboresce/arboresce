@@ -124,6 +124,33 @@ Validation proves format. Resource existence, ownership, authenticated principal
 identity, random generation and ordering belong to their actual consumers.
 The library has no transport, storage, ambient clock or random source.
 
+`CanonicalJsonNumber::from_token` and `FromStr` admit one complete JSON number
+token up to 4096 UTF-8 bytes. The separate `canonical-json-number-v1` scalar
+profile supports signed/fractional finite binary64 values within the common safe
+range. It preserves the original mathematical decimal until comparison with the
+shortest vetted JCS decimal. Unsupported precision, overflow, nonzero underflow,
+whitespace, trailing data and malformed grammar fail before any value or digest
+is returned. Long insignificant zeros and padded exponents remain supported;
+complete lexical zero may ignore even a huge exponent only after grammar checks.
+
+`as_bytes`, `byte_length` and `sha256` return complete canonical output, its length
+and SHA-256. Output has at most 32 ASCII bytes, without a newline or BOM. Immutable
+equality/hashing compare canonical admitted values, so equivalent spellings and
+both signs of zero agree. Debug redacts content; display emits canonical bytes.
+Static errors retain no token, and formatter failures propagate. The
+[number literals](tests/fixtures/canonical-number-v1/README.md) independently
+freeze decimal decisions, exact bytes/digests, traits and published dependency
+vectors before consumption.
+
+The explicit [dependency profile](../../docs/requirements/dependency-qualification.md#selected-scalar-canonical-number-profile)
+uses only the canonicalizer's finite primitive-f64 `to_vec` path and software
+SHA-256. The reviewed subset includes its 128-byte vector, boxed writer reference
+and 132-byte formatting stack buffer; arbitrary serialization and object buffers
+are outside this admission. This computes a scalar canonical digest, not an
+original's representation digest, money value, signature or authority. Full JSON
+parsing, UTF-8/Unicode/duplicate validation, UTF16 key ordering, source and selected
+budgets, actual pointer selection and cross-language identity remain required.
+
 The independently reviewed [identity tables](tests/fixtures/primitives-v1/README.md)
 provide exact bytes, roundtrips and rejections before implementation. Remaining
 source JSON Pointer and whole primitive fixtures retain their complete implementation gates.

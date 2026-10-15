@@ -7,6 +7,115 @@ mod expected;
 mod support;
 
 #[test]
+fn canonical_number_literals() {
+    use arboresce_domain::{
+        CanonicalJsonNumber, MAX_CANONICAL_NUMBER_BYTES, MAX_JSON_NUMBER_TOKEN_BYTES,
+    };
+    let fixture = support::number_support::fixture();
+    assert_eq!(
+        MAX_JSON_NUMBER_TOKEN_BYTES as u64,
+        fixture["profile"]["raw_token_bytes"]
+    );
+    assert_eq!(
+        MAX_CANONICAL_NUMBER_BYTES as u64,
+        fixture["profile"]["canonical_output_bytes"]
+    );
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["numbers"].as_array().unwrap() {
+        let id = format!("number-lexical-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let input = row["input"].as_str().unwrap();
+        let actual = CanonicalJsonNumber::from_token(input);
+        assert_eq!(input.parse::<CanonicalJsonNumber>(), actual, "{id}");
+        match actual {
+            Ok(value) => {
+                assert_eq!(row["accepted"], true, "{id}");
+                assert_eq!(
+                    support::number_support::output(value),
+                    row["expected"],
+                    "{id}"
+                );
+            }
+            Err(error) => {
+                assert_eq!(row["accepted"], false, "{id}");
+                assert_eq!(error.to_string(), row["expected"]["error"], "{id}");
+                assert_eq!(format!("{error:?}"), row["expected"]["debug"]);
+                assert_eq!(error.source().is_none(), row["expected"]["source_absent"]);
+                assert!(write!(&mut support::RejectedOutput, "{error}").is_err());
+            }
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 124);
+}
+
+#[test]
+fn canonical_number_identity_and_traits() {
+    use arboresce_domain::CanonicalJsonNumber;
+    let fixture = support::number_support::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["traits"].as_array().unwrap() {
+        let id = format!("number-traits-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let first = row["first"]
+            .as_str()
+            .unwrap()
+            .parse::<CanonicalJsonNumber>()
+            .unwrap();
+        let second = row["second"]
+            .as_str()
+            .unwrap()
+            .parse::<CanonicalJsonNumber>()
+            .unwrap();
+        let copied = first;
+        assert_eq!(first == copied, row["copy_equal"]);
+        assert_eq!(
+            first == support::event_support::cloned(&first),
+            row["clone_equal"]
+        );
+        assert_eq!(first == second, row["expected_equal"]);
+        assert_eq!(
+            [first, second].into_iter().collect::<HashSet<_>>().len() as u64,
+            row["expected_set_size"]
+        );
+        assert_eq!(first.as_bytes() == second.as_bytes(), row["expected_equal"]);
+        assert_eq!(format!("{first:?}"), row["debug"]);
+        assert_eq!(
+            write!(&mut support::RejectedOutput, "{first}").is_err(),
+            row["formatter_error_propagates"]
+        );
+        assert!(write!(&mut support::RejectedOutput, "{first:?}").is_err());
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 10);
+}
+
+#[test]
+fn canonicalizer_published_number_vectors() {
+    let fixture = support::number_support::fixture();
+    let mut seen = HashSet::new();
+    for row in fixture["groups"]["published"].as_array().unwrap() {
+        let id = format!("number-published-{}", row["id"].as_str().unwrap());
+        assert!(seen.insert(id.clone()));
+        let bits = u64::from_str_radix(row["bits"].as_str().unwrap(), 16).unwrap();
+        match serde_json_canonicalizer::to_vec(&f64::from_bits(bits)) {
+            Ok(value) => {
+                assert_eq!(
+                    value,
+                    row["canonical_utf8"].as_str().unwrap().as_bytes(),
+                    "{id}"
+                );
+                assert_eq!(value.capacity() as u64, row["capacity"], "{id}");
+                assert!(value.len() <= arboresce_domain::MAX_CANONICAL_NUMBER_BYTES);
+            }
+            Err(error) => assert_eq!(error.to_string(), row["error"], "{id}"),
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 28);
+}
+
+#[test]
 fn observed_and_recorded_pairs() {
     use support::event_support as e;
     let fixture = e::fixture();

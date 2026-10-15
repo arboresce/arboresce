@@ -90,6 +90,17 @@ runtime qualification remain future consumers. Amend explicit pure dependency,
 role and supported API profiles with their first qualified consumers. A current
 unselected dependency is not a permanent prohibition on qualified pure libraries.
 
+The first pure numeric consumer selects `jcs-number-v1` through the domain's
+`package.metadata.arboresce.architecture-profile`. Missing selection uses the
+unchanged closed `initial-v1` policy. Unknown or wrong-type selection fails;
+the new exception belongs only to `arboresce-domain` version 0.0.0. Actual Cargo
+metadata dispatch must check exact unrenamed, untargeted normal canonicalizer
+and software-SHA roots, all reachable normal/build conditional edges, registry
+sources, exact versions and effective features, including workspace unification.
+The [dependency owner](dependency-qualification.md#selected-scalar-canonical-number-profile)
+fixes that graph and the bounded finite-f64 subset. A profile marker alone is
+not qualification. Preserve all Initial guard meanings and I/O/source boundaries.
+
 Production import/path checks reject configured I/O, clock, random, concrete
 infrastructure and unsupported SDK surfaces. They reject root aliases and unsafe
 or panic/unwrap paths, including raw spellings, UFCS calls and imported panic

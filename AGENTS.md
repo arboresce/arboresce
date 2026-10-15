@@ -19,6 +19,9 @@ revision JSON admission and checked immutable locator/reference wire values.
 It also supplies attributed observed/recorded time values and an explicit UTC
 calendar policy foundation. These pure values do not establish actual clocks,
 policy membership or qualified IANA consumers.
+The scalar canonical-number consumer selects explicit pure canonicalizer and
+software SHA-256 dependencies. Its bounded token API and versioned dependency
+guard retain separate full source-JSON, selection and whole-checkpoint gates.
 It retains the
 existing binding/build proof. The API and
 product runtime remain unfinished. Use the

@@ -5,7 +5,8 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use serde_json::Value;
+use serde_json::{Value, json};
+use sha2::{Digest, Sha256};
 
 use crate::{
     Action,
@@ -74,6 +75,151 @@ pub fn registered_layer(name: &str, version: &str) -> Result<Layer, GuardError> 
     }
 }
 
+#[derive(Clone, Copy, Eq, PartialEq)]
+enum DependencyProfile {
+    Initial,
+    JcsNumberV1,
+}
+
+impl DependencyProfile {
+    fn for_package(package: &Value) -> Result<Self, GuardError> {
+        let Some(settings) = package.get("metadata").and_then(|m| m.get("arboresce")) else {
+            return Ok(Self::Initial);
+        };
+        let settings = settings.as_object().ok_or(GuardError::InvalidInput)?;
+        match settings.get("architecture-profile") {
+            None => Ok(Self::Initial),
+            Some(Value::String(name)) if name == "initial-v1" => Ok(Self::Initial),
+            Some(Value::String(name))
+                if name == "jcs-number-v1"
+                    && text(package, "name")? == "arboresce-domain"
+                    && text(package, "version")? == "0.0.0" =>
+            {
+                Ok(Self::JcsNumberV1)
+            }
+            _ => Err(GuardError::Dependency),
+        }
+    }
+
+    fn check(self, layer: Layer, package: &Value, kind: &str) -> Result<(), GuardError> {
+        if self == Self::Initial || kind == "dev" {
+            return check_dependency(
+                layer,
+                text(package, "name")?,
+                text(package, "version")?,
+                kind,
+            );
+        }
+        match (kind, text(package, "name")?, text(package, "version")?) {
+            ("normal", "serde_json_canonicalizer", "0.4.1") | ("normal", "sha2", "0.10.9") => {
+                Ok(())
+            }
+            _ => Err(GuardError::Dependency),
+        }
+    }
+}
+
+type CargoRows<'a> = BTreeMap<&'a str, &'a Value>;
+
+fn package_identity(package: &Value) -> Result<String, GuardError> {
+    Ok(format!(
+        "{}@{}",
+        text(package, "name")?,
+        text(package, "version")?
+    ))
+}
+
+fn selected_features(node: &Value) -> Result<Vec<&str>, GuardError> {
+    let raw = array(node, "features")?;
+    let features: BTreeSet<_> = raw
+        .iter()
+        .map(|value| value.as_str().ok_or(GuardError::InvalidInput))
+        .collect::<Result<_, _>>()?;
+    if features.len() != raw.len() {
+        return Err(GuardError::InvalidInput);
+    }
+    Ok(features.into_iter().collect())
+}
+
+fn selected_edges<'a>(
+    node: &'a Value,
+    packages: &CargoRows<'_>,
+    skip_dev: bool,
+) -> Result<(Vec<Value>, Vec<&'a str>), GuardError> {
+    let mut edges = BTreeMap::new();
+    let mut targets = Vec::new();
+    for dependency in array(node, "deps")? {
+        let raw_kinds = array(dependency, "dep_kinds")?;
+        if raw_kinds.is_empty() {
+            return Err(GuardError::InvalidInput);
+        }
+        if skip_dev && raw_kinds.iter().all(|entry| entry["kind"] == "dev") {
+            continue;
+        }
+        let id = text(dependency, "pkg")?;
+        let package = packages.get(id).ok_or(GuardError::InvalidInput)?;
+        let mut kinds = Vec::new();
+        for entry in raw_kinds {
+            let kind = entry.get("kind").ok_or(GuardError::InvalidInput)?;
+            let target = entry.get("target").ok_or(GuardError::InvalidInput)?;
+            if !(kind.is_null() || kind.is_string()) || !(target.is_null() || target.is_string()) {
+                return Err(GuardError::InvalidInput);
+            }
+            kinds.push(json!({"kind":kind,"target":target}));
+        }
+        kinds.sort_by_cached_key(Value::to_string);
+        let name = text(dependency, "name")?;
+        let edge = json!({"name":name,"package":package_identity(package)?,"kinds":kinds});
+        if edges.insert(name, edge).is_some() {
+            return Err(GuardError::Dependency);
+        }
+        targets.push(id);
+    }
+    Ok((edges.into_values().collect(), targets))
+}
+
+/// Bind the complete selected closure, including conditional/build edges and
+/// workspace-unified features. This internal tool encoding is not product JCS.
+fn check_number_graph(
+    owner: &Value,
+    packages: &CargoRows<'_>,
+    nodes: &CargoRows<'_>,
+) -> Result<(), GuardError> {
+    const GRAPH_SHA256: &str = "d6d37e664f5971fa19c2d73ae893a46d74a5d89302083987d0f39c5d9f4dd014";
+    let (roots, mut pending) = selected_edges(owner, packages, true)?;
+    let mut seen = BTreeSet::new();
+    let mut records = BTreeMap::new();
+    while let Some(id) = pending.pop() {
+        if !seen.insert(id) {
+            continue;
+        }
+        if seen.len() > 23 {
+            return Err(GuardError::Dependency);
+        }
+        let package = packages.get(id).ok_or(GuardError::InvalidInput)?;
+        let node = nodes.get(id).ok_or(GuardError::InvalidInput)?;
+        let source = package.get("source").ok_or(GuardError::InvalidInput)?;
+        if !(source.is_null() || source.is_string()) {
+            return Err(GuardError::InvalidInput);
+        }
+        let identity = package_identity(package)?;
+        let (dependencies, targets) = selected_edges(node, packages, false)?;
+        let record = json!({"package":identity,"source":source,
+            "features":selected_features(node)?,"dependencies":dependencies});
+        if records.insert(identity, record).is_some() {
+            return Err(GuardError::Dependency);
+        }
+        pending.extend(targets);
+    }
+    let graph = json!({"owner_features":selected_features(owner)?,"roots":roots,
+        "packages":records.into_values().collect::<Vec<_>>()});
+    let bytes = serde_json::to_vec(&graph).map_err(|_| GuardError::InvalidInput)?;
+    if format!("{:x}", Sha256::digest(bytes)) != GRAPH_SHA256 {
+        return Err(GuardError::Dependency);
+    }
+    Ok(())
+}
+
 /// Reconcile Cargo's actual resolved graph and each current production source.
 pub fn check_workspace(root: &Path, metadata: &str) -> Result<(), GuardError> {
     if metadata.len() > MAX_METADATA_BYTES {
@@ -113,6 +259,7 @@ pub fn check_workspace(root: &Path, metadata: &str) -> Result<(), GuardError> {
         }
         let package = packages.get(id).ok_or(GuardError::InvalidInput)?;
         let layer = registered_layer(text(package, "name")?, text(package, "version")?)?;
+        let profile = DependencyProfile::for_package(package)?;
         let node = nodes.get(id).ok_or(GuardError::InvalidInput)?;
         for dependency in array(node, "deps")? {
             let target = packages
@@ -128,8 +275,11 @@ pub fn check_workspace(root: &Path, metadata: &str) -> Result<(), GuardError> {
                     Some(Value::String(s)) => s,
                     _ => return Err(GuardError::InvalidInput),
                 };
-                check_dependency(layer, text(target, "name")?, text(target, "version")?, kind)?;
+                profile.check(layer, target, kind)?;
             }
+        }
+        if profile == DependencyProfile::JcsNumberV1 {
+            check_number_graph(node, &packages, &nodes)?;
         }
         let manifest = Path::new(text(package, "manifest_path")?)
             .canonicalize()

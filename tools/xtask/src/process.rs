@@ -1,6 +1,6 @@
 use std::{
     fs,
-    io::{self, Read, Write},
+    io::{self, BufWriter, Read, Write},
     path::{Path, PathBuf},
     process::{Child, Command, ExitStatus, Output, Stdio},
     sync::atomic::{AtomicU64, Ordering},
@@ -40,6 +40,44 @@ fn read_output(path: &Path) -> io::Result<Vec<u8>> {
         ));
     }
     Ok(bytes)
+}
+
+struct ObservationRecord<'a> {
+    exit: Option<i32>,
+    pid: u32,
+    stderr: &'a [u8],
+    stdout: &'a [u8],
+}
+
+impl serde::Serialize for ObservationRecord<'_> {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        use serde::ser::SerializeStruct;
+        let mut record = serializer.serialize_struct("ObservationRecord", 5)?;
+        record.serialize_field("exit", &self.exit)?;
+        record.serialize_field("pid", &self.pid)?;
+        record.serialize_field("stderr", self.stderr)?;
+        record.serialize_field("stdout", self.stdout)?;
+        record.serialize_field("within_budget", &true)?;
+        record.end()
+    }
+}
+
+fn write_observation(trace: &mut impl Write, record: ObservationRecord<'_>) -> io::Result<()> {
+    let mut buffered = BufWriter::with_capacity(8192, trace);
+    let result = (|| {
+        buffered.write_all(b"xtask observation ")?;
+        serde_json::to_writer(&mut buffered, &record).map_err(|error| {
+            io::Error::new(
+                error.io_error_kind().unwrap_or(io::ErrorKind::InvalidData),
+                error,
+            )
+        })?;
+        buffered.write_all(b"\n")?;
+        buffered.flush()
+    })();
+    // Discard pending bytes on error: Drop must not retry before owned cleanup.
+    let _ = buffered.into_parts();
+    result
 }
 
 fn cleanup(child: &mut Child, trace: &mut impl Write) -> io::Result<()> {
@@ -96,10 +134,14 @@ pub fn observe(
                     "xtask native pid={process_id} exit={:?}",
                     status.code()
                 )?;
-                writeln!(
+                write_observation(
                     trace,
-                    "xtask observation {}",
-                    serde_json::json!({"pid":process_id,"exit":status.code(),"stdout":stdout,"stderr":stderr,"within_budget":true})
+                    ObservationRecord {
+                        exit: status.code(),
+                        pid: process_id,
+                        stderr: &stderr,
+                        stdout: &stdout,
+                    },
                 )?;
                 if Instant::now() >= deadline {
                     return Err(io::Error::new(

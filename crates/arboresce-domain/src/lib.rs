@@ -2,6 +2,12 @@
 
 use std::{error::Error, fmt, str::FromStr};
 
+mod canonical_number;
+pub use canonical_number::{
+    CanonicalJsonNumber, InvalidCanonicalNumber, MAX_CANONICAL_NUMBER_BYTES,
+    MAX_JSON_NUMBER_TOKEN_BYTES,
+};
+
 mod event_time;
 pub use event_time::{
     EventTimes, InvalidObservedTime, ObservedTime, ObservedValue, RecordedTime, ReportingDate,

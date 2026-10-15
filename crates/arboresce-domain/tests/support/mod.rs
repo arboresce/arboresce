@@ -1,5 +1,21 @@
 use std::fmt;
 
+pub mod number_support {
+    use arboresce_domain::CanonicalJsonNumber;
+    use serde_json::{Value, json};
+
+    pub fn fixture() -> Value {
+        serde_json::from_str(include_str!("../fixtures/canonical-number-v1/cases.json")).unwrap()
+    }
+
+    pub fn output(value: CanonicalJsonNumber) -> Value {
+        assert_eq!(value.to_string().as_bytes(), value.as_bytes());
+        json!({"canonical_utf8":std::str::from_utf8(value.as_bytes()).unwrap(),
+            "byte_length":value.byte_length(),"sha256":value.sha256().to_string(),
+            "debug":format!("{value:?}")})
+    }
+}
+
 pub mod event_support {
     use arboresce_domain::{
         EventTimes, ObservedTime, ObservedValue, OriginalReference, RecordedTime, ReportingDate,

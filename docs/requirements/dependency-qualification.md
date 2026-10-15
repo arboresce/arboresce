@@ -64,10 +64,11 @@ The local architecture/dispatch tool selects `serde_json` exactly `1.0.151`,
 `syn` exactly `2.0.119` with full/parsing/visit and no default features, and
 `proc-macro2` exactly `1.0.106` with no default features. Their locked public
 graphs and MIT OR Apache-2.0 rights are prepared before offline verification.
-They parse Cargo metadata and Rust source; they are not domain dependencies,
-canonical-JSON qualification, SDK/runtime qualification or an inference provider.
+That selection parses Cargo metadata and Rust source; it did not select domain
+dependencies, canonical JSON, SDK/runtime qualification or an inference provider.
 Actual tool/source/process qualification remains required before dependent use.
-The domain and existing proof retain their standard-library-only production graphs.
+It retained standard-library-only domain/proof production graphs. The later
+scalar-number selection below deliberately qualifies pure domain edges.
 
 The supplied-report gate adds direct `serde` exactly `1.0.229`, with no default
 features and only std. This is the already prepared locked public version;
@@ -79,9 +80,9 @@ The inventory selects `sha2` exactly `0.10.9`, with no default features, for
 SHA-256 file identity. Its exact locked public graph is prepared from cached,
 checksum-verified crate archives before offline qualification. `generic-array`
 retains MIT rights; the other added packages retain their declared MIT/Apache-2.0
-dual rights. This is a tool-only dependency and does not select product signing,
+dual rights. That tool-only selection did not select product signing,
 canonical encoding or domain cryptography. Existing selected package versions and
-the standard-library-only domain/proof production graphs remain unchanged. Availability of
+the then-standard-library-only domain/proof production graphs were unchanged. Availability of
 an extracted source directory alone is not package-archive preparation evidence.
 
 ## Checked revision fixture decoder selection
@@ -93,10 +94,61 @@ independently frozen literal fixture JSON and preserves typed unsigned integer
 values without floating-point coercion. Its maintained support is measured and
 its full owning and standalone qualification precedes accepted reliance.
 
-This selection adds no normal or build dependency to the domain runtime, which
-remains standard-library-only. It does not qualify admission of user JSON,
+This development selection added no normal or build dependency to the domain
+runtime. It does not qualify admission of user JSON,
 original numeric tokens, tagged wire objects or JCS. Those consumers retain their
 own dependency selection, raw-source, semantic and budget gates.
+
+## Selected scalar canonical-number profile
+
+The separate `canonical-json-number-v1` domain API selects
+`serde_json_canonicalizer` exactly `0.4.1` and `sha2` exactly `0.10.9` with no
+default features and only `force-soft`. The former has no selected features and
+brings `ryu-js` exactly `1.0.3`. Preserve every previously locked registry package
+record; only those two new packages and the domain's owning dependency edges are
+added. Cargo feature unification adds serde default and serde_json float_roundtrip
+to the affected workspace graph. This deliberately changes those effective
+profiles and requires complete fresh owning and public-only standalone qualification.
+
+The selected `jcs-number-v1` architecture profile binds the conservative unfiltered
+23-package normal/build closure, exact registry sources, root and transitive
+aliases/kinds/conditions and effective features. Its fixed compact sorted tool-JSON
+SHA-256 is `d6d37e664f5971fa19c2d73ae893a46d74a5d89302083987d0f39c5d9f4dd014`.
+This tool identity is not product JCS. The lockfile and independently reviewed
+[dependency inputs](../../tests/architecture/fixtures/qualified-number-dependencies-v1/README.md)
+retain exact package/archive and source-rights facts. Canonicalizer is MIT;
+ryu-js is Apache-2.0 OR BSL-1.0. Other transitive rights remain distinct, including
+MIT, Unlicense OR MIT and Unicode terms. A successful resolution or download alone
+does not qualify behavior or redistribution. Verify exact published archive
+checksums and rights before offline consumers; extracted source alone is insufficient.
+
+Only a checked finite primitive f64 from bounded complete numeric grammar reaches
+canonicalizer `to_vec`; final original-decimal equality is checked afterward.
+Do not expose Serialize, use convenience `pipe`, unsafe string conversion, raw
+fragments or generic maps/Values as source admission. The selected source path
+emits at most 25 bytes within the chosen 32-byte output capacity. It requests an
+initial 128-byte Vec and one boxed writer reference; ryu uses a 132-byte stack
+buffer. Object/key/value stacks remain empty. Include those allocations in the
+bounded scalar proof and exercise exact native output/capacity against independently
+frozen published numeric vectors. This is not an entire-document allocation proof.
+
+The standalone scalar API accepts at most 4096 bytes of complete numeric grammar.
+Normalize the original decimal before finite binary64 conversion and require
+equality with the shortest JCS decimal before hashing; preserve signed-zero
+canonicalization, padded exponents and long insignificant zeros. Reject precision
+changes, nonzero underflow and values outside the common safe range. Hash only
+complete canonical bytes. Keep immutable canonical-value identity distinct from
+representation identity, unsigned protocol tokens, exact money and signatures.
+The software feature precedes CPU dispatch; metadata still conservatively retains
+cpufeatures/libc without claiming they execute in this subset. No extra SHA feature,
+canonicalizer path, version or platform is implicitly qualified.
+
+This selected scalar profile does not select the general source parser's limits.
+Full raw-source Unicode/duplicate/numeric admission, UTF16 ordering, aggregate
+allocation/work and selected depth/node/output budgets, actual JSON Pointer
+selection, cross-language agreement and E10 signing remain required at their
+consumers. Preserve every closed Initial fixture meaning and all actual source,
+native, service, release and whole-checkpoint gates.
 
 ## Technology-specific evidence
 

@@ -126,6 +126,17 @@ fn collector_probe() -> std::io::Result<serde_json::Value> {
 fn main() -> ExitCode {
     let mode = std::env::var("ARBORESCE_XTASK_TEST_PEER").unwrap_or_default();
     let (stdout, stderr, exit) = match mode.as_str() {
+        "trace-streams" => {
+            let result = (|| -> std::io::Result<bool> {
+                let stdout =
+                    std::fs::read(std::env::var_os("ARBORESCE_TRACE_STDOUT").unwrap_or_default())?;
+                let stderr =
+                    std::fs::read(std::env::var_os("ARBORESCE_TRACE_STDERR").unwrap_or_default())?;
+                Ok(emit(&mut std::io::stdout().lock(), &stdout)
+                    && emit(&mut std::io::stderr().lock(), &stderr))
+            })();
+            return ExitCode::from(if matches!(result, Ok(true)) { 0 } else { 1 });
+        }
         "collector-probe" => {
             return match collector_probe() {
                 Ok(value) => ExitCode::from(
