@@ -720,3 +720,88 @@ fn locator_traits_and_input_independent_errors() {
     }
     assert_eq!(seen.len(), 4);
 }
+
+#[test]
+fn checked_tagged_revision_wire_objects() {
+    use arboresce_domain::InvalidRevisionWire;
+    let original = support::primitive_fixture();
+    let fixture = support::wire_fixture();
+    let mut seen = HashSet::new();
+    for case in original["groups"]["revision_parse"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        let event = format!("wire-original-{id}");
+        assert!(seen.insert(event.clone()));
+        let input = serde_json::to_vec(&case["input"]).unwrap();
+        let actual =
+            support::wire_typed(case["target"].as_str().unwrap(), &input).map(support::wire_output);
+        if case["accepted"] == true {
+            let actual = actual.unwrap();
+            assert_eq!(actual, fixture["original_admitted_values"][id], "{id}");
+            let roundtrip: serde_json::Value =
+                serde_json::from_str(actual["canonical_utf8"].as_str().unwrap()).unwrap();
+            assert_eq!(roundtrip, case["roundtrip"], "{id}");
+        } else {
+            assert_eq!(actual, Err(InvalidRevisionWire), "{id}");
+        }
+        println!("collector case={event} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 48);
+}
+
+#[test]
+fn raw_tagged_revision_json() {
+    use arboresce_domain::InvalidRevisionWire;
+    let fixture = support::wire_fixture();
+    let mut seen = HashSet::new();
+    for case in fixture["raw_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let bytes = support::wire_bytes(case);
+        let actual =
+            support::wire_typed(case["target"].as_str().unwrap(), &bytes).map(support::wire_output);
+        if case["accepted"] == true {
+            assert_eq!(actual.unwrap(), case["expected"], "{id}");
+        } else {
+            assert_eq!(actual, Err(InvalidRevisionWire), "{id}");
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 92);
+}
+
+#[test]
+fn revision_wire_traits_and_input_independent_errors() {
+    use arboresce_domain::{InvalidRevisionWire, MAX_REVISION_WIRE_BYTES, WireRevision};
+    let fixture = support::wire_fixture();
+    let api = &fixture["api"];
+    assert_eq!(
+        MAX_REVISION_WIRE_BYTES as u64,
+        api["max_wire_bytes"].as_u64().unwrap()
+    );
+    let error = WireRevision::from_json(b"invalid").unwrap_err();
+    assert_eq!(error, InvalidRevisionWire);
+    assert_eq!(error.to_string(), api["error"]);
+    assert_eq!(format!("{error:?}"), api["error_debug"]);
+    assert_eq!(
+        Error::source(&error).is_none(),
+        api["error_source_none"].as_bool().unwrap()
+    );
+    let mut rejected = support::RejectedOutput;
+    assert_eq!(
+        write!(&mut rejected, "{error}").is_err(),
+        api["error_formatter_failure_propagates"].as_bool().unwrap()
+    );
+    let value = WireRevision::from_json(b"{\"kind\":\"content\",\"value\":\"1\"}").unwrap();
+    assert_eq!(
+        write!(&mut rejected, "{value}").is_err(),
+        api["wire_formatter_failure_propagates"].as_bool().unwrap()
+    );
+    let mut seen = HashSet::new();
+    for case in fixture["traits"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(support::wire_traits(case), case["expected"], "{id}");
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 4);
+}

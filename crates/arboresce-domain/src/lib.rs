@@ -13,6 +13,8 @@ pub use revisions::{
 };
 mod time;
 pub use time::{CalendarDate, Clock, InvalidCalendarDate, InvalidUtcTimestamp, UtcTimestamp};
+mod wire;
+pub use wire::{InvalidRevisionWire, MAX_REVISION_WIRE_BYTES, WireRevision};
 
 /// A canonical lower-case UUIDv4 value.
 ///

@@ -391,7 +391,7 @@ Independent source/public/native review and a distinct witness accepted the exac
 source before and after its local commit. This historical record retains the
 scope of that source and supplies no actual clock, event attribution or product gate.
 
-Next bounded source increment: borrowed exact UTF-8 selections, checked upright
+Pure-locator implementation refinement: borrowed exact UTF-8 selections, checked upright
 page bounds, all eight Exif pixel-edge transforms over all four raw corners,
 and integer audio/channel intervals. Independent literals include interior and
 full-page orientation variants, isolated pixel-capacity failures and complete
@@ -402,6 +402,25 @@ capacity and bounds only; it does not qualify actual media, rendering, profile,
 representation/render identity, current authority or complete locator wire input.
 Whole original-token, raw JSON/JCS/budget, JSON Pointer, observed-time/zone and
 actual source/process/profile acceptance requirements remain intact.
+
+Accepted pure-locator source increment:
+`3abad38772ae35343901f85b4336e7a76c7547ab` implements those pure byte, page and
+audio bounds. Both fresh owning and public-only standalone Rust 1.99.0 macOS
+ARM64 default-feature lanes passed 67 tests, all 54 strict scopes and complete
+native/profile collection. Independent source/public/native review and a distinct
+witness accepted the exact source before and after its local commit. Supplied
+numeric metadata establishes no actual media, rendering, source identity or authority.
+
+Next bounded source increment: complete closed tagged revision objects from raw
+JSON bytes, retaining distinct checked scalars and explicit typed-tag admission.
+Independent expectations preserve all 48 parsed revision cases and add 92 raw
+byte/duplicate/escape/typed-tag/size cases and four trait cases before consumption.
+The specialized standard-library-only parser checks the existing one-MiB control
+byte envelope and bounded decoded fields without recursion or numeric coercion.
+Canonical complete wire display is separate from unchanged scalar decimal APIs.
+Other wire/unsigned-token/immutable-reference admission, general source JSON/JCS,
+depth/node/output budgets, JSON Pointer, observed-time/zone and whole E203
+acceptance remain required. No transport, storage or product gate is inferred.
 
 Accepted scalar source increment:
 `c4402dab01984370dfbbcc93d606d30bc77fd622` supplies distinct immutable checked

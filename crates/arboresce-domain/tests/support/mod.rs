@@ -309,3 +309,74 @@ pub fn locator_traits(case: &Value) -> Value {
         _ => panic!("unknown prepared locator fixture kind"),
     }
 }
+
+use arboresce_domain::{InvalidRevisionWire, WireRevision};
+
+pub fn wire_fixture() -> Value {
+    serde_json::from_str(include_str!("../fixtures/revision-wire-v1/cases.json")).unwrap()
+}
+
+/// Prepare only frozen input bytes; production receives no expected result.
+pub fn wire_bytes(case: &Value) -> Vec<u8> {
+    let mut bytes = match case.get("input_hex") {
+        Some(value) => decode_hex(value.as_str().unwrap()),
+        None => case["input_utf8"].as_str().unwrap().as_bytes().to_vec(),
+    };
+    if let Some(padding) = case.get("padding_spaces") {
+        let padding = usize::try_from(padding.as_u64().unwrap()).unwrap();
+        let size = bytes.len().checked_add(padding).unwrap();
+        assert!(
+            size <= 1_048_577,
+            "prepared wire recipe exceeds its fixture bound"
+        );
+        bytes.resize(size, b' ');
+    }
+    bytes
+}
+
+pub fn wire_typed(target: &str, bytes: &[u8]) -> Result<WireRevision, InvalidRevisionWire> {
+    match target {
+        "any" => WireRevision::from_json(bytes),
+        "content" => ContentRevision::from_wire_json(bytes).map(WireRevision::from),
+        "control" => ControlRevision::from_wire_json(bytes).map(WireRevision::from),
+        "generation" => Generation::from_wire_json(bytes).map(WireRevision::from),
+        _ => panic!("unknown prepared wire fixture target"),
+    }
+}
+
+pub fn wire_output(value: WireRevision) -> Value {
+    json!({"kind":value.kind(),"value":value.value(),"canonical_utf8":value.to_string()})
+}
+
+fn wire_value(kind: &str, value: u64) -> WireRevision {
+    match kind {
+        "content" => ContentRevision::new(value).unwrap().into(),
+        "control" => ControlRevision::new(value).unwrap().into(),
+        "generation" => Generation::new(value).unwrap().into(),
+        _ => panic!("unknown prepared wire value kind"),
+    }
+}
+
+pub fn wire_traits(case: &Value) -> Value {
+    use std::{collections::HashSet, fmt::Write};
+    let kind = case["kind"].as_str().unwrap();
+    let values = case["values"].as_array().unwrap();
+    if kind == "distinct" {
+        let values: Vec<_> = values
+            .iter()
+            .map(|v| wire_value(v["kind"].as_str().unwrap(), v["value"].as_u64().unwrap()))
+            .collect();
+        let set: HashSet<_> = values.iter().copied().collect();
+        return json!({"distinct_set_size":set.len(),
+            "pairwise_equal":[values[0]==values[1],values[0]==values[2],values[1]==values[2]]});
+    }
+    let first = wire_value(kind, values[0].as_u64().unwrap());
+    let second = wire_value(kind, values[1].as_u64().unwrap());
+    let copied = first;
+    let set: HashSet<_> = [first, copied, second].into_iter().collect();
+    let mut rejected = RejectedOutput;
+    json!({"copied_equal":copied==first,"distinct_set_size":set.len(),"kind":first.kind(),
+        "value":first.value(),"debug_first":format!("{first:?}"),
+        "canonical_first":first.to_string(),"canonical_second":second.to_string(),
+        "formatter_error_propagates":write!(&mut rejected,"{first}").is_err()})
+}

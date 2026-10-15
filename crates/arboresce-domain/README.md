@@ -19,6 +19,20 @@ independently reviewed scalar expectations.
 These scalar APIs do not admit a complete tagged wire object, perform a stored
 compare-and-swap or establish revision order from time.
 
+`WireRevision::from_json` admits complete closed content/control/generation
+objects from bounded raw bytes. It retains each distinct checked scalar variant;
+each scalar's explicit `from_wire_json` also enforces its own tag. JSON member
+order, the four JSON whitespace characters and equivalent ASCII escapes may
+vary. Duplicate decoded keys, extra members, malformed input, wrong types, tags
+or decimal strings fail. The one-MiB control envelope is checked before traversal,
+and decoded fields have fixed small bounds. No numeric value passes through
+binary64. `WireRevision` display emits canonical complete kind/value objects;
+existing scalar display and `FromStr` remain decimal payloads. Rejections retain
+no input, and formatter failures propagate. The independently reviewed
+[wire fixtures](tests/fixtures/revision-wire-v1/README.md) preserve all 48 original
+revision cases and add raw byte, size, escape and typed-value expectations.
+This specialized parser does not admit general JSON or a transport envelope.
+
 `CalendarDate` checks real Gregorian dates in years 0001 through 9999 and
 roundtrips exact `YYYY-MM-DD` text. It never infers an instant or timezone.
 `UtcTimestamp` checks exact UTC millisecond text and explicit date/time components,
@@ -45,7 +59,7 @@ byte selections, bounds, full-page edge transforms and failures.
 The supplied numeric page/audio bounds do not establish a qualified decoder,
 render identity, source reference, codec, sample conversion or authority. Large
 synthetic bounds exercise arithmetic capacities only. Complete locator wire and
-representation admission remain separate. Closed wire/raw-JSON admission, JCS,
+representation admission remain separate. Remaining wire/general raw-JSON admission, JCS,
 budgets, source-observed attribution and timezone policy retain their owning gates. A UTC parser does not
 decide an ambiguous local event's timezone or convert a receipt date into midnight.
 
