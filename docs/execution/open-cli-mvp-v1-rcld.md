@@ -707,7 +707,7 @@ Verification: Independent literal contract/fixture oracles, owning language chec
 
 ### E205 — Enforce tenant roles, RLS and first-adapter admission
 
-Status: `not_started`. Prerequisites: E204. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E204. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -727,6 +727,42 @@ no signature, actual RLS/race, enabled writer, human assurance or recovery.
 The package introduces no maintained generator, decoder or executable source.
 This milestone remains unfinished until its actual source, complete consumed
 fixture groups and real nonowner/PostgreSQL/admission profiles independently pass.
+
+The independently accepted tenant-read foundation is locally committed at
+`64a11b3a1b8905ed0a49a84ad31bf48ddfc2f997`. Checked application workspace and
+reference values accompany a forward migration with canonical organization,
+principal, domain and membership relations, forced row security and scoped
+nonowner read privileges. Actual direct-session tests qualify the original 25
+tenant cases, all 68 additional schema/session cases, 32 preparation cases and
+six finite diagnostic interoperability cases. Physical context reuse, canonical
+catalogue and rowsets, relationship constraints, separately committed revocation
+reads, and unknown terminal outcomes retain independent literal expectations.
+Qualification-only probe relations do not establish product-family persistence.
+
+Fresh Rust 1.99.0 owning and public-only standalone lanes each pass 109 tests,
+5,086 complete registered case events and all 75 strict coverage scopes across
+54 measured files. Each conserves 20 native objects, 200 fresh main profiles,
+666 matched physical process pairs, five native scopes, 59 bounded merge commands
+and 12,613 retained runtime artifacts. Owning coverage is 13,246/13,597 executable
+lines and 24,996/26,872 regions; standalone coverage is 13,243/13,597 lines and
+24,992/26,872 regions. Every required scope independently exceeds 90%.
+
+Separate source/public/completeness and expected/qualification reviewers and a
+distinct delivery witness accept this component. The actual postcommit witness
+reconciles all 321 qualified public inputs and the exact 19-path source commit.
+Current-image compiler/resource proof and separate default/1 MiB stack probes
+remain scoped estimates and observations, without auxiliary full-suite credit
+or universal OS/RSS bounds. Both owned database service generations complete
+bounded cleanup within their original leases. All failed runs and held inputs
+remain retained evidence.
+
+This historical annotation changes only this plan; the other 320 qualified
+public inputs remain unchanged. No fresh complete run on annotated bytes is
+claimed. The remaining 117 original admitted cases still require principal
+mapping, current authority and final-effect fences, bootstrap scope, real races
+and shared admission. Actual authentication, pooling, product/bootstrap writers,
+authentic lifecycle continuity, human assurance, recovery and whole E205 remain
+at their consuming gates. This component enables no product or bootstrap writer.
 
 Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
