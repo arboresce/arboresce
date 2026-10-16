@@ -13,6 +13,7 @@ use crate::Harness;
 pub enum SchemaVersion {
     Initial,
     Annotation,
+    TenantAuthority,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -34,12 +35,24 @@ pub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {
         include_str!("../migrations/1_records.sql").into_sql_str(),
         false,
     )];
-    if version == SchemaVersion::Annotation {
+    if matches!(
+        version,
+        SchemaVersion::Annotation | SchemaVersion::TenantAuthority
+    ) {
         result.push(Migration::new(
             2,
             "bounded annotation".into(),
             MigrationType::Simple,
             include_str!("../migrations/2_annotation.sql").into_sql_str(),
+            false,
+        ));
+    }
+    if version == SchemaVersion::TenantAuthority {
+        result.push(Migration::new(
+            3,
+            "tenant authority foundation".into(),
+            MigrationType::Simple,
+            include_str!("../migrations/3_tenant_authority.sql").into_sql_str(),
             false,
         ));
     }

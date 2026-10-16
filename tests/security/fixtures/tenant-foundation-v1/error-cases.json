@@ -1,0 +1,72 @@
+{
+  "fixture_version": "tenant-failure-v1",
+  "rights": "Original synthetic qualification inputs under MIT OR Apache-2.0; no customer or credential material.",
+  "bounds": {
+    "max_file_bytes": 4096,
+    "max_cases": 8,
+    "max_depth": 8
+  },
+  "scope": "Rust diagnostic error interoperability only. Finite variant labels are not HTTP problem bodies. Expected answers never enter the measured observer.",
+  "cases": [
+    {
+      "id": "tenant-failure-unavailable",
+      "input": { "variant": "Unavailable" },
+      "expected": {
+        "display": "Unavailable",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "tenant-failure-unsafe-role",
+      "input": { "variant": "UnsafeRole" },
+      "expected": {
+        "display": "UnsafeRole",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "tenant-failure-retained-context",
+      "input": { "variant": "RetainedContext" },
+      "expected": {
+        "display": "RetainedContext",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "tenant-failure-not-found",
+      "input": { "variant": "NotFound" },
+      "expected": {
+        "display": "NotFound",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "tenant-failure-invalid-stored-data",
+      "input": { "variant": "InvalidStoredData" },
+      "expected": {
+        "display": "InvalidStoredData",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "tenant-failure-unknown-completion",
+      "input": { "variant": "UnknownCompletion" },
+      "expected": {
+        "display": "UnknownCompletion",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    }
+  ]
+}

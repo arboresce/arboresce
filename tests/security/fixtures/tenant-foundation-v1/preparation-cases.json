@@ -1,0 +1,477 @@
+{
+  "fixture_version": "tenant-preparation-v1",
+  "rights": "Original synthetic qualification inputs under MIT OR Apache-2.0; no customer or credential material.",
+  "bounds": {
+    "max_file_bytes": 16384,
+    "max_cases": 32,
+    "max_depth": 16
+  },
+  "scope": "Adverse input-preparation qualification only, not product rejection/authentication/wholeacceptance. Preserve all68tenantfoundation+25originaltenant inputs/oracles unchanged.",
+  "recipes": "Clone all3complete admitted sourceJSON documents into one qualified owned private directory. Change only nameddiscriminator. Update actual authoritycasefileSHA+size in manifest so semanticfaults are not hidden by a stale filehash. Sourcepins still select actualunchanged publicroot. Depth-limit adds14nestedarrays beneath an extra rootproperty (root+14arrays+leaf=16);depth-over adds15 (=17), all otherfieldsvalid. Missingtenantcase changes only one consumedrowgroup while retaining185rows. Capture actual readeraccept/error and ownedcleanup. Referencecases directlychallenge malformedkind/missingID withotheridentifiersvalid. Runtimehelperreceives inputonly;expected stays in assertionbody. The sixteen appended boundary cases use actual missing files or raw malformed/duplicate-key bytes for the selected physical document. Duplicate members repeat its existing fixture_version and value before the complete original object members. Additional byte limits use otherwise-valid complete JSON plus trailing ASCII spaces to exactly131072/131073 bytes. Authority depth uses30/31 arrays under one extra root property (32/33 total); descriptor SHA/bytes follow the actual raw authority bytes, or are null when that selected file is absent. Pin recipes append ../unavailable-tenant-source.txt or tests/security/fixtures/tenant-foundation-v1/unavailable-source-pin.txt with a zero digest, preserving all original pins. No selected public input is changed; the safe absent pin is checked absent before/after. Presence order is additional,authority,manifest. Record actual before/after presence and only existing-file fingerprints with logical roles; no hash for absence. Readers preserve all existing files and cleanup removes only the owned fixed paths.",
+  "cases": [
+    {
+      "id": "tenant-preparation-valid",
+      "input": {
+        "operation": "fixture",
+        "recipe": "valid"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null
+      }
+    },
+    {
+      "id": "tenant-preparation-depth-limit",
+      "input": {
+        "operation": "fixture",
+        "recipe": "depth-limit"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null
+      }
+    },
+    {
+      "id": "tenant-preparation-depth-over",
+      "input": {
+        "operation": "fixture",
+        "recipe": "depth-over"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "tenant fixture depth exceeded"
+      }
+    },
+    {
+      "id": "tenant-preparation-fixture-version",
+      "input": {
+        "operation": "fixture",
+        "recipe": "fixture-version"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "tenant fixture identity mismatch"
+      }
+    },
+    {
+      "id": "tenant-preparation-manifest-hash",
+      "input": {
+        "operation": "fixture",
+        "recipe": "manifest-hash"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "tenant fixture identity mismatch"
+      }
+    },
+    {
+      "id": "tenant-preparation-missing-pins",
+      "input": {
+        "operation": "fixture",
+        "recipe": "missing-pins"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "missing source pins"
+      }
+    },
+    {
+      "id": "tenant-preparation-wrong-pin",
+      "input": {
+        "operation": "fixture",
+        "recipe": "wrong-pin"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "tenant source pin mismatch"
+      }
+    },
+    {
+      "id": "tenant-preparation-missing-additional-group",
+      "input": {
+        "operation": "fixture",
+        "recipe": "missing-additional-group"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "missing tenant cases"
+      }
+    },
+    {
+      "id": "tenant-preparation-missing-additional-case",
+      "input": {
+        "operation": "fixture",
+        "recipe": "missing-additional-case"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "incomplete tenant cases"
+      }
+    },
+    {
+      "id": "tenant-preparation-duplicate-additional-id",
+      "input": {
+        "operation": "fixture",
+        "recipe": "duplicate-additional-id"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "incomplete tenant cases"
+      }
+    },
+    {
+      "id": "tenant-preparation-missing-authority-cases",
+      "input": {
+        "operation": "fixture",
+        "recipe": "missing-authority-cases"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "missing authority cases"
+      }
+    },
+    {
+      "id": "tenant-preparation-missing-required-group",
+      "input": {
+        "operation": "fixture",
+        "recipe": "missing-required-group"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "missing required tenant group"
+      }
+    },
+    {
+      "id": "tenant-preparation-missing-tenant-case",
+      "input": {
+        "operation": "fixture",
+        "recipe": "missing-tenant-case"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "incomplete tenant group"
+      }
+    },
+    {
+      "id": "tenant-preparation-duplicate-tenant-id",
+      "input": {
+        "operation": "fixture",
+        "recipe": "duplicate-tenant-id"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "incomplete tenant group"
+      }
+    },
+    {
+      "id": "tenant-preparation-unknown-reference-kind",
+      "input": {
+        "operation": "reference",
+        "reference": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "kind": "unknown",
+          "id": "44444444-4444-4444-b444-444444444444"
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "error": "unknown reference kind"
+      }
+    },
+    {
+      "id": "tenant-preparation-missing-reference-id",
+      "input": {
+        "operation": "reference",
+        "reference": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "kind": "project"
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "error": "missing reference id"
+      }
+    },
+    {
+      "id": "tenant-preparation-additional-file-missing",
+      "input": {
+        "operation": "fixture",
+        "recipe": "additional-file-missing"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector file intake failed",
+        "prepared_file_count": 2,
+        "prepared_file_presence": [
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-authority-file-missing",
+      "input": {
+        "operation": "fixture",
+        "recipe": "authority-file-missing"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector file intake failed",
+        "prepared_file_count": 2,
+        "prepared_file_presence": [
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-manifest-file-missing",
+      "input": {
+        "operation": "fixture",
+        "recipe": "manifest-file-missing"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector file intake failed",
+        "prepared_file_count": 2,
+        "prepared_file_presence": [
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-additional-json-malformed",
+      "input": {
+        "operation": "fixture",
+        "recipe": "additional-json-malformed"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector input",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-authority-json-malformed",
+      "input": {
+        "operation": "fixture",
+        "recipe": "authority-json-malformed"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector input",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-manifest-json-malformed",
+      "input": {
+        "operation": "fixture",
+        "recipe": "manifest-json-malformed"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector input",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-additional-json-duplicate-key",
+      "input": {
+        "operation": "fixture",
+        "recipe": "additional-json-duplicate-key"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector input",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-authority-json-duplicate-key",
+      "input": {
+        "operation": "fixture",
+        "recipe": "authority-json-duplicate-key"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector input",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-additional-byte-limit",
+      "input": {
+        "operation": "fixture",
+        "recipe": "additional-byte-limit"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ],
+        "additional_file_bytes": 131072
+      }
+    },
+    {
+      "id": "tenant-preparation-additional-byte-over",
+      "input": {
+        "operation": "fixture",
+        "recipe": "additional-byte-over"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector file intake failed",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ],
+        "additional_file_bytes": 131073
+      }
+    },
+    {
+      "id": "tenant-preparation-authority-version",
+      "input": {
+        "operation": "fixture",
+        "recipe": "authority-version"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "tenant fixture identity mismatch",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-authority-depth-limit",
+      "input": {
+        "operation": "fixture",
+        "recipe": "authority-depth-limit"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-authority-depth-over",
+      "input": {
+        "operation": "fixture",
+        "recipe": "authority-depth-over"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "tenant fixture depth exceeded",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-parent-source-pin",
+      "input": {
+        "operation": "fixture",
+        "recipe": "parent-source-pin"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "inventory file discovery failed",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-absent-source-pin",
+      "input": {
+        "operation": "fixture",
+        "recipe": "absent-source-pin"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector file intake failed",
+        "prepared_file_count": 3,
+        "prepared_file_presence": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "tenant-preparation-malformed-reference-id",
+      "input": {
+        "operation": "reference",
+        "reference": {
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "kind": "project",
+          "id": "not-a-uuid"
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid canonical UUIDv4 identifier"
+      }
+    }
+  ]
+}

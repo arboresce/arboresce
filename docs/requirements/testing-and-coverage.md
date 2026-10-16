@@ -135,6 +135,9 @@ does not qualify an API or FFI runtime.
 
 | Rust path | Measurement role |
 | --- | --- |
+| `crates/arboresce-application/src/policy/mod.rs` | Explicit workspace/principal context and typed same-workspace reference scope; measured source. |
+| `crates/arboresce-postgres/src/tenant.rs` | Bounded reused direct tenant session and canonical membership read; measured source. |
+| `crates/arboresce-postgres/tests/support/tenant.rs` | Tenant fixture intake, canonical seed/catalogue and actual isolated-service fault/probe support; measured source. |
 | `crates/arboresce-domain/src/lib.rs` | Checked identifier library; source lines/regions. |
 | `crates/arboresce/src/lib.rs` | Existing binding/build proof; source lines/regions, no MVP runtime claim. |
 | `crates/arboresce-domain/tests/support/mod.rs` | Maintained formatter-failure sink; source lines/regions. |

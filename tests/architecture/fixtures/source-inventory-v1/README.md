@@ -12,6 +12,13 @@ source strings are syntax/data inputs, not fake Cargo executions or runtime proo
 The native positive instead runs actual prepared offline Cargo metadata against
 the current public checkout. Its retained output includes a bounded process trace.
 
+The current-checkout positive names 60 Rust sources: 54 measured, five assertion
+sources and the one frozen declaration. Its ten actual targets are unchanged.
+The earlier count of 57 increases only for the measured tenant selection,
+PostgreSQL tenant adapter and qualification support modules. All model answers,
+license/declaration hashes, source-discovery bounds and complete role/target
+comparisons retain their meanings; no maintained source is excluded.
+
 The library inventories actual regular files without relying on Git. Exclusions
 are exact direct children of the checkout root and actual workspace-package roots:
 `target`, `build`, `dist`, `.venv`, `node_modules`, `__pycache__`, `.pytest_cache`,

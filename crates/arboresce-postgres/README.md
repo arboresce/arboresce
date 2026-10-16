@@ -20,3 +20,31 @@ schema change or replay. A newer database rejects an older selected migration
 set. Transactional DDL failure cannot produce a successful migration receipt.
 Exact independently reviewed scenarios and service input requirements belong to
 the [migration expectations](../../tests/integration/postgres/fixtures/migration-harness-v1/README.md).
+
+The tenant foundation adds an explicitly selected third forward migration while
+preserving the original two migration profiles and their exact SQL. It creates
+canonical organization, principal, domain and membership keys, exact identity
+profile/key uniqueness, same-organization domain references, forced row security
+and SELECT-only ordinary access. Privileged synthetic qualification seeds these
+relations; no registration, first-owner or product writer is exposed.
+
+`Harness::tenant_session` reuses one physical direct connection in the prepared
+isolated namespace. Each bounded read transaction validates the actual role and
+catalogue, rejects retained session context, installs complete transaction-local
+organization/domain/principal settings and reads current active membership under
+explicit READ COMMITTED, READ ONLY. `TenantContext` must come from the qualified
+server boundary; its construction is no signature or action-authority proof.
+Positive commit/rollback completion and lost completion remain distinct.
+`TenantFailure` implements the standard Rust diagnostic error traits with its
+finite variant label and no underlying cause. Typed propagation preserves the
+variant through boxed errors without allocating replacement diagnostic strings.
+
+The complete [tenant inputs](../../tests/security/fixtures/tenant-foundation-v1/README.md)
+and all 25 original authority tenant cases run serially in the existing required
+service harness. Qualification-only probe relations exercise actual RLS and
+composite typed references. They do not implement product Project, Party, capture
+or expense persistence. Complete source/native measurement includes the fixture
+reader, seeds, catalogue observations, fault support and all actual process paths.
+Current action/grant locks, admission/final-effect races, shared quotas, authentic
+lifecycle continuity, product writers, actual pooling, HTTP/authentication and
+whole milestone acceptance retain their separate consuming gates.

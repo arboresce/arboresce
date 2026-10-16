@@ -1,0 +1,2733 @@
+{
+  "fixture_version": "tenant-foundation-v1",
+  "rights": "Original public synthetic literals, MIT OR Apache-2.0. No operational credentials, private corpus or customer data.",
+  "sources": {
+    "docs/requirements/storage-and-search.md": "2673c020e4edfd6d53363effdf59c6ee07deff578104d2706e772e23d8709d46",
+    "docs/requirements/security-and-privacy.md": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
+    "docs/requirements/identity-contract.md": "2c90ffe583dc51b6e032b0571f651c6550b04edfda3688844076016cb3efff12",
+    "docs/requirements/project-fixtures.md": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
+    "tests/security/fixtures/authority-v1/cases.json": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911",
+    "tests/security/fixtures/authority-v1/sources.json": "a07a10b194ac98959e080f88dec600d9621b1e487f6e3e0d38a13336d75823b9",
+    "crates/arboresce-postgres/migrations/1_records.sql": "34f36106937fee8e45db31a6e26e537ceeace7411c91fd2c603781a96291af7c",
+    "crates/arboresce-postgres/migrations/2_annotation.sql": "9c6f8d35f2f575176b13428a62895858c943b8b3974ca4ca07de26ad600d76a4",
+    "crates/arboresce-postgres/migrations/3_tenant_authority.sql": "504f3d72b2bad515423d0e7bfee4ac756aab1d97a3cb698b8d91103bec3d4e4f"
+  },
+  "reading_limits": {
+    "max_fixture_bytes": 131072,
+    "max_depth": 16,
+    "max_cases": 128,
+    "paths": "Only this committed regular file and the exact declared public inputs; no symlinks or outside paths.",
+    "scope": "This additional tenant-foundation file only. The unchanged larger authority-v1 file retains its independently admitted8MiB/512case/depth32 profile."
+  },
+  "seed": {
+    "organizations": [
+      {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "state": "active"
+      },
+      {
+        "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "state": "active"
+      }
+    ],
+    "principals": [
+      {
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "identity_profile": "arboresce.nostr-identity.v1",
+        "identity_version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "state": "active"
+      },
+      {
+        "principal_id": "02020202-0202-4202-8202-020202020202",
+        "identity_profile": "arboresce.nostr-identity.v1",
+        "identity_version": "nip01-v1",
+        "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+        "state": "active"
+      }
+    ],
+    "domains": [
+      {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "state": "active"
+      },
+      {
+        "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+        "state": "active"
+      },
+      {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+        "state": "active"
+      }
+    ],
+    "memberships": [
+      {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "domain_id": "22222222-2222-4222-9222-222222222222",
+        "membership_id": "10101010-1010-4010-8010-101010101010",
+        "state": "active"
+      },
+      {
+        "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+        "membership_id": "11101010-1010-4010-8010-101010101010",
+        "state": "active"
+      }
+    ]
+  },
+  "api_cases": [
+    {
+      "id": "tenant-session-a-commit",
+      "input": {
+        "recipe": "read",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "terminal": "commit"
+      },
+      "expected": {
+        "membership_id": "10101010-1010-4010-8010-101010101010",
+        "completion": "ok",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false,
+        "isolation": "read committed",
+        "read_only": true
+      }
+    },
+    {
+      "id": "tenant-session-b-rollback",
+      "input": {
+        "recipe": "read",
+        "context": {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "terminal": "rollback"
+      },
+      "expected": {
+        "membership_id": "11101010-1010-4010-8010-101010101010",
+        "completion": "ok",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false,
+        "isolation": "read committed",
+        "read_only": true
+      }
+    },
+    {
+      "id": "tenant-session-unknown-organization",
+      "input": {
+        "recipe": "read",
+        "context": {
+          "organization_id": "99999999-9999-4999-8999-999999999999",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-crossed-domain",
+      "input": {
+        "recipe": "read",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-unknown-principal",
+      "input": {
+        "recipe": "read",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "99999999-9999-4999-8999-999999999999"
+        }
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-other-domain",
+      "input": {
+        "recipe": "read",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-revoked-organizations",
+      "input": {
+        "recipe": "revoked",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "table": "organizations"
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "tenant-session-revoked-organizations-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-revoked-principals",
+      "input": {
+        "recipe": "revoked",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "table": "principals"
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "tenant-session-revoked-principals-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-revoked-domains",
+      "input": {
+        "recipe": "revoked",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "table": "domains"
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "tenant-session-revoked-domains-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-revoked-memberships",
+      "input": {
+        "recipe": "revoked",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "table": "memberships"
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "tenant-session-revoked-memberships-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-retained-organization_id",
+      "input": {
+        "recipe": "retained-context",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "field": "organization_id",
+        "value": "11111111-1111-4111-8111-111111111111"
+      },
+      "expected": {
+        "error": "RetainedContext",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-retained-domain_id",
+      "input": {
+        "recipe": "retained-context",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "field": "domain_id",
+        "value": "22222222-2222-4222-9222-222222222222"
+      },
+      "expected": {
+        "error": "RetainedContext",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-retained-principal_id",
+      "input": {
+        "recipe": "retained-context",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "field": "principal_id",
+        "value": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "error": "RetainedContext",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-corrupt-membership-id",
+      "input": {
+        "recipe": "corrupt-membership",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "InvalidStoredData",
+        "canonical_rows_after": "corrupt-membership-before-restoration",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-query-failure",
+      "input": {
+        "recipe": "read-query-failure",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "Unavailable",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-catalogue-failure",
+      "input": {
+        "recipe": "catalogue-failure",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "Unavailable",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-unavailable",
+      "input": {
+        "recipe": "absent-socket",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "Unavailable",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-commit-completion-lost",
+      "input": {
+        "recipe": "commit-completion-lost",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "UnknownCompletion",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-rollback-completion-lost",
+      "input": {
+        "recipe": "rollback-completion-lost",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "error": "UnknownCompletion",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-current-revocation-read",
+      "input": {
+        "recipe": "revoke-after-begin",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        }
+      },
+      "expected": {
+        "membership_id": "10101010-1010-4010-8010-101010101010",
+        "membership_after_revocation": null,
+        "completion": "ok",
+        "action_authorization_claim": false,
+        "canonical_rows_after": "tenant-current-revocation-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-session-known-active-nonmember",
+      "input": {
+        "recipe": "read",
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        }
+      },
+      "expected": {
+        "error": "NotFound",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "context_after_terminal": null,
+        "product_writers_enabled": false
+      }
+    }
+  ],
+  "constraint_cases": [
+    {
+      "id": "tenant-constraint-new-organization",
+      "input": {
+        "table": "organizations",
+        "row": {
+          "organization_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": null,
+        "rows_affected": 1,
+        "canonical_rows_after": "tenant-constraint-new-organization-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-organization-duplicate",
+      "input": {
+        "table": "organizations",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23505",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-uuid-wrong-version",
+      "input": {
+        "table": "organizations",
+        "row": {
+          "organization_id": "11111111-1111-1111-8111-111111111111",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-uuid-wrong-variant",
+      "input": {
+        "table": "organizations",
+        "row": {
+          "organization_id": "11111111-1111-4111-0111-111111111111",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-uuid-malformed",
+      "input": {
+        "table": "organizations",
+        "row": {
+          "organization_id": "unknown",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "22P02",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-organization-null",
+      "input": {
+        "table": "organizations",
+        "row": {
+          "organization_id": null,
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23502",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-organization-state",
+      "input": {
+        "table": "organizations",
+        "row": {
+          "organization_id": "99999999-9999-4999-8999-999999999999",
+          "state": "unsupported"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-new-principal",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "3333333333333333333333333333333333333333333333333333333333333333",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": null,
+        "rows_affected": 1,
+        "canonical_rows_after": "tenant-constraint-new-principal-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-principal-id-duplicate",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "3333333333333333333333333333333333333333333333333333333333333333",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23505",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-profile-key-duplicate",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23505",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-profile-unsupported",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "unsupported",
+          "identity_version": "nip01-v1",
+          "public_key": "3333333333333333333333333333333333333333333333333333333333333333",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-version-unsupported",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "unsupported",
+          "public_key": "3333333333333333333333333333333333333333333333333333333333333333",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-public-key-short",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "22222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-public-key-long",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "222222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-public-key-null",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": null,
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23502",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-new-domain",
+      "input": {
+        "table": "domains",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": null,
+        "rows_affected": 1,
+        "canonical_rows_after": "tenant-constraint-new-domain-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-domain-unknown-organization",
+      "input": {
+        "table": "domains",
+        "row": {
+          "organization_id": "99999999-9999-4999-8999-999999999999",
+          "domain_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23503",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-domain-duplicate",
+      "input": {
+        "table": "domains",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23505",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-membership-principal-duplicate",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23505",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-crossed-membership-domain",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23503",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-membership-unknown-domain",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "domain_id": "99999999-9999-4999-8999-999999999999",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23503",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-membership-unknown-principal",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "99999999-9999-4999-8999-999999999999",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23503",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-membership-unknown-principal-b",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "99999999-9999-4999-8999-999999999999",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23503",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-new-membership",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": null,
+        "rows_affected": 1,
+        "canonical_rows_after": "tenant-constraint-new-membership-after",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-membership-id-duplicate",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23505",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-principals-state",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "3333333333333333333333333333333333333333333333333333333333333333",
+          "state": "unsupported"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-domains-state",
+      "input": {
+        "table": "domains",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "99999999-9999-4999-8999-999999999999",
+          "state": "unsupported"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-memberships-state",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "unsupported"
+        }
+      },
+      "expected": {
+        "sqlstate": "23514",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-principal_id-null",
+      "input": {
+        "table": "principals",
+        "row": {
+          "principal_id": null,
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "3333333333333333333333333333333333333333333333333333333333333333",
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23502",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-domain_id-null",
+      "input": {
+        "table": "domains",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": null,
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23502",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    },
+    {
+      "id": "tenant-constraint-membership_id-null",
+      "input": {
+        "table": "memberships",
+        "row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": null,
+          "state": "active"
+        }
+      },
+      "expected": {
+        "sqlstate": "23502",
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "schema_after_restoration": "catalogue_v1",
+        "product_writers_enabled": false
+      }
+    }
+  ],
+  "migration_cases": [
+    {
+      "id": "tenant-migration-forward-from-v2",
+      "input": {
+        "from": "Annotation",
+        "to": "TenantAuthority"
+      },
+      "expected": {
+        "versions": [
+          1,
+          2,
+          3
+        ],
+        "canonical_tables": [
+          "domains",
+          "memberships",
+          "organizations",
+          "principals"
+        ],
+        "ordinary_writers_enabled": false,
+        "catalogue": "catalogue_v1",
+        "canonical_rows_after": "seed",
+        "useful_v2_data": "migration_seed_v2",
+        "original_v2_schema_unchanged": true,
+        "original_v2_checksums_unchanged": true,
+        "third_checksum_sha384": "6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f"
+      }
+    },
+    {
+      "id": "tenant-migration-replay-v3",
+      "input": {
+        "from": "TenantAuthority",
+        "to": "TenantAuthority"
+      },
+      "expected": {
+        "versions": [
+          1,
+          2,
+          3
+        ],
+        "schema_unchanged": true,
+        "catalogue": "catalogue_v1",
+        "canonical_rows_after": "seed",
+        "useful_v2_data": "migration_seed_v2",
+        "original_v2_schema_unchanged": true,
+        "original_v2_checksums_unchanged": true,
+        "third_checksum_sha384": "6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f"
+      }
+    },
+    {
+      "id": "tenant-migration-old-v2-rejects",
+      "input": {
+        "from": "TenantAuthority",
+        "to": "Annotation"
+      },
+      "expected": {
+        "error": "MissingAppliedVersion",
+        "schema_unchanged": true,
+        "catalogue": "catalogue_v1",
+        "canonical_rows_after": "seed",
+        "useful_v2_data": "migration_seed_v2",
+        "original_v2_schema_unchanged": true,
+        "original_v2_checksums_unchanged": true,
+        "third_checksum_sha384": "6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f"
+      }
+    },
+    {
+      "id": "tenant-migration-original-checksums",
+      "input": {
+        "versions": [
+          1,
+          2
+        ]
+      },
+      "expected": {
+        "checksums": {
+          "1": "b6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+          "2": "3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df"
+        },
+        "catalogue": "catalogue_v1",
+        "canonical_rows_after": "seed",
+        "useful_v2_data": "migration_seed_v2",
+        "original_v2_schema_unchanged": true,
+        "original_v2_checksums_unchanged": true,
+        "third_checksum_sha384": "6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f"
+      }
+    }
+  ],
+  "runtime_projection": "The seed and each selected case input only. Expected and future cases never enter runtime context.",
+  "scope": "Additional independent canonical-schema/direct-session inputs alongside ALL25 unchanged authority-v1 tenant_relations cases. This fixture has its own128KiB/128case/depth16 bound. Complete named afterstates and recipes precede tests. Probe relations are qualification data only. No enabled product/bootstrap writer, action/grant fence, HTTP/pooler/auth/human/recovery/whole milestone qualification.",
+  "expected_rowsets": {
+    "seed": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-constraint-new-organization-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        },
+        {
+          "organization_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-constraint-new-principal-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        },
+        {
+          "principal_id": "03030303-0303-4303-8303-030303030303",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "3333333333333333333333333333333333333333333333333333333333333333",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-constraint-new-domain-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-constraint-new-membership-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "99999999-9999-4999-8999-999999999999",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-session-revoked-organizations-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "revoked"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-session-revoked-principals-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "revoked"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-session-revoked-domains-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "revoked"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-session-revoked-memberships-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "revoked"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "tenant-current-revocation-after": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "10101010-1010-4010-8010-101010101010",
+          "state": "revoked"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    },
+    "corrupt-membership-before-restoration": {
+      "organizations": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "state": "active"
+        }
+      ],
+      "principals": [
+        {
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+          "state": "active"
+        },
+        {
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "identity_profile": "arboresce.nostr-identity.v1",
+          "identity_version": "nip01-v1",
+          "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+          "state": "active"
+        }
+      ],
+      "domains": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "state": "active"
+        },
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "cccccccc-cccc-4ccc-accc-cccccccccccc",
+          "state": "active"
+        }
+      ],
+      "memberships": [
+        {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "membership_id": "00000000-0000-0000-0000-000000000000",
+          "state": "active"
+        },
+        {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "membership_id": "11101010-1010-4010-8010-101010101010",
+          "state": "active"
+        }
+      ]
+    }
+  },
+  "sql_binding": {
+    "identifier_and_text": "Bind exact supplied text as a parameter; cast identifiers in PostgreSQL. Do not pre-parse the malformed UUID constraint case into an application Identifier.",
+    "public_key": "Decode each non-null lower-case hex string into exact bytea bytes; null binds SQL NULL. Do not hash, pad, truncate, normalize or curve-validate it.",
+    "case_reset": "Every API/constraint case begins with a separately established complete seed. Every migration case uses its explicitly different initial state. After observing the declared afterstate, restore the complete seed and independent catalogue before proceeding. Constraint inserts run in their own autocommit statement so a rejected insert cannot leave an aborted shared transaction.",
+    "expected_isolation": "The runtime receives seed plus selected input only. Assertions resolve the named independently frozen expected rowset outside runtime. Expected values never supply a runtime ID or physical intervention."
+  },
+  "api_recipes": {
+    "read": {
+      "steps": [
+        "Start a fresh bounded nonowner TenantSession and record pg_backend_pid. Pass exactly the complete context in this input to begin.",
+        "On success, observe exact isolation=read committed and transaction_read_only=on, read current_membership, preserve context identity, then execute the explicitly selected terminal (default rollback).",
+        "On denied begin, synchronize the same physical connection after rollback. Query all three context GUCs, canonical rows and independent catalogue. Reuse after synchronization must not inherit context."
+      ],
+      "after": "Expected named canonical rowset and catalogue_v1; normalized empty/absent context is null. No product write or action authorization."
+    },
+    "revoked": {
+      "steps": [
+        "From complete seed, an independent privileged session updates ONLY the selected table row belonging to the supplied context to state=revoked. For organizations useorganization_id; principals useprincipal_id; domains useorganization_id+domain_id; memberships useorganization_id+principal_id.",
+        "Receive positive COMMIT completion before opening the ordinary session/begin. Observe the exact named revoked rowset.",
+        "Ordinary begin returns NotFound. Restore state=active in the same exact row, and compare full seed/catalogue before the next case."
+      ],
+      "after": "Only the named state change before restoration; seed after restoration; no product effects."
+    },
+    "retained-context": {
+      "steps": [
+        "Open a valid nonowner session with no active transaction and record backendPID. Install exactly the input field/value with set_config(field,value,false), so it is session-local rather than transaction-local.",
+        "begin must return RetainedContext before installing a different context. Verify same backend and the original sole retained setting.",
+        "Clear exactly that setting to the empty string with set_config(...,false). Verify normalized context null; begin the declared context successfully, rollback positively and verify same backend/context null."
+      ],
+      "after": "Canonical seed/catalogue unchanged throughout; no inherited authority is accepted."
+    },
+    "corrupt-membership": {
+      "steps": [
+        "Before opening the ordinary session, privileged setup drops ONLY arboresce_authority.identifier constraint identifier_check. Change ONLY the selected membership_id from10101010-1010-4010-8010-101010101010 to00000000-0000-0000-0000-000000000000, with exactorganization_id+principal_id predicate; positively commit.",
+        "Verify this exact corrupt row and otherwise complete seed, then call ordinary begin with the complete input context. The stored UUID conversion must return InvalidStoredData, not a connection or lookup failure. Synchronize rollback.",
+        "Privileged restoration first reinstates the exact original membership_id, then restores identifier_check with UUID version4 and RFC variant checks and validates it. Independently compare complete seed/catalogue, ordinary role and null context."
+      ],
+      "fault_value": "00000000-0000-0000-0000-000000000000",
+      "after": "The sole temporary corrupt UUID is observed before restoration. No lasting row/domain/policy change."
+    },
+    "read-query-failure": {
+      "steps": [
+        "Open ordinary session, record its actual backendPID, begin successfully and positively read the expected membership once under the supplied context.",
+        "An independent privileged connection verifies that PID belongs to this exact isolated database/session and calls pg_terminate_backend ONLY on that owned backend. Receive true and observe its disappearance.",
+        "A subsequent current_membership on the existing transaction must fail Unavailable; do not interpret absence, timeout or a replacement connection as an empty successful result. Drop the broken handle and positively open a fresh nonowner session."
+      ],
+      "after": "Seed/catalogue unchanged; terminated backend absent; fresh session has null context and can begin/rollback the original context."
+    },
+    "catalogue-failure": {
+      "steps": [
+        "Open an ordinary session and record backendPID while the initial role/catalogue validation succeeds. No tenant transaction is active.",
+        "In the isolated database only, an independent privileged session verifies pg_catalog.arboresce_tenant_roles_unavailable is absent, then renames ONLY view pg_catalog.pg_roles to arboresce_tenant_roles_unavailable and commits. The original view OID/columns/owner/ACL are captured.",
+        "A direct catalogue query on the ordinary connection SELECT1 FROM pg_roles must report PostgreSQL42P01. The same session begin must report Unavailable at role validation, before canonical context installation. This is not an unsafe-role or missing-membership case.",
+        "Always rename that exact view back to pg_roles before interpreting the verdict. Verify original OID/columns/owner/ACL, complete canonical seed/catalogue and null context, then successfully begin/rollback on the same backend."
+      ],
+      "causal_sqlstate": "42P01",
+      "after": "Original view identity and privileges restored; no canonical or role change."
+    },
+    "absent-socket": {
+      "steps": [
+        "Create one uniquely owned private0700 temporary directory, verify its identity and absence of .s.PGSQL.5432, and provide that exact directory to Harness.",
+        "tenant_session must fail Unavailable before any live database connection or context installation. The actual selected server remains live and unmodified.",
+        "Verify the same empty directory identity and remove only that owned directory. Independently read seed/catalogue from the live prepared server."
+      ],
+      "after": "Owned directory absent; live server and canonical seed/catalogue unchanged."
+    },
+    "commit-completion-lost": {
+      "steps": [
+        "Start the accepted bounded Unix relay targeting only the prepared server socket. Open a valid TenantSession through it, record backendPID, begin/read the expected membership positively.",
+        "Forward the actual COMMIT command to PostgreSQL. Observe the real server CommandComplete tag C with length11 and body hex434f4d4d495400. Withhold exactly this matching response and close the relay connection without delivering terminal completion to SQLx.",
+        "commit must return UnknownCompletion. Join both bounded relay workers, prove exactly one matching completion dropped, close/drop handles and verify only the owned relay socket/directory are removed.",
+        "An independent direct connection observes the original backend absent, canonical seed/catalogue unchanged, no accepted product effect and null context on a fresh ordinary connection. No automatic retry."
+      ],
+      "terminal": "COMMIT",
+      "after": "Real server completion was observed at the relay; consumer completion remains unknown. No positive action receipt."
+    },
+    "rollback-completion-lost": {
+      "steps": [
+        "Use the same exact physical setup and cleanup as commit-completion-lost, with ROLLBACK selected explicitly.",
+        "Forward actual ROLLBACK. Observe real CommandComplete tag C length13/bodyhex524f4c4c4241434b00, withhold that exact completion and close without delivering it to SQLx.",
+        "rollback must return UnknownCompletion; independently observe absent old backend, unchanged seed/catalogue, null fresh context and bounded owned relay cleanup."
+      ],
+      "terminal": "ROLLBACK",
+      "after": "Exactly one matching server terminal response dropped; no automatic retry or positive completion claim."
+    },
+    "revoke-after-begin": {
+      "steps": [
+        "Open one ordinary physical session and begin the complete context under explicit READ COMMITTED, READ ONLY. Positively read original membership and record backendPID.",
+        "A separate privileged session updates ONLY the selected organization/principal membership to revoked and receives positive COMMIT completion. This is the explicit before-next-read barrier.",
+        "On the SAME ordinary transaction/backend, call current_membership again. Successful None is required, not query failure or reconnect. Roll back positively, verify null context and the independently named revoked rowset.",
+        "Restore only this membership state to active and compare full seed/catalogue."
+      ],
+      "after": "Current statement sees committed revocation; this is a read-profile proof, not an action-admission lock/race guarantee."
+    }
+  },
+  "catalogue_v1": {
+    "schema": "arboresce_authority",
+    "owner": "harness_migrator",
+    "identifier_domain": {
+      "name": "arboresce_authority.identifier",
+      "base_type": "uuid",
+      "domain_not_null": false,
+      "constraints": [
+        {
+          "name": "identifier_check",
+          "predicate": "get_byte(uuid_send(VALUE),6)>>4 equals4 AND get_byte(uuid_send(VALUE),8)>>6 equals2",
+          "validated": true
+        }
+      ]
+    },
+    "tables": {
+      "organizations": {
+        "columns": [
+          {
+            "name": "organization_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "text",
+            "not_null": true,
+            "default": null
+          }
+        ],
+        "primary_key": [
+          "organization_id"
+        ],
+        "unique_keys": [],
+        "foreign_keys": [],
+        "checks": {
+          "organizations_state_check": "state in active,revoked"
+        },
+        "policies": [
+          {
+            "name": "organization_context",
+            "command": "SELECT",
+            "roles": [
+              "public"
+            ],
+            "permissive": true,
+            "using": "organization_id matches nonempty organization GUC; same-organization membership for selected principal is active and its canonical principal is active",
+            "with_check": null
+          }
+        ]
+      },
+      "principals": {
+        "columns": [
+          {
+            "name": "principal_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "identity_profile",
+            "type": "text",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "identity_version",
+            "type": "text",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "public_key",
+            "type": "bytea",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "text",
+            "not_null": true,
+            "default": null
+          }
+        ],
+        "primary_key": [
+          "principal_id"
+        ],
+        "unique_keys": [
+          [
+            "identity_profile",
+            "identity_version",
+            "public_key"
+          ]
+        ],
+        "foreign_keys": [],
+        "checks": {
+          "principals_identity_profile_check": "exact arboresce.nostr-identity.v1",
+          "principals_identity_version_check": "exact nip01-v1",
+          "principals_public_key_check": "octet_length(public_key)=32",
+          "principals_state_check": "state in active,revoked"
+        },
+        "policies": [
+          {
+            "name": "principal_context",
+            "command": "SELECT",
+            "roles": [
+              "public"
+            ],
+            "permissive": true,
+            "using": "principal_id equals nonempty principal GUC",
+            "with_check": null
+          }
+        ]
+      },
+      "domains": {
+        "columns": [
+          {
+            "name": "organization_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "domain_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "text",
+            "not_null": true,
+            "default": null
+          }
+        ],
+        "primary_key": [
+          "organization_id",
+          "domain_id"
+        ],
+        "unique_keys": [],
+        "foreign_keys": [
+          {
+            "columns": [
+              "organization_id"
+            ],
+            "target": "organizations",
+            "target_columns": [
+              "organization_id"
+            ],
+            "on_update": "NO ACTION",
+            "on_delete": "NO ACTION",
+            "match": "SIMPLE",
+            "deferrable": false,
+            "validated": true
+          }
+        ],
+        "checks": {
+          "domains_state_check": "state in active,revoked"
+        },
+        "policies": [
+          {
+            "name": "domain_context",
+            "command": "SELECT",
+            "roles": [
+              "public"
+            ],
+            "permissive": true,
+            "using": "organization_id and domain_id match nonempty selected GUCs; exact canonical organization and selected-principal membership and principal are active; membership domain equals selected domain",
+            "with_check": null
+          }
+        ]
+      },
+      "memberships": {
+        "columns": [
+          {
+            "name": "organization_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "principal_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "domain_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "membership_id",
+            "type": "arboresce_authority.identifier",
+            "not_null": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "text",
+            "not_null": true,
+            "default": null
+          }
+        ],
+        "primary_key": [
+          "organization_id",
+          "principal_id"
+        ],
+        "unique_keys": [
+          [
+            "organization_id",
+            "membership_id"
+          ]
+        ],
+        "foreign_keys": [
+          {
+            "columns": [
+              "principal_id"
+            ],
+            "target": "principals",
+            "target_columns": [
+              "principal_id"
+            ],
+            "on_update": "NO ACTION",
+            "on_delete": "NO ACTION",
+            "match": "SIMPLE",
+            "deferrable": false,
+            "validated": true
+          },
+          {
+            "columns": [
+              "organization_id",
+              "domain_id"
+            ],
+            "target": "domains",
+            "target_columns": [
+              "organization_id",
+              "domain_id"
+            ],
+            "on_update": "NO ACTION",
+            "on_delete": "NO ACTION",
+            "match": "SIMPLE",
+            "deferrable": false,
+            "validated": true
+          }
+        ],
+        "checks": {
+          "memberships_state_check": "state in active,revoked"
+        },
+        "policies": [
+          {
+            "name": "membership_context",
+            "command": "SELECT",
+            "roles": [
+              "public"
+            ],
+            "permissive": true,
+            "using": "organization_id and principal_id equal their nonempty GUCs; this read can inspect the selected membership state and is not action authority",
+            "with_check": null
+          }
+        ]
+      }
+    },
+    "row_security": {
+      "every_table_enabled": true,
+      "every_table_forced": true,
+      "ordinary_role_owns_no_table": true,
+      "no_insert_update_delete_policy": true
+    },
+    "ordinary_role": {
+      "name": "harness_writer",
+      "superuser": false,
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "replication": false,
+      "admin_member": false,
+      "migrator_member": false,
+      "schema_usage": true,
+      "schema_create": false,
+      "table_select": true,
+      "table_insert": false,
+      "table_update": false,
+      "table_delete": false,
+      "table_truncate": false,
+      "table_trigger": false
+    },
+    "check_qualification": "Inspect exact catalogue type/nullability/default/key/reference/check/policy/ACL facts; concrete independent constraint cases qualify check semantics. Do not treat a DDL digest or matching count alone as the schema oracle.",
+    "public_privileges_on_authority_schema": []
+  },
+  "migration_seed_v2": {
+    "versions": [
+      1,
+      2
+    ],
+    "record": {
+      "organization_id": "11111111-1111-4111-8111-111111111111",
+      "record_id": "22222222-2222-4222-8222-222222222222",
+      "content_revision": "9007199254740993",
+      "date": "2000-02-29"
+    },
+    "annotation": "tenant expansion boundary"
+  },
+  "migration_recipes": {
+    "tenant-migration-forward-from-v2": [
+      "Reset only the identity-checked isolated database. Apply existing Annotation migration set1/2. Insert exact migration_seed_v2 record and annotation and observe complete original schema/history/record before expansion. No authority seed exists yet.",
+      "Apply TenantAuthority exactly once. Require versions1/2/3 with independent checksums, catalogue_v1 and unchanged v2 record/annotation/original schema/checksums. Only then seed canonical authority records through privileged qualification setup. Ordinary writers remain disabled."
+    ],
+    "tenant-migration-replay-v3": [
+      "Begin with successful version3/canonical seed/useful v2 record. Freeze catalogue/history/all canonical rows/useful record+annotation. Reapply TenantAuthority; every fact and checksum remains exact."
+    ],
+    "tenant-migration-old-v2-rejects": [
+      "Begin with same complete version3 state. Attempt Annotation and require MissingAppliedVersion. Do not repair, downgrade or delete any state. Catalogue/history/all rows/useful record+annotation remain byte/value exact."
+    ],
+    "tenant-migration-original-checksums": [
+      "At both version2 baseline and version3 expansion, read actual successful ordered ledger and compare exact independently declared old checksums. Version3 checksum must equal the independently frozen third literal."
+    ]
+  },
+  "canonical_rls_cases": [
+    {
+      "id": "canonical-rls-workspace-a",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "state": "active"
+            }
+          ],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "active"
+            }
+          ],
+          "domains": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "state": "active"
+            }
+          ],
+          "memberships": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "membership_id": "10101010-1010-4010-8010-101010101010",
+              "state": "active"
+            }
+          ]
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-workspace-b",
+      "input": {
+        "context": {
+          "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [
+            {
+              "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+              "state": "active"
+            }
+          ],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "active"
+            }
+          ],
+          "domains": [
+            {
+              "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+              "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+              "state": "active"
+            }
+          ],
+          "memberships": [
+            {
+              "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+              "membership_id": "11101010-1010-4010-8010-101010101010",
+              "state": "active"
+            }
+          ]
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-no-context",
+      "input": {
+        "context": null,
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [],
+          "principals": [],
+          "domains": [],
+          "memberships": []
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-missing-principal",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222"
+        },
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [],
+          "principals": [],
+          "domains": [],
+          "memberships": []
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-missing-organization",
+      "input": {
+        "context": {
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "active"
+            }
+          ],
+          "domains": [],
+          "memberships": []
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-crossed-domain",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "state": "active"
+            }
+          ],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "active"
+            }
+          ],
+          "domains": [],
+          "memberships": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "membership_id": "10101010-1010-4010-8010-101010101010",
+              "state": "active"
+            }
+          ]
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-active-nonmember",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [],
+          "principals": [
+            {
+              "principal_id": "02020202-0202-4202-8202-020202020202",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+              "state": "active"
+            }
+          ],
+          "domains": [],
+          "memberships": []
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-unknown-principal",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "99999999-9999-4999-8999-999999999999"
+        },
+        "revoke_table": null
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [],
+          "principals": [],
+          "domains": [],
+          "memberships": []
+        },
+        "canonical_rows_after": "seed",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-revoked-organizations",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": "organizations"
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "state": "revoked"
+            }
+          ],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "active"
+            }
+          ],
+          "domains": [],
+          "memberships": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "membership_id": "10101010-1010-4010-8010-101010101010",
+              "state": "active"
+            }
+          ]
+        },
+        "canonical_rows_after": "tenant-session-revoked-organizations-after",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-revoked-principals",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": "principals"
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "revoked"
+            }
+          ],
+          "domains": [],
+          "memberships": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "membership_id": "10101010-1010-4010-8010-101010101010",
+              "state": "active"
+            }
+          ]
+        },
+        "canonical_rows_after": "tenant-session-revoked-principals-after",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-revoked-domains",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": "domains"
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "state": "active"
+            }
+          ],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "active"
+            }
+          ],
+          "domains": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "state": "revoked"
+            }
+          ],
+          "memberships": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "membership_id": "10101010-1010-4010-8010-101010101010",
+              "state": "active"
+            }
+          ]
+        },
+        "canonical_rows_after": "tenant-session-revoked-domains-after",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    },
+    {
+      "id": "canonical-rls-revoked-memberships",
+      "input": {
+        "context": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "revoke_table": "memberships"
+      },
+      "expected": {
+        "visible_canonical_rows": {
+          "organizations": [],
+          "principals": [
+            {
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "identity_profile": "arboresce.nostr-identity.v1",
+              "identity_version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "state": "active"
+            }
+          ],
+          "domains": [],
+          "memberships": [
+            {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101",
+              "domain_id": "22222222-2222-4222-9222-222222222222",
+              "membership_id": "10101010-1010-4010-8010-101010101010",
+              "state": "revoked"
+            }
+          ]
+        },
+        "canonical_rows_after": "tenant-session-revoked-memberships-after",
+        "canonical_rows_after_restoration": "seed",
+        "context_after_terminal": null
+      }
+    }
+  ],
+  "canonical_rls_recipe": "Each of these12 cases starts with complete seed. Commit only explicit revoke_table change, if any. Open actualnonownerconnection, BEGIN, install only explicitly suppliedorganization/domain/principal settings transaction-locally (missingvaluesempty). SELECT raw fullrows from all4canonicaltables WITHOUT additional organization/principal/state WHERE filters; compare exact independent visible_canonical_rows. Rollbackpositively on samebackend, observe null context. Observe complete namedcanonicalafterstate through independentprivilegedconnection, restoreseed, verifycatalogue unchanged. Policies permit selectedprincipal/membership stateinspection as explicitly declared; these reads do not authorize any action."
+}

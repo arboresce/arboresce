@@ -14,6 +14,8 @@ use tokio::time::timeout;
 
 pub(crate) mod migration;
 pub use migration::{MigrationFailure, SchemaVersion};
+pub(crate) mod tenant;
+pub use tenant::{TenantFailure, TenantSession, TenantTransaction};
 
 /// An input-independent configuration rejection, without paths or credentials.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

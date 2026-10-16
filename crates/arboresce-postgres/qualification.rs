@@ -10,6 +10,87 @@ mod relay;
 mod scenarios;
 #[path = "tests/support/service.rs"]
 mod support;
+#[path = "tests/support/tenant.rs"]
+mod tenant;
+
+#[test]
+fn tenant_failure_contract() {
+    let raw = include_str!("../../tests/security/fixtures/tenant-foundation-v1/error-cases.json");
+    let fixtures: serde_json::Value = serde_json::from_str(raw).unwrap();
+    assert_eq!(fixtures["fixture_version"], "tenant-failure-v1");
+    assert!(raw.len() <= 4096);
+    let rows = fixtures["cases"].as_array().unwrap();
+    assert_eq!(rows.len(), 6);
+    for case in rows {
+        let id = case["id"].as_str().unwrap();
+        let observed = tenant::failure(&case["input"]).unwrap();
+        assert_eq!(observed, case["expected"], "{id}");
+        println!("postgres tenant_failure={id} observation={observed}");
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
+fn tenant_preparation_failures() {
+    let raw =
+        include_str!("../../tests/security/fixtures/tenant-foundation-v1/preparation-cases.json");
+    let fixtures: serde_json::Value = serde_json::from_str(raw).unwrap();
+    assert_eq!(fixtures["fixture_version"], "tenant-preparation-v1");
+    assert!(raw.len() <= 16384);
+    let rows = fixtures["cases"].as_array().unwrap();
+    assert_eq!(rows.len(), 32);
+    for case in rows {
+        let id = case["id"].as_str().unwrap();
+        let observed = tenant::preparation(&case["input"]).unwrap();
+        for (key, value) in case["expected"].as_object().unwrap() {
+            assert_eq!(&observed[key], value, "{id} {key}");
+        }
+        if case["input"]["operation"] == "fixture" {
+            assert_eq!(observed["directory_removed"], true, "{id}");
+            assert_eq!(observed["directory_mode"], 0o700, "{id}");
+            assert_eq!(observed["directory_identity_preserved"], true, "{id}");
+            let files = observed["prepared_files"].as_array().unwrap();
+            let count = case["expected"]["prepared_file_count"]
+                .as_u64()
+                .unwrap_or(3);
+            assert_eq!(files.len() as u64, count, "{id}");
+            let presence = case["expected"]
+                .get("prepared_file_presence")
+                .cloned()
+                .unwrap_or(serde_json::json!([true, true, true]));
+            assert_eq!(observed["prepared_file_presence"], presence, "{id}");
+            assert_eq!(
+                observed["prepared_file_presence_after_reader"], presence,
+                "{id}"
+            );
+            assert_eq!(
+                observed["prepared_files_after_reader"], observed["prepared_files"],
+                "{id}"
+            );
+            let roles: Vec<_> = ["additional", "authority", "manifest"]
+                .into_iter()
+                .zip(presence.as_array().unwrap())
+                .filter_map(|(role, present)| present.as_bool().unwrap().then_some(role))
+                .collect();
+            assert_eq!(
+                serde_json::json!(
+                    files
+                        .iter()
+                        .map(|file| file["role"].clone())
+                        .collect::<Vec<_>>()
+                ),
+                serde_json::json!(roles),
+                "{id}"
+            );
+            if case["input"]["recipe"] == "absent-source-pin" {
+                assert_eq!(observed["source_pin_absent_before"], true, "{id}");
+                assert_eq!(observed["source_pin_absent_after"], true, "{id}");
+            }
+        }
+        println!("postgres tenant_preparation={id} observation={observed}");
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
 
 #[test]
 fn checked_helper_preparation() {
@@ -1152,6 +1233,218 @@ fn real_migration_scenarios() {
             );
             assert_eq!(service.schema().await.unwrap(), annotation_schema);
         }
+        // Tenant work runs serially in this already identity-checked service.
+        // It cannot race another required test resetting the same database.
+        let (additional, tenant_cases) = tenant::fixtures().unwrap();
+        let before_tenant=service.snapshot().await.unwrap();
+        assert_eq!(before_tenant.0,vec![1,2]);
+        service.harness.migrate(SchemaVersion::TenantAuthority).await.unwrap();
+        let history_after=service.snapshot().await.unwrap();
+        assert_eq!(history_after.0,vec![1,2,3]);
+        assert_eq!(history_after.1,before_tenant.1);assert_eq!(history_after.2,before_tenant.2);
+        tenant::seed(&service,&additional["seed"]).await.unwrap();
+        let baseline_catalogue=tenant::catalogue(&service).await.unwrap();
+        let expected_catalogue=&additional["catalogue_v1"];
+        assert_eq!(baseline_catalogue["owner"],expected_catalogue["owner"]);
+        assert_eq!(baseline_catalogue["schema_create"],false);
+        assert_eq!(baseline_catalogue["schema_usage"],true);
+        assert_eq!(baseline_catalogue["public_schema_acl"],0);
+        assert_eq!(baseline_catalogue["domain"]["base_type"],"uuid");
+        assert_eq!(baseline_catalogue["domain"]["not_null"],false);
+        assert_eq!(baseline_catalogue["domain"]["constraints"].as_array().unwrap().len(),1);
+        assert_eq!(baseline_catalogue["domain"]["constraints"][0]["name"],"identifier_check");
+        assert_eq!(baseline_catalogue["domain"]["constraints"][0]["validated"],true);
+        let predicate = |value: &str| value.to_ascii_lowercase().replace("check", "").replace("equals", "=")
+            .chars().filter(|character| !character.is_whitespace() && !['(', ')'].contains(character)).collect::<String>();
+        assert_eq!(predicate(baseline_catalogue["domain"]["constraints"][0]["definition"].as_str().unwrap()),
+            predicate(expected_catalogue["identifier_domain"]["constraints"][0]["predicate"].as_str().unwrap()));
+        assert_eq!(baseline_catalogue["tables"].as_object().unwrap().len(),4);
+        for (name,expected) in expected_catalogue["tables"].as_object().unwrap() {
+            let actual=&baseline_catalogue["tables"][name];
+            assert_eq!(actual["owner"],"harness_migrator");
+            assert_eq!(actual["enabled"],true);assert_eq!(actual["forced"],true);
+            assert_eq!(actual["select"],true);assert_eq!(actual["write"],false);
+            assert_eq!(actual["columns"],expected["columns"]);
+            let constraints=actual["constraints"].as_array().unwrap();
+            let primary:Vec<_>=constraints.iter().filter(|c|c["kind"]=="p").collect();
+            assert_eq!(primary.len(),1);assert_eq!(primary[0]["columns"],expected["primary_key"]);
+            let unique:std::collections::BTreeSet<_>=constraints.iter().filter(|c|c["kind"]=="u").map(|c|c["columns"].to_string()).collect();
+            let required:std::collections::BTreeSet<_>=expected["unique_keys"].as_array().unwrap().iter().map(serde_json::Value::to_string).collect();assert_eq!(unique,required);
+            let checks:std::collections::BTreeSet<_>=constraints.iter().filter(|c|c["kind"]=="c").map(|c|c["name"].as_str().unwrap()).collect();
+            assert_eq!(checks,expected["checks"].as_object().unwrap().keys().map(String::as_str).collect());
+            let foreign:Vec<_>=constraints.iter().filter(|c|c["kind"]=="f").collect();
+            assert_eq!(foreign.len(),expected["foreign_keys"].as_array().unwrap().len());
+            for fk in expected["foreign_keys"].as_array().unwrap() {
+                let actual=foreign.iter().find(|c|c["columns"]==fk["columns"]).unwrap();
+                assert_eq!(actual["target"],format!("arboresce_authority.{}",fk["target"].as_str().unwrap()));
+                assert_eq!(actual["target_columns"],fk["target_columns"]);
+                assert_eq!(actual["update"],"a");assert_eq!(actual["delete"],"a");assert_eq!(actual["match"],"s");
+                assert_eq!(actual["deferrable"],false);assert_eq!(actual["validated"],true);
+            }
+            let policies=actual["policies"].as_array().unwrap();assert_eq!(policies.len(),1);
+            assert_eq!(policies[0]["name"],expected["policies"][0]["name"]);
+            assert_eq!(policies[0]["command"],"r");assert_eq!(policies[0]["roles"],"{0}");
+            assert_eq!(policies[0]["permissive"],true);assert_eq!(policies[0]["with_check"],serde_json::Value::Null);
+            assert!(!policies[0]["using"].as_str().unwrap().is_empty());
+        }
+        // Independent migration inputs name useful old data and forward/replay/
+        // downgrade behavior. Their complete state is observed separately.
+        let checksum_expected=&additional["migration_cases"].as_array().unwrap().iter().find(|case|case["id"]=="tenant-migration-original-checksums").unwrap()["expected"];
+        let check_history=|history:&serde_json::Value,versions:&[i64]| {
+            let rows=history.as_array().unwrap();assert_eq!(rows.len(),versions.len());
+            for (row,version) in rows.iter().zip(versions) {
+                assert_eq!(row["version"],*version);assert_eq!(row["success"],true);
+                let checksum=if *version==3 {&checksum_expected["third_checksum_sha384"]}else{&checksum_expected["checksums"][version.to_string()]};
+                assert_eq!(&row["checksum"],checksum);
+            }
+        };
+        let mut v2_schema=None;let mut v2_history=None;let mut useful_v2=None;
+        for case in additional["migration_cases"].as_array().unwrap() {
+            let id=case["id"].as_str().unwrap();
+            if id=="tenant-migration-forward-from-v2" {
+                service.reset().await.unwrap();service.harness.migrate(SchemaVersion::Annotation).await.unwrap();
+                let row=&additional["migration_seed_v2"]["record"];
+                let record=support::Service::record(&serde_json::json!({"records":{"old":row}}),"old").unwrap();
+                assert_eq!(service.harness.insert(record).await,WriteOutcome::Committed(record));
+                service.annotate(record,additional["migration_seed_v2"]["annotation"].as_str().unwrap()).await.unwrap();
+                let schema=service.schema().await.unwrap();let before=service.snapshot().await.unwrap();
+                assert_eq!(before.0,vec![1,2]);assert_eq!(before.1,vec![row.clone()]);assert_eq!(before.2,vec![additional["migration_seed_v2"]["annotation"].as_str().unwrap().to_owned()]);
+                let history=tenant::history(&service).await.unwrap();check_history(&history,&[1,2]);
+                service.harness.migrate(SchemaVersion::TenantAuthority).await.unwrap();
+                assert_eq!(service.schema().await.unwrap(),schema);let after=service.snapshot().await.unwrap();
+                assert_eq!(after.0,vec![1,2,3]);assert_eq!(after.1,before.1);assert_eq!(after.2,before.2);
+                v2_schema=Some(schema);v2_history=Some(history);useful_v2=Some((before.1,before.2));
+                tenant::seed(&service,&additional["seed"]).await.unwrap();
+            } else if id=="tenant-migration-replay-v3" {
+                let before=service.snapshot().await.unwrap();let rows=tenant::snapshot(&service).await.unwrap();
+                let schema=service.schema().await.unwrap();let history=tenant::history(&service).await.unwrap();
+                service.harness.migrate(SchemaVersion::TenantAuthority).await.unwrap();
+                assert_eq!(service.snapshot().await.unwrap(),before);assert_eq!(tenant::snapshot(&service).await.unwrap(),rows);
+                assert_eq!(service.schema().await.unwrap(),schema);assert_eq!(tenant::history(&service).await.unwrap(),history);
+            } else if id=="tenant-migration-old-v2-rejects" {
+                let before=service.snapshot().await.unwrap();let rows=tenant::snapshot(&service).await.unwrap();
+                let schema=service.schema().await.unwrap();let history=tenant::history(&service).await.unwrap();
+                assert_eq!(service.harness.migrate(SchemaVersion::Annotation).await,Err(MigrationFailure::MissingAppliedVersion));
+                assert_eq!(service.snapshot().await.unwrap(),before);assert_eq!(tenant::snapshot(&service).await.unwrap(),rows);
+                assert_eq!(service.schema().await.unwrap(),schema);assert_eq!(tenant::history(&service).await.unwrap(),history);
+            } else {
+                let mut admin=service.admin(false).await.unwrap();
+                let checksums:Vec<(i64,String)>=sqlx::query_as("SELECT version,encode(checksum,'hex') FROM public._sqlx_migrations WHERE success ORDER BY version").fetch_all(&mut admin).await.unwrap();
+                assert_eq!(checksums.len(),3);
+                for (version,checksum) in checksums {let expected=if version==3 {&case["expected"]["third_checksum_sha384"]}else{&case["expected"]["checksums"][version.to_string()]};assert_eq!(checksum,expected.as_str().unwrap());}
+            }
+            let history=tenant::history(&service).await.unwrap();check_history(&history,&[1,2,3]);
+            assert_eq!(&history.as_array().unwrap()[..2],v2_history.as_ref().unwrap().as_array().unwrap().as_slice(),"{id}");
+            assert_eq!(&service.schema().await.unwrap(),v2_schema.as_ref().unwrap(),"{id}");
+            let useful=service.snapshot().await.unwrap();assert_eq!(&(useful.1,useful.2),useful_v2.as_ref().unwrap(),"{id}");
+            assert_eq!(tenant::ordered_rows(&tenant::snapshot(&service).await.unwrap()),tenant::ordered_rows(&additional["seed"]),"{id}");
+            assert_eq!(tenant::catalogue(&service).await.unwrap(),baseline_catalogue,"{id}");
+            println!("collector case={id} pid={}",std::process::id());
+        }
+        for case in additional["constraint_cases"].as_array().unwrap() {
+            let id=case["id"].as_str().unwrap();tenant::seed(&service,&additional["seed"]).await.unwrap();
+            let mut admin=service.admin(false).await.unwrap();
+            let outcome=tenant::insert(&mut admin,case["input"]["table"].as_str().unwrap(),&case["input"]["row"]).await;
+            match outcome {Ok(count)=>{assert_eq!(case["expected"]["sqlstate"],serde_json::Value::Null,"{id}");assert_eq!(count,case["expected"]["rows_affected"].as_u64().unwrap());},Err(error)=>assert_eq!(error.as_database_error().unwrap().code().unwrap().as_ref(),case["expected"]["sqlstate"].as_str().unwrap(),"{id}")}
+            assert_eq!(tenant::ordered_rows(&tenant::snapshot(&service).await.unwrap()),tenant::ordered_rows(&additional["expected_rowsets"][case["expected"]["canonical_rows_after"].as_str().unwrap()]),"{id}");
+            tenant::seed(&service,&additional["seed"]).await.unwrap();
+            assert_eq!(tenant::ordered_rows(&tenant::snapshot(&service).await.unwrap()),tenant::ordered_rows(&additional["seed"]));
+            assert_eq!(tenant::catalogue(&service).await.unwrap(),baseline_catalogue);
+            println!("collector case={id} pid={}",std::process::id());
+        }
+        for case in additional["canonical_rls_cases"].as_array().unwrap() {
+            let id=case["id"].as_str().unwrap();
+            let observed=tenant::canonical_rls(&service,&additional["seed"],&case["input"]).await.unwrap();
+            assert_eq!(tenant::ordered_rows(&observed["visible_canonical_rows"]),tenant::ordered_rows(&case["expected"]["visible_canonical_rows"]),"{id}");
+            assert_eq!(observed["same_backend"],true,"{id}");assert_eq!(observed["positive_rollback"],true,"{id}");
+            assert_eq!(observed["context_after_terminal"],case["expected"]["context_after_terminal"],"{id}");
+            for key in ["canonical_rows_after","canonical_rows_after_restoration"] {
+                assert_eq!(tenant::ordered_rows(&observed[key]),tenant::ordered_rows(&additional["expected_rowsets"][case["expected"][key].as_str().unwrap()]),"{id} {key}");
+            }
+            assert_eq!(observed["catalogue_after_restoration"],baseline_catalogue,"{id}");
+            println!("postgres canonical_rls={id} observation={observed}");
+            println!("collector case={id} pid={}",std::process::id());
+        }
+        for case in additional["api_cases"].as_array().unwrap() {
+            let id=case["id"].as_str().unwrap();let observed=tenant::api(&service,&additional["seed"],&case["input"]).await.unwrap();
+            for (key,value) in case["expected"].as_object().unwrap() {
+                if ["canonical_rows_after","canonical_rows_after_restoration","schema_after_restoration","product_writers_enabled"].contains(&key.as_str()) {continue;}
+                if key=="context_after_terminal" {assert_eq!(&observed[key],value,"{id} {key}");}else {assert_eq!(&observed["outcome"][key],value,"{id} {key}");}
+            }
+            if observed.get("same_backend").is_some(){assert_eq!(observed["same_backend"],true,"{id}");}
+            assert_eq!(tenant::ordered_rows(&observed["canonical_rows_after"]),tenant::ordered_rows(&additional["expected_rowsets"][case["expected"]["canonical_rows_after"].as_str().unwrap()]),"{id}");
+            assert_eq!(tenant::ordered_rows(&observed["canonical_rows_after_restoration"]),tenant::ordered_rows(&additional["seed"]),"{id}");
+            assert_eq!(observed["catalogue_after_restoration"],baseline_catalogue,"{id}");
+            let recipe=case["input"]["recipe"].as_str().unwrap();let proof=&observed["proof"];
+            if observed["outcome"]["completion"]=="ok" && recipe!="revoke-after-begin" {assert_eq!(observed["outcome"]["context_preserved"],true,"{id}");}
+            if recipe=="retained-context" {
+                let mut retained=serde_json::json!({"organization_id":null,"domain_id":null,"principal_id":null});
+                retained[case["input"]["field"].as_str().unwrap()]=case["input"]["value"].clone();assert_eq!(proof["retained"],retained,"{id}");
+            }
+            if recipe=="catalogue-failure" {assert_eq!(proof["view_restored"],true);assert_eq!(proof["causal_sqlstate"],"42P01");}
+            if recipe=="read-query-failure" {assert_eq!(proof["terminated_owned_backend"],true);assert_eq!(proof["old_backend_absent"],true);}
+            if recipe=="read-query-failure" || recipe.ends_with("completion-lost") {
+                let selected=&case["input"]["context"];let membership=additional["seed"]["memberships"].as_array().unwrap().iter().find(|row|row["organization_id"]==selected["organization_id"] && row["principal_id"]==selected["principal_id"] && row["domain_id"]==selected["domain_id"]).unwrap();
+                assert_eq!(proof["positive_first_membership"],membership["membership_id"],"{id}");
+            }
+            if recipe.ends_with("completion-lost") {assert_eq!(proof["matching_completions_dropped"],1);assert_eq!(proof["old_backend_absent"],true);assert_eq!(proof["relay_directory_absent"],true);}
+            if recipe=="read-query-failure" || recipe.ends_with("completion-lost") {assert_eq!(proof["fresh_context_before"],serde_json::Value::Null);assert_eq!(proof["fresh_transaction_rolled_back"],true);}
+            if recipe=="absent-socket" {assert_eq!(proof["owned_directory_absent"],true);assert_eq!(proof["private_empty_directory_observed"],true);assert_eq!(proof["directory_identity_preserved"],true);}
+            println!("postgres tenant_api={id} observation={observed}");
+            println!("collector case={id} pid={}",std::process::id());
+        }
+        for case in tenant_cases.as_array().unwrap() {
+            let id=case["id"].as_str().unwrap();let input=&case["input"];let expected=&case["expected"];
+            tenant::prepare_probes(&service,input).await.unwrap();
+            let mut connection=service.harness.connect(false).await.unwrap();
+            let pid=tenant::backend(&mut connection).await.unwrap();
+            match input["operation"].as_str().unwrap() {
+                "admit_role"=>{
+                    let observed=tenant::role_case(&service,input).await.unwrap();assert_eq!(observed["error"],"UnsafeRole","{id}");
+                    for key in ["superuser","bypassrls","owns_tenant_table"]{assert_eq!(observed["observed"][key],input["application_role"][key],"{id} {key}");}
+                    assert_eq!(observed["observed"]["force_row_security"],input["force_row_security"],"{id}");
+                }
+                "reuse_connection"=>{
+                    let mut selected=Vec::new();let mut terminals=Vec::new();
+                    for step in input["session_steps"].as_array().unwrap() {
+                        match step["step"].as_str().unwrap() {
+                            "begin"=>{sqlx::query("BEGIN").execute(&mut connection).await.unwrap();if !step["context"].is_null(){tenant::set_context(&mut connection,&step["context"],true).await.unwrap();}},
+                            "select"=>selected.push(tenant::probe_rows(&mut connection).await.unwrap()),
+                            "commit"|"rollback"=>{sqlx::query(if step["step"]=="commit"{"COMMIT"}else{"ROLLBACK"}).execute(&mut connection).await.unwrap();terminals.push(tenant::clear_context(&mut connection).await.unwrap());},
+                            _=>panic!("unregistered tenant step"),
+                        }
+                        assert_eq!(tenant::backend(&mut connection).await.unwrap(),pid);
+                    }
+                    assert_eq!(serde_json::json!(selected),expected["selected_rows_in_order"],"{id}");assert_eq!(serde_json::json!(terminals),expected["context_after_each_terminal"],"{id}");
+                }
+                "relate"=>{
+                    let observed=tenant::relation(&service,input).await.unwrap();let admit=expected["decision"]=="admit";
+                    assert_eq!(observed["scope_matches"],admit,"{id}");assert_eq!(observed["kind_preserved"],true);assert_eq!(observed["workspace_preserved"],true);
+                    assert_eq!(observed["resolved_source_id"],input["source"]["id"],"{id}");
+                    assert_eq!(observed["resolved_target_id"],if admit{input["target"]["id"].clone()}else{serde_json::Value::Null},"{id}");
+                    assert_eq!(observed["sqlstate"],if admit{serde_json::Value::Null}else{serde_json::json!("23503")},"{id}");
+                    assert_eq!(observed["inserted"],u64::from(admit),"{id}");
+                    let expected_edges=if admit{serde_json::json!([{"organization_id":input["selected_workspace"]["organization_id"],"domain_id":input["selected_workspace"]["domain_id"],"kind":input["target"]["kind"],"id":input["target"]["id"]}])}else{serde_json::json!([])};
+                    assert_eq!(observed["inserted_rows"],expected_edges,"{id}");assert_eq!(observed["edges_after_rollback"],0,"{id}");
+                }
+                "insert"=>{
+                    sqlx::query("BEGIN").execute(&mut connection).await.unwrap();tenant::set_context(&mut connection,&input["transaction_context"],true).await.unwrap();
+                    let failure=tenant::probe_insert(&mut connection,&input["insert_row"]).await.unwrap_err();assert_eq!(failure.as_database_error().unwrap().code().unwrap().as_ref(),"42501");
+                    sqlx::query("ROLLBACK").execute(&mut connection).await.unwrap();
+                }
+                "select"=>{
+                    sqlx::query("BEGIN").execute(&mut connection).await.unwrap();if !input["transaction_context"].is_null(){tenant::set_context(&mut connection,&input["transaction_context"],true).await.unwrap();}
+                    assert_eq!(tenant::probe_rows(&mut connection).await.unwrap(),expected["visible_rows"],"{id}");sqlx::query("ROLLBACK").execute(&mut connection).await.unwrap();
+                }
+                _=>panic!("unregistered tenant operation"),
+            }
+            let mut admin=service.admin(false).await.unwrap();assert_eq!(tenant::probe_rows(&mut admin).await.unwrap(),expected["rows_after"],"{id}");
+            assert_eq!(tenant::clear_context(&mut connection).await.unwrap(),serde_json::Value::Null,"{id}");
+            assert_eq!(tenant::catalogue(&service).await.unwrap(),baseline_catalogue,"{id}");
+            println!("collector case={id} pid={}",std::process::id());
+        }
+        // The existing reset restores its independently declared useful row;
+        // the one owned restart remains the final service scenario.
         service.reset().await.unwrap();
         service
             .harness
@@ -1208,5 +1501,6 @@ fn real_migration_scenarios() {
             "collector case=migration-first-real-record pid={}",
             std::process::id()
         );
+        service.unchanged().await.unwrap();
     });
 }
