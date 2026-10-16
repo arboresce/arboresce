@@ -36,6 +36,25 @@ do not make unsupported Core internals part of the application contract.
 
 ## Targets and preparation
 
+The isolated migration harness selects SQLx exactly `0.9.0`, with default
+features disabled and only `postgres`, `migrate` and `runtime-tokio`, and Tokio
+exactly `1.53.3` with the required current-thread runtime/time/network support.
+Retain their upstream MIT/Apache-2.0 (SQLx) and MIT (Tokio) notices and exact
+resolved transitive graph. The application boundary depends only on the existing
+domain package; concrete driver/runtime types remain in the adapter. No unrelated
+locked package may be changed incidentally. Preserve the already qualified
+pure-domain profile's exact graph, features, fixtures and meaning. A workspace
+that adds the adapter selects the separate exact profile below; feature
+unification cannot silently widen an already accepted profile.
+
+Its first actual service input is installed PostgreSQL exactly `17.11` on native
+macOS ARM64, with separate synthetic migration and non-owner application roles
+and a protected local Unix socket. This selection qualifies only the isolated
+synthetic harness. TLS/remote access, transaction pooling/RLS admission, managed
+capacity, Linux AMD64 service images and packaged recovery retain their distinct
+gates. Record actual server/executable/configuration/role identities and dynamic
+dependencies before use; clients or a version string alone do not prove readiness.
+
 Service images target Linux AMD64 (`linux/amd64`). Native macOS and Linux CLI
 artifacts are required qualification targets of the independent client. Its
 declared architecture matrix is separate from the server-image target. Windows
@@ -183,6 +202,31 @@ owning and public-only standalone source/native/strict qualification is required
 locked resolution is not behavioral qualification. Independently qualified Python
 agreement still precedes shared selected identity and whole domain completion.
 Signing, money, transport and real service qualification remain separate consumers.
+
+## Source JSON profile with the isolated PostgreSQL adapter
+
+`jcs-source-postgres-v1` retains the existing private checked domain source API
+under the SQLx/Tokio workspace. Its conservative closure retains the same 23
+registry package versions and archives. The effective graph adds exactly the
+reviewed std/alloc/rc/derive, procedural parsing and serde_json raw_value features,
+including the serde edge to the already present serde_derive package. Bind its
+complete roots, aliases, dependency kinds/conditions, transitive edges and
+features to internal tool-JSON SHA-256
+`cea739f5ca926bf0c0b53244c3063d2052d11020cfa889007f619b41e4d1b776`.
+The [separate literal inputs](../../tests/architecture/fixtures/qualified-source-postgres-dependencies-v1/README.md)
+preserve all previous profile meanings and test exact positive and negative
+contexts. No arbitrary feature, dependency version or source path is admitted.
+
+Keep software SHA-256 force-soft selected. Shared std/alloc/rc/derive and
+raw_value features do not authorize ambient effects, raw fragment intake,
+derive-based domain serialization or a public Serialize surface. The selected
+consumer still performs complete own source admission, decodes only delimited
+strings and serializes only its private checked AST with its existing limits.
+Independent source/feature review precedes use. Actual fresh affected owning and
+public-only standalone compiler/resource/native and strict qualification must
+then establish the resulting artifact; historical evidence for another feature
+graph does not qualify its current machine code. The Initial, number and source
+profiles retain their exact fingerprints and fixture meanings.
 
 ## Independent Python source JSON reference
 

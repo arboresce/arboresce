@@ -1,0 +1,4484 @@
+{
+  "fixture_version": "qualified-source-postgres-dependencies-v1",
+  "classification": "Original synthetic policy contexts under MIT OR Apache-2.0. Public dependency facts and separate declared licenses are attributed by exact archive origins.",
+  "base_input": {
+    "profile_present": true,
+    "profile": "jcs-source-postgres-v1",
+    "owner": "arboresce-domain",
+    "declared_packages": {
+      "block-buffer@0.10.4": {
+        "name": "block-buffer",
+        "version": "0.10.4"
+      },
+      "cfg-if@1.0.5": {
+        "name": "cfg-if",
+        "version": "1.0.5"
+      },
+      "cpufeatures@0.2.17": {
+        "name": "cpufeatures",
+        "version": "0.2.17"
+      },
+      "crypto-common@0.1.7": {
+        "name": "crypto-common",
+        "version": "0.1.7"
+      },
+      "digest@0.10.7": {
+        "name": "digest",
+        "version": "0.10.7"
+      },
+      "generic-array@0.14.7": {
+        "name": "generic-array",
+        "version": "0.14.7"
+      },
+      "itoa@1.0.18": {
+        "name": "itoa",
+        "version": "1.0.18"
+      },
+      "libc@0.2.190": {
+        "name": "libc",
+        "version": "0.2.190"
+      },
+      "memchr@2.8.3": {
+        "name": "memchr",
+        "version": "2.8.3"
+      },
+      "proc-macro2@1.0.106": {
+        "name": "proc-macro2",
+        "version": "1.0.106"
+      },
+      "quote@1.0.47": {
+        "name": "quote",
+        "version": "1.0.47"
+      },
+      "ryu-js@1.0.3": {
+        "name": "ryu-js",
+        "version": "1.0.3"
+      },
+      "serde@1.0.229": {
+        "name": "serde",
+        "version": "1.0.229"
+      },
+      "serde_core@1.0.229": {
+        "name": "serde_core",
+        "version": "1.0.229"
+      },
+      "serde_derive@1.0.229": {
+        "name": "serde_derive",
+        "version": "1.0.229"
+      },
+      "serde_json@1.0.151": {
+        "name": "serde_json",
+        "version": "1.0.151"
+      },
+      "serde_json_canonicalizer@0.4.1": {
+        "name": "serde_json_canonicalizer",
+        "version": "0.4.1"
+      },
+      "sha2@0.10.9": {
+        "name": "sha2",
+        "version": "0.10.9"
+      },
+      "syn@3.0.6": {
+        "name": "syn",
+        "version": "3.0.6"
+      },
+      "typenum@1.20.1": {
+        "name": "typenum",
+        "version": "1.20.1"
+      },
+      "unicode-ident@1.0.26": {
+        "name": "unicode-ident",
+        "version": "1.0.26"
+      },
+      "version_check@0.9.5": {
+        "name": "version_check",
+        "version": "0.9.5"
+      },
+      "zmij@1.0.23": {
+        "name": "zmij",
+        "version": "1.0.23"
+      }
+    },
+    "graph": {
+      "owner_features": [],
+      "roots": [
+        {
+          "name": "serde",
+          "package": "serde@1.0.229",
+          "kinds": [
+            {
+              "kind": null,
+              "target": null
+            }
+          ]
+        },
+        {
+          "name": "serde_json",
+          "package": "serde_json@1.0.151",
+          "kinds": [
+            {
+              "kind": null,
+              "target": null
+            }
+          ]
+        },
+        {
+          "name": "serde_json_canonicalizer",
+          "package": "serde_json_canonicalizer@0.4.1",
+          "kinds": [
+            {
+              "kind": null,
+              "target": null
+            }
+          ]
+        },
+        {
+          "name": "sha2",
+          "package": "sha2@0.10.9",
+          "kinds": [
+            {
+              "kind": null,
+              "target": null
+            }
+          ]
+        }
+      ],
+      "packages": [
+        {
+          "package": "block-buffer@0.10.4",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": [
+            {
+              "name": "generic_array",
+              "package": "generic-array@0.14.7",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "cfg-if@1.0.5",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": []
+        },
+        {
+          "package": "cpufeatures@0.2.17",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": [
+            {
+              "name": "libc",
+              "package": "libc@0.2.190",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": "aarch64-linux-android"
+                },
+                {
+                  "kind": null,
+                  "target": "cfg(all(target_arch = \"aarch64\", target_os = \"linux\"))"
+                },
+                {
+                  "kind": null,
+                  "target": "cfg(all(target_arch = \"aarch64\", target_vendor = \"apple\"))"
+                },
+                {
+                  "kind": null,
+                  "target": "cfg(all(target_arch = \"loongarch64\", target_os = \"linux\"))"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "crypto-common@0.1.7",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "std"
+          ],
+          "dependencies": [
+            {
+              "name": "generic_array",
+              "package": "generic-array@0.14.7",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "typenum",
+              "package": "typenum@1.20.1",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "digest@0.10.7",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "alloc",
+            "block-buffer",
+            "core-api",
+            "default",
+            "std"
+          ],
+          "dependencies": [
+            {
+              "name": "block_buffer",
+              "package": "block-buffer@0.10.4",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "crypto_common",
+              "package": "crypto-common@0.1.7",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "generic-array@0.14.7",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "more_lengths"
+          ],
+          "dependencies": [
+            {
+              "name": "typenum",
+              "package": "typenum@1.20.1",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "version_check",
+              "package": "version_check@0.9.5",
+              "kinds": [
+                {
+                  "kind": "build",
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "itoa@1.0.18",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": []
+        },
+        {
+          "package": "libc@0.2.190",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "default",
+            "std"
+          ],
+          "dependencies": []
+        },
+        {
+          "package": "memchr@2.8.3",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "alloc",
+            "default",
+            "std"
+          ],
+          "dependencies": []
+        },
+        {
+          "package": "proc-macro2@1.0.106",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "default",
+            "proc-macro"
+          ],
+          "dependencies": [
+            {
+              "name": "unicode_ident",
+              "package": "unicode-ident@1.0.26",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "quote@1.0.47",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "default",
+            "proc-macro"
+          ],
+          "dependencies": [
+            {
+              "name": "proc_macro2",
+              "package": "proc-macro2@1.0.106",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "ryu-js@1.0.3",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": []
+        },
+        {
+          "package": "serde@1.0.229",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "alloc",
+            "default",
+            "derive",
+            "rc",
+            "serde_derive",
+            "std"
+          ],
+          "dependencies": [
+            {
+              "name": "serde_core",
+              "package": "serde_core@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "serde_derive",
+              "package": "serde_derive@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "serde_core@1.0.229",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "alloc",
+            "rc",
+            "result",
+            "std"
+          ],
+          "dependencies": [
+            {
+              "name": "serde_derive",
+              "package": "serde_derive@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": "cfg(any())"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "serde_derive@1.0.229",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "default"
+          ],
+          "dependencies": [
+            {
+              "name": "proc_macro2",
+              "package": "proc-macro2@1.0.106",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "quote",
+              "package": "quote@1.0.47",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "syn",
+              "package": "syn@3.0.6",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "serde_json@1.0.151",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "default",
+            "float_roundtrip",
+            "raw_value",
+            "std"
+          ],
+          "dependencies": [
+            {
+              "name": "itoa",
+              "package": "itoa@1.0.18",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "memchr",
+              "package": "memchr@2.8.3",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "serde",
+              "package": "serde@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": "cfg(any())"
+                }
+              ]
+            },
+            {
+              "name": "serde_core",
+              "package": "serde_core@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "zmij",
+              "package": "zmij@1.0.23",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "serde_json_canonicalizer@0.4.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": [
+            {
+              "name": "ryu_js",
+              "package": "ryu-js@1.0.3",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "serde",
+              "package": "serde@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "serde_json",
+              "package": "serde_json@1.0.151",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "sha2@0.10.9",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "default",
+            "force-soft",
+            "std"
+          ],
+          "dependencies": [
+            {
+              "name": "cfg_if",
+              "package": "cfg-if@1.0.5",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "cpufeatures",
+              "package": "cpufeatures@0.2.17",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": "cfg(any(target_arch = \"aarch64\", target_arch = \"x86_64\", target_arch = \"x86\"))"
+                }
+              ]
+            },
+            {
+              "name": "digest",
+              "package": "digest@0.10.7",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "syn@3.0.6",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "clone-impls",
+            "default",
+            "derive",
+            "extra-traits",
+            "fold",
+            "parsing",
+            "printing",
+            "proc-macro",
+            "visit"
+          ],
+          "dependencies": [
+            {
+              "name": "proc_macro2",
+              "package": "proc-macro2@1.0.106",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "quote",
+              "package": "quote@1.0.47",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "unicode_ident",
+              "package": "unicode-ident@1.0.26",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "package": "typenum@1.20.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [
+            "const-generics"
+          ],
+          "dependencies": []
+        },
+        {
+          "package": "unicode-ident@1.0.26",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": []
+        },
+        {
+          "package": "version_check@0.9.5",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": []
+        },
+        {
+          "package": "zmij@1.0.23",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "features": [],
+          "dependencies": []
+        }
+      ]
+    }
+  },
+  "expected_graph_sha256": "cea739f5ca926bf0c0b53244c3063d2052d11020cfa889007f619b41e4d1b776",
+  "fingerprint_encoding": "Compact UTF8 JSON with lexicographically sorted object keys. owner_features, roots sorted by alias, packages sorted by name@version, features lexical, dependencies by alias, kind/target records by their compact sorted JSON. All aliases, exactversions, registrysources, effectivefeatures and normal/build conditional edges are included. This internal tool fingerprint is not product JCS.",
+  "archives": [
+    {
+      "package": "block-buffer@0.10.4",
+      "checksum": "3078c7629b62d3f0439517fa394996acacc5cbc91c5a20d8c658e77abd503a71",
+      "bytes": 10538,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/RustCrypto/utils",
+      "archive_origin": "https://static.crates.io/crates/block-buffer/block-buffer-0.10.4.crate",
+      "rights_sha256": {
+        "block-buffer-0.10.4/LICENSE-APACHE": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+        "block-buffer-0.10.4/LICENSE-MIT": "d5c22aa3118d240e877ad41c5d9fa232f9c77d757d4aac0c2f943afc0a95e0ef"
+      }
+    },
+    {
+      "package": "cfg-if@1.0.5",
+      "checksum": "4e7648175b45a9a48536d676f68d918270699102aa8dab5496df06904c914600",
+      "bytes": 9578,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/rust-lang/cfg-if",
+      "archive_origin": "https://static.crates.io/crates/cfg-if/cfg-if-1.0.5.crate",
+      "rights_sha256": {
+        "cfg-if-1.0.5/LICENSE-APACHE": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+        "cfg-if-1.0.5/LICENSE-MIT": "378f5840b258e2779c39418f3f2d7b2ba96f1c7917dd6be0713f88305dbda397"
+      }
+    },
+    {
+      "package": "cpufeatures@0.2.17",
+      "checksum": "59ed5838eebb26a2bb2e58f6d5b5316989ae9d08bab10e0e6d103e656d1b0280",
+      "bytes": 13466,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/RustCrypto/utils",
+      "archive_origin": "https://static.crates.io/crates/cpufeatures/cpufeatures-0.2.17.crate",
+      "rights_sha256": {
+        "cpufeatures-0.2.17/LICENSE-APACHE": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+        "cpufeatures-0.2.17/LICENSE-MIT": "ae9baa7beea910273c2f384c2a6b721fb7bd02bda3436074a1072e4ee689f985"
+      }
+    },
+    {
+      "package": "crypto-common@0.1.7",
+      "checksum": "78c8292055d1c1df0cce5d180393dc8cce0abec0a7102adb6c7b1eef6016d60a",
+      "bytes": 9619,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/RustCrypto/traits",
+      "archive_origin": "https://static.crates.io/crates/crypto-common/crypto-common-0.1.7.crate",
+      "rights_sha256": {
+        "crypto-common-0.1.7/LICENSE-APACHE": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+        "crypto-common-0.1.7/LICENSE-MIT": "3521672491a3479422d5fe1aca6645dd2984090f85da6e5205abfb18fb7a6897"
+      }
+    },
+    {
+      "package": "digest@0.10.7",
+      "checksum": "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292",
+      "bytes": 19557,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/RustCrypto/traits",
+      "archive_origin": "https://static.crates.io/crates/digest/digest-0.10.7.crate",
+      "rights_sha256": {
+        "digest-0.10.7/LICENSE-APACHE": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+        "digest-0.10.7/LICENSE-MIT": "9e0dfd2dd4173a530e238cb6adb37aa78c34c6bc7444e0e10c1ab5d8881f63ba"
+      }
+    },
+    {
+      "package": "generic-array@0.14.7",
+      "checksum": "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a",
+      "bytes": 15950,
+      "license": "MIT",
+      "repository": "https://github.com/fizyk20/generic-array.git",
+      "archive_origin": "https://static.crates.io/crates/generic-array/generic-array-0.14.7.crate",
+      "rights_sha256": {
+        "generic-array-0.14.7/LICENSE": "c09aae9d3c77b531f56351a9947bc7446511d6b025b3255312d3e3442a9a7583"
+      }
+    },
+    {
+      "package": "itoa@1.0.18",
+      "checksum": "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682",
+      "bytes": 15935,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/dtolnay/itoa",
+      "archive_origin": "https://static.crates.io/crates/itoa/itoa-1.0.18.crate",
+      "rights_sha256": {
+        "itoa-1.0.18/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "itoa-1.0.18/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "libc@0.2.190",
+      "checksum": "ce5d3ddc6d3fa000eb1536d85e147bfe31aacaba692ed6a876f95cb7c855be78",
+      "bytes": 853678,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/rust-lang/libc",
+      "archive_origin": "https://static.crates.io/crates/libc/libc-0.2.190.crate",
+      "rights_sha256": {
+        "libc-0.2.190/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "libc-0.2.190/LICENSE-MIT": "123a331b5dbf04c30097fa43b8f858bc85df671fe776de498d01f3d6b7c1f69e"
+      }
+    },
+    {
+      "package": "memchr@2.8.3",
+      "checksum": "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98",
+      "bytes": 99165,
+      "license": "Unlicense OR MIT",
+      "repository": "https://github.com/BurntSushi/memchr",
+      "archive_origin": "https://static.crates.io/crates/memchr/memchr-2.8.3.crate",
+      "rights_sha256": {
+        "memchr-2.8.3/COPYING": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f",
+        "memchr-2.8.3/LICENSE-MIT": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+        "memchr-2.8.3/UNLICENSE": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c"
+      }
+    },
+    {
+      "package": "proc-macro2@1.0.106",
+      "checksum": "8fd00f0bb2e90d81d1044c2b32617f68fcb9fa3bb7640c23e9c748e53fb30934",
+      "bytes": 59765,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/dtolnay/proc-macro2",
+      "archive_origin": "https://static.crates.io/crates/proc-macro2/proc-macro2-1.0.106.crate",
+      "rights_sha256": {
+        "proc-macro2-1.0.106/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "proc-macro2-1.0.106/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "quote@1.0.47",
+      "checksum": "1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001",
+      "bytes": 31622,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/dtolnay/quote",
+      "archive_origin": "https://static.crates.io/crates/quote/quote-1.0.47.crate",
+      "rights_sha256": {
+        "quote-1.0.47/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "quote-1.0.47/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "ryu-js@1.0.3",
+      "checksum": "04d056b875a9d2e6cb9a61d127afee9ac5999b9f87bcb32079d1318e505be714",
+      "bytes": 73922,
+      "license": "Apache-2.0 OR BSL-1.0",
+      "repository": "https://github.com/boa-dev/ryu-js",
+      "archive_origin": "https://static.crates.io/crates/ryu-js/ryu-js-1.0.3.crate",
+      "rights_sha256": {
+        "ryu-js-1.0.3/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "ryu-js-1.0.3/LICENSE-BOOST": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+      }
+    },
+    {
+      "package": "serde@1.0.229",
+      "checksum": "4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba",
+      "bytes": 83669,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/serde-rs/serde",
+      "archive_origin": "https://static.crates.io/crates/serde/serde-1.0.229.crate",
+      "rights_sha256": {
+        "serde-1.0.229/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "serde-1.0.229/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "serde_core@1.0.229",
+      "checksum": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48",
+      "bytes": 63100,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/serde-rs/serde",
+      "archive_origin": "https://static.crates.io/crates/serde_core/serde_core-1.0.229.crate",
+      "rights_sha256": {
+        "serde_core-1.0.229/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "serde_core-1.0.229/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "serde_derive@1.0.229",
+      "checksum": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+      "bytes": 59864,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/serde-rs/serde",
+      "archive_origin": "https://static.crates.io/crates/serde_derive/serde_derive-1.0.229.crate",
+      "rights_sha256": {
+        "serde_derive-1.0.229/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "serde_derive-1.0.229/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "serde_json@1.0.151",
+      "checksum": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14",
+      "bytes": 156556,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/serde-rs/json",
+      "archive_origin": "https://static.crates.io/crates/serde_json/serde_json-1.0.151.crate",
+      "rights_sha256": {
+        "serde_json-1.0.151/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "serde_json-1.0.151/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "serde_json_canonicalizer@0.4.1",
+      "checksum": "87f7bb64f8c7e9f783fdfe883b5fe93a90bee1597c63705baa91842c5f698620",
+      "bytes": 17884,
+      "license": "MIT",
+      "repository": "https://github.com/evik42/serde-json-canonicalizer",
+      "archive_origin": "https://static.crates.io/crates/serde_json_canonicalizer/serde_json_canonicalizer-0.4.1.crate",
+      "rights_sha256": {
+        "serde_json_canonicalizer-0.4.1/LICENSE": "b68d86a60d3619bfd55b89a322e8464d3f9ca1c7e2409cc6035ea290435831e0"
+      }
+    },
+    {
+      "package": "sha2@0.10.9",
+      "checksum": "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283",
+      "bytes": 29271,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/RustCrypto/hashes",
+      "archive_origin": "https://static.crates.io/crates/sha2/sha2-0.10.9.crate",
+      "rights_sha256": {
+        "sha2-0.10.9/LICENSE-APACHE": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+        "sha2-0.10.9/LICENSE-MIT": "b4eb00df6e2a4d22518fcaa6a2b4646f249b3a3c9814509b22bd2091f1392ff1"
+      }
+    },
+    {
+      "package": "syn@3.0.6",
+      "checksum": "8593e8e72159ed2257d083c7a454a85cbf854f37a0966d8d483aff8c8a3ebcee",
+      "bytes": 313821,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/dtolnay/syn",
+      "archive_origin": "https://static.crates.io/crates/syn/syn-3.0.6.crate",
+      "rights_sha256": {
+        "syn-3.0.6/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "syn-3.0.6/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    },
+    {
+      "package": "typenum@1.20.1",
+      "checksum": "b6f5e870be6c3b371b77fe0ee0bafb859fa4964b4404c27de1d380043c4dda20",
+      "bytes": 105479,
+      "license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/paholg/typenum",
+      "archive_origin": "https://static.crates.io/crates/typenum/typenum-1.20.1.crate",
+      "rights_sha256": {
+        "typenum-1.20.1/LICENSE": "db11fec9946737df39ca3898d9cd8c10ec6f6c3a884a6802b0ad0b81b4e8f23a",
+        "typenum-1.20.1/LICENSE-APACHE": "516b24e051bf5630880ebbd55c40a25ce9552ebaf8970a53e8976eb70e522406",
+        "typenum-1.20.1/LICENSE-MIT": "a825bd853ab71619a4923d7b4311221427848070ff44d990da39b0b274c1683f"
+      }
+    },
+    {
+      "package": "unicode-ident@1.0.26",
+      "checksum": "d245f478577f809a851594d02313b640fb437e0bb33866753cff937863096954",
+      "bytes": 48425,
+      "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+      "repository": "https://github.com/dtolnay/unicode-ident",
+      "archive_origin": "https://static.crates.io/crates/unicode-ident/unicode-ident-1.0.26.crate",
+      "rights_sha256": {
+        "unicode-ident-1.0.26/LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "unicode-ident-1.0.26/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+        "unicode-ident-1.0.26/LICENSE-UNICODE": "f7db81051789b729fea528a63ec4c938fdcb93d9d61d97dc8cc2e9df6d47f2a1"
+      }
+    },
+    {
+      "package": "version_check@0.9.5",
+      "checksum": "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a",
+      "bytes": 15554,
+      "license": "MIT/Apache-2.0",
+      "repository": "https://github.com/SergioBenitez/version_check",
+      "archive_origin": "https://static.crates.io/crates/version_check/version_check-0.9.5.crate",
+      "rights_sha256": {
+        "version_check-0.9.5/LICENSE-APACHE": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+        "version_check-0.9.5/LICENSE-MIT": "b7e650f3fce5c53249d1cdc608b54df156a97edd636cf9d23498d0cfe7aec63e"
+      }
+    },
+    {
+      "package": "zmij@1.0.23",
+      "checksum": "29666d0abbfad1e3dc4dcf6144730dd3a3ab225bbbdac83319345b1b44ccfc1b",
+      "bytes": 28612,
+      "license": "MIT",
+      "repository": "https://github.com/dtolnay/zmij",
+      "archive_origin": "https://static.crates.io/crates/zmij/zmij-1.0.23.crate",
+      "rights_sha256": {
+        "zmij-1.0.23/LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "source-postgres-selected-exact",
+      "patches": [],
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-roots-reordered",
+      "patches": [
+        {
+          "path": "/graph/roots",
+          "value": [
+            {
+              "name": "sha2",
+              "package": "sha2@0.10.9",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "serde_json_canonicalizer",
+              "package": "serde_json_canonicalizer@0.4.1",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "serde_json",
+              "package": "serde_json@1.0.151",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            },
+            {
+              "name": "serde",
+              "package": "serde@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-packages-reordered",
+      "patches": [
+        {
+          "path": "/graph/packages",
+          "value": [
+            {
+              "package": "zmij@1.0.23",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": []
+            },
+            {
+              "package": "version_check@0.9.5",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": []
+            },
+            {
+              "package": "unicode-ident@1.0.26",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": []
+            },
+            {
+              "package": "typenum@1.20.1",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "const-generics"
+              ],
+              "dependencies": []
+            },
+            {
+              "package": "syn@3.0.6",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "clone-impls",
+                "default",
+                "derive",
+                "extra-traits",
+                "fold",
+                "parsing",
+                "printing",
+                "proc-macro",
+                "visit"
+              ],
+              "dependencies": [
+                {
+                  "name": "proc_macro2",
+                  "package": "proc-macro2@1.0.106",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "quote",
+                  "package": "quote@1.0.47",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "unicode_ident",
+                  "package": "unicode-ident@1.0.26",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "sha2@0.10.9",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "default",
+                "force-soft",
+                "std"
+              ],
+              "dependencies": [
+                {
+                  "name": "cfg_if",
+                  "package": "cfg-if@1.0.5",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "cpufeatures",
+                  "package": "cpufeatures@0.2.17",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": "cfg(any(target_arch = \"aarch64\", target_arch = \"x86_64\", target_arch = \"x86\"))"
+                    }
+                  ]
+                },
+                {
+                  "name": "digest",
+                  "package": "digest@0.10.7",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "serde_json_canonicalizer@0.4.1",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": [
+                {
+                  "name": "ryu_js",
+                  "package": "ryu-js@1.0.3",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "serde",
+                  "package": "serde@1.0.229",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "serde_json",
+                  "package": "serde_json@1.0.151",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "serde_json@1.0.151",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "default",
+                "float_roundtrip",
+                "raw_value",
+                "std"
+              ],
+              "dependencies": [
+                {
+                  "name": "itoa",
+                  "package": "itoa@1.0.18",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "memchr",
+                  "package": "memchr@2.8.3",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "serde",
+                  "package": "serde@1.0.229",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": "cfg(any())"
+                    }
+                  ]
+                },
+                {
+                  "name": "serde_core",
+                  "package": "serde_core@1.0.229",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "zmij",
+                  "package": "zmij@1.0.23",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "serde_derive@1.0.229",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "default"
+              ],
+              "dependencies": [
+                {
+                  "name": "proc_macro2",
+                  "package": "proc-macro2@1.0.106",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "quote",
+                  "package": "quote@1.0.47",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "syn",
+                  "package": "syn@3.0.6",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "serde_core@1.0.229",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "alloc",
+                "rc",
+                "result",
+                "std"
+              ],
+              "dependencies": [
+                {
+                  "name": "serde_derive",
+                  "package": "serde_derive@1.0.229",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": "cfg(any())"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "serde@1.0.229",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "alloc",
+                "default",
+                "derive",
+                "rc",
+                "serde_derive",
+                "std"
+              ],
+              "dependencies": [
+                {
+                  "name": "serde_core",
+                  "package": "serde_core@1.0.229",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "serde_derive",
+                  "package": "serde_derive@1.0.229",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "ryu-js@1.0.3",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": []
+            },
+            {
+              "package": "quote@1.0.47",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "default",
+                "proc-macro"
+              ],
+              "dependencies": [
+                {
+                  "name": "proc_macro2",
+                  "package": "proc-macro2@1.0.106",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "proc-macro2@1.0.106",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "default",
+                "proc-macro"
+              ],
+              "dependencies": [
+                {
+                  "name": "unicode_ident",
+                  "package": "unicode-ident@1.0.26",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "memchr@2.8.3",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "alloc",
+                "default",
+                "std"
+              ],
+              "dependencies": []
+            },
+            {
+              "package": "libc@0.2.190",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "default",
+                "std"
+              ],
+              "dependencies": []
+            },
+            {
+              "package": "itoa@1.0.18",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": []
+            },
+            {
+              "package": "generic-array@0.14.7",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "more_lengths"
+              ],
+              "dependencies": [
+                {
+                  "name": "typenum",
+                  "package": "typenum@1.20.1",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "version_check",
+                  "package": "version_check@0.9.5",
+                  "kinds": [
+                    {
+                      "kind": "build",
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "digest@0.10.7",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "alloc",
+                "block-buffer",
+                "core-api",
+                "default",
+                "std"
+              ],
+              "dependencies": [
+                {
+                  "name": "block_buffer",
+                  "package": "block-buffer@0.10.4",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "crypto_common",
+                  "package": "crypto-common@0.1.7",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "crypto-common@0.1.7",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [
+                "std"
+              ],
+              "dependencies": [
+                {
+                  "name": "generic_array",
+                  "package": "generic-array@0.14.7",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                },
+                {
+                  "name": "typenum",
+                  "package": "typenum@1.20.1",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "cpufeatures@0.2.17",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": [
+                {
+                  "name": "libc",
+                  "package": "libc@0.2.190",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": "aarch64-linux-android"
+                    },
+                    {
+                      "kind": null,
+                      "target": "cfg(all(target_arch = \"aarch64\", target_os = \"linux\"))"
+                    },
+                    {
+                      "kind": null,
+                      "target": "cfg(all(target_arch = \"aarch64\", target_vendor = \"apple\"))"
+                    },
+                    {
+                      "kind": null,
+                      "target": "cfg(all(target_arch = \"loongarch64\", target_os = \"linux\"))"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "package": "cfg-if@1.0.5",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": []
+            },
+            {
+              "package": "block-buffer@0.10.4",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "features": [],
+              "dependencies": [
+                {
+                  "name": "generic_array",
+                  "package": "generic-array@0.14.7",
+                  "kinds": [
+                    {
+                      "kind": null,
+                      "target": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-missing-profile",
+      "patches": [
+        {
+          "path": "/profile_present",
+          "value": false
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-wrong-profile",
+      "patches": [
+        {
+          "path": "/profile",
+          "value": "jcs-source-postgres-v2"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-nonstring-profile",
+      "patches": [
+        {
+          "path": "/profile",
+          "value": 1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-wrong-owner",
+      "patches": [
+        {
+          "path": "/owner",
+          "value": "arboresce-xtask"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-old-source-profile-new-graph",
+      "patches": [
+        {
+          "path": "/profile",
+          "value": "jcs-source-v1"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-old-source-graph-new-profile",
+      "patches": [
+        {
+          "path": "/graph",
+          "value": {
+            "owner_features": [],
+            "roots": [
+              {
+                "name": "serde",
+                "package": "serde@1.0.229",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              },
+              {
+                "name": "serde_json",
+                "package": "serde_json@1.0.151",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              },
+              {
+                "name": "serde_json_canonicalizer",
+                "package": "serde_json_canonicalizer@0.4.1",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              },
+              {
+                "name": "sha2",
+                "package": "sha2@0.10.9",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              }
+            ],
+            "packages": [
+              {
+                "package": "block-buffer@0.10.4",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "generic_array",
+                    "package": "generic-array@0.14.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "cfg-if@1.0.5",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "cpufeatures@0.2.17",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "libc",
+                    "package": "libc@0.2.190",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "aarch64-linux-android"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"aarch64\", target_os = \"linux\"))"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"aarch64\", target_vendor = \"apple\"))"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"loongarch64\", target_os = \"linux\"))"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "crypto-common@0.1.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "generic_array",
+                    "package": "generic-array@0.14.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "typenum",
+                    "package": "typenum@1.20.1",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "digest@0.10.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "block-buffer",
+                  "core-api",
+                  "default"
+                ],
+                "dependencies": [
+                  {
+                    "name": "block_buffer",
+                    "package": "block-buffer@0.10.4",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "crypto_common",
+                    "package": "crypto-common@0.1.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "generic-array@0.14.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "more_lengths"
+                ],
+                "dependencies": [
+                  {
+                    "name": "typenum",
+                    "package": "typenum@1.20.1",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "version_check",
+                    "package": "version_check@0.9.5",
+                    "kinds": [
+                      {
+                        "kind": "build",
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "itoa@1.0.18",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "libc@0.2.190",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "memchr@2.8.3",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "alloc",
+                  "std"
+                ],
+                "dependencies": []
+              },
+              {
+                "package": "proc-macro2@1.0.106",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "unicode_ident",
+                    "package": "unicode-ident@1.0.26",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "quote@1.0.47",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "ryu-js@1.0.3",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "serde@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "serde_core",
+                    "package": "serde_core@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_core@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "result",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "serde_derive",
+                    "package": "serde_derive@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any())"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_derive@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "quote",
+                    "package": "quote@1.0.47",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "syn",
+                    "package": "syn@3.0.6",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_json@1.0.151",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default",
+                  "float_roundtrip",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "itoa",
+                    "package": "itoa@1.0.18",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "memchr",
+                    "package": "memchr@2.8.3",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde",
+                    "package": "serde@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any())"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde_core",
+                    "package": "serde_core@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "zmij",
+                    "package": "zmij@1.0.23",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_json_canonicalizer@0.4.1",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "ryu_js",
+                    "package": "ryu-js@1.0.3",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde",
+                    "package": "serde@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde_json",
+                    "package": "serde_json@1.0.151",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "sha2@0.10.9",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "force-soft"
+                ],
+                "dependencies": [
+                  {
+                    "name": "cfg_if",
+                    "package": "cfg-if@1.0.5",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "cpufeatures",
+                    "package": "cpufeatures@0.2.17",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any(target_arch = \"aarch64\", target_arch = \"x86_64\", target_arch = \"x86\"))"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "digest",
+                    "package": "digest@0.10.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "syn@3.0.6",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "clone-impls",
+                  "derive",
+                  "parsing",
+                  "printing",
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "quote",
+                    "package": "quote@1.0.47",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "unicode_ident",
+                    "package": "unicode-ident@1.0.26",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "typenum@1.20.1",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "unicode-ident@1.0.26",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "version_check@0.9.5",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "zmij@1.0.23",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              }
+            ]
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-initial-empty",
+      "patches": [
+        {
+          "path": "/profile",
+          "value": "initial-v1"
+        },
+        {
+          "path": "/graph/roots",
+          "value": []
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-old-source-exact",
+      "patches": [
+        {
+          "path": "/profile",
+          "value": "jcs-source-v1"
+        },
+        {
+          "path": "/graph",
+          "value": {
+            "owner_features": [],
+            "roots": [
+              {
+                "name": "serde",
+                "package": "serde@1.0.229",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              },
+              {
+                "name": "serde_json",
+                "package": "serde_json@1.0.151",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              },
+              {
+                "name": "serde_json_canonicalizer",
+                "package": "serde_json_canonicalizer@0.4.1",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              },
+              {
+                "name": "sha2",
+                "package": "sha2@0.10.9",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              }
+            ],
+            "packages": [
+              {
+                "package": "block-buffer@0.10.4",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "generic_array",
+                    "package": "generic-array@0.14.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "cfg-if@1.0.5",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "cpufeatures@0.2.17",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "libc",
+                    "package": "libc@0.2.190",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "aarch64-linux-android"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"aarch64\", target_os = \"linux\"))"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"aarch64\", target_vendor = \"apple\"))"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"loongarch64\", target_os = \"linux\"))"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "crypto-common@0.1.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "generic_array",
+                    "package": "generic-array@0.14.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "typenum",
+                    "package": "typenum@1.20.1",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "digest@0.10.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "block-buffer",
+                  "core-api",
+                  "default"
+                ],
+                "dependencies": [
+                  {
+                    "name": "block_buffer",
+                    "package": "block-buffer@0.10.4",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "crypto_common",
+                    "package": "crypto-common@0.1.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "generic-array@0.14.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "more_lengths"
+                ],
+                "dependencies": [
+                  {
+                    "name": "typenum",
+                    "package": "typenum@1.20.1",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "version_check",
+                    "package": "version_check@0.9.5",
+                    "kinds": [
+                      {
+                        "kind": "build",
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "itoa@1.0.18",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "libc@0.2.190",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "memchr@2.8.3",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "alloc",
+                  "std"
+                ],
+                "dependencies": []
+              },
+              {
+                "package": "proc-macro2@1.0.106",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "unicode_ident",
+                    "package": "unicode-ident@1.0.26",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "quote@1.0.47",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "ryu-js@1.0.3",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "serde@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "serde_core",
+                    "package": "serde_core@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_core@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "result",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "serde_derive",
+                    "package": "serde_derive@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any())"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_derive@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "quote",
+                    "package": "quote@1.0.47",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "syn",
+                    "package": "syn@3.0.6",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_json@1.0.151",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default",
+                  "float_roundtrip",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "itoa",
+                    "package": "itoa@1.0.18",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "memchr",
+                    "package": "memchr@2.8.3",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde",
+                    "package": "serde@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any())"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde_core",
+                    "package": "serde_core@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "zmij",
+                    "package": "zmij@1.0.23",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_json_canonicalizer@0.4.1",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "ryu_js",
+                    "package": "ryu-js@1.0.3",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde",
+                    "package": "serde@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde_json",
+                    "package": "serde_json@1.0.151",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "sha2@0.10.9",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "force-soft"
+                ],
+                "dependencies": [
+                  {
+                    "name": "cfg_if",
+                    "package": "cfg-if@1.0.5",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "cpufeatures",
+                    "package": "cpufeatures@0.2.17",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any(target_arch = \"aarch64\", target_arch = \"x86_64\", target_arch = \"x86\"))"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "digest",
+                    "package": "digest@0.10.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "syn@3.0.6",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "clone-impls",
+                  "derive",
+                  "parsing",
+                  "printing",
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "quote",
+                    "package": "quote@1.0.47",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "unicode_ident",
+                    "package": "unicode-ident@1.0.26",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "typenum@1.20.1",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "unicode-ident@1.0.26",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "version_check@0.9.5",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "zmij@1.0.23",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              }
+            ]
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-old-number-exact",
+      "patches": [
+        {
+          "path": "/profile",
+          "value": "jcs-number-v1"
+        },
+        {
+          "path": "/graph",
+          "value": {
+            "owner_features": [],
+            "roots": [
+              {
+                "name": "serde_json_canonicalizer",
+                "package": "serde_json_canonicalizer@0.4.1",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              },
+              {
+                "name": "sha2",
+                "package": "sha2@0.10.9",
+                "kinds": [
+                  {
+                    "kind": null,
+                    "target": null
+                  }
+                ]
+              }
+            ],
+            "packages": [
+              {
+                "package": "block-buffer@0.10.4",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "generic_array",
+                    "package": "generic-array@0.14.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "cfg-if@1.0.5",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "cpufeatures@0.2.17",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "libc",
+                    "package": "libc@0.2.190",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "aarch64-linux-android"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"aarch64\", target_os = \"linux\"))"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"aarch64\", target_vendor = \"apple\"))"
+                      },
+                      {
+                        "kind": null,
+                        "target": "cfg(all(target_arch = \"loongarch64\", target_os = \"linux\"))"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "crypto-common@0.1.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "generic_array",
+                    "package": "generic-array@0.14.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "typenum",
+                    "package": "typenum@1.20.1",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "digest@0.10.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "block-buffer",
+                  "core-api",
+                  "default"
+                ],
+                "dependencies": [
+                  {
+                    "name": "block_buffer",
+                    "package": "block-buffer@0.10.4",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "crypto_common",
+                    "package": "crypto-common@0.1.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "generic-array@0.14.7",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "more_lengths"
+                ],
+                "dependencies": [
+                  {
+                    "name": "typenum",
+                    "package": "typenum@1.20.1",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "version_check",
+                    "package": "version_check@0.9.5",
+                    "kinds": [
+                      {
+                        "kind": "build",
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "itoa@1.0.18",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "libc@0.2.190",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "memchr@2.8.3",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "alloc",
+                  "std"
+                ],
+                "dependencies": []
+              },
+              {
+                "package": "proc-macro2@1.0.106",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "unicode_ident",
+                    "package": "unicode-ident@1.0.26",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "quote@1.0.47",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "ryu-js@1.0.3",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "serde@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "serde_core",
+                    "package": "serde_core@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_core@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "result",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "serde_derive",
+                    "package": "serde_derive@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any())"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_derive@1.0.229",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "quote",
+                    "package": "quote@1.0.47",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "syn",
+                    "package": "syn@3.0.6",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_json@1.0.151",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "default",
+                  "float_roundtrip",
+                  "std"
+                ],
+                "dependencies": [
+                  {
+                    "name": "itoa",
+                    "package": "itoa@1.0.18",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "memchr",
+                    "package": "memchr@2.8.3",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde",
+                    "package": "serde@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any())"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde_core",
+                    "package": "serde_core@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "zmij",
+                    "package": "zmij@1.0.23",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "serde_json_canonicalizer@0.4.1",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": [
+                  {
+                    "name": "ryu_js",
+                    "package": "ryu-js@1.0.3",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde",
+                    "package": "serde@1.0.229",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "serde_json",
+                    "package": "serde_json@1.0.151",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "sha2@0.10.9",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "force-soft"
+                ],
+                "dependencies": [
+                  {
+                    "name": "cfg_if",
+                    "package": "cfg-if@1.0.5",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "cpufeatures",
+                    "package": "cpufeatures@0.2.17",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": "cfg(any(target_arch = \"aarch64\", target_arch = \"x86_64\", target_arch = \"x86\"))"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "digest",
+                    "package": "digest@0.10.7",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "syn@3.0.6",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [
+                  "clone-impls",
+                  "derive",
+                  "parsing",
+                  "printing",
+                  "proc-macro"
+                ],
+                "dependencies": [
+                  {
+                    "name": "proc_macro2",
+                    "package": "proc-macro2@1.0.106",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "quote",
+                    "package": "quote@1.0.47",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  },
+                  {
+                    "name": "unicode_ident",
+                    "package": "unicode-ident@1.0.26",
+                    "kinds": [
+                      {
+                        "kind": null,
+                        "target": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "package": "typenum@1.20.1",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "unicode-ident@1.0.26",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "version_check@0.9.5",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              },
+              {
+                "package": "zmij@1.0.23",
+                "source": "registry+https://github.com/rust-lang/crates.io-index",
+                "features": [],
+                "dependencies": []
+              }
+            ]
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-extra-owner-feature",
+      "patches": [
+        {
+          "path": "/graph/owner_features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-serde-renamed",
+      "patches": [
+        {
+          "path": "/graph/roots/0/name",
+          "value": "different"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-serde-dev",
+      "patches": [
+        {
+          "path": "/graph/roots/0/kinds/0/kind",
+          "value": "dev"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-serde_json-renamed",
+      "patches": [
+        {
+          "path": "/graph/roots/1/name",
+          "value": "different"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-serde_json-dev",
+      "patches": [
+        {
+          "path": "/graph/roots/1/kinds/0/kind",
+          "value": "dev"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-serde_json_canonicalizer-renamed",
+      "patches": [
+        {
+          "path": "/graph/roots/2/name",
+          "value": "different"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-serde_json_canonicalizer-dev",
+      "patches": [
+        {
+          "path": "/graph/roots/2/kinds/0/kind",
+          "value": "dev"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-sha2-renamed",
+      "patches": [
+        {
+          "path": "/graph/roots/3/name",
+          "value": "different"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-sha2-dev",
+      "patches": [
+        {
+          "path": "/graph/roots/3/kinds/0/kind",
+          "value": "dev"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-block-buffer@0.10.4-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/0/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-cfg-if@1.0.5-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/1/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-cpufeatures@0.2.17-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/2/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-crypto-common@0.1.7-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/3/features",
+          "value": [
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-crypto-common@0.1.7-missing-std",
+      "patches": [
+        {
+          "path": "/graph/packages/3/features",
+          "value": []
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-digest@0.10.7-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/4/features",
+          "value": [
+            "alloc",
+            "block-buffer",
+            "core-api",
+            "default",
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-digest@0.10.7-missing-alloc",
+      "patches": [
+        {
+          "path": "/graph/packages/4/features",
+          "value": [
+            "block-buffer",
+            "core-api",
+            "default",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-digest@0.10.7-missing-std",
+      "patches": [
+        {
+          "path": "/graph/packages/4/features",
+          "value": [
+            "alloc",
+            "block-buffer",
+            "core-api",
+            "default"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-generic-array@0.14.7-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/5/features",
+          "value": [
+            "more_lengths",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-itoa@1.0.18-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/6/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-libc@0.2.190-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/7/features",
+          "value": [
+            "default",
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-libc@0.2.190-missing-default",
+      "patches": [
+        {
+          "path": "/graph/packages/7/features",
+          "value": [
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-libc@0.2.190-missing-std",
+      "patches": [
+        {
+          "path": "/graph/packages/7/features",
+          "value": [
+            "default"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-memchr@2.8.3-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/8/features",
+          "value": [
+            "alloc",
+            "default",
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-memchr@2.8.3-missing-default",
+      "patches": [
+        {
+          "path": "/graph/packages/8/features",
+          "value": [
+            "alloc",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-proc-macro2@1.0.106-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/9/features",
+          "value": [
+            "default",
+            "proc-macro",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-proc-macro2@1.0.106-missing-default",
+      "patches": [
+        {
+          "path": "/graph/packages/9/features",
+          "value": [
+            "proc-macro"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-quote@1.0.47-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/10/features",
+          "value": [
+            "default",
+            "proc-macro",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-quote@1.0.47-missing-default",
+      "patches": [
+        {
+          "path": "/graph/packages/10/features",
+          "value": [
+            "proc-macro"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-ryu-js@1.0.3-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/11/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde@1.0.229-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/12/features",
+          "value": [
+            "alloc",
+            "default",
+            "derive",
+            "rc",
+            "serde_derive",
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde@1.0.229-missing-alloc",
+      "patches": [
+        {
+          "path": "/graph/packages/12/features",
+          "value": [
+            "default",
+            "derive",
+            "rc",
+            "serde_derive",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde@1.0.229-missing-derive",
+      "patches": [
+        {
+          "path": "/graph/packages/12/features",
+          "value": [
+            "alloc",
+            "default",
+            "rc",
+            "serde_derive",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde@1.0.229-missing-rc",
+      "patches": [
+        {
+          "path": "/graph/packages/12/features",
+          "value": [
+            "alloc",
+            "default",
+            "derive",
+            "serde_derive",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde@1.0.229-missing-serde_derive",
+      "patches": [
+        {
+          "path": "/graph/packages/12/features",
+          "value": [
+            "alloc",
+            "default",
+            "derive",
+            "rc",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-added-derive-edge-required",
+      "patches": [
+        {
+          "path": "/graph/packages/12/dependencies",
+          "value": [
+            {
+              "name": "serde_core",
+              "package": "serde_core@1.0.229",
+              "kinds": [
+                {
+                  "kind": null,
+                  "target": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde_core@1.0.229-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/13/features",
+          "value": [
+            "alloc",
+            "rc",
+            "result",
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde_core@1.0.229-missing-alloc",
+      "patches": [
+        {
+          "path": "/graph/packages/13/features",
+          "value": [
+            "rc",
+            "result",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde_core@1.0.229-missing-rc",
+      "patches": [
+        {
+          "path": "/graph/packages/13/features",
+          "value": [
+            "alloc",
+            "result",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde_derive@1.0.229-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/14/features",
+          "value": [
+            "default",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde_json@1.0.151-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/15/features",
+          "value": [
+            "default",
+            "float_roundtrip",
+            "raw_value",
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde_json@1.0.151-missing-raw_value",
+      "patches": [
+        {
+          "path": "/graph/packages/15/features",
+          "value": [
+            "default",
+            "float_roundtrip",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-serde_json_canonicalizer@0.4.1-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/16/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-sha2@0.10.9-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/17/features",
+          "value": [
+            "default",
+            "force-soft",
+            "std",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-sha2@0.10.9-missing-default",
+      "patches": [
+        {
+          "path": "/graph/packages/17/features",
+          "value": [
+            "force-soft",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-sha2@0.10.9-missing-std",
+      "patches": [
+        {
+          "path": "/graph/packages/17/features",
+          "value": [
+            "default",
+            "force-soft"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-software-required",
+      "patches": [
+        {
+          "path": "/graph/packages/17/features",
+          "value": [
+            "default",
+            "std"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-syn@3.0.6-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/18/features",
+          "value": [
+            "clone-impls",
+            "default",
+            "derive",
+            "extra-traits",
+            "fold",
+            "parsing",
+            "printing",
+            "proc-macro",
+            "visit",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-syn@3.0.6-missing-default",
+      "patches": [
+        {
+          "path": "/graph/packages/18/features",
+          "value": [
+            "clone-impls",
+            "derive",
+            "extra-traits",
+            "fold",
+            "parsing",
+            "printing",
+            "proc-macro",
+            "visit"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-syn@3.0.6-missing-extra-traits",
+      "patches": [
+        {
+          "path": "/graph/packages/18/features",
+          "value": [
+            "clone-impls",
+            "default",
+            "derive",
+            "fold",
+            "parsing",
+            "printing",
+            "proc-macro",
+            "visit"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-syn@3.0.6-missing-fold",
+      "patches": [
+        {
+          "path": "/graph/packages/18/features",
+          "value": [
+            "clone-impls",
+            "default",
+            "derive",
+            "extra-traits",
+            "parsing",
+            "printing",
+            "proc-macro",
+            "visit"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-syn@3.0.6-missing-visit",
+      "patches": [
+        {
+          "path": "/graph/packages/18/features",
+          "value": [
+            "clone-impls",
+            "default",
+            "derive",
+            "extra-traits",
+            "fold",
+            "parsing",
+            "printing",
+            "proc-macro"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-typenum@1.20.1-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/19/features",
+          "value": [
+            "const-generics",
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-typenum@1.20.1-missing-const-generics",
+      "patches": [
+        {
+          "path": "/graph/packages/19/features",
+          "value": []
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-unicode-ident@1.0.26-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/20/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-version_check@0.9.5-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/21/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-package-zmij@1.0.23-extra-feature",
+      "patches": [
+        {
+          "path": "/graph/packages/22/features",
+          "value": [
+            "unselected"
+          ]
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-root-conditional",
+      "patches": [
+        {
+          "path": "/graph/roots/0/kinds/0/target",
+          "value": "cfg(unix)"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-wrong-version",
+      "patches": [
+        {
+          "path": "/declared_packages/serde_json@1.0.151/version",
+          "value": "1.0.152"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-wrong-source",
+      "patches": [
+        {
+          "path": "/graph/packages/0/source",
+          "value": null
+        }
+      ],
+      "accepted": false
+    }
+  ],
+  "source_cases": [
+    {
+      "id": "source-postgres-source-writer-in-memory-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write; pub fn append(out: &mut Vec<u8>) { let _ = out.write_all(b\"x\"); }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-renamed-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write as Sink; pub fn append<W: Sink>(out: &mut W) { let _ = out.write_all(b\"x\"); }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-grouped-types",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::{Write,ErrorKind,Result}; pub fn append<W: Write>(out: &mut W) -> Result<()> { out.write_all(b\"x\").map_err(|_| ErrorKind::FileTooLarge.into()) }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-qualified-types",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn append<W: std::io::Write>(out: &mut W) -> std::io::Result<()> { out.write_all(b\"x\") }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-qualified-error-variant",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn error() -> std::io::Result<()> { Err(std::io::ErrorKind::FileTooLarge.into()) }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-raw-identifiers",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use r#std::r#io::r#Write; pub fn append<W: Write>(out: &mut W) { let _ = out.write_all(b\"x\"); }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-read",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Read;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-buf-read",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::BufRead;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-seek",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Seek;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-stdin",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn input() { let _ = std::io::stdin(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-stdout",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn output() { let _ = std::io::stdout(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-stderr",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn output() { let _ = std::io::stderr(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-module",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-module-self",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::{self,Write};",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-module-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io as sink;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-root-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std as base;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-glob",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::*;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-qualified-file",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn open() { let _ = std::fs::File::open(\"x\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-network",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::net::TcpStream;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-environment",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn get() { let _ = std::env::var(\"X\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-clock",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::time::Instant;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-thread",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::thread::spawn;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-print",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn output() { println!(\"x\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-panic",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn fail() { panic!(\"x\"); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-unwrap",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn fail() { let _ = Some(1).unwrap(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-mixed-group",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::{Write,Read};",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-renamed-read",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Read as Sink;",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-raw-stdout",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn output() { let _ = r#std::r#io::r#stdout(); }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-macro-stdout",
+      "profile": "jcs-source-postgres-v1",
+      "source": "macro_rules! output { () => { std::io::stdout() } }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-macro-pure-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "macro_rules! writer { () => { std::io::Write } }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-actual-vector-writer",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::{Write,Result,ErrorKind}; struct Sink(Vec<u8>); impl Write for Sink { fn write(&mut self,b:&[u8])->Result<usize>{if b.len()>8-self.0.len(){return Err(ErrorKind::FileTooLarge.into());}self.0.extend_from_slice(b);Ok(b.len())}fn flush(&mut self)->Result<()>{Ok(())}}",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn append<W: std::io::Write>(out: &mut W) -> std::io::Result<()> { <W as std::io::Write>::write_all(out,b\"x\") }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-leading-qualified-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use ::std::io::Write; pub fn append<W: Write>(out: &mut W) { let _ = out.write_all(b\"x\"); }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-already-pure",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::{fmt::Debug,collections::BTreeMap}; pub fn count(v: &BTreeMap<String,u8>) -> usize { v.len() }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-error-import",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Error;",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-error-renamed",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Error as E;",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-error-type-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "type E = std::io::Error;",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-last-os-error-qualified",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn get() { let _ = std::io::Error::last_os_error(); }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-last-os-error-imported",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Error; pub fn get() { let _ = Error::last_os_error(); }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-last-os-error-renamed",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Error as E; pub fn get() { let _ = E::last_os_error(); }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-last-os-error-ufcs",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn get() { let _ = <std::io::Error>::last_os_error(); }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-last-os-error-function",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn get() { let _f = std::io::Error::last_os_error; }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-last-os-error-raw",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn get() { let _ = r#std::r#io::r#Error::r#last_os_error(); }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-last-os-error-macro",
+      "profile": "jcs-source-postgres-v1",
+      "source": "macro_rules! get { () => { std::io::Error::last_os_error() } }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-macro-grouped-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "macro_rules! m {()=>{{use std::{io as ambient}; ambient::stdout();}}} m!();",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-macro-root-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "macro_rules! m {()=>{{use std as ambient; ambient::io::stdout();}}}",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-macro-pure-import-closed",
+      "profile": "jcs-source-postgres-v1",
+      "source": "macro_rules! m {()=>{{use std::io::Write;}}}",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-macro-extern-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "macro_rules! m {()=>{{extern crate std as ambient;}}}",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-extern-root-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "extern crate std as ambient;",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-leading-module-self",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use ::std::io::{self,Write};",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-raw-module-alias",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use r#std::{r#io as ambient};",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-raw-glob",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use r#std::r#io::*;",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-arbitrary-write-suffix",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write::arbitrary;",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-arbitrary-error-kind",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn get() { let _ = std::io::ErrorKind::last_os_error(); }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-other-error-variant",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn get() { let _ = std::io::ErrorKind::NotFound; }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-panic-beside-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write; pub fn get() { panic!(\"x\"); }",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-unsafe-beside-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write; pub unsafe fn get() {}",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-include-beside-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write; include!(\"x\");",
+      "accepted": false,
+      "placement": "main"
+    },
+    {
+      "id": "source-postgres-source-writer-unimported-read",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Read;",
+      "accepted": false,
+      "placement": "unimported"
+    },
+    {
+      "id": "source-postgres-source-writer-non-rs-target-read",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Read;",
+      "accepted": false,
+      "placement": "non-rs-target"
+    },
+    {
+      "id": "source-postgres-source-writer-unimported-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write;",
+      "accepted": true,
+      "placement": "unimported"
+    },
+    {
+      "id": "source-postgres-source-writer-non-rs-target-write",
+      "profile": "jcs-source-postgres-v1",
+      "source": "use std::io::Write;",
+      "accepted": true,
+      "placement": "non-rs-target"
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-forbidden-self",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f() { let _ = <std::fs::File as std::io::Write>::write_all; }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-forbidden-generic",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f<W: std::io::Write>() { let _ = <W as std::io::Write>::write_all::<std::fs::File>; }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-forbidden-const",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f<W: std::io::Write>() { let _ = <W as std::io::Write>::write_all::<{std::env::var(\"X\")}>; }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-path-attribute",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f<W: std::io::Write>() { let _f = #[path=\"unselected.rs\"] <W as std::io::Write>::write_all; }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-cfg-path-attribute",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f<W: std::io::Write>() { let _f = #[cfg_attr(any(),path=\"unselected.rs\")] <W as std::io::Write>::write_all; }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-other-method",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f<W: std::io::Write>() { let _ = <W as std::io::Write>::write; }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-other-trait",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f() { let _ = <Vec<u8> as std::io::Read>::read; }",
+      "accepted": false
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-vector-self",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f(v:&mut Vec<u8>) { let _ = <Vec<u8> as std::io::Write>::write_all(v,b\"x\"); }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-benign-attribute",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f<W: std::io::Write>() { let _f = #[allow(dead_code)] <W as std::io::Write>::write_all; }",
+      "accepted": true
+    },
+    {
+      "id": "source-postgres-source-writer-ufcs-pure-generic",
+      "profile": "jcs-source-postgres-v1",
+      "source": "pub fn f<W: std::io::Write>() { let _f = <W as std::io::Write>::write_all::<u8>; }",
+      "accepted": true
+    }
+  ],
+  "preserved_profiles": "The Initial and canonical-number fixture packages retain every original byte and expected meaning. This new package selects only the complete source-JSON consumer roots and exact effective graph.",
+  "scope": "Exact conservative23package source closure in the selected SQLx0.9.0 and Tokio1.53.3 workspace graph. Previous profiles and fixtures remain unchanged. Native/source/resource acceptance is separate. No arbitrary feature allowance.",
+  "source_profile_contract": "Only exact admitted arboresce-domain0.0.0 jcs-source-postgres-v1 dispatch permits normalized std::io::Write, std::io::Result and std::io::ErrorKind type paths, plus exactly std::io::ErrorKind::FileTooLarge. No std::io::Error import/type/associated path is admitted. No io-prefix exemption, root/module/self/glob import or arbitrary suffix is permitted. The selected profile conservatively rejects use/extern tokens inside macro bodies; already-closed initial-v1 and jcs-number-v1 source meanings stay unchanged. Pure writer type access alone grants no ambient I/O. This syntax guard does not prove arbitrary data flow or macro expansion. The same policy checks actual production targets, non-rs targets and recursive/unimported source files. The sole UFCS Write::write_all exception still traverses expression attributes, qualified self and every generic/const path argument; all existing nested-path guards stay active. Source cases qualify syntax policy, not whether arbitrary synthetic function/type arguments compile as a product."
+}

@@ -1,0 +1,1492 @@
+{
+  "version": "migration-service-expectations-v1",
+  "classification": "Original synthetic qualification inputs under MIT OR Apache-2.0. Hashes in structural contexts are literals, not actual readiness or file evidence.",
+  "base_input": {
+    "version": "postgres-harness-service-v1",
+    "socket": "/private/tmp/arboresce-fixture",
+    "data": "/verification/postgres-fixture/data",
+    "server_pid": 41,
+    "postmaster_start": "2026-10-15 00:00:00+00",
+    "system_identifier": "4242424242424242424",
+    "server_version_num": 170011,
+    "os_build": "25F71",
+    "architecture": "arm64",
+    "lease_deadline_unix_ms": 1792195200000,
+    "readiness": {
+      "path": "/verification/readiness.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "tools": {
+      "postgres": {
+        "path": "/prepared/postgres",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "pg_ctl": {
+        "path": "/prepared/pg_ctl",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "files": {
+      "/verification/postgres-fixture/data/postgresql.conf": {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "size": 1
+      },
+      "/verification/postgres-fixture/data/pg_hba.conf": {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "size": 1
+      },
+      "/verification/postgres-fixture/data/postgresql.auto.conf": {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "size": 1
+      },
+      "/prepared/postgres": {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "size": 1
+      },
+      "/prepared/pg_ctl": {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "size": 1
+      }
+    }
+  },
+  "service_cases": [
+    {
+      "id": "migration-service-exact",
+      "patches": [],
+      "accepted": true
+    },
+    {
+      "id": "migration-service-version-1",
+      "patches": [
+        {
+          "path": "/version",
+          "value": "postgres-harness-service-v2"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-socket-2",
+      "patches": [
+        {
+          "path": "/socket",
+          "value": "relative"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-data-3",
+      "patches": [
+        {
+          "path": "/data",
+          "value": "/verification/../other"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-server_pid-4",
+      "patches": [
+        {
+          "path": "/server_pid",
+          "value": 0
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-server_pid-5",
+      "patches": [
+        {
+          "path": "/server_pid",
+          "value": 4294967296
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-postmaster_start-6",
+      "patches": [
+        {
+          "path": "/postmaster_start",
+          "value": ""
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-system_identifier-7",
+      "patches": [
+        {
+          "path": "/system_identifier",
+          "value": "-1"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-server_version_num-8",
+      "patches": [
+        {
+          "path": "/server_version_num",
+          "value": 170012
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-architecture-9",
+      "patches": [
+        {
+          "path": "/architecture",
+          "value": "x86_64"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-os_build-10",
+      "patches": [
+        {
+          "path": "/os_build",
+          "value": ""
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-lease_deadline_unix_ms-11",
+      "patches": [
+        {
+          "path": "/lease_deadline_unix_ms",
+          "value": 0
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-readiness-hash",
+      "patches": [
+        {
+          "path": "/readiness/sha256",
+          "value": "00"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-readiness-relative",
+      "patches": [
+        {
+          "path": "/readiness/path",
+          "value": "relative"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-tool-unbound",
+      "patches": [
+        {
+          "path": "/tools/pg_ctl/path",
+          "value": "/prepared/unbound"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-tool-hash-mismatch",
+      "patches": [
+        {
+          "path": "/tools/pg_ctl/sha256",
+          "value": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-tool-extra",
+      "patches": [
+        {
+          "path": "/tools",
+          "value": {
+            "postgres": {
+              "path": "/prepared/postgres",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "pg_ctl": {
+              "path": "/prepared/pg_ctl",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "other": {
+              "path": "/prepared/postgres",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-config-missing",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {
+            "/verification/postgres-fixture/data/postgresql.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/postgresql.auto.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/postgres": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/pg_ctl": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            }
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-file-relative",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {
+            "/verification/postgres-fixture/data/postgresql.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/pg_hba.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/postgresql.auto.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/postgres": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/pg_ctl": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "relative": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            }
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-file-negative",
+      "patches": [
+        {
+          "path": "/files/~1prepared~1postgres/size",
+          "value": -1
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-file-one-over",
+      "patches": [
+        {
+          "path": "/files/~1prepared~1postgres/size",
+          "value": 2147483649
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-file-exact",
+      "patches": [
+        {
+          "path": "/files/~1prepared~1postgres/size",
+          "value": 2147483648
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "migration-service-file-hash-uppercase",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {
+            "/verification/postgres-fixture/data/postgresql.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/pg_hba.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/postgresql.auto.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/postgres": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/pg_ctl": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/optional": {
+              "sha256": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "size": 1
+            }
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-files-empty",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {}
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-files-count-over",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {
+            "/verification/postgres-fixture/data/postgresql.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/pg_hba.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/postgresql.auto.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/postgres": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/pg_ctl": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra0": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra1": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra2": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra3": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra4": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra5": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra6": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra7": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra8": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra9": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra10": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra11": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra12": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra13": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra14": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra15": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra16": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra17": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra18": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra19": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra20": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra21": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra22": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra23": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra24": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra25": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra26": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra27": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra28": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra29": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra30": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra31": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra32": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra33": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra34": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra35": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra36": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra37": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra38": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra39": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra40": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra41": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra42": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra43": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra44": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra45": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra46": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra47": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra48": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra49": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra50": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra51": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra52": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra53": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra54": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra55": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra56": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra57": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra58": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra59": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            }
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-files-total-exact",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {
+            "/verification/postgres-fixture/data/postgresql.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/pg_hba.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/postgresql.auto.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/postgres": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/pg_ctl": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/large0": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483648
+            },
+            "/prepared/large1": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483648
+            },
+            "/prepared/large2": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483648
+            },
+            "/prepared/large3": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483643
+            }
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "migration-service-files-total-over",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {
+            "/verification/postgres-fixture/data/postgresql.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/pg_hba.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/postgresql.auto.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/postgres": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/pg_ctl": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/large0": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483648
+            },
+            "/prepared/large1": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483648
+            },
+            "/prepared/large2": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483648
+            },
+            "/prepared/large3": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 2147483644
+            }
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-socket-nul",
+      "patches": [
+        {
+          "path": "/socket",
+          "value": "/private/tmp/a\u0000b"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-socket-long",
+      "patches": [
+        {
+          "path": "/socket",
+          "value": "/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-extra-field",
+      "patches": [
+        {
+          "path": "/readiness",
+          "value": {
+            "path": "/verification/readiness.json",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "ignored": true
+          }
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "id": "migration-service-files-count-exact",
+      "patches": [
+        {
+          "path": "/files",
+          "value": {
+            "/verification/postgres-fixture/data/postgresql.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/pg_hba.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/verification/postgres-fixture/data/postgresql.auto.conf": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/postgres": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/pg_ctl": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra0": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra1": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra2": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra3": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra4": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra5": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra6": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra7": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra8": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra9": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra10": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra11": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra12": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra13": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra14": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra15": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra16": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra17": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra18": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra19": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra20": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra21": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra22": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra23": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra24": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra25": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra26": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra27": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra28": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra29": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra30": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra31": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra32": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra33": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra34": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra35": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra36": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra37": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra38": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra39": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra40": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra41": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra42": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra43": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra44": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra45": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra46": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra47": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra48": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra49": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra50": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra51": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra52": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra53": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra54": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra55": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra56": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra57": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            },
+            "/prepared/extra58": {
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "size": 1
+            }
+          }
+        }
+      ],
+      "accepted": true
+    }
+  ],
+  "relay_cases": [
+    {
+      "id": "migration-relay-commit-drop",
+      "mode": "commit",
+      "type_byte": 67,
+      "declared_length": 11,
+      "body_hex": "434f4d4d495400",
+      "expected": "drop"
+    },
+    {
+      "id": "migration-relay-rollback-drop",
+      "mode": "rollback",
+      "type_byte": 67,
+      "declared_length": 13,
+      "body_hex": "524f4c4c4241434b00",
+      "expected": "drop"
+    },
+    {
+      "id": "migration-relay-commit-forward",
+      "mode": "rollback",
+      "type_byte": 67,
+      "declared_length": 11,
+      "body_hex": "434f4d4d495400",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-rollback-forward",
+      "mode": "commit",
+      "type_byte": 67,
+      "declared_length": 13,
+      "body_hex": "524f4c4c4241434b00",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-select-forward",
+      "mode": "commit",
+      "type_byte": 67,
+      "declared_length": 13,
+      "body_hex": "53454c454354203100",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-ready-forward",
+      "mode": "commit",
+      "type_byte": 90,
+      "declared_length": 5,
+      "body_hex": "49",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-error-forward",
+      "mode": "commit",
+      "type_byte": 69,
+      "declared_length": 12,
+      "body_hex": "534552524f520000",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-commit-suffix-forward",
+      "mode": "commit",
+      "type_byte": 67,
+      "declared_length": 13,
+      "body_hex": "434f4d4d4954203100",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-missing-nul",
+      "mode": "commit",
+      "type_byte": 67,
+      "declared_length": 10,
+      "body_hex": "434f4d4d4954",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-interior-nul",
+      "mode": "commit",
+      "type_byte": 67,
+      "declared_length": 12,
+      "body_hex": "434f004d4d495400",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-empty-command",
+      "mode": "commit",
+      "type_byte": 67,
+      "declared_length": 4,
+      "body_hex": "",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-short-length",
+      "mode": "commit",
+      "type_byte": 90,
+      "declared_length": 3,
+      "body_hex": "",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-wrong-length",
+      "mode": "commit",
+      "type_byte": 90,
+      "declared_length": 6,
+      "body_hex": "49",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-frame-one-over",
+      "mode": "commit",
+      "type_byte": 90,
+      "declared_length": 1048576,
+      "body_hex": "",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-unknown-type-forward",
+      "mode": "commit",
+      "type_byte": 255,
+      "declared_length": 4,
+      "body_hex": "",
+      "expected": "forward"
+    }
+  ],
+  "relay_length_cases": [
+    {
+      "id": "migration-relay-length-minimum",
+      "declared_length": 4,
+      "expected_body_bytes": 0
+    },
+    {
+      "id": "migration-relay-length-exact",
+      "declared_length": 1048575,
+      "expected_body_bytes": 1048571
+    },
+    {
+      "id": "migration-relay-length-one-over",
+      "declared_length": 1048576,
+      "expected_body_bytes": null
+    },
+    {
+      "id": "migration-relay-length-under",
+      "declared_length": 3,
+      "expected_body_bytes": null
+    },
+    {
+      "id": "migration-relay-length-maximum-u32",
+      "declared_length": 4294967295,
+      "expected_body_bytes": null
+    }
+  ],
+  "resource_limits": {
+    "input_max_bytes": 2097152,
+    "files_max": 64,
+    "file_max_bytes": 2147483648,
+    "total_native_file_bytes_max": 8589934592,
+    "frame_max_bytes_including_header": 1048576,
+    "bytes_max_per_direction": 8388608,
+    "frames_max": 4096,
+    "io_timeout_ms": 2000,
+    "total_timeout_ms": 10000,
+    "connection_pairs_max": 1,
+    "forwarding_threads_max": 2
+  },
+  "required_physical_failures": [
+    "changed profile bytes",
+    "missing or changed bound native/configuration/readiness file",
+    "symlinked selected file/ancestor",
+    "data or socket permissions other than0700",
+    "expired input lease",
+    "ambient service selector cannot replace explicit collector argument",
+    "all ambient PG-prefixed variables removed before command",
+    "actual server metadata mismatches declared namespace/version/system identifier",
+    "service input absent fails, no optional skip",
+    "serialized UTF-8 input exactly2097152 bytes succeeds;2097153 fails before parsing",
+    "actual relay truncated header/body fail without inventing a completion",
+    "actual relay selected2000ms I/O and10000ms total deadline fail with bounded owned-stream cleanup",
+    "actual relay exact/one-over8MiB-per-direction and4096-frame boundaries; never forward an over-limit frame"
+  ],
+  "owned_restart": "Actual exact prepared pg_ctl stop/start on only the owned data directory; observe old PID/socket disappearance and new PID/start with same system identifier/configuration/exact useful row. Keep all command launch/exit receipts and indirect daemon observations. No direct daemon Child exit status is invented; this is persistence/reconnect, not recovery.",
+  "serialized_input_cases": [
+    {
+      "id": "migration-service-input-exact",
+      "recipe": "compact sorted UTF-8 base_input plus trailing ASCII spaces to exactly target_bytes",
+      "target_bytes": 2097152,
+      "accepted": true
+    },
+    {
+      "id": "migration-service-input-one-over",
+      "recipe": "compact sorted UTF-8 base_input plus trailing ASCII spaces to exactly target_bytes",
+      "target_bytes": 2097153,
+      "accepted": false
+    }
+  ],
+  "relay_budget_cases": [
+    {
+      "id": "migration-relay-budget-empty",
+      "bytes_before": 0,
+      "frames_before": 0,
+      "incoming_bytes": 0,
+      "server_frame": false,
+      "expected": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "migration-relay-budget-byte-exact",
+      "bytes_before": 8388607,
+      "frames_before": 0,
+      "incoming_bytes": 1,
+      "server_frame": false,
+      "expected": [
+        8388608,
+        0
+      ]
+    },
+    {
+      "id": "migration-relay-budget-byte-one-over",
+      "bytes_before": 8388608,
+      "frames_before": 0,
+      "incoming_bytes": 1,
+      "server_frame": false,
+      "expected": null
+    },
+    {
+      "id": "migration-relay-budget-frame-exact",
+      "bytes_before": 0,
+      "frames_before": 4095,
+      "incoming_bytes": 5,
+      "server_frame": true,
+      "expected": [
+        5,
+        4096
+      ]
+    },
+    {
+      "id": "migration-relay-budget-frame-one-over",
+      "bytes_before": 0,
+      "frames_before": 4096,
+      "incoming_bytes": 5,
+      "server_frame": true,
+      "expected": null
+    },
+    {
+      "id": "migration-relay-budget-both-exact",
+      "bytes_before": 8388603,
+      "frames_before": 4095,
+      "incoming_bytes": 5,
+      "server_frame": true,
+      "expected": [
+        8388608,
+        4096
+      ]
+    },
+    {
+      "id": "migration-relay-budget-byte-overflow",
+      "bytes_before": 18446744073709551615,
+      "frames_before": 0,
+      "incoming_bytes": 1,
+      "server_frame": false,
+      "expected": null
+    },
+    {
+      "id": "migration-relay-budget-frame-overflow",
+      "bytes_before": 0,
+      "frames_before": 18446744073709551615,
+      "incoming_bytes": 5,
+      "server_frame": true,
+      "expected": null
+    }
+  ],
+  "physical_relay_cases": [
+    {
+      "id": "migration-relay-physical-truncated-header",
+      "recipe": "real Unix peer writes3of5header bytes then shuts down",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-physical-truncated-body",
+      "recipe": "real peer writes valid header declaring7bodybytes, writes3bytes then shuts down",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-physical-io-deadline",
+      "recipe": "real connected peer sends no server header; actual selected2000ms IO limit expires",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-physical-total-deadline",
+      "recipe": "real peer keeps valid non-target traffic flowing with gaps below2000ms beyond actual10000ms total deadline",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-physical-bytes-exact",
+      "recipe": "real peer sends8complete1MiB non-target frames; exactly8MiB passes unchanged",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-physical-bytes-one-over",
+      "recipe": "real peer sends8complete1MiB non-target frames then one additional non-target frame; no over-limit frame is forwarded",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-physical-frames-exact",
+      "recipe": "real peer sends4096non-target empty-body frames within byte/deadline caps",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-physical-frames-one-over",
+      "recipe": "real peer sends4097non-target empty-body frames within byte/deadline caps; no over-limit frame is forwarded",
+      "expected": "reject"
+    },
+    {
+      "id": "migration-relay-physical-client-bytes-exact",
+      "recipe": "real Unix client peer writes exactly8MiB raw bytes; independent drainer acknowledges the complete8MiB before orderly EOF",
+      "expected": "forward"
+    },
+    {
+      "id": "migration-relay-physical-client-bytes-one-over",
+      "recipe": "real Unix client peer writes8MiB raw bytes and waits for independent drainer acknowledgement before one additional byte; the extra byte is never forwarded",
+      "expected": "reject"
+    }
+  ],
+  "collector_command_cases": [
+    {
+      "id": "migration-service-command-help",
+      "arguments": [
+        "postgres",
+        "--help"
+      ],
+      "stdout": "usage: arboresce-verify postgres <workspace> <roles.json> <tests.json> <prepared.json> <postgres-input.json> <fresh-output>\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "id": "migration-service-command-missing",
+      "arguments": [
+        "postgres"
+      ],
+      "stdout": "",
+      "stderr": "usage: arboresce-verify postgres <workspace> <roles.json> <tests.json> <prepared.json> <postgres-input.json> <fresh-output>\n",
+      "exit": 2
+    },
+    {
+      "id": "migration-service-command-short",
+      "arguments": [
+        "postgres",
+        "a",
+        "b"
+      ],
+      "stdout": "",
+      "stderr": "usage: arboresce-verify postgres <workspace> <roles.json> <tests.json> <prepared.json> <postgres-input.json> <fresh-output>\n",
+      "exit": 2
+    },
+    {
+      "id": "migration-service-command-long",
+      "arguments": [
+        "postgres",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g"
+      ],
+      "stdout": "",
+      "stderr": "usage: arboresce-verify postgres <workspace> <roles.json> <tests.json> <prepared.json> <postgres-input.json> <fresh-output>\n",
+      "exit": 2
+    }
+  ],
+  "physical_service_cases": [
+    {
+      "id": "migration-service-physical-valid",
+      "recipe": "none",
+      "accepted": true
+    },
+    {
+      "id": "migration-service-physical-missing-input",
+      "recipe": "remove-input",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-native-changed",
+      "recipe": "change-tool",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-native-missing",
+      "recipe": "remove-tool",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-configuration-changed",
+      "recipe": "change-configuration",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-readiness-changed",
+      "recipe": "change-readiness",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-profile-changed",
+      "recipe": "change-profile",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-selected-file-symlink",
+      "recipe": "symlink-tool",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-ancestor-symlink",
+      "recipe": "symlink-ancestor",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-data-permissions",
+      "recipe": "data-mode-0755",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-socket-permissions",
+      "recipe": "socket-mode-0755",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-expired-lease",
+      "recipe": "expire-lease",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-physical-environment-explicit",
+      "recipe": "explicit-environment",
+      "accepted": true
+    }
+  ],
+  "live_service_cases": [
+    {
+      "id": "migration-service-live-system-identifier-mismatch",
+      "field": "system_identifier",
+      "replacement": "4242424242424242424",
+      "accepted": false
+    },
+    {
+      "id": "migration-service-live-pid-mismatch",
+      "field": "server_pid",
+      "replacement": 1,
+      "accepted": false
+    },
+    {
+      "id": "migration-service-live-start-mismatch",
+      "field": "postmaster_start",
+      "replacement": "2000-01-01 00:00:00+00",
+      "accepted": false
+    }
+  ]
+}

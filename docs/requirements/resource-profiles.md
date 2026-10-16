@@ -316,6 +316,47 @@ profiles in [dependency qualification](dependency-qualification.md) and
 
 ## Database and storage capacity
 
+The first synthetic migration harness uses its own protected Unix socket and
+fresh task-owned PostgreSQL 17.11 cluster/database, with no TCP listener or
+operational credentials. Its separate synthetic migration/writer roles are not
+product principals. The writer is neither owner nor superuser and has no
+createdb/createrole/replication/BYPASSRLS privilege. This local qualification input
+does not claim full H0, managed capacity or native Linux service support.
+
+The cluster has at most 16 connections: at most two writer connections and three
+direct migration/control connections, with eleven remaining for other explicit
+administration and safety. No per-request or per-tenant pool is introduced.
+Ordinary statements and transactions retain 2,000 ms limits; ordinary lock waits
+are at most 500 ms and connection establishment at most 1,000 ms. Controlled
+migration jobs separately allow 10,000 ms statements, 15,000 ms transactions and
+5,000 ms lock waits. These do not change ordinary application budgets.
+
+Each scenario uses a freshly recreated owned database and at most 32 typed rows;
+the actual retained cluster must remain below 256 MiB. Record actual storage,
+server allocations/configuration and failure behavior. Readiness checks bind the
+selected server and roles, not an ambient default database. Cleanup/shutdown has
+a 10,000 ms deadline and may address only the exact owned cluster/PID; retain
+its evidence. Existing services, data, sessions and host configuration are not
+cleanup targets.
+
+The actual uncertainty relay has at most one client/server pair, two forwarding
+threads, 1 MiB per frame, 8 MiB total bytes per direction, 4,096 server frames,
+2,000 ms I/O waits and a 10,000 ms total deadline. Migration-overlap barriers
+require observed real lock waits within 2,000 ms before explicit release. Limits
+do not permit sleeps to replace observed ordering. Profile/readiness identities
+must be explicit, bounded and hash-bound before native qualification; required
+service tests fail unavailable rather than skip when preparation is absent.
+
+The separately selected native service input is at most 2 MiB and binds at most
+64 regular configuration/native files, at most 2 GiB each and 8 GiB in total.
+This accommodates the actual macOS dyld cache/subcaches without changing the
+existing compiler-resource, source or raw-profile budgets. Its exact paths,
+tool/file hashes, protected directories and finite lease are checked before and
+after qualification. The [service and relay literals](../../tests/integration/postgres/fixtures/migration-service-v1/README.md)
+fix structural boundaries and failure cases. A complete server protocol frame,
+including its one-byte type and four-byte length, fits the existing 1 MiB cap.
+Every I/O timeout also fits the remaining total relay deadline.
+
 Maintain an explicit allocation satisfying:
 
 ```text

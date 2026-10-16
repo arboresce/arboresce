@@ -1,0 +1,636 @@
+{
+  "version": "migration-harness-v1",
+  "records": {
+    "exact-large": {
+      "organization_id": "11111111-1111-4111-8111-111111111111",
+      "record_id": "22222222-2222-4222-8222-222222222222",
+      "content_revision": "9007199254740993",
+      "date": "2000-02-29"
+    },
+    "maximum": {
+      "organization_id": "11111111-1111-4111-8111-111111111111",
+      "record_id": "33333333-3333-4333-8333-333333333333",
+      "content_revision": "999999999999999999",
+      "date": "9999-12-31"
+    },
+    "other-organization": {
+      "organization_id": "44444444-4444-4444-8444-444444444444",
+      "record_id": "22222222-2222-4222-8222-222222222222",
+      "content_revision": "1",
+      "date": "0001-01-01"
+    },
+    "conflicting": {
+      "organization_id": "11111111-1111-4111-8111-111111111111",
+      "record_id": "22222222-2222-4222-8222-222222222222",
+      "content_revision": "9007199254740994",
+      "date": "2000-03-01"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "empty-initial",
+      "steps": [
+        "migrate:1"
+      ],
+      "versions": [
+        1
+      ],
+      "rows": []
+    },
+    {
+      "id": "typed-exact-large",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large"
+      ],
+      "outcome": "Committed",
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large"
+      ]
+    },
+    {
+      "id": "typed-maximum",
+      "steps": [
+        "migrate:1",
+        "insert:maximum"
+      ],
+      "outcome": "Committed",
+      "versions": [
+        1
+      ],
+      "rows": [
+        "maximum"
+      ]
+    },
+    {
+      "id": "separate-organization-key",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large",
+        "insert:other-organization"
+      ],
+      "outcome": "Committed",
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large",
+        "other-organization"
+      ]
+    },
+    {
+      "id": "duplicate-is-not-replacement",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large",
+        "insert:conflicting"
+      ],
+      "outcome": "NotCommitted/Conflict",
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large"
+      ]
+    },
+    {
+      "id": "initial-migration-replay",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large",
+        "migrate:1"
+      ],
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large"
+      ]
+    },
+    {
+      "id": "forward-compatible-expansion",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large",
+        "migrate:2",
+        "insert:maximum"
+      ],
+      "versions": [
+        1,
+        2
+      ],
+      "rows": [
+        "exact-large",
+        "maximum"
+      ],
+      "annotations": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "expanded-replay",
+      "steps": [
+        "migrate:2",
+        "insert:exact-large",
+        "migrate:2"
+      ],
+      "versions": [
+        1,
+        2
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "annotations": [
+        ""
+      ]
+    },
+    {
+      "id": "old-reader-preserves-expanded-data",
+      "steps": [
+        "migrate:2",
+        "insert:exact-large",
+        "annotate:exact-large:retained",
+        "read-original-columns"
+      ],
+      "versions": [
+        1,
+        2
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "annotations": [
+        "retained"
+      ]
+    },
+    {
+      "id": "schema-downgrade-denied",
+      "steps": [
+        "migrate:2",
+        "insert:exact-large",
+        "annotate:exact-large:retained",
+        "migrate:1"
+      ],
+      "migration_outcome": "Rejected/MissingAppliedVersion",
+      "versions": [
+        1,
+        2
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "annotations": [
+        "retained"
+      ]
+    },
+    {
+      "id": "applied-checksum-mismatch",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large",
+        "attempt-altered-version-1"
+      ],
+      "migration_outcome": "Rejected/ChecksumMismatch",
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large"
+      ]
+    },
+    {
+      "id": "failed-ddl-is-atomic",
+      "steps": [
+        "migrate:2",
+        "insert:exact-large",
+        "attempt-version-3-create-then-divide-by-zero"
+      ],
+      "migration_outcome": "Rejected/Statement",
+      "versions": [
+        1,
+        2
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "failed_relation_present": false
+    },
+    {
+      "id": "failed-ddl-retry",
+      "steps": [
+        "migrate:2",
+        "insert:exact-large",
+        "attempt-version-3-create-then-divide-by-zero",
+        "attempt-version-3-create-then-divide-by-zero"
+      ],
+      "migration_outcome": "Rejected/Statement",
+      "versions": [
+        1,
+        2
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "failed_relation_present": false
+    },
+    {
+      "id": "concurrent-ordered-migrations",
+      "steps": [
+        "hold-real-migration-lock",
+        "start-two-version-2-migrators",
+        "observe-two-real-advisory-waiters",
+        "release-lock",
+        "await-both"
+      ],
+      "migration_outcomes": [
+        "Applied",
+        "Applied"
+      ],
+      "versions": [
+        1,
+        2
+      ],
+      "rows": []
+    },
+    {
+      "id": "migration-lock-budget",
+      "steps": [
+        "hold-real-migration-lock",
+        "attempt-migrate:1-until-lock-timeout",
+        "release-lock"
+      ],
+      "migration_outcome": "Rejected/LockTimeout",
+      "versions": [],
+      "rows": []
+    },
+    {
+      "id": "connection-unavailable-before-write",
+      "steps": [
+        "select-owned-absent-socket",
+        "insert:exact-large"
+      ],
+      "outcome": "NotCommitted/Unavailable",
+      "write_attempts": 0
+    },
+    {
+      "id": "commit-completion-lost",
+      "steps": [
+        "migrate:1",
+        "relay-drop-COMMIT-completion",
+        "insert:exact-large",
+        "independent-direct-read"
+      ],
+      "outcome": "Unknown",
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "commit_completions_withheld": 1,
+      "automatic_retries": 0
+    },
+    {
+      "id": "rollback-completion-lost",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large",
+        "relay-drop-ROLLBACK-completion",
+        "insert:conflicting",
+        "independent-direct-read"
+      ],
+      "outcome": "Unknown",
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "rollback_completions_withheld": 1,
+      "automatic_retries": 0
+    },
+    {
+      "id": "fresh-connection-after-write",
+      "steps": [
+        "migrate:1",
+        "insert:exact-large",
+        "close-writer",
+        "new-direct-reader"
+      ],
+      "versions": [
+        1
+      ],
+      "rows": [
+        "exact-large"
+      ]
+    },
+    {
+      "id": "owned-server-restart",
+      "steps": [
+        "migrate:2",
+        "insert:exact-large",
+        "stop-owned-server",
+        "restart-same-owned-cluster",
+        "new-direct-reader"
+      ],
+      "versions": [
+        1,
+        2
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "packaged_recovery_claim": false
+    },
+    {
+      "id": "interior-applied-history-gap",
+      "steps": [
+        "migrate:2",
+        "insert:exact-large",
+        "annotate:exact-large:retained",
+        "admin-remove-only-version-1-receipt",
+        "migrate:2"
+      ],
+      "migration_outcome": "Rejected/HistoryIntegrity",
+      "versions": [
+        2
+      ],
+      "rows": [
+        "exact-large"
+      ],
+      "annotations": [
+        "retained"
+      ],
+      "schema": "expanded-v2",
+      "ddl_attempts_after_corruption": 0,
+      "write_attempts_after_corruption": 0,
+      "automatic_repairs": 0
+    }
+  ],
+  "direct_constraints": [
+    {
+      "id": "revision-zero",
+      "field": "content_revision",
+      "sql_value": "0",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "revision-one-over",
+      "field": "content_revision",
+      "sql_value": "1000000000000000000",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "revision-null",
+      "field": "content_revision",
+      "sql_value": "NULL",
+      "sqlstate": "23502"
+    },
+    {
+      "id": "organization-null",
+      "field": "organization_id",
+      "sql_value": "NULL",
+      "sqlstate": "23502"
+    },
+    {
+      "id": "record-null",
+      "field": "record_id",
+      "sql_value": "NULL",
+      "sqlstate": "23502"
+    },
+    {
+      "id": "organization-version-one",
+      "field": "organization_id",
+      "sql_value": "'11111111-1111-1111-8111-111111111111'::uuid",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "record-wrong-variant",
+      "field": "record_id",
+      "sql_value": "'22222222-2222-4222-c222-222222222222'::uuid",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "date-bc",
+      "field": "record_date",
+      "sql_value": "DATE '0001-01-01 BC'",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "date-one-over",
+      "field": "record_date",
+      "sql_value": "DATE '10000-01-01'",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "date-null",
+      "field": "record_date",
+      "sql_value": "NULL",
+      "sqlstate": "23502"
+    },
+    {
+      "id": "annotation-one-over",
+      "field": "annotation",
+      "sql_value": "repeat('a',257)",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "annotation-null",
+      "field": "annotation",
+      "sql_value": "NULL",
+      "sqlstate": "23502"
+    },
+    {
+      "id": "organization-wrong-variant",
+      "field": "organization_id",
+      "sql_value": "'11111111-1111-4111-c111-111111111111'::uuid",
+      "sqlstate": "23514"
+    },
+    {
+      "id": "record-version-one",
+      "field": "record_id",
+      "sql_value": "'22222222-2222-1222-8222-222222222222'::uuid",
+      "sqlstate": "23514"
+    }
+  ],
+  "service_input": {
+    "version": "postgres-harness-input-v1",
+    "server_version_num": 170011,
+    "transport": "protected-unix-socket",
+    "database": "arboresce_migration_harness",
+    "migration_role": "harness_migrator",
+    "writer_role": "harness_writer",
+    "max_connections": 16,
+    "writer_pool_max": 2,
+    "migration_connections_max": 3,
+    "ordinary_statement_timeout_ms": 2000,
+    "ordinary_transaction_timeout_ms": 2000,
+    "ordinary_lock_timeout_ms": 500,
+    "migration_statement_timeout_ms": 10000,
+    "migration_transaction_timeout_ms": 15000,
+    "migration_lock_timeout_ms": 5000,
+    "connect_timeout_ms": 1000,
+    "relay_frame_max_bytes": 1048576,
+    "relay_io_timeout_ms": 2000,
+    "relay_total_timeout_ms": 10000,
+    "barrier_timeout_ms": 2000,
+    "shutdown_timeout_ms": 10000,
+    "ordinary_rows_max": 32,
+    "retained_cluster_max_bytes": 268435456,
+    "required_writer_flags": {
+      "rolsuper": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false,
+      "rolreplication": false,
+      "rolbypassrls": false
+    },
+    "tcp_listener_allowed": false,
+    "synthetic_only": true,
+    "relay_total_bytes_max": 8388608,
+    "relay_frames_max": 4096,
+    "preparation_role": "harness_admin"
+  },
+  "architecture_roles": [
+    {
+      "id": "application-layer",
+      "package": "arboresce-application",
+      "version": "0.0.0",
+      "layer": "application"
+    },
+    {
+      "id": "postgres-layer",
+      "package": "arboresce-postgres",
+      "version": "0.0.0",
+      "layer": "adapter"
+    },
+    {
+      "id": "application-wrong-version",
+      "package": "arboresce-application",
+      "version": "0.0.1",
+      "layer": null
+    },
+    {
+      "id": "postgres-wrong-version",
+      "package": "arboresce-postgres",
+      "version": "0.0.1",
+      "layer": null
+    },
+    {
+      "id": "application-lookalike",
+      "package": "arboresce-application-extra",
+      "version": "0.0.0",
+      "layer": null
+    },
+    {
+      "id": "postgres-lookalike",
+      "package": "arboresce-postgresql",
+      "version": "0.0.0",
+      "layer": null
+    }
+  ],
+  "direct_constraint_setup": {
+    "schema_version": 2,
+    "initial_rows": [],
+    "base_record": "exact-large",
+    "annotation": "",
+    "override": "exactly the single declared column",
+    "failed_insert_final_rows": []
+  },
+  "annotation_boundaries": [
+    {
+      "id": "annotation-empty",
+      "text": {
+        "kind": "literal",
+        "value": ""
+      },
+      "utf8_bytes": 0,
+      "accepted": true
+    },
+    {
+      "id": "annotation-ascii-exact",
+      "text": {
+        "kind": "repeat",
+        "value": "a",
+        "count": 256
+      },
+      "utf8_bytes": 256,
+      "accepted": true
+    },
+    {
+      "id": "annotation-ascii-one-over",
+      "text": {
+        "kind": "repeat",
+        "value": "a",
+        "count": 257
+      },
+      "utf8_bytes": 257,
+      "accepted": false,
+      "sqlstate": "23514"
+    },
+    {
+      "id": "annotation-multibyte-exact",
+      "text": {
+        "kind": "repeat",
+        "value": "\u00e9",
+        "count": 128
+      },
+      "utf8_bytes": 256,
+      "accepted": true
+    },
+    {
+      "id": "annotation-multibyte-one-over",
+      "text": {
+        "kind": "concat",
+        "parts": [
+          {
+            "kind": "repeat",
+            "value": "\u00e9",
+            "count": 128
+          },
+          {
+            "kind": "literal",
+            "value": "a"
+          }
+        ]
+      },
+      "utf8_bytes": 257,
+      "accepted": false,
+      "sqlstate": "23514"
+    },
+    {
+      "id": "annotation-decomposed-preserved",
+      "text": {
+        "kind": "repeat",
+        "value": "e\u0301",
+        "count": 85
+      },
+      "utf8_bytes": 255,
+      "accepted": true
+    },
+    {
+      "id": "annotation-composed-preserved",
+      "text": {
+        "kind": "repeat",
+        "value": "\u00e9",
+        "count": 85
+      },
+      "utf8_bytes": 170,
+      "accepted": true
+    },
+    {
+      "id": "annotation-nul-denied",
+      "text": {
+        "kind": "literal",
+        "value": "\u0000"
+      },
+      "utf8_bytes": 1,
+      "accepted": false,
+      "sqlstate": "22021"
+    }
+  ]
+}

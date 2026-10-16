@@ -5,6 +5,43 @@ and search are not implemented. Physical DDL, exact query contracts and
 backend behavior require their owning implementation and qualification steps.
 Conceptual keys below are requirements, not a claim that named tables exist.
 
+## Isolated migration foundation
+
+The first application/PostgreSQL consumer is a synthetic migration harness.
+Its typed record contains checked organization/record identifiers, a content
+revision and a Gregorian date. Relational constraints preserve UUIDv4 version/
+variant, the existing exact revision range and years 0001 through 9999, with a
+composite organization/record key. SQL binds remain parameterized. This private
+qualification database is distinct from product/bootstrap persistence; schema
+preparation cannot admit a user effect or bypass independent lifecycle continuity.
+
+Application ports expose checked domain values and explicit transaction outcomes,
+without SQLx, transport or connection types. A positive COMMIT completion permits
+Committed. A positive ROLLBACK after a failed statement permits NotCommitted.
+Failure before a write may be NotCommitted/Unavailable. Missing COMMIT/ROLLBACK
+completion is Unknown, with no automatic write retry or fabricated receipt.
+Cancellation/drop is not a positive outcome. Later idempotent commands, current
+authority, audit/outbox and recovery remain separate requirements.
+
+The initial ordered transactional migrations create the typed relation, then add
+a default-empty annotation of at most 256 UTF-8 bytes without changing its original
+columns. Preserve Unicode exactly, with no normalization; PostgreSQL text does not
+admit U+0000. Multibyte values are limited by bytes, not characters.
+Existing column-specific readers/writers remain compatible after expansion.
+Replay applies each version once; applied checksums and complete version history
+must agree. Applied versions must be an exact successful prefix of the selected
+ordered set. A missing interior receipt is an integrity failure; reject it before
+DDL, writes, replay or attempted repair. An older migration set rejects a newer schema. Physical downgrade
+is unsupported; failed transactional DDL rolls back without losing prior records
+or recording a successful version. This compatibility window permits only the
+tested old/new harness binaries, not arbitrary production rollback.
+
+The independently reviewed [migration cases](../../tests/integration/postgres/fixtures/migration-harness-v1/README.md)
+require real isolated migrations, exact readback, direct constraint failures,
+observable concurrent migration locks, bounded failures and actual lost commit/
+rollback completions. Non-owner role readiness is required; actual tenant/RLS/
+pooler, first-adapter and lifecycle admission remain at their consuming gates.
+
 This document owns relational integrity, atomic audit/outbox, sealing,
 projection identity/rebuild and bounded retrieval. [Data model](data-model.md)
 owns domain values; [API](api.md) owns transport/admission behavior;
