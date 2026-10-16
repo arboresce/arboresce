@@ -25,6 +25,7 @@ use crate::{
 };
 
 pub const USAGE: &str = "usage: arboresce-verify prepare <workspace> <sysroot> <cargo-llvm-cov> <cargo-home> <prepared.json> [<outer-context>]\n       arboresce-verify <workspace> <roles.json> <tests.json> <prepared.json> <fresh-output>\n";
+pub const POSTGRES_USAGE: &str = "usage: arboresce-verify postgres <workspace> <roles.json> <tests.json> <prepared.json> <postgres-input.json> <fresh-output>\n";
 const OUTPUT_FAILURE: &[u8] = b"collector output failed\n";
 
 fn text(value: &Value, key: &str) -> Result<String> {
@@ -546,7 +547,40 @@ pub fn finish_until(
     }
 }
 
-fn collect(args: &[&str]) -> Result<(Value, Instant)> {
+/// Resolve the first selected hash, then require its exact native path.
+pub fn selected_executable(
+    objects: &[Value],
+    tools: &Value,
+    service: Option<&Value>,
+    record: &Value,
+) -> Result<()> {
+    let hash = &record["executable_sha256"];
+    let known = objects
+        .iter()
+        .find(|o| o["sha256"] == *hash)
+        .map(|o| &o["path"])
+        .or_else(|| {
+            tools
+                .as_object()
+                .and_then(|m| m.values().find(|t| t["sha256"] == *hash))
+                .map(|t| &t["executable"])
+        })
+        .or_else(|| {
+            service
+                .and_then(|s| s["record"]["tools"].as_object())
+                .and_then(|tools| tools.values().find(|t| t["sha256"] == *hash))
+                .map(|t| &t["path"])
+        });
+    if !known
+        .and_then(Value::as_str)
+        .is_some_and(|p| record["executable"] == json!(p.as_bytes()))
+    {
+        return Err(CollectError::Conservation);
+    }
+    Ok(())
+}
+
+fn collect(args: &[&str], service_input: Option<&str>) -> Result<(Value, Instant)> {
     let input_deadline = Instant::now() + Duration::from_secs(180);
     let [root, roles, tests, manifest, output] = args else {
         return Err(CollectError::Input);
@@ -564,10 +598,14 @@ fn collect(args: &[&str]) -> Result<(Value, Instant)> {
     prepared::validate(&base)?;
     prepared::outer_until(&base, input_deadline)?;
     let ambient = prepared::environment()?;
+    let service = service_input
+        .map(|p| crate::collection_services::observe(Path::new(p), input_deadline))
+        .transpose()?;
     let output = fresh(&root, output)?;
     let raw = output.join("raw");
     fs::create_dir(&raw).map_err(|_| CollectError::Intake)?;
     let mut commands = Runner::new(&root, &output, &base)?;
+    commands.service_input = service_input.map(PathBuf::from);
     commands.deadline = Some(input_deadline);
     let observed = observe(&root, &base, &mut commands, input_deadline)?;
     if observed != base {
@@ -580,10 +618,19 @@ fn collect(args: &[&str]) -> Result<(Value, Instant)> {
     workspace::check_workspace(&root, &metadata_raw).map_err(|_| CollectError::Artifacts)?;
     let snapshot = inventory::snapshot(&root, &roles_raw, &metadata_raw)
         .map_err(|_| CollectError::Artifacts)?;
-    let before = json!({"source":snapshot["files"],"manifests":{"roles":roles_hash,"tests":tests_hash,"prepared":manifest_hash},
+    let mut before = json!({"source":snapshot["files"],"manifests":{"roles":roles_hash,"tests":tests_hash,"prepared":manifest_hash},
         "tools":observed["tools"].as_object().ok_or(CollectError::Prepared)?.iter().map(|(k,v)|(k.clone(),v["sha256"].clone())).collect::<Map<_,_>>(),
         "resources":observed["resources"],"configs":observed["configs"],
         "native":{"profile":PROFILE,"metadata_sha256":sha256(metadata_raw.as_bytes()),"features":tests["features"],"outer_environment":ambient}});
+    if let Some(service) = &service {
+        before["native"]["postgres"] = service.clone();
+        for (name, row) in service["record"]["tools"]
+            .as_object()
+            .ok_or(CollectError::Prepared)?
+        {
+            before["tools"][format!("postgres-{name}")] = row["sha256"].clone();
+        }
+    }
     runner::record(&output.join("source-before.json"), &before)?;
     runner::record(&output.join("source-inventory.json"), &snapshot)?;
     let (context_path, request, mut identity) = context(&output, &before, input_deadline)?;
@@ -896,6 +943,17 @@ fn collect(args: &[&str]) -> Result<(Value, Instant)> {
     after["manifests"] = json!({"roles":prepared::read_json_until(&roles_path,64<<20,final_deadline)?.1,
         "tests":prepared::read_json_until(&tests_path,64<<20,final_deadline)?.1,"prepared":prepared::read_json_until(&manifest_path,64<<20,final_deadline)?.1});
     after["native"]["metadata_sha256"] = sha256(final_metadata.as_bytes()).into();
+    if let Some(service_path) = service_input {
+        let observed =
+            crate::collection_services::observe(Path::new(service_path), final_deadline)?;
+        for (name, row) in observed["record"]["tools"]
+            .as_object()
+            .ok_or(CollectError::Prepared)?
+        {
+            after["tools"][format!("postgres-{name}")] = row["sha256"].clone();
+        }
+        after["native"]["postgres"] = observed;
+    }
     if final_metadata_value != metadata_value
         || final_prepared != base
         || prepared::environment()? != ambient
@@ -925,24 +983,12 @@ fn collect(args: &[&str]) -> Result<(Value, Instant)> {
         final_deadline,
     )?;
     for launch in &mut launches {
-        let record = &launch["record"];
-        let hash = &record["executable_sha256"];
-        let known = objects
-            .iter()
-            .find(|o| o["sha256"] == *hash)
-            .map(|o| &o["path"])
-            .or_else(|| {
-                base["tools"]
-                    .as_object()
-                    .and_then(|m| m.values().find(|t| t["sha256"] == *hash))
-                    .map(|t| &t["executable"])
-            });
-        if !known
-            .and_then(Value::as_str)
-            .is_some_and(|p| record["executable"] == json!(p.as_bytes()))
-        {
-            return Err(CollectError::Conservation);
-        }
+        selected_executable(
+            &objects,
+            &base["tools"],
+            service.as_ref(),
+            &launch["record"],
+        )?;
     }
     identity["finished_ns"] = now()?.into();
     let facts = json!({"version":"native-collection-facts-v1","context":identity,"inputs_before":before,"inputs_after":after,
@@ -1044,13 +1090,35 @@ pub fn run(args: &[OsString], stdout: &mut impl Write, stderr: &mut impl Write) 
         }
     };
     let prepared = args.first() == Some(&"prepare");
-    if (!prepared && args.len() != 5) || (prepared && ![6, 7].contains(&args.len())) {
+    let postgres = args.first() == Some(&"postgres");
+    if postgres && args.get(1) == Some(&"--help") && args.len() == 2 {
+        return if emit(stdout, POSTGRES_USAGE.as_bytes()) {
+            0
+        } else {
+            emit(stderr, OUTPUT_FAILURE);
+            1
+        };
+    }
+    if postgres && args.len() != 7 {
+        return if emit(stderr, POSTGRES_USAGE.as_bytes()) {
+            2
+        } else {
+            1
+        };
+    }
+    if (!prepared && !postgres && args.len() != 5) || (prepared && ![6, 7].contains(&args.len())) {
         return if emit(stderr, USAGE.as_bytes()) { 2 } else { 1 };
     }
     let result = if prepared {
         prepare(&args[1..]).map(|()| None)
+    } else if postgres {
+        collect(
+            &[args[1], args[2], args[3], args[4], args[6]],
+            Some(args[5]),
+        )
+        .map(Some)
     } else {
-        collect(&args).map(Some)
+        collect(&args, None).map(Some)
     };
     match result {
         Ok(None) => 0,

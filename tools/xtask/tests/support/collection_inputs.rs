@@ -498,3 +498,197 @@ pub fn preparation_failure(owner: &PreparedRoot, case: &Value) -> io::Result<Val
     let error = result.err().ok_or_else(invalid)?;
     Ok(json!({"error_kind":format!("{:?}",error.kind()),"message":error.to_string()}))
 }
+
+/// Filesystem-only service fixtures never assert that their synthetic tools run.
+pub fn service(owner: &PreparedRoot, fixture: &Value, case: &Value) -> io::Result<Value> {
+    use arboresce_xtask::{collection_services, inventory::sha256};
+    use std::{
+        os::unix::fs::{DirBuilderExt, PermissionsExt},
+        sync::atomic::Ordering,
+        time::{SystemTime, UNIX_EPOCH},
+    };
+    struct Socket(PathBuf);
+    impl Drop for Socket {
+        fn drop(&mut self) {
+            let _ = fs::remove_dir(&self.0);
+        }
+    }
+    let root = owner.path.canonicalize()?;
+    let socket = Socket(PathBuf::from(format!(
+        "/private/tmp/arboresce-input-{}-{}",
+        std::process::id(),
+        super::NEXT.fetch_add(1, Ordering::Relaxed)
+    )));
+    fs::DirBuilder::new().mode(0o700).create(&socket.0)?;
+    let data = root.join("data");
+    fs::DirBuilder::new().mode(0o700).create(&data)?;
+    let native = root.join("native");
+    fs::create_dir(&native)?;
+    let readiness = root.join("readiness.json");
+    fs::write(&readiness, b"{}")?;
+    let mut files = Map::new();
+    let mut value = fixture["base_input"].clone();
+    value["socket"] = json!(socket.0);
+    value["data"] = json!(data);
+    let now: u64 = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(io::Error::other)?
+        .as_millis()
+        .try_into()
+        .map_err(io::Error::other)?;
+    value["lease_deadline_unix_ms"] = json!(now + 60000);
+    value["readiness"] = json!({"path":readiness,"sha256":sha256(b"{}")});
+    for (path, bytes) in [
+        (native.join("postgres"), b"x".as_slice()),
+        (native.join("pg_ctl"), b"x".as_slice()),
+        (data.join("postgresql.conf"), b"x".as_slice()),
+        (data.join("pg_hba.conf"), b"x".as_slice()),
+        (data.join("postgresql.auto.conf"), b"x".as_slice()),
+    ] {
+        fs::write(&path, bytes)?;
+        files.insert(
+            path.to_str().ok_or_else(invalid)?.to_owned(),
+            json!({"sha256":sha256(bytes),"size":bytes.len()}),
+        );
+    }
+    files.insert(
+        readiness.to_str().ok_or_else(invalid)?.to_owned(),
+        json!({"sha256":sha256(b"{}"),"size":2}),
+    );
+    value["files"] = Value::Object(files);
+    for name in ["postgres", "pg_ctl"] {
+        value["tools"][name] = json!({"path":native.join(name),"sha256":sha256(b"x")});
+    }
+    let input = root.join("service.json");
+    fs::write(&input, serde_json::to_vec(&value)?)?;
+    let paths = [
+        ("input", input.clone()),
+        ("native", native.clone()),
+        ("postgres", native.join("postgres")),
+        ("pg_ctl", native.join("pg_ctl")),
+        ("configuration", data.join("postgresql.conf")),
+        ("hba", data.join("pg_hba.conf")),
+        ("auto", data.join("postgresql.auto.conf")),
+        ("readiness", readiness.clone()),
+        ("data", data.clone()),
+        ("socket", socket.0.clone()),
+    ];
+    let physical_before = service_files(&paths)?;
+    let before = collection_services::observe(&input, Instant::now() + Duration::from_secs(2))
+        .map_err(io::Error::other)?;
+    let mut environment = Value::Null;
+    if let Some(size) = case["target_bytes"].as_u64() {
+        let mut bytes = serde_json::to_vec(&value)?;
+        let size: usize = size.try_into().map_err(io::Error::other)?;
+        if size < bytes.len() || size > 2_097_153 {
+            return Err(invalid());
+        }
+        bytes.resize(size, b' ');
+        fs::write(&input, bytes)?;
+    } else {
+        match case["recipe"].as_str().ok_or_else(invalid)? {
+            "none" => (),
+            "remove-input" => fs::remove_file(&input)?,
+            "change-tool" => fs::write(native.join("postgres"), b"y")?,
+            "remove-tool" => fs::remove_file(native.join("postgres"))?,
+            "change-configuration" => fs::write(data.join("postgresql.conf"), b"y")?,
+            "change-readiness" => fs::write(&readiness, b"[]")?,
+            "change-profile" => {
+                let mut bytes = serde_json::to_vec(&value)?;
+                bytes.push(b' ');
+                fs::write(&input, bytes)?;
+            }
+            "symlink-tool" => {
+                fs::rename(native.join("postgres"), native.join("original-postgres"))?;
+                symlink(native.join("original-postgres"), native.join("postgres"))?;
+            }
+            "symlink-ancestor" => {
+                let real = root.join("original-native");
+                fs::rename(&native, &real)?;
+                symlink(real, &native)?;
+            }
+            "data-mode-0755" => fs::set_permissions(&data, fs::Permissions::from_mode(0o755))?,
+            "socket-mode-0755" => {
+                fs::set_permissions(&socket.0, fs::Permissions::from_mode(0o755))?
+            }
+            "expire-lease" => {
+                value["lease_deadline_unix_ms"] = json!(now - 1);
+                fs::write(&input, serde_json::to_vec(&value)?)?;
+            }
+            "explicit-environment" => {
+                let mut command =
+                    std::process::Command::new(env!("CARGO_BIN_EXE_arboresce-xtask-test-peer"));
+                command
+                    .env("ARBORESCE_XTASK_TEST_PEER", "service-environment")
+                    .env("PGHOST", "unselected")
+                    .env("PGDATABASE", "unselected")
+                    .env(collection_services::SELECTOR, "/unselected/input.json");
+                collection_services::environment(&mut command, Some(&input));
+                let output = super::observe(&mut command)?;
+                if !output.status.success() {
+                    return Err(invalid());
+                }
+                environment = serde_json::from_slice(&output.stdout)?;
+            }
+            _ => return Err(invalid()),
+        }
+    }
+    let after_deadline = Instant::now() + Duration::from_secs(2);
+    let after = collection_services::observe(&input, after_deadline);
+    if Instant::now() >= after_deadline {
+        return Err(io::Error::new(
+            io::ErrorKind::TimedOut,
+            "service fixture observation exceeded its deadline",
+        ));
+    }
+    let physical_after = service_files(&paths)?;
+    let unchanged_required = case["recipe"] == "change-profile";
+    let accepted = match &after {
+        Ok(observed) => !unchanged_required || observed == &before,
+        Err(_) => false,
+    };
+    Ok(
+        json!({"accepted":accepted,"before":before,"after":after.as_ref().ok(),
+        "error":after.as_ref().err().map(ToString::to_string),
+        "error_class":after.as_ref().err().map(|error|format!("{error:?}")),
+        "physical_before":physical_before,"physical_after":physical_after,
+        "environment":environment,"input_path":input}),
+    )
+}
+
+fn service_files(paths: &[(&str, PathBuf)]) -> io::Result<Value> {
+    use arboresce_xtask::inventory::sha256;
+    use std::os::unix::fs::PermissionsExt;
+    let mut rows = Map::new();
+    for (name, path) in paths {
+        let metadata = match fs::symlink_metadata(path) {
+            Ok(metadata) => metadata,
+            Err(error) if error.kind() == io::ErrorKind::NotFound => {
+                rows.insert((*name).to_owned(), json!({"path":path,"kind":"absent"}));
+                continue;
+            }
+            Err(error) => return Err(error),
+        };
+        let mut row = json!({"path":path,"mode":metadata.permissions().mode() & 0o777});
+        if metadata.is_file() {
+            if metadata.len() > 2_097_153 {
+                return Err(invalid());
+            }
+            let bytes = fs::read(path)?;
+            row["kind"] = json!("file");
+            row["size"] = json!(bytes.len());
+            row["sha256"] = json!(sha256(&bytes));
+            if *name == "input" && bytes.len() <= 2_097_152 {
+                let profile: Value = serde_json::from_slice(&bytes)?;
+                row["lease_deadline_unix_ms"] = profile["lease_deadline_unix_ms"].clone();
+            }
+        } else if metadata.is_symlink() {
+            row["kind"] = json!("symlink");
+            row["target"] = json!(fs::read_link(path)?);
+        } else {
+            row["kind"] = json!("directory");
+        }
+        rows.insert((*name).to_owned(), row);
+    }
+    Ok(Value::Object(rows))
+}

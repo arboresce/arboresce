@@ -643,7 +643,7 @@ Checkpoint: d3d8720abd5e0f92f6b5d98a853cb20a839e5baf; Evidence: [Whole pure doma
 
 ### E204 — Create focused application ports and migration harness
 
-Status: `not_started`. Prerequisites: E203. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E203. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -656,6 +656,16 @@ Admission boundary: The useful record is an isolated synthetic migration-harness
 External prerequisite capabilities: None beyond the owning prerequisites.. Require independently accepted exact consumed contracts/fixtures/profile evidence before use; partial gates do not qualify unrelated capabilities.
 
 Definition of green: A real isolated PostgreSQL migration persists a useful typed record; compatible migration/retry/rollback limits and transaction outcome boundaries pass without requiring later build/search tables.
+
+Current increment: Checked application ports, an isolated direct PostgreSQL
+adapter and two forward migrations are under qualification. Narrow real-service
+runs have committed and independently read an exact typed record. Actual lost
+COMMIT and ROLLBACK completions each returned Unknown while independent reads
+confirmed final state. These assertions do not close this slice. Full migration,
+constraint, concurrency, restart, physical-helper, resource, strict coverage and
+fresh public-only standalone qualification and separate whole acceptance remain
+required. Service lifecycle failures and corrected preparation are retained as
+evidence; no complete service or product acceptance is claimed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 

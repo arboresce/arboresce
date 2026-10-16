@@ -6,10 +6,96 @@ use serde_json::{Value, json};
 use std::{
     fs,
     io::{self, Write},
-    os::unix::fs::PermissionsExt,
+    os::unix::fs::{DirBuilderExt, PermissionsExt},
     path::{Path, PathBuf},
     process::Command,
+    sync::atomic::Ordering,
+    time::{SystemTime, UNIX_EPOCH},
 };
+
+pub struct ModelService {
+    pub input: PathBuf,
+    pub record: Value,
+    pub input_sha256: String,
+    pub socket: PathBuf,
+    pub directory_modes: Value,
+}
+
+impl ModelService {
+    fn new(owner: &Path, model: &Value) -> io::Result<Self> {
+        let root = owner.join("service");
+        fs::create_dir(&root)?;
+        let root = root.canonicalize()?;
+        let data = root.join("data");
+        fs::DirBuilder::new().mode(0o700).create(&data)?;
+        fs::create_dir(root.join("native"))?;
+        let mut files = serde_json::Map::new();
+        for (name, contents) in model["files"].as_object().unwrap() {
+            let bytes = contents.as_str().unwrap().as_bytes();
+            let path = root.join(name);
+            fs::write(&path, bytes)?;
+            files.insert(
+                path.to_str().unwrap().to_owned(),
+                json!({"sha256":inventory::sha256(bytes),"size":bytes.len()}),
+            );
+        }
+        let socket = PathBuf::from(format!(
+            "/private/tmp/arboresce-collector-{}-{}",
+            std::process::id(),
+            super::NEXT.fetch_add(1, Ordering::Relaxed)
+        ));
+        fs::DirBuilder::new().mode(0o700).create(&socket)?;
+        let mut service = Self {
+            input: root.join("service.json"),
+            record: model["base_input"].clone(),
+            input_sha256: String::new(),
+            socket,
+            directory_modes: Value::Null,
+        };
+        service.directory_modes = json!({
+            "data":fs::symlink_metadata(&data)?.permissions().mode() & 0o777,
+            "socket":fs::symlink_metadata(&service.socket)?.permissions().mode() & 0o777,
+        });
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_err(io::Error::other)?
+            .as_millis();
+        service.record["lease_deadline_unix_ms"] = json!(
+            u64::try_from(now).map_err(io::Error::other)? + model["lease_ms"].as_u64().unwrap()
+        );
+        service.record["data"] = json!(data);
+        service.record["socket"] = json!(service.socket);
+        service.record["readiness"] = json!({
+            "path":root.join("readiness.json"),
+            "sha256":files[root.join("readiness.json").to_str().unwrap()]["sha256"],
+        });
+        for name in ["postgres", "pg_ctl"] {
+            let path = root.join("native").join(name);
+            service.record["tools"][name] = json!({
+                "path":path,"sha256":files[path.to_str().unwrap()]["sha256"],
+            });
+        }
+        service.record["files"] = Value::Object(files);
+        let bytes = serde_json::to_vec(&service.record)?;
+        fs::write(&service.input, &bytes)?;
+        service.input_sha256 = inventory::sha256(&bytes);
+        Ok(service)
+    }
+
+    fn close(&self) -> io::Result<()> {
+        fs::remove_dir(&self.socket)?;
+        match fs::symlink_metadata(&self.socket) {
+            Err(error) if error.kind() == io::ErrorKind::NotFound => Ok(()),
+            _ => Err(io::Error::other("model socket directory remains")),
+        }
+    }
+}
+
+impl Drop for ModelService {
+    fn drop(&mut self) {
+        let _ = fs::remove_dir(&self.socket);
+    }
+}
 
 pub struct Mini {
     pub owner: PathBuf,
@@ -21,6 +107,7 @@ pub struct Mini {
     pub outer_hash: String,
     pub outer: PathBuf,
     pub conflict: Value,
+    pub service: Option<ModelService>,
 }
 
 fn installed() -> io::Result<(PathBuf, PathBuf)> {
@@ -138,17 +225,27 @@ impl Mini {
         }
         let manifest: Value = serde_json::from_slice(&fs::read(&manifest_path)?)?;
         let output = owner.join("collection");
+        let service = case
+            .get("service_model")
+            .map(|model| ModelService::new(&owner, model))
+            .transpose()?;
         let mut command = Command::new(env!("CARGO_BIN_EXE_arboresce-verify"));
+        if service.is_some() {
+            command.arg("postgres");
+        }
         command
             .args([
                 source.as_os_str(),
                 source.join("roles.json").as_os_str(),
                 source.join("tests.json").as_os_str(),
                 manifest_path.as_os_str(),
-                output.as_os_str(),
             ])
             .current_dir(&source)
             .env(measurement::ENV, &outer);
+        if let Some(service) = &service {
+            command.arg(&service.input);
+        }
+        command.arg(&output);
         if inherited.is_none() {
             command.env("LLVM_PROFILE_FILE", owner.join("outer-%p-%12m.profraw"));
         }
@@ -160,6 +257,9 @@ impl Mini {
             case["closed"].as_str(),
             local.as_ref(),
         )?;
+        if let Some(service) = &service {
+            service.close()?;
+        }
         println!(
             "xtask collector mini {}",
             json!({"case":case["id"],"owner":owner,"exit":actual.status.code(),"stdout":actual.stdout,"stderr":actual.stderr})
@@ -174,6 +274,7 @@ impl Mini {
             outer_hash,
             outer,
             conflict,
+            service,
         })
     }
 

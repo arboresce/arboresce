@@ -1,0 +1,345 @@
+{
+  "version": "native-collector-service-protocol-v1",
+  "classification": "Original synthetic collector protocol fixtures under MIT OR Apache-2.0. Filesystem service descriptors do not establish PostgreSQL readiness. Synthetic tool files are never launched.",
+  "service_model": {
+    "lease_ms": 180000,
+    "files": {
+      "native/postgres": "Collector model postgres identity.\n",
+      "native/pg_ctl": "Collector model control identity.\n",
+      "data/postgresql.conf": "Collector model configuration v1.\n",
+      "data/pg_hba.conf": "Collector model access rules.\n",
+      "data/postgresql.auto.conf": "Collector model automatic configuration.\n",
+      "readiness.json": "{\"classification\":\"filesystem-only collector model\"}\n"
+    },
+    "base_input": {
+      "version": "postgres-harness-service-v1",
+      "server_pid": 41,
+      "postmaster_start": "2026-10-15 00:00:00+00",
+      "system_identifier": "4242424242424242424",
+      "server_version_num": 170011,
+      "os_build": "25F71",
+      "architecture": "arm64"
+    }
+  },
+  "cases": [
+    {
+      "id": "collector-service-native-mini-stable",
+      "action": "mini-service-stable",
+      "reuse_case": "collector-native-real-mini",
+      "source_override": {
+        "tools/xtask/tests/value.rs": "#[test]\nfn exact_value() {\n    assert_eq!(arboresce_xtask::value(), 1);\n    let selected = std::path::PathBuf::from(std::env::var_os(\"ARBORESCE_POSTGRES_INPUT\").unwrap());\n    assert!(selected.is_absolute());\n    let parent = selected.parent().unwrap();\n    assert_eq!(\n        std::fs::read(parent.join(\"data/postgresql.conf\")).unwrap(),\n        b\"Collector model configuration v1.\\n\",\n    );\n    std::fs::write(\n        parent.join(\"selection-seen\"),\n        selected.as_os_str().as_encoded_bytes(),\n    )\n    .unwrap();\n}\n"
+      },
+      "expected": {
+        "exit": 0,
+        "unchanged_source": true,
+        "outer_context_preserved": true,
+        "same_service_before_after": true,
+        "same_bound_file_bytes": true,
+        "selected_input_observed_by_required_test": true,
+        "service_tools_in_frozen_inputs": 2,
+        "service_native_launches": 0,
+        "success_record": {
+          "version": "native-verification-result-v1",
+          "status": "PASS",
+          "required_suites": 3,
+          "tests": 3,
+          "objects": 6,
+          "profiles": 12,
+          "native_binaries": 0,
+          "strict_scopes": 10
+        }
+      }
+    },
+    {
+      "id": "collector-service-native-mini-config-change",
+      "action": "mini-service-change",
+      "source_override": {
+        "tools/xtask/tests/value.rs": "#[test]\nfn exact_value() {\n    assert_eq!(arboresce_xtask::value(), 1);\n    let selected = std::path::PathBuf::from(std::env::var_os(\"ARBORESCE_POSTGRES_INPUT\").unwrap());\n    assert!(selected.is_absolute());\n    let parent = selected.parent().unwrap();\n    let configuration = parent.join(\"data/postgresql.conf\");\n    assert_eq!(\n        std::fs::read(&configuration).unwrap(),\n        b\"Collector model configuration v1.\\n\",\n    );\n    std::fs::write(&configuration, b\"Collector model configuration v2.\\n\").unwrap();\n    std::fs::write(\n        parent.join(\"selection-seen\"),\n        selected.as_os_str().as_encoded_bytes(),\n    )\n    .unwrap();\n    println!(\"Collector service configuration mutation witness.\");\n}\n"
+      },
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "arboresce-verify: collector inputs changed\n",
+        "unchanged_source": true,
+        "outer_context_preserved": true,
+        "selected_input_observed_by_required_test": true,
+        "changed_file": "data/postgresql.conf",
+        "changed_bytes": "Collector model configuration v2.\n",
+        "other_bound_files_unchanged": true,
+        "input_bytes_unchanged": true,
+        "actual_required_test_completed": true,
+        "captured_witness": "Collector service configuration mutation witness.\n",
+        "result_absent": true,
+        "final_prepared_retained": true,
+        "final_source_absent": true,
+        "failed_output_retained": true
+      }
+    },
+    {
+      "id": "collector-service-identity-postgres-exact",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/postgres"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null
+      }
+    },
+    {
+      "id": "collector-service-identity-control-exact",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "executable_utf8": "/model/pg_ctl"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null
+      }
+    },
+    {
+      "id": "collector-service-identity-wrong-path",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/unselected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-identity-wrong-hash",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "executable_utf8": "/model/postgres"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-identity-unknown-hash",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "executable_utf8": "/model/postgres"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-identity-no-service",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/postgres"
+      },
+      "service": false,
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-identity-object-exact",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "executable_utf8": "/model/object"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null
+      }
+    },
+    {
+      "id": "collector-service-identity-prepared-exact",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "executable_utf8": "/model/prepared-tool"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null
+      }
+    },
+    {
+      "id": "collector-service-identity-object-precedence",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/postgres"
+      },
+      "objects": [
+        {
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "path": "/model/object"
+        }
+      ],
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-help-closed-stdout",
+      "action": "closed-command-output",
+      "arguments": [
+        "postgres",
+        "--help"
+      ],
+      "closed": "stdout",
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "collector output failed\n"
+      }
+    },
+    {
+      "id": "collector-service-arity-closed-stderr",
+      "action": "closed-command-output",
+      "arguments": [
+        "postgres"
+      ],
+      "closed": "stderr",
+      "expected": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "collector-service-identity-prepared-precedence",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/postgres"
+      },
+      "tools": {
+        "selected": {
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "executable": "/model/prepared-tool"
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-identity-object-precedence-prepared",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "executable_utf8": "/model/prepared-tool"
+      },
+      "objects": [
+        {
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "path": "/model/object"
+        }
+      ],
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-identity-nonstring-path",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/postgres"
+      },
+      "service": {
+        "record": {
+          "tools": {
+            "postgres": {
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "path": null
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "collector-service-identity-utf8-exact",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/\u00e9"
+      },
+      "service": {
+        "record": {
+          "tools": {
+            "postgres": {
+              "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "path": "/model/\u00e9"
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": true,
+        "error": null
+      }
+    },
+    {
+      "id": "collector-service-identity-byte-path-mismatch",
+      "action": "selected-executable",
+      "record": {
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "executable_utf8": "/model/postgres"
+      },
+      "executable_bytes": [
+        47,
+        255
+      ],
+      "expected": {
+        "accepted": false,
+        "error": "collector process/profile mismatch"
+      }
+    }
+  ],
+  "base_identity": {
+    "objects": [
+      {
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "/model/object"
+      }
+    ],
+    "tools": {
+      "selected": {
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "executable": "/model/prepared-tool"
+      }
+    },
+    "service": {
+      "record": {
+        "tools": {
+          "postgres": {
+            "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "path": "/model/postgres"
+          },
+          "pg_ctl": {
+            "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+            "path": "/model/pg_ctl"
+          }
+        }
+      }
+    }
+  }
+}

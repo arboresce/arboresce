@@ -463,6 +463,21 @@ tools retain actual launch/status and executable identities without a requiremen
 to emit this project's Rust profiles. Inspect and conserve the exact raw set and
 its unchanged bytes, merge every profile and export every owned object with full
 raw regions/functions. Lost, duplicate, stale, empty, mixed or unknown sets fail.
+
+A required harness may explicitly register at most 16 unique descendant probe
+test names in `descendant_probes`. Names must select existing tests, contain no
+NUL and occupy 1 through 4096 UTF-8 bytes. Each declaration requires exactly one
+same-object direct child of that harness's selected top-level run, with exact
+`--exact TEST --nocapture --test-threads=1` arguments, successful completion,
+positive counters and its own fully conserved fresh profile. The original
+context, executable, parent-chain and raw-set checks remain mandatory. Incidental
+harnesses and ordinary binaries cannot declare probes. Unregistered, duplicate
+or missing children fail. Probes add no selected command, suite, test or case-event
+credit and cannot replace the complete unfiltered top-level suite run. The
+[descendant probe literals](../../tests/architecture/fixtures/native-collector-v9/README.md)
+define the independent boundary expectations; actual parent tests retain the
+probe's behavior and output assertions.
+
 Use a bounded merge fan-in of eight inputs per invocation, retaining every
 intermediate indexed profile and the complete actual merge command graph. Repeat
 grouping until the final invocation has at most eight inputs. Every selected raw

@@ -35,8 +35,8 @@ and every current production `src` file, reconciles actual Cargo target paths
 with their owning sources, then emits its own success line. A
 guard failure is a fixed stderr line with exit 1 and no success output.
 
-The initial role registry recognizes only the current proof, domain and tool
-packages at version 0.0.0. Its closed Initial profile retains the original
+The Initial profile retains the original proof, domain and tool package roles
+at version 0.0.0. Its closed Initial profile retains the original
 standard-library-only domain examples. Pure
 application and deterministic workflow profiles are tested explicitly, including
 SDK 1.0.0 rather than a blanket SDK prohibition. New packages, pure dependencies
@@ -57,8 +57,8 @@ The graph fingerprint is a fixed internal tool encoding, not domain JCS. Changes
 require a new reviewed profile and fresh affected qualification. Controlled dev
 edges grant no production authority; source checks remain required.
 
-The domain now selects `architecture-profile = "jcs-source-v1"` for the bounded
-source parser and private JCS adapter. It adds only the already locked exact
+The separately retained `architecture-profile = "jcs-source-v1"` qualified the
+bounded source parser and private JCS adapter before shared PostgreSQL features. It adds only the already locked exact
 serde/serde_json direct roots and binds the separately frozen complete graph.
 Its [source-profile fixtures](../../tests/architecture/fixtures/qualified-source-dependencies-v1/README.md)
 retain all earlier graph/policy meanings and test the selected in-memory writer
@@ -67,6 +67,53 @@ and its ambient last_os_error are closed. Macro imports are conservatively
 rejected in this profile. Actual targets and recursive/unimported source receive
 the same selected policy. Public check_source, Initial and number source guards
 remain unchanged; this does not certify arbitrary data flow or macro expansion.
+
+The PostgreSQL adapter workspace selects the separate exact
+`jcs-source-postgres-v1` domain profile. Its
+[literal graph and source policy](../../tests/architecture/fixtures/qualified-source-postgres-dependencies-v1/README.md)
+bind the reviewed shared features and derive edge while preserving every older
+profile fingerprint and source meaning. Current compiled/native/resource and
+strict qualification remains separate from admitting those graph intentions.
+
+For actual migration-service qualification, use the explicit service variant:
+
+```sh
+cargo run --locked --offline -p arboresce-xtask --bin arboresce-verify -- \
+  postgres /source/root /source/root/tests/architecture/rust-source-roles-v1.json \
+  /source/root/tests/architecture/rust-test-suites-v1.json /external/prepared.json \
+  /external/postgres-input.json /external/fresh-output
+```
+
+Apply the output router. The
+[service input and relay contract](../../tests/integration/postgres/fixtures/migration-service-v1/README.md)
+fixes the separate native-file bounds and selected local namespace. Actual
+readiness and distinct delivery admission precede use. The collector reopens and
+hashes this input, accepted readiness and every selected native/configuration
+file before and after execution and includes them in run identity. It clears
+ambient service/PG selectors before injecting the explicit input. Required
+service tests fail when input is absent. Prepared pg_ctl/postgres process
+identities are separately recognized external tools, never Rust coverage objects;
+their launch/exit receipts and indirect daemon observations remain required.
+Each public-only standalone qualification receives a fresh isolated service.
+The original collector preparation and help/usage meanings remain unchanged;
+`arboresce-verify postgres --help` describes the new variant.
+
+The [optional-service protocol fixtures](../../tests/architecture/fixtures/native-collector-v8/README.md)
+extend the finite actual Cargo/LLVM miniature experiments. They retain the
+original successful result while checking explicit selection and immutable
+service inputs, and reject an actual bound-configuration change during a required
+test. Separate literal resolver cases preserve ordered object, prepared-tool and
+service-tool hash lookup followed by exact executable-byte matching. These
+filesystem models never execute their synthetic tool files or qualify PostgreSQL;
+the real-service, complete native/profile and strict coverage gates still apply.
+
+The [registered descendant probe fixtures](../../tests/architecture/fixtures/native-collector-v9/README.md)
+cover explicit same-harness helper execution. A required harness may register a
+selected test as one measured child of its top-level run. Exact arguments,
+successful completion, positive counters and the child's own fresh profile are
+required. The PostgreSQL selector-denial probe uses this declaration without
+adding a selected suite, command or test count. Complete owning and standalone
+qualification must exercise the actual child and conserve its profile.
 
 For selected domain frame inspection, retain compiler assembly with the exact
 toolchain and profile. This is evidence for the source processing stack model,
@@ -226,6 +273,11 @@ write/flush/work-exhaustion errors and a genuinely late successful flush. They
 retain real child streams and physical launch/completion receipts on every
 outcome. Passing controlled peer cases alone cannot qualify actual Cargo or the
 complete collection lane.
+
+Shared test observation retains complete raw streams and the numeric-byte trace
+in a task-owned directory and prints its location. This avoids replaying large
+nested traces into the outer harness's bounded output stream. Actual child
+output, observation limits, completion receipts and stream assertions are unchanged.
 
 Preparation regressions additionally prove a real launch-directory write denial
 before spawning an owned, still-running selected OS child, plus missing receipt

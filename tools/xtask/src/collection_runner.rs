@@ -34,6 +34,7 @@ pub struct Runner {
     pub request: Option<Request>,
     pub context: Option<PathBuf>,
     pub deadline: Option<Instant>,
+    pub service_input: Option<PathBuf>,
 }
 
 pub fn write(path: &Path, bytes: &[u8]) -> Result<()> {
@@ -59,6 +60,7 @@ impl Runner {
             request: None,
             context: None,
             deadline: None,
+            service_input: None,
         })
     }
 
@@ -121,6 +123,7 @@ impl Runner {
             .env("LLVM_COV", self.program("llvm-cov")?)
             .env("LLVM_PROFDATA", self.program("llvm-profdata")?);
         command.envs(environment);
+        crate::collection_services::environment(&mut command, self.service_input.as_deref());
         if let Some(context) = &self.context {
             command.env(measurement::ENV, context);
         }

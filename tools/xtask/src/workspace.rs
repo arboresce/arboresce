@@ -70,6 +70,8 @@ pub fn registered_layer(name: &str, version: &str) -> Result<Layer, GuardError> 
     match name {
         "arboresce" => Ok(Layer::Proof),
         "arboresce-domain" => Ok(Layer::Domain),
+        "arboresce-application" => Ok(Layer::Application),
+        "arboresce-postgres" => Ok(Layer::Adapter),
         "arboresce-xtask" => Ok(Layer::Tool),
         _ => Err(GuardError::Dependency),
     }
@@ -80,6 +82,7 @@ enum DependencyProfile {
     Initial,
     JcsNumberV1,
     JcsSourceV1,
+    JcsSourcePostgresV1,
 }
 
 impl DependencyProfile {
@@ -105,6 +108,13 @@ impl DependencyProfile {
             {
                 Ok(Self::JcsSourceV1)
             }
+            Some(Value::String(name))
+                if name == "jcs-source-postgres-v1"
+                    && text(package, "name")? == "arboresce-domain"
+                    && text(package, "version")? == "0.0.0" =>
+            {
+                Ok(Self::JcsSourcePostgresV1)
+            }
             _ => Err(GuardError::Dependency),
         }
     }
@@ -123,7 +133,7 @@ impl DependencyProfile {
                 Ok(())
             }
             ("normal", "serde", "1.0.229") | ("normal", "serde_json", "1.0.151")
-                if self == Self::JcsSourceV1 =>
+                if matches!(self, Self::JcsSourceV1 | Self::JcsSourcePostgresV1) =>
             {
                 Ok(())
             }
@@ -205,6 +215,9 @@ fn check_qualified_graph(
         }
         DependencyProfile::JcsSourceV1 => {
             "5f819d934d2598938c580eafa2b79186a9b34351e82b6976cf27e7dec00beb8f"
+        }
+        DependencyProfile::JcsSourcePostgresV1 => {
+            "cea739f5ca926bf0c0b53244c3063d2052d11020cfa889007f619b41e4d1b776"
         }
         DependencyProfile::Initial => return Err(GuardError::Dependency),
     };
@@ -438,5 +451,12 @@ fn check_file(path: &Path, layer: Layer, profile: DependencyProfile) -> Result<(
         .take(MAX_SOURCE_BYTES + 1)
         .read_to_string(&mut source)
         .map_err(|_| GuardError::InvalidInput)?;
-    check_source_selected(layer, &source, profile == DependencyProfile::JcsSourceV1)
+    check_source_selected(
+        layer,
+        &source,
+        matches!(
+            profile,
+            DependencyProfile::JcsSourceV1 | DependencyProfile::JcsSourcePostgresV1
+        ),
+    )
 }

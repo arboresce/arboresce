@@ -1,0 +1,1137 @@
+{
+  "version": "migration-helper-qualification-v1",
+  "scope": "Independently reviewed qualification of maintained fixture, actual relay/input/authority, and bounded control-file helpers. Pure preparation/control cases do not establish real daemon restart, recovery, user, production or whole acceptance. Original migration/service packages and limits remain unchanged.",
+  "record_base": {
+    "organization_id": "11111111-1111-4111-8111-111111111111",
+    "record_id": "22222222-2222-4222-8222-222222222222",
+    "content_revision": "9007199254740993",
+    "date": "2000-02-29"
+  },
+  "preparation_cases": [
+    {
+      "id": "migration-helper-record-valid",
+      "operation": "record",
+      "record": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "record_id": "22222222-2222-4222-8222-222222222222",
+        "content_revision": "9007199254740993",
+        "date": "2000-02-29"
+      },
+      "accepted": true
+    },
+    {
+      "id": "migration-helper-record-organization-id-type",
+      "operation": "record",
+      "record": {
+        "organization_id": null,
+        "record_id": "22222222-2222-4222-8222-222222222222",
+        "content_revision": "9007199254740993",
+        "date": "2000-02-29"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-record-organization-id-value",
+      "operation": "record",
+      "record": {
+        "organization_id": "00000000-0000-1000-8000-000000000001",
+        "record_id": "22222222-2222-4222-8222-222222222222",
+        "content_revision": "9007199254740993",
+        "date": "2000-02-29"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-record-record-id-type",
+      "operation": "record",
+      "record": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "record_id": null,
+        "content_revision": "9007199254740993",
+        "date": "2000-02-29"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-record-record-id-value",
+      "operation": "record",
+      "record": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "record_id": "00000000-0000-4000-0000-000000000001",
+        "content_revision": "9007199254740993",
+        "date": "2000-02-29"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-record-content-revision-type",
+      "operation": "record",
+      "record": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "record_id": "22222222-2222-4222-8222-222222222222",
+        "content_revision": null,
+        "date": "2000-02-29"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-record-content-revision-value",
+      "operation": "record",
+      "record": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "record_id": "22222222-2222-4222-8222-222222222222",
+        "content_revision": "0",
+        "date": "2000-02-29"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-record-date-type",
+      "operation": "record",
+      "record": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "record_id": "22222222-2222-4222-8222-222222222222",
+        "content_revision": "9007199254740993",
+        "date": null
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-record-date-value",
+      "operation": "record",
+      "record": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "record_id": "22222222-2222-4222-8222-222222222222",
+        "content_revision": "9007199254740993",
+        "date": "2000-02-30"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-literal",
+      "operation": "text",
+      "recipe": {
+        "kind": "literal",
+        "value": "\u00e9"
+      },
+      "accepted": true,
+      "utf8_bytes": 2
+    },
+    {
+      "id": "migration-helper-text-literal-type",
+      "operation": "text",
+      "recipe": {
+        "kind": "literal",
+        "value": null
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-literal-one-over",
+      "operation": "text",
+      "recipe": {
+        "kind": "literal",
+        "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-repeat-exact",
+      "operation": "text",
+      "recipe": {
+        "kind": "repeat",
+        "value": "x",
+        "count": 1024
+      },
+      "accepted": true,
+      "utf8_bytes": 1024
+    },
+    {
+      "id": "migration-helper-text-repeat-value-type",
+      "operation": "text",
+      "recipe": {
+        "kind": "repeat",
+        "value": null,
+        "count": 1
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-repeat-count-type",
+      "operation": "text",
+      "recipe": {
+        "kind": "repeat",
+        "value": "x",
+        "count": null
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-repeat-one-over",
+      "operation": "text",
+      "recipe": {
+        "kind": "repeat",
+        "value": "x",
+        "count": 1025
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-repeat-overflow",
+      "operation": "text",
+      "recipe": {
+        "kind": "repeat",
+        "value": "xx",
+        "count": 18446744073709551615
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-concat-exact",
+      "operation": "text",
+      "recipe": {
+        "kind": "concat",
+        "parts": [
+          {
+            "kind": "repeat",
+            "value": "x",
+            "count": 512
+          },
+          {
+            "kind": "repeat",
+            "value": "x",
+            "count": 512
+          }
+        ]
+      },
+      "accepted": true,
+      "utf8_bytes": 1024
+    },
+    {
+      "id": "migration-helper-text-concat-one-over",
+      "operation": "text",
+      "recipe": {
+        "kind": "concat",
+        "parts": [
+          {
+            "kind": "repeat",
+            "value": "x",
+            "count": 1024
+          },
+          {
+            "kind": "literal",
+            "value": "x"
+          }
+        ]
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-concat-parts-type",
+      "operation": "text",
+      "recipe": {
+        "kind": "concat",
+        "parts": null
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-concat-child",
+      "operation": "text",
+      "recipe": {
+        "kind": "concat",
+        "parts": [
+          {
+            "kind": "unsupported"
+          }
+        ]
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-text-unknown-kind",
+      "operation": "text",
+      "recipe": {
+        "kind": "unsupported"
+      },
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-records-missing",
+      "operation": "records",
+      "input": {},
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-records-unknown",
+      "operation": "record-lookup",
+      "name": "absent-record",
+      "accepted": false
+    },
+    {
+      "id": "migration-helper-records-invalid-row",
+      "operation": "records",
+      "input": {
+        "records": {
+          "selected": {}
+        }
+      },
+      "accepted": false
+    }
+  ],
+  "scenario_cases": [
+    {
+      "id": "migration-helper-scenario-non-string",
+      "steps": [
+        null
+      ],
+      "error": "invalid scenario step"
+    },
+    {
+      "id": "migration-helper-scenario-unknown",
+      "steps": [
+        "unsupported-step"
+      ],
+      "error": "scenario belongs to a separate service boundary"
+    },
+    {
+      "id": "migration-helper-scenario-version",
+      "steps": [
+        "migrate:3"
+      ],
+      "error": "unsupported schema fixture"
+    },
+    {
+      "id": "migration-helper-scenario-annotation",
+      "steps": [
+        "annotate:exact-large"
+      ],
+      "error": "invalid annotation step"
+    },
+    {
+      "id": "migration-helper-scenario-record",
+      "steps": [
+        "insert:absent-record"
+      ],
+      "error": "unknown fixture record"
+    },
+    {
+      "id": "migration-helper-scenario-closed-writer",
+      "steps": [
+        "close-writer",
+        "insert:exact-large"
+      ],
+      "error": "writer was closed"
+    },
+    {
+      "id": "migration-helper-scenario-occupied-socket",
+      "steps": [
+        "select-owned-absent-socket"
+      ],
+      "error": "absent socket fixture is occupied"
+    }
+  ],
+  "relay_lifecycle_cases": [
+    {
+      "id": "migration-helper-relay-no-frontend-finish",
+      "recipe": "no-frontend-finish",
+      "server_error_kinds": [
+        "TimedOut",
+        "BrokenPipe"
+      ],
+      "client_error_kinds": [
+        "TimedOut"
+      ],
+      "minimum_ms": 1900,
+      "maximum_ms": 3000
+    },
+    {
+      "id": "migration-helper-relay-no-frontend-drop",
+      "recipe": "no-frontend-drop",
+      "minimum_ms": 1900,
+      "maximum_ms": 3000
+    },
+    {
+      "id": "migration-helper-relay-absent-backend",
+      "recipe": "absent-backend",
+      "server_error_kinds": [
+        "BrokenPipe"
+      ],
+      "client_error_kinds": [
+        "NotFound"
+      ],
+      "maximum_ms": 2000
+    },
+    {
+      "id": "migration-helper-relay-target-read-closed",
+      "recipe": "target-read-closed",
+      "client_error_kinds": [
+        "BrokenPipe"
+      ],
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-relay-server-target-read-closed",
+      "recipe": "server-target-read-closed",
+      "server_error_kinds": [
+        "BrokenPipe"
+      ],
+      "producer_bytes": 5,
+      "maximum_ms": 1000
+    }
+  ],
+  "service_guard_cases": [
+    {
+      "id": "migration-helper-service-selector-absent",
+      "recipe": "selector-absent",
+      "error": "required isolated PostgreSQL input is absent"
+    },
+    {
+      "id": "migration-helper-service-input-whitespace",
+      "recipe": "input-whitespace",
+      "error": "isolated service inputs changed"
+    },
+    {
+      "id": "migration-helper-service-writer-createdb",
+      "recipe": "writer-createdb",
+      "error": "isolated role profile mismatch"
+    },
+    {
+      "id": "migration-helper-service-writer-admin-member",
+      "recipe": "writer-admin-member",
+      "error": "current writer authority mismatch"
+    },
+    {
+      "id": "migration-helper-service-declared-data",
+      "recipe": "declared-data",
+      "error": "isolated server identity mismatch"
+    },
+    {
+      "id": "migration-helper-service-short-restart-lease",
+      "recipe": "short-restart-lease",
+      "error": "insufficient original restart lease"
+    }
+  ],
+  "control_file_cases": [
+    {
+      "id": "migration-helper-control-ack-valid",
+      "recipe": "valid",
+      "kind": "ack",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "id": "migration-helper-control-stopped-valid",
+      "recipe": "valid",
+      "kind": "stopped",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "id": "migration-helper-control-adopted-valid",
+      "recipe": "valid",
+      "kind": "adopted",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "id": "migration-helper-control-hash-mismatch",
+      "recipe": "wrong-hash",
+      "kind": "ack",
+      "accepted": false,
+      "error": "restart control identity mismatch"
+    },
+    {
+      "id": "migration-helper-control-version-mismatch",
+      "recipe": "wrong-version",
+      "kind": "ack",
+      "accepted": false,
+      "error": "restart control identity mismatch"
+    },
+    {
+      "id": "migration-helper-control-missing",
+      "recipe": "missing",
+      "kind": "ack",
+      "accepted": false,
+      "error": "restart control deadline"
+    },
+    {
+      "id": "migration-helper-control-nonregular",
+      "recipe": "directory",
+      "kind": "ack",
+      "accepted": false,
+      "error": "collector file intake failed"
+    },
+    {
+      "id": "migration-helper-control-exact",
+      "recipe": "exact",
+      "kind": "ack",
+      "file_bytes": 4096,
+      "padding": "trailing-ascii-space",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "id": "migration-helper-control-one-over",
+      "recipe": "one-over",
+      "kind": "ack",
+      "file_bytes": 4097,
+      "padding": "trailing-ascii-space",
+      "accepted": false,
+      "error": "collector file intake failed"
+    },
+    {
+      "id": "migration-helper-publication-exact",
+      "phase": "publish",
+      "recipe": "publish-value",
+      "kind": "ack",
+      "value": {
+        "payload": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "attempted_bytes": 4096,
+      "accepted": true,
+      "error": null,
+      "final": {
+        "file_bytes": 4096,
+        "sha256": "d380414b6bae5a585dea23ff0f5fca5a923358bf3126fdcd124ea2e58056f457"
+      },
+      "pending": null
+    },
+    {
+      "id": "migration-helper-publication-one-over",
+      "phase": "publish",
+      "recipe": "publish-value",
+      "kind": "ack",
+      "value": {
+        "payload": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "attempted_bytes": 4097,
+      "accepted": false,
+      "error": "restart control limit exceeded",
+      "final": null,
+      "pending": null
+    },
+    {
+      "id": "migration-helper-publication-base-mode",
+      "phase": "publish",
+      "recipe": "base-mode",
+      "kind": "ack",
+      "value": {
+        "payload": "candidate"
+      },
+      "accepted": false,
+      "error": "invalid owned control directory",
+      "final": null,
+      "pending": null,
+      "base_mode_restored": true
+    },
+    {
+      "id": "migration-helper-publication-base-symlink",
+      "phase": "publish",
+      "recipe": "base-symlink",
+      "kind": "ack",
+      "value": {
+        "payload": "candidate"
+      },
+      "accepted": false,
+      "error": "invalid owned control directory",
+      "final": null,
+      "pending": null,
+      "base_mode_restored": true
+    },
+    {
+      "id": "migration-helper-publication-pending-collision",
+      "phase": "publish",
+      "recipe": "pending-collision",
+      "kind": "ack",
+      "value": {
+        "payload": "candidate"
+      },
+      "existing_bytes": "owned pending\n",
+      "accepted": false,
+      "io_error_kind": "AlreadyExists",
+      "final": null,
+      "pending": {
+        "file_bytes": 14,
+        "sha256": "29dd393fab015ee34d84af2b172de38b796b0b5e9baa6e2a9c1f5e7e86f00f9b"
+      }
+    },
+    {
+      "id": "migration-helper-publication-final-collision",
+      "phase": "publish",
+      "recipe": "final-collision",
+      "kind": "ack",
+      "value": {
+        "payload": "candidate"
+      },
+      "existing_bytes": "owned final\n",
+      "accepted": false,
+      "io_error_kind": "AlreadyExists",
+      "final": {
+        "file_bytes": 12,
+        "sha256": "60d58ad0e700331ebcdb103de6f17ec40d92e6a662005c657d8e17ae89bff4a1"
+      },
+      "pending": {
+        "file_bytes": 24,
+        "sha256": "051901fbcead32ff02b08f0b17b43b5b66050dc115c7b468fb31ff2bca7a440e"
+      }
+    }
+  ],
+  "constraint_controls": [
+    {
+      "id": "migration-helper-constraint-valid-base",
+      "field": "annotation",
+      "sql_value": "''",
+      "expected": "accepted"
+    },
+    {
+      "id": "migration-helper-constraint-field",
+      "field": "unsupported",
+      "sql_value": "''",
+      "error": "unsupported constraint field"
+    },
+    {
+      "id": "migration-helper-constraint-literal",
+      "field": "annotation",
+      "sql_value": null,
+      "error": "invalid constraint literal"
+    }
+  ],
+  "native_baseline_cases": [
+    {
+      "id": "migration-helper-lock-baseline-occupied",
+      "error": "migration worker baseline is occupied"
+    }
+  ],
+  "physical_relay_cases": [
+    {
+      "id": "migration-helper-relay-physical-invalid-length",
+      "recipe": "complete five-byte Z header declares length3, below minimum4; reject before body allocation or forwarding",
+      "input_bytes": [
+        90,
+        0,
+        0,
+        0,
+        3
+      ],
+      "error_kinds": [
+        "InvalidData"
+      ],
+      "forwarded_bytes": 0,
+      "producer_success": true,
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-relay-physical-invalid-tag",
+      "recipe": "complete C frame declares length5 with one non-NUL X body byte; reject complete malformed tag before forwarding",
+      "input_bytes": [
+        67,
+        0,
+        0,
+        0,
+        5,
+        88
+      ],
+      "error_kinds": [
+        "InvalidData"
+      ],
+      "forwarded_bytes": 0,
+      "producer_success": true,
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-relay-physical-body-io-deadline",
+      "recipe": "complete Z header declares four body bytes, actual connected producer sends no body for2300ms; existing2000ms read budget fails before forwarding",
+      "input_bytes": [
+        90,
+        0,
+        0,
+        0,
+        8
+      ],
+      "hold_ms": 2300,
+      "error_kinds": [
+        "TimedOut",
+        "WouldBlock"
+      ],
+      "forwarded_bytes": 0,
+      "producer_success": true,
+      "minimum_ms": 1900,
+      "maximum_ms": 3000
+    }
+  ],
+  "relay_directory_cases": [
+    {
+      "id": "migration-helper-relay-directory-collision",
+      "recipe": "one-collision",
+      "occupied": 1,
+      "accepted": true,
+      "counter_after": 2,
+      "selected_index": 1,
+      "original_marker": "retain collision\n",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-relay-directory-exhausted",
+      "recipe": "all-collisions",
+      "occupied": 32,
+      "accepted": false,
+      "error_kind": "InvalidData",
+      "counter_after": 32,
+      "original_marker": "retain collision\n",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-relay-directory-denied",
+      "recipe": "parent-readonly",
+      "occupied": 0,
+      "parent_mode_during_attempt": 320,
+      "accepted": false,
+      "error_kind": "PermissionDenied",
+      "counter_after": 1,
+      "maximum_ms": 1000
+    }
+  ],
+  "service_directory_guard_cases": [
+    {
+      "id": "migration-helper-service-directory-base",
+      "operation": "base",
+      "mode_during_attempt": 504,
+      "mode_after": 448,
+      "error": "invalid owned control directory",
+      "effects": "no new output/control/input/child directory or native launch; preserve existing files",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-service-directory-publish",
+      "operation": "publish",
+      "mode_during_attempt": 504,
+      "mode_after": 448,
+      "error": "invalid owned control directory",
+      "effects": "no new output/control/input/child directory or native launch; preserve existing files",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-service-directory-wait",
+      "operation": "wait",
+      "mode_during_attempt": 504,
+      "mode_after": 448,
+      "error": "invalid owned control directory",
+      "effects": "no new output/control/input/child directory or native launch; preserve existing files",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-service-directory-native",
+      "operation": "native",
+      "mode_during_attempt": 504,
+      "mode_after": 448,
+      "error": "invalid owned control directory",
+      "effects": "no new output/control/input/child directory or native launch; preserve existing files",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-service-directory-selector",
+      "operation": "selector",
+      "mode_during_attempt": 504,
+      "mode_after": 448,
+      "error": "invalid owned control directory",
+      "effects": "no new output/control/input/child directory or native launch; preserve existing files",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-service-directory-copy",
+      "operation": "copy",
+      "mode_during_attempt": 504,
+      "mode_after": 448,
+      "error": "invalid owned control directory",
+      "effects": "no new output/control/input/child directory or native launch; preserve existing files",
+      "maximum_ms": 1000
+    },
+    {
+      "id": "migration-helper-service-directory-control-probe",
+      "operation": "control-probe",
+      "mode_during_attempt": 504,
+      "mode_after": 448,
+      "error": "invalid owned control directory",
+      "effects": "no new output/control/input/child directory or native launch; preserve existing files",
+      "maximum_ms": 1000
+    }
+  ],
+  "live_fixture_cases": [
+    {
+      "id": "migration-helper-live-fixture-missing-field",
+      "input": {
+        "replacement": "x"
+      },
+      "error": "invalid live case field"
+    },
+    {
+      "id": "migration-helper-live-fixture-unsupported-field",
+      "input": {
+        "field": "encoding",
+        "replacement": "x"
+      },
+      "error": "unsupported live identity field"
+    },
+    {
+      "id": "migration-helper-live-fixture-unchanged",
+      "recipe": "replace-system-identifier-with-the-independently-queried-current-system-identifier",
+      "error": "live negative did not change its field"
+    }
+  ],
+  "control_fixture_cases": [
+    {
+      "id": "migration-helper-control-fixture-kind",
+      "input": {
+        "kind": "unsupported",
+        "recipe": "valid"
+      },
+      "error": "invalid control fixture kind"
+    },
+    {
+      "id": "migration-helper-control-fixture-publish-recipe",
+      "input": {
+        "kind": "ack",
+        "phase": "publish",
+        "recipe": "unsupported"
+      },
+      "error": "invalid publication fixture recipe"
+    },
+    {
+      "id": "migration-helper-control-fixture-read-recipe",
+      "input": {
+        "kind": "ack",
+        "recipe": "unsupported"
+      },
+      "error": "invalid control fixture recipe"
+    },
+    {
+      "id": "migration-helper-control-fixture-collision-literal",
+      "input": {
+        "kind": "ack",
+        "phase": "publish",
+        "recipe": "pending-collision"
+      },
+      "error": "invalid collision literal",
+      "effects": "validate missing literal before creating pending collision file"
+    }
+  ],
+  "snapshot_boundary_cases": [
+    {
+      "id": "migration-helper-snapshot-rows-exact",
+      "recipe": "rows-exact",
+      "rows": 32,
+      "accepted": true,
+      "revision": "1",
+      "date": "2026-01-01",
+      "annotation": "",
+      "verification": "independent COUNT and exact frozen ordered keys; snapshot complete records and annotations; restore exact baseline"
+    },
+    {
+      "id": "migration-helper-snapshot-rows-one-over",
+      "recipe": "rows-one-over",
+      "rows": 33,
+      "accepted": false,
+      "error": "synthetic row limit exceeded",
+      "revision": "1",
+      "date": "2026-01-01",
+      "annotation": "",
+      "verification": "independent COUNT and exact frozen ordered keys; no snapshot used to prove over-limit input or cleanup; restore exact baseline"
+    },
+    {
+      "id": "migration-helper-schema-exact",
+      "recipe": "schema-exact",
+      "accepted": true,
+      "baseline_columns": 5,
+      "baseline_constraints": 6,
+      "baseline_total": 11,
+      "columns_to_add": 21,
+      "expected_total": 32,
+      "column_prefix": "qualification_bound_",
+      "verification": "Exact frozen migration DDL gives five live columns and six constraints on PostgreSQL17. Independently query each baseline count, then actual 32-definition catalog count, added names and definitions before bounded schema helper; restore exact baseline even on wrong result."
+    },
+    {
+      "id": "migration-helper-schema-one-over",
+      "recipe": "schema-one-over",
+      "accepted": false,
+      "error": "synthetic schema limit exceeded",
+      "baseline_columns": 5,
+      "baseline_constraints": 6,
+      "baseline_total": 11,
+      "columns_to_add": 22,
+      "expected_total": 33,
+      "column_prefix": "qualification_bound_",
+      "verification": "Exact frozen migration DDL gives five live columns and six constraints on PostgreSQL17. Independently query each baseline count, then actual 33-definition catalog count and added names before bounded LIMIT33 helper; no bounded helper used to establish overflow input or cleanup; restore exact baseline even on wrong result."
+    },
+    {
+      "id": "migration-helper-snapshot-ledger-query-error",
+      "recipe": "ledger-column",
+      "accepted": false,
+      "sqlstate": "42703",
+      "verification": "temporarily rename version to qualification_withheld_version on owned public._sqlx_migrations; actual helper SQL error; restore exact schema/history/rows"
+    },
+    {
+      "id": "migration-helper-snapshot-row-query-error",
+      "recipe": "row-column",
+      "accepted": false,
+      "sqlstate": "42703",
+      "verification": "temporarily rename organization_id to qualification_withheld_organization on owned migration_harness.records; actual helper SQL error; restore exact schema/history/rows"
+    },
+    {
+      "id": "migration-helper-annotation-query-error",
+      "recipe": "annotation-column",
+      "accepted": false,
+      "sqlstate": "42703",
+      "verification": "temporarily rename annotation to qualification_withheld_annotation on owned records; actual annotate SQL error for established exact row/value; restore exact schema/history/rows"
+    }
+  ],
+  "stopped_service_cases": [
+    {
+      "id": "migration-helper-stopped-admin",
+      "operation": "admin",
+      "accepted": false,
+      "error_type": "sqlx-io",
+      "io_error_kind": "NotFound",
+      "raw_os_error": 2
+    },
+    {
+      "id": "migration-helper-stopped-snapshot",
+      "operation": "snapshot",
+      "accepted": false,
+      "error_type": "sqlx-io",
+      "io_error_kind": "NotFound",
+      "raw_os_error": 2
+    },
+    {
+      "id": "migration-helper-stopped-schema",
+      "operation": "schema",
+      "accepted": false,
+      "error_type": "sqlx-io",
+      "io_error_kind": "NotFound",
+      "raw_os_error": 2
+    },
+    {
+      "id": "migration-helper-stopped-annotate",
+      "operation": "annotate",
+      "accepted": false,
+      "error_type": "sqlx-io",
+      "io_error_kind": "NotFound",
+      "raw_os_error": 2
+    },
+    {
+      "id": "migration-helper-stopped-identity",
+      "operation": "identity",
+      "accepted": false,
+      "error_type": "sqlx-io",
+      "io_error_kind": "NotFound",
+      "raw_os_error": 2
+    },
+    {
+      "id": "migration-helper-stopped-writer",
+      "operation": "writer",
+      "accepted": false,
+      "error": "writer unavailable",
+      "cause": "unchanged selected writer client attempts actual absent acknowledged Unix socket; dynamic configuration and role facts remain unchanged"
+    }
+  ],
+  "snapshot_rows": [
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000001",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000002",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000003",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000004",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000005",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000006",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000007",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000008",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000009",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000000a",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000000b",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000000c",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000000d",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000000e",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000000f",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000010",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000011",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000012",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000013",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000014",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000015",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000016",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000017",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000018",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000019",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000001a",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000001b",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000001c",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000001d",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000001e",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-00000000001f",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000020",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    },
+    {
+      "organization_id": "b7a1d4a2-9cd0-4d4d-8a01-010203040506",
+      "record_id": "00000000-0000-4000-8000-000000000021",
+      "content_revision": "1",
+      "date": "2026-01-01"
+    }
+  ]
+}

@@ -816,10 +816,14 @@ pub fn observe_identity(command: &mut Command) -> io::Result<(u32, Output)> {
 
 fn observe_identity_with(command: &mut Command, options: Observation) -> io::Result<(u32, Output)> {
     let prepared = PreparedRoot::new()?;
-    let stdout_path = prepared.path.join("stdout");
-    let stderr_path = prepared.path.join("stderr");
+    let retained = prepared.path.with_extension("observation-evidence");
+    fs::rename(&prepared.path, &retained)?;
+    println!("xtask retained native observation {}", retained.display());
+    let stdout_path = retained.join("stdout");
+    let stderr_path = retained.join("stderr");
     let stdout = fs::File::create(&stdout_path)?;
     let stderr = fs::File::create(&stderr_path)?;
+    let mut trace = fs::File::create_new(retained.join("trace"))?;
     command.stdout(if matches!(options.closed, Some(ClosedStream::Stdout)) {
         closed_pipe()?
     } else {
@@ -844,7 +848,7 @@ fn observe_identity_with(command: &mut Command, options: Observation) -> io::Res
             request: None,
         },
         started,
-        &mut std::io::stdout().lock(),
+        &mut trace,
     )
     .map(|output| (pid, output))
 }

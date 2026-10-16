@@ -9,6 +9,7 @@ pub mod collection_prepared;
 pub mod collection_profiles;
 pub mod collection_receipts;
 pub mod collection_runner;
+pub mod collection_services;
 pub mod collection_tests;
 pub mod coverage;
 pub mod inventory;

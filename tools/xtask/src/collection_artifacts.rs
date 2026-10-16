@@ -100,6 +100,30 @@ fn names(value: &Value) -> Result<BTreeSet<String>> {
     Ok(result)
 }
 
+/// Explicit successful same-harness helpers, separate from selected suite runs.
+pub fn descendant_probes(harness: &Value) -> Result<BTreeSet<String>> {
+    let Some(value) = harness.get("descendant_probes") else {
+        return Ok(BTreeSet::new());
+    };
+    let probes = names(value)?;
+    if harness["required"] != true
+        || probes.len() > 16
+        || probes
+            .iter()
+            .any(|name| name.is_empty() || name.len() > 4096 || name.contains('\0'))
+    {
+        return Err(BAD);
+    }
+    if probes.is_empty() {
+        return Ok(probes);
+    }
+    let selected = collection_tests::selected_names(&harness["tests"]).map_err(|_| BAD)?;
+    if probes.iter().any(|name| !selected.contains(name)) {
+        return Err(BAD);
+    }
+    Ok(probes)
+}
+
 fn key(package: &str, value: &Value) -> Result<Key> {
     Ok((
         package.to_owned(),
@@ -191,6 +215,7 @@ impl<'a> Selection<'a> {
         let mut required = 0;
         let mut case_ids = BTreeSet::new();
         for harness in rows(registry, "harnesses")? {
+            descendant_probes(harness)?;
             let key = key(text(harness, "package")?, harness)?;
             let selected = collection_tests::selected_names(&harness["tests"]).map_err(|_| BAD)?;
             let needed = harness["required"].as_bool().ok_or(BAD)?;
@@ -216,6 +241,9 @@ impl<'a> Selection<'a> {
         }
         let mut binaries = BTreeMap::new();
         for binary in rows(registry, "native_binaries")? {
+            if binary.get("descendant_probes").is_some() {
+                return Err(BAD);
+            }
             exercises(binary)?;
             let key = key(text(binary, "package")?, binary)?;
             let target = targets.get(&key).ok_or(BAD)?;
@@ -342,6 +370,9 @@ pub fn select(
             let registered = selection.harnesses.get(&key).ok_or(BAD)?;
             object["required"] = registered["required"].clone();
             object["tests"] = registered["tests"].clone();
+            if let Some(probes) = registered.get("descendant_probes") {
+                object["descendant_probes"] = probes.clone();
+            }
         } else {
             let registered = selection.binaries.get(&key).ok_or(BAD)?;
             object["sources"] = registered["sources"].clone();

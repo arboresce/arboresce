@@ -5,6 +5,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use serde_json::{Value, json};
 
 use crate::{
+    collection_artifacts,
     collection_inputs::{CollectError, Result},
     coverage::Metric,
 };
@@ -123,6 +124,15 @@ fn command_arguments(role: &str) -> Result<Value> {
     Ok(json!(args.iter().map(|s| s.as_bytes()).collect::<Vec<_>>()))
 }
 
+fn probe_arguments(test: &str) -> Value {
+    json!([
+        b"--exact".as_slice(),
+        test.as_bytes(),
+        b"--nocapture".as_slice(),
+        b"--test-threads=1".as_slice()
+    ])
+}
+
 fn scopes(
     facts: &Value,
     objects: &BTreeMap<&str, &Value>,
@@ -220,6 +230,7 @@ pub fn evaluate(facts: &Value) -> Result<Value> {
     let driver = pid(identity, "driver_pid")?;
     let mut objects = BTreeMap::new();
     let mut paths = BTreeSet::new();
+    let mut declared_probes = BTreeMap::new();
     let mut required = 0;
     let mut harnesses = 0;
     for object in rows(facts, "objects")? {
@@ -229,7 +240,11 @@ pub fn evaluate(facts: &Value) -> Result<Value> {
             return Err(BAD);
         }
         match text(object, "role")? {
-            "binary" => {}
+            "binary" => {
+                if object.get("descendant_probes").is_some() {
+                    return Err(BAD);
+                }
+            }
             "harness" => {
                 harnesses += 1;
                 let is_required = object["required"].as_bool().ok_or(BAD)?;
@@ -237,6 +252,10 @@ pub fn evaluate(facts: &Value) -> Result<Value> {
                     return Err(BAD);
                 }
                 required += usize::from(is_required);
+                declared_probes.insert(
+                    hash,
+                    collection_artifacts::descendant_probes(object).map_err(|_| BAD)?,
+                );
             }
             _ => return Err(BAD),
         }
@@ -302,6 +321,7 @@ pub fn evaluate(facts: &Value) -> Result<Value> {
     }
     let mut profiles = BTreeMap::new();
     let mut raw = serde_json::Map::new();
+    let mut observed_probes = BTreeSet::new();
     for profile in rows(facts, "profiles")? {
         let process_id = pid(profile, "pid")?;
         let launch = &launches.get(&process_id).ok_or(BAD)?["record"];
@@ -335,10 +355,24 @@ pub fn evaluate(facts: &Value) -> Result<Value> {
         if (object["role"] == "binary" || required_run) && positive == 0 {
             return Err(BAD);
         }
-        if object["role"] == "harness"
-            && (!commands.contains_key(&process_id) || exits[&process_id]["record"]["exit"] != 0)
-        {
-            return Err(BAD);
+        if object["role"] == "harness" {
+            if exits[&process_id]["record"]["exit"] != 0 {
+                return Err(BAD);
+            }
+            if !commands.contains_key(&process_id) {
+                let parent = commands.get(&pid(launch, "parent_pid")?).ok_or(BAD)?;
+                let test = declared_probes[hash]
+                    .iter()
+                    .find(|test| launch["arguments"] == probe_arguments(test))
+                    .ok_or(BAD)?;
+                if parent["role"] != "run"
+                    || parent["object_sha256"] != hash
+                    || positive == 0
+                    || !observed_probes.insert((hash, test.clone()))
+                {
+                    return Err(BAD);
+                }
+            }
         }
         if raw
             .insert(
@@ -353,6 +387,13 @@ pub fn evaluate(facts: &Value) -> Result<Value> {
     if profiles.keys().copied().collect::<BTreeSet<_>>() != owned
         || facts["raw_after"] != Value::Object(raw)
     {
+        return Err(BAD);
+    }
+    let expected_probes: BTreeSet<_> = declared_probes
+        .iter()
+        .flat_map(|(hash, tests)| tests.iter().map(move |test| (*hash, test.clone())))
+        .collect();
+    if observed_probes != expected_probes {
         return Err(BAD);
     }
     scopes(facts, &objects, &profiles)?;

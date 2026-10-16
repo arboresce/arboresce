@@ -2,6 +2,16 @@
   "version": "rust-source-roles-v1",
   "sources": [
     {
+      "path": "crates/arboresce-application/src/lib.rs",
+      "package": "arboresce-application",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-application/tests/contract.rs",
+      "package": "arboresce-application",
+      "role": "assertion"
+    },
+    {
       "path": "crates/arboresce-domain/src/canonical_number.rs",
       "package": "arboresce-domain",
       "role": "measured"
@@ -73,6 +83,36 @@
       "role": "measured"
     },
     {
+      "path": "crates/arboresce-postgres/src/lib.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/migration.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/qualification.rs",
+      "package": "arboresce-postgres",
+      "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/relay.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/scenarios.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/service.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
       "path": "crates/arboresce/src/lib.rs",
       "package": "arboresce",
       "role": "measured"
@@ -139,6 +179,11 @@
     },
     {
       "path": "tools/xtask/src/collection_runner.rs",
+      "package": "arboresce-xtask",
+      "role": "measured"
+    },
+    {
+      "path": "tools/xtask/src/collection_services.rs",
       "package": "arboresce-xtask",
       "role": "measured"
     },
@@ -245,107 +290,6 @@
   ],
   "targets": [
     {
-      "kind": "library",
-      "name": "arboresce",
-      "sources": [
-        "crates/arboresce/src/lib.rs"
-      ]
-    },
-    {
-      "kind": "library",
-      "name": "arboresce_domain",
-      "sources": [
-        "crates/arboresce-domain/src/lib.rs",
-        "crates/arboresce-domain/src/revisions.rs",
-        "crates/arboresce-domain/src/time.rs",
-        "crates/arboresce-domain/src/locators.rs",
-        "crates/arboresce-domain/src/wire.rs",
-        "crates/arboresce-domain/src/record_json.rs",
-        "crates/arboresce-domain/src/references.rs",
-        "crates/arboresce-domain/src/locator_wire.rs",
-        "crates/arboresce-domain/src/event_time.rs",
-        "crates/arboresce-domain/src/canonical_number.rs",
-        "crates/arboresce-domain/src/source_json.rs"
-      ]
-    },
-    {
-      "kind": "library",
-      "name": "arboresce_xtask",
-      "sources": [
-        "tools/xtask/src/architecture.rs",
-        "tools/xtask/src/collection.rs",
-        "tools/xtask/src/collection_artifacts.rs",
-        "tools/xtask/src/collection_inputs.rs",
-        "tools/xtask/src/collection_modules.rs",
-        "tools/xtask/src/collection_prepared.rs",
-        "tools/xtask/src/collection_profiles.rs",
-        "tools/xtask/src/collection_receipts.rs",
-        "tools/xtask/src/collection_runner.rs",
-        "tools/xtask/src/collection_tests.rs",
-        "tools/xtask/src/coverage.rs",
-        "tools/xtask/src/inventory.rs",
-        "tools/xtask/src/inventory_command.rs",
-        "tools/xtask/src/lib.rs",
-        "tools/xtask/src/measurement.rs",
-        "tools/xtask/src/process.rs",
-        "tools/xtask/src/report_command.rs",
-        "tools/xtask/src/strict_json.rs",
-        "tools/xtask/src/workspace.rs"
-      ]
-    },
-    {
-      "kind": "binary",
-      "name": "arboresce-xtask",
-      "sources": [
-        "tools/xtask/src/architecture.rs",
-        "tools/xtask/src/collection.rs",
-        "tools/xtask/src/collection_artifacts.rs",
-        "tools/xtask/src/collection_inputs.rs",
-        "tools/xtask/src/collection_modules.rs",
-        "tools/xtask/src/collection_prepared.rs",
-        "tools/xtask/src/collection_profiles.rs",
-        "tools/xtask/src/collection_receipts.rs",
-        "tools/xtask/src/collection_runner.rs",
-        "tools/xtask/src/collection_tests.rs",
-        "tools/xtask/src/coverage.rs",
-        "tools/xtask/src/inventory.rs",
-        "tools/xtask/src/inventory_command.rs",
-        "tools/xtask/src/lib.rs",
-        "tools/xtask/src/main.rs",
-        "tools/xtask/src/measurement.rs",
-        "tools/xtask/src/process.rs",
-        "tools/xtask/src/report_command.rs",
-        "tools/xtask/src/strict_json.rs",
-        "tools/xtask/src/workspace.rs"
-      ]
-    },
-    {
-      "kind": "binary",
-      "name": "arboresce-xtask-test-peer",
-      "sources": [
-        "tools/xtask/src/architecture.rs",
-        "tools/xtask/src/collection.rs",
-        "tools/xtask/src/collection_artifacts.rs",
-        "tools/xtask/src/collection_inputs.rs",
-        "tools/xtask/src/collection_modules.rs",
-        "tools/xtask/src/collection_prepared.rs",
-        "tools/xtask/src/collection_profiles.rs",
-        "tools/xtask/src/collection_receipts.rs",
-        "tools/xtask/src/collection_runner.rs",
-        "tools/xtask/src/collection_tests.rs",
-        "tools/xtask/src/coverage.rs",
-        "tools/xtask/src/inventory.rs",
-        "tools/xtask/src/inventory_command.rs",
-        "tools/xtask/src/lib.rs",
-        "tools/xtask/src/measurement.rs",
-        "tools/xtask/src/process.rs",
-        "tools/xtask/src/report_command.rs",
-        "tools/xtask/src/strict_json.rs",
-        "tools/xtask/src/workspace.rs",
-        "tools/xtask/tests/support/peer.rs"
-      ]
-    },
-    {
       "kind": "binary",
       "name": "arboresce-report-gate",
       "sources": [
@@ -359,6 +303,7 @@
         "tools/xtask/src/collection_profiles.rs",
         "tools/xtask/src/collection_receipts.rs",
         "tools/xtask/src/collection_runner.rs",
+        "tools/xtask/src/collection_services.rs",
         "tools/xtask/src/collection_tests.rs",
         "tools/xtask/src/coverage.rs",
         "tools/xtask/src/inventory.rs",
@@ -385,6 +330,7 @@
         "tools/xtask/src/collection_profiles.rs",
         "tools/xtask/src/collection_receipts.rs",
         "tools/xtask/src/collection_runner.rs",
+        "tools/xtask/src/collection_services.rs",
         "tools/xtask/src/collection_tests.rs",
         "tools/xtask/src/coverage.rs",
         "tools/xtask/src/inventory.rs",
@@ -411,6 +357,126 @@
         "tools/xtask/src/collection_profiles.rs",
         "tools/xtask/src/collection_receipts.rs",
         "tools/xtask/src/collection_runner.rs",
+        "tools/xtask/src/collection_services.rs",
+        "tools/xtask/src/collection_tests.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/measurement.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs"
+      ]
+    },
+    {
+      "kind": "binary",
+      "name": "arboresce-xtask",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/collection.rs",
+        "tools/xtask/src/collection_artifacts.rs",
+        "tools/xtask/src/collection_inputs.rs",
+        "tools/xtask/src/collection_modules.rs",
+        "tools/xtask/src/collection_prepared.rs",
+        "tools/xtask/src/collection_profiles.rs",
+        "tools/xtask/src/collection_receipts.rs",
+        "tools/xtask/src/collection_runner.rs",
+        "tools/xtask/src/collection_services.rs",
+        "tools/xtask/src/collection_tests.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/main.rs",
+        "tools/xtask/src/measurement.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs"
+      ]
+    },
+    {
+      "kind": "binary",
+      "name": "arboresce-xtask-test-peer",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/collection.rs",
+        "tools/xtask/src/collection_artifacts.rs",
+        "tools/xtask/src/collection_inputs.rs",
+        "tools/xtask/src/collection_modules.rs",
+        "tools/xtask/src/collection_prepared.rs",
+        "tools/xtask/src/collection_profiles.rs",
+        "tools/xtask/src/collection_receipts.rs",
+        "tools/xtask/src/collection_runner.rs",
+        "tools/xtask/src/collection_services.rs",
+        "tools/xtask/src/collection_tests.rs",
+        "tools/xtask/src/coverage.rs",
+        "tools/xtask/src/inventory.rs",
+        "tools/xtask/src/inventory_command.rs",
+        "tools/xtask/src/lib.rs",
+        "tools/xtask/src/measurement.rs",
+        "tools/xtask/src/process.rs",
+        "tools/xtask/src/report_command.rs",
+        "tools/xtask/src/strict_json.rs",
+        "tools/xtask/src/workspace.rs",
+        "tools/xtask/tests/support/peer.rs"
+      ]
+    },
+    {
+      "kind": "library",
+      "name": "arboresce",
+      "sources": [
+        "crates/arboresce/src/lib.rs"
+      ]
+    },
+    {
+      "kind": "library",
+      "name": "arboresce_application",
+      "sources": [
+        "crates/arboresce-application/src/lib.rs"
+      ]
+    },
+    {
+      "kind": "library",
+      "name": "arboresce_domain",
+      "sources": [
+        "crates/arboresce-domain/src/lib.rs",
+        "crates/arboresce-domain/src/revisions.rs",
+        "crates/arboresce-domain/src/time.rs",
+        "crates/arboresce-domain/src/locators.rs",
+        "crates/arboresce-domain/src/wire.rs",
+        "crates/arboresce-domain/src/record_json.rs",
+        "crates/arboresce-domain/src/references.rs",
+        "crates/arboresce-domain/src/locator_wire.rs",
+        "crates/arboresce-domain/src/event_time.rs",
+        "crates/arboresce-domain/src/canonical_number.rs",
+        "crates/arboresce-domain/src/source_json.rs"
+      ]
+    },
+    {
+      "kind": "library",
+      "name": "arboresce_postgres",
+      "sources": [
+        "crates/arboresce-postgres/src/lib.rs",
+        "crates/arboresce-postgres/src/migration.rs"
+      ]
+    },
+    {
+      "kind": "library",
+      "name": "arboresce_xtask",
+      "sources": [
+        "tools/xtask/src/architecture.rs",
+        "tools/xtask/src/collection.rs",
+        "tools/xtask/src/collection_artifacts.rs",
+        "tools/xtask/src/collection_inputs.rs",
+        "tools/xtask/src/collection_modules.rs",
+        "tools/xtask/src/collection_prepared.rs",
+        "tools/xtask/src/collection_profiles.rs",
+        "tools/xtask/src/collection_receipts.rs",
+        "tools/xtask/src/collection_runner.rs",
+        "tools/xtask/src/collection_services.rs",
         "tools/xtask/src/collection_tests.rs",
         "tools/xtask/src/coverage.rs",
         "tools/xtask/src/inventory.rs",

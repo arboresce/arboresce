@@ -126,6 +126,25 @@ fn collector_probe() -> std::io::Result<serde_json::Value> {
 fn main() -> ExitCode {
     let mode = std::env::var("ARBORESCE_XTASK_TEST_PEER").unwrap_or_default();
     let (stdout, stderr, exit) = match mode.as_str() {
+        "service-environment" => {
+            use std::os::unix::ffi::OsStrExt;
+            let mut keys: Vec<_> = std::env::vars_os()
+                .filter(|(key, _)| key.as_bytes().starts_with(b"PG"))
+                .map(|(key, _)| key.to_string_lossy().into_owned())
+                .collect();
+            keys.sort();
+            let value = serde_json::json!({"selected":std::env::var(arboresce_xtask::collection_services::SELECTOR).ok(),"pg_keys":keys});
+            return ExitCode::from(
+                if emit(
+                    &mut std::io::stdout().lock(),
+                    format!("{value}\n").as_bytes(),
+                ) {
+                    0
+                } else {
+                    1
+                },
+            );
+        }
         "trace-streams" => {
             let result = (|| -> std::io::Result<bool> {
                 let stdout =

@@ -10,6 +10,307 @@ use arboresce_xtask::{
 mod support;
 
 #[test]
+fn migration_service_physical_inputs() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/postgres/fixtures/migration-service-v1/cases.json"
+    ))
+    .unwrap();
+    for row in fixture["physical_service_cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .chain(fixture["serialized_input_cases"].as_array().unwrap())
+    {
+        let owner = support::PreparedRoot::new().unwrap();
+        let observed = support::collection_inputs::service(&owner, &fixture, row).unwrap();
+        assert_eq!(
+            observed["accepted"], row["accepted"],
+            "{}: {observed}",
+            row["id"]
+        );
+        let (changed, error, kind) = if let Some(size) = row["target_bytes"].as_u64() {
+            assert_eq!(observed["physical_after"]["input"]["size"], size);
+            (
+                "input",
+                if size > 2_097_152 {
+                    Some("Intake")
+                } else {
+                    None
+                },
+                "file",
+            )
+        } else {
+            match row["recipe"].as_str().unwrap() {
+                "none" | "explicit-environment" => ("", None, ""),
+                "remove-input" => ("input", Some("Intake"), "absent"),
+                "change-tool" => ("postgres", Some("Changed"), "file"),
+                "remove-tool" => ("postgres", Some("Intake"), "absent"),
+                "change-configuration" => ("configuration", Some("Changed"), "file"),
+                "change-readiness" => ("readiness", Some("Changed"), "file"),
+                "change-profile" => ("input", None, "file"),
+                "symlink-tool" => ("postgres", Some("Intake"), "symlink"),
+                "symlink-ancestor" => ("native", Some("Intake"), "symlink"),
+                "data-mode-0755" => ("data", Some("Prepared"), "directory"),
+                "socket-mode-0755" => ("socket", Some("Prepared"), "directory"),
+                "expire-lease" => ("input", Some("Prepared"), "file"),
+                _ => panic!("unknown service recipe"),
+            }
+        };
+        assert_eq!(observed["error_class"], serde_json::json!(error));
+        assert_eq!(
+            observed["physical_before"]["input"]["sha256"],
+            observed["before"]["sha256"]
+        );
+        let mut before = observed["physical_before"].as_object().unwrap().clone();
+        let mut after = observed["physical_after"].as_object().unwrap().clone();
+        if !changed.is_empty() {
+            let previous = before.remove(changed).unwrap();
+            let actual = after.remove(changed).unwrap();
+            assert_eq!(actual["path"], previous["path"]);
+            assert_eq!(actual["kind"], kind);
+            if kind == "file" {
+                assert_ne!(actual["sha256"], previous["sha256"]);
+            } else if kind == "directory" {
+                assert_eq!(previous["mode"], 0o700);
+                assert_eq!(actual["mode"], 0o755);
+            } else if kind == "symlink" {
+                let target = std::path::Path::new(previous["path"].as_str().unwrap())
+                    .with_file_name(if changed == "native" {
+                        "original-native"
+                    } else {
+                        "original-postgres"
+                    });
+                assert_eq!(actual["target"], serde_json::json!(target));
+            }
+        }
+        assert_eq!(before, after, "unselected paths changed: {}", row["id"]);
+        if row["recipe"] == "expire-lease" {
+            let actual = observed["physical_after"]["input"]["lease_deadline_unix_ms"]
+                .as_u64()
+                .unwrap();
+            assert!(
+                u128::from(actual)
+                    < std::time::SystemTime::now()
+                        .duration_since(std::time::UNIX_EPOCH)
+                        .unwrap()
+                        .as_millis()
+            );
+        }
+        if row["recipe"] == "change-profile" {
+            assert_eq!(observed["before"]["record"], observed["after"]["record"]);
+            assert_ne!(observed["before"]["sha256"], observed["after"]["sha256"]);
+        }
+        if row["recipe"] == "explicit-environment" {
+            assert_eq!(observed["environment"]["selected"], observed["input_path"]);
+            assert_eq!(observed["environment"]["pg_keys"], serde_json::json!([]));
+        }
+        println!(
+            "xtask physical service case={} observed={observed}",
+            row["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            row["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn migration_service_structural_profiles() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/postgres/fixtures/migration-service-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for row in fixture["service_cases"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mut value = fixture["base_input"].clone();
+        for patch in row["patches"].as_array().unwrap() {
+            *value.pointer_mut(patch["path"].as_str().unwrap()).unwrap() = patch["value"].clone();
+        }
+        assert_eq!(
+            arboresce_xtask::collection_services::validate(&value).is_ok(),
+            row["accepted"],
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 31);
+}
+
+#[test]
+fn migration_service_command_contract() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/postgres/fixtures/migration-service-v1/cases.json"
+    ))
+    .unwrap();
+    for row in fixture["collector_command_cases"].as_array().unwrap() {
+        let args: Vec<_> = row["arguments"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|s| OsString::from(s.as_str().unwrap()))
+            .collect();
+        let (mut stdout, mut stderr) = (Vec::new(), Vec::new());
+        let exit = arboresce_xtask::collection::run(&args, &mut stdout, &mut stderr);
+        assert_eq!(exit, row["exit"].as_u64().unwrap() as u8);
+        assert_eq!(stdout, row["stdout"].as_str().unwrap().as_bytes());
+        assert_eq!(stderr, row["stderr"].as_str().unwrap().as_bytes());
+        let output =
+            support::observe(Command::new(env!("CARGO_BIN_EXE_arboresce-verify")).args(&args))
+                .unwrap();
+        assert_eq!(output.status.code(), Some(i32::from(exit)));
+        assert_eq!(output.stdout, stdout);
+        assert_eq!(output.stderr, stderr);
+        println!(
+            "collector case={} pid={}",
+            row["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+    let protocol: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v8/cases.json"
+    ))
+    .unwrap();
+    for case in protocol["cases"].as_array().unwrap().iter().filter(|case| {
+        matches!(
+            case["action"].as_str(),
+            Some("selected-executable" | "closed-command-output")
+        )
+    }) {
+        let id = case["id"].as_str().unwrap();
+        if case["action"] == "selected-executable" {
+            let base = &protocol["base_identity"];
+            let service = case.get("service").unwrap_or(&base["service"]);
+            let service = if service == false {
+                None
+            } else {
+                Some(service)
+            };
+            let executable = case.get("executable_bytes").cloned().unwrap_or_else(|| {
+                serde_json::json!(
+                    case["record"]["executable_utf8"]
+                        .as_str()
+                        .unwrap()
+                        .as_bytes()
+                )
+            });
+            let record = serde_json::json!({
+                "executable_sha256":case["record"]["sha256"],"executable":executable,
+            });
+            let actual = arboresce_xtask::collection::selected_executable(
+                case.get("objects")
+                    .unwrap_or(&base["objects"])
+                    .as_array()
+                    .unwrap(),
+                case.get("tools").unwrap_or(&base["tools"]),
+                service,
+                &record,
+            );
+            assert_eq!(
+                serde_json::json!({"accepted":actual.is_ok(),"error":actual.err().map(|e|e.to_string())}),
+                case["expected"],
+                "{id}"
+            );
+        } else {
+            let arguments = case["arguments"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|v| OsString::from(v.as_str().unwrap()))
+                .collect::<Vec<_>>();
+            let (mut stdout, mut stderr) = (Vec::new(), Vec::new());
+            let mut closed = support::FailedOutput {
+                write_fails: true,
+                bytes: Vec::new(),
+            };
+            let exit = if case["closed"] == "stdout" {
+                arboresce_xtask::collection::run(&arguments, &mut closed, &mut stderr)
+            } else {
+                arboresce_xtask::collection::run(&arguments, &mut stdout, &mut closed)
+            };
+            assert!(closed.bytes.is_empty(), "{id}");
+            assert_eq!(
+                exit as u64,
+                case["expected"]["exit"].as_u64().unwrap(),
+                "{id}"
+            );
+            assert_eq!(
+                stdout,
+                case["expected"]["stdout"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+            assert_eq!(
+                stderr,
+                case["expected"]["stderr"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+        }
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
+fn migration_service_selection_closes_command_defaults() {
+    use arboresce_xtask::collection_services::{SELECTOR, environment};
+    use std::{collections::BTreeMap, ffi::OsStr, path::Path};
+    let mut command = Command::new("/usr/bin/true");
+    command
+        .env("PGHOST", "unselected")
+        .env("PGDATABASE", "unselected")
+        .env(SELECTOR, "/unselected/input.json");
+    environment(&mut command, Some(Path::new("/selected/input.json")));
+    let values: BTreeMap<_, _> = command.get_envs().collect();
+    assert_eq!(values.get(OsStr::new("PGHOST")), Some(&None));
+    assert_eq!(values.get(OsStr::new("PGDATABASE")), Some(&None));
+    assert_eq!(
+        values.get(OsStr::new(SELECTOR)),
+        Some(&Some(OsStr::new("/selected/input.json")))
+    );
+    environment(&mut command, None);
+    assert_eq!(
+        command.get_envs().find(|(k, _)| *k == SELECTOR).unwrap().1,
+        None
+    );
+}
+
+#[test]
+fn qualified_source_postgres_dependency_profiles() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/qualified-source-postgres-dependencies-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for row in fixture["cases"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mut input = fixture["base_input"].clone();
+        for patch in row["patches"].as_array().unwrap() {
+            *input.pointer_mut(patch["path"].as_str().unwrap()).unwrap() = patch["value"].clone();
+        }
+        let root = support::PreparedRoot::new().unwrap();
+        let metadata = support::qualified_source::metadata(&root, &input, None).unwrap();
+        let actual = check_workspace(&root.path, &metadata.to_string());
+        assert_eq!(actual.is_ok(), row["accepted"], "{id}: {actual:?}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 71);
+    for row in fixture["source_cases"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let root = support::PreparedRoot::new().unwrap();
+        let metadata =
+            support::qualified_source::metadata(&root, &fixture["base_input"], Some(row)).unwrap();
+        let actual = check_workspace(&root.path, &metadata.to_string());
+        assert_eq!(actual.is_ok(), row["accepted"], "{id}: {actual:?}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 143);
+}
+
+#[test]
 fn qualified_source_dependency_profiles() {
     let fixture = support::qualified_source::fixture();
     let mut seen = BTreeSet::new();
@@ -290,16 +591,41 @@ fn independently_approved_collector_real_mini_workspaces() {
         "../../../tests/architecture/fixtures/native-collector-v3/cases.json"
     ))
     .unwrap();
-    let mut seen = BTreeSet::new();
-    for case in fixture["cases"]
+    let protocol: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v8/cases.json"
+    ))
+    .unwrap();
+    let mut cases = fixture["cases"]
         .as_array()
         .unwrap()
         .iter()
         .filter(|case| case["action"] == "mini")
-    {
+        .cloned()
+        .collect::<Vec<_>>();
+    cases.push(
+        protocol["cases"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|case| case["action"] == "mini-service-change")
+            .unwrap()
+            .clone(),
+    );
+    let mut seen = BTreeSet::new();
+    for case in &cases {
         let id = case["id"].as_str().unwrap();
         assert!(seen.insert(id));
-        let mini = support::collection_mini::Mini::run(&fixture, case).unwrap();
+        let extension = protocol["cases"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|p| p["reuse_case"] == id || p["id"] == id);
+        let mut invocation = case.clone();
+        if let Some(extension) = extension {
+            invocation["service_model"] = protocol["service_model"].clone();
+            invocation["source_override"] = extension["source_override"].clone();
+        }
+        let mini = support::collection_mini::Mini::run(&fixture, &invocation).unwrap();
         assert_eq!(
             mini.actual.status.code().unwrap() as i64,
             case["expected"]["exit"].as_i64().unwrap(),
@@ -307,7 +633,65 @@ fn independently_approved_collector_real_mini_workspaces() {
             mini.owner.display()
         );
         assert!(mini.outer_preserved().unwrap(), "{id}");
-        if case["mutation"] == true {
+        if case["action"] == "mini-service-change" {
+            assert_eq!(
+                mini.actual.stderr,
+                case["expected"]["stderr"].as_str().unwrap().as_bytes(),
+                "{id}"
+            );
+            assert!(mini.actual.stdout.is_empty());
+            assert!(mini.output.join("prepared-after.json").is_file());
+            assert!(!mini.output.join("source-after.json").exists());
+            assert!(!mini.output.join("result.json").exists());
+            let witness = case["expected"]["captured_witness"]
+                .as_str()
+                .unwrap()
+                .as_bytes();
+            let objects = mini.record("objects.json").unwrap();
+            assert_eq!(
+                objects
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .filter(|o| o["required"] == true)
+                    .count(),
+                3
+            );
+            for object in objects
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|o| o["required"] == true)
+            {
+                let program = serde_json::json!(object["path"].as_str().unwrap().as_bytes());
+                let commands = mini.commands().unwrap();
+                let (path, _, completion) = commands
+                    .iter()
+                    .find(|(_, launch, _)| {
+                        launch["executable"] == program
+                            && launch["arguments"]
+                                .as_array()
+                                .unwrap()
+                                .contains(&serde_json::json!(b"--show-output".as_slice()))
+                    })
+                    .unwrap();
+                assert_eq!(completion["exit"], 0);
+                assert!(completion["error"].is_null() && completion["signal"].is_null());
+                if object["package"] == "arboresce-xtask" {
+                    assert!(
+                        std::fs::read(path.join("stdout"))
+                            .unwrap()
+                            .windows(witness.len())
+                            .any(|v| v == witness)
+                    );
+                    assert_eq!(
+                        mini.record("harness-arboresce-xtask-test-value.json")
+                            .unwrap()["pid"],
+                        completion["pid"]
+                    );
+                }
+            }
+        } else if case["mutation"] == true {
             assert_eq!(
                 mini.actual.stderr,
                 case["expected"]["stderr"].as_str().unwrap().as_bytes(),
@@ -356,9 +740,90 @@ fn independently_approved_collector_real_mini_workspaces() {
             );
             support::collection_mini::assert_real_mini_identity(&mini);
         }
+        if let Some(service) = &mini.service {
+            let extension = extension.unwrap();
+            assert!(mini.unchanged_source().unwrap());
+            assert_eq!(
+                service.directory_modes,
+                serde_json::json!({"data":0o700,"socket":0o700})
+            );
+            assert_eq!(
+                std::fs::symlink_metadata(&service.socket)
+                    .unwrap_err()
+                    .kind(),
+                std::io::ErrorKind::NotFound
+            );
+            assert_eq!(
+                arboresce_xtask::inventory::sha256(&std::fs::read(&service.input).unwrap()),
+                service.input_sha256
+            );
+            let parent = service.input.parent().unwrap();
+            use std::os::unix::fs::PermissionsExt;
+            assert_eq!(
+                std::fs::symlink_metadata(parent.join("data"))
+                    .unwrap()
+                    .permissions()
+                    .mode()
+                    & 0o777,
+                0o700
+            );
+            assert_eq!(
+                std::fs::read(parent.join("selection-seen")).unwrap(),
+                service.input.as_os_str().as_encoded_bytes()
+            );
+            for (name, contents) in protocol["service_model"]["files"].as_object().unwrap() {
+                let bytes = if extension["action"] == "mini-service-change"
+                    && extension["expected"]["changed_file"] == name.as_str()
+                {
+                    extension["expected"]["changed_bytes"]
+                        .as_str()
+                        .unwrap()
+                        .as_bytes()
+                } else {
+                    contents.as_str().unwrap().as_bytes()
+                };
+                assert_eq!(
+                    std::fs::read(parent.join(name)).unwrap(),
+                    bytes,
+                    "{id} {name}"
+                );
+            }
+            let before = mini.record("source-before.json").unwrap();
+            assert_eq!(
+                before["native"]["postgres"],
+                serde_json::json!({"path":service.input,"sha256":service.input_sha256,"record":service.record})
+            );
+            for (name, tool) in service.record["tools"].as_object().unwrap() {
+                assert_eq!(before["tools"][format!("postgres-{name}")], tool["sha256"]);
+            }
+            if extension["action"] == "mini-service-stable" {
+                assert_eq!(mini.record("source-after.json").unwrap(), before);
+                assert_eq!(
+                    mini.record("result.json").unwrap(),
+                    extension["expected"]["success_record"]
+                );
+                let facts = mini.record("collection-facts.json").unwrap();
+                assert!(facts["launches"].as_array().unwrap().iter().all(|launch| {
+                    service.record["tools"]
+                        .as_object()
+                        .unwrap()
+                        .values()
+                        .all(|tool| launch["record"]["executable_sha256"] != tool["sha256"])
+                }));
+                println!(
+                    "xtask case={} pid={}",
+                    extension["id"].as_str().unwrap(),
+                    std::process::id()
+                );
+            }
+            println!(
+                "xtask collector service {}",
+                serde_json::json!({"case":extension["id"],"input":service.input,"input_sha256":service.input_sha256,"record":service.record,"directory_modes":service.directory_modes,"socket_removed":true})
+            );
+        }
         println!("xtask case={id} pid={}", std::process::id());
     }
-    assert_eq!(seen.len(), 3);
+    assert_eq!(seen.len(), 4);
 }
 
 #[test]
@@ -1109,6 +1574,51 @@ fn independently_approved_collector_cargo_artifact_selection() {
 }
 
 #[test]
+fn independently_approved_collector_descendant_probes() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-v9/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["receipt_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let facts =
+            support::report_inputs::replace(&fixture["base_facts"], &case["patch"]).unwrap();
+        match arboresce_xtask::collection_receipts::evaluate(&facts) {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 33);
+    for case in fixture["artifact_cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let input =
+            support::report_inputs::replace(&fixture["artifact_base"], &case["patch"]).unwrap();
+        let raw = input["artifacts"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|record| format!("{record}\n"))
+            .collect::<String>();
+        match arboresce_xtask::collection_artifacts::select(
+            input["root"].as_str().unwrap(),
+            input["target"].as_str().unwrap(),
+            &input["metadata"],
+            &input["registry"],
+            &raw,
+        ) {
+            Ok(value) => assert_eq!(value, case["expected"]["value"], "{id}"),
+            Err(error) => assert_eq!(error.to_string(), case["expected"]["error"], "{id}"),
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 51);
+}
+
+#[test]
 fn independently_approved_collector_process_profile_conservation() {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(
         "../../../tests/architecture/fixtures/native-collector-v2/cases.json"
@@ -1450,6 +1960,54 @@ fn resolved_dependencies_and_source_paths_cannot_bypass_current_roles() {
         check_workspace(&prepared.path, &" ".repeat(8 * 1024 * 1024 + 1)),
         Err(GuardError::InvalidInput)
     );
+}
+
+#[test]
+fn migration_application_and_adapter_roles_are_explicit() {
+    for (id, package, version, expected) in [
+        (
+            "application-layer",
+            "arboresce-application",
+            "0.0.0",
+            Ok(Layer::Application),
+        ),
+        (
+            "postgres-layer",
+            "arboresce-postgres",
+            "0.0.0",
+            Ok(Layer::Adapter),
+        ),
+        (
+            "application-wrong-version",
+            "arboresce-application",
+            "0.0.1",
+            Err(GuardError::Dependency),
+        ),
+        (
+            "postgres-wrong-version",
+            "arboresce-postgres",
+            "0.0.1",
+            Err(GuardError::Dependency),
+        ),
+        (
+            "application-lookalike",
+            "arboresce-application-extra",
+            "0.0.0",
+            Err(GuardError::Dependency),
+        ),
+        (
+            "postgres-lookalike",
+            "arboresce-postgresql",
+            "0.0.0",
+            Err(GuardError::Dependency),
+        ),
+    ] {
+        assert_eq!(registered_layer(package, version), expected, "{id}");
+        println!(
+            "collector case=migration-role-{id} pid={}",
+            std::process::id()
+        );
+    }
 }
 
 #[cfg(unix)]
