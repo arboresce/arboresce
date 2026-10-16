@@ -12,7 +12,7 @@
     "docs/requirements/identity-contract.md": "2c90ffe583dc51b6e032b0571f651c6550b04edfda3688844076016cb3efff12",
     "docs/requirements/security-and-privacy.md": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
     "docs/requirements/api.md": "0e0ba3d0652a19c523e0e8ec63dd6a36780508079136756970f56473d1efef5d",
-    "docs/requirements/storage-and-search.md": "2673c020e4edfd6d53363effdf59c6ee07deff578104d2706e772e23d8709d46",
+    "docs/requirements/storage-and-search.md": "1f372f8c4be991856dfbe9c7fe1c72a128aa8eb608bc939592382b6aa29e4c38",
     "docs/requirements/resource-profiles.md": "e0a9ebdf4c3d36ea07b49711e54feb7f0c91c730190e371f5048de590c11bfb0",
     "docs/requirements/project-fixtures.md": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
     "contracts/public/v1/common.schema.json": "61e94a0e646b2e992e662c7f5b3c30a17551936bfee3f87c7f3ae773302ff3b1",
@@ -482,5 +482,18 @@
     "record_kind": "Fixture observation discriminator only; not a new public result/body variant.",
     "minimal_recognition_entry": "Only lifecycle-owner recognition reference/scope/hash, admitted_at and intent relation are retained; transient preimages and separate historical test observations never prescribe minimum index storage.",
     "preallocated_test_identities": "Explicit input-only deterministic identities per normalized attempt/command/session; never authority or a product admission receipt."
-  }
+  },
+  "source_amendments": [
+    {
+      "baseline_revision": "a0c7c12aec0cad22a8a35c422127db2256738999",
+      "scope": "Correct the stale issuer/subject index row to the already selected canonical identity-profile/version/public-key tuple. All original case bytes, groups, rights, limits and meanings remain unchanged.",
+      "sources": {
+        "docs/requirements/storage-and-search.md": {
+          "before_sha256": "2673c020e4edfd6d53363effdf59c6ee07deff578104d2706e772e23d8709d46",
+          "sha256": "1f372f8c4be991856dfbe9c7fe1c72a128aa8eb608bc939592382b6aa29e4c38"
+        }
+      },
+      "unchanged_case_file_sha256": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911"
+    }
+  ]
 }

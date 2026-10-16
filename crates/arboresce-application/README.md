@@ -18,5 +18,17 @@ identifiers establish format; the consuming canonical transaction still checks
 existence, membership and current policy. No caller-supplied authentication flag,
 key verifier or human-assurance claim is introduced.
 
+`policy::principal` adds an exact checked profile/version/public-key lookup value,
+a checked stored principal record and an asynchronous `PrincipalDirectory` port.
+The mapping consumer invokes the port once, distinguishes absence from failure,
+rejects ambiguity including duplicate IDs, and checks the returned identity.
+Its bounded result carries no alias, creation, workspace permission or assurance.
+The independently frozen principal-directory fixtures cover direct constructors,
+actual typed port calls, pending completion and finite diagnostic traits.
+
+This is application mapping semantics. Real SQL directory integration, actual
+signed-request authentication, I/O deadlines, current policy/revocation and all
+product/bootstrap writers remain at their separate qualified consumers.
+
 Use the workspace's Rust 1.99.0 checks and complete native/source collection,
 following the repository guidance and the independently frozen migration fixtures.

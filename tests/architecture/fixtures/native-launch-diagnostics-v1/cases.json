@@ -1,0 +1,1246 @@
+{
+  "fixture_version": "native-launch-diagnostics-v1",
+  "classification": "original synthetic literal fault inputs and independent expected observations",
+  "rights": {
+    "author": "Tyson Lupul",
+    "license": "MIT OR Apache-2.0",
+    "source": "Original fixture material; no customer or external personal data."
+  },
+  "profile": {
+    "platform": "non-root Unix/macOS",
+    "architecture": "current supported native architecture",
+    "maximum_bytes": 65536,
+    "maximum_cases": 32,
+    "maximum_depth": 10,
+    "cleanup_budget_ms": 2000,
+    "diagnostic_limit_bytes": 65536,
+    "case_execution": "isolated task-owned directories and actual owned children only",
+    "oracle_boundary": "Runtime producers receive input only. Assertion bodies compare complete frozen templates with externally observed file bytes/digests, canonical paths and held actual Child identities. Every field is checked, including nulls and unknown/extra keys. Unit scopes never supply actual native qualification.",
+    "unqualified_faults": "Controlled writer units do not qualify hardware faults, an unkillable process, missing actual Child status, other privilege/platform profiles or a historical failure cause."
+  },
+  "context": {
+    "version": "native-measurement-v1",
+    "run_id": "11111111111111111111111111111111",
+    "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "requirements": {
+    "testing_and_coverage": "../../../../docs/requirements/testing-and-coverage.md",
+    "original_receipts": "../native-measurement-v1/README.md"
+  },
+  "cases": [
+    {
+      "id": "diagnostic-select-missing-context",
+      "operation": "open",
+      "input": {
+        "recipe": "missing-context-root"
+      },
+      "expected": {
+        "stage": "select_context",
+        "kind": "NotFound",
+        "raw_os_error": 2,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "null",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-select-invalid-context",
+      "operation": "open",
+      "input": {
+        "recipe": "invalid-context-version"
+      },
+      "expected": {
+        "stage": "select_context",
+        "kind": "InvalidData",
+        "raw_os_error": null,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "null",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-prepare-missing-context",
+      "operation": "spawn",
+      "input": {
+        "recipe": "remove-context-after-open",
+        "program": "/usr/bin/true",
+        "arguments": []
+      },
+      "expected": {
+        "stage": "prepare_context",
+        "kind": "NotFound",
+        "raw_os_error": 2,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-prepare-changed-context",
+      "operation": "spawn",
+      "input": {
+        "recipe": "change-context-after-open",
+        "program": "/usr/bin/true",
+        "arguments": [],
+        "replacement_run_id": "cccccccccccccccccccccccccccccccc"
+      },
+      "expected": {
+        "stage": "prepare_context",
+        "kind": "InvalidData",
+        "raw_os_error": null,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-prepare-missing-cwd",
+      "operation": "spawn",
+      "input": {
+        "recipe": "missing-cwd",
+        "program": "/usr/bin/true",
+        "arguments": []
+      },
+      "expected": {
+        "stage": "prepare_cwd",
+        "kind": "NotFound",
+        "raw_os_error": 2,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-prepare-bare-program",
+      "operation": "spawn",
+      "input": {
+        "recipe": "bare-program",
+        "program": "true",
+        "arguments": []
+      },
+      "expected": {
+        "stage": "prepare_program",
+        "kind": "InvalidData",
+        "raw_os_error": null,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-prepare-missing-executable",
+      "operation": "spawn",
+      "input": {
+        "recipe": "missing-owned-program",
+        "arguments": []
+      },
+      "expected": {
+        "stage": "prepare_executable",
+        "kind": "NotFound",
+        "raw_os_error": 2,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-prepare-no-execute",
+      "operation": "spawn",
+      "input": {
+        "recipe": "nonexecutable-owned-file",
+        "file_bytes": "not executable\n",
+        "mode": "0600",
+        "arguments": []
+      },
+      "expected": {
+        "stage": "prepare_permissions",
+        "kind": "InvalidData",
+        "raw_os_error": null,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-spawn-removed-executable",
+      "operation": "prepared_spawn",
+      "input": {
+        "recipe": "unlink-owned-selected-program-after-prepare",
+        "selected_program": "/usr/bin/true",
+        "arguments": []
+      },
+      "expected": {
+        "stage": "spawn",
+        "kind": "NotFound",
+        "raw_os_error": 2,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-spawn-invalid-argument",
+      "operation": "prepared_spawn",
+      "input": {
+        "recipe": "nul-argument",
+        "program": "/usr/bin/true",
+        "arguments": [
+          "\u0000"
+        ]
+      },
+      "expected": {
+        "stage": "spawn",
+        "kind": "InvalidInput",
+        "raw_os_error": null,
+        "child": "absent",
+        "cleanup": null,
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "null"
+      }
+    },
+    {
+      "id": "diagnostic-record-missing-context",
+      "operation": "record",
+      "input": {
+        "recipe": "remove-context-before-record",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ]
+      },
+      "expected": {
+        "stage": "record_context",
+        "kind": "NotFound",
+        "raw_os_error": 2,
+        "child": "actual",
+        "cleanup": {
+          "state": "reaped",
+          "exit": null,
+          "signal": 9,
+          "error_kind": null,
+          "raw_os_error": null
+        },
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "actual-selected-receipt-path"
+      }
+    },
+    {
+      "id": "diagnostic-record-changed-context",
+      "operation": "record",
+      "input": {
+        "recipe": "change-context-before-record",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ],
+        "replacement_run_id": "cccccccccccccccccccccccccccccccc"
+      },
+      "expected": {
+        "stage": "record_context",
+        "kind": "InvalidData",
+        "raw_os_error": null,
+        "child": "actual",
+        "cleanup": {
+          "state": "reaped",
+          "exit": null,
+          "signal": 9,
+          "error_kind": null,
+          "raw_os_error": null
+        },
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "actual-selected-receipt-path"
+      }
+    },
+    {
+      "id": "diagnostic-record-existing-file",
+      "operation": "record",
+      "input": {
+        "recipe": "collision-regular",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ],
+        "collision_bytes": "retained launch collision\n"
+      },
+      "expected": {
+        "stage": "record_create",
+        "kind": "AlreadyExists",
+        "raw_os_error": 17,
+        "child": "actual",
+        "cleanup": {
+          "state": "reaped",
+          "exit": null,
+          "signal": 9,
+          "error_kind": null,
+          "raw_os_error": null
+        },
+        "receipt": "existing-bytes-unchanged",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "actual-selected-receipt-path"
+      }
+    },
+    {
+      "id": "diagnostic-record-existing-symlink",
+      "operation": "record",
+      "input": {
+        "recipe": "collision-symlink",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ],
+        "collision_bytes": "retained symlink target\n"
+      },
+      "expected": {
+        "stage": "record_create",
+        "kind": "AlreadyExists",
+        "raw_os_error": 17,
+        "child": "actual",
+        "cleanup": {
+          "state": "reaped",
+          "exit": null,
+          "signal": 9,
+          "error_kind": null,
+          "raw_os_error": null
+        },
+        "receipt": "symlink-and-target-unchanged",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "actual-selected-receipt-path"
+      }
+    },
+    {
+      "id": "diagnostic-record-denied-create",
+      "operation": "record",
+      "input": {
+        "recipe": "readonly-launch-directory",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ],
+        "directory_mode": "0500"
+      },
+      "expected": {
+        "stage": "record_create",
+        "kind": "PermissionDenied",
+        "raw_os_error": 13,
+        "child": "actual",
+        "cleanup": {
+          "state": "reaped",
+          "exit": null,
+          "signal": 9,
+          "error_kind": null,
+          "raw_os_error": null
+        },
+        "receipt": "absent",
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "actual_runtime",
+        "request_binding": "original-cached-request",
+        "receipt_binding": "actual-selected-receipt-path"
+      }
+    },
+    {
+      "id": "diagnostic-real-success-preserves-receipts",
+      "operation": "success",
+      "input": {
+        "recipe": "unchanged-command",
+        "program": "/usr/bin/true",
+        "arguments": []
+      },
+      "expected": {
+        "failure": null,
+        "child": "actual",
+        "exit": 0,
+        "signal": null,
+        "launch_receipts": 1,
+        "exit_receipts": 1
+      }
+    },
+    {
+      "id": "diagnostic-retain-exclusive-success",
+      "operation": "retain",
+      "input": {
+        "recipe": "fresh-artifact",
+        "failure_recipe": "remove-context-after-open"
+      },
+      "expected": {
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "full-envelope",
+          "template": "protocol.full_envelope_template",
+          "retention_error": null
+        },
+        "trace": {
+          "kind": "full-envelope",
+          "template": "protocol.full_envelope_template"
+        },
+        "retention_error": null,
+        "return_error": null,
+        "scope": "actual_runtime",
+        "envelope_scope": "actual_runtime"
+      }
+    },
+    {
+      "id": "diagnostic-retain-existing-file",
+      "operation": "retain",
+      "input": {
+        "recipe": "existing-artifact",
+        "failure_recipe": "remove-context-after-open",
+        "existing_bytes": "preserve existing diagnostic\n"
+      },
+      "expected": {
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "existing-bytes-unchanged"
+        },
+        "trace": {
+          "kind": "compact-fallback",
+          "template": "protocol.fallback_template"
+        },
+        "retention_error": {
+          "stage": "create",
+          "raw_os_error": 17,
+          "error_kind": "AlreadyExists"
+        },
+        "return_error": {
+          "kind": "AlreadyExists",
+          "raw_os_error": 17,
+          "stage": "create"
+        },
+        "scope": "actual_runtime",
+        "envelope_scope": "actual_runtime"
+      }
+    },
+    {
+      "id": "diagnostic-retain-existing-symlink",
+      "operation": "retain",
+      "input": {
+        "recipe": "symlink-artifact",
+        "failure_recipe": "remove-context-after-open",
+        "existing_bytes": "preserve diagnostic target\n"
+      },
+      "expected": {
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "symlink-and-target-unchanged"
+        },
+        "trace": {
+          "kind": "compact-fallback",
+          "template": "protocol.fallback_template"
+        },
+        "retention_error": {
+          "stage": "create",
+          "raw_os_error": 17,
+          "error_kind": "AlreadyExists"
+        },
+        "return_error": {
+          "kind": "AlreadyExists",
+          "raw_os_error": 17,
+          "stage": "create"
+        },
+        "scope": "actual_runtime",
+        "envelope_scope": "actual_runtime"
+      }
+    },
+    {
+      "id": "diagnostic-retain-denied-create",
+      "operation": "retain",
+      "input": {
+        "recipe": "readonly-artifact-parent",
+        "failure_recipe": "remove-context-after-open",
+        "directory_mode": "0500"
+      },
+      "expected": {
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "absent"
+        },
+        "trace": {
+          "kind": "compact-fallback",
+          "template": "protocol.fallback_template"
+        },
+        "retention_error": {
+          "stage": "create",
+          "raw_os_error": 13,
+          "error_kind": "PermissionDenied"
+        },
+        "return_error": {
+          "kind": "PermissionDenied",
+          "raw_os_error": 13,
+          "stage": "create"
+        },
+        "scope": "actual_runtime",
+        "envelope_scope": "actual_runtime"
+      }
+    },
+    {
+      "id": "diagnostic-writer-write-zero",
+      "operation": "writer_unit",
+      "input": {
+        "recipe": "zero-length-write",
+        "payload": "bounded diagnostic\n"
+      },
+      "expected": {
+        "phase": "write",
+        "kind": "WriteZero",
+        "raw_os_error": null,
+        "scope": "controlled-writer-unit-only"
+      }
+    },
+    {
+      "id": "diagnostic-writer-flush-error",
+      "operation": "writer_unit",
+      "input": {
+        "recipe": "flush-broken-pipe",
+        "payload": "bounded diagnostic\n"
+      },
+      "expected": {
+        "phase": "flush",
+        "kind": "BrokenPipe",
+        "raw_os_error": null,
+        "scope": "controlled-writer-unit-only"
+      }
+    },
+    {
+      "id": "diagnostic-trace-write-zero",
+      "operation": "retain_unit",
+      "input": {
+        "recipe": "trace-zero-write",
+        "failure_recipe": "remove-context-after-open"
+      },
+      "expected": {
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "full-envelope",
+          "template": "protocol.full_envelope_template",
+          "retention_error": null
+        },
+        "return_error": {
+          "kind": "WriteZero",
+          "raw_os_error": null,
+          "stage": "trace_write"
+        },
+        "scope": "controlled-trace-writer-unit-only",
+        "envelope_scope": "actual_runtime"
+      }
+    },
+    {
+      "id": "diagnostic-trace-flush-error",
+      "operation": "retain_unit",
+      "input": {
+        "recipe": "trace-flush-broken-pipe",
+        "failure_recipe": "remove-context-after-open"
+      },
+      "expected": {
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "full-envelope",
+          "template": "protocol.full_envelope_template",
+          "retention_error": null
+        },
+        "return_error": {
+          "kind": "BrokenPipe",
+          "raw_os_error": null,
+          "stage": "trace_flush"
+        },
+        "scope": "controlled-trace-writer-unit-only",
+        "envelope_scope": "actual_runtime"
+      }
+    },
+    {
+      "id": "diagnostic-record-write-controlled",
+      "operation": "record_writer_unit",
+      "input": {
+        "recipe": "record-write-zero",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ],
+        "payload": "controlled launch record\n"
+      },
+      "expected": {
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "controlled_writer_with_actual_cleanup",
+        "stage": "record_write",
+        "kind": "WriteZero",
+        "raw_os_error": null,
+        "child": "actual",
+        "cleanup": {
+          "state": "reaped",
+          "exit": null,
+          "signal": 9,
+          "error_kind": null,
+          "raw_os_error": null
+        },
+        "request_binding": "original-cached-request",
+        "receipt_binding": "actual-selected-receipt-path",
+        "receipt": "absent",
+        "claim": "Controlled Write error plus actual owned cleanup only; no OS launch-record write fault is claimed."
+      }
+    },
+    {
+      "id": "diagnostic-record-flush-controlled",
+      "operation": "record_writer_unit",
+      "input": {
+        "recipe": "record-flush-broken-pipe",
+        "program": "/bin/sleep",
+        "arguments": [
+          "30"
+        ],
+        "payload": "controlled launch record\n"
+      },
+      "expected": {
+        "envelope_template": "protocol.full_envelope_template",
+        "scope": "controlled_writer_with_actual_cleanup",
+        "stage": "record_flush",
+        "kind": "BrokenPipe",
+        "raw_os_error": null,
+        "child": "actual",
+        "cleanup": {
+          "state": "reaped",
+          "exit": null,
+          "signal": 9,
+          "error_kind": null,
+          "raw_os_error": null
+        },
+        "request_binding": "original-cached-request",
+        "receipt_binding": "actual-selected-receipt-path",
+        "receipt": "absent",
+        "claim": "Controlled Write error plus actual owned cleanup only; no OS launch-record flush fault is claimed."
+      }
+    },
+    {
+      "id": "diagnostic-primary-and-cleanup-errors",
+      "operation": "cleanup_composition_unit",
+      "input": {
+        "recipe": "compose-primary-and-cleanup-io-errors",
+        "primary": {
+          "constructor": "raw-os-error",
+          "value": 17
+        },
+        "cleanup": {
+          "constructor": "raw-os-error",
+          "value": 13
+        }
+      },
+      "expected": {
+        "scope": "controlled-error-composition-unit-only",
+        "primary": {
+          "error_kind": "AlreadyExists",
+          "raw_os_error": 17
+        },
+        "cleanup": {
+          "state": "failed",
+          "exit": null,
+          "signal": null,
+          "error_kind": "PermissionDenied",
+          "raw_os_error": 13
+        },
+        "legacy_error": {
+          "error_kind": "PermissionDenied",
+          "raw_os_error": 13
+        },
+        "child_status": null
+      }
+    },
+    {
+      "id": "diagnostic-primary-and-cleanup-timeout",
+      "operation": "cleanup_composition_unit",
+      "input": {
+        "recipe": "compose-primary-and-cleanup-io-errors",
+        "primary": {
+          "constructor": "kind",
+          "value": "InvalidData"
+        },
+        "cleanup": {
+          "constructor": "kind",
+          "value": "TimedOut"
+        }
+      },
+      "expected": {
+        "scope": "controlled-error-composition-unit-only",
+        "primary": {
+          "error_kind": "InvalidData",
+          "raw_os_error": null
+        },
+        "cleanup": {
+          "state": "failed",
+          "exit": null,
+          "signal": null,
+          "error_kind": "TimedOut",
+          "raw_os_error": null
+        },
+        "legacy_error": {
+          "error_kind": "TimedOut",
+          "raw_os_error": null
+        },
+        "child_status": null
+      }
+    },
+    {
+      "id": "diagnostic-size-exact-limit",
+      "operation": "retention_size_unit",
+      "input": {
+        "recipe": "literal-packet-size",
+        "packet_base": "protocol.unit_packet_base",
+        "command_path_padding": {
+          "prefix_byte": 47,
+          "fill_byte": 97,
+          "fill_count": 21646,
+          "short_byte": 9,
+          "last_short_count": 2
+        }
+      },
+      "expected": {
+        "scope": "representation_unit",
+        "envelope_scope": "representation_unit",
+        "serialized_bytes_including_lf": 65536,
+        "serialized_sha256": "2ba24095bdeb0b95d0d5fb293be42e78b4a79e01e1e83ba612c8837f40c0db08",
+        "primary": "protocol.unit_packet_base.failure",
+        "claim": "Serialization/retention representation unit only; synthetic reported path/PID are not an actual filesystem or Child observation.",
+        "artifact": {
+          "kind": "full-envelope",
+          "template": "protocol.unit_packet_base",
+          "with_literal_padding": true,
+          "bytes_including_lf": 65536,
+          "sha256": "2ba24095bdeb0b95d0d5fb293be42e78b4a79e01e1e83ba612c8837f40c0db08"
+        },
+        "trace": {
+          "kind": "full-envelope",
+          "bytes_including_lf": 65536,
+          "sha256": "2ba24095bdeb0b95d0d5fb293be42e78b4a79e01e1e83ba612c8837f40c0db08"
+        },
+        "retention_error": null,
+        "return_error": null
+      }
+    },
+    {
+      "id": "diagnostic-size-one-over",
+      "operation": "retention_size_unit",
+      "input": {
+        "recipe": "literal-packet-size",
+        "packet_base": "protocol.unit_packet_base",
+        "command_path_padding": {
+          "prefix_byte": 47,
+          "fill_byte": 97,
+          "fill_count": 21646,
+          "short_byte": 9,
+          "last_short_count": 1
+        }
+      },
+      "expected": {
+        "scope": "representation_unit",
+        "envelope_scope": "representation_unit",
+        "serialized_bytes_including_lf": 65537,
+        "serialized_sha256": "f1e2b856e2cab5c64543ffb744ff604f685f621c12653a0603c0a82aa52b1540",
+        "primary": "protocol.unit_packet_base.failure",
+        "claim": "Serialization/retention representation unit only; synthetic reported path/PID are not an actual filesystem or Child observation.",
+        "artifact": {
+          "kind": "absent"
+        },
+        "trace": {
+          "kind": "compact-fallback",
+          "literal": {
+            "version": "native-launch-failure-fallback-v1",
+            "scope": "representation_unit",
+            "command": {
+              "path_sha256": "489431e939bc32e31f098011a04c42935d99c62d17d6d4188d756e6ff036aac3",
+              "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            "diagnostic_sha256": "f1e2b856e2cab5c64543ffb744ff604f685f621c12653a0603c0a82aa52b1540",
+            "diagnostic_bytes": 65537,
+            "failure": {
+              "stage": "prepare_context",
+              "error_kind": "NotFound",
+              "raw_os_error": 2,
+              "parent_pid": 4242,
+              "child_pid": null,
+              "request": {
+                "context_path_sha256": "e6a490ecc41c797d2aa3575eb9b5c4d191cc3a0d6591aebe250959aee5ac66a8",
+                "context_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+                "run_id": "11111111111111111111111111111111",
+                "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+              },
+              "cleanup": null,
+              "receipt_path_sha256": null
+            },
+            "retention_error": {
+              "stage": "size",
+              "error_kind": "InvalidData",
+              "raw_os_error": null
+            }
+          },
+          "bytes_including_lf": 909,
+          "sha256": "57a811e6389a48930d7466123fd1421ef32c4912b9fd32cf4c22ebc1f94ff13e"
+        },
+        "retention_error": {
+          "stage": "size",
+          "error_kind": "InvalidData",
+          "raw_os_error": null
+        },
+        "return_error": {
+          "stage": "size",
+          "kind": "InvalidData",
+          "raw_os_error": null
+        }
+      }
+    },
+    {
+      "id": "diagnostic-artifact-write-controlled",
+      "operation": "artifact_writer_unit",
+      "input": {
+        "recipe": "controlled-artifact-write",
+        "failure_recipe": "remove-context-after-open",
+        "artifact_writer": {
+          "recipe": "prefix-then-zero",
+          "prefix_bytes": 11
+        }
+      },
+      "expected": {
+        "scope": "controlled-artifact-writer-unit-only",
+        "envelope_scope": "actual_runtime",
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "preserved-partial",
+          "exact_prefix_bytes": [
+            123,
+            34,
+            99,
+            111,
+            109,
+            109,
+            97,
+            110,
+            100,
+            34,
+            58
+          ],
+          "exact_size": 11
+        },
+        "trace": {
+          "kind": "compact-fallback",
+          "template": "protocol.fallback_template"
+        },
+        "retention_error": {
+          "stage": "write",
+          "error_kind": "WriteZero",
+          "raw_os_error": null
+        },
+        "return_error": {
+          "stage": "write",
+          "kind": "WriteZero",
+          "raw_os_error": null
+        },
+        "claim": "Controlled artifact Write boundary over a real exclusively created owned file; actual primary preparation failure. No OS/hardware artifact fault or successful flush is claimed."
+      }
+    },
+    {
+      "id": "diagnostic-artifact-flush-controlled",
+      "operation": "artifact_writer_unit",
+      "input": {
+        "recipe": "controlled-artifact-flush",
+        "failure_recipe": "remove-context-after-open",
+        "artifact_writer": {
+          "recipe": "flush-broken-pipe"
+        }
+      },
+      "expected": {
+        "scope": "controlled-artifact-writer-unit-only",
+        "envelope_scope": "actual_runtime",
+        "primary": {
+          "stage": "prepare_context",
+          "kind": "NotFound",
+          "raw_os_error": 2,
+          "child": "absent",
+          "cleanup": null,
+          "envelope_template": "protocol.full_envelope_template",
+          "scope": "actual_runtime",
+          "request_binding": "original-cached-request",
+          "receipt_binding": "null"
+        },
+        "artifact": {
+          "kind": "complete-bytes-with-failed-flush",
+          "template": "protocol.full_envelope_template",
+          "retention_error": null
+        },
+        "trace": {
+          "kind": "compact-fallback",
+          "template": "protocol.fallback_template"
+        },
+        "retention_error": {
+          "stage": "flush",
+          "error_kind": "BrokenPipe",
+          "raw_os_error": null
+        },
+        "return_error": {
+          "stage": "flush",
+          "kind": "BrokenPipe",
+          "raw_os_error": null
+        },
+        "claim": "Controlled artifact Write boundary over a real exclusively created owned file; actual primary preparation failure. No OS/hardware artifact fault or successful flush is claimed."
+      }
+    }
+  ],
+  "fixture_revision": 3,
+  "protocol": {
+    "serialization": {
+      "encoding": "UTF-8",
+      "object_keys": "lexicographic",
+      "whitespace": "compact JSON with no insignificant whitespace",
+      "terminator": "exactly one LF byte",
+      "limit_including_lf": 65536,
+      "exact_limit": "accepted",
+      "one_over": "InvalidData; no artifact created; frozen compact fallback in trace"
+    },
+    "evidence_scopes": [
+      "actual_runtime",
+      "controlled_writer_with_actual_cleanup",
+      "representation_unit"
+    ],
+    "stage_vocabulary": [
+      "select_context",
+      "prepare_context",
+      "prepare_cwd",
+      "prepare_program",
+      "prepare_executable",
+      "prepare_metadata",
+      "prepare_permissions",
+      "prepare_bytes",
+      "spawn",
+      "record_context",
+      "record_create",
+      "record_write",
+      "record_flush"
+    ],
+    "full_envelope_template": {
+      "version": "native-launch-failure-v1",
+      "scope": "$case_evidence_scope",
+      "command": {
+        "path": "$actual_command_intent_path_bytes",
+        "sha256": "$actual_command_intent_sha256"
+      },
+      "failure": {
+        "stage": "$case_stage",
+        "error_kind": "$case_primary_kind",
+        "raw_os_error": "$case_primary_errno",
+        "parent_pid": "$actual_parent_pid",
+        "child_pid": "$actual_child_or_null",
+        "request": "$original_request_or_null",
+        "receipt_path": "$selected_receipt_path_or_null",
+        "cleanup": "$case_cleanup_or_null"
+      },
+      "retention_error": null
+    },
+    "required_keysets": {
+      "full": [
+        "version",
+        "scope",
+        "command",
+        "failure",
+        "retention_error"
+      ],
+      "full_command": [
+        "path",
+        "sha256"
+      ],
+      "failure": [
+        "stage",
+        "error_kind",
+        "raw_os_error",
+        "parent_pid",
+        "child_pid",
+        "request",
+        "receipt_path",
+        "cleanup"
+      ],
+      "request": [
+        "context_path",
+        "context_sha256",
+        "run_id",
+        "source_sha256"
+      ],
+      "cleanup": [
+        "state",
+        "exit",
+        "signal",
+        "error_kind",
+        "raw_os_error"
+      ],
+      "fallback": [
+        "version",
+        "scope",
+        "command",
+        "diagnostic_sha256",
+        "diagnostic_bytes",
+        "failure",
+        "retention_error"
+      ],
+      "fallback_command": [
+        "path_sha256",
+        "sha256"
+      ],
+      "fallback_failure": [
+        "stage",
+        "error_kind",
+        "raw_os_error",
+        "parent_pid",
+        "child_pid",
+        "request",
+        "receipt_path_sha256",
+        "cleanup"
+      ],
+      "fallback_request": [
+        "context_path_sha256",
+        "context_sha256",
+        "run_id",
+        "source_sha256"
+      ],
+      "retention_error": [
+        "stage",
+        "error_kind",
+        "raw_os_error"
+      ],
+      "composition_unit": [
+        "scope",
+        "primary",
+        "cleanup",
+        "legacy_error",
+        "child_status"
+      ],
+      "io_cause": [
+        "error_kind",
+        "raw_os_error"
+      ]
+    },
+    "field_types": {
+      "version": "exact template literal; no aliases",
+      "scope": "exact declared evidence-scope value",
+      "path": "array of integer raw Unix bytes 0..255; no UTF-8 conversion",
+      "sha256": "64 lowercase hexadecimal characters over specified exact bytes",
+      "error_kind": "actual Rust1.99 io::ErrorKind Debug name; expected case literal must match",
+      "raw_os_error": "actual signed integer from original io::Error::raw_os_error or null, never zero as absence",
+      "parent_pid": "actual parent u32 for runtime and real-child cases; fixed reported unit integer only in representation scope",
+      "child_pid": "actual held Child.id for returned/recorded child or null; never an anticipated allocation",
+      "request": "exact cached originally opened request object, or null when request intake never succeeded",
+      "receipt_path": "selected canonical-root/launches/actualPID.json raw path bytes iff actual child/request known, otherwise null",
+      "cleanup": "null when no child cleanup attempted; otherwise exact reaped or failed object",
+      "retention_error": "null in full envelope; exact size/create/write/flush object in compact fallback",
+      "diagnostic_bytes": "exact serialized full envelope length including final LF",
+      "diagnostic_sha256": "SHA256 of exact serialized full envelope including LF"
+    },
+    "request_template": {
+      "context_path": "$original_canonical_context_path_bytes",
+      "context_sha256": "$original_context_bytes_sha256",
+      "run_id": "11111111111111111111111111111111",
+      "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "cleanup_templates": {
+      "reaped": {
+        "state": "reaped",
+        "exit": null,
+        "signal": 9,
+        "error_kind": null,
+        "raw_os_error": null
+      },
+      "failed": {
+        "state": "failed",
+        "exit": null,
+        "signal": null,
+        "error_kind": "$actual_cleanup_error_kind",
+        "raw_os_error": "$actual_cleanup_errno"
+      }
+    },
+    "fallback_template": {
+      "version": "native-launch-failure-fallback-v1",
+      "scope": "$case_evidence_scope",
+      "command": {
+        "path_sha256": "$sha256_raw_command_path_bytes",
+        "sha256": "$actual_command_intent_sha256"
+      },
+      "diagnostic_sha256": "$sha256_full_envelope_with_lf",
+      "diagnostic_bytes": "$full_envelope_bytes_with_lf",
+      "failure": {
+        "stage": "$case_stage",
+        "error_kind": "$case_primary_kind",
+        "raw_os_error": "$case_primary_errno",
+        "parent_pid": "$actual_parent_pid",
+        "child_pid": "$actual_child_or_null",
+        "request": "$compact_original_request_or_null",
+        "receipt_path_sha256": "$sha256_selected_receipt_path_or_null",
+        "cleanup": "$case_cleanup_or_null"
+      },
+      "retention_error": "$case_actual_retention_error"
+    },
+    "compact_request_template": {
+      "context_path_sha256": "$sha256_raw_original_context_path_bytes",
+      "context_sha256": "$original_context_bytes_sha256",
+      "run_id": "11111111111111111111111111111111",
+      "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "projection_rules": [
+      "Templates are independently frozen expected full objects. Replace only named tokens in assertion bodies; compare entire JSON equality including keysets/nulls.",
+      "Never copy the reported error JSON, returned failure path/digest or helper-selected projection to produce expected fields.",
+      "Before intervention, retain original actual context bytes and canonical selected directory. Hash those exact bytes independently in the assertion; later missing/changed context does not change the cached binding.",
+      "Command intent is an actual separately retained file; read exact bytes including LF and hash independently. Path bytes come from the independently arranged owned path.",
+      "Actual Child identity and exit/signal come from the held Child and its real status/outer receipts. The diagnostic's claimed PID/status cannot supply its own expected observation.",
+      "Each case literal supplies expected stage/error/cleanup/absence, never runtime authority. No expected fields or templates enter runtime producer.",
+      "For open failures request, child, receipt and cleanup are null. For preparation/spawn failures original request is retained, child/receipt/cleanup are null.",
+      "Record/record-writer failures retain original request and selected receipt path for actual held Child. Real cleanup status matches literal signal9; no selected-context exit receipt is invented.",
+      "Compact fallback hashes raw path bytes, not JSON array serialization. It retains finite primary/cleanup causes and run/source/context digests; full envelope hash and length anchor all omitted long paths.",
+      "Representation-unit packet padding is not a real filesystem path. Its exact literal bytes/expected digests qualify serialized size/retention only, not native status.",
+      "Legacy API conversion retains its existing cleanup-error precedence when cleanup errors; detailed cause observation must still preserve the original primary separately.",
+      "An already existing or partially written artifact stays unchanged as evidence. Trace fallback never fabricates a successful native launch/completion.",
+      "Controlled write/flush records exercise the same production phase/error mapping and real bounded cleanup; their IO errors belong only to the controlled Write boundary.",
+      "Failure to write or flush the trace propagates actual writer error. A retained full artifact still contains the primary. Both unavailable evidence sinks never establish success or a historical cause.",
+      "For retention cases the full envelope scope is expected.envelope_scope; case scope separately labels any controlled trace writer. Primary cause remains a genuine runtime preparation failure.",
+      "Controlled artifact writer units first perform real exclusive artifact File creation and use the production retention phase/error/fallback boundary. Write-zero preserves exactly the frozen11-byte prefix; flush failure preserves complete bytes without claiming a successful flush. Neither removes/rewrites the file. The fallback compares the entire frozen template with all primary/cleanup/identity/path/serialized-full-payload hash and length bindings plus actual secondary cause and returned stage."
+    ],
+    "unit_packet_base": {
+      "version": "native-launch-failure-v1",
+      "scope": "representation_unit",
+      "command": {
+        "path": [],
+        "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "failure": {
+        "stage": "prepare_context",
+        "error_kind": "NotFound",
+        "raw_os_error": 2,
+        "parent_pid": 4242,
+        "child_pid": null,
+        "request": {
+          "context_path": [
+            47,
+            117,
+            110,
+            105,
+            116
+          ],
+          "context_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+          "run_id": "11111111111111111111111111111111",
+          "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "receipt_path": null,
+        "cleanup": null
+      },
+      "retention_error": null
+    }
+  }
+}

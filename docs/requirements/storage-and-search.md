@@ -230,7 +230,7 @@ query shapes include:
 
 | Access pattern | Key or index shape |
 | --- | --- |
-| Canonical principal/membership | Unique `(issuer, subject)` and `(organization_id, principal_id)`. |
+| Canonical principal/membership | Unique `(identity_profile, identity_version, public_key)` for the selected identity profile and `(organization_id, principal_id)` for membership; optional later issuer profiles retain distinct mappings. |
 | Capture/candidate/asset/expense heads | Tenant/domain followed by immutable aggregate created_at and ID in the declared descending order, with typed state/filter/disclosure predicates. |
 | Pending review queue | Tenant/domain, creation time and ID, with an appropriate pending-state partial predicate or state key selected from the workload. |
 | Immutable revisions | Unique `(organization_id, aggregate_id, revision)`. |

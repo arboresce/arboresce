@@ -1,0 +1,2314 @@
+{
+  "fixture_version": "principal-directory-v1",
+  "rights": {
+    "origin": "Original public synthetic literals authored before the consumer",
+    "license": "MIT OR Apache-2.0",
+    "personal_records": false,
+    "credentials": false,
+    "verified_signed_events": false
+  },
+  "source_baseline": "a0c7c12aec0cad22a8a35c422127db2256738999",
+  "sources": {
+    "docs/requirements/common-contract.md": "64ce5e000773f23dfcad41d4883fbb5fa70e5954dcb137167f3e3d168afca9ac",
+    "docs/requirements/identity-contract.md": "2c90ffe583dc51b6e032b0571f651c6550b04edfda3688844076016cb3efff12",
+    "docs/requirements/storage-and-search.md": "1f372f8c4be991856dfbe9c7fe1c72a128aa8eb608bc939592382b6aa29e4c38",
+    "docs/requirements/security-and-privacy.md": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
+    "docs/requirements/project-fixtures.md": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
+    "contracts/public/v1/project-workflow.schema.json": "644ed6e64e604d84179b8a225a68aa975afabc52aeb531edd13337fc316f88ef",
+    "tests/security/fixtures/authority-v1/sources.json": "2d3bbf1eb98dbd3e2fa7af9bf21edf810fe83b20f434ba6edc57649b947b67a4",
+    "tests/security/fixtures/authority-v1/cases.json": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911"
+  },
+  "reading_limits": {
+    "max_case_file_bytes": 65536,
+    "max_authority_file_bytes": 8388608,
+    "max_json_depth": 32,
+    "max_additional_cases": 64,
+    "max_directory_rows": 2
+  },
+  "original_group": "principal_mapping",
+  "original_cases": [
+    {
+      "id": "principal-mapping-exact-profile-key",
+      "expected": {
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "failure": null,
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "principal-mapping-unknown-key",
+      "expected": {
+        "principal_id": null,
+        "failure": "UnknownCanonicalMapping",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153,
+            153
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "principal-mapping-profile-is-part-of-identity",
+      "expected": {
+        "principal_id": null,
+        "failure": "UnsupportedIdentityProfile",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "principal-mapping-version-is-part-of-identity",
+      "expected": {
+        "principal_id": null,
+        "failure": "UnsupportedIdentityProfile",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "principal-mapping-ambiguous-store-fails-closed",
+      "expected": {
+        "principal_id": null,
+        "failure": "CanonicalUniquenessViolation",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    }
+  ],
+  "required_case_ids": [
+    "directory-mixed-key-exact",
+    "directory-zero-key-representation-only",
+    "directory-max-key-representation-only",
+    "directory-alias-does-not-change-query",
+    "directory-unknown-despite-alias",
+    "directory-profile-case-is-exact",
+    "directory-version-case-is-exact",
+    "directory-empty-profile",
+    "directory-empty-version",
+    "directory-key-empty",
+    "directory-key-short",
+    "directory-key-long",
+    "directory-key-uppercase",
+    "directory-key-nonhex",
+    "directory-key-interior-space",
+    "directory-key-trailing-newline",
+    "directory-key-nonascii",
+    "directory-backend-unavailable",
+    "directory-backend-invalid-data",
+    "directory-duplicate-ids-are-ambiguous",
+    "directory-stored-other-key",
+    "directory-stored-unsupported-profile",
+    "directory-stored-unsupported-version",
+    "directory-stored-short-key",
+    "directory-stored-uppercase-key",
+    "directory-stored-malformed-id",
+    "directory-stored-nil-id",
+    "directory-stored-wrong-version-id",
+    "directory-stored-wrong-variant-id",
+    "directory-pending-then-principal",
+    "directory-pending-then-unavailable"
+  ],
+  "required_error_case_ids": [
+    "directory-error-principal-UnsupportedIdentityProfile",
+    "directory-error-principal-InvalidPublicKey",
+    "directory-error-principal-UnknownCanonicalMapping",
+    "directory-error-principal-CanonicalUniquenessViolation",
+    "directory-error-principal-Unavailable",
+    "directory-error-principal-InvalidStoredData",
+    "directory-error-directory-Unavailable",
+    "directory-error-directory-InvalidStoredData"
+  ],
+  "cases": [
+    {
+      "id": "directory-mixed-key-exact",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "failure": null,
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-zero-key-representation-only",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "0000000000000000000000000000000000000000000000000000000000000000",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "failure": null,
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-max-key-representation-only",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "failure": null,
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-alias-does-not-change-query",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "A different Party alias"
+      },
+      "expected": {
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "failure": null,
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-unknown-despite-alias",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "UnknownCanonicalMapping",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-profile-case-is-exact",
+      "input": {
+        "identity": {
+          "profile": "Arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "UnsupportedIdentityProfile",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-version-case-is-exact",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "NIP01-V1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "UnsupportedIdentityProfile",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-empty-profile",
+      "input": {
+        "identity": {
+          "profile": "",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "UnsupportedIdentityProfile",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-empty-version",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "UnsupportedIdentityProfile",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-empty",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": ""
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-short",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-long",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "11111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-uppercase",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-nonhex",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-interior-space",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111 11111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-trailing-newline",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111\n"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-key-nonascii",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "éééééééééééééééééééééééééééééééé"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidPublicKey",
+        "lookup_calls": 0,
+        "query": null,
+        "directory_polls": 0
+      }
+    },
+    {
+      "id": "directory-backend-unavailable",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "unavailable",
+          "rows": [],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "Unavailable",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-backend-invalid-data",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "invalid_stored_data",
+          "rows": [],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-duplicate-ids-are-ambiguous",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            },
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "CanonicalUniquenessViolation",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-other-key",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-unsupported-profile",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "unsupported_profile",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-unsupported-version",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "unsupported",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-short-key",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-uppercase-key",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-malformed-id",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "not-an-id"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-nil-id",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-wrong-version-id",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-1101-8101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-stored-wrong-variant-id",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-0101-010101010101"
+            }
+          ],
+          "pending_first": false
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "InvalidStoredData",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 1
+      }
+    },
+    {
+      "id": "directory-pending-then-principal",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "rows",
+          "rows": [
+            {
+              "profile": "arboresce.nostr-identity.v1",
+              "version": "nip01-v1",
+              "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+              "principal_id": "01010101-0101-4101-8101-010101010101"
+            }
+          ],
+          "pending_first": true
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "failure": null,
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 2
+      }
+    },
+    {
+      "id": "directory-pending-then-unavailable",
+      "input": {
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "directory": {
+          "outcome": "unavailable",
+          "rows": [],
+          "pending_first": true
+        },
+        "party_alias": "Alex"
+      },
+      "expected": {
+        "principal_id": null,
+        "failure": "Unavailable",
+        "lookup_calls": 1,
+        "query": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        "directory_polls": 2
+      }
+    }
+  ],
+  "error_cases": [
+    {
+      "id": "directory-error-principal-UnsupportedIdentityProfile",
+      "input": {
+        "kind": "principal",
+        "variant": "UnsupportedIdentityProfile"
+      },
+      "expected": {
+        "display": "UnsupportedIdentityProfile",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "directory-error-principal-InvalidPublicKey",
+      "input": {
+        "kind": "principal",
+        "variant": "InvalidPublicKey"
+      },
+      "expected": {
+        "display": "InvalidPublicKey",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "directory-error-principal-UnknownCanonicalMapping",
+      "input": {
+        "kind": "principal",
+        "variant": "UnknownCanonicalMapping"
+      },
+      "expected": {
+        "display": "UnknownCanonicalMapping",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "directory-error-principal-CanonicalUniquenessViolation",
+      "input": {
+        "kind": "principal",
+        "variant": "CanonicalUniquenessViolation"
+      },
+      "expected": {
+        "display": "CanonicalUniquenessViolation",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "directory-error-principal-Unavailable",
+      "input": {
+        "kind": "principal",
+        "variant": "Unavailable"
+      },
+      "expected": {
+        "display": "Unavailable",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "directory-error-principal-InvalidStoredData",
+      "input": {
+        "kind": "principal",
+        "variant": "InvalidStoredData"
+      },
+      "expected": {
+        "display": "InvalidStoredData",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "directory-error-directory-Unavailable",
+      "input": {
+        "kind": "directory",
+        "variant": "Unavailable"
+      },
+      "expected": {
+        "display": "Unavailable",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    },
+    {
+      "id": "directory-error-directory-InvalidStoredData",
+      "input": {
+        "kind": "directory",
+        "variant": "InvalidStoredData"
+      },
+      "expected": {
+        "display": "InvalidStoredData",
+        "source_is_none": true,
+        "boxed_variant_preserved": true,
+        "formatter_failure_propagated": true
+      }
+    }
+  ],
+  "runtime_projection": {
+    "original": [
+      "trusted_key_control_observation",
+      "canonical_matching_principal_ids"
+    ],
+    "additional": [
+      "identity",
+      "directory"
+    ],
+    "excluded": [
+      "expected",
+      "party_alias",
+      "human_assurance",
+      "signature_verification"
+    ],
+    "scope": "Test directory responses are injected trusted provider observations; no external caller supplies authority or expected results.",
+    "stored": [
+      "profile",
+      "version",
+      "public_key",
+      "principal_id"
+    ],
+    "diagnostic": [
+      "kind",
+      "variant"
+    ]
+  },
+  "scope": "Bounded application lookup-key/stored-record/actual asynchronous directory-port semantics only. No SQL adapter/RLS-mode change, actual authentication/key control, current action authority, writer, human/recovery/pooler or whole E205 acceptance.",
+  "required_stored_case_ids": [
+    "stored-record-exact",
+    "stored-record-mixed-key",
+    "stored-record-other-key",
+    "stored-record-other-principal",
+    "stored-record-unsupported-profile",
+    "stored-record-unsupported-version",
+    "stored-record-short-key",
+    "stored-record-uppercase-key",
+    "stored-record-malformed-id",
+    "stored-record-nil-id",
+    "stored-record-wrong-version-id",
+    "stored-record-wrong-variant-id"
+  ],
+  "stored_cases": [
+    {
+      "id": "stored-record-exact",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "failure": null,
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        }
+      }
+    },
+    {
+      "id": "stored-record-mixed-key",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "principal_id": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "failure": null,
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ]
+        }
+      }
+    },
+    {
+      "id": "stored-record-other-key",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "2222222222222222222222222222222222222222222222222222222222222222",
+        "principal_id": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "failure": null,
+        "principal_id": "01010101-0101-4101-8101-010101010101",
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34
+          ]
+        }
+      }
+    },
+    {
+      "id": "stored-record-other-principal",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "02020202-0202-4202-8202-020202020202"
+      },
+      "expected": {
+        "failure": null,
+        "principal_id": "02020202-0202-4202-8202-020202020202",
+        "identity": {
+          "profile": "arboresce.nostr-identity.v1",
+          "version": "nip01-v1",
+          "public_key_bytes": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        }
+      }
+    },
+    {
+      "id": "stored-record-unsupported-profile",
+      "input": {
+        "profile": "unsupported_profile",
+        "version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    },
+    {
+      "id": "stored-record-unsupported-version",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "unsupported",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    },
+    {
+      "id": "stored-record-short-key",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    },
+    {
+      "id": "stored-record-uppercase-key",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+        "principal_id": "01010101-0101-4101-8101-010101010101"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    },
+    {
+      "id": "stored-record-malformed-id",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "not-an-id"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    },
+    {
+      "id": "stored-record-nil-id",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "00000000-0000-0000-0000-000000000000"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    },
+    {
+      "id": "stored-record-wrong-version-id",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "01010101-0101-1101-8101-010101010101"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    },
+    {
+      "id": "stored-record-wrong-variant-id",
+      "input": {
+        "profile": "arboresce.nostr-identity.v1",
+        "version": "nip01-v1",
+        "public_key": "1111111111111111111111111111111111111111111111111111111111111111",
+        "principal_id": "01010101-0101-4101-0101-010101010101"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "principal_id": null,
+        "identity": null
+      }
+    }
+  ]
+}

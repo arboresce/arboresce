@@ -12,9 +12,19 @@
       "role": "measured"
     },
     {
+      "path": "crates/arboresce-application/src/policy/principal.rs",
+      "package": "arboresce-application",
+      "role": "measured"
+    },
+    {
       "path": "crates/arboresce-application/tests/contract.rs",
       "package": "arboresce-application",
       "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-application/tests/support/principal.rs",
+      "package": "arboresce-application",
+      "role": "measured"
     },
     {
       "path": "crates/arboresce-domain/src/canonical_number.rs",
@@ -258,7 +268,22 @@
       "role": "measured"
     },
     {
+      "path": "tools/xtask/tests/collector_contract.rs",
+      "package": "arboresce-xtask",
+      "role": "assertion"
+    },
+    {
       "path": "tools/xtask/tests/contract.rs",
+      "package": "arboresce-xtask",
+      "role": "assertion"
+    },
+    {
+      "path": "tools/xtask/tests/native_contract.rs",
+      "package": "arboresce-xtask",
+      "role": "assertion"
+    },
+    {
+      "path": "tools/xtask/tests/profile_contract.rs",
       "package": "arboresce-xtask",
       "role": "assertion"
     },
@@ -451,7 +476,8 @@
       "name": "arboresce_application",
       "sources": [
         "crates/arboresce-application/src/lib.rs",
-        "crates/arboresce-application/src/policy/mod.rs"
+        "crates/arboresce-application/src/policy/mod.rs",
+        "crates/arboresce-application/src/policy/principal.rs"
       ]
     },
     {

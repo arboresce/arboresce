@@ -167,21 +167,29 @@ impl Runner {
         command
             .stdout(Stdio::from(fs::File::create_new(&stdout).map_err(|_| bad)?))
             .stderr(Stdio::from(fs::File::create_new(&stderr).map_err(|_| bad)?));
-        record(
-            &directory.join("launch-command.json"),
-            &json!({
-                "program":program.as_os_str().as_bytes(),"executable":canonical.as_os_str().as_bytes(),
-                "executable_sha256":identity["sha256"],"arguments":args.iter().map(|s|s.as_bytes()).collect::<Vec<_>>(),
-                "cwd":self.root.as_os_str().as_bytes(),"budget_seconds":budget,"observation_budget_ns":deadline.duration_since(started).as_nanos(),
-                "environment":command.get_envs().map(|(key,v)|(key.to_string_lossy().into_owned(),v.map(|v|v.to_string_lossy().into_owned()))).collect::<BTreeMap<_,_>>()
-            }),
-        )?;
+        let intent_path = directory.join("launch-command.json");
+        let intent = json!({
+            "program":program.as_os_str().as_bytes(),"executable":canonical.as_os_str().as_bytes(),
+            "executable_sha256":identity["sha256"],"arguments":args.iter().map(|s|s.as_bytes()).collect::<Vec<_>>(),
+            "cwd":self.root.as_os_str().as_bytes(),"budget_seconds":budget,"observation_budget_ns":deadline.duration_since(started).as_nanos(),
+            "environment":command.get_envs().map(|(key,v)|(key.to_string_lossy().into_owned(),v.map(|v|v.to_string_lossy().into_owned()))).collect::<BTreeMap<_,_>>()
+        });
+        let intent_bytes = format!("{intent}\n").into_bytes();
+        write(&intent_path, &intent_bytes)?;
         let mut trace = fs::File::create_new(directory.join("trace")).map_err(|_| bad)?;
-        let mut child = match &self.request {
-            Some(request) => measurement::spawn_with(&mut command, request),
-            None => measurement::spawn(&mut command),
-        }
-        .map_err(|_| bad)?;
+        let mut child = match measurement::spawn_diagnosed(&mut command, self.request.as_ref()) {
+            Ok(child) => child,
+            Err(failure) => {
+                let frame = failure.envelope(
+                    &intent_path,
+                    &intent_bytes,
+                    measurement::DiagnosticScope::ActualRuntime,
+                );
+                measurement::retain(&frame, &directory.join("launch-failure.json"), &mut trace)
+                    .map_err(|_| bad)?;
+                return Err(bad);
+            }
+        };
         let pid = child.id();
         let result = process::observe(
             &mut child,

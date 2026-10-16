@@ -14,6 +14,15 @@ The owning public requirements are [identity](../../../../docs/requirements/iden
 [sources.json](sources.json) pins complete consumed public inputs, rights, exact
 case bytes, required case identities, bounded reads and consumer scope.
 
+`source_revision` records the original public requirement baseline. Exact `sources`
+hashes select the currently admitted bytes; explicit `source_amendments` retain
+the checked predecessor and old/new hashes for later reviewed corrections.
+The principal-index amendment reconciles a stale issuer/subject index row with
+the already selected profile/version/public-key identity. It changes no case,
+profile, right, read bound, consumer group or expected result. A new consumer
+must independently admit the amended exact pins before reuse; historical runs
+remain bound to their original inputs.
+
 [cases.json](cases.json) contains complete inputs and a separate `expected`
 object for each uniquely named case. `selected_fixture_policy` documents only
 the explicitly injected synthetic policy. It selects no production policy.

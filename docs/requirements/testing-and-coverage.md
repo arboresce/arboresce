@@ -136,6 +136,8 @@ does not qualify an API or FFI runtime.
 | Rust path | Measurement role |
 | --- | --- |
 | `crates/arboresce-application/src/policy/mod.rs` | Explicit workspace/principal context and typed same-workspace reference scope; measured source. |
+| `crates/arboresce-application/src/policy/principal.rs` | Checked exact identity/principal directory port and finite mapping failures; measured source. |
+| `crates/arboresce-application/tests/support/principal.rs` | Input-only directory producer, actual query/poll observations and native error API diagnostics; measured support. |
 | `crates/arboresce-postgres/src/tenant.rs` | Bounded reused direct tenant session and canonical membership read; measured source. |
 | `crates/arboresce-postgres/tests/support/tenant.rs` | Tenant fixture intake, canonical seed/catalogue and actual isolated-service fault/probe support; measured source. |
 | `crates/arboresce-domain/src/lib.rs` | Checked identifier library; source lines/regions. |
@@ -150,7 +152,7 @@ does not qualify an API or FFI runtime.
 | `tools/xtask/src/workspace.rs` | Resolved-graph and source-directory guard; measured source. |
 | `tools/xtask/tests/support/mod.rs` | Maintained syntax-input builder, process observer and failure sinks; measured support. |
 | `tools/xtask/tests/support/peer.rs` | Actual controlled test-peer binary; measured support and native process. |
-| `tools/xtask/tests/contract.rs` | Assertion bodies; raw execution separate from source metrics. |
+| `tools/xtask/tests/contract.rs`, `collector_contract.rs`, `native_contract.rs`, `profile_contract.rs` | Four complete Cargo integration-test targets containing assertion bodies; raw execution separate from source metrics. |
 | `tools/xtask/src/coverage.rs` | Supplied LLVM count/role/scope gate; measured source. |
 | `tools/xtask/src/strict_json.rs` | Bounded JSON visitor with duplicate rejection; measured parser support. |
 | `tools/xtask/src/report_command.rs` | Supplied-report file/argument/output boundary; measured command support. |
@@ -404,6 +406,67 @@ separate two-second owned cleanup. Delegated format/check/test/Clippy use review
 60/180/300/180-second budgets, allowing the observed complete workload. A timeout
 fails. Larger future workspaces must qualify their actual commands and budgets.
 
+### Retained native launch-failure diagnostics
+
+The collector retains a bounded immutable diagnostic when native preparation,
+spawn or launch-receipt recording fails. The independently reviewed
+[diagnostic inputs](../../tests/architecture/fixtures/native-launch-diagnostics-v1/README.md)
+own the initial non-root Unix/macOS fault profile. Existing launch and completion
+formats, finite command stderr, deadlines and exclusive receipt semantics remain.
+
+Retain the actual failing operation, original I/O error kind and raw OS error
+when supplied, the actual child PID only after a successful spawn, the selected
+receipt path when known, and the actual bounded terminate/reap result. Distinguish
+context selection, preparation, OS spawn, context revalidation, receipt creation,
+write and flush. Preserve a primary receipt error separately from any cleanup
+error. Unknown PID, errno or status stays null in its required field; failure records cannot create
+launch/completion pairs or attest successful execution. A receipt collision fails
+without overwriting, adopting or deleting the existing record. Do not retry the
+command automatically.
+
+The diagnostic binds the exact retained command-intent bytes and selected
+run/context/source identity when available. Paths remain byte arrays in local
+evidence. Bound each serialized diagnostic to 64 KiB. Create its artifact
+exclusively. If artifact creation, writing or flushing fails, preserve the primary
+failure and actual secondary retention error in the already owned trace where
+writable. Trace failures propagate; unwritable evidence never becomes success.
+Do not invent missing evidence after a failure. An artifact or trace write result
+does not replace an actual Child status.
+
+The literal package freezes complete full and fallback envelopes, exact keysets,
+types, nullability, stage vocabulary and external binding rules. Compare entire
+objects after replacing only its declared dynamic tokens with independently
+observed command bytes/digest, original context bytes/digest, canonical paths,
+actual parent and Child identities, and fixed source/run identities. An omitted
+field, extra field or invented dynamic value fails. Runtime scope is
+`actual_runtime`. Controlled writer/real-cleanup and representation units have
+separate explicit scopes and cannot qualify unobserved OS or Child behavior.
+
+The 65,536-byte inclusive limit counts compact UTF-8 JSON, lexicographically
+ordered object keys, and exactly one terminal LF. Accept the exact limit. Reject
+one byte over before creating an artifact. On size or artifact-retention failure,
+write the frozen compact fallback to the owned trace. It preserves every finite
+primary and cleanup cause, actual identity or null, exact command-intent digest,
+original serialized diagnostic byte count and SHA-256, and secondary retention
+stage/kind/raw error. Replace long paths only with SHA-256 of their original raw
+path bytes in this fallback; do not silently truncate or change the primary
+cause. Existing or partially written artifacts remain evidence. Fallback is
+subject to the same bound, and fallback trace failure is failure.
+
+Controlled record-writer cases must use the production phase/error mapping and
+actual owned-child cleanup, so record-write and record-flush failures remain
+distinct. Separate error-composition units discriminate simultaneous primary and
+cleanup errors and null status, while preserving the existing legacy error
+return convention. Such units do not invent an unreapable or OS-denied child.
+
+Qualification exercises genuine preparation, spawn, receipt collision and write
+denial, actual owned cleanup, exclusive diagnostic creation and trace fallback.
+Controlled writer faults qualify only the writer boundary, not a fabricated OS,
+hardware or process failure. Reconcile every existing case and the complete fresh
+owning and standalone source, coverage, process/profile and native gates before
+accepting repaired source. A later green rerun alone does not resolve an unknown
+earlier failure.
+
 Receipt success does not attest native profile existence, complete execution,
 actual Cargo or the whole verification tool. The collector must still bind exact
 prepared tools/configuration/features, collect all test/process/profile identities,
@@ -456,6 +519,22 @@ text is not an event. Child diagnostics can interrupt a pending test's result
 line; they cannot supply another selected name, success summary or case event.
 Duplicate, unknown, missing, truncated, failed, ignored and filtered results fail.
 The registry and transcript grammar need independent literals before consumption.
+
+The tooling assertions occupy four ordinary, same-level Cargo integration-test
+targets: `contract` for architecture and inventory, `collector_contract` for
+collector intake and miniature workspaces, `native_contract` for native execution
+and diagnostics, and `profile_contract` for profile and compilation conservation.
+Each is a separately registered required harness and runs its complete unfiltered
+test list with `--show-output --test-threads=1 --color=never`, under the unchanged
+300-second required-suite budget. Moving a test preserves its body, outer
+attributes, event prefix and ordered literal case IDs exactly once. A target
+split requires independent admission of that disjoint allocation before its
+consumer changes. It cannot admit filtered batches, retries or larger deadlines.
+Each target exposes the same canonical test-only support module; all maintained
+helpers remain measured, including every actual compiled module instantiation.
+Physical source, Cargo artifact, object, process, profile and coverage inventories
+must reconcile afresh. Owning and public-only standalone qualification remain
+required; a previously failed aggregate run remains failed.
 
 Every exercised instrumented object needs its actual launch, completion and one
 fresh nonempty profile per PID in the initial profile. Every raw profile needs a

@@ -11,6 +11,20 @@ The source-inventory command observes actual files and Cargo targets. Its own
 source/process qualification precedes dependent use; the complete collector
 applies its inventory and coverage gates to a fresh observed run.
 
+Native launch failures retain a separate exclusive `launch-failure.json` and
+trace record, bound to the exact saved command intent and original selected
+measurement request. Records keep the actual stage, I/O kind and OS error,
+known child identity and separate cleanup result. Existing receipts and partial
+diagnostics remain evidence. The full diagnostic has an inclusive 64 KiB limit;
+a bounded fallback retains finite causes and hashes of omitted paths and the
+complete serialized record. A trace write or flush failure propagates failure.
+The [literal diagnostic fixtures](../../tests/architecture/fixtures/native-launch-diagnostics-v1/README.md)
+distinguish actual process observations from controlled writer and representation
+units. This change requires fresh owning and standalone qualification; it does
+not establish the cause of an earlier unrecorded failure or permit retry credit.
+The fresh-artifact diagnostic input also governs an actual failing collector
+invocation using real prepared tools and the existing finite command-error contract.
+
 Prepare Rust 1.99.0 and the locked public dependencies, then run from the root:
 
 ```sh
@@ -324,6 +338,12 @@ and the immutable source and test manifests before and after collection.
 The [test registry](../../tests/architecture/rust-test-suites-v1.json) declares
 all current required and incidental harnesses, exact test names and literal case
 identities. Actual Cargo metadata and fresh no-run artifacts must match it.
+The tool assertions are four ordinary Cargo integration-test targets:
+`contract`, `collector_contract`, `native_contract` and `profile_contract`.
+Each runs its complete registry without filtering under the same 300-second
+suite limit. They share one canonical measured test-support tree; a physical
+split preserves every test body, attribute, prefix and case ID exactly once.
+
 Every harness is listed and run directly; incidental empty harnesses remain
 evidence and never count as required suites. Optional ordinary-binary exercises
 declare exact arguments, exit status and complete UTF-8 streams. Every selected

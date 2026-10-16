@@ -1,6 +1,17 @@
 use arboresce_application::{MigrationRecord, ReadFailure, WriteFailure, WriteOutcome};
 use arboresce_domain::{CalendarDate, ContentRevision, Identifier};
 
+use std::{
+    future::Future,
+    task::{Context, Poll, Waker},
+};
+
+use serde_json::{Value, json};
+
+mod support {
+    pub mod principal;
+}
+
 #[test]
 fn complete_independent_record_literals() {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(
@@ -34,6 +45,11 @@ fn outcome_types_preserve_distinct_uncertainty_and_failures() {
     transfer_traits::<MigrationRecord>();
     transfer_traits::<WriteOutcome>();
     transfer_traits::<ReadFailure>();
+    transfer_traits::<arboresce_application::policy::principal::IdentityKey>();
+    transfer_traits::<arboresce_application::policy::principal::StoredPrincipal>();
+    transfer_traits::<arboresce_application::policy::principal::PrincipalMatches>();
+    transfer_traits::<arboresce_application::policy::principal::PrincipalFailure>();
+    transfer_traits::<arboresce_application::policy::principal::DirectoryFailure>();
     assert_ne!(
         WriteOutcome::Unknown,
         WriteOutcome::NotCommitted(WriteFailure::Unavailable)
@@ -43,4 +59,149 @@ fn outcome_types_preserve_distinct_uncertainty_and_failures() {
         WriteOutcome::NotCommitted(WriteFailure::Rejected)
     );
     assert_ne!(ReadFailure::Unavailable, ReadFailure::InvalidStoredData);
+}
+
+#[test]
+fn complete_original_principal_mapping() {
+    let data = include_str!("../../../tests/security/fixtures/authority-v1/cases.json");
+    assert!(data.len() <= 8_388_608);
+    let authority: Value = serde_json::from_str(data).unwrap();
+    let data = include_str!("../../../tests/security/fixtures/principal-directory-v1/cases.json");
+    assert!(data.len() <= 65_536);
+    let fixture: Value = serde_json::from_str(data).unwrap();
+    let cases: Vec<_> = authority["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|case| case["group"] == "principal_mapping")
+        .collect();
+    assert_eq!(cases.len(), 5);
+    println!();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        let oracle = fixture["original_cases"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|row| row["id"] == id)
+            .unwrap();
+        let projection = json!({
+            "trusted_key_control_observation": case["input"]["trusted_key_control_observation"],
+            "canonical_matching_principal_ids": case["input"]["canonical_matching_principal_ids"],
+        });
+        let probe = support::principal::DirectoryProbe::new(projection.clone(), true);
+        let mut future = std::pin::pin!(probe.map());
+        let mut context = Context::from_waker(Waker::noop());
+        let first = future.as_mut().poll(&mut context);
+        let result = match first {
+            Poll::Ready(value) => value,
+            Poll::Pending => match future.as_mut().poll(&mut context) {
+                Poll::Ready(value) => value,
+                Poll::Pending => panic!("directory future did not complete"),
+            },
+        };
+        let observed = probe.observation(result);
+        assert_eq!(observed, oracle["expected"], "{id}");
+        assert_eq!(probe.input_after(), projection);
+        assert_eq!(observed["principal_id"], case["expected"]["principal_id"]);
+        assert_eq!(
+            if result.is_ok() { "admit" } else { "deny" },
+            case["expected"]["decision"]
+        );
+        let reason = match observed["failure"].as_str() {
+            None => "exact_canonical_mapping",
+            Some("UnknownCanonicalMapping") => "unknown_canonical_mapping",
+            Some("UnsupportedIdentityProfile") => "unsupported_identity_profile",
+            Some("CanonicalUniquenessViolation") => "canonical_uniqueness_violation",
+            _ => panic!("unexpected original principal failure"),
+        };
+        assert_eq!(reason, case["expected"]["reason"]);
+        assert_eq!(case["expected"]["new_principals_created"], json!([]));
+        assert_eq!(case["expected"]["human_assurance_issued"], false);
+        assert_eq!(case["expected"]["cryptographic_verification_claim"], false);
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
+fn complete_principal_directory_port() {
+    let data = include_str!("../../../tests/security/fixtures/principal-directory-v1/cases.json");
+    assert!(data.len() <= 65_536);
+    let fixture: Value = serde_json::from_str(data).unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 31);
+    println!();
+    for case in cases {
+        let projection =
+            json!({"identity":case["input"]["identity"], "directory":case["input"]["directory"]});
+        let probe = support::principal::DirectoryProbe::new(projection.clone(), false);
+        let mut future = std::pin::pin!(probe.map());
+        let mut context = Context::from_waker(Waker::noop());
+        let first = future.as_mut().poll(&mut context);
+        let result = match first {
+            Poll::Ready(value) => value,
+            Poll::Pending => match future.as_mut().poll(&mut context) {
+                Poll::Ready(value) => value,
+                Poll::Pending => panic!("directory future did not complete"),
+            },
+        };
+        assert_eq!(
+            probe.observation(result),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        assert_eq!(probe.input_after(), projection);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_checked_stored_principals() {
+    let data = include_str!("../../../tests/security/fixtures/principal-directory-v1/cases.json");
+    assert!(data.len() <= 65_536);
+    let fixture: Value = serde_json::from_str(data).unwrap();
+    let cases = fixture["stored_cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 12);
+    println!();
+    for case in cases {
+        assert_eq!(
+            support::principal::stored_observation(&case["input"]),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_principal_failure_interoperability() {
+    let data = include_str!("../../../tests/security/fixtures/principal-directory-v1/cases.json");
+    assert!(data.len() <= 65_536);
+    let fixture: Value = serde_json::from_str(data).unwrap();
+    let cases = fixture["error_cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 8);
+    println!();
+    for case in cases {
+        assert_eq!(
+            support::principal::error_observation(&case["input"]),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
 }

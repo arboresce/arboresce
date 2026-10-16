@@ -24,6 +24,317 @@ fn invalid() -> io::Error {
     )
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum WritePhase {
+    Create,
+    Write,
+    Flush,
+}
+
+impl WritePhase {
+    pub fn name(self) -> &'static str {
+        match self {
+            Self::Create => "create",
+            Self::Write => "write",
+            Self::Flush => "flush",
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct WriteFailure {
+    phase: WritePhase,
+    error: io::Error,
+}
+
+impl WriteFailure {
+    pub fn phase(&self) -> WritePhase {
+        self.phase
+    }
+
+    pub fn error(&self) -> &io::Error {
+        &self.error
+    }
+
+    pub fn into_error(self) -> io::Error {
+        self.error
+    }
+}
+
+/// The caller owns the writer; this boundary does not attest an OS write.
+pub fn write_payload(writer: &mut impl Write, bytes: &[u8]) -> Result<(), WriteFailure> {
+    writer.write_all(bytes).map_err(|error| WriteFailure {
+        phase: WritePhase::Write,
+        error,
+    })?;
+    writer.flush().map_err(|error| WriteFailure {
+        phase: WritePhase::Flush,
+        error,
+    })
+}
+
+fn write_exclusive(path: &Path, bytes: &[u8]) -> Result<(), WriteFailure> {
+    let mut file = fs::File::create_new(path).map_err(|error| WriteFailure {
+        phase: WritePhase::Create,
+        error,
+    })?;
+    write_payload(&mut file, bytes)
+}
+
+pub fn io_cause(error: &io::Error) -> Value {
+    json!({
+        "error_kind":format!("{:?}", error.kind()),
+        "raw_os_error":error.raw_os_error(),
+    })
+}
+
+/// Error composition is separate from evidence that a child actually ran.
+#[derive(Debug)]
+pub struct FailureCauses {
+    primary: io::Error,
+    cleanup: Option<io::Result<std::process::ExitStatus>>,
+}
+
+impl FailureCauses {
+    pub fn new(primary: io::Error, cleanup: Option<io::Result<std::process::ExitStatus>>) -> Self {
+        Self { primary, cleanup }
+    }
+
+    pub fn primary(&self) -> Value {
+        io_cause(&self.primary)
+    }
+
+    pub fn cleanup(&self) -> Value {
+        match &self.cleanup {
+            None => Value::Null,
+            Some(Ok(status)) => json!({
+                "state":"reaped", "exit":status.code(), "signal":status.signal(),
+                "error_kind":null, "raw_os_error":null,
+            }),
+            Some(Err(error)) => json!({
+                "state":"failed", "exit":null, "signal":null,
+                "error_kind":format!("{:?}",error.kind()),
+                "raw_os_error":error.raw_os_error(),
+            }),
+        }
+    }
+
+    /// Existing callers retain the original cleanup-error return convention.
+    pub fn into_legacy_error(self) -> io::Error {
+        match self.cleanup {
+            Some(Err(error)) => error,
+            _ => self.primary,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum DiagnosticScope {
+    ActualRuntime,
+    ControlledWriterWithActualCleanup,
+    RepresentationUnit,
+}
+
+impl DiagnosticScope {
+    fn name(self) -> &'static str {
+        match self {
+            Self::ActualRuntime => "actual_runtime",
+            Self::ControlledWriterWithActualCleanup => "controlled_writer_with_actual_cleanup",
+            Self::RepresentationUnit => "representation_unit",
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct LaunchFailure {
+    stage: &'static str,
+    parent_pid: u32,
+    child_pid: Option<u32>,
+    request: Option<Value>,
+    receipt_path: Option<PathBuf>,
+    causes: FailureCauses,
+}
+
+impl LaunchFailure {
+    fn before(stage: &'static str, error: io::Error, request: Option<&Request>) -> Self {
+        Self {
+            stage,
+            parent_pid: std::process::id(),
+            child_pid: None,
+            request: request.map(|r| r.identity.clone()),
+            receipt_path: None,
+            causes: FailureCauses::new(error, None),
+        }
+    }
+
+    pub fn observation(&self) -> Value {
+        json!({
+            "stage":self.stage,
+            "error_kind":format!("{:?}",self.causes.primary.kind()),
+            "raw_os_error":self.causes.primary.raw_os_error(),
+            "parent_pid":self.parent_pid,
+            "child_pid":self.child_pid,
+            "request":self.request,
+            "receipt_path":self.receipt_path.as_ref().map(|p|p.as_os_str().as_bytes()),
+            "cleanup":self.causes.cleanup(),
+        })
+    }
+
+    pub fn envelope(
+        &self,
+        command_intent: &Path,
+        command_bytes: &[u8],
+        scope: DiagnosticScope,
+    ) -> Value {
+        json!({
+            "version":"native-launch-failure-v1",
+            "scope":scope.name(),
+            "command":{"path":command_intent.as_os_str().as_bytes(),"sha256":sha256(command_bytes)},
+            "failure":self.observation(),
+            "retention_error":null,
+        })
+    }
+
+    pub fn into_legacy_error(self) -> io::Error {
+        self.causes.into_legacy_error()
+    }
+}
+
+pub const DIAGNOSTIC_LIMIT: usize = 65536;
+
+#[derive(Debug)]
+pub struct RetentionFailure {
+    stage: &'static str,
+    error: io::Error,
+}
+
+impl RetentionFailure {
+    pub fn stage(&self) -> &'static str {
+        self.stage
+    }
+
+    pub fn error(&self) -> &io::Error {
+        &self.error
+    }
+
+    fn trace(error: WriteFailure) -> Self {
+        Self {
+            stage: match error.phase {
+                WritePhase::Create => "create",
+                WritePhase::Write => "trace_write",
+                WritePhase::Flush => "trace_flush",
+            },
+            error: error.error,
+        }
+    }
+}
+
+fn raw_path_hash(value: &Value) -> io::Result<Value> {
+    if value.is_null() {
+        return Ok(Value::Null);
+    }
+    let bytes = value
+        .as_array()
+        .ok_or_else(invalid)?
+        .iter()
+        .map(|v| {
+            v.as_u64()
+                .and_then(|n| u8::try_from(n).ok())
+                .ok_or_else(invalid)
+        })
+        .collect::<io::Result<Vec<_>>>()?;
+    Ok(json!(sha256(&bytes)))
+}
+
+fn fallback(frame: &Value, bytes: &[u8], error: &RetentionFailure) -> io::Result<Value> {
+    let mut failure = frame["failure"].as_object().ok_or_else(invalid)?.clone();
+    let receipt = failure.remove("receipt_path").ok_or_else(invalid)?;
+    failure.insert("receipt_path_sha256".into(), raw_path_hash(&receipt)?);
+    if !failure.get("request").ok_or_else(invalid)?.is_null() {
+        let mut request = failure["request"].as_object().ok_or_else(invalid)?.clone();
+        let path = request.remove("context_path").ok_or_else(invalid)?;
+        request.insert("context_path_sha256".into(), raw_path_hash(&path)?);
+        failure.insert("request".into(), Value::Object(request));
+    }
+    Ok(json!({
+        "version":"native-launch-failure-fallback-v1",
+        "scope":frame["scope"],
+        "command":{"path_sha256":raw_path_hash(&frame["command"]["path"])?,"sha256":frame["command"]["sha256"]},
+        "diagnostic_sha256":sha256(bytes), "diagnostic_bytes":bytes.len(),
+        "failure":failure,
+        "retention_error":{"stage":error.stage,"error_kind":format!("{:?}",error.error.kind()),"raw_os_error":error.error.raw_os_error()},
+    }))
+}
+
+fn retain_fallback(
+    frame: &Value,
+    bytes: &[u8],
+    trace: &mut impl Write,
+    error: RetentionFailure,
+) -> Result<(), RetentionFailure> {
+    let value = fallback(frame, bytes, &error).map_err(|cause| RetentionFailure {
+        stage: "fallback",
+        error: cause,
+    })?;
+    let compact = format!("{value}\n").into_bytes();
+    if compact.len() > DIAGNOSTIC_LIMIT {
+        return Err(RetentionFailure {
+            stage: "fallback",
+            error: invalid(),
+        });
+    }
+    write_payload(trace, &compact).map_err(RetentionFailure::trace)?;
+    Err(error)
+}
+
+/// Retain a library-produced frame or an explicitly scoped representation unit.
+pub fn retain(
+    frame: &Value,
+    artifact: &Path,
+    trace: &mut impl Write,
+) -> Result<(), RetentionFailure> {
+    retain_with_writer(frame, artifact, trace, std::convert::identity)
+}
+
+/// Exclusive file creation precedes the caller-owned writer boundary.
+pub fn retain_with_writer<W: Write>(
+    frame: &Value,
+    artifact: &Path,
+    trace: &mut impl Write,
+    wrap: impl FnOnce(fs::File) -> W,
+) -> Result<(), RetentionFailure> {
+    let bytes = format!("{frame}\n").into_bytes();
+    if bytes.len() > DIAGNOSTIC_LIMIT {
+        return retain_fallback(
+            frame,
+            &bytes,
+            trace,
+            RetentionFailure {
+                stage: "size",
+                error: invalid(),
+            },
+        );
+    }
+    let result = fs::File::create_new(artifact)
+        .map_err(|error| WriteFailure {
+            phase: WritePhase::Create,
+            error,
+        })
+        .and_then(|file| write_payload(&mut wrap(file), &bytes));
+    if let Err(error) = result {
+        return retain_fallback(
+            frame,
+            &bytes,
+            trace,
+            RetentionFailure {
+                stage: error.phase.name(),
+                error: error.error,
+            },
+        );
+    }
+    write_payload(trace, &bytes).map_err(RetentionFailure::trace)
+}
+
 fn regular(path: &Path, limit: u64) -> io::Result<Vec<u8>> {
     let metadata = fs::symlink_metadata(path)?;
     if !metadata.is_file() || metadata.len() > limit {
@@ -53,16 +364,21 @@ fn parsed(bytes: &[u8]) -> io::Result<Value> {
 
 fn write_record(path: &Path, record: &Value, repeat: bool) -> io::Result<()> {
     let bytes = format!("{record}\n").into_bytes();
-    match fs::File::create_new(path) {
-        Ok(mut file) => file.write_all(&bytes).and_then(|()| file.flush()),
-        Err(error) if repeat && error.kind() == io::ErrorKind::AlreadyExists => {
+    match write_exclusive(path, &bytes) {
+        Ok(()) => Ok(()),
+        Err(failure)
+            if repeat
+                && failure.phase == WritePhase::Create
+                && failure.error.kind() == io::ErrorKind::AlreadyExists =>
+        {
+            let error = failure.error;
             if regular(path, FILE_LIMIT)? == bytes {
                 Ok(())
             } else {
                 Err(error)
             }
         }
-        Err(error) => Err(error),
+        Err(failure) => Err(failure.error),
     }
 }
 
@@ -73,6 +389,10 @@ pub struct Request {
 }
 
 impl Request {
+    pub fn open_diagnosed(root: &Path) -> Result<Self, LaunchFailure> {
+        Self::open(root).map_err(|error| LaunchFailure::before("select_context", error, None))
+    }
+
     pub fn open(root: &Path) -> io::Result<Self> {
         directory(root)?;
         let root = root.canonicalize()?;
@@ -118,22 +438,48 @@ impl Request {
 
     /// Prepare and spawn must use the same unchanged Command, without argv0 overrides.
     pub fn prepare(&self, command: &mut Command) -> io::Result<PreparedLaunch> {
-        self.current()?;
-        let cwd = effective_cwd(command)?;
+        self.prepare_diagnosed(command)
+            .map_err(LaunchFailure::into_legacy_error)
+    }
+
+    pub fn prepare_diagnosed(
+        &self,
+        command: &mut Command,
+    ) -> Result<PreparedLaunch, LaunchFailure> {
+        let failure = |stage, error| LaunchFailure::before(stage, error, Some(self));
+        self.current().map_err(|e| failure("prepare_context", e))?;
+        let cwd = effective_cwd(command).map_err(|e| failure("prepare_cwd", e))?;
         let program = command.get_program().to_owned();
         if !program.as_bytes().contains(&b'/') {
-            return Err(invalid());
+            return Err(failure("prepare_program", invalid()));
         }
-        let executable = cwd.join(&program).canonicalize()?;
-        if fs::metadata(&executable)?.permissions().mode() & 0o111 == 0 {
-            return Err(invalid());
+        let executable = cwd
+            .join(&program)
+            .canonicalize()
+            .map_err(|e| failure("prepare_executable", e))?;
+        if fs::metadata(&executable)
+            .map_err(|e| failure("prepare_metadata", e))?
+            .permissions()
+            .mode()
+            & 0o111
+            == 0
+        {
+            return Err(failure("prepare_permissions", invalid()));
         }
-        let bytes = regular(&executable, FILE_LIMIT)?;
-        let fields = json!({
-            "executable":executable.as_os_str().as_bytes(), "executable_sha256":sha256(&bytes),
-            "program":program.as_bytes(), "arguments":command.get_args().map(|a|a.as_bytes()).collect::<Vec<_>>(),
-            "cwd":cwd.as_os_str().as_bytes(),
-        });
+        let bytes = regular(&executable, FILE_LIMIT).map_err(|e| failure("prepare_bytes", e))?;
+        let fields = serde_json::Map::from_iter([
+            (
+                "executable".into(),
+                json!(executable.as_os_str().as_bytes()),
+            ),
+            ("executable_sha256".into(), json!(sha256(&bytes))),
+            ("program".into(), json!(program.as_bytes())),
+            (
+                "arguments".into(),
+                json!(command.get_args().map(|a| a.as_bytes()).collect::<Vec<_>>()),
+            ),
+            ("cwd".into(), json!(cwd.as_os_str().as_bytes())),
+        ]);
         Ok(PreparedLaunch {
             request: self.clone(),
             fields,
@@ -179,35 +525,68 @@ impl Request {
 
 pub struct PreparedLaunch {
     request: Request,
-    fields: Value,
+    fields: serde_json::Map<String, Value>,
 }
 
 impl PreparedLaunch {
     /// Record the actual Child spawned from the prepared Command unchanged.
     /// A failed receipt kills/reaps only that Child before returning failure.
     pub fn record(self, child: &mut Child) -> io::Result<()> {
-        let result = (|| {
-            self.request.current()?;
-            let mut record = self.request.common(child.id());
-            record["version"] = "native-launch-v1".into();
-            record
-                .as_object_mut()
-                .ok_or_else(invalid)?
-                .extend(self.fields.as_object().ok_or_else(invalid)?.clone());
-            write_record(
-                &self
-                    .request
+        self.record_diagnosed(child)
+            .map_err(LaunchFailure::into_legacy_error)
+    }
+
+    fn failed(&self, child: &mut Child, stage: &'static str, error: io::Error) -> LaunchFailure {
+        LaunchFailure {
+            stage,
+            parent_pid: std::process::id(),
+            child_pid: Some(child.id()),
+            request: Some(self.request.identity.clone()),
+            receipt_path: Some(
+                self.request
                     .root
                     .join("launches")
                     .join(format!("{}.json", child.id())),
-                &record,
-                false,
-            )
-        })();
-        if result.is_err() {
-            process::terminate(child)?;
+            ),
+            causes: FailureCauses::new(error, Some(process::terminate(child))),
         }
-        result
+    }
+
+    /// Failure-only writer boundary; it cannot attest a receipt or successful launch.
+    pub fn record_failure(self, child: &mut Child, failure: WriteFailure) -> LaunchFailure {
+        let stage = match failure.phase {
+            WritePhase::Create => "record_create",
+            WritePhase::Write => "record_write",
+            WritePhase::Flush => "record_flush",
+        };
+        self.failed(child, stage, failure.error)
+    }
+
+    pub fn record_diagnosed(self, child: &mut Child) -> Result<(), LaunchFailure> {
+        if let Err(error) = self.request.current() {
+            return Err(self.failed(child, "record_context", error));
+        }
+        let mut record = self.request.common(child.id());
+        record["version"] = "native-launch-v1".into();
+        for (key, value) in &self.fields {
+            record[key] = value.clone();
+        }
+        let path = self
+            .request
+            .root
+            .join("launches")
+            .join(format!("{}.json", child.id()));
+        write_exclusive(&path, format!("{record}\n").as_bytes())
+            .map_err(|failure| self.record_failure(child, failure))
+    }
+
+    /// The prepared Command must remain unchanged; owned input files may have changed.
+    pub fn spawn_diagnosed(self, command: &mut Command) -> Result<Child, LaunchFailure> {
+        let mut child = command
+            .spawn()
+            .map_err(|e| LaunchFailure::before("spawn", e, Some(&self.request)))?;
+        self.record_diagnosed(&mut child)?;
+        Ok(child)
     }
 }
 
@@ -268,20 +647,33 @@ pub fn command(program: impl AsRef<OsStr>, root: Option<&Path>) -> io::Result<Co
 
 /// Default operation has no measurement side effects.
 pub fn spawn(command: &mut Command) -> io::Result<Child> {
-    let prepared = active()?.map(|r| r.prepare(command)).transpose()?;
-    let mut child = command.spawn()?;
-    if let Some(prepared) = prepared {
-        prepared.record(&mut child)?;
-    }
-    Ok(child)
+    spawn_diagnosed(command, None).map_err(LaunchFailure::into_legacy_error)
 }
 
 /// An explicit nested request owns this invocation instead of ambient selection.
 pub fn spawn_with(command: &mut Command, request: &Request) -> io::Result<Child> {
-    let prepared = request.prepare(command)?;
-    let mut child = command.spawn()?;
-    prepared.record(&mut child)?;
-    Ok(child)
+    spawn_diagnosed(command, Some(request)).map_err(LaunchFailure::into_legacy_error)
+}
+
+/// An explicit request takes precedence over ambient selection, including on failure.
+pub fn spawn_diagnosed(
+    command: &mut Command,
+    request: Option<&Request>,
+) -> Result<Child, LaunchFailure> {
+    let ambient;
+    let selected = match request {
+        Some(request) => Some(request),
+        None => {
+            ambient = active().map_err(|e| LaunchFailure::before("select_context", e, None))?;
+            ambient.as_ref()
+        }
+    };
+    match selected {
+        Some(request) => request.prepare_diagnosed(command)?.spawn_diagnosed(command),
+        None => command
+            .spawn()
+            .map_err(|e| LaunchFailure::before("spawn", e, None)),
+    }
 }
 
 pub fn complete(child: &mut Child) -> io::Result<()> {

@@ -709,6 +709,7 @@ pub mod qualified_number {
 
 pub struct PreparedRoot {
     pub path: PathBuf,
+    preserve: bool,
 }
 
 impl PreparedRoot {
@@ -721,7 +722,15 @@ impl PreparedRoot {
             NEXT.fetch_add(1, Ordering::Relaxed)
         ));
         fs::create_dir(&path)?;
-        Ok(Self { path })
+        Ok(Self {
+            path,
+            preserve: false,
+        })
+    }
+
+    /// Keep selected native evidence at its original byte-bound paths.
+    pub fn preserve(&mut self) {
+        self.preserve = true;
     }
 
     /// Generate syntax-policy inputs, not compiled or executable product code.
@@ -766,7 +775,9 @@ impl PreparedRoot {
 
 impl Drop for PreparedRoot {
     fn drop(&mut self) {
-        let _ = fs::remove_dir_all(&self.path);
+        if !self.preserve {
+            let _ = fs::remove_dir_all(&self.path);
+        }
     }
 }
 

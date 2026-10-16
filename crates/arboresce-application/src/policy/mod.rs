@@ -2,6 +2,8 @@
 
 use arboresce_domain::Identifier;
 
+pub mod principal;
+
 /// An explicitly selected canonical organization/domain pair.
 ///
 /// Construction preserves checked identifiers. It establishes neither existence
