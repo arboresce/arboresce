@@ -717,6 +717,17 @@ Planned paths: `crates/arboresce-postgres/`, `crates/arboresce-application/src/p
 
 External prerequisite capabilities: Approve independent identity and authority fixtures. Require independently accepted exact consumed scope before use; no unrelated whole milestone is inferred.
 
+The independently reviewed original synthetic
+[authority package](../../tests/security/fixtures/authority-v1/README.md) freezes
+185 concrete semantic cases. Its descriptor admits only the 142 principal,
+current-authority, tenant-relationship, bootstrap-scope, race and shared-admission
+inputs for this consumer. Forty-three origin/body/clock and event/command-replay
+cases retain separate later-consumer gates. These literal expectations qualify
+no signature, actual RLS/race, enabled writer, human assurance or recovery.
+The package introduces no maintained generator, decoder or executable source.
+This milestone remains unfinished until its actual source, complete consumed
+fixture groups and real nonowner/PostgreSQL/admission profiles independently pass.
+
 Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
