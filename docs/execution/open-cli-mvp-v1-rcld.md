@@ -643,7 +643,7 @@ Checkpoint: d3d8720abd5e0f92f6b5d98a853cb20a839e5baf; Evidence: [Whole pure doma
 
 ### E204 — Create focused application ports and migration harness
 
-Status: `in_progress`. Prerequisites: E203. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `complete`. Prerequisites: E203. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -657,15 +657,51 @@ External prerequisite capabilities: None beyond the owning prerequisites.. Requi
 
 Definition of green: A real isolated PostgreSQL migration persists a useful typed record; compatible migration/retry/rollback limits and transaction outcome boundaries pass without requiring later build/search tables.
 
-Current increment: Checked application ports, an isolated direct PostgreSQL
-adapter and two forward migrations are under qualification. Narrow real-service
-runs have committed and independently read an exact typed record. Actual lost
-COMMIT and ROLLBACK completions each returned Unknown while independent reads
-confirmed final state. These assertions do not close this slice. Full migration,
-constraint, concurrency, restart, physical-helper, resource, strict coverage and
-fresh public-only standalone qualification and separate whole acceptance remain
-required. Service lifecycle failures and corrected preparation are retained as
-evidence; no complete service or product acceptance is claimed.
+Accepted isolated foundation: Checked application ports, the direct PostgreSQL
+adapter and two ordered forward migrations are independently qualified and
+locally committed. Actual PostgreSQL 17.11 tests persist and independently read
+exact typed records, enforce constraints and annotation byte bounds, preserve
+compatible old readers and writers, reject incomplete or newer migration history,
+roll back failed DDL, and observe concurrent advisory locks and bounded timeouts.
+Lost COMMIT and ROLLBACK completions return Unknown without automatic retry;
+independent reads establish the actual final state. Actual owned server restarts
+preserve rows and migration history.
+
+Fresh Rust 1.99.0 owning and public-only standalone qualifications each pass
+107 tests, all 4,955 complete registered case events, and all 72 strict scopes
+across 51 measured files. Each conserves 20 native objects, 200 fresh main
+profiles, 666 matched physical process pairs, five native binary scopes and
+59 bounded merge commands. Each retains all 12,613 runtime artifacts, including
+intermediate merges and complete nested observation and trace files. Required
+PostgreSQL tests in each lane collectively report all 180 cases; the tooling suite passes all 58 tests
+without filtering. The separately registered selector child contributes its own
+profile without adding suite, command or case credit.
+
+Owning policy coverage is 12,190/12,525 executable lines and 23,129/24,813 regions;
+standalone coverage is 12,189/12,525 lines and 23,128/24,813 regions. Every required
+file, package, target, repository and native scope independently exceeds 90%.
+Exact current compiler, dependency, image, source-resource model and auxiliary
+default/1 MiB stack probes are reconciled separately for each lane. The auxiliary
+probes do not add full-suite or merged-profile credit or prove universal OS/RSS
+bounds. Both actual service generations complete owned bounded cleanup with
+initial/successor processes, socket files and PID files absent.
+
+Separate whole source/completeness/public and expected/qualification reviews and
+a distinct delivery witness accept this slice. Exact precommit and postcommit
+reconciliation binds all 310 qualified public inputs to the source checkpoint.
+All failed runs, held input candidates and corrected preparations remain evidence.
+The rejected standalone input was read only by a private read-only observer;
+the complete standalone run consumed only the separately admitted correction.
+
+This historical annotation changes only this plan, the adapter README and the
+storage document's observed status. All other 307 qualified inputs are unchanged;
+no fresh complete run on annotated bytes is claimed. No Python implementation
+changed in this slice; prior accepted pure reference scope is preserved. Product
+and bootstrap writers remain disabled. Tenant/RLS/first-adapter admission,
+lifecycle, idempotency/audit/outbox, HTTP/authentication, pooling, managed/native
+Linux, packaged recovery and human/model/user/production gates remain required.
+
+Checkpoint: 6f2433310c2cd099a670cb8ff78e1b1f6f923130; Evidence: [Isolated migration qualification](open-cli-mvp-v1-rcld.md)
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
 

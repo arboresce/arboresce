@@ -1,7 +1,9 @@
 # Isolated PostgreSQL migration foundation
 
 This package implements the synthetic typed record port and two ordered forward
-migrations. It is under qualification. It does not admit product or bootstrap
+migrations. Its isolated migration foundation is independently qualified; see the
+[accepted checkpoint](../../docs/execution/open-cli-mvp-v1-rcld.md#e204--create-focused-application-ports-and-migration-harness).
+It does not admit product or bootstrap
 writes, tenant authorization, lifecycle continuity, pooling or packaged recovery.
 
 The explicit target is a prepared protected Unix socket for PostgreSQL 17.11,

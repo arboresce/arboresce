@@ -1,8 +1,11 @@
 # Canonical storage and derived search
 
-Status: accepted normative requirements; database adapters, storage services
-and search are not implemented. Physical DDL, exact query contracts and
-backend behavior require their owning implementation and qualification steps.
+Status: accepted normative requirements. The isolated synthetic migration
+foundation is implemented and independently qualified at its
+[owning checkpoint](../execution/open-cli-mvp-v1-rcld.md#e204--create-focused-application-ports-and-migration-harness).
+Product database adapters, storage services and search remain unfinished.
+Physical DDL, exact query contracts and backend behavior require their owning
+implementation and qualification steps.
 Conceptual keys below are requirements, not a claim that named tables exist.
 
 ## Isolated migration foundation
