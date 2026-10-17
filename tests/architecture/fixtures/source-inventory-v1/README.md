@@ -12,7 +12,7 @@ source strings are syntax/data inputs, not fake Cargo executions or runtime proo
 The native positive instead runs actual prepared offline Cargo metadata against
 the current public checkout. Its retained output includes a bounded process trace.
 
-The current-checkout positive names 80 Rust sources: 69 measured, ten assertion
+The committed baseline positive names 80 Rust sources: 69 measured, ten assertion
 sources and the one frozen declaration. Its ten actual targets are unchanged.
 The earlier count of 57 increased to 60 for the measured tenant selection,
 PostgreSQL tenant adapter and qualification support modules. The principal
@@ -24,6 +24,25 @@ authority modules, four measured native support modules and two assertion
 entrypoints. All model answers, license/declaration hashes, source-discovery
 bounds and complete role/target comparisons retain their meanings; no maintained
 source is excluded.
+
+The additive `native_source_counts` table binds this same native positive to
+exact raw role-profile SHA-256 inputs. Its baseline entry preserves the 80-source
+profile. The bootstrap profile adds two measured API/support modules, giving 82
+sources: 71 measured, ten assertion sources and the one frozen declaration. All
+80 baseline source rows retain their exact fields and order. The ten target
+identities remain the same; the application library includes the new production
+bootstrap module. Complete source and target vectors are still compared with
+the selected input profile.
+
+The original native case's `source_count` remains 80 so the committed baseline
+consumer retains its independently frozen answer. A consumer of the additive
+table must select exactly one expected count by hashing the raw role-profile
+input, before invoking the native command. Missing or duplicate matches are
+preparation failures. Expected counts never come from an observed inventory
+result, a guessed default or a relaxed comparison. The fixture must be committed
+and independently delivered before that consumer change. All existing model
+answers, native case IDs, license/declaration hashes, bounds, target count and
+complete-vector checks retain their meanings.
 
 The library inventories actual regular files without relying on Git. Exclusions
 are exact direct children of the checkout root and actual workspace-package roots:
