@@ -756,13 +756,58 @@ or universal OS/RSS bounds. Both owned database service generations complete
 bounded cleanup within their original leases. All failed runs and held inputs
 remain retained evidence.
 
-This historical annotation changes only this plan; the other 320 qualified
-public inputs remain unchanged. No fresh complete run on annotated bytes is
-claimed. The remaining 117 original admitted cases still require principal
+That historical annotation changed only this plan; the other 320 qualified
+public inputs remained unchanged. It claimed no fresh complete run on annotated
+bytes. At that checkpoint, 117 original admitted cases still required principal
 mapping, current authority and final-effect fences, bootstrap scope, real races
-and shared admission. Actual authentication, pooling, product/bootstrap writers,
-authentic lifecycle continuity, human assurance, recovery and whole E205 remain
-at their consuming gates. This component enables no product or bootstrap writer.
+and shared admission. This tenant-read component enabled no product or bootstrap
+writer.
+
+The subsequent principal-directory and native launch-evidence component is
+independently accepted and locally committed at `9cd91498f05086372af4b72a0b6ee92ddf4186a7`.
+It parses only the selected exact identity-profile/version and canonical
+32-byte public-key representation, validates stored canonical identifiers and
+identity tuples, and resolves one bounded trusted asynchronous directory result.
+Missing, duplicate, malformed and unavailable observations remain finite errors.
+No alias, principal creation, SQL directory adapter, key-control proof or action
+authority is introduced. The actual SQL lookup belongs to E209's first
+authentication consumer.
+
+The component also preserves typed native launch stages, original I/O causes,
+command intent and actual failure artifacts. All 32 independently frozen
+diagnostic/retention cases and the first real collector failure path retain
+original context, bounded full/fallback envelopes, partial files, collision
+evidence and actual after-teardown readback. Controlled or representation
+observations establish only their declared scope. Earlier failed and held
+attempts remain evidence; later success does not identify an unknown old cause.
+
+Fresh Rust 1.99.0 owning and public-only standalone lanes each pass 116 tests,
+5,174 complete case events and all 77 strict coverage scopes across 56 measured
+files. Each conserves 23 objects, 208 fresh main profiles, 705 physical process
+pairs, five native scopes and 61 bounded merge commands. Owning policy coverage
+is 14,009/14,387 executable lines and 26,182/28,128 regions; standalone coverage
+is 14,010/14,387 lines and 26,183/28,128 regions. Every required scope exceeds
+90% in its actual standard LLVM report. Four complete unfiltered tool targets
+preserve the 61 complete test bodies, attributes and ordered case identities
+admitted before their partition, with one canonical measured support tree and
+an independently admitted typed fixture-input error. No coverage union replaces an actual report.
+
+Separate source/public/completeness and expected/qualification review, a distinct
+delivery witness and actual source postcommit review accept the exact 28-path
+source commit and all 330 qualified public inputs. Exact current-image resource
+reconciliation and four fresh separate default/1 MiB probes retain their
+conditional scope; auxiliary profiles are not merged into whole coverage.
+Both owned database services complete bounded cleanup within their original
+unextended leases. This qualifies neither universal OS/RSS bounds nor another
+native or production profile.
+
+This current historical annotation changes only this plan; the other 329
+qualified public inputs remain unchanged. No fresh complete executable run on
+the annotated bytes is claimed. The five original principal-port cases are
+delivered; 112 original current-authority/final-fence, bootstrap, race and
+shared-admission cases remain. Whole E205, actual authentication and pooling,
+authentic lifecycle continuity, human assurance, recovery and product gates
+remain required. No product or bootstrap writer is enabled.
 
 Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
