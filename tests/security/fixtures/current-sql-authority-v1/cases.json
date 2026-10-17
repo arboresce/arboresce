@@ -1756,6 +1756,1113 @@
         "product_effects": [],
         "human_assurance_issued": false
       }
+    },
+    {
+      "id": "sql-catalogue-required-policy-using",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "policy_using",
+        "table": "memberships",
+        "policy": "internal_complete_context",
+        "using": "true"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-required-policy-roles",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "policy_roles",
+        "table": "memberships",
+        "policy": "internal_complete_context",
+        "roles": [
+          "harness_authority_admission"
+        ]
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-required-policy-check",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "policy_check",
+        "table": "memberships",
+        "policy": "internal_complete_context",
+        "with_check": "true"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-missing-select",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "revoke_select",
+        "table": "memberships",
+        "grantee": "harness_authority_admission"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-extra-insert",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "column_insert",
+        "table": "memberships",
+        "column": "state",
+        "grantee": "harness_authority_admission"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-extra-references",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "column_references",
+        "table": "memberships",
+        "column": "state",
+        "grantee": "harness_authority_admission"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-extra-table-delete",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "table_delete",
+        "table": "memberships",
+        "grantee": "harness_authority_admission"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-missing-schema-usage",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "revoke_schema_usage",
+        "schema": "arboresce_authority",
+        "grantee": "harness_authority_admission"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-column-grant-option",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "column_grant_option",
+        "table": "memberships",
+        "column": "lock_guard",
+        "grantee": "harness_authority_admission"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-public-table-select",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "public_select",
+        "table": "memberships",
+        "grantee": "PUBLIC"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-row-security-disabled",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "disable_rls",
+        "table": "memberships"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-extra-relation",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "extra_relation",
+        "table": "qualification_extra_bound"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-extra-column",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "extra_column",
+        "table": "memberships",
+        "column": "qualification_extra_bound",
+        "type": "integer"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-catalogue-user-function",
+      "group": "catalogue_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "isolated_catalogue_boundary",
+        "fault": "user_function",
+        "schema": "public",
+        "function": "qualification_extra_bound",
+        "language": "sql",
+        "returns": "integer",
+        "body": "SELECT 1"
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_target_changed": true,
+        "unrelated_catalogue_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-nonempty-restriction",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "restrict_policy",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "policy": "authority_fixture_v1"
+          },
+          "expected": "4",
+          "purposes": [
+            "project_support"
+          ]
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": null,
+        "marker_rows_added": 0,
+        "authority_changed": true,
+        "namespace_epoch_after": "2",
+        "target_after": {
+          "policy": "authority_fixture_v1",
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "epoch": {
+            "kind": "control",
+            "value": "5"
+          },
+          "state": "active",
+          "read_roles": [
+            "owner",
+            "member",
+            "reader"
+          ],
+          "direct_review_roles": [
+            "owner"
+          ],
+          "purposes": [
+            "project_support"
+          ],
+          "grant_root_actions": [
+            "project.read",
+            "project.change.review"
+          ],
+          "source_policy_ids": [
+            "source_current"
+          ]
+        },
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-duplicate-purpose",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "restrict_policy",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "policy": "authority_fixture_v1"
+          },
+          "expected": "4",
+          "purposes": [
+            "project_support",
+            "project_support"
+          ]
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "InvalidRequest",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-purpose-expansion",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "restrict_policy",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "policy": "authority_fixture_v1"
+          },
+          "expected": "4",
+          "purposes": [
+            "unadmitted_purpose"
+          ]
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "InvalidRequest",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-oversized-duplicate-purposes",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "restrict_policy",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "policy": "authority_fixture_v1"
+          },
+          "expected": "4",
+          "purposes": [
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support",
+            "project_support"
+          ]
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "InvalidRequest",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      },
+      "qualification_scope": "Composite oversize-plus-duplicate rejection only. Duplicate rejection independently rejects this input; no isolated length-cap discriminator is claimed. A unique seventeen-element subset is impossible under the retained current-policy cap16."
+    },
+    {
+      "id": "sql-permission-stale-policy",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "restrict_policy",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "policy": "authority_fixture_v1"
+          },
+          "expected": "3",
+          "purposes": [
+            "project_support"
+          ]
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-stale-membership",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "revoke_membership",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "principal_id": "02020202-0202-4202-8202-020202020202",
+            "membership_id": "12101010-1010-4010-8010-101010101010"
+          },
+          "expected": "7"
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-stale-grant",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "revoke_grant",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "grant_id": "60606060-6060-4060-8060-606060606060"
+          },
+          "expected": "2"
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-stale-resource",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "advance_resource",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "kind": "project",
+            "id": "44444444-4444-4444-b444-444444444444"
+          },
+          "expected": "12"
+        },
+        "prepare": [],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-exhausted-membership",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "revoke_membership",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "principal_id": "02020202-0202-4202-8202-020202020202",
+            "membership_id": "12101010-1010-4010-8010-101010101010"
+          },
+          "expected": "999999999999999999"
+        },
+        "prepare": [
+          {
+            "family": "membership",
+            "target": {
+              "workspace": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222"
+              },
+              "principal_id": "02020202-0202-4202-8202-020202020202",
+              "membership_id": "12101010-1010-4010-8010-101010101010"
+            },
+            "field": "control_revision",
+            "value": "999999999999999999"
+          }
+        ],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-exhausted-grant",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "revoke_grant",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "grant_id": "60606060-6060-4060-8060-606060606060"
+          },
+          "expected": "999999999999999999"
+        },
+        "prepare": [
+          {
+            "family": "grant",
+            "target": {
+              "workspace": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222"
+              },
+              "grant_id": "60606060-6060-4060-8060-606060606060"
+            },
+            "field": "control_revision",
+            "value": "999999999999999999"
+          }
+        ],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-exhausted-policy",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "restrict_policy",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "policy": "authority_fixture_v1"
+          },
+          "expected": "999999999999999999",
+          "purposes": [
+            "project_support"
+          ]
+        },
+        "prepare": [
+          {
+            "family": "policy",
+            "target": {
+              "workspace": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222"
+              },
+              "policy": "authority_fixture_v1"
+            },
+            "field": "epoch",
+            "value": "999999999999999999"
+          }
+        ],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-exhausted-resource",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "advance_resource",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "kind": "project",
+            "id": "44444444-4444-4444-b444-444444444444"
+          },
+          "expected": "999999999999999999"
+        },
+        "prepare": [
+          {
+            "family": "resource",
+            "target": {
+              "workspace": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222"
+              },
+              "kind": "project",
+              "id": "44444444-4444-4444-b444-444444444444"
+            },
+            "field": "control_revision",
+            "value": "999999999999999999"
+          }
+        ],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-namespace-exhaustion-rolls-back",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "revoke_membership",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "principal_id": "02020202-0202-4202-8202-020202020202",
+            "membership_id": "12101010-1010-4010-8010-101010101010"
+          },
+          "expected": "8"
+        },
+        "prepare": [
+          {
+            "family": "namespace",
+            "target": {
+              "singleton": 1
+            },
+            "field": "epoch",
+            "value": "999999999999999999"
+          }
+        ],
+        "replay": false,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "failure": "Conflict",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "namespace_epoch_unchanged": true,
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-permission-replayed-membership-revoke",
+      "group": "permission_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "permission_boundary",
+        "change": {
+          "kind": "revoke_membership",
+          "target": {
+            "workspace": {
+              "organization_id": "11111111-1111-4111-8111-111111111111",
+              "domain_id": "22222222-2222-4222-9222-222222222222"
+            },
+            "principal_id": "02020202-0202-4202-8202-020202020202",
+            "membership_id": "12101010-1010-4010-8010-101010101010"
+          },
+          "expected": "8"
+        },
+        "prepare": [],
+        "replay": true,
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:01.000Z"
+        ]
+      },
+      "expected": {
+        "first_failure": null,
+        "first_positive_commit": true,
+        "second_failure": "Conflict",
+        "second_authority_changed": false,
+        "marker_rows_added": 0,
+        "namespace_epoch_after": "2",
+        "target_after": {
+          "membership_id": "12101010-1010-4010-8010-101010101010",
+          "principal": {
+            "principal_id": "02020202-0202-4202-8202-020202020202",
+            "kind": "agent"
+          },
+          "workspace": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "domain_id": "22222222-2222-4222-9222-222222222222"
+          },
+          "roles": [
+            "member"
+          ],
+          "policy": "authority_fixture_v1",
+          "revision": {
+            "kind": "control",
+            "value": "9"
+          },
+          "state": "revoked"
+        },
+        "unrelated_canonical_rows_unchanged": true
+      }
+    },
+    {
+      "id": "sql-malformed-optional-revocation-infinity",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "principals",
+        "field": "revoked_at",
+        "value": "infinity",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "constraint": "principals_revoked_at_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-optional-revocation-submillisecond",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "principals",
+        "field": "revoked_at",
+        "value": "2026-10-03T12:00:00.000001Z",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "constraint": "principals_revoked_at_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-principal-control-zero",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "principals",
+        "field": "control_revision",
+        "value": "0",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "constraint": "principals_control_revision_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-membership-control-zero",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "memberships",
+        "field": "control_revision",
+        "value": "0",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "membership_id": "12101010-1010-4010-8010-101010101010"
+        },
+        "constraint": "memberships_control_revision_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-standard-revision-nonprintable",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "principals",
+        "field": "identity_standard_revision",
+        "value": "invalid\nrevision",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "constraint": "principals_identity_standard_revision_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-grant-issued-negative-infinity",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "grants",
+        "field": "issued_at",
+        "value": "-infinity",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "grant_id": "60606060-6060-4060-8060-606060606060"
+        },
+        "constraint": "grants_issued_at_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-grant-expiry-submillisecond",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "grants",
+        "field": "expires_at",
+        "value": "2026-10-03T12:09:00.000001Z",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "grant_id": "60606060-6060-4060-8060-606060606060"
+        },
+        "constraint": "grants_expires_at_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-sealed-member-control-zero",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "immutable_members",
+        "field": "control_revision",
+        "value": "0",
+        "fault_scope": "only named CHECK constraint; all other column/relationship/RLS/ACL constraints unchanged",
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "chain_id": "70707070-7070-4070-8070-707070707070",
+          "ordinal": 0
+        },
+        "constraint": "immutable_members_control_revision_check"
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-history-fourth-dirty",
+      "group": "history",
+      "input": {
+        "operation": "history_fault_after_four",
+        "fault": "fourth success false",
+        "selected_versions": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": {
+        "failure": "HistoryIntegrity",
+        "schema_or_history_written": false
+      }
+    },
+    {
+      "id": "sql-history-second-version-gap",
+      "group": "history",
+      "input": {
+        "operation": "history_fault_after_four",
+        "fault": "second version removed",
+        "selected_versions": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": {
+        "failure": "HistoryIntegrity",
+        "schema_or_history_written": false
+      }
+    },
+    {
+      "id": "sql-helper-record-identity-mismatch",
+      "group": "service_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "service_identity_boundary",
+        "field": "system_identifier",
+        "value": "0"
+      },
+      "expected": {
+        "failure": "owned PostgreSQL identity changed",
+        "database_unchanged": true,
+        "native_identity_unchanged": true
+      }
+    },
+    {
+      "id": "sql-helper-existing-roles-not-adopted",
+      "group": "service_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "service_no_adoption_boundary"
+      },
+      "expected": {
+        "failure": "new cohort roles already exist; no adoption",
+        "database_unchanged": true,
+        "roles_unchanged": true,
+        "native_identity_unchanged": true
+      }
+    },
+    {
+      "id": "sql-helper-live-backend-reset-refused",
+      "group": "service_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "service_busy_reset_boundary",
+        "holder": "one separately censused owned direct control backend",
+        "release": "positive owned close and independent backend absence"
+      },
+      "expected": {
+        "refusal_category": "busy_database_census",
+        "database_unchanged": true,
+        "database_oid_unchanged": true,
+        "holder_survived_refusal": true,
+        "destructive_reset_started": false,
+        "positive_holder_close": true,
+        "holder_backend_absent": true
+      }
     }
   ],
   "error_cases": [
@@ -1886,6 +2993,505 @@
     "row_channel": "Actual PostgreSQL VALUES result exercises driver/decoder rows32/33 without adding stored fixture rows or pretending it is an indexed stored-closure overflow. Production LIMIT/lookahead and global bound remain separately source/native qualified. No authority/effect may be admitted by channel-only tests.",
     "faults": "Control mutates only exact owned synthetic DB/role/constraint, retains actual old/new catalogue and data, and restores before next case. No broad RLS/constraint disable or fabricated seed-as-verdict.",
     "disclosure": "Every finite result excludes foreign IDs/counts, raw SQL/binds, paths/credentials and backend causes; denied cases emit no marker or product receipt.",
-    "final_effect": "A held fence is not a reusable observation. The final isolated effect rereads locked current rows and samples the originating trusted clock again immediately before effect authorization. Exclusive grant/source expiry still denies with positive rollback and no marker/CAS. A read-only project.read decision cannot advance resource control. These supplied-clock boundary inputs perform no external work or sleep while locks are held."
-  }
+    "final_effect": "A held fence is not a reusable observation. The final isolated effect rereads locked current rows and samples the originating trusted clock again immediately before effect authorization. Exclusive grant/source expiry still denies with positive rollback and no marker/CAS. A read-only project.read decision cannot advance resource control. These supplied-clock boundary inputs perform no external work or sleep while locks are held.",
+    "boundary_refinement": "Additional native boundary inputs require complete real before/after state, catalogue/constraint and terminal observations. Helper guard_cases have explicit representation or harmless owned filesystem scope only, with no SQL/server-profile/whole acceptance inferred. No fixture identity, expected object or reason enters a producer."
+  },
+  "guard_cases": [
+    {
+      "id": "guard-profile-exact",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": true,
+        "failure": null
+      }
+    },
+    {
+      "id": "guard-identity-system-identifier",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "0",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL identity changed"
+      }
+    },
+    {
+      "id": "guard-identity-postmaster-start",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:01+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL identity changed"
+      }
+    },
+    {
+      "id": "guard-identity-server-version-num",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170010,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL identity changed"
+      }
+    },
+    {
+      "id": "guard-identity-data",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/other-data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL identity changed"
+      }
+    },
+    {
+      "id": "guard-identity-socket",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/other-socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL identity changed"
+      }
+    },
+    {
+      "id": "guard-profile-listen",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "127.0.0.1",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL profile changed"
+      }
+    },
+    {
+      "id": "guard-profile-connections",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 17,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL profile changed"
+      }
+    },
+    {
+      "id": "guard-profile-encoding",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "SQL_ASCII",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL profile changed"
+      }
+    },
+    {
+      "id": "guard-profile-fsync",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "off",
+          "synchronous_commit": "on",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL profile changed"
+      }
+    },
+    {
+      "id": "guard-profile-synchronous-commit",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "off",
+          "address": null
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL profile changed"
+      }
+    },
+    {
+      "id": "guard-profile-address",
+      "group": "helper_guard",
+      "input": {
+        "operation": "profile_guard",
+        "record": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "server_pid": 123
+        },
+        "observation": {
+          "system_identifier": "72340172838076673",
+          "postmaster_start": "2026-10-03 12:00:00+00",
+          "server_version_num": 170011,
+          "data": "/fixture-owned/data",
+          "socket": "/fixture-owned/socket",
+          "listen": "",
+          "connections": 16,
+          "encoding": "UTF8",
+          "fsync": "on",
+          "synchronous_commit": "on",
+          "address": "127.0.0.1"
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL profile changed"
+      }
+    },
+    {
+      "id": "guard-pid-exact",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "contents": "123\n/fixture-owned/data\n",
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": true,
+        "failure": null
+      }
+    },
+    {
+      "id": "guard-pid-directory",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "directory",
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "invalid owned PID file"
+      }
+    },
+    {
+      "id": "guard-pid-symlink",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "symlink",
+        "contents": "123\n",
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "invalid owned PID file"
+      }
+    },
+    {
+      "id": "guard-pid-hardlink",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "hardlink_pair",
+        "contents": "123\n",
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "invalid owned PID file"
+      }
+    },
+    {
+      "id": "guard-pid-oversize",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "fill": "7",
+        "bytes": 4097,
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "invalid owned PID file"
+      }
+    },
+    {
+      "id": "guard-pid-malformed",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "contents": "not-a-pid\n",
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL PID changed"
+      }
+    },
+    {
+      "id": "guard-pid-different",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "contents": "124\n",
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PostgreSQL PID changed"
+      }
+    },
+    {
+      "id": "guard-pid-different-open-observation",
+      "group": "helper_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "two_distinct_regular_files",
+        "contents": "123\n",
+        "expected_pid": 123
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "owned PID file changed"
+      }
+    }
+  ]
 }

@@ -107,3 +107,13 @@ rejecting every changed clock cannot pass. The profile also freezes shared
 input-side initial00/live01 trusted clock samples for all seven original races.
 Every live read/effect and final SQL observer samples the supplied Clock after
 waits. Expected timestamps, results and case identities never select those samples.
+
+## Supplemental boundary and helper guard inputs
+
+The additional forty-one native cases freeze independent failure and state rules for existing-policy and privilege drift, nonempty policy restrictions, stale and exhausted permission revisions, namespace rollback, malformed optional and selected stored values, exact migration history and owned service refusal. They retain complete actual before/after observations. Only the individually named CHECK fault is permitted for a malformed stored value; every other constraint, row-security and privilege requirement remains.
+
+Twenty separate helper guards qualify only the measured comparison predicate or bounded reads of harmless owned test files. Their public paths, PID and server fields are synthetic representations. They do not describe the workstation or substitute for an actual PostgreSQL identity, profile, process, service, race, release or recovery observation. A pair of distinct owned files tests mismatched metadata observations; it is not a claim that a nondeterministic file-swap race was observed. Never alter the running server PID file or host configuration for these guards.
+
+All seventy previously admitted supplemental cases, ten finite failures, seventy-two original decisions, seven original races and four held-effect cases retain their literal inputs and expectations. The five-file package and every existing reading, row, connection, clock, storage and execution bound remain. Exact independent static acceptance and local fixture delivery precede new consumer changes. No coverage gain, successful next run, product writer or remaining obligation is claimed by these inputs.
+
+The oversized repeated-purpose input is a composite oversize-plus-duplicate rejection. It cannot independently discriminate the length cap: a valid stored policy contains at most sixteen purposes and the mutation must be a unique subset. The issued-time corruption uses negative infinity so the retained issued-before-expiry constraint still holds; only its named finite-time CHECK is faulted. The submillisecond grant expiry remains in the future with an ordinary positive lifetime. Setup failure never substitutes for the selected guarded decoder observation.
