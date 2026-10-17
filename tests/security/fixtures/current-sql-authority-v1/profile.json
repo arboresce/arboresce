@@ -201,20 +201,20 @@
   },
   "package_files": {
     "README.md": {
-      "sha256": "66c5878ed9a69f796c8e56915bda84cdf6565c2f2a1c76c236e163e9bf7df1be",
-      "bytes": 9524
+      "sha256": "617960276812ea1b85b489c6bea3d35828259ac0129ccc44d8a1bcacc0ea3c62",
+      "bytes": 11841
     },
     "schema.json": {
-      "sha256": "374a3ba4c9b9dda4aa467c38610938cb6714b6232dd1c03a24f73f3899f8d08c",
-      "bytes": 62607
+      "sha256": "f0764ddf9000355789a65cccb8880acef7d0844d3e923c1ad4712b505dd55a6a",
+      "bytes": 64301
     },
     "realization.json": {
       "sha256": "56da7160dec196c6a60c06c33a017916a715769f68c0aefaaa1109537f4c8ed2",
       "bytes": 163898
     },
     "cases.json": {
-      "sha256": "0cd5138b79ea9ac1212e258970c3dc58cbaf1335ad59150caba77f7e8a915048",
-      "bytes": 108895
+      "sha256": "38bac25c2b24cbca1cabae0b17236ba0514c41ef671a4ff2774c1a2893087b5a",
+      "bytes": 144658
     }
   },
   "historical_sources": {
@@ -231,17 +231,39 @@
       "initial_snapshot_sample": "2026-10-03T12:00:00.000Z",
       "current_permission_and_final_sample": "2026-10-03T12:00:01.000Z",
       "selection": "Independent shared trusted synthetic test configuration for every original authority_races input, selected only by initial-snapshot versus live-current/permission/final phase. Each live adapter read/effect samples the supplied Clock after waits. The final complete SQL-state observer also makes an actual trusted Clock call after both positive terminals/owned closes. Never read expected after.now, case identity, decision or revoked_at to choose a sample. This is no ambient wall-clock, production time or scheduler-duration claim."
+    },
+    "reader_failure": {
+      "port": "Clock::now",
+      "result": "declared error without a timestamp",
+      "calls": 1,
+      "phase": "after all required tuple waits and locked reads",
+      "source": "Independent trusted qualification configuration, never an untrusted request field",
+      "scope": "Injected dependency result only, not a host-clock fault or observed SQL transport cause"
     }
   },
   "boundary_supplement": {
     "classification": "Static independent literal boundary inputs; no executed or accepted runtime",
-    "additional_native_cases": 41,
-    "separate_helper_guards": 20,
+    "additional_native_cases": 56,
+    "separate_helper_guards": 28,
     "original_supplemental_cases_preserved": 70,
     "finite_errors_preserved": 10,
-    "aggregate_cases": 141,
-    "helper_guard_scope": "Profile comparison representations and bounded owned temporary filesystem only; no native server-profile/identity/race evidence",
+    "aggregate_cases": 168,
+    "helper_guard_scope": "Profile representations, bounded owned temporary PID files and pre-effect constructor rejection only; no native server-profile/identity/race evidence",
     "consumer_protocol": "Only each input and separately selected trusted configuration enter producers; expected objects, fixture IDs and reasons remain in assertions. No threshold, exclusions, budgets or original decisions change.",
-    "cardinality_case_scope": "Repeated17 purposes qualify composite oversize-plus-duplicate rejection, not an isolated cardinality discriminator; existing16-element policy and unique-subset caps remain."
+    "cardinality_case_scope": "Repeated17 purposes qualify composite oversize-plus-duplicate rejection, not an isolated cardinality discriminator; existing16-element policy and unique-subset caps remain.",
+    "additional_literal_migration_mappings": 4,
+    "previous_boundary_native_cases_preserved": 41,
+    "previous_helper_guards_preserved": 20
+  },
+  "decoder_completion_supplement": {
+    "classification": "Static independent literal inputs, no runtime acceptance",
+    "additional_native_cases": 15,
+    "additional_constructor_rejections": 8,
+    "separate_literal_migration_mappings": 4,
+    "all_previous_111_native_inputs_and_expected_preserved": true,
+    "all_previous_10_error_and_20_guard_records_preserved": true,
+    "cleanup": "Validate constructor operation/layout/PID and bounds before owned filesystem effects. Unexpected later setup/cleanup failure still fails the test; do not substitute it for a declared guard result.",
+    "real_scope": "Legacy partial metadata and exact single-CHECK faults, range-valid ordinal continuity, actual same-count required-column identity, injected trusted Clock result. Structured MigrateError and constructor records have separate representation-only attribution.",
+    "no_waiver": "All original budgets, roles, reading/row/storage/clock/connection caps, strict standard coverage, actual dual-lane/native/model/probe/resource/retention/conservation/cleanup/review/normal delivery and real-input requirements remain. No next-run coverage gain or completion is promised."
   }
 }

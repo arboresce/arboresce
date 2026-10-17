@@ -2863,6 +2863,621 @@
         "positive_holder_close": true,
         "holder_backend_absent": true
       }
+    },
+    {
+      "id": "sql-legacy-isolated-principals-kind",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "principals",
+        "columns": [
+          "kind"
+        ],
+        "target": {
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [
+            "grants",
+            "immutable_chains",
+            "immutable_members"
+          ],
+          "related_nullable_keys": [
+            {
+              "relation": "memberships",
+              "target": {
+                "organization_id": "11111111-1111-4111-8111-111111111111",
+                "domain_id": "22222222-2222-4222-9222-222222222222",
+                "principal_id": "01010101-0101-4101-8101-010101010101",
+                "membership_id": "10101010-1010-4010-8010-101010101010"
+              },
+              "column": "principal_kind",
+              "value": null
+            },
+            {
+              "relation": "memberships",
+              "target": {
+                "organization_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+                "domain_id": "bbbbbbbb-bbbb-4bbb-9bbb-bbbbbbbbbbbb",
+                "principal_id": "01010101-0101-4101-8101-010101010101",
+                "membership_id": "11101010-1010-4010-8010-101010101010"
+              },
+              "column": "principal_kind",
+              "value": null
+            }
+          ],
+          "reason": "The unclassified selected principal must remain physically readable. Nullable legacy member kinds preserve their actual foreign keys; absent unselected grant/seal rows cannot reference an invented Human kind. No selected chain exists and no constraint is dropped."
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "human_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "kind": null,
+          "control_revision": 2,
+          "created_at": "2026-10-02T12:00:00+00:00",
+          "identity_standard": "nip-01",
+          "identity_standard_revision": "nip-01/2026-10-02"
+        },
+        "selected_decoder_relation": "principals"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-legacy-isolated-principals-control-revision",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "principals",
+        "columns": [
+          "control_revision"
+        ],
+        "target": {
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [
+            "grants",
+            "immutable_chains",
+            "immutable_members"
+          ],
+          "related_nullable_keys": [],
+          "reason": "The unclassified selected principal must remain physically readable. Nullable legacy member kinds preserve their actual foreign keys; absent unselected grant/seal rows cannot reference an invented Human kind. No selected chain exists and no constraint is dropped."
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "human_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "kind": "human",
+          "control_revision": null,
+          "created_at": "2026-10-02T12:00:00+00:00",
+          "identity_standard": "nip-01",
+          "identity_standard_revision": "nip-01/2026-10-02"
+        },
+        "selected_decoder_relation": "principals"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-legacy-isolated-principals-created-at",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "principals",
+        "columns": [
+          "created_at"
+        ],
+        "target": {
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [
+            "grants",
+            "immutable_chains",
+            "immutable_members"
+          ],
+          "related_nullable_keys": [],
+          "reason": "The unclassified selected principal must remain physically readable. Nullable legacy member kinds preserve their actual foreign keys; absent unselected grant/seal rows cannot reference an invented Human kind. No selected chain exists and no constraint is dropped."
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "human_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "kind": "human",
+          "control_revision": 2,
+          "created_at": null,
+          "identity_standard": "nip-01",
+          "identity_standard_revision": "nip-01/2026-10-02"
+        },
+        "selected_decoder_relation": "principals"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-legacy-isolated-principals-identity-standard",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "principals",
+        "columns": [
+          "identity_standard"
+        ],
+        "target": {
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [
+            "grants",
+            "immutable_chains",
+            "immutable_members"
+          ],
+          "related_nullable_keys": [],
+          "reason": "The unclassified selected principal must remain physically readable. Nullable legacy member kinds preserve their actual foreign keys; absent unselected grant/seal rows cannot reference an invented Human kind. No selected chain exists and no constraint is dropped."
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "human_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "kind": "human",
+          "control_revision": 2,
+          "created_at": "2026-10-02T12:00:00+00:00",
+          "identity_standard": null,
+          "identity_standard_revision": "nip-01/2026-10-02"
+        },
+        "selected_decoder_relation": "principals"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-legacy-isolated-principals-identity-standard-revision",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "principals",
+        "columns": [
+          "identity_standard_revision"
+        ],
+        "target": {
+          "principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [
+            "grants",
+            "immutable_chains",
+            "immutable_members"
+          ],
+          "related_nullable_keys": [],
+          "reason": "The unclassified selected principal must remain physically readable. Nullable legacy member kinds preserve their actual foreign keys; absent unselected grant/seal rows cannot reference an invented Human kind. No selected chain exists and no constraint is dropped."
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "human_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "kind": "human",
+          "control_revision": 2,
+          "created_at": "2026-10-02T12:00:00+00:00",
+          "identity_standard": "nip-01",
+          "identity_standard_revision": null
+        },
+        "selected_decoder_relation": "principals"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-legacy-isolated-memberships-principal-kind",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "memberships",
+        "columns": [
+          "principal_kind"
+        ],
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "membership_id": "10101010-1010-4010-8010-101010101010"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [],
+          "related_nullable_keys": []
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "owner_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "principal_kind": null,
+          "roles": [
+            "owner"
+          ],
+          "policy": "authority_fixture_v1",
+          "control_revision": 7
+        },
+        "selected_decoder_relation": "memberships"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-legacy-isolated-memberships-policy",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "memberships",
+        "columns": [
+          "policy"
+        ],
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "membership_id": "10101010-1010-4010-8010-101010101010"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [],
+          "related_nullable_keys": []
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "owner_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "principal_kind": "human",
+          "roles": [
+            "owner"
+          ],
+          "policy": null,
+          "control_revision": 7
+        },
+        "selected_decoder_relation": "memberships"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-legacy-isolated-memberships-control-revision",
+      "group": "legacy",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "legacy_null_metadata",
+        "relation": "memberships",
+        "columns": [
+          "control_revision"
+        ],
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "01010101-0101-4101-8101-010101010101",
+          "membership_id": "10101010-1010-4010-8010-101010101010"
+        },
+        "legacy_setup": {
+          "initial_schema_version": 3,
+          "apply_schema_version": 4,
+          "pre_migration_relations": [
+            "organizations",
+            "domains",
+            "principals",
+            "memberships"
+          ],
+          "post_migration_fill": "Populate the original base fields except the exact selected nullable metadata and related nullable keys specified in this input. No legacy field gains an inferred default.",
+          "selected_chain_id": null,
+          "omit_unselected_relations": [],
+          "related_nullable_keys": []
+        }
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "owner_inferred": false,
+        "marker_rows_added": 0,
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seed_failures": 0,
+        "normal_constraints_enabled": true,
+        "selected_metadata": {
+          "principal_kind": "human",
+          "roles": [
+            "owner"
+          ],
+          "policy": "authority_fixture_v1",
+          "control_revision": null
+        },
+        "selected_decoder_relation": "memberships"
+      },
+      "qualification_scope": "One selected nullable legacy metadata field only; every preceding selected decoder field remains populated. Preserve the actual FK-safe no-chain recipe and all normal constraints. Actual selected guarded decoder failure is independent of the preceding adapter call trace."
+    },
+    {
+      "id": "sql-malformed-principals-identity-profile-empty",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "principals",
+        "field": "identity_profile",
+        "value": "",
+        "target": {
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "constraint": "principals_identity_profile_check",
+        "fault_scope": "Only the exact named CHECK is removed. All NOT NULL, uniqueness, foreign-key, other CHECK, role, ACL and RLS constraints remain. The real selected SQL guarded value must reject; an unexpected setup error never qualifies."
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-principals-identity-version-empty",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "principals",
+        "field": "identity_version",
+        "value": "",
+        "target": {
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "constraint": "principals_identity_version_check",
+        "fault_scope": "Only the exact named CHECK is removed. All NOT NULL, uniqueness, foreign-key, other CHECK, role, ACL and RLS constraints remain. The real selected SQL guarded value must reject; an unexpected setup error never qualifies."
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-principals-public-key-empty",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "principals",
+        "field": "public_key",
+        "value": "\\x",
+        "target": {
+          "principal_id": "02020202-0202-4202-8202-020202020202"
+        },
+        "constraint": "principals_public_key_check",
+        "fault_scope": "Only the exact named CHECK is removed. All NOT NULL, uniqueness, foreign-key, other CHECK, role, ACL and RLS constraints remain. The real selected SQL guarded value must reject; an unexpected setup error never qualifies."
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-malformed-memberships-state-empty",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "controlled_stored_fault",
+        "relation": "memberships",
+        "field": "state",
+        "value": "",
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "principal_id": "02020202-0202-4202-8202-020202020202",
+          "membership_id": "12101010-1010-4010-8010-101010101010"
+        },
+        "constraint": "memberships_state_check",
+        "fault_scope": "Only the exact named CHECK is removed. All NOT NULL, uniqueness, foreign-key, other CHECK, role, ACL and RLS constraints remain. The real selected SQL guarded value must reject; an unexpected setup error never qualifies."
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0
+      }
+    },
+    {
+      "id": "sql-immutable-selected-ordinal-gap",
+      "group": "decoder",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "selected_immutable_ordinal_gap",
+        "target": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "chain_id": "70707070-7070-4070-8070-707070707070",
+          "ordinal": 0
+        },
+        "replacement_ordinal": 1,
+        "fault_scope": "One PK/range/FK-valid ordinal rewrite in the selected single-member chain, zero CHECK or FK removals. Complete actual selected rows and normal constraints are retained."
+      },
+      "expected": {
+        "failure": "InvalidStoredData",
+        "marker_rows_added": 0,
+        "normal_constraints_enabled": true,
+        "selected_ordinals": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "sql-trusted-clock-error-after-locked-reads",
+      "group": "trusted_clock_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "trusted_clock_failure"
+      },
+      "expected": {
+        "failure": "Unavailable",
+        "marker_rows_added": 0,
+        "clock_calls": 1,
+        "authority_changed": false
+      },
+      "qualification_scope": "Actual SQL reader refusal on a separately supplied trusted Clock error after locked reads; no native host-clock fault, actual transport cause, live model or external service claim. Public request fields cannot select Clock behavior."
+    },
+    {
+      "id": "sql-catalogue-required-column-renamed-same-count",
+      "group": "catalogue_identity_boundary",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "catalogue_required_column_identity",
+        "table": "memberships",
+        "column": "lock_guard",
+        "replacement_column": "qualification_guard_renamed",
+        "dependent_checks": [
+          "memberships_lock_guard_check"
+        ],
+        "allowed_dependents": "Only the selected column name, its same-attnum column-privilege labels and the exact NOT-guard CHECK identifier rewrite; stable OIDs/attnums/flags/ownership/other constraint fields and all unrelated catalogue declarations remain exact."
+      },
+      "expected": {
+        "failure": "UnsafeRole",
+        "marker_rows_added": 0,
+        "authority_changed": false,
+        "catalogue_column_count_unchanged": true,
+        "required_name_missing": true,
+        "replacement_name_present": true,
+        "only_named_dependents_changed": true
+      },
+      "qualification_scope": "Same-count required-column identity rejection. This is not a single-field catalogue-change claim: PostgreSQL legitimately rewrites the selected dependent CHECK expression and same-attnum privilege labels on column rename. Complete actual before/after catalogues remain retained."
     }
   ],
   "error_cases": [
@@ -3492,6 +4107,163 @@
         "accepted": false,
         "failure": "owned PID file changed"
       }
+    },
+    {
+      "id": "guard-constructor-unadmitted-operation",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "unadmitted_guard"
+      },
+      "expected": {
+        "input_failure": "unadmitted helper guard"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    },
+    {
+      "id": "guard-constructor-unadmitted-layout",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "unadmitted_layout",
+        "contents": "123\n",
+        "expected_pid": 123
+      },
+      "expected": {
+        "input_failure": "unadmitted helper layout"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    },
+    {
+      "id": "guard-constructor-missing-pid",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "contents": "123\n"
+      },
+      "expected": {
+        "input_failure": "missing fixture PID"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    },
+    {
+      "id": "guard-constructor-missing-fill",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "bytes": 1,
+        "expected_pid": 123
+      },
+      "expected": {
+        "input_failure": "missing guard fill"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    },
+    {
+      "id": "guard-constructor-two-byte-ascii-fill",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "bytes": 2,
+        "fill": "xx",
+        "expected_pid": 123
+      },
+      "expected": {
+        "input_failure": "guard fixture fill exceeds its bound"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    },
+    {
+      "id": "guard-constructor-multibyte-fill",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "bytes": 1,
+        "fill": "\u00e9",
+        "expected_pid": 123
+      },
+      "expected": {
+        "input_failure": "guard fixture fill exceeds its bound"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    },
+    {
+      "id": "guard-constructor-overbound-fill-count",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "bytes": 4098,
+        "fill": "x",
+        "expected_pid": 123
+      },
+      "expected": {
+        "input_failure": "guard fixture fill exceeds its bound"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    },
+    {
+      "id": "guard-constructor-overbound-direct-contents",
+      "group": "helper_constructor_guard",
+      "input": {
+        "operation": "pid_file_guard",
+        "layout": "regular",
+        "contents": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "expected_pid": 123
+      },
+      "expected": {
+        "input_failure": "guard fixture contents exceed their bound"
+      },
+      "qualification_scope": "Representation/constructor rejection before allocation of overbound contents or creation of any owned file directory. The raw bounded JSON may name4098; no4098-byte generated PID fixture is admitted. Not a live server or actual host-failure observation."
+    }
+  ],
+  "migration_error_cases": [
+    {
+      "id": "migration-classifier-version-missing",
+      "input": {
+        "variant": "VersionMissing",
+        "version": 4
+      },
+      "expected": {
+        "failure": "MissingAppliedVersion"
+      },
+      "qualification_scope": "Structured in-memory MigrateError classification only; not an observed native SQL/IO/transport/unlock failure and not a causal explanation of any earlier failure. No public API expansion is required."
+    },
+    {
+      "id": "migration-classifier-version-mismatch",
+      "input": {
+        "variant": "VersionMismatch",
+        "version": 4
+      },
+      "expected": {
+        "failure": "ChecksumMismatch"
+      },
+      "qualification_scope": "Structured in-memory MigrateError classification only; not an observed native SQL/IO/transport/unlock failure and not a causal explanation of any earlier failure. No public API expansion is required."
+    },
+    {
+      "id": "migration-classifier-dirty",
+      "input": {
+        "variant": "Dirty",
+        "version": 4
+      },
+      "expected": {
+        "failure": "HistoryIntegrity"
+      },
+      "qualification_scope": "Structured in-memory MigrateError classification only; not an observed native SQL/IO/transport/unlock failure and not a causal explanation of any earlier failure. No public API expansion is required."
+    },
+    {
+      "id": "migration-classifier-unclassified-transport",
+      "input": {
+        "variant": "ExecuteUnclassifiedTransport",
+        "message": "literal unspecified transport error"
+      },
+      "expected": {
+        "failure": "Unknown"
+      },
+      "qualification_scope": "Structured in-memory MigrateError classification only; not an observed native SQL/IO/transport/unlock failure and not a causal explanation of any earlier failure. No public API expansion is required."
     }
   ]
 }

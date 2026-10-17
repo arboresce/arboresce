@@ -1304,6 +1304,34 @@
       "kind": "CHECK",
       "normal_rule": "1..96 valid ASCII authority token bytes",
       "fault": "Only this named CHECK is removed for97 otherwise-valid token bytes; do not remove another field's bound."
+    },
+    "principals_identity_profile_check": {
+      "relation": "principals",
+      "column": "identity_profile",
+      "kind": "CHECK",
+      "normal_rule": "profile = arboresce.nostr-identity.v1",
+      "fault": "Only this exact named CHECK is removed for the declared empty stored representation; every other constraint/ACL/RLS remains. Retain complete actual constraint before/after observations and actual selected guarded output."
+    },
+    "principals_identity_version_check": {
+      "relation": "principals",
+      "column": "identity_version",
+      "kind": "CHECK",
+      "normal_rule": "version = nip01-v1",
+      "fault": "Only this exact named CHECK is removed for the declared empty stored representation; every other constraint/ACL/RLS remains. Retain complete actual constraint before/after observations and actual selected guarded output."
+    },
+    "principals_public_key_check": {
+      "relation": "principals",
+      "column": "public_key",
+      "kind": "CHECK",
+      "normal_rule": "octet_length(public_key) = 32",
+      "fault": "Only this exact named CHECK is removed for the declared empty stored representation; every other constraint/ACL/RLS remains. Retain complete actual constraint before/after observations and actual selected guarded output."
+    },
+    "memberships_state_check": {
+      "relation": "memberships",
+      "column": "state",
+      "kind": "CHECK",
+      "normal_rule": "state IN (active, revoked)",
+      "fault": "Only this exact named CHECK is removed for the declared empty stored representation; every other constraint/ACL/RLS remains. Retain complete actual constraint before/after observations and actual selected guarded output."
     }
   }
 }
