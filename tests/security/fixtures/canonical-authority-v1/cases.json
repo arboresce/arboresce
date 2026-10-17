@@ -13,11 +13,11 @@
     "docs/requirements/identity-contract.md": "2c90ffe583dc51b6e032b0571f651c6550b04edfda3688844076016cb3efff12",
     "docs/requirements/security-and-privacy.md": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
     "docs/requirements/storage-and-search.md": "1f372f8c4be991856dfbe9c7fe1c72a128aa8eb608bc939592382b6aa29e4c38",
-    "docs/requirements/resource-profiles.md": "e0a9ebdf4c3d36ea07b49711e54feb7f0c91c730190e371f5048de590c11bfb0",
+    "docs/requirements/resource-profiles.md": "ef633a39322bb6afd549771a79d81330d56734bcf4bb4f96a329bdde5590fa73",
     "docs/requirements/project-fixtures.md": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
     "docs/requirements/testing-and-coverage.md": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531",
     "tests/security/fixtures/authority-v1/cases.json": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911",
-    "tests/security/fixtures/authority-v1/sources.json": "2d3bbf1eb98dbd3e2fa7af9bf21edf810fe83b20f434ba6edc57649b947b67a4"
+    "tests/security/fixtures/authority-v1/sources.json": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078"
   },
   "reading_limits": {
     "max_case_file_bytes": 8388608,
@@ -91150,6 +91150,22 @@
         "resource_control": {
           "kind": "control",
           "value": "13"
+        }
+      }
+    }
+  ],
+  "source_amendments": [
+    {
+      "baseline_revision": "a775e1d0b2f5f0b9c25efb4df0556813c4d6d143",
+      "scope": "Clarify the established32 canonical fixture row bound separately from fixed migration receipts and refresh only directly affected provenance. All original cases, IDs, inputs, expected observations, rights and limits remain unchanged. No runtime qualification is asserted.",
+      "sources": {
+        "tests/security/fixtures/authority-v1/sources.json": {
+          "before_sha256": "2d3bbf1eb98dbd3e2fa7af9bf21edf810fe83b20f434ba6edc57649b947b67a4",
+          "sha256": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078"
+        },
+        "docs/requirements/resource-profiles.md": {
+          "before_sha256": "e0a9ebdf4c3d36ea07b49711e54feb7f0c91c730190e371f5048de590c11bfb0",
+          "sha256": "ef633a39322bb6afd549771a79d81330d56734bcf4bb4f96a329bdde5590fa73"
         }
       }
     }

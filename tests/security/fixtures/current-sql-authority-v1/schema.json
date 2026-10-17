@@ -1,0 +1,1309 @@
+{
+  "fixture_version": "current-sql-authority-schema-v1",
+  "status": "Static expected schema/ACL catalogue pending exact independent admission; this file is not executable DDL or runtime evidence.",
+  "migration": {
+    "version": 4,
+    "selected_name": "current authority and isolated final fences",
+    "preserve": [
+      "1_records.sql",
+      "2_annotation.sql",
+      "3_tenant_authority.sql"
+    ],
+    "ledger": "Exact successful checksum-matching prefix under the existing direct migration lock; lookahead5 for four selected versions; a newer/dirty/gapped/mismatched ledger rejects before writes."
+  },
+  "namespace": "arboresce_authority",
+  "owner": "harness_migrator",
+  "domains": {
+    "identifier": "Existing checked UUIDv4 domain, unchanged",
+    "revision": "bigint CHECK value>=1 AND value<=999999999999999999",
+    "token": "text,1..96ASCII bytes; selected SQL guards must enforce before allocation even after controlled corruption",
+    "utc_millisecond": "timestamptz, finite years0001..9999,exact microseconds divisible1000; output exactly24ASCII UTC characters or invalid marker, never truncation",
+    "token_set": "text[],one dimension/lower bound1 or empty,cardinality<=16; selected output guards plus decoder reject nulls/nonASCII/oversized/duplicate members",
+    "audience": "identifier[],one dimension/lower bound1 or empty,cardinality<=32; no duplicates",
+    "standard_revision": "text,1..96 printableASCII bytes including slash; preserves the supplied nip-01/2026-10-02 revision literal. This is provenance text, not an authority policy token."
+  },
+  "extensions": {
+    "organizations": {
+      "add_nullable": {
+        "name": "text, at most256UTF-8 bytes"
+      },
+      "add_lock_guard": "boolean NOT NULL DEFAULT false CHECK NOT lock_guard",
+      "preserve": "Existing key/state/checks/RLS/ordinary privileges remain"
+    },
+    "domains": {
+      "add_nullable": {
+        "name": "text, at most256UTF-8 bytes"
+      },
+      "add_lock_guard": "boolean NOT NULL DEFAULT false CHECK NOT lock_guard",
+      "preserve": "Existing composite key/org FK/state/RLS/ordinary privileges"
+    },
+    "principals": {
+      "add_nullable": {
+        "kind": "text human/agent/service, NULL legacy unclassified",
+        "control_revision": "bounded bigint",
+        "created_at": "exact UTCmillisecond",
+        "revoked_at": "exact UTCmillisecond orNULL",
+        "identity_standard": "boundedASCII token",
+        "identity_standard_revision": "bounded standard_revision text, NULLlegacyunclassified"
+      },
+      "add_lock_guard": "boolean NOT NULL DEFAULT false CHECK NOT lock_guard",
+      "add_unique": [
+        {
+          "name": "principals_identity_kind_key",
+          "columns": [
+            "principal_id",
+            "kind"
+          ]
+        }
+      ],
+      "preserve": "Old identity_profile/version checks and profile/version/key uniqueness, checked UUID,32-byte key,state,RLS/ordinary privileges. Legacy NULL metadata never implies supported identity or Human."
+    },
+    "memberships": {
+      "add_nullable": {
+        "principal_kind": "human/agent/service",
+        "roles": "bounded token_set",
+        "policy": "boundedASCII token",
+        "control_revision": "bounded bigint"
+      },
+      "add_lock_guard": "boolean NOT NULL DEFAULT false CHECK NOT lock_guard",
+      "add_foreign_key": "(principal_id,principal_kind) REFERENCES principals(principal_id,kind)",
+      "preserve": "Organization/principal uniqueness and exact organization/domain/membership relationships; no per-domain duplicate membership or inferred workspace"
+    }
+  },
+  "tables": {
+    "namespace_guard": {
+      "columns": {
+        "singleton": "smallint PRIMARY KEY CHECK singleton=1",
+        "epoch": "bounded bigint NOT NULL",
+        "lock_guard": "boolean NOT NULL DEFAULT false CHECK NOT lock_guard"
+      },
+      "initial_row": {
+        "singleton": 1,
+        "epoch": "1",
+        "lock_guard": false
+      },
+      "row_security": "ENABLE and FORCE",
+      "scope": "Global fixed synthetic authority-namespace parent. SELECT/UPDATE USING requires complete transaction-local context but must not join/read authority before the lock completes. Admission WITH CHECKfalse,permission role may increment epoch only under first exclusive fence.",
+      "ordinary_role": "No privilege"
+    },
+    "workspace_policies": {
+      "columns": {
+        "organization_id": "identifier NOT NULL",
+        "domain_id": "identifier NOT NULL",
+        "policy": "token NOT NULL",
+        "epoch": "bounded bigint NOT NULL",
+        "state": "bounded token NOT NULL, only exactactive admits",
+        "read_roles": "token_set NOT NULL",
+        "direct_review_roles": "token_set NOT NULL",
+        "purposes": "token_set NOT NULL",
+        "grant_root_actions": "token_set NOT NULL",
+        "source_policy_ids": "token_set NOT NULL",
+        "lock_guard": "false guard"
+      },
+      "primary_key": [
+        "organization_id",
+        "domain_id"
+      ],
+      "foreign_keys": [
+        "(organization_id,domain_id) REFERENCES domains"
+      ],
+      "row_security": "ENABLE FORCE; exactselectedworkspace"
+    },
+    "source_policies": {
+      "columns": {
+        "policy_id": "token PRIMARY KEY",
+        "state": "bounded token NOT NULL, only exactactive admits",
+        "expires_at": "UTCmillisecond NOT NULL",
+        "permitted_principals": "audience NOT NULL",
+        "permitted_purposes": "token_set NOT NULL",
+        "lock_guard": "false guard"
+      },
+      "scope": "One global restrictive source-policy identity as in the original synthetic fixture, never duplicated per consuming tenant. Role visibility requires actual binding in the exact selected workspace's policy. Every global source change takes namespace UPDATE first.",
+      "row_security": "ENABLE FORCE; actualselectedworkspacepolicybinding"
+    },
+    "resources": {
+      "columns": {
+        "organization_id": "identifier NOT NULL",
+        "domain_id": "identifier NOT NULL",
+        "resource_kind": "bounded token NOT NULL",
+        "resource_id": "identifier NOT NULL",
+        "name": "text, at most256UTF-8 bytes NOT NULL",
+        "control_revision": "bounded bigint NOT NULL",
+        "state": "bounded token NOT NULL,only exactactive admits",
+        "lock_guard": "false guard"
+      },
+      "primary_key": [
+        "organization_id",
+        "domain_id",
+        "resource_kind",
+        "resource_id"
+      ],
+      "foreign_keys": [
+        "(organization_id,domain_id) REFERENCES domains"
+      ],
+      "scope": "Synthetic authority target projection only, not a product Project/expense implementation",
+      "row_security": "ENABLE FORCE;exactselectedworkspace"
+    },
+    "party_aliases": {
+      "columns": {
+        "organization_id": "identifier NOT NULL",
+        "domain_id": "identifier NOT NULL",
+        "party_id": "identifier NOT NULL",
+        "alias": "text, at most256UTF-8 bytes NOT NULL",
+        "principal_id": "identifier orNULL"
+      },
+      "primary_key": [
+        "organization_id",
+        "domain_id",
+        "party_id"
+      ],
+      "foreign_keys": [
+        "(organization_id,domain_id) REFERENCES domains",
+        "(organization_id,principal_id) REFERENCES memberships(organization_id,principal_id),NULLpermitted"
+      ],
+      "scope": "Inert stored synthetic observation; aliases never resolve an executor or grant authority",
+      "row_security": "ENABLE FORCE;exactselectedworkspace"
+    },
+    "grants": {
+      "columns": {
+        "organization_id": "identifier NOT NULL",
+        "domain_id": "identifier NOT NULL",
+        "grant_id": "identifier NOT NULL",
+        "issuer_id": "identifier NOT NULL",
+        "issuer_kind": "human/agent/service NOT NULL",
+        "subject_id": "identifier NOT NULL",
+        "subject_kind": "human/agent/service NOT NULL",
+        "parent_grant_id": "identifier orNULL",
+        "scope_organization_id": "identifier NOT NULL",
+        "scope_domain_id": "identifier NOT NULL",
+        "scope_kind": "project/expense/workspace NOT NULL",
+        "scope_resource_id": "identifier orNULLforworkspace",
+        "actions": "token_set NOT NULL",
+        "purposes": "token_set NOT NULL",
+        "delegable": "boolean NOT NULL",
+        "issued_at": "UTCmillisecond NOT NULL",
+        "expires_at": "UTCmillisecond NOT NULL",
+        "policy": "token NOT NULL",
+        "control_revision": "bounded bigint NOT NULL",
+        "state": "bounded token NOT NULL",
+        "revoked_at": "UTCmillisecond orNULL",
+        "lock_guard": "false guard"
+      },
+      "primary_key": [
+        "organization_id",
+        "domain_id",
+        "grant_id"
+      ],
+      "unique": [
+        [
+          "grant_id"
+        ]
+      ],
+      "foreign_keys": [
+        "(organization_id,domain_id) REFERENCES domains",
+        "(issuer_id,issuer_kind) REFERENCES principals(principal_id,kind)",
+        "(subject_id,subject_kind) REFERENCES principals(principal_id,kind)",
+        "(organization_id,domain_id,parent_grant_id) REFERENCES grants(organization_id,domain_id,grant_id)",
+        "(scope_organization_id,scope_domain_id,scope_kind,scope_resource_id) REFERENCES resources(organization_id,domain_id,resource_kind,resource_id),nullableworkspace reference"
+      ],
+      "checks": {
+        "grants_scope_tenant": "scope_organization_id=organization_id AND scope_domain_id=domain_id",
+        "grants_scope_shape": "workspace iff scope_resource_id ISNULL; project/expense requires exactresource",
+        "grants_lifetime": "issued_at<expires_at"
+      },
+      "row_security": "ENABLE FORCE;owningselectedworkspace",
+      "foreign_key_names": {
+        "grants_parent_fkey": "(organization_id,domain_id,parent_grant_id) REFERENCES grants",
+        "grants_scope_resource_fkey": "Exact typed scope/resource composite reference"
+      }
+    },
+    "immutable_chains": {
+      "columns": {
+        "organization_id": "identifier NOT NULL",
+        "domain_id": "identifier NOT NULL",
+        "chain_id": "identifier NOT NULL",
+        "scope_interpretation": "token NOT NULL",
+        "lock_guard": "false guard"
+      },
+      "primary_key": [
+        "organization_id",
+        "domain_id",
+        "chain_id"
+      ],
+      "unique": [
+        [
+          "chain_id"
+        ]
+      ],
+      "foreign_keys": [
+        "(organization_id,domain_id) REFERENCES domains"
+      ],
+      "scope": "Exactimmutableidentity, no ordinary write privilege; unknown interpretations remain stored but failclosed",
+      "row_security": "ENABLE FORCE;owningselectedworkspace"
+    },
+    "immutable_members": {
+      "columns": {
+        "organization_id": "identifier NOT NULL",
+        "domain_id": "identifier NOT NULL",
+        "chain_id": "identifier NOT NULL",
+        "ordinal": "smallint0..7 NOT NULL",
+        "grant_id": "identifier NOT NULL",
+        "issuer_id": "identifier NOT NULL",
+        "issuer_kind": "human/agent/service NOT NULL",
+        "subject_id": "identifier NOT NULL",
+        "subject_kind": "human/agent/service NOT NULL",
+        "parent_grant_id": "identifier orNULL",
+        "scope_organization_id": "identifier NOT NULL",
+        "scope_domain_id": "identifier NOT NULL",
+        "scope_kind": "project/expense/workspace NOT NULL",
+        "scope_resource_id": "identifier orNULLforworkspace",
+        "actions": "token_set NOT NULL",
+        "purposes": "token_set NOT NULL",
+        "delegable": "boolean NOT NULL",
+        "issued_at": "UTCmillisecond NOT NULL",
+        "expires_at": "UTCmillisecond NOT NULL",
+        "policy": "token NOT NULL",
+        "control_revision": "bounded bigint NOT NULL",
+        "state": "bounded token NOT NULL",
+        "revoked_at": "UTCmillisecond orNULL",
+        "lock_guard": "false guard"
+      },
+      "primary_key": [
+        "organization_id",
+        "domain_id",
+        "chain_id",
+        "ordinal"
+      ],
+      "unique": [
+        {
+          "name": "immutable_members_chain_grant_key",
+          "columns": [
+            "organization_id",
+            "domain_id",
+            "chain_id",
+            "grant_id"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        "(organization_id,domain_id,chain_id) REFERENCES immutable_chains",
+        "(organization_id,domain_id,grant_id) REFERENCES grants",
+        "(issuer_id,issuer_kind) REFERENCES principals(principal_id,kind)",
+        "(subject_id,subject_kind) REFERENCES principals(principal_id,kind)",
+        "sealedscope exactresource composite FK,nullableforworkspace"
+      ],
+      "checks": {
+        "immutable_members_scope_tenant": "scope_organization_id=organization_id AND scope_domain_id=domain_id",
+        "scope_shape": "Same typedshape as grants",
+        "lifetime": "issued_at<expires_at"
+      },
+      "parent_semantics": "Sealed parent ID is immutable typed content, compared to ordered predecessor; it is not regenerated from a mutable parent join.",
+      "row_security": "ENABLE FORCE;owningselectedworkspace",
+      "foreign_key_names": {
+        "immutable_members_chain_fkey": "Exact owning chain",
+        "immutable_members_grant_fkey": "Exact owning livegrant identity",
+        "immutable_members_scope_resource_fkey": "Exact typed sealedscope/resource reference"
+      }
+    },
+    "qualification_markers": {
+      "columns": {
+        "organization_id": "identifier NOT NULL",
+        "domain_id": "identifier NOT NULL",
+        "marker_id": "identifier NOT NULL",
+        "observation_id": "identifier NOT NULL",
+        "executor_principal_id": "identifier NOT NULL",
+        "selected_chain_id": "identifier orNULL",
+        "action": "token NOT NULL",
+        "purpose": "token NOT NULL",
+        "resource_kind": "token NOT NULL",
+        "resource_id": "identifier NOT NULL",
+        "admitted_policy_epoch": "bounded bigint NOT NULL",
+        "admitted_membership_revision": "bounded bigint NOT NULL",
+        "admitted_grant_revision": "bounded bigint orNULL",
+        "admitted_resource_control": "bounded bigint NOT NULL"
+      },
+      "primary_key": [
+        "organization_id",
+        "domain_id",
+        "marker_id"
+      ],
+      "unique": [
+        [
+          "observation_id"
+        ]
+      ],
+      "foreign_keys": [
+        "(organization_id,domain_id,resource_kind,resource_id) REFERENCES resources",
+        "executor_principal_id REFERENCES principals",
+        "(organization_id,domain_id,selected_chain_id) REFERENCES immutable_chains"
+      ],
+      "scope": "Only preallocated input identities. One synthetic accepted marker within the same fenced positive COMMIT; no product receipt/outbox/effect or human assurance.",
+      "row_security": "ENABLE FORCE;exactselectedworkspace/executor/action-targetbinding"
+    }
+  },
+  "permission_rules": {
+    "admission_select": "Only exact current selected closure and executor/current participating principal rows; no broad arbitraryparticipant GUC, no foreigndisclosure",
+    "admission_update_guard": "For lock-only relations grant only UPDATE(lock_guard), with role-specific permissive UPDATE USING exact closure and AS RESTRICTIVE UPDATE WITH CHECK(false). FOR SHARE/NO KEY UPDATE uses UPDATE-USING; actual guard DML remains denied even if a permissive UPDATE exists. Complete actual policy/column ACL validation still rejects an unexpected policy. Relations with separately admitted real control/state updates grant only those columns, no guard-column UPDATE.",
+    "admission_effect": "Exact scoped qualification marker INSERT and resource control_revision UPDATE only, separately witnessed; no other table INSERT/UPDATE/DELETE/TRUNCATE/TRIGGER/REFERENCES or schemaCREATE/functionEXECUTE implied.",
+    "permission_writer": "Only the four permission_entrypoints below are enabled. Every entry completes namespace FOR UPDATE before authority discovery and deterministic selected-row locks. No other principal/source/role mutation API, sealed mutation, marker INSERT or product write is enabled.",
+    "ordinary_role": "Its four existing SELECT policies/privileges remain exact; no newtable/columnUPDATE or internalrolemembership.",
+    "catalogue": "Exact owner/forcedRLS, policyrole/command/USING/WITHCHECK and per-column ACL observations, including forbidden inherited/PUBLIC paths, must precede session admission.",
+    "permission_entrypoints": "Only four explicit synthetic permission entry variants are enabled: current membership revoke/revision, current grant revoke/revision/time, selected workspace-policy restriction/epoch and exact resource-control compare-and-increment. Their private transaction constructor first completes namespace FOR UPDATE then fresh current reads/key-ordered locks. No raw connection or unfenced transaction escapes the public API; every variant uses that constructor. INSERT/DELETE/TRUNCATE are ungranted; NO ACTION FKs prevent mutation cascades; sealed members cannot be edited. Other permission mutation capabilities remain unavailable pending their own gates. ACLs alone are not claimed to fence an arbitrary credential-holder SQL client."
+  },
+  "unresolved": [
+    "Exact SOURCE/EXPECTED/DISTINCT static admission and delivery remain required; actual implementation, complete catalogue/security census, observed transaction outcomes and native resource qualification are later gates."
+  ],
+  "exclusions": "No stored human assurance, actual principal-directory/authentication proof, bootstrap/product writer or complete application persistence.",
+  "role_columns": {
+    "harness_authority_admission": {
+      "schema_usage": [
+        "arboresce_authority"
+      ],
+      "select": [
+        "organizations",
+        "domains",
+        "principals",
+        "memberships",
+        "namespace_guard",
+        "workspace_policies",
+        "source_policies",
+        "resources",
+        "party_aliases",
+        "grants",
+        "immutable_chains",
+        "immutable_members",
+        "qualification_markers"
+      ],
+      "update": {
+        "organizations": [
+          "lock_guard"
+        ],
+        "domains": [
+          "lock_guard"
+        ],
+        "principals": [
+          "lock_guard"
+        ],
+        "memberships": [
+          "lock_guard"
+        ],
+        "workspace_policies": [
+          "lock_guard"
+        ],
+        "source_policies": [
+          "lock_guard"
+        ],
+        "grants": [
+          "lock_guard"
+        ],
+        "immutable_chains": [
+          "lock_guard"
+        ],
+        "immutable_members": [
+          "lock_guard"
+        ],
+        "namespace_guard": [
+          "lock_guard"
+        ],
+        "resources": [
+          "control_revision"
+        ]
+      },
+      "insert": {
+        "qualification_markers": "Only exact declared marker columns"
+      },
+      "delete": [],
+      "truncate": [],
+      "trigger": [],
+      "references": [],
+      "schema_create": false,
+      "user_defined_function_execute": false,
+      "member_of": []
+    },
+    "harness_authority_permission": {
+      "schema_usage": [
+        "arboresce_authority"
+      ],
+      "select": [
+        "organizations",
+        "domains",
+        "principals",
+        "memberships",
+        "namespace_guard",
+        "workspace_policies",
+        "source_policies",
+        "resources",
+        "party_aliases",
+        "grants",
+        "immutable_chains",
+        "immutable_members"
+      ],
+      "update": {
+        "organizations": [
+          "lock_guard"
+        ],
+        "domains": [
+          "lock_guard"
+        ],
+        "principals": [
+          "lock_guard"
+        ],
+        "source_policies": [
+          "lock_guard"
+        ],
+        "immutable_chains": [
+          "lock_guard"
+        ],
+        "immutable_members": [
+          "lock_guard"
+        ],
+        "namespace_guard": [
+          "epoch"
+        ],
+        "memberships": [
+          "state",
+          "control_revision"
+        ],
+        "grants": [
+          "state",
+          "control_revision",
+          "revoked_at"
+        ],
+        "workspace_policies": [
+          "state",
+          "epoch",
+          "purposes"
+        ],
+        "resources": [
+          "control_revision"
+        ]
+      },
+      "insert": {},
+      "delete": [],
+      "truncate": [],
+      "trigger": [],
+      "references": [],
+      "schema_create": false,
+      "user_defined_function_execute": false,
+      "member_of": []
+    }
+  },
+  "policy_semantics": {
+    "legacy_policies": "All existing migration3 PUBLIC policies remain byte-exact and applicable, ordinary role unchanged. New role restrictions AND with them; no roles rewrites.",
+    "context_restrictive": "Each table: AS RESTRICTIVE FOR ALL TO bothnewroles USING complete nonempty organization/domain/principal context WITHCHECK samecontext. selected_chain is an exact optional identity supplied only by trusted server normalization.",
+    "selected_principals": "Exact current executor OR issuer/subject in selected persisted immutable_members with owningorganization/domain/chain matching context; include revoked rows, no active-only filter, caller-list GUC or recursive policy join.",
+    "selected_memberships": "Current organization and actual selected principal set; retain stored domain for explicit exact-workspace comparison. No current-active filtering.",
+    "selected_source": "policy_id actually appears in selected workspace_policies.source_policy_ids; workspace policy predicate is exact context with no membership/principal joins.",
+    "selected_tenant": "organization/domain equal normalized selected context; actual grant/sealed owning keys determine RLS, not copied mutable scope contents.",
+    "lock_only_update": "Perrole SELECT and UPDATE-USING admit exact selectedlockrows. AS RESTRICTIVE FORUPDATE WITHCHECK(false) for every role/table having lock_guard-only privilege; actual updates stay denied irrespective of permissiveOR. This does not apply to separately enumerated realstate/control columns; no guardUPDATE is granted there.",
+    "no_recursion": "Principal/membership visibility may read immutable_members; immutable member/header/resource/workspace policy rules use contextonly, never principal/membership/source policy joins. Sourcepolicy rule may read workspacepolicy, whose rule is contextonly.",
+    "positive_effect": "MarkerINSERT requires selectedcontext+executor+same-workspace typedFKs; resourceCAS permits only the control_revision column inexactselectedworkspace. No product table or command receipt rights.",
+    "permission_updates": "Only exact enumerated table/columns above, context-scoped; every exposed mutation method first finishes the parentUPDATE statement. No rawSQLmutation API, INSERT/DELETEor cascadingmutations."
+  },
+  "expected_policies": {
+    "organizations": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'')",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "permission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'')",
+        "with_check": "false"
+      }
+    ],
+    "domains": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "permission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      }
+    ],
+    "principals": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "(principals.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (principals.principal_id=im.issuer_id OR principals.principal_id=im.subject_id)))",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "(principals.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (principals.principal_id=im.issuer_id OR principals.principal_id=im.subject_id)))",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "(principals.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (principals.principal_id=im.issuer_id OR principals.principal_id=im.subject_id)))",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "(principals.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (principals.principal_id=im.issuer_id OR principals.principal_id=im.subject_id)))",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "permission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "(principals.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (principals.principal_id=im.issuer_id OR principals.principal_id=im.subject_id)))",
+        "with_check": "false"
+      }
+    ],
+    "memberships": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND (memberships.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (memberships.principal_id=im.issuer_id OR memberships.principal_id=im.subject_id)))",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND (memberships.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (memberships.principal_id=im.issuer_id OR memberships.principal_id=im.subject_id)))",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND (memberships.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (memberships.principal_id=im.issuer_id OR memberships.principal_id=im.subject_id)))",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND (memberships.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (memberships.principal_id=im.issuer_id OR memberships.principal_id=im.subject_id)))",
+        "with_check": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND (memberships.principal_id::text=nullif(current_setting('arboresce.principal_id',true),'') OR EXISTS (SELECT 1 FROM arboresce_authority.immutable_members im WHERE im.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND im.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND im.chain_id::text=nullif(current_setting('arboresce.chain_id',true),'') AND (memberships.principal_id=im.issuer_id OR memberships.principal_id=im.subject_id)))",
+        "allowed_columns": [
+          "state",
+          "control_revision"
+        ]
+      }
+    ],
+    "namespace_guard": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "allowed_columns": [
+          "epoch"
+        ]
+      }
+    ],
+    "workspace_policies": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "allowed_columns": [
+          "state",
+          "epoch",
+          "purposes"
+        ]
+      }
+    ],
+    "source_policies": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "EXISTS (SELECT 1 FROM arboresce_authority.workspace_policies wp WHERE wp.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND wp.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND source_policies.policy_id=ANY(wp.source_policy_ids))",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "EXISTS (SELECT 1 FROM arboresce_authority.workspace_policies wp WHERE wp.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND wp.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND source_policies.policy_id=ANY(wp.source_policy_ids))",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "EXISTS (SELECT 1 FROM arboresce_authority.workspace_policies wp WHERE wp.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND wp.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND source_policies.policy_id=ANY(wp.source_policy_ids))",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "EXISTS (SELECT 1 FROM arboresce_authority.workspace_policies wp WHERE wp.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND wp.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND source_policies.policy_id=ANY(wp.source_policy_ids))",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "permission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "EXISTS (SELECT 1 FROM arboresce_authority.workspace_policies wp WHERE wp.organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND wp.domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND source_policies.policy_id=ANY(wp.source_policy_ids))",
+        "with_check": "false"
+      }
+    ],
+    "resources": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "allowed_columns": [
+          "control_revision"
+        ]
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "allowed_columns": [
+          "control_revision"
+        ]
+      }
+    ],
+    "party_aliases": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": null
+      }
+    ],
+    "grants": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "allowed_columns": [
+          "state",
+          "control_revision",
+          "revoked_at"
+        ]
+      }
+    ],
+    "immutable_chains": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "permission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      }
+    ],
+    "immutable_members": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_selected_lock_or_control",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "admission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      },
+      {
+        "name": "permission_selected_lock_or_change",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false",
+        "allowed_columns": [
+          "lock_guard"
+        ]
+      },
+      {
+        "name": "permission_lock_only_check",
+        "command": "UPDATE",
+        "roles": [
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'')",
+        "with_check": "false"
+      }
+    ],
+    "qualification_markers": [
+      {
+        "name": "internal_complete_context",
+        "command": "ALL",
+        "roles": [
+          "harness_authority_admission",
+          "harness_authority_permission"
+        ],
+        "permissive": false,
+        "using": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL",
+        "with_check": "nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL"
+      },
+      {
+        "name": "internal_selected_read",
+        "command": "SELECT",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND executor_principal_id::text=nullif(current_setting('arboresce.principal_id',true),'')",
+        "with_check": null
+      },
+      {
+        "name": "admission_scoped_marker",
+        "command": "INSERT",
+        "roles": [
+          "harness_authority_admission"
+        ],
+        "permissive": true,
+        "using": null,
+        "with_check": "organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND domain_id::text=nullif(current_setting('arboresce.domain_id',true),'') AND executor_principal_id::text=nullif(current_setting('arboresce.principal_id',true),'')"
+      }
+    ]
+  },
+  "policy_expression_contract": "Expressions are independent expected SQL predicates before DDL exists. Catalogue observations retain complete actual pg_get_expr/permissive/roles/command vectors; comparisons may normalize parse-format whitespace/casts without changing meaning. Test code must not execute these expectations as migration SQL or fabricate catalogue values from them.",
+  "no_extra_user_objects": "No user-defined security-definer/invoker functions, triggers, views or inheritance are introduced; exact expected table/column/ACL/policy catalogue remains closed. Old migration3 policies remain separately pinned byte-exact.",
+  "controlled_fault_constraints": {
+    "resources_control_revision_check": {
+      "relation": "resources",
+      "column": "control_revision",
+      "kind": "CHECK",
+      "normal_rule": "1<=control_revision<=999999999999999999",
+      "fault": "Only this named CHECK is removed for actual selected storedzero; all other constraints and RLS remain."
+    },
+    "principals_created_at_check": {
+      "relation": "principals",
+      "column": "created_at",
+      "kind": "CHECK",
+      "normal_rule": "NULL legacy or finite UTC year0001..9999 with exact microseconds divisible1000",
+      "fault": "Only this named combined finite/precision CHECK is removed for infinity or submillisecond actual storedfault; no rounding."
+    },
+    "memberships_roles_check": {
+      "relation": "memberships",
+      "column": "roles",
+      "kind": "CHECK",
+      "normal_rule": "NULLlegacy or valid one-dimensional bounded token_set with cardinality<=16",
+      "fault": "Only this named CHECK is removed for17 distinct otherwise-valid elements. Exact16 pairedpositive retains every normal constraint; duplicate validation cannot mask the cap."
+    },
+    "workspace_policies_policy_check": {
+      "relation": "workspace_policies",
+      "column": "policy",
+      "kind": "CHECK",
+      "normal_rule": "1..96 valid ASCII authority token bytes",
+      "fault": "Only this named CHECK is removed for97 otherwise-valid token bytes; do not remove another field's bound."
+    }
+  }
+}

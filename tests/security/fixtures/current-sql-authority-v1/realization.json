@@ -1,0 +1,4128 @@
+{
+  "fixture_version": "current-sql-authority-realization-v1",
+  "status": "UNACCEPTED static mapping, no schema/consumer admission",
+  "original_case_file": "tests/security/fixtures/authority-v1/cases.json",
+  "original_sha256": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911",
+  "cases": [
+    {
+      "id": "workspace-a-same-human",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/0/input",
+      "original_expected_pointer": "/cases/0/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "workspace-b-same-human",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/1/input",
+      "original_expected_pointer": "/cases/1/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "workspace-a-own-agent-read",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/2/input",
+      "original_expected_pointer": "/cases/2/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "workspace-b-own-agent-read",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/3/input",
+      "original_expected_pointer": "/cases/3/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "workspace-a-service-read",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/4/input",
+      "original_expected_pointer": "/cases/4/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-principal",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/5/input",
+      "original_expected_pointer": "/cases/5/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-membership",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/6/input",
+      "original_expected_pointer": "/cases/6/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "selected-workspace-never-inferred-from-name",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/7/input",
+      "original_expected_pointer": "/cases/7/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "other-tenant-resource-despite-both-memberships",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/8/input",
+      "original_expected_pointer": "/cases/8/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "crossed-organization-domain",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/9/input",
+      "original_expected_pointer": "/cases/9/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "same-organization-other-domain",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/10/input",
+      "original_expected_pointer": "/cases/10/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-resource",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/11/input",
+      "original_expected_pointer": "/cases/11/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "wrong-purpose",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/12/input",
+      "original_expected_pointer": "/cases/12/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "client-authorizer-is-not-authority",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/13/input",
+      "original_expected_pointer": "/cases/13/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "colliding-party-alias-is-not-principal",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/14/input",
+      "original_expected_pointer": "/cases/14/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "revoked-principal",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/15/input",
+      "original_expected_pointer": "/cases/15/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-identity-profile",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/16/input",
+      "original_expected_pointer": "/cases/16/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [
+        {
+          "relation": "principals",
+          "constraint": "principals_identity_version_check",
+          "operation": "drop exact old CHECK before independent input seed",
+          "purpose": "Actual stored unsupported version reaches current executor admission; do not relax migration3 or convert seed rejection into verdict"
+        }
+      ],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "revoked-membership",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/17/input",
+      "original_expected_pointer": "/cases/17/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "stale-owner-cache-after-role-removal",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/18/input",
+      "original_expected_pointer": "/cases/18/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-membership-policy",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/19/input",
+      "original_expected_pointer": "/cases/19/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "revoked-organization",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/20/input",
+      "original_expected_pointer": "/cases/20/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "revoked-domain",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/21/input",
+      "original_expected_pointer": "/cases/21/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "revoked-project",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/22/input",
+      "original_expected_pointer": "/cases/22/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "missing-current-policy",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/23/input",
+      "original_expected_pointer": "/cases/23/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "new-policy-epoch-denies-old-purpose",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/24/input",
+      "original_expected_pointer": "/cases/24/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "expired-source-policy",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/25/input",
+      "original_expected_pointer": "/cases/25/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-source-policy",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/26/input",
+      "original_expected_pointer": "/cases/26/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "source-audience-cannot-be-expanded-by-asset",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/27/input",
+      "original_expected_pointer": "/cases/27/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "stale-cache-rechecked-current-permission-still-allows",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/28/input",
+      "original_expected_pointer": "/cases/28/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "source-policies-intersect-never-union",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/29/input",
+      "original_expected_pointer": "/cases/29/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 2,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 32,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 2,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 32
+        }
+      ]
+    },
+    {
+      "id": "grant-root-own-key-project-review",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/30/input",
+      "original_expected_pointer": "/cases/30/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-own-key-project-review",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/31/input",
+      "original_expected_pointer": "/cases/31/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "agent-membership-alone-cannot-review",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/32/input",
+      "original_expected_pointer": "/cases/32/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-selected-chain",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/33/input",
+      "original_expected_pointer": "/cases/33/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "selected-chain-other-executor",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/34/input",
+      "original_expected_pointer": "/cases/34/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-wrong-project",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/35/input",
+      "original_expected_pointer": "/cases/35/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 3,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 32,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 3,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 32
+        }
+      ]
+    },
+    {
+      "id": "grant-wrong-purpose",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/36/input",
+      "original_expected_pointer": "/cases/36/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-wrong-action",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/37/input",
+      "original_expected_pointer": "/cases/37/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "stale-target-cas",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/38/input",
+      "original_expected_pointer": "/cases/38/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-current-root-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/39/input",
+      "original_expected_pointer": "/cases/39/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-current-child-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/40/input",
+      "original_expected_pointer": "/cases/40/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-expiry-exclusive-root",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/41/input",
+      "original_expected_pointer": "/cases/41/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-expiry-exclusive-child",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/42/input",
+      "original_expected_pointer": "/cases/42/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-not-yet-issued",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/43/input",
+      "original_expected_pointer": "/cases/43/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-unknown-policy",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/44/input",
+      "original_expected_pointer": "/cases/44/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-parent-not-delegable",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/45/input",
+      "original_expected_pointer": "/cases/45/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-widens-actions",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/46/input",
+      "original_expected_pointer": "/cases/46/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-widens-purpose",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/47/input",
+      "original_expected_pointer": "/cases/47/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-widens-lifetime",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/48/input",
+      "original_expected_pointer": "/cases/48/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-widens-resource",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/49/input",
+      "original_expected_pointer": "/cases/49/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-crosses-workspace",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/50/input",
+      "original_expected_pointer": "/cases/50/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [
+        {
+          "relation": "grants",
+          "constraint": "grants_scope_tenant",
+          "operation": "drop exact owning-tenant CHECK before seed"
+        },
+        {
+          "relation": "immutable_members",
+          "constraint": "immutable_members_scope_tenant",
+          "operation": "drop exact sealed owning-tenant CHECK before seed"
+        }
+      ],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-wrong-parent",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/51/input",
+      "original_expected_pointer": "/cases/51/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [
+        {
+          "relation": "grants",
+          "constraint": "grants_parent_fkey",
+          "operation": "drop exact parent FK before independent input seed",
+          "purpose": "Both live and sealed child store nonexistent0909 parent; no repair/root inference"
+        }
+      ],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-child-wrong-issuer",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/52/input",
+      "original_expected_pointer": "/cases/52/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-issuer-principal-currently-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/53/input",
+      "original_expected_pointer": "/cases/53/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-middle-principal-currently-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/54/input",
+      "original_expected_pointer": "/cases/54/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-root-issuer-membership-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/55/input",
+      "original_expected_pointer": "/cases/55/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-middle-membership-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/56/input",
+      "original_expected_pointer": "/cases/56/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-chain-empty",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/57/input",
+      "original_expected_pointer": "/cases/57/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 1,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 29,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 1,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 29
+        }
+      ]
+    },
+    {
+      "id": "grant-chain-reversed",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/58/input",
+      "original_expected_pointer": "/cases/58/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-chain-duplicate",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/59/input",
+      "original_expected_pointer": "/cases/59/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [
+        {
+          "relation": "immutable_members",
+          "constraint": "immutable_members_chain_grant_key",
+          "operation": "drop exact chain/grant UNIQUE before seed",
+          "purpose": "Persist root/root/child at three distinct ordinals; no DISTINCT/dedup/order repair"
+        }
+      ],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 4,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 32,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 4,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 32
+        }
+      ]
+    },
+    {
+      "id": "grant-chain-missing-root",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/60/input",
+      "original_expected_pointer": "/cases/60/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 2,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 30,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 2,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 30
+        }
+      ]
+    },
+    {
+      "id": "immutable-chain-cannot-follow-changed-grant-content",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/61/input",
+      "original_expected_pointer": "/cases/61/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "unknown-chain-scope-interpretation",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/62/input",
+      "original_expected_pointer": "/cases/62/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-does-not-expand-source-audience",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/63/input",
+      "original_expected_pointer": "/cases/63/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "agent-grant-is-not-financial-human-assurance",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/64/input",
+      "original_expected_pointer": "/cases/64/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 3,
+            "party_aliases": 2,
+            "grants": 1,
+            "immutable_chains": 1,
+            "independent_sealed_members": 1,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 28,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 3,
+            "party_aliases": 2,
+            "grants": 1,
+            "immutable_chains": 1,
+            "independent_sealed_members": 1,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 28
+        }
+      ]
+    },
+    {
+      "id": "human-key-is-not-financial-human-assurance",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/65/input",
+      "original_expected_pointer": "/cases/65/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 3,
+            "party_aliases": 2,
+            "grants": 1,
+            "immutable_chains": 1,
+            "independent_sealed_members": 1,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 28,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 3,
+            "party_aliases": 2,
+            "grants": 1,
+            "immutable_chains": 1,
+            "independent_sealed_members": 1,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 28
+        }
+      ]
+    },
+    {
+      "id": "final-fence-membership-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/71/input",
+      "original_expected_pointer": "/cases/71/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": "Positive initial observation terminal, then separate actual permission transaction applies input.final_effect_snapshot changes to same owned DB, fresh final transaction rereads after waits with actual injected trusted clock",
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        },
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "final",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "final-fence-grant-revoked",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/72/input",
+      "original_expected_pointer": "/cases/72/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": "Positive initial observation terminal, then separate actual permission transaction applies input.final_effect_snapshot changes to same owned DB, fresh final transaction rereads after waits with actual injected trusted clock",
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        },
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "final",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "final-fence-policy-restricts",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/73/input",
+      "original_expected_pointer": "/cases/73/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": "Positive initial observation terminal, then separate actual permission transaction applies input.final_effect_snapshot changes to same owned DB, fresh final transaction rereads after waits with actual injected trusted clock",
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        },
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "final",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "final-fence-target-cas-changed",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/74/input",
+      "original_expected_pointer": "/cases/74/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": "Positive initial observation terminal, then separate actual permission transaction applies input.final_effect_snapshot changes to same owned DB, fresh final transaction rereads after waits with actual injected trusted clock",
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        },
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "final",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "final-fence-still-current",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/75/input",
+      "original_expected_pointer": "/cases/75/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": "Positive initial observation terminal, then separate actual permission transaction applies input.final_effect_snapshot changes to same owned DB, fresh final transaction rereads after waits with actual injected trusted clock",
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        },
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "final",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "revocation-commits-before-admission",
+      "group": "authority_races",
+      "original_input_pointer": "/cases/111/input",
+      "original_expected_pointer": "/cases/111/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "admission-commits-before-revocation",
+      "group": "authority_races",
+      "original_input_pointer": "/cases/112/input",
+      "original_expected_pointer": "/cases/112/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 1
+          },
+          "expected_peak_total": 32
+        }
+      ]
+    },
+    {
+      "id": "same-control-two-writers-one-winner",
+      "group": "authority_races",
+      "original_input_pointer": "/cases/113/input",
+      "original_expected_pointer": "/cases/113/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 1
+          },
+          "expected_peak_total": 32
+        }
+      ]
+    },
+    {
+      "id": "grant-race-revoke-before-admit",
+      "group": "authority_races",
+      "original_input_pointer": "/cases/114/input",
+      "original_expected_pointer": "/cases/114/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "grant-race-admit-before-revoke",
+      "group": "authority_races",
+      "original_input_pointer": "/cases/115/input",
+      "original_expected_pointer": "/cases/115/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 1
+          },
+          "expected_peak_total": 32
+        }
+      ]
+    },
+    {
+      "id": "policy-race-revoke-before-admit",
+      "group": "authority_races",
+      "original_input_pointer": "/cases/116/input",
+      "original_expected_pointer": "/cases/116/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    },
+    {
+      "id": "policy-race-admit-before-revoke",
+      "group": "authority_races",
+      "original_input_pointer": "/cases/117/input",
+      "original_expected_pointer": "/cases/117/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 1
+          },
+          "expected_peak_total": 32
+        }
+      ]
+    },
+    {
+      "id": "grant-child-not-yet-issued",
+      "group": "current_authority",
+      "original_input_pointer": "/cases/181/input",
+      "original_expected_pointer": "/cases/181/expected",
+      "initial_seed": "Complete original input.canonical_snapshot with typed fields and independently supplied sealed members",
+      "controlled_constraint_faults": [],
+      "normal_constraints_retained": "Every other CHECK/FK/UNIQUE/PK/owner/ACL/RLS stays exact; no global disable",
+      "final_fence": null,
+      "row_mapping": [
+        {
+          "null_financial_event_rows": 0,
+          "scope": "Static input snapshot/before-marker footprint separately from expected post-admission peak; neither is actual SQL measurement. Never seed an expected future marker. Fixed migration ledger/control catalogue separately observed.",
+          "source_snapshot": "initial",
+          "input_snapshot_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "input_snapshot_total": 31,
+          "expected_peak_row_counts": {
+            "organizations": 2,
+            "domains": 3,
+            "principals": 5,
+            "memberships": 6,
+            "policies": 2,
+            "source_policies": 1,
+            "resources": 2,
+            "party_aliases": 2,
+            "grants": 2,
+            "immutable_chains": 2,
+            "independent_sealed_members": 3,
+            "namespace_parent": 1,
+            "accepted_marker_rows": 0
+          },
+          "expected_peak_total": 31
+        }
+      ]
+    }
+  ],
+  "snapshot_count": 84,
+  "logical_row_distribution": {
+    "31": 73,
+    "32": 7,
+    "29": 1,
+    "30": 1,
+    "28": 2
+  },
+  "authority_owner_mapping": {
+    "workspace": {
+      "organization_id": "11111111-1111-4111-8111-111111111111",
+      "domain_id": "22222222-2222-4222-9222-222222222222"
+    },
+    "grant_ids": [
+      "60606060-6060-4060-8060-606060606060",
+      "61616161-6161-4161-8161-616161616161"
+    ],
+    "chain_ids": [
+      "70707070-7070-4070-8070-707070707070",
+      "71717171-7171-4171-8171-717171717171"
+    ],
+    "rule": "Explicit immutable synthetic owning namespace for these original records, independent of every request selected workspace or mutable/sealed scope. No inference from names, subjects, current root scope or caller participant lists. A cross-workspace malformed scope changes only the independently seeded scope columns through the exact named faults."
+  },
+  "same_database_final_changes": "Final snapshots use the same actual owned namespace, separate positive permission COMMIT and fresh final admission; never reset/reseed to fake continuity between initial and final reads.",
+  "sealed_seed": "Each immutable member is seeded from its own original immutable_chains[].members[] fields. No lookup/copy of grants[] may substitute for sealed input, even when equal.",
+  "fault_readiness": "Normal initial readiness observes exact complete catalogue. Per-session consumer validates security/ACL/RLS/owner boundaries and all selected data; it receives no fixture flag that skips checks. Named integrity corruption is independently recorded at test control boundary, not silently accepted as normal schema.",
+  "restore": "Retain actual fault catalogue, row contents and positive/failed terminal observations. Close exact owned sessions and recreate only the owned fixture DB before the next case, reapply exact migrations and reobserve complete normal catalogue. Synthetic role/membership faults are reverted explicitly and actually verified; DB reset alone does not restore cluster roles.",
+  "financial_null": "The two null financial_review_event keys select no stored event. Actual disabled/no-event state is observed; no event, singleton or human assurance is constructed. Observation key shape is a fixture format selector, not copied authority facts.",
+  "afterstate": "Every canonical before/after record, inert name/alias, independent sealed field and marker is read from actual SQL. now is an actual call to the explicitly injected trusted synthetic clock after waits. Expected and current input values are not stitched into observed state.",
+  "physical_accounting": "All actual canonical fixture rows, aliases, independent sealed copies, namespace and accepted markers remain within32. Up to four fixed migration receipts are separately censused: proposed normal v4 total<=36 requires actual native census. Each intentional negative overflow retains its explicit temporary census and restoration. Other authority/audit rows cannot be classified administrative.",
+  "normal_constraints": "All unspecified constraints/security policies remain enabled and validated. No seed failure is an adapter verdict; malformed selected rows must reach actual bounded nonowner reads.",
+  "distribution_scope": "The84-entry distribution is conservative expected peak footprint, not initial census. Only unchanged original input canonical snapshots and marker_rows_before seed rows. Four winning races have input31 plus expected peakmarker1=32; the actual before0/after1 must be observed independently."
+}

@@ -7,7 +7,7 @@
     "docs/requirements/identity-contract.md": "2c90ffe583dc51b6e032b0571f651c6550b04edfda3688844076016cb3efff12",
     "docs/requirements/project-fixtures.md": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
     "tests/security/fixtures/authority-v1/cases.json": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911",
-    "tests/security/fixtures/authority-v1/sources.json": "2d3bbf1eb98dbd3e2fa7af9bf21edf810fe83b20f434ba6edc57649b947b67a4",
+    "tests/security/fixtures/authority-v1/sources.json": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078",
     "crates/arboresce-postgres/migrations/1_records.sql": "34f36106937fee8e45db31a6e26e537ceeace7411c91fd2c603781a96291af7c",
     "crates/arboresce-postgres/migrations/2_annotation.sql": "9c6f8d35f2f575176b13428a62895858c943b8b3974ca4ca07de26ad600d76a4",
     "crates/arboresce-postgres/migrations/3_tenant_authority.sql": "504f3d72b2bad515423d0e7bfee4ac756aab1d97a3cb698b8d91103bec3d4e4f"
@@ -2729,5 +2729,17 @@
       }
     }
   ],
-  "canonical_rls_recipe": "Each of these12 cases starts with complete seed. Commit only explicit revoke_table change, if any. Open actualnonownerconnection, BEGIN, install only explicitly suppliedorganization/domain/principal settings transaction-locally (missingvaluesempty). SELECT raw fullrows from all4canonicaltables WITHOUT additional organization/principal/state WHERE filters; compare exact independent visible_canonical_rows. Rollbackpositively on samebackend, observe null context. Observe complete namedcanonicalafterstate through independentprivilegedconnection, restoreseed, verifycatalogue unchanged. Policies permit selectedprincipal/membership stateinspection as explicitly declared; these reads do not authorize any action."
+  "canonical_rls_recipe": "Each of these12 cases starts with complete seed. Commit only explicit revoke_table change, if any. Open actualnonownerconnection, BEGIN, install only explicitly suppliedorganization/domain/principal settings transaction-locally (missingvaluesempty). SELECT raw fullrows from all4canonicaltables WITHOUT additional organization/principal/state WHERE filters; compare exact independent visible_canonical_rows. Rollbackpositively on samebackend, observe null context. Observe complete namedcanonicalafterstate through independentprivilegedconnection, restoreseed, verifycatalogue unchanged. Policies permit selectedprincipal/membership stateinspection as explicitly declared; these reads do not authorize any action.",
+  "source_amendments": [
+    {
+      "baseline_revision": "a775e1d0b2f5f0b9c25efb4df0556813c4d6d143",
+      "scope": "Clarify the established32 canonical fixture row bound separately from fixed migration receipts and refresh only directly affected provenance. All original cases, IDs, inputs, expected observations, rights and limits remain unchanged. No runtime qualification is asserted.",
+      "sources": {
+        "tests/security/fixtures/authority-v1/sources.json": {
+          "before_sha256": "2d3bbf1eb98dbd3e2fa7af9bf21edf810fe83b20f434ba6edc57649b947b67a4",
+          "sha256": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078"
+        }
+      }
+    }
+  ]
 }

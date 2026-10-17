@@ -15,7 +15,7 @@
     "docs/requirements/security-and-privacy.md": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
     "docs/requirements/project-fixtures.md": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
     "contracts/public/v1/project-workflow.schema.json": "644ed6e64e604d84179b8a225a68aa975afabc52aeb531edd13337fc316f88ef",
-    "tests/security/fixtures/authority-v1/sources.json": "2d3bbf1eb98dbd3e2fa7af9bf21edf810fe83b20f434ba6edc57649b947b67a4",
+    "tests/security/fixtures/authority-v1/sources.json": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078",
     "tests/security/fixtures/authority-v1/cases.json": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911"
   },
   "reading_limits": {
@@ -2308,6 +2308,18 @@
         "failure": "InvalidStoredData",
         "principal_id": null,
         "identity": null
+      }
+    }
+  ],
+  "source_amendments": [
+    {
+      "baseline_revision": "a775e1d0b2f5f0b9c25efb4df0556813c4d6d143",
+      "scope": "Clarify the established32 canonical fixture row bound separately from fixed migration receipts and refresh only directly affected provenance. All original cases, IDs, inputs, expected observations, rights and limits remain unchanged. No runtime qualification is asserted.",
+      "sources": {
+        "tests/security/fixtures/authority-v1/sources.json": {
+          "before_sha256": "2d3bbf1eb98dbd3e2fa7af9bf21edf810fe83b20f434ba6edc57649b947b67a4",
+          "sha256": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078"
+        }
       }
     }
   ]

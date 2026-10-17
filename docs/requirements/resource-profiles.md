@@ -331,8 +331,16 @@ are at most 500 ms and connection establishment at most 1,000 ms. Controlled
 migration jobs separately allow 10,000 ms statements, 15,000 ms transactions and
 5,000 ms lock waits. These do not change ordinary application budgets.
 
-Each scenario uses a freshly recreated owned database and at most 32 typed rows;
-the actual retained cluster must remain below 256 MiB. Record actual storage,
+Each scenario uses a freshly recreated owned database and at most 32 canonical
+fixture rows, including aliases, independent sealed members, namespace guards
+and accepted markers. Fixed migration receipts are counted separately: at most
+four successful receipts for the selected four-version profile. Its normal
+physical user-row total is therefore at most 36. This accounting does not qualify
+that proposed profile; retain an actual native census before accepting it.
+Do not classify arbitrary authority or audit rows as administrative receipts.
+An intentional negative overflow setup must record its bounded temporary census
+and restoration instead of claiming that it stayed within the positive bound.
+The actual retained cluster must remain below 256 MiB. Record actual storage,
 server allocations/configuration and failure behavior. Readiness checks bind the
 selected server and roles, not an ambient default database. Cleanup/shutdown has
 a 10,000 ms deadline and may address only the exact owned cluster/PID; retain
