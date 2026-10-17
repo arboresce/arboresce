@@ -48,5 +48,23 @@ effect fence or transferable authority. The existing readonly tenant boundary,
 actual races, bootstrap, shared admission and pooling remain required. This
 component enables no product/bootstrap writer, authentication or human assurance.
 
+`policy::bootstrap::check_scope` checks the explicitly registered namespace and
+policy against a current canonical one-use grant and a normalized request. The
+authenticated operator is a separate typed argument. All six names have the
+independently frozen nonempty ASCII token bound of 96 bytes before comparisons; the
+stored lifetime must be nonempty, with inclusive issuance and exclusive expiry.
+Consumed, retired, foreign-tenant and mismatching selections fail explicitly.
+The borrowed check allocates no heap and performs no I/O or mutation. A matching
+scope returns only `()`, with no capability or grant consumption.
+
+The adapter still owns bounded decoding, real operator authentication, healthy
+trusted time and current canonical reads. Checked new-owner format establishes
+no existence, membership or key proof. The
+[`bootstrap-scope-v1` fixtures](../../tests/security/fixtures/bootstrap-scope-v1/README.md)
+preserve all ten original observations and 33 finite boundary cases. The measured
+input-only helper observes the actual API and unchanged typed grant. Every
+product/bootstrap writer still requires authentic independently retained
+lifecycle continuity and its separately qualified command and effect boundary.
+
 Use the workspace's Rust 1.99.0 checks and complete native/source collection,
 following the repository guidance and the independently frozen migration fixtures.

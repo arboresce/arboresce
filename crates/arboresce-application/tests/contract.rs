@@ -10,6 +10,7 @@ use serde_json::{Value, json};
 
 mod support {
     pub mod authority;
+    pub mod bootstrap;
     pub mod principal;
 }
 
@@ -336,6 +337,60 @@ fn complete_principal_failure_interoperability() {
             "{}",
             case["id"]
         );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_original_bootstrap_scope() {
+    let raw = include_str!("../../../tests/security/fixtures/authority-v1/cases.json");
+    assert!(raw.len() <= 8_388_608);
+    let original: Value = serde_json::from_str(raw).unwrap();
+    let raw = include_str!("../../../tests/security/fixtures/bootstrap-scope-v1/profile.json");
+    assert!(raw.len() <= 65_536);
+    let profile: Value = serde_json::from_str(raw).unwrap();
+    let cases: Vec<_> = original["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["group"] == "bootstrap_scope")
+        .collect();
+    assert_eq!(cases.len(), 10);
+    println!();
+    for case in cases {
+        let before = case["input"].clone();
+        let actual = support::bootstrap::observe(&case["input"], &profile["fixture_configuration"]);
+        assert_eq!(case["input"], before);
+        assert_eq!(actual["scope"], case["expected"], "{}", case["id"]);
+        assert_eq!(case["input"]["writer_enabled"], false);
+        assert_eq!(case["input"]["independent_lifecycle_proof"], "not_supplied");
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_bounded_bootstrap_scope_profile() {
+    let raw = include_str!("../../../tests/security/fixtures/bootstrap-scope-v1/cases.json");
+    assert!(raw.len() <= 131_072);
+    let fixture: Value = serde_json::from_str(raw).unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 33);
+    println!();
+    for case in cases {
+        let before = case["input"].clone();
+        let actual = support::bootstrap::observe(&case["input"], &case["input"]["configuration"]);
+        assert_eq!(case["input"], before);
+        assert_eq!(actual, case["expected"], "{}", case["id"]);
+        assert_eq!(case["input"]["writer_enabled"], false);
+        assert_eq!(case["input"]["independent_lifecycle_proof"], "not_supplied");
         println!(
             "collector case={} pid={}",
             case["id"].as_str().unwrap(),

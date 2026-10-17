@@ -1054,6 +1054,33 @@ fn independently_approved_source_inventory_native_boundary() {
     .unwrap();
     let raw_profile = include_str!("../../../tests/architecture/rust-source-roles-v1.json");
     let profile: Value = serde_json::from_str(raw_profile).unwrap();
+    let reviewed_counts = &fixture["native_source_counts"];
+    assert_eq!(
+        reviewed_counts["version"],
+        "source-inventory-native-source-counts-v1"
+    );
+    assert_eq!(
+        reviewed_counts["case_id"],
+        "inventory-native-current-public-checkout"
+    );
+    let profile_sha256 = arboresce_xtask::inventory::sha256(raw_profile.as_bytes());
+    let mut matching_counts = reviewed_counts["profiles"]
+        .as_array()
+        .expect("native inventory fixture needs input profiles")
+        .iter()
+        .filter(|row| row["profile_sha256"].as_str() == Some(profile_sha256.as_str()));
+    let expected_source_count = usize::try_from(
+        matching_counts
+            .next()
+            .expect("native inventory fixture needs this reviewed input profile")["source_count"]
+            .as_u64()
+            .expect("reviewed native source count must be unsigned"),
+    )
+    .expect("reviewed native source count exceeds usize");
+    assert!(
+        matching_counts.next().is_none(),
+        "native inventory fixture duplicates this input profile"
+    );
     let root = Path::new(env!("CARGO_MANIFEST_DIR"))
         .parent()
         .unwrap()
@@ -1063,6 +1090,9 @@ fn independently_approved_source_inventory_native_boundary() {
     for case in fixture["native_cases"].as_array().unwrap() {
         let id = case["id"].as_str().unwrap();
         assert!(seen.insert(id));
+        if case["mode"] == "actual" {
+            assert_eq!(case["id"], reviewed_counts["case_id"], "{id}");
+        }
         let temporary = support::PreparedRoot::new().unwrap();
         let temp_profile = temporary.path.join("profile.json");
         let mut command = Command::new(env!("CARGO_BIN_EXE_arboresce-source-inventory"));
@@ -1216,11 +1246,7 @@ fn independently_approved_source_inventory_native_boundary() {
             assert_eq!(file["sha256"], literal["sha256"], "{id}");
             assert_eq!(file["size"], literal["size"], "{id}");
             let sources = actual["sources"].as_array().unwrap();
-            assert_eq!(
-                sources.len(),
-                case["source_count"].as_u64().unwrap() as usize,
-                "{id}"
-            );
+            assert_eq!(sources.len(), expected_source_count, "{id}");
             assert_eq!(actual["sources"], profile["sources"], "{id}");
             assert_eq!(actual["targets"], profile["targets"], "{id}");
             assert_eq!(

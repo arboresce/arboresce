@@ -3,6 +3,7 @@
 use arboresce_domain::Identifier;
 
 pub mod authority;
+pub mod bootstrap;
 pub mod principal;
 
 /// An explicitly selected canonical organization/domain pair.

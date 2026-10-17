@@ -43,6 +43,45 @@
       "required": true,
       "tests": [
         {
+          "name": "complete_bounded_bootstrap_scope_profile",
+          "prefix": "collector case=",
+          "case_ids": [
+            "bootstrap-profile-allowed-ascii-token-characters",
+            "bootstrap-profile-configuration-namespace-control",
+            "bootstrap-profile-configuration-namespace-empty",
+            "bootstrap-profile-configuration-namespace-non-ascii",
+            "bootstrap-profile-configuration-namespace-one-over",
+            "bootstrap-profile-configuration-policy-control",
+            "bootstrap-profile-configuration-policy-empty",
+            "bootstrap-profile-configuration-policy-non-ascii",
+            "bootstrap-profile-configuration-policy-one-over",
+            "bootstrap-profile-empty-grant-lifetime",
+            "bootstrap-profile-explicit-trusted-renamed-scope",
+            "bootstrap-profile-grant-namespace-control",
+            "bootstrap-profile-grant-namespace-empty",
+            "bootstrap-profile-grant-namespace-non-ascii",
+            "bootstrap-profile-grant-namespace-one-over",
+            "bootstrap-profile-grant-policy-control",
+            "bootstrap-profile-grant-policy-empty",
+            "bootstrap-profile-grant-policy-non-ascii",
+            "bootstrap-profile-grant-policy-one-over",
+            "bootstrap-profile-issuance-inclusive",
+            "bootstrap-profile-last-millisecond-before-expiry",
+            "bootstrap-profile-request-namespace-control",
+            "bootstrap-profile-request-namespace-empty",
+            "bootstrap-profile-request-namespace-non-ascii",
+            "bootstrap-profile-request-namespace-one-over",
+            "bootstrap-profile-request-policy-control",
+            "bootstrap-profile-request-policy-empty",
+            "bootstrap-profile-request-policy-non-ascii",
+            "bootstrap-profile-request-policy-one-over",
+            "bootstrap-profile-reversed-grant-lifetime",
+            "bootstrap-profile-tokens-exact-96",
+            "bootstrap-profile-unregistered-matching-namespace",
+            "bootstrap-profile-unregistered-matching-policy"
+          ]
+        },
+        {
           "name": "complete_canonical_authority_failures",
           "prefix": "collector case=",
           "case_ids": [
@@ -205,6 +244,22 @@
             "application-record-exact-large",
             "application-record-maximum",
             "application-record-other-organization"
+          ]
+        },
+        {
+          "name": "complete_original_bootstrap_scope",
+          "prefix": "collector case=",
+          "case_ids": [
+            "bootstrap-already-consumed",
+            "bootstrap-cannot-resurrect-retired-scope",
+            "bootstrap-cross-tenant",
+            "bootstrap-exact-operator-namespace-policy",
+            "bootstrap-expired-exclusive",
+            "bootstrap-future-grant",
+            "bootstrap-not-one-use",
+            "bootstrap-wrong-namespace",
+            "bootstrap-wrong-operator",
+            "bootstrap-wrong-policy"
           ]
         },
         {
