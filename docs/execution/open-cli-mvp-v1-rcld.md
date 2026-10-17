@@ -853,6 +853,57 @@ All 112 remain open, together with whole E205 and its later authentication,
 continuity, pooling, human, recovery and product gates. No product or bootstrap
 writer is enabled.
 
+The current SQL authority and final-effect component is independently accepted
+and locally committed at `6457715d377fa7e2737d4dfcff6c7cf51d3a8a52`. Its selected fourth forward
+migration preserves the earlier migration profiles. Nonowner admission and
+permission sessions check canonical rows, complete catalogue integrity, forced
+row security and column privileges. Parent-first locks retain the selected
+participants, policies and exact immutable grant chains through a positive
+terminal. A live admission fence repeats current authority, target control and
+trusted time checks after waits before its isolated marker or review CAS effect.
+
+Unknown completion and cancellation poison the owned session. Its finite local
+connection slot remains charged until bounded transport destruction completes.
+This qualifies the isolated direct-session profile, not a general pool,
+authentication, product persistence or a bootstrap writer.
+
+Five additional complete tests run the original 72 current-authority cases,
+seven real permission races and 193 separately admitted supplemental cases:
+272 additional registered events. Independent expected rowsets, four complete
+migration-history rows and their actual SQL types, raw catalogue vectors,
+constraint identities, role observations, blockers, backend identities and Clock
+observations remain distinct from representation, cleanup and preparation
+probes. Those probes establish no substitute native error, actual recovery or
+external provider behavior.
+
+Fresh Rust 1.99.0 owning and public-only standalone lanes each pass 124 tests,
+5,643 complete events and all 90 strict scopes across 69 measured sources.
+Each conserves 25 objects, 212 fresh main profiles, 714 physical process pairs,
+five native scopes and 14,945 retained runtime files. Owning policy coverage is
+20,221/20,755 executable lines and 36,456/39,308 regions. Standalone coverage is
+20,222/20,755 lines and 36,457/39,308 regions. Every required scope independently
+exceeds 90% in its actual standard LLVM report.
+
+Separate source/public/completeness and expected/qualification reviewers and a
+distinct delivery witness accept the exact 23-path component and all 354
+qualified public inputs. Actual source postcommit review is complete.
+Both exact emitted images retain independently reconciled conditional resource
+models. Four separate fresh default/1 MiB stack probes each run all 41 selected
+source-JSON cases and produce independently decoded profiles outside whole
+coverage. Requested payload estimates do not bound observed RSS or operating
+system memory. Both owned PostgreSQL services stop cleanly through their
+controllers inside their original unextended leases, including verified restart
+successors. Failed runs, rejected inputs and command errors retain their actual
+negative results, corrections and unresolved causes.
+
+This historical annotation changes only this plan; all 353 other qualified
+inputs remain unchanged. No fresh complete executable run on the annotated
+plan bytes is claimed. The 72 original current-SQL cases and seven permission
+races are delivered. Ten bootstrap-scope and 23 shared-admission cases remain,
+with whole E205 and its authentication, authentic lifecycle, pooling, human,
+recovery, native, user and production gates. No product or bootstrap writer is
+enabled.
+
 Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
