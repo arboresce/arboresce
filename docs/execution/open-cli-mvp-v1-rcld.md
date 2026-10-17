@@ -809,6 +809,50 @@ shared-admission cases remain. Whole E205, actual authentication and pooling,
 authentic lifecycle continuity, human assurance, recovery and product gates
 remain required. No product or bootstrap writer is enabled.
 
+The bounded canonical-policy evaluator is independently accepted and locally
+committed at `b2aa4d634f3c92c23108028af99e47edd83c437c`. It evaluates explicit project scope,
+current participant identities and memberships, configured policy, immutable
+grant-chain contents, restrictive source intersections and target control over
+bounded trusted decoded projections. Evaluation allocates no heap and performs
+no I/O. Its immutable observation establishes neither authentication nor a
+database or effect fence. The existing read-only tenant session and SQL
+privileges remain unchanged.
+
+The three new tests execute 72 original semantic cases, 119 additional policy
+and boundary cases, and six finite diagnostic cases: 197 additional registered
+case events. Nine complete admitted observations and five final-snapshot
+reevaluations remain within their original case identities. All original authority
+fixture bytes, six application test bodies, 61 tool test bodies and 5,174
+previously registered events remain preserved. The measured helper decodes
+inputs and records evaluator outputs; expected results remain in assertions.
+
+Fresh Rust 1.99.0 owning and independent public-only standalone runs each pass
+119 tests, 5,371 complete events and all 79 strict scopes across 58 measured
+sources. Each conserves 23 objects, 208 fresh profiles, 705 physical process
+pairs, five native scopes and 61 bounded merge commands. Owning policy coverage
+is 14,670/15,053 executable lines and 27,164/29,116 regions; standalone coverage
+is 14,671/15,053 lines and 27,165/29,116 regions. Every required scope exceeds
+90% in its actual standard LLVM report. Auxiliary profiles do not replace
+whole-suite coverage.
+
+Separate source/public/completeness and expected/qualification reviewers and a
+distinct delivery witness accept the exact twelve-path component and all 335
+qualified public inputs. Actual source postcommit review is complete. Exact
+current-image resource-model reconciliation precedes four separate fresh
+default/1 MiB stack probes; their conditional estimates and observations
+establish no universal OS/RSS bound. Both owned database services stop cleanly
+inside their original unextended leases. Failed commands, held candidates and
+records of unavailable historical bytes remain retained without invented causes
+or backfilled evidence.
+
+This subsequent historical annotation changes only this plan; all 334 other
+qualified inputs remain unchanged. No fresh complete executable run on these
+annotated plan bytes is claimed. The evaluator delivers no additional original
+current-SQL, final-effect-fence, bootstrap, race or shared-admission obligation.
+All 112 remain open, together with whole E205 and its later authentication,
+continuity, pooling, human, recovery and product gates. No product or bootstrap
+writer is enabled.
+
 Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
