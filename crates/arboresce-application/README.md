@@ -30,5 +30,23 @@ This is application mapping semantics. Real SQL directory integration, actual
 signed-request authentication, I/O deadlines, current policy/revocation and all
 product/bootstrap writers remain at their separate qualified consumers.
 
+`policy::authority` evaluates the explicitly selected
+[`canonical-authority-evaluation-v1`](../../tests/security/fixtures/canonical-authority-v1/README.md)
+processing profile over a bounded trusted canonical projection. It checks the
+selected workspace, current canonical principal/membership/policy, restrictive
+source intersections, exact immutable delegation links and supplied target CAS.
+Trusted configuration supplies supported policy names; no fixture policy is a
+production default. Its immutable observation retains actual selected identities
+and revisions. The evaluator borrows decoded records and allocates no heap.
+
+The projection is complete for every selected and participating required record.
+Unrelated well-formed rows receive structural/uniqueness checks without globally
+resolving foreign policies or references. Adapters must qualify bounded decoding
+and current canonical SQL reads separately. Re-evaluating a new supplied snapshot
+proves pure policy semantics; it supplies no conflicting database lock, current
+effect fence or transferable authority. The existing readonly tenant boundary,
+actual races, bootstrap, shared admission and pooling remain required. This
+component enables no product/bootstrap writer, authentication or human assurance.
+
 Use the workspace's Rust 1.99.0 checks and complete native/source collection,
 following the repository guidance and the independently frozen migration fixtures.

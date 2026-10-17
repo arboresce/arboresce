@@ -9,6 +9,7 @@ use std::{
 use serde_json::{Value, json};
 
 mod support {
+    pub mod authority;
     pub mod principal;
 }
 
@@ -171,6 +172,143 @@ fn complete_checked_stored_principals() {
     for case in cases {
         assert_eq!(
             support::principal::stored_observation(&case["input"]),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_original_current_authority() {
+    let raw = include_str!("../../../tests/security/fixtures/authority-v1/cases.json");
+    assert!(raw.len() <= 8_388_608);
+    let original: Value = serde_json::from_str(raw).unwrap();
+    let raw = include_str!("../../../tests/security/fixtures/canonical-authority-v1/cases.json");
+    assert!(raw.len() <= 8_388_608);
+    let fixture: Value = serde_json::from_str(raw).unwrap();
+    let cases: Vec<_> = original["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["group"] == "current_authority")
+        .collect();
+    assert_eq!(cases.len(), 72);
+    assert_eq!(fixture["original_case_ids"].as_array().unwrap().len(), 72);
+    let literals = fixture["original_admitted_observations"]
+        .as_array()
+        .unwrap();
+    assert_eq!(literals.len(), 9);
+    println!();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(
+            fixture["original_case_ids"]
+                .as_array()
+                .unwrap()
+                .contains(&case["id"])
+        );
+        let mut runtime = json!({
+            "canonical_snapshot":case["input"]["canonical_snapshot"],
+            "request":case["input"]["request"],
+            "configuration":{
+                "supported_policies":["authority_fixture_v1"],
+                "supported_source_policies":["source_current"],
+            },
+        });
+        let before = runtime.clone();
+        let initial = support::authority::observe(&runtime);
+        assert_eq!(runtime, before);
+        let observed = if !case["input"]["final_effect_snapshot"].is_null() {
+            assert!(
+                initial["failure"].is_null(),
+                "initial decision {id}: {initial}"
+            );
+            runtime["canonical_snapshot"] = case["input"]["final_effect_snapshot"].clone();
+            let before = runtime.clone();
+            let observed = support::authority::observe(&runtime);
+            assert_eq!(runtime, before);
+            observed
+        } else {
+            initial
+        };
+        assert_eq!(
+            if observed["failure"].is_null() {
+                "admit"
+            } else {
+                "deny"
+            },
+            case["expected"]["decision"],
+            "{id}: {observed}"
+        );
+        if observed["failure"].is_null() {
+            let expected = literals.iter().find(|r| r["id"] == id).unwrap();
+            assert_eq!(observed["observation"], expected["expected"], "{id}");
+            assert_eq!(
+                observed["observation"]["executor_principal_id"],
+                case["expected"]["actual_executor_principal_id"]
+            );
+            assert_eq!(
+                observed["observation"]["selected_chain_id"],
+                case["expected"]["selected_chain_id"]
+            );
+            assert_eq!(
+                case["expected"]["visible_resource_ids"],
+                json!([observed["observation"]["resource"]["id"]])
+            );
+        } else {
+            assert!(observed["observation"].is_null());
+            assert_eq!(case["expected"]["visible_resource_ids"], json!([]));
+        }
+        // This immutable pure API enables no effects or human mechanism.
+        assert_eq!(case["expected"]["effects"], json!([]));
+        assert_eq!(case["expected"]["human_assurance_issued"], false);
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
+fn complete_canonical_authority_profile() {
+    let raw = include_str!("../../../tests/security/fixtures/canonical-authority-v1/cases.json");
+    assert!(raw.len() <= 8_388_608);
+    let fixture: Value = serde_json::from_str(raw).unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 119);
+    println!();
+    for case in cases {
+        let runtime = json!({
+            "canonical_snapshot":case["input"]["canonical_snapshot"],
+            "request":case["input"]["request"],
+            "configuration":case["input"]["configuration"],
+        });
+        let before = runtime.clone();
+        let observed = support::authority::observe(&runtime);
+        assert_eq!(runtime, before);
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_canonical_authority_failures() {
+    let raw = include_str!("../../../tests/security/fixtures/canonical-authority-v1/cases.json");
+    assert!(raw.len() <= 8_388_608);
+    let fixture: Value = serde_json::from_str(raw).unwrap();
+    let cases = fixture["error_cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 6);
+    println!();
+    for case in cases {
+        assert_eq!(
+            support::authority::error_observation(&case["input"]),
             case["expected"],
             "{}",
             case["id"]

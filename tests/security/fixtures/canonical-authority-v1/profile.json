@@ -1,0 +1,73 @@
+{
+  "version": "canonical-authority-evaluation-v1",
+  "classification": "bounded_server_internal_policy_semantics_not_current_database_or_effect_authority",
+  "scope": {
+    "source": "Trusted normalized canonical storage observations, explicit trusted policy configuration, server-derived executor and explicitly selected workspace/chain.",
+    "result": "A pure decision and exact admitted observation. It is not authentication, a transferable authorization receipt, a database lock or a final-effect token.",
+    "original_group": "All 72 unchanged current_authority cases are observed for pure semantics, including re-evaluation against separately supplied final snapshots. Actual canonical reads, conflicting locks and effect fencing remain unqualified.",
+    "forbidden": "No HTTP verifier or canonical-authority flags, Party/name identity, default fixture policy, SQL privileges, product/bootstrap writers, human assurance or external dispatch."
+  },
+  "bounds": {
+    "rows_per_relation": 32,
+    "chain_members": 8,
+    "tokens_per_set": 16,
+    "source_audience_principals": 32,
+    "policy_config_entries_per_set": 16,
+    "token_ascii_bytes": 96,
+    "public_key_ascii_bytes": 64,
+    "max_fixture_file_bytes": 8388608,
+    "max_fixture_cases": 256
+  },
+  "input_validation": {
+    "relations": [
+      "organizations",
+      "domains",
+      "principals",
+      "memberships",
+      "policies",
+      "source_policies",
+      "resources",
+      "grants",
+      "immutable_chains"
+    ],
+    "uniqueness": [
+      "organization_id",
+      "organization_id/domain_id",
+      "principal_id and identity profile/version/key tuple",
+      "organization_id/principal_id and organization_id/membership_id",
+      "workspace policy row",
+      "source policy_id",
+      "workspace/kind/resource_id",
+      "grant_id",
+      "chain_id; grant IDs inside each immutable chain"
+    ],
+    "tokens": "Nonempty ASCII letters, digits, underscore, period or hyphen, at most 96 bytes. Sets contain distinct elements. Source values and configured names are checked before semantic traversal; request syntax errors are InvalidInput; malformed or oversized store/configuration observations are InvalidStoredData.",
+    "owned_input_boundary": "The evaluator borrows already decoded typed records and performs no I/O or heap allocation. All admitted strings, nested vectors and relations are checked before traversal. An adapter must separately bound byte reads, decoding, allocation and database work before constructing those inputs.",
+    "lookup": "Exact checked identifiers and complete typed workspace/resource tuples only; unknown or inactive required records deny. All lookup arrays are bounded and ambiguities fail closed. The snapshot is a bounded canonical projection, complete for every record required by the selected request and all grant participants, not a full global database export. Unrelated well-formed rows undergo structural bounds and uniqueness validation but their foreign references or unsupported policy names are not globally resolved. Omitting any required selected/participating canonical record still denies.",
+    "finite_errors": [
+      "InvalidInput",
+      "InvalidStoredData",
+      "UnsupportedPolicy",
+      "UnsupportedAction",
+      "Denied",
+      "Conflict"
+    ]
+  },
+  "semantics": {
+    "identity": "Every participating canonical principal must be active, have no revocation timestamp, exist at the supplied canonical observation time and use the existing exact checked identity profile/version/key representation. Principal kind references must agree with the canonical kind. No curve/key-control or signed-request proof is inferred.",
+    "workspace": "Require an explicit selected organization/domain pair, active exact canonical organization/domain, active exact organization/principal membership with matching domain and selected supported active policy. Record the actual current membership revision and policy epoch; cached hints are excluded.",
+    "policy": "Explicit trusted configuration selects supported policy IDs and source-policy IDs. The compiled direct/grant semantics is fixed by this profile; source rows supply current role/purpose/action/source restrictions. No production code hardcodes the fixture policy ID. A client-claimed authorizer is always rejected.",
+    "direct": "project.read requires a current role in read_roles. Direct project.change.review additionally requires canonical human kind and a role in direct_review_roles. project review requires an exact supplied current target control revision. Every other action, including expense.confirm, is UnsupportedAction; this profile issues no assurance.",
+    "sources": "For the executor and every participating issuer/subject, all required source policies must be recognized, active, unexpired at the current supplied time and permit that exact principal and requested purpose. Required source policies are intersected, never unioned.",
+    "chains": "Resolve one selected exact immutable chain. It must use exact_project_v1, contain 1 through 8 distinct complete immutable grants and end at the actual executor. Every immutable grant must exactly equal its current canonical grant record, including its revision, state and revocation observation. Require exact current scope, policy, participant identities/memberships and issuance <= now < expiry. Root has no parent and its complete actions/purposes must fit the root issuer's current direct authority, selected grant_root_actions and selected policy purposes and all required source-policy purpose restrictions. Each later link requires the immediately preceding grant as parent, issuer equal to preceding subject, a delegable parent, action/purpose subsets, identical exact scope and an inclusive-contained nonempty lifetime. Check every link, never only the leaf. Grants confer no human assurance.",
+    "current_observation": "Return actual executor, selected workspace, exact resource, selected chain or null, executor membership identity/revision, current policy epoch and current target control. No reusable capability is returned. A final snapshot is evaluated afresh with the same exact request; an earlier success supplies no authority."
+  },
+  "qualification": {
+    "source": "New production evaluator and every decoder/observer are maintained measured source; assertion bodies and frozen literals remain distinct. No oracle fields enter the evaluator. Preserve all old tests and thresholds.",
+    "service": "No SQL schema or role change in this pure component. Preserve readonly TenantSession, SELECT-only nonowner privileges and every still-required canonical transaction/permission-writer lock/race/bootstrap/shared-admission gate.",
+    "owning": "Complete fresh owning Rust1.99.0 checks and unfiltered native/source/helper/process collection with all strict coverage scopes.",
+    "standalone": "Fresh independent public-only copy, complete matching qualification and independent current-image/resource evidence for actual affected paths; no auxiliary coverage substitution.",
+    "reviews": "Independent expected-value and source/public/completeness admission before consumption, then independent qualification review and distinct delivery witness before and after exact local commits.",
+    "no_new_assurance": "No real auth, current SQL authority, effect, pooling, lifecycle continuity, human/live-model/recovery/native-release/user/production acceptance."
+  }
+}

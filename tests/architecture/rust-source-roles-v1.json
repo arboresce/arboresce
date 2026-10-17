@@ -7,6 +7,11 @@
       "role": "measured"
     },
     {
+      "path": "crates/arboresce-application/src/policy/authority.rs",
+      "package": "arboresce-application",
+      "role": "measured"
+    },
+    {
       "path": "crates/arboresce-application/src/policy/mod.rs",
       "package": "arboresce-application",
       "role": "measured"
@@ -20,6 +25,11 @@
       "path": "crates/arboresce-application/tests/contract.rs",
       "package": "arboresce-application",
       "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-application/tests/support/authority.rs",
+      "package": "arboresce-application",
+      "role": "measured"
     },
     {
       "path": "crates/arboresce-application/tests/support/principal.rs",
@@ -476,6 +486,7 @@
       "name": "arboresce_application",
       "sources": [
         "crates/arboresce-application/src/lib.rs",
+        "crates/arboresce-application/src/policy/authority.rs",
         "crates/arboresce-application/src/policy/mod.rs",
         "crates/arboresce-application/src/policy/principal.rs"
       ]
