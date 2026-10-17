@@ -139,3 +139,32 @@ These are in-memory representation inputs. They perform no filesystem, connectio
 Sixteen separate finite inputs cover the maintained scoped-row selector, timeout parser and lock-query constructor. A membership selector must include principal identity, reject a malformed collection or unsupported family, and require exactly one matching row. Timeout parsing accepts milliseconds or seconds, rejects unsupported units and invalid or overflowing integers, and checks multiplication overflow. The query constructor rejects unsupported relation, sealed ordinal and lock-mode fragments or a missing mode. Its positive binding input preserves the complete hostile key only in a bind value and retains the exact compiled SQL fragments. It does not admit that key as a valid runtime identifier.
 
 These inputs open no database connection and execute no SQL. They do not allege an actual PostgreSQL setting, malformed native result, SQL failure, lock barrier, race or recovery event. All seven original database schedules still require fresh actual qualification. The package now has188 records:126 supplemental SQL/service records, ten finite authority mappings, four literal migration mappings, twenty-eight helper guards, four finite cleanup combinations and sixteen race helper preparation records. The prior172 records remain exact. All original package, execution and qualification requirements remain; static fixture delivery precedes consumer changes.
+
+## Controlled migration-history shape boundaries
+
+Four additional native inputs require actual isolated ledger-column changes after
+four complete migrations. Version text, success text and hexadecimal-checksum text
+must reach checked decoding; renaming success must reach the unchanged selected
+history query's missing-column failure. Each expects HistoryIntegrity before any
+migration replay or later schema/history write. These are deliberately controlled
+schema faults, not normal user data or invented connection failures.
+
+The fixed preparation sets all four installed times and execution times before
+the one exact ALTER. The four-row preparation command, zero-row DDL command and
+complete actual post-preparation ledger state must be proved separately. Original
+four semantic-row DML recipes and their one-row checks remain unchanged. Every
+new expected rowset, six-column shape, primary constraint and sole index is frozen
+literally. Complete raw ledger catalogue identities are retained before and after
+the attempted migration; both phases still contain the deliberately malformed
+shape. A later owned reset is a separate phase.
+
+Only these controlled faults use a type-neutral actual version observation for
+accounting. Version text remains text; it is never coerced into a canonical i64.
+The default typed query, normal outputs, canonical/physical counts, markers and
+backend census remain required. An observer error cannot be reported as a
+migration verdict. A separate finite unsupported-selector input exercises the
+same maintained pure allowlist before any Service or SQL; it qualifies no native
+failure. Producers remain measured support and independent assertions remain
+thin. All 188 earlier objects remain exact; the package now declares 193 objects
+under its unchanged reading and execution limits. Exact separate static review,
+normal fixture delivery and actual postcommit witness precede consumer changes.

@@ -201,8 +201,8 @@
   },
   "package_files": {
     "README.md": {
-      "sha256": "72613a7d4b4ddb837e21aab557524ff522d308489b4ae4cde56a09d34082f1c5",
-      "bytes": 14562
+      "sha256": "a0bc0b71b00b466876c5b85561fd014f1cf9c35ce6e113e2b00942db053435a1",
+      "bytes": 16494
     },
     "schema.json": {
       "sha256": "f0764ddf9000355789a65cccb8880acef7d0844d3e923c1ad4712b505dd55a6a",
@@ -213,8 +213,8 @@
       "bytes": 163898
     },
     "cases.json": {
-      "sha256": "ad05e88d2e6998348092a85a3aca321ea01dfea40ebc5c5908965ffb4bff7e29",
-      "bytes": 164420
+      "sha256": "1c6740ef926c23febf565b9b22474913e997690ee6ed79c0dfa1da940f5145ff",
+      "bytes": 207341
     }
   },
   "historical_sources": {
@@ -290,5 +290,83 @@
     "aggregate_cases": 188,
     "no_effects": "No database, filesystem, service or native effects; all seven real race schedules remain separately required.",
     "no_waiver": "No new gate, role/exclusion/threshold/budget/clock/connection/resource change, coverage promise or prior failure explanation; all original actual qualification and real-input requirements remain."
+  },
+  "history_shape_supplement": {
+    "classification": "Four controlled native ledger-shape failure inputs and one separate finite selector refusal; static candidate, not executed qualification.",
+    "cases": 4,
+    "separate_preparation_cases": 1,
+    "all_previous_188_records_exact": true,
+    "aggregate_cases": 193,
+    "fixed_history_seed": {
+      "statement": "UPDATE public._sqlx_migrations SET installed_on=$1::timestamptz,execution_time=$2",
+      "parameters": {
+        "installed_on": "2026-10-03T12:00:00.000Z",
+        "execution_time": 0
+      },
+      "command_rows_affected": 4,
+      "scope": "Only the four newly declared controlled shape-fault cases, after a complete four-version migration and before the single ALTER. Original four DML semantic-fault recipes remain byte-exact with one affected row."
+    },
+    "recipes": [
+      {
+        "case": "sql-history-version-text-rejected",
+        "fault": "version column is text",
+        "statement": "ALTER TABLE public._sqlx_migrations ALTER COLUMN version TYPE text USING version::text",
+        "command_rows_affected": 0,
+        "accounting": "Type-neutral actual JSON version values only in this controlled shape-fault scope; canonical default typed query and every normal accounting output remain unchanged."
+      },
+      {
+        "case": "sql-history-success-text-rejected",
+        "fault": "success column is text",
+        "statement": "ALTER TABLE public._sqlx_migrations ALTER COLUMN success TYPE text USING success::text",
+        "command_rows_affected": 0,
+        "accounting": "Type-neutral actual JSON version values only in this controlled shape-fault scope; canonical default typed query and every normal accounting output remain unchanged."
+      },
+      {
+        "case": "sql-history-checksum-text-rejected",
+        "fault": "checksum column is hex text",
+        "statement": "ALTER TABLE public._sqlx_migrations ALTER COLUMN checksum TYPE text USING encode(checksum,'hex')",
+        "command_rows_affected": 0,
+        "accounting": "Type-neutral actual JSON version values only in this controlled shape-fault scope; canonical default typed query and every normal accounting output remain unchanged."
+      },
+      {
+        "case": "sql-history-success-column-missing-rejected",
+        "fault": "success column is renamed",
+        "statement": "ALTER TABLE public._sqlx_migrations RENAME COLUMN success TO fixture_history_success",
+        "command_rows_affected": 0,
+        "accounting": "Type-neutral actual JSON version values only in this controlled shape-fault scope; canonical default typed query and every normal accounting output remain unchanged."
+      }
+    ],
+    "migration_inputs": {
+      "crates/arboresce-postgres/migrations/1_records.sql": {
+        "sha256": "34f36106937fee8e45db31a6e26e537ceeace7411c91fd2c603781a96291af7c",
+        "sha384": "b6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+        "bytes": 815
+      },
+      "crates/arboresce-postgres/migrations/2_annotation.sql": {
+        "sha256": "9c6f8d35f2f575176b13428a62895858c943b8b3974ca4ca07de26ad600d76a4",
+        "sha384": "3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+        "bytes": 134
+      },
+      "crates/arboresce-postgres/migrations/3_tenant_authority.sql": {
+        "sha256": "504f3d72b2bad515423d0e7bfee4ac756aab1d97a3cb698b8d91103bec3d4e4f",
+        "sha384": "6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+        "bytes": 4106
+      },
+      "crates/arboresce-postgres/migrations/4_current_authority.sql": {
+        "sha256": "3fea1e5402bdb6e713efbb879d01171607f140a7e3eb511753b6c551ad26d9c6",
+        "sha384": "c6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+        "bytes": 24820
+      }
+    },
+    "history_observation": {
+      "statement": "SELECT coalesce(jsonb_agg(to_jsonb(m) || jsonb_build_object('installed_on',to_char(m.installed_on AT TIME ZONE 'UTC','YYYY-MM-DD\"T\"HH24:MI:SS.MS\"Z\"')) ORDER BY version),'[]'::jsonb)::text FROM public._sqlx_migrations m",
+      "normalization": "Only installed_on is rendered as explicit UTC millisecond text. All actual version/success/checksum names and JSON value types remain unchanged, including strings and renamed success. No production input is coerced or defaulted."
+    },
+    "ledger_shape_projection": "Observe the exact schema/relation/kind/owner/RLS fields, all six ordered column identities/types/type OIDs/nullability/defaults/identity/generated/collation fields, the complete declared primary constraint and sole index fields in each literal expected object. Stable key/column arrays preserve physical order. Dynamic OIDs/relfilenodes are not invented in static literals.",
+    "complete_catalogue": "Retain complete actual ledger pg_class, non-dropped pg_attribute, pg_attrdef, pg_constraint, pg_index and index pg_class facts with exact object identities before and after the attempted migration. Compare complete deterministic raw snapshots without excluding fields; retain byte/size/hash references under existing sidecar bounds. Both snapshots are AFTER the controlled ALTER and BEFORE any later reset.",
+    "phase": "Record successful fixed-seed four-row command and exact zero-row ALTER command before calling migrate(CurrentAuthority). Record complete post-preparation history/shape/catalogue; attempt migration; record complete after-attempt history/shape/catalogue; only then perform existing independent canonical-row/marker/census and exact accounting observations. No early restoration or setup/observer failure as the expected outcome.",
+    "accounting": "For only these four controlled shape faults, observe complete actual versions as JSON without decoding text into i64, coercing, defaulting, truncating, suppressing observer errors or bypassing canonical rows, receipt/physical counts, namespace epoch, markers or backend census. Preserve the canonical default SELECT/version Vec<i64> query and normal outputs. Version-text expected migration_versions is four strings; other three cases retain four integers.",
+    "preparation": "The additional finite unsupported selector goes through the same maintained pure allowlist before SQL or a Service. Reusable production, preparation and observation work remains measured support; the test driver only selects admitted input, calls it, asserts independent literal values and emits identities.",
+    "no_waiver": "Preserve all previous literals, SQL/binds/order/error causes, schema/realization files, limits, resources, 300-second unfiltered cohort and 8MiB output budget, original races, clock, strict coverage/native/source/profile/sidecar/dual-lane/owned-cleanup/retention/conservation/independent review/normal local delivery requirements. New native faults require exact static admission and delivery before any new consumer. No source acceptance, actual native/I/O failure, coverage gain or next-run success is claimed."
   }
 }

@@ -3478,6 +3478,1294 @@
         "only_named_dependents_changed": true
       },
       "qualification_scope": "Same-count required-column identity rejection. This is not a single-field catalogue-change claim: PostgreSQL legitimately rewrites the selected dependent CHECK expression and same-attnum privilege labels on column rename. Complete actual before/after catalogues remain retained."
+    },
+    {
+      "id": "sql-history-version-text-rejected",
+      "group": "history",
+      "input": {
+        "operation": "history_fault_after_four",
+        "fault": "version column is text",
+        "selected_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "fixed_history": {
+          "installed_on": "2026-10-03T12:00:00.000Z",
+          "execution_time": 0
+        }
+      },
+      "expected": {
+        "failure": "HistoryIntegrity",
+        "schema_or_history_written": false,
+        "history_before": [
+          {
+            "version": "1",
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\xb6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0
+          },
+          {
+            "version": "2",
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\x3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0
+          },
+          {
+            "version": "3",
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\x6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0
+          },
+          {
+            "version": "4",
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\xc6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0
+          }
+        ],
+        "history_after": [
+          {
+            "version": "1",
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\xb6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0
+          },
+          {
+            "version": "2",
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\x3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0
+          },
+          {
+            "version": "3",
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\x6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0
+          },
+          {
+            "version": "4",
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "\\xc6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0
+          }
+        ],
+        "ledger_shape_before": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "success",
+              "type": "boolean",
+              "type_oid": 16,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "bytea",
+              "type_oid": 17,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "text_ops"
+              ],
+              "collations": [
+                "default"
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "ledger_shape_after": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "success",
+              "type": "boolean",
+              "type_oid": 16,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "bytea",
+              "type_oid": 17,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "text_ops"
+              ],
+              "collations": [
+                "default"
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "migration_versions": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "ledger_catalogue_unchanged": true
+      },
+      "qualification_scope": "Must execute the exact controlled ledger schema fault on an owned isolated PostgreSQL database. Complete post-preparation rows/types/constraint/index and raw catalogue precede the migration attempt; after-attempt observations retain the corrupted shape before any later owned reset. Setup or observer failure is not a migration verdict. This literal supplies no current native or I/O qualification."
+    },
+    {
+      "id": "sql-history-success-text-rejected",
+      "group": "history",
+      "input": {
+        "operation": "history_fault_after_four",
+        "fault": "success column is text",
+        "selected_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "fixed_history": {
+          "installed_on": "2026-10-03T12:00:00.000Z",
+          "execution_time": 0
+        }
+      },
+      "expected": {
+        "failure": "HistoryIntegrity",
+        "schema_or_history_written": false,
+        "history_before": [
+          {
+            "version": 1,
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\xb6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0
+          },
+          {
+            "version": 2,
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\x3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0
+          },
+          {
+            "version": 3,
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\x6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0
+          },
+          {
+            "version": 4,
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\xc6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0
+          }
+        ],
+        "history_after": [
+          {
+            "version": 1,
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\xb6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0
+          },
+          {
+            "version": 2,
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\x3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0
+          },
+          {
+            "version": 3,
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\x6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0
+          },
+          {
+            "version": 4,
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": "true",
+            "checksum": "\\xc6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0
+          }
+        ],
+        "ledger_shape_before": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "success",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "bytea",
+              "type_oid": 17,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "int8_ops"
+              ],
+              "collations": [
+                null
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "ledger_shape_after": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "success",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "bytea",
+              "type_oid": 17,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "int8_ops"
+              ],
+              "collations": [
+                null
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "ledger_catalogue_unchanged": true
+      },
+      "qualification_scope": "Must execute the exact controlled ledger schema fault on an owned isolated PostgreSQL database. Complete post-preparation rows/types/constraint/index and raw catalogue precede the migration attempt; after-attempt observations retain the corrupted shape before any later owned reset. Setup or observer failure is not a migration verdict. This literal supplies no current native or I/O qualification."
+    },
+    {
+      "id": "sql-history-checksum-text-rejected",
+      "group": "history",
+      "input": {
+        "operation": "history_fault_after_four",
+        "fault": "checksum column is hex text",
+        "selected_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "fixed_history": {
+          "installed_on": "2026-10-03T12:00:00.000Z",
+          "execution_time": 0
+        }
+      },
+      "expected": {
+        "failure": "HistoryIntegrity",
+        "schema_or_history_written": false,
+        "history_before": [
+          {
+            "version": 1,
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "b6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0
+          },
+          {
+            "version": 2,
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0
+          },
+          {
+            "version": 3,
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0
+          },
+          {
+            "version": 4,
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "c6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0
+          }
+        ],
+        "history_after": [
+          {
+            "version": 1,
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "b6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0
+          },
+          {
+            "version": 2,
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0
+          },
+          {
+            "version": 3,
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0
+          },
+          {
+            "version": 4,
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "success": true,
+            "checksum": "c6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0
+          }
+        ],
+        "ledger_shape_before": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "success",
+              "type": "boolean",
+              "type_oid": 16,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "int8_ops"
+              ],
+              "collations": [
+                null
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "ledger_shape_after": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "success",
+              "type": "boolean",
+              "type_oid": 16,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "int8_ops"
+              ],
+              "collations": [
+                null
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "ledger_catalogue_unchanged": true
+      },
+      "qualification_scope": "Must execute the exact controlled ledger schema fault on an owned isolated PostgreSQL database. Complete post-preparation rows/types/constraint/index and raw catalogue precede the migration attempt; after-attempt observations retain the corrupted shape before any later owned reset. Setup or observer failure is not a migration verdict. This literal supplies no current native or I/O qualification."
+    },
+    {
+      "id": "sql-history-success-column-missing-rejected",
+      "group": "history",
+      "input": {
+        "operation": "history_fault_after_four",
+        "fault": "success column is renamed",
+        "selected_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "fixed_history": {
+          "installed_on": "2026-10-03T12:00:00.000Z",
+          "execution_time": 0
+        }
+      },
+      "expected": {
+        "failure": "HistoryIntegrity",
+        "schema_or_history_written": false,
+        "history_before": [
+          {
+            "version": 1,
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\xb6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0,
+            "fixture_history_success": true
+          },
+          {
+            "version": 2,
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\x3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0,
+            "fixture_history_success": true
+          },
+          {
+            "version": 3,
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\x6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0,
+            "fixture_history_success": true
+          },
+          {
+            "version": 4,
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\xc6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0,
+            "fixture_history_success": true
+          }
+        ],
+        "history_after": [
+          {
+            "version": 1,
+            "description": "typed records",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\xb6a6e08d6d0fd881e22270d0a6d4e2ae234c90eda06d0929bfb13ca6c7f2ed21207a16a6061914dc0a96f8daa0da3b7f",
+            "execution_time": 0,
+            "fixture_history_success": true
+          },
+          {
+            "version": 2,
+            "description": "bounded annotation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\x3f61a692a0721ce1622a34c1702075dcf9bd0a16774e5f42a101bd41fb7bf0658aeb2906f4ab424e64731e50c1a736df",
+            "execution_time": 0,
+            "fixture_history_success": true
+          },
+          {
+            "version": 3,
+            "description": "tenant authority foundation",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\x6559ad151864b6c1cdb2f1376f163b92dbc90a465ecbfe570940de1d19e18b1708887cbd0889899b2189d209ea522d9f",
+            "execution_time": 0,
+            "fixture_history_success": true
+          },
+          {
+            "version": 4,
+            "description": "current authority and isolated final fences",
+            "installed_on": "2026-10-03T12:00:00.000Z",
+            "checksum": "\\xc6c5624796b6474594deb2645dcfb29c4a482fcf734612e5411647051add7d33454ee5b9cfbdde51b89d546c4bd466d6",
+            "execution_time": 0,
+            "fixture_history_success": true
+          }
+        ],
+        "ledger_shape_before": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "fixture_history_success",
+              "type": "boolean",
+              "type_oid": 16,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "bytea",
+              "type_oid": 17,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "int8_ops"
+              ],
+              "collations": [
+                null
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "ledger_shape_after": {
+          "schema": "public",
+          "relation": "_sqlx_migrations",
+          "kind": "r",
+          "owner": "harness_migrator",
+          "row_security": false,
+          "force_row_security": false,
+          "columns": [
+            {
+              "ordinal": 1,
+              "name": "version",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 2,
+              "name": "description",
+              "type": "text",
+              "type_oid": 25,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": "default"
+            },
+            {
+              "ordinal": 3,
+              "name": "installed_on",
+              "type": "timestamp with time zone",
+              "type_oid": 1184,
+              "not_null": true,
+              "default": "now()",
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 4,
+              "name": "fixture_history_success",
+              "type": "boolean",
+              "type_oid": 16,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 5,
+              "name": "checksum",
+              "type": "bytea",
+              "type_oid": 17,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            },
+            {
+              "ordinal": 6,
+              "name": "execution_time",
+              "type": "bigint",
+              "type_oid": 20,
+              "not_null": true,
+              "default": null,
+              "identity": "",
+              "generated": "",
+              "collation": null
+            }
+          ],
+          "constraints": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "kind": "p",
+              "key_columns": [
+                "version"
+              ],
+              "definition": "PRIMARY KEY (version)",
+              "deferrable": false,
+              "deferred": false,
+              "validated": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "_sqlx_migrations_pkey",
+              "unique": true,
+              "primary": true,
+              "valid": true,
+              "ready": true,
+              "access_method": "btree",
+              "key_columns": [
+                "version"
+              ],
+              "include_columns": [],
+              "operator_classes": [
+                "int8_ops"
+              ],
+              "collations": [
+                null
+              ],
+              "predicate": null,
+              "expressions": null,
+              "definition": "CREATE UNIQUE INDEX _sqlx_migrations_pkey ON public._sqlx_migrations USING btree (version)"
+            }
+          ]
+        },
+        "migration_versions": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "ledger_catalogue_unchanged": true
+      },
+      "qualification_scope": "Must execute the exact controlled ledger schema fault on an owned isolated PostgreSQL database. Complete post-preparation rows/types/constraint/index and raw catalogue precede the migration attempt; after-attempt observations retain the corrupted shape before any later owned reset. Setup or observer failure is not a migration verdict. This literal supplies no current native or I/O qualification."
     }
   ],
   "error_cases": [
@@ -4182,7 +5470,7 @@
         "operation": "pid_file_guard",
         "layout": "regular",
         "bytes": 1,
-        "fill": "\u00e9",
+        "fill": "é",
         "expected_pid": 123
       },
       "expected": {
@@ -4798,6 +6086,19 @@
         "failure": "unadmitted tuple probe mode"
       },
       "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "history-guard-unadmitted-fault-selector",
+      "group": "history_helper_constructor",
+      "input": {
+        "helper": "history_statement",
+        "fault": "fourth success false; SELECT 1"
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "unadmitted history fault"
+      },
+      "qualification_scope": "Finite refusal by the same maintained pure allowlist/recipe producer used by the actual native consumer, before obtaining any Service or database connection. The input is a bounded inert selector and never SQL syntax. No native database, I/O, role, race, service, recovery or actual migration cause is qualified."
     }
   ]
 }
