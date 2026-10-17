@@ -197,3 +197,15 @@ The complete-success discriminator uses the same measured trace writer without
 a fault or delay and requires actual status 0 and both exact peer output streams.
 This positive API case complements the error cases; its controlled peer does
 not qualify actual Cargo, production work or the complete collector.
+
+The additional shared-admission input declares 93 Rust sources: the admitted
+82-source input plus eleven explicitly enumerated measured sources. Its exact
+raw role-profile hash is
+`6fb755e769b17c568f42858337c22acf77c2f20031310122b4d04c5ed81e5879`.
+The independent [shared-admission package](../../../security/fixtures/shared-admission-v1/README.md)
+records those paths before their consumer. Both earlier 80- and 82-source
+bindings and every original case value remain unchanged. The current native
+consumer selects one exact input hash before invocation; no observed output
+supplies an expectation. This declaration qualifies no future executable,
+native process, target membership or source count. The ten target identities
+remain; their actual complete source memberships require fresh qualification.

@@ -1,0 +1,756 @@
+{
+  "fixture_version": "shared-admission-schema-v1",
+  "classification": "Original synthetic storage expectations; no enabled product writer",
+  "namespace": "arboresce_admission",
+  "owner": "harness_migrator",
+  "selected_schema_version": 5,
+  "previous_versions_preserved": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "role": {
+    "name": "harness_authority_admission",
+    "can_login": true,
+    "connection_limit": 2,
+    "superuser": false,
+    "inherit": false,
+    "create_database": false,
+    "create_role": false,
+    "replication": false,
+    "bypass_rls": false,
+    "memberships": [],
+    "database_create": false,
+    "database_temporary": false,
+    "schema_create": false,
+    "grant_option": false,
+    "foundation": "Reuse the selected current-authority nonowner role and its bounded physical-session/positive-close machinery. Earlier authority schema, policies, roles and SQL1–4 remain unchanged."
+  },
+  "tenant_context": {
+    "setting": "arboresce.organization_id",
+    "transaction_local": true,
+    "missing_context": "no tenant row",
+    "foreign_context": "no foreign tenant row",
+    "commit_retains_context": false,
+    "rollback_retains_context": false,
+    "required_settings": [
+      "arboresce.organization_id",
+      "arboresce.domain_id",
+      "arboresce.principal_id"
+    ],
+    "empty_chain_allowed": true,
+    "principal_scoped_tables": [
+      "reservation_recognition",
+      "reservations"
+    ]
+  },
+  "tables": [
+    {
+      "name": "global_budget",
+      "columns": [
+        {
+          "name": "singleton",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "active_limit",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "memory_limit",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "active_used",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "memory_used",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "last_observed_at",
+          "type": "timestamp with time zone",
+          "nullable": false
+        },
+        {
+          "name": "next_reservation_order",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "primary_key": [
+        "singleton"
+      ],
+      "forced_rls": false,
+      "scope": "nonidentifying global counters only",
+      "checks": {
+        "singleton": 1,
+        "nonnegative": [
+          "active_limit",
+          "memory_limit",
+          "active_used",
+          "memory_used"
+        ],
+        "exact_utc_milliseconds": [
+          "last_observed_at"
+        ],
+        "positive": [
+          "next_reservation_order"
+        ]
+      },
+      "select": [
+        "singleton",
+        "active_limit",
+        "memory_limit",
+        "active_used",
+        "memory_used",
+        "last_observed_at",
+        "next_reservation_order"
+      ],
+      "insert": [],
+      "update": [
+        "active_used",
+        "memory_used",
+        "last_observed_at",
+        "next_reservation_order"
+      ],
+      "delete": false
+    },
+    {
+      "name": "organization_budgets",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "arboresce_authority.identifier",
+          "nullable": false
+        },
+        {
+          "name": "pending_limit",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "active_limit",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "storage_limit",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "memory_limit",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "cost_limit",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "pending_used",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "active_used",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "storage_used",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "memory_used",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "cost_used",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "primary_key": [
+        "organization_id"
+      ],
+      "forced_rls": true,
+      "foreign_keys": [
+        {
+          "columns": [
+            "organization_id"
+          ],
+          "relation": "arboresce_authority.organizations",
+          "references": [
+            "organization_id"
+          ]
+        }
+      ],
+      "checks": {
+        "nonnegative": [
+          "pending_limit",
+          "pending_used",
+          "active_limit",
+          "active_used",
+          "storage_limit",
+          "storage_used",
+          "memory_limit",
+          "memory_used",
+          "cost_limit",
+          "cost_used"
+        ]
+      },
+      "select": [
+        "organization_id",
+        "pending_limit",
+        "active_limit",
+        "storage_limit",
+        "memory_limit",
+        "cost_limit",
+        "pending_used",
+        "active_used",
+        "storage_used",
+        "memory_used",
+        "cost_used"
+      ],
+      "insert": [],
+      "update": [
+        "pending_used",
+        "active_used",
+        "storage_used",
+        "memory_used",
+        "cost_used"
+      ],
+      "delete": false
+    },
+    {
+      "name": "reservation_recognition",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "arboresce_authority.identifier",
+          "nullable": false
+        },
+        {
+          "name": "reservation_id",
+          "type": "arboresce_authority.identifier",
+          "nullable": false
+        },
+        {
+          "name": "principal_id",
+          "type": "arboresce_authority.identifier",
+          "nullable": false
+        },
+        {
+          "name": "owner",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "replica",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "fence",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "attempt_limit",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "attempts_used",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "total_deadline",
+          "type": "timestamp with time zone",
+          "nullable": false
+        },
+        {
+          "name": "admitted_at",
+          "type": "timestamp with time zone",
+          "nullable": false
+        },
+        {
+          "name": "last_observed_at",
+          "type": "timestamp with time zone",
+          "nullable": false
+        },
+        {
+          "name": "state",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "reservation_order",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "primary_key": [
+        "organization_id",
+        "reservation_id"
+      ],
+      "unique": [
+        [
+          "organization_id",
+          "reservation_id",
+          "principal_id",
+          "owner",
+          "replica",
+          "fence",
+          "attempt_limit",
+          "total_deadline",
+          "admitted_at",
+          "state"
+        ],
+        [
+          "reservation_order"
+        ]
+      ],
+      "forced_rls": true,
+      "foreign_keys": [
+        {
+          "columns": [
+            "organization_id"
+          ],
+          "relation": "arboresce_admission.organization_budgets",
+          "references": [
+            "organization_id"
+          ]
+        },
+        {
+          "columns": [
+            "organization_id",
+            "principal_id"
+          ],
+          "relation": "arboresce_authority.memberships",
+          "references": [
+            "organization_id",
+            "principal_id"
+          ]
+        }
+      ],
+      "checks": {
+        "tokens": [
+          "owner",
+          "replica"
+        ],
+        "token_pattern": "^[A-Za-z0-9_.-]{1,96}$",
+        "fence_min": 1,
+        "fence_max": "999999999999999999",
+        "attempt_limit_min": 1,
+        "attempt_limit_max": 8,
+        "attempts_used_min": 0,
+        "attempts_used_at_most": "attempt_limit",
+        "states": [
+          "reserved",
+          "active",
+          "reconciliation_required",
+          "released"
+        ],
+        "exact_utc_milliseconds": [
+          "total_deadline",
+          "admitted_at",
+          "last_observed_at"
+        ],
+        "admitted_before_total_deadline": true,
+        "last_observed_not_before_admitted": true,
+        "positive": [
+          "reservation_order"
+        ],
+        "max_total_lifetime_ms": 3600000
+      },
+      "select": [
+        "organization_id",
+        "reservation_id",
+        "principal_id",
+        "owner",
+        "replica",
+        "fence",
+        "attempt_limit",
+        "attempts_used",
+        "total_deadline",
+        "admitted_at",
+        "last_observed_at",
+        "state",
+        "reservation_order"
+      ],
+      "insert": [
+        "organization_id",
+        "reservation_id",
+        "principal_id",
+        "owner",
+        "replica",
+        "fence",
+        "attempt_limit",
+        "attempts_used",
+        "total_deadline",
+        "admitted_at",
+        "last_observed_at",
+        "state",
+        "reservation_order"
+      ],
+      "update": [
+        "attempts_used",
+        "last_observed_at",
+        "state"
+      ],
+      "delete": false
+    },
+    {
+      "name": "reservations",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "arboresce_authority.identifier",
+          "nullable": false
+        },
+        {
+          "name": "reservation_id",
+          "type": "arboresce_authority.identifier",
+          "nullable": false
+        },
+        {
+          "name": "principal_id",
+          "type": "arboresce_authority.identifier",
+          "nullable": false
+        },
+        {
+          "name": "replica",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "pending",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "active",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "storage_bytes",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "memory_bytes",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "cost_microusd",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "owner",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "fence",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "admitted_at",
+          "type": "timestamp with time zone",
+          "nullable": false
+        },
+        {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "nullable": false
+        },
+        {
+          "name": "attempt_limit",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "total_deadline",
+          "type": "timestamp with time zone",
+          "nullable": false
+        },
+        {
+          "name": "state",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "dispatch_outcome",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "primary_key": [
+        "organization_id",
+        "reservation_id"
+      ],
+      "forced_rls": true,
+      "foreign_keys": [
+        {
+          "columns": [
+            "organization_id",
+            "reservation_id",
+            "principal_id",
+            "owner",
+            "replica",
+            "fence",
+            "attempt_limit",
+            "total_deadline",
+            "admitted_at",
+            "state"
+          ],
+          "relation": "arboresce_admission.reservation_recognition",
+          "references": [
+            "organization_id",
+            "reservation_id",
+            "principal_id",
+            "owner",
+            "replica",
+            "fence",
+            "attempt_limit",
+            "total_deadline",
+            "admitted_at",
+            "state"
+          ],
+          "on_update": "CASCADE"
+        }
+      ],
+      "checks": {
+        "tokens": [
+          "owner",
+          "replica"
+        ],
+        "token_pattern": "^[A-Za-z0-9_.-]{1,96}$",
+        "nonnegative": [
+          "pending",
+          "active",
+          "storage_bytes",
+          "memory_bytes",
+          "cost_microusd"
+        ],
+        "nonzero_resource_vector": true,
+        "fence_min": 1,
+        "fence_max": "999999999999999999",
+        "attempt_limit_min": 1,
+        "attempt_limit_max": 8,
+        "states": [
+          "reserved",
+          "active",
+          "reconciliation_required"
+        ],
+        "nullable_dispatch_outcomes": [
+          "accepted_running",
+          "unknown",
+          "not_dispatched",
+          "completed"
+        ],
+        "exact_utc_milliseconds": [
+          "admitted_at",
+          "expires_at",
+          "total_deadline"
+        ],
+        "expiry_at_most_total_deadline": true,
+        "expiry_after_admitted": true
+      },
+      "select": [
+        "organization_id",
+        "reservation_id",
+        "principal_id",
+        "replica",
+        "pending",
+        "active",
+        "storage_bytes",
+        "memory_bytes",
+        "cost_microusd",
+        "owner",
+        "fence",
+        "admitted_at",
+        "expires_at",
+        "attempt_limit",
+        "total_deadline",
+        "state",
+        "dispatch_outcome"
+      ],
+      "insert": [
+        "organization_id",
+        "reservation_id",
+        "principal_id",
+        "replica",
+        "pending",
+        "active",
+        "storage_bytes",
+        "memory_bytes",
+        "cost_microusd",
+        "owner",
+        "fence",
+        "admitted_at",
+        "expires_at",
+        "attempt_limit",
+        "total_deadline",
+        "state"
+      ],
+      "update": [
+        "expires_at",
+        "state"
+      ],
+      "delete": true
+    }
+  ],
+  "catalogue": {
+    "user_functions": 0,
+    "noninternal_triggers": 0,
+    "partitions": 0,
+    "inherited_tables": 0,
+    "public_acl_entries": 0,
+    "unexpected_tables": 0,
+    "missing_required_constraint": "UnsafeRole",
+    "changed_required_constraint": "UnsafeRole",
+    "changed_required_policy": "UnsafeRole",
+    "expanded_role_or_column_privilege": "UnsafeRole",
+    "earlier_authority_policies": "Exact selected earlier catalogue remains unchanged and valid beside the separate admission namespace."
+  },
+  "transaction": {
+    "isolation": "READ COMMITTED",
+    "lock_order": [
+      "authority_namespace_guard",
+      "authority_organization",
+      "authority_domain",
+      "authority_principal",
+      "authority_membership",
+      "global_budget",
+      "organization_budgets",
+      "reservation_recognition",
+      "reservations"
+    ],
+    "clock_after_wait": true,
+    "atomic_lease_and_counters": true,
+    "holds_locks_across_external_work": false,
+    "uncertain_completion": "retain responsibility and poison the physical session until positive bounded close",
+    "order_allocation": "The global next_reservation_order is locked and advanced in the same claim transaction. Rollback advances neither ordering nor resources. Recognition preserves the allocated ordinal after release.",
+    "current_caller": "Claims, renewals and attempts lock and recheck active canonical organization/domain/principal/membership and the independently registered membership policy. Cleanup retains owner/fence checks without requiring an active membership to release positively reconciled responsibility.",
+    "cleanup_after_revocation": "No new attempt or renewal; positive no-dispatch cleanup may release the same owned fenced claim. Unknown responsibility remains charged.",
+    "state_fencing": "The live reservation foreign key includes immutable admitted time and current recognition state. State transitions cascade atomically; release deletes the live reservation before retiring recognition."
+  },
+  "observation": {
+    "original_ledger_keys": [
+      "organization_limits",
+      "global_limits",
+      "used",
+      "global_used",
+      "reservations"
+    ],
+    "original_reservation_order": "preserve supplied insertion order, then append accepted claims",
+    "internal_recognition": "separately retained complete typed rows",
+    "raw_catalogue": "separately retained complete bounded native observations",
+    "private_values_in_stdout": false
+  },
+  "large_integer_bounds": "Unsigned decimal strings preserve exact bounds independently of JSON floating-point readers.",
+  "token_collation": "C",
+  "history_privileges": {
+    "relation": "public._sqlx_migrations",
+    "select": [
+      "version",
+      "success",
+      "checksum"
+    ],
+    "insert": false,
+    "update": false,
+    "delete": false
+  },
+  "constraint_names": {
+    "global_budget": [
+      "global_budget_pkey",
+      "global_budget_singleton_check",
+      "global_budget_active_limit_check",
+      "global_budget_memory_limit_check",
+      "global_budget_active_used_check",
+      "global_budget_memory_used_check",
+      "global_budget_next_reservation_order_check",
+      "global_budget_last_observed_at_check"
+    ],
+    "organization_budgets": [
+      "organization_budgets_pkey",
+      "organization_budgets_fkey_1",
+      "organization_budgets_pending_limit_check",
+      "organization_budgets_pending_used_check",
+      "organization_budgets_active_limit_check",
+      "organization_budgets_active_used_check",
+      "organization_budgets_storage_limit_check",
+      "organization_budgets_storage_used_check",
+      "organization_budgets_memory_limit_check",
+      "organization_budgets_memory_used_check",
+      "organization_budgets_cost_limit_check",
+      "organization_budgets_cost_used_check"
+    ],
+    "reservation_recognition": [
+      "reservation_recognition_pkey",
+      "reservation_recognition_unique_1",
+      "reservation_recognition_unique_2",
+      "reservation_recognition_fkey_1",
+      "reservation_recognition_fkey_2",
+      "reservation_recognition_reservation_order_check",
+      "reservation_recognition_owner_check",
+      "reservation_recognition_replica_check",
+      "reservation_recognition_fence_check",
+      "reservation_recognition_attempt_limit_check",
+      "reservation_recognition_attempts_used_check",
+      "reservation_recognition_state_check",
+      "reservation_recognition_total_deadline_check",
+      "reservation_recognition_admitted_at_check",
+      "reservation_recognition_last_observed_at_check",
+      "reservation_recognition_lifetime_check",
+      "reservation_recognition_observation_order_check"
+    ],
+    "reservations": [
+      "reservations_pkey",
+      "reservations_fkey_1",
+      "reservations_pending_check",
+      "reservations_active_check",
+      "reservations_storage_bytes_check",
+      "reservations_memory_bytes_check",
+      "reservations_cost_microusd_check",
+      "reservations_owner_check",
+      "reservations_replica_check",
+      "reservations_fence_check",
+      "reservations_attempt_limit_check",
+      "reservations_state_check",
+      "reservations_dispatch_outcome_check",
+      "reservations_admitted_at_check",
+      "reservations_expires_at_check",
+      "reservations_total_deadline_check",
+      "reservations_expiry_order_check",
+      "reservations_resource_nonzero_check"
+    ]
+  },
+  "migration": {
+    "version": 5,
+    "description": "shared admission reservations",
+    "sql_text": "-- Isolated shared resource reservations. No product or bootstrap writer.\n\nCREATE SCHEMA arboresce_admission AUTHORIZATION harness_migrator;\n\nREVOKE ALL ON SCHEMA arboresce_admission FROM PUBLIC;\n\nCREATE TABLE arboresce_admission.global_budget (\n  singleton smallint NOT NULL,\n  active_limit bigint NOT NULL,\n  memory_limit bigint NOT NULL,\n  active_used bigint NOT NULL,\n  memory_used bigint NOT NULL,\n  last_observed_at timestamp with time zone NOT NULL,\n  next_reservation_order bigint NOT NULL,\n  CONSTRAINT global_budget_pkey PRIMARY KEY (singleton),\n  CONSTRAINT global_budget_singleton_check CHECK (singleton=1),\n  CONSTRAINT global_budget_active_limit_check CHECK (active_limit>=0),\n  CONSTRAINT global_budget_memory_limit_check CHECK (memory_limit>=0),\n  CONSTRAINT global_budget_active_used_check CHECK (active_used>=0),\n  CONSTRAINT global_budget_memory_used_check CHECK (memory_used>=0),\n  CONSTRAINT global_budget_next_reservation_order_check CHECK (next_reservation_order>0),\n  CONSTRAINT global_budget_last_observed_at_check CHECK (CASE WHEN isfinite(last_observed_at) THEN last_observed_at BETWEEN timestamptz '0001-01-01 00:00:00+00' AND timestamptz '9999-12-31 23:59:59.999+00' AND mod(extract(microseconds FROM last_observed_at),1000)=0 ELSE false END)\n);\n\nCREATE TABLE arboresce_admission.organization_budgets (\n  organization_id arboresce_authority.identifier NOT NULL,\n  pending_limit bigint NOT NULL,\n  active_limit bigint NOT NULL,\n  storage_limit bigint NOT NULL,\n  memory_limit bigint NOT NULL,\n  cost_limit bigint NOT NULL,\n  pending_used bigint NOT NULL,\n  active_used bigint NOT NULL,\n  storage_used bigint NOT NULL,\n  memory_used bigint NOT NULL,\n  cost_used bigint NOT NULL,\n  CONSTRAINT organization_budgets_pkey PRIMARY KEY (organization_id),\n  CONSTRAINT organization_budgets_fkey_1 FOREIGN KEY (organization_id) REFERENCES arboresce_authority.organizations (organization_id),\n  CONSTRAINT organization_budgets_pending_limit_check CHECK (pending_limit>=0),\n  CONSTRAINT organization_budgets_pending_used_check CHECK (pending_used>=0),\n  CONSTRAINT organization_budgets_active_limit_check CHECK (active_limit>=0),\n  CONSTRAINT organization_budgets_active_used_check CHECK (active_used>=0),\n  CONSTRAINT organization_budgets_storage_limit_check CHECK (storage_limit>=0),\n  CONSTRAINT organization_budgets_storage_used_check CHECK (storage_used>=0),\n  CONSTRAINT organization_budgets_memory_limit_check CHECK (memory_limit>=0),\n  CONSTRAINT organization_budgets_memory_used_check CHECK (memory_used>=0),\n  CONSTRAINT organization_budgets_cost_limit_check CHECK (cost_limit>=0),\n  CONSTRAINT organization_budgets_cost_used_check CHECK (cost_used>=0)\n);\n\nCREATE TABLE arboresce_admission.reservation_recognition (\n  organization_id arboresce_authority.identifier NOT NULL,\n  reservation_id arboresce_authority.identifier NOT NULL,\n  principal_id arboresce_authority.identifier NOT NULL,\n  owner text COLLATE \"C\" NOT NULL,\n  replica text COLLATE \"C\" NOT NULL,\n  fence bigint NOT NULL,\n  attempt_limit smallint NOT NULL,\n  attempts_used smallint NOT NULL,\n  total_deadline timestamp with time zone NOT NULL,\n  admitted_at timestamp with time zone NOT NULL,\n  last_observed_at timestamp with time zone NOT NULL,\n  state text NOT NULL,\n  reservation_order bigint NOT NULL,\n  CONSTRAINT reservation_recognition_pkey PRIMARY KEY (organization_id,reservation_id),\n  CONSTRAINT reservation_recognition_unique_1 UNIQUE (organization_id,reservation_id,principal_id,owner,replica,fence,attempt_limit,total_deadline,admitted_at,state),\n  CONSTRAINT reservation_recognition_unique_2 UNIQUE (reservation_order),\n  CONSTRAINT reservation_recognition_fkey_1 FOREIGN KEY (organization_id) REFERENCES arboresce_admission.organization_budgets (organization_id),\n  CONSTRAINT reservation_recognition_fkey_2 FOREIGN KEY (organization_id,principal_id) REFERENCES arboresce_authority.memberships (organization_id,principal_id),\n  CONSTRAINT reservation_recognition_reservation_order_check CHECK (reservation_order>0),\n  CONSTRAINT reservation_recognition_owner_check CHECK (owner ~ '^[A-Za-z0-9_.-]{1,96}$'),\n  CONSTRAINT reservation_recognition_replica_check CHECK (replica ~ '^[A-Za-z0-9_.-]{1,96}$'),\n  CONSTRAINT reservation_recognition_fence_check CHECK (fence BETWEEN 1 AND 999999999999999999),\n  CONSTRAINT reservation_recognition_attempt_limit_check CHECK (attempt_limit BETWEEN 1 AND 8),\n  CONSTRAINT reservation_recognition_attempts_used_check CHECK (attempts_used BETWEEN 0 AND attempt_limit),\n  CONSTRAINT reservation_recognition_state_check CHECK (state IN ('reserved','active','reconciliation_required','released')),\n  CONSTRAINT reservation_recognition_total_deadline_check CHECK (CASE WHEN isfinite(total_deadline) THEN total_deadline BETWEEN timestamptz '0001-01-01 00:00:00+00' AND timestamptz '9999-12-31 23:59:59.999+00' AND mod(extract(microseconds FROM total_deadline),1000)=0 ELSE false END),\n  CONSTRAINT reservation_recognition_admitted_at_check CHECK (CASE WHEN isfinite(admitted_at) THEN admitted_at BETWEEN timestamptz '0001-01-01 00:00:00+00' AND timestamptz '9999-12-31 23:59:59.999+00' AND mod(extract(microseconds FROM admitted_at),1000)=0 ELSE false END),\n  CONSTRAINT reservation_recognition_last_observed_at_check CHECK (CASE WHEN isfinite(last_observed_at) THEN last_observed_at BETWEEN timestamptz '0001-01-01 00:00:00+00' AND timestamptz '9999-12-31 23:59:59.999+00' AND mod(extract(microseconds FROM last_observed_at),1000)=0 ELSE false END),\n  CONSTRAINT reservation_recognition_lifetime_check CHECK (admitted_at<total_deadline AND total_deadline-admitted_at<=interval '1 hour'),\n  CONSTRAINT reservation_recognition_observation_order_check CHECK (last_observed_at>=admitted_at)\n);\n\nCREATE TABLE arboresce_admission.reservations (\n  organization_id arboresce_authority.identifier NOT NULL,\n  reservation_id arboresce_authority.identifier NOT NULL,\n  principal_id arboresce_authority.identifier NOT NULL,\n  replica text COLLATE \"C\" NOT NULL,\n  pending bigint NOT NULL,\n  active bigint NOT NULL,\n  storage_bytes bigint NOT NULL,\n  memory_bytes bigint NOT NULL,\n  cost_microusd bigint NOT NULL,\n  owner text COLLATE \"C\" NOT NULL,\n  fence bigint NOT NULL,\n  admitted_at timestamp with time zone NOT NULL,\n  expires_at timestamp with time zone NOT NULL,\n  attempt_limit smallint NOT NULL,\n  total_deadline timestamp with time zone NOT NULL,\n  state text NOT NULL,\n  dispatch_outcome text,\n  CONSTRAINT reservations_pkey PRIMARY KEY (organization_id,reservation_id),\n  CONSTRAINT reservations_fkey_1 FOREIGN KEY (organization_id,reservation_id,principal_id,owner,replica,fence,attempt_limit,total_deadline,admitted_at,state) REFERENCES arboresce_admission.reservation_recognition (organization_id,reservation_id,principal_id,owner,replica,fence,attempt_limit,total_deadline,admitted_at,state) ON UPDATE CASCADE,\n  CONSTRAINT reservations_pending_check CHECK (pending>=0),\n  CONSTRAINT reservations_active_check CHECK (active>=0),\n  CONSTRAINT reservations_storage_bytes_check CHECK (storage_bytes>=0),\n  CONSTRAINT reservations_memory_bytes_check CHECK (memory_bytes>=0),\n  CONSTRAINT reservations_cost_microusd_check CHECK (cost_microusd>=0),\n  CONSTRAINT reservations_owner_check CHECK (owner ~ '^[A-Za-z0-9_.-]{1,96}$'),\n  CONSTRAINT reservations_replica_check CHECK (replica ~ '^[A-Za-z0-9_.-]{1,96}$'),\n  CONSTRAINT reservations_fence_check CHECK (fence BETWEEN 1 AND 999999999999999999),\n  CONSTRAINT reservations_attempt_limit_check CHECK (attempt_limit BETWEEN 1 AND 8),\n  CONSTRAINT reservations_state_check CHECK (state IN ('reserved','active','reconciliation_required')),\n  CONSTRAINT reservations_dispatch_outcome_check CHECK (dispatch_outcome IN ('accepted_running','unknown','not_dispatched','completed')),\n  CONSTRAINT reservations_admitted_at_check CHECK (CASE WHEN isfinite(admitted_at) THEN admitted_at BETWEEN timestamptz '0001-01-01 00:00:00+00' AND timestamptz '9999-12-31 23:59:59.999+00' AND mod(extract(microseconds FROM admitted_at),1000)=0 ELSE false END),\n  CONSTRAINT reservations_expires_at_check CHECK (CASE WHEN isfinite(expires_at) THEN expires_at BETWEEN timestamptz '0001-01-01 00:00:00+00' AND timestamptz '9999-12-31 23:59:59.999+00' AND mod(extract(microseconds FROM expires_at),1000)=0 ELSE false END),\n  CONSTRAINT reservations_total_deadline_check CHECK (CASE WHEN isfinite(total_deadline) THEN total_deadline BETWEEN timestamptz '0001-01-01 00:00:00+00' AND timestamptz '9999-12-31 23:59:59.999+00' AND mod(extract(microseconds FROM total_deadline),1000)=0 ELSE false END),\n  CONSTRAINT reservations_expiry_order_check CHECK (admitted_at<expires_at AND expires_at<=total_deadline),\n  CONSTRAINT reservations_resource_nonzero_check CHECK (pending>0 OR active>0 OR storage_bytes>0 OR memory_bytes>0 OR cost_microusd>0)\n);\n\nREVOKE ALL ON ALL TABLES IN SCHEMA arboresce_admission FROM PUBLIC;\n\nGRANT USAGE ON SCHEMA arboresce_admission TO harness_authority_admission;\n\nGRANT SELECT ON arboresce_admission.global_budget TO harness_authority_admission;\n\nGRANT UPDATE (active_used,memory_used,last_observed_at,next_reservation_order) ON arboresce_admission.global_budget TO harness_authority_admission;\n\nGRANT SELECT ON arboresce_admission.organization_budgets TO harness_authority_admission;\n\nGRANT UPDATE (pending_used,active_used,storage_used,memory_used,cost_used) ON arboresce_admission.organization_budgets TO harness_authority_admission;\n\nALTER TABLE arboresce_admission.organization_budgets ENABLE ROW LEVEL SECURITY;\n\nALTER TABLE arboresce_admission.organization_budgets FORCE ROW LEVEL SECURITY;\n\nCREATE POLICY complete_context ON arboresce_admission.organization_budgets AS RESTRICTIVE FOR ALL TO harness_authority_admission USING (nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL) WITH CHECK (nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL);\n\nCREATE POLICY selected_principal ON arboresce_admission.organization_budgets FOR ALL TO harness_authority_admission USING (organization_id::text=nullif(current_setting('arboresce.organization_id',true),'')) WITH CHECK (organization_id::text=nullif(current_setting('arboresce.organization_id',true),''));\n\nGRANT SELECT ON arboresce_admission.reservation_recognition TO harness_authority_admission;\n\nGRANT INSERT (organization_id,reservation_id,principal_id,owner,replica,fence,attempt_limit,attempts_used,total_deadline,admitted_at,last_observed_at,state,reservation_order) ON arboresce_admission.reservation_recognition TO harness_authority_admission;\n\nGRANT UPDATE (attempts_used,last_observed_at,state) ON arboresce_admission.reservation_recognition TO harness_authority_admission;\n\nALTER TABLE arboresce_admission.reservation_recognition ENABLE ROW LEVEL SECURITY;\n\nALTER TABLE arboresce_admission.reservation_recognition FORCE ROW LEVEL SECURITY;\n\nCREATE POLICY complete_context ON arboresce_admission.reservation_recognition AS RESTRICTIVE FOR ALL TO harness_authority_admission USING (nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL) WITH CHECK (nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL);\n\nCREATE POLICY selected_principal ON arboresce_admission.reservation_recognition FOR ALL TO harness_authority_admission USING (organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND principal_id::text=nullif(current_setting('arboresce.principal_id',true),'')) WITH CHECK (organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND principal_id::text=nullif(current_setting('arboresce.principal_id',true),''));\n\nGRANT SELECT ON arboresce_admission.reservations TO harness_authority_admission;\n\nGRANT INSERT (organization_id,reservation_id,principal_id,replica,pending,active,storage_bytes,memory_bytes,cost_microusd,owner,fence,admitted_at,expires_at,attempt_limit,total_deadline,state) ON arboresce_admission.reservations TO harness_authority_admission;\n\nGRANT UPDATE (expires_at,state) ON arboresce_admission.reservations TO harness_authority_admission;\n\nGRANT DELETE ON arboresce_admission.reservations TO harness_authority_admission;\n\nALTER TABLE arboresce_admission.reservations ENABLE ROW LEVEL SECURITY;\n\nALTER TABLE arboresce_admission.reservations FORCE ROW LEVEL SECURITY;\n\nCREATE POLICY complete_context ON arboresce_admission.reservations AS RESTRICTIVE FOR ALL TO harness_authority_admission USING (nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL) WITH CHECK (nullif(current_setting('arboresce.organization_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.domain_id',true),'') IS NOT NULL AND nullif(current_setting('arboresce.principal_id',true),'') IS NOT NULL);\n\nCREATE POLICY selected_principal ON arboresce_admission.reservations FOR ALL TO harness_authority_admission USING (organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND principal_id::text=nullif(current_setting('arboresce.principal_id',true),'')) WITH CHECK (organization_id::text=nullif(current_setting('arboresce.organization_id',true),'') AND principal_id::text=nullif(current_setting('arboresce.principal_id',true),''));\n\nGRANT SELECT (version,success,checksum) ON public._sqlx_migrations TO harness_authority_admission;\n",
+    "sql_sha256": "bfd842c368f42d8b50ba1da61a574cd71217a9bad5b921da5d71df539bd5ca3f",
+    "sql_sha384": "ae151d3ade06d257ae05a05b99695841b973f7107331b7abd6045f227f81ae43e35117543c140fe5dd4f338f85679eea",
+    "source_status": "Frozen proposed unconsumed storage contract data. No fixture checker executes this SQL. The separately admitted migration consumer must own matching public migration bytes and actual native qualification."
+  }
+}
