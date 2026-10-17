@@ -1,0 +1,1755 @@
+{
+  "fixture_version": "bootstrap-scope-v1",
+  "classification": "independent_synthetic_scope_and_representation_observations_not_writer_or_authentication_evidence",
+  "cases": [
+    {
+      "id": "bootstrap-profile-tokens-exact-96",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "policy": "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "policy": "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+          "policy": "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "admit",
+          "reason": "synthetic_scope_only",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+            "policy": "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": null
+      }
+    },
+    {
+      "id": "bootstrap-profile-allowed-ascii-token-characters",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "N_1.-a",
+          "policy": "P_2.-b",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "N_1.-a",
+          "policy": "P_2.-b",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "N_1.-a",
+          "policy": "P_2.-b"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "admit",
+          "reason": "synthetic_scope_only",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "N_1.-a",
+            "policy": "P_2.-b",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": null
+      }
+    },
+    {
+      "id": "bootstrap-profile-explicit-trusted-renamed-scope",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "configured_other_namespace",
+          "policy": "configured_other_policy",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "configured_other_namespace",
+          "policy": "configured_other_policy",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "configured_other_namespace",
+          "policy": "configured_other_policy"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "admit",
+          "reason": "synthetic_scope_only",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "configured_other_namespace",
+            "policy": "configured_other_policy",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": null
+      }
+    },
+    {
+      "id": "bootstrap-profile-issuance-inclusive",
+      "input": {
+        "now": "2026-10-03T11:59:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "admit",
+          "reason": "synthetic_scope_only",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": null
+      }
+    },
+    {
+      "id": "bootstrap-profile-last-millisecond-before-expiry",
+      "input": {
+        "now": "2026-10-03T12:00:59.999Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "admit",
+          "reason": "synthetic_scope_only",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": null
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-namespace-empty",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-namespace-one-over",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-namespace-control",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "\n",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-namespace-non-ascii",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "é",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-policy-empty",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": ""
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-policy-one-over",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-policy-control",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "\n"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-configuration-policy-non-ascii",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "é"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_configuration",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidConfiguration"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-namespace-empty",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-namespace-one-over",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-namespace-control",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "\n",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "\n",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-namespace-non-ascii",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "é",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "é",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-policy-empty",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-policy-one-over",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-policy-control",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "\n",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "\n",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-grant-policy-non-ascii",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "é",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "é",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-namespace-empty",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-namespace-one-over",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-namespace-control",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "\n",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-namespace-non-ascii",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "é",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-policy-empty",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-policy-one-over",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-policy-control",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "\n",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-request-policy-non-ascii",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "é",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_input",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidInput"
+      }
+    },
+    {
+      "id": "bootstrap-profile-empty-grant-lifetime",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T11:59:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T11:59:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-reversed-grant-lifetime",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T11:58:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "invalid_stored_data",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T11:58:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "InvalidStoredData"
+      }
+    },
+    {
+      "id": "bootstrap-profile-unregistered-matching-namespace",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "unregistered_namespace",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "unregistered_namespace",
+          "policy": "fixture_bootstrap_v1",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "namespace_mismatch",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "unregistered_namespace",
+            "policy": "fixture_bootstrap_v1",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "NamespaceMismatch"
+      }
+    },
+    {
+      "id": "bootstrap-profile-unregistered-matching-policy",
+      "input": {
+        "now": "2026-10-03T12:00:00.000Z",
+        "grant": {
+          "grant_id": "80808080-8080-4080-8080-808080808080",
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "unregistered_policy",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "issued_at": "2026-10-03T11:59:00.000Z",
+          "expires_at": "2026-10-03T12:01:00.000Z",
+          "single_use": true,
+          "consumed": false,
+          "recognized_retired": false
+        },
+        "request": {
+          "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+          "namespace": "fixture_studio",
+          "policy": "unregistered_policy",
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "new_owner_principal_id": "01010101-0101-4101-8101-010101010101"
+        },
+        "writer_enabled": false,
+        "independent_lifecycle_proof": "not_supplied",
+        "configuration": {
+          "namespace": "fixture_studio",
+          "policy": "fixture_bootstrap_v1"
+        }
+      },
+      "expected": {
+        "scope": {
+          "semantic_scope_decision": "deny",
+          "reason": "policy_mismatch",
+          "writer_admitted": false,
+          "grant_after": {
+            "grant_id": "80808080-8080-4080-8080-808080808080",
+            "operator_principal_id": "05050505-0505-4505-8505-050505050505",
+            "namespace": "fixture_studio",
+            "policy": "unregistered_policy",
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "issued_at": "2026-10-03T11:59:00.000Z",
+            "expires_at": "2026-10-03T12:01:00.000Z",
+            "single_use": true,
+            "consumed": false,
+            "recognized_retired": false
+          },
+          "owner_rows_created": [],
+          "effects": []
+        },
+        "failure": "PolicyMismatch"
+      }
+    }
+  ]
+}

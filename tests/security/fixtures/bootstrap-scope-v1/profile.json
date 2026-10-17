@@ -1,0 +1,144 @@
+{
+  "version": "bootstrap-scope-v1",
+  "classification": "bounded_pure_bootstrap_scope_observation_only",
+  "rights": {
+    "origin": "Original public synthetic literal inputs and independent expected observations",
+    "license": "MIT OR Apache-2.0",
+    "personal_records": false,
+    "operational_credentials": false
+  },
+  "source_revision": "d16fffd159940a32ef0c7e2d62572d02be8e6afb",
+  "sources": {
+    "docs/requirements/identity-contract.md": "2c90ffe583dc51b6e032b0571f651c6550b04edfda3688844076016cb3efff12",
+    "docs/requirements/resource-profiles.md": "ef633a39322bb6afd549771a79d81330d56734bcf4bb4f96a329bdde5590fa73",
+    "docs/requirements/security-and-privacy.md": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
+    "docs/requirements/project-fixtures.md": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
+    "tests/security/fixtures/authority-v1/README.md": "15b331e159e95d5060dbf201455f02cbc82fa5d6d33c457b679e9bd443e24fbb",
+    "tests/security/fixtures/authority-v1/sources.json": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078",
+    "tests/security/fixtures/authority-v1/cases.json": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911",
+    "tests/security/fixtures/canonical-authority-v1/profile.json": "0e030fde52443488cb366cf319681b285b11bb5f71fa22269f67950076c703a4",
+    "LICENSE-MIT": "1434e89c553388e6b12b6c2c992beb5f3c6be2b5f0998d13e61dfe348c388f39",
+    "LICENSE-APACHE": "ce9bbc740fe67ed46479d83d56f8d8866455c368046d8b9607dbc5d65f65e428"
+  },
+  "original_scope": {
+    "package": "tests/security/fixtures/authority-v1",
+    "case_file_sha256": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911",
+    "group": "bootstrap_scope",
+    "required_case_ids": [
+      "bootstrap-exact-operator-namespace-policy",
+      "bootstrap-wrong-operator",
+      "bootstrap-wrong-namespace",
+      "bootstrap-wrong-policy",
+      "bootstrap-cross-tenant",
+      "bootstrap-expired-exclusive",
+      "bootstrap-already-consumed",
+      "bootstrap-cannot-resurrect-retired-scope",
+      "bootstrap-future-grant",
+      "bootstrap-not-one-use"
+    ],
+    "meaning": "All ten unchanged original expectations are mandatory, including exact unchanged grant after-state, no owner rows/effects and every writer disabled. The existing descriptor admits this E205 scope only; all other original/later groups retain their own gates."
+  },
+  "fixture_configuration": {
+    "namespace": "fixture_studio",
+    "policy": "fixture_bootstrap_v1"
+  },
+  "bounds": {
+    "token_ascii_bytes": 96,
+    "tokens_per_scope": 2,
+    "scope_values_per_call": 3,
+    "max_case_file_bytes": 131072,
+    "max_profile_bytes": 65536,
+    "max_cases": 64,
+    "max_json_depth": 32,
+    "source_authority_case_bytes": 8388608,
+    "source_authority_cases": 512
+  },
+  "representation": {
+    "token": "Nonempty ASCII letters, digits, underscore, period or hyphen; at most96 bytes, case-sensitive and exact. The finite token selection is inherited from the separately frozen canonical-authority-evaluation-v1 profile; it selects no production namespace or policy.",
+    "values": "Grant, organization, new-owner and authenticated-operator IDs use the existing checked Identifier; issuance, expiry and supplied trusted observation time use checked UTC milliseconds. Stored grant lifetime must be nonempty.",
+    "ownership": "The pure consumer borrows already decoded names and typed values, performs no I/O or heap allocation, and bounds every name before comparisons. Byte reads, decoding, allocation, current canonical state, trusted clock health and real authentication remain consuming-adapter obligations."
+  },
+  "semantics": {
+    "configuration": "An independently supplied trusted registered namespace/policy selection is checked separately from the current canonical grant and normalized request. Matching unknown grant/request names do not replace this configuration. Fixture names are injected test policy, never compiled production defaults.",
+    "operator": "The authenticated operator is an independent typed consumer argument. request.operator_principal_id denotes only the normalized injected trusted operator observation in these fixtures, never an HTTP caller claim or authentication proof. It must exactly match the grant operator; grant names cannot choose the actual executor.",
+    "scope": "Grant and request namespace/policy must each equal the explicitly registered selection. Organization must exactly match. New-owner format does not establish its existence, identity proof or membership.",
+    "lifetime": "Require issued_at<=now<expires_at. Empty or reversed stored lifetimes are invalid stored data.",
+    "use_and_retirement": "Require single_use true, consumed false and recognized_retired false. A retired scope cannot regain use through these scope observations; no grant is consumed or mutated.",
+    "observation": "Successful scope match is not writer admission, authentication, a transferable capability, effect fence or lifecycle proof. All results retain writer_admitted false, exact unchanged grant and empty owner/effect collections."
+  },
+  "finite_failures": {
+    "InvalidConfiguration": "Malformed/oversized trusted registered scope token.",
+    "InvalidStoredData": "Malformed/oversized canonical grant scope token or empty/reversed stored lifetime.",
+    "InvalidInput": "Malformed/oversized normalized requested scope token.",
+    "OperatorMismatch": "Selected authenticated operator differs from grant operator.",
+    "NamespaceMismatch": "Grant or request differs from registered namespace.",
+    "PolicyMismatch": "Grant or request differs from registered policy.",
+    "TenantMismatch": "Requested organization differs from grant organization.",
+    "GrantExpired": "Supplied trusted time reaches exclusive expiry.",
+    "GrantUsed": "Canonical grant is already consumed.",
+    "ScopeRetired": "Canonical scope is irreversibly retired.",
+    "GrantNotYetValid": "Supplied trusted time precedes issuance.",
+    "UnsupportedBootstrapGrant": "Grant is not one-use."
+  },
+  "runtime_projection": {
+    "permit": "Only each case input, plus explicit fixture_configuration for the unchanged original ten cases. Expected values, case identities, manifest prose and hashes stay outside the runtime/helper projection.",
+    "exclude": [
+      "expected",
+      "required_case_ids",
+      "rights",
+      "source_revision",
+      "sources",
+      "financial human assurance"
+    ],
+    "result": "The supplemental observation container separates the unchanged original scope observation from the actual finite internal failure or null. This is a fixture observation, not a public wire schema, first-failure ordering contract or future HTTP body."
+  },
+  "required_case_ids": [
+    "bootstrap-profile-tokens-exact-96",
+    "bootstrap-profile-allowed-ascii-token-characters",
+    "bootstrap-profile-explicit-trusted-renamed-scope",
+    "bootstrap-profile-issuance-inclusive",
+    "bootstrap-profile-last-millisecond-before-expiry",
+    "bootstrap-profile-configuration-namespace-empty",
+    "bootstrap-profile-configuration-namespace-one-over",
+    "bootstrap-profile-configuration-namespace-control",
+    "bootstrap-profile-configuration-namespace-non-ascii",
+    "bootstrap-profile-configuration-policy-empty",
+    "bootstrap-profile-configuration-policy-one-over",
+    "bootstrap-profile-configuration-policy-control",
+    "bootstrap-profile-configuration-policy-non-ascii",
+    "bootstrap-profile-grant-namespace-empty",
+    "bootstrap-profile-grant-namespace-one-over",
+    "bootstrap-profile-grant-namespace-control",
+    "bootstrap-profile-grant-namespace-non-ascii",
+    "bootstrap-profile-grant-policy-empty",
+    "bootstrap-profile-grant-policy-one-over",
+    "bootstrap-profile-grant-policy-control",
+    "bootstrap-profile-grant-policy-non-ascii",
+    "bootstrap-profile-request-namespace-empty",
+    "bootstrap-profile-request-namespace-one-over",
+    "bootstrap-profile-request-namespace-control",
+    "bootstrap-profile-request-namespace-non-ascii",
+    "bootstrap-profile-request-policy-empty",
+    "bootstrap-profile-request-policy-one-over",
+    "bootstrap-profile-request-policy-control",
+    "bootstrap-profile-request-policy-non-ascii",
+    "bootstrap-profile-empty-grant-lifetime",
+    "bootstrap-profile-reversed-grant-lifetime",
+    "bootstrap-profile-unregistered-matching-namespace",
+    "bootstrap-profile-unregistered-matching-policy"
+  ],
+  "case_file": {
+    "path": "cases.json",
+    "bytes": 68241,
+    "sha256": "f6f7948432c660d917a6ab4579f05a67373eb202606ea80ccd555bbd6181280c"
+  },
+  "forbidden": [
+    "Product or first-owner bootstrap writes",
+    "Grant consumption or effects",
+    "Caller-supplied trusted verifier, authority, clock-health or lifecycle-proof flags",
+    "Live HTTP authentication or registered command admission",
+    "Default fixture namespace/policy in production",
+    "Human, live-model, native-release, operational recovery, user or whole-product acceptance"
+  ],
+  "consumer_gate": "Independently accept these exact literal meanings and bounded scope before consumer implementation. Actual source, measured support, complete owning/public-only standalone qualification and delivery remain separate. Authentic independently retained lifecycle continuity precedes every product/bootstrap writer."
+}
