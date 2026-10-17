@@ -1606,6 +1606,156 @@
         "marker_rows_added": 0,
         "ordinary_begin": "UnsafeRole"
       }
+    },
+    {
+      "id": "sql-held-fence-grant-expires-before-marker",
+      "group": "effect",
+      "input": {
+        "base": "grant-child-own-key-project-review",
+        "operation": "held_fence_clock_advance",
+        "effect": "isolated_synthetic_marker",
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:00.000Z",
+          "2026-10-03T12:05:00.000Z"
+        ],
+        "marker_id": "95959595-9595-4595-8595-959595959595",
+        "observation_id": "97979797-9797-4797-8797-979797979797"
+      },
+      "expected": {
+        "initial_decision": "admit",
+        "failure": "Forbidden",
+        "semantic_problem": {
+          "code": "forbidden",
+          "status": 403
+        },
+        "marker_rows_added": 0,
+        "resource_control_before": "13",
+        "resource_control_after": "13",
+        "trusted_clock_calls": 2,
+        "positive_terminal": "rollback",
+        "same_physical_backend": true,
+        "authority_changed": false
+      }
+    },
+    {
+      "id": "sql-held-fence-source-expires-before-marker",
+      "group": "effect",
+      "input": {
+        "base": "workspace-a-same-human",
+        "operation": "held_fence_clock_advance",
+        "effect": "isolated_synthetic_marker",
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:00.000Z",
+          "2026-10-03T12:10:00.000Z"
+        ],
+        "marker_id": "95959595-9595-4595-8595-959595959595",
+        "observation_id": "97979797-9797-4797-8797-979797979797"
+      },
+      "expected": {
+        "initial_decision": "admit",
+        "failure": "NotFound",
+        "semantic_problem": {
+          "code": "not_found",
+          "status": 404
+        },
+        "marker_rows_added": 0,
+        "resource_control_before": "13",
+        "resource_control_after": "13",
+        "trusted_clock_calls": 2,
+        "positive_terminal": "rollback",
+        "same_physical_backend": true,
+        "authority_changed": false
+      }
+    },
+    {
+      "id": "sql-read-only-authority-cannot-advance-resource-control",
+      "group": "effect",
+      "input": {
+        "base": "workspace-a-service-read",
+        "operation": "read_only_fence_cas",
+        "effect": "qualified_synthetic_cas",
+        "patch": {
+          "expected_resource_control": {
+            "kind": "control",
+            "value": "13"
+          }
+        },
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:00.000Z",
+          "2026-10-03T12:00:00.000Z"
+        ],
+        "marker_id": "95959595-9595-4595-8595-959595959595",
+        "observation_id": "97979797-9797-4797-8797-979797979797"
+      },
+      "expected": {
+        "initial_decision": "admit",
+        "failure": "Forbidden",
+        "semantic_problem": {
+          "code": "forbidden",
+          "status": 403
+        },
+        "marker_rows_added": 0,
+        "resource_control_before": "13",
+        "resource_control_after": "13",
+        "trusted_clock_calls": 2,
+        "positive_terminal": "rollback",
+        "same_physical_backend": true,
+        "authority_changed": false
+      }
+    },
+    {
+      "id": "sql-held-fence-valid-clock-advance-commits-cas",
+      "group": "effect",
+      "input": {
+        "base": "grant-root-own-key-project-review",
+        "operation": "held_fence_clock_advance",
+        "effect": "qualified_synthetic_cas",
+        "trusted_clock_samples": [
+          "2026-10-03T12:00:00.000Z",
+          "2026-10-03T12:00:01.000Z"
+        ],
+        "marker_id": "95959595-9595-4595-8595-959595959595",
+        "observation_id": "97979797-9797-4797-8797-979797979797"
+      },
+      "expected": {
+        "initial_decision": "admit",
+        "failure": null,
+        "decision": "admit",
+        "marker_rows_added": 1,
+        "resource_control_before": "13",
+        "resource_control_after": "14",
+        "trusted_clock_calls": 2,
+        "positive_terminal": "commit",
+        "same_physical_backend": true,
+        "authority_changed": true,
+        "unrelated_canonical_rows_unchanged": true,
+        "marker_row": {
+          "organization_id": "11111111-1111-4111-8111-111111111111",
+          "domain_id": "22222222-2222-4222-9222-222222222222",
+          "marker_id": "95959595-9595-4595-8595-959595959595",
+          "observation_id": "97979797-9797-4797-8797-979797979797",
+          "executor_principal_id": "02020202-0202-4202-8202-020202020202",
+          "selected_chain_id": "70707070-7070-4070-8070-707070707070",
+          "action": "project.change.review",
+          "purpose": "project_support",
+          "resource_kind": "project",
+          "resource_id": "44444444-4444-4444-b444-444444444444",
+          "admitted_policy_epoch": 4,
+          "admitted_membership_revision": 8,
+          "admitted_grant_revision": 3,
+          "admitted_resource_control": 13
+        },
+        "observation": {
+          "observation_id": "97979797-9797-4797-8797-979797979797",
+          "marker_id": "95959595-9595-4595-8595-959595959595",
+          "transaction_outcome": "committed",
+          "executor_principal_id": "02020202-0202-4202-8202-020202020202",
+          "selected_chain_id": "70707070-7070-4070-8070-707070707070"
+        },
+        "canonical_command_receipts": [],
+        "product_effects": [],
+        "human_assurance_issued": false
+      }
     }
   ],
   "error_cases": [
@@ -1735,6 +1885,7 @@
     "child_lock": "Actual lock-only second writer shares namespace then probes the fixed exact selected row. Observe pg_blocking_pids and actual backend identity/start plus successful same-row acquisition only after positive first-terminal. No table-lock or query-string-only proof. No permission mutation bypasses namespace.",
     "row_channel": "Actual PostgreSQL VALUES result exercises driver/decoder rows32/33 without adding stored fixture rows or pretending it is an indexed stored-closure overflow. Production LIMIT/lookahead and global bound remain separately source/native qualified. No authority/effect may be admitted by channel-only tests.",
     "faults": "Control mutates only exact owned synthetic DB/role/constraint, retains actual old/new catalogue and data, and restores before next case. No broad RLS/constraint disable or fabricated seed-as-verdict.",
-    "disclosure": "Every finite result excludes foreign IDs/counts, raw SQL/binds, paths/credentials and backend causes; denied cases emit no marker or product receipt."
+    "disclosure": "Every finite result excludes foreign IDs/counts, raw SQL/binds, paths/credentials and backend causes; denied cases emit no marker or product receipt.",
+    "final_effect": "A held fence is not a reusable observation. The final isolated effect rereads locked current rows and samples the originating trusted clock again immediately before effect authorization. Exclusive grant/source expiry still denies with positive rollback and no marker/CAS. A read-only project.read decision cannot advance resource control. These supplied-clock boundary inputs perform no external work or sleep while locks are held."
   }
 }

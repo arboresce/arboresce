@@ -34,8 +34,8 @@
     "owner": "Isolated direct current-authority/final-fence qualification",
     "normalization": "Server-internal authenticated executor identity, exact selected workspace/resource/action/purpose and immutable chain identity; not an HTTP caller-supplied projection",
     "runtime_input": "Only each original or supplemental case input, independently selected trusted configuration and separately supplied trusted clock. No expected object, reason, case identity, oracle metadata or result-dependent branch reaches runtime.",
-    "semantics": "Bounded current PostgreSQL rows feed the accepted pure evaluator. An immutable observation grants no reusable authority. Actual final transaction must independently reread and fence before any isolated marker/CAS.",
-    "writers": "Only isolated synthetic marker and explicitly selected synthetic CAS. Product command receipts, product effects and human assurance stay empty/false. Every product/bootstrap writer remains disabled pending its independent lifecycle gate."
+    "semantics": "Bounded current PostgreSQL rows feed the accepted pure evaluator. An immutable observation grants no reusable authority. Actual final transaction must independently reread and fence before any isolated marker/CAS. A held fence must repeat the complete locked current check with its originating trusted clock immediately before each effect.",
+    "writers": "Only isolated synthetic marker and explicitly selected synthetic CAS. Product command receipts, product effects and human assurance stay empty/false. Every product/bootstrap writer remains disabled pending its independent lifecycle gate. Resource CAS additionally requires the admitted project.change.review action; project.read cannot advance control."
   },
   "native_profile": {
     "rust": "1.99.0",
@@ -116,7 +116,7 @@
     "key_order": "Within each family use ascending canonical typed key order; permission writers use identical order. No unsafe SHARE-to-UPDATE target upgrade.",
     "namespace_parent": "Acquire the one fixed namespace row in its own completed SQL statement BEFORE any authority/closure discovery. Admission takes FOR SHARE; every permission mutation takes FOR UPDATE first. A combined parent-lock/join statement is forbidden because a READ COMMITTED statement snapshot can predate the conflicting writer's COMMIT. Subsequent discovery and actual selected row locks use fresh statements; hold the parent until positive COMMIT/ROLLBACK. This fences missing/new/changed closure members while retaining all actual family/key locks. Global permission serialization is explicit, not a product performance claim.",
     "row_modes": "FOR SHARE conflicts with non-key revocation UPDATE; KEY SHARE is insufficient. Review/CAS target takes its final exclusive mode up front.",
-    "post_wait": "Reread the complete selected closure after every wait under a fresh READ COMMITTED statement snapshot; sample the server-internal trusted clock after all waits. Never use transaction-start now() as a fresh clock.",
+    "post_wait": "Reread the complete selected closure after every wait under a fresh READ COMMITTED statement snapshot; sample the server-internal trusted clock after all waits. Never use transaction-start now() as a fresh clock. A caller-held fence must repeat final locked current reads and originating trusted-clock sampling before its marker/CAS, so time expiry cannot be hidden by an earlier observation.",
     "external_work_while_locked": false,
     "terminal": "Only positive COMMIT/ROLLBACK is definite. Lost completion/drop/cancellation poisons the owned session; no reuse, automatic retry, fabricated rollback or marker receipt. Closing the exact owned session remains bounded.",
     "target_first_mode": "Select SHARE for a read-only target or the final exclusive mode for any marker/CAS target at the first target acquisition. Never take SHARE then upgrade for a possible later CAS.",
@@ -184,7 +184,6 @@
     "crates/arboresce-domain/src/time.rs": "07d079047de7b40ba7eb42bbc52d6f9d3545fb8787a3f0de79201549c60548bc",
     "crates/arboresce-application/src/policy/authority.rs": "3b528960055dd5b4bba9be5932afbce63a4c92a524ccdf71d6a23271daf4a938",
     "crates/arboresce-postgres/src/tenant.rs": "771f9b284ef257cd0ce581a371884d73effc372bd0b96a230667492cd5c0130c",
-    "crates/arboresce-postgres/src/migration.rs": "3c780eb4e1dd79aca5b9b84543e89c0b1f138972fc5919b4755bae08b30f4d16",
     "crates/arboresce-postgres/migrations/1_records.sql": "34f36106937fee8e45db31a6e26e537ceeace7411c91fd2c603781a96291af7c",
     "crates/arboresce-postgres/migrations/2_annotation.sql": "9c6f8d35f2f575176b13428a62895858c943b8b3974ca4ca07de26ad600d76a4",
     "crates/arboresce-postgres/migrations/3_tenant_authority.sql": "504f3d72b2bad515423d0e7bfee4ac756aab1d97a3cb698b8d91103bec3d4e4f",
@@ -202,8 +201,8 @@
   },
   "package_files": {
     "README.md": {
-      "sha256": "38dd62dd9d688b477a493303ae4a0ddd4215200c990f0a9179bc73aa5606ae7b",
-      "bytes": 6049
+      "sha256": "652f2d8647938f199422bee1d9c737aa4d89de9b54e485376784dc8330af71b5",
+      "bytes": 7307
     },
     "schema.json": {
       "sha256": "374a3ba4c9b9dda4aa467c38610938cb6714b6232dd1c03a24f73f3899f8d08c",
@@ -214,8 +213,24 @@
       "bytes": 163898
     },
     "cases.json": {
-      "sha256": "1255d949b404837563debfd703743caa6a8b1dbd98ad063c816ce1254f12859f",
-      "bytes": 53301
+      "sha256": "fe52c06ceab09af55579515776659ad0be531f2732e8afe5159ce1e3136100ee",
+      "bytes": 59021
+    }
+  },
+  "historical_sources": {
+    "crates/arboresce-postgres/src/migration.rs": {
+      "revision": "a775e1d0b2f5f0b9c25efb4df0556813c4d6d143",
+      "sha256": "3c780eb4e1dd79aca5b9b84543e89c0b1f138972fc5919b4755bae08b30f4d16",
+      "bytes": 5466,
+      "source_utf8": "//! Forward transactional DDL guarded by the actual direct migration lock.\n\nuse sqlx::{\n    Connection, PgConnection, Row, SqlSafeStr,\n    migrate::{Migrate, MigrateError, Migration, MigrationType, Migrator},\n};\nuse std::time::Duration;\nuse tokio::time::timeout;\n\nuse crate::Harness;\n\n#[derive(Clone, Copy, Debug, Eq, PartialEq)]\npub enum SchemaVersion {\n    Initial,\n    Annotation,\n    TenantAuthority,\n}\n\n#[derive(Clone, Copy, Debug, Eq, PartialEq)]\npub enum MigrationFailure {\n    Unavailable,\n    HistoryIntegrity,\n    MissingAppliedVersion,\n    ChecksumMismatch,\n    LockTimeout,\n    Statement,\n    Unknown,\n}\n\npub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {\n    let mut result = vec![Migration::new(\n        1,\n        \"typed records\".into(),\n        MigrationType::Simple,\n        include_str!(\"../migrations/1_records.sql\").into_sql_str(),\n        false,\n    )];\n    if matches!(\n        version,\n        SchemaVersion::Annotation | SchemaVersion::TenantAuthority\n    ) {\n        result.push(Migration::new(\n            2,\n            \"bounded annotation\".into(),\n            MigrationType::Simple,\n            include_str!(\"../migrations/2_annotation.sql\").into_sql_str(),\n            false,\n        ));\n    }\n    if version == SchemaVersion::TenantAuthority {\n        result.push(Migration::new(\n            3,\n            \"tenant authority foundation\".into(),\n            MigrationType::Simple,\n            include_str!(\"../migrations/3_tenant_authority.sql\").into_sql_str(),\n            false,\n        ));\n    }\n    result\n}\n\nfn classify(error: MigrateError) -> MigrationFailure {\n    if matches!(&error, MigrateError::Execute(source) | MigrateError::ExecuteMigration(source, _)\n        if source.as_database_error().is_none())\n    {\n        return MigrationFailure::Unknown;\n    }\n    let code = match &error {\n        MigrateError::Execute(error) | MigrateError::ExecuteMigration(error, _) => {\n            error.as_database_error().and_then(|e| e.code())\n        }\n        _ => None,\n    };\n    if code.as_deref() == Some(\"55P03\") {\n        MigrationFailure::LockTimeout\n    } else {\n        match error {\n            MigrateError::VersionMissing(_) => MigrationFailure::MissingAppliedVersion,\n            MigrateError::VersionMismatch(_) => MigrationFailure::ChecksumMismatch,\n            MigrateError::Dirty(_) => MigrationFailure::HistoryIntegrity,\n            _ => MigrationFailure::Statement,\n        }\n    }\n}\n\nasync fn prefix(\n    connection: &mut PgConnection,\n    migrations: &[Migration],\n) -> Result<(), MigrationFailure> {\n    let exists: Option<String> =\n        sqlx::query_scalar(\"SELECT to_regclass('public._sqlx_migrations')::text\")\n            .fetch_one(&mut *connection)\n            .await\n            .map_err(|_| MigrationFailure::HistoryIntegrity)?;\n    if exists.is_none() {\n        return Ok(());\n    }\n    let history = sqlx::query(\n        \"SELECT version,success,checksum FROM public._sqlx_migrations ORDER BY version LIMIT 4\",\n    )\n    .fetch_all(&mut *connection)\n    .await\n    .map_err(|_| MigrationFailure::HistoryIntegrity)?;\n    for (index, row) in history.iter().enumerate() {\n        let version = row\n            .try_get::<i64, _>(\"version\")\n            .map_err(|_| MigrationFailure::HistoryIntegrity)?;\n        let Some(expected) = migrations.get(index) else {\n            return Err(MigrationFailure::MissingAppliedVersion);\n        };\n        if version != expected.version\n            || !row\n                .try_get::<bool, _>(\"success\")\n                .map_err(|_| MigrationFailure::HistoryIntegrity)?\n        {\n            return Err(MigrationFailure::HistoryIntegrity);\n        }\n        let checksum: Vec<u8> = row\n            .try_get(\"checksum\")\n            .map_err(|_| MigrationFailure::HistoryIntegrity)?;\n        if checksum.as_slice() != expected.checksum.as_ref() {\n            return Err(MigrationFailure::ChecksumMismatch);\n        }\n    }\n    Ok(())\n}\n\npub(crate) async fn apply(\n    harness: &Harness,\n    migrations: Vec<Migration>,\n) -> Result<(), MigrationFailure> {\n    let mut connection = harness\n        .connect(true)\n        .await\n        .map_err(|_| MigrationFailure::Unavailable)?;\n    let result = timeout(Duration::from_millis(15000), async {\n        connection.lock().await.map_err(classify)?;\n        // This read-only prefix check runs under the same actual advisory lock\n        // before SQLx can create its ledger or replay any missing version.\n        let result = match prefix(&mut connection, &migrations).await {\n            Ok(()) => {\n                let mut migrator = Migrator::with_migrations(migrations);\n                // The immutable harness ledger has always been public-qualified.\n                // This selects its initial location; it never renames live history.\n                migrator.dangerous_set_table_name(\"public._sqlx_migrations\");\n                migrator.set_locking(false);\n                migrator.run(&mut connection).await.map_err(classify)\n            }\n            Err(error) => Err(error),\n        };\n        let unlocked = connection.unlock().await;\n        if unlocked.is_err() {\n            Err(MigrationFailure::Unknown)\n        } else {\n            result\n        }\n    })\n    .await\n    .unwrap_or(Err(MigrationFailure::Unknown));\n    // Closing this owned direct session also releases its advisory lock on error.\n    let _ = timeout(Duration::from_millis(1000), connection.close()).await;\n    result\n}\n",
+      "scope": "Exact accepted pre-implementation migration-source context only, retained as inert public evidence. It is not the current consumer and is never executed. Current consumer bytes require fresh independent source/native/standalone qualification; original SQL1-3 and their applied history remain exact."
+    }
+  },
+  "trusted_clock_inputs": {
+    "authority_races": {
+      "initial_snapshot_sample": "2026-10-03T12:00:00.000Z",
+      "current_permission_and_final_sample": "2026-10-03T12:00:01.000Z",
+      "selection": "Independent shared trusted synthetic test configuration for every original authority_races input, selected only by initial-snapshot versus live-current/permission/final phase. Each live adapter read/effect samples the supplied Clock after waits. The final complete SQL-state observer also makes an actual trusted Clock call after both positive terminals/owned closes. Never read expected after.now, case identity, decision or revoked_at to choose a sample. This is no ambient wall-clock, production time or scheduler-duration claim."
     }
   }
 }

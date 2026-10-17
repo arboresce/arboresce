@@ -88,3 +88,22 @@ qualification remain required afterward. All product/bootstrap writers remain
 disabled until their separate authentic lifecycle continuity gate. Human,
 live-model, native release, managed, recovery, user and production acceptance
 remain separate real requirements.
+
+Three effect-boundary negatives additionally require a fresh originating trusted
+clock sample and complete current check before a held fence writes a marker or
+CAS. Grant/source expiry denies even while row locks remain held. A service
+read-only project.read decision cannot advance resource control. These are
+supplied-clock mechanical tests; they perform no external work while locked.
+
+The migration source named at the pre-implementation source revision is retained
+byte-exact as inert historical context inside profile.json. Its hash remains
+verified. Current migration consumer bytes are independently inventoried and
+qualified with the new source; they cannot be required to equal the old entry
+point that had no migration4. The original three SQL files remain current pins.
+
+A paired valid clock advance requires the same held fence to positively commit
+one exactly attributed synthetic CAS marker and advance only control13 to14;
+rejecting every changed clock cannot pass. The profile also freezes shared
+input-side initial00/live01 trusted clock samples for all seven original races.
+Every live read/effect and final SQL observer samples the supplied Clock after
+waits. Expected timestamps, results and case identities never select those samples.
