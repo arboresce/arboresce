@@ -4265,5 +4265,539 @@
       },
       "qualification_scope": "Structured in-memory MigrateError classification only; not an observed native SQL/IO/transport/unlock failure and not a causal explanation of any earlier failure. No public API expansion is required."
     }
+  ],
+  "cleanup_cases": [
+    {
+      "id": "cleanup-success-value",
+      "group": "cleanup_result_contract",
+      "input": {
+        "operation": {
+          "value": {
+            "token": "preserved-value",
+            "sequence": 7
+          }
+        },
+        "cleanup": {
+          "success": true
+        }
+      },
+      "expected": {
+        "value": {
+          "token": "preserved-value",
+          "sequence": 7
+        },
+        "operation_error": null,
+        "cleanup_error": null,
+        "value_identity": true,
+        "operation_error_identity": null,
+        "cleanup_error_identity": null,
+        "paired": false
+      },
+      "qualification_scope": "Finite in-memory Result representation only. Distinct typed operation and cleanup sentinel errors retain their original payloads and allocation identities; they are not observed SQL, filesystem, timeout, service or native failures. Success preserves the original boxed value identity. No filesystem or database effects."
+    },
+    {
+      "id": "cleanup-operation-error",
+      "group": "cleanup_result_contract",
+      "input": {
+        "operation": {
+          "error": {
+            "label": "operation-sentinel",
+            "code": 17
+          }
+        },
+        "cleanup": {
+          "success": true
+        }
+      },
+      "expected": {
+        "value": null,
+        "operation_error": {
+          "label": "operation-sentinel",
+          "code": 17
+        },
+        "cleanup_error": null,
+        "value_identity": null,
+        "operation_error_identity": true,
+        "cleanup_error_identity": null,
+        "paired": false
+      },
+      "qualification_scope": "Finite in-memory Result representation only. Distinct typed operation and cleanup sentinel errors retain their original payloads and allocation identities; they are not observed SQL, filesystem, timeout, service or native failures. Success preserves the original boxed value identity. No filesystem or database effects."
+    },
+    {
+      "id": "cleanup-only-error",
+      "group": "cleanup_result_contract",
+      "input": {
+        "operation": {
+          "value": {
+            "token": "preserved-value",
+            "sequence": 7
+          }
+        },
+        "cleanup": {
+          "error": {
+            "label": "cleanup-sentinel",
+            "code": 29
+          }
+        }
+      },
+      "expected": {
+        "value": null,
+        "operation_error": null,
+        "cleanup_error": {
+          "label": "cleanup-sentinel",
+          "code": 29
+        },
+        "value_identity": null,
+        "operation_error_identity": null,
+        "cleanup_error_identity": true,
+        "paired": false
+      },
+      "qualification_scope": "Finite in-memory Result representation only. Distinct typed operation and cleanup sentinel errors retain their original payloads and allocation identities; they are not observed SQL, filesystem, timeout, service or native failures. Success preserves the original boxed value identity. No filesystem or database effects."
+    },
+    {
+      "id": "cleanup-both-errors",
+      "group": "cleanup_result_contract",
+      "input": {
+        "operation": {
+          "error": {
+            "label": "operation-sentinel",
+            "code": 17
+          }
+        },
+        "cleanup": {
+          "error": {
+            "label": "cleanup-sentinel",
+            "code": 29
+          }
+        }
+      },
+      "expected": {
+        "value": null,
+        "operation_error": {
+          "label": "operation-sentinel",
+          "code": 17
+        },
+        "cleanup_error": {
+          "label": "cleanup-sentinel",
+          "code": 29
+        },
+        "value_identity": null,
+        "operation_error_identity": true,
+        "cleanup_error_identity": true,
+        "paired": true
+      },
+      "qualification_scope": "Finite in-memory Result representation only. Distinct typed operation and cleanup sentinel errors retain their original payloads and allocation identities; they are not observed SQL, filesystem, timeout, service or native failures. Success preserves the original boxed value identity. No filesystem or database effects."
+    }
+  ],
+  "race_guard_cases": [
+    {
+      "id": "race-guard-timeout-milliseconds",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "milliseconds",
+        "value": "500ms"
+      },
+      "expected": {
+        "accepted": true,
+        "milliseconds": 500
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-timeout-seconds",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "milliseconds",
+        "value": "2s"
+      },
+      "expected": {
+        "accepted": true,
+        "milliseconds": 2000
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-timeout-invalid-unit",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "milliseconds",
+        "value": "2min"
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "unadmitted actual PostgreSQL timeout unit"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-timeout-invalid-number",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "milliseconds",
+        "value": "not-a-numberms"
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "integer_parse"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-timeout-integer-overflow",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "milliseconds",
+        "value": "18446744073709551616ms"
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "integer_parse"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-timeout-scale-overflow",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "milliseconds",
+        "value": "18446744073709552s"
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "timeout conversion overflow"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-selector-scoped-principal",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "authority_index",
+        "family": "memberships",
+        "state": {
+          "memberships": [
+            {
+              "membership_id": "membership-a",
+              "workspace": {
+                "organization_id": "organization-a",
+                "domain_id": "domain-a"
+              },
+              "principal": {
+                "principal_id": "principal-b"
+              }
+            },
+            {
+              "membership_id": "membership-a",
+              "workspace": {
+                "organization_id": "organization-a",
+                "domain_id": "domain-a"
+              },
+              "principal": {
+                "principal_id": "principal-a"
+              }
+            }
+          ]
+        },
+        "target": {
+          "membership_id": "membership-a",
+          "workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "principal": {
+            "principal_id": "principal-a"
+          }
+        }
+      },
+      "expected": {
+        "accepted": true,
+        "index": 1
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-selector-unadmitted-family",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "authority_index",
+        "family": "resources",
+        "state": {},
+        "target": {
+          "membership_id": "membership-a",
+          "workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "principal": {
+            "principal_id": "principal-a"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "unadmitted authority family"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-selector-invalid-array",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "authority_index",
+        "family": "memberships",
+        "state": {
+          "memberships": null
+        },
+        "target": {
+          "membership_id": "membership-a",
+          "workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "principal": {
+            "principal_id": "principal-a"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "invalid authority readback"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-selector-missing",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "authority_index",
+        "family": "memberships",
+        "state": {
+          "memberships": [
+            {
+              "membership_id": "membership-a",
+              "workspace": {
+                "organization_id": "organization-a",
+                "domain_id": "domain-a"
+              },
+              "principal": {
+                "principal_id": "principal-b"
+              }
+            }
+          ]
+        },
+        "target": {
+          "membership_id": "membership-a",
+          "workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "principal": {
+            "principal_id": "principal-a"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "scoped authority row missing"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-selector-ambiguous",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "authority_index",
+        "family": "memberships",
+        "state": {
+          "memberships": [
+            {
+              "membership_id": "membership-a",
+              "workspace": {
+                "organization_id": "organization-a",
+                "domain_id": "domain-a"
+              },
+              "principal": {
+                "principal_id": "principal-a"
+              }
+            },
+            {
+              "membership_id": "membership-a",
+              "workspace": {
+                "organization_id": "organization-a",
+                "domain_id": "domain-a"
+              },
+              "principal": {
+                "principal_id": "principal-a"
+              }
+            }
+          ]
+        },
+        "target": {
+          "membership_id": "membership-a",
+          "workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "principal": {
+            "principal_id": "principal-a"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "ambiguous scoped authority row"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-query-key-stays-bound",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "probe_query",
+        "request": {
+          "selected_workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "selected_chain_id": "chain-a",
+          "resource": {
+            "kind": "capture"
+          }
+        },
+        "query": {
+          "probe": {
+            "relation": "resources",
+            "key": "resource-key' OR '1'='1",
+            "mode": "FOR SHARE"
+          }
+        }
+      },
+      "expected": {
+        "accepted": true,
+        "sql": "SELECT to_jsonb(t)::text FROM arboresce_authority.resources t WHERE organization_id=$1::uuid AND domain_id=$2::uuid AND resource_kind=$3 AND resource_id=$4::uuid FOR SHARE",
+        "values": [
+          "organization-a",
+          "domain-a",
+          "capture",
+          "resource-key' OR '1'='1"
+        ]
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-query-unadmitted-relation",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "probe_query",
+        "request": {
+          "selected_workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "selected_chain_id": "chain-a",
+          "resource": {
+            "kind": "capture"
+          }
+        },
+        "query": {
+          "probe": {
+            "relation": "unadmitted_relation",
+            "key": "key",
+            "mode": "FOR SHARE"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "unadmitted tuple probe relation"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-query-unadmitted-ordinal",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "probe_query",
+        "request": {
+          "selected_workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "selected_chain_id": "chain-a",
+          "resource": {
+            "kind": "capture"
+          }
+        },
+        "query": {
+          "probe": {
+            "relation": "immutable_members",
+            "key": "ordinal2",
+            "mode": "FOR SHARE"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "unadmitted sealed probe ordinal"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-query-missing-mode",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "probe_query",
+        "request": {
+          "selected_workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "selected_chain_id": "chain-a",
+          "resource": {
+            "kind": "capture"
+          }
+        },
+        "query": {
+          "probe": {
+            "relation": "resources",
+            "key": "key"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "missing tuple probe mode"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    },
+    {
+      "id": "race-guard-query-unadmitted-mode",
+      "group": "race_helper_constructor",
+      "input": {
+        "helper": "probe_query",
+        "request": {
+          "selected_workspace": {
+            "organization_id": "organization-a",
+            "domain_id": "domain-a"
+          },
+          "selected_chain_id": "chain-a",
+          "resource": {
+            "kind": "capture"
+          }
+        },
+        "query": {
+          "probe": {
+            "relation": "resources",
+            "key": "key",
+            "mode": "FOR UPDATE; SELECT 1"
+          }
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "failure": "unadmitted tuple probe mode"
+      },
+      "qualification_scope": "Finite in-memory constructor/parser representation only; no database connection, SQL execution, observed PostgreSQL setting or error, row lock, race, native, service or recovery qualification. Malformed or hostile strings remain bounded preparation inputs and do not qualify runtime identifier admission."
+    }
   ]
 }
