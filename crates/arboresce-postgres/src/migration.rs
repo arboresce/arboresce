@@ -14,6 +14,7 @@ pub enum SchemaVersion {
     Initial,
     Annotation,
     TenantAuthority,
+    CurrentAuthority,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -37,7 +38,9 @@ pub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {
     )];
     if matches!(
         version,
-        SchemaVersion::Annotation | SchemaVersion::TenantAuthority
+        SchemaVersion::Annotation
+            | SchemaVersion::TenantAuthority
+            | SchemaVersion::CurrentAuthority
     ) {
         result.push(Migration::new(
             2,
@@ -47,7 +50,10 @@ pub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {
             false,
         ));
     }
-    if version == SchemaVersion::TenantAuthority {
+    if matches!(
+        version,
+        SchemaVersion::TenantAuthority | SchemaVersion::CurrentAuthority
+    ) {
         result.push(Migration::new(
             3,
             "tenant authority foundation".into(),
@@ -56,68 +62,70 @@ pub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {
             false,
         ));
     }
+    if version == SchemaVersion::CurrentAuthority {
+        result.push(Migration::new(
+            4,
+            "current authority and isolated final fences".into(),
+            MigrationType::Simple,
+            include_str!("../migrations/4_current_authority.sql").into_sql_str(),
+            false,
+        ));
+    }
     result
 }
 
-fn classify(error: MigrateError) -> MigrationFailure {
-    if matches!(&error, MigrateError::Execute(source) | MigrateError::ExecuteMigration(source, _)
-        if source.as_database_error().is_none())
-    {
-        return MigrationFailure::Unknown;
-    }
-    let code = match &error {
-        MigrateError::Execute(error) | MigrateError::ExecuteMigration(error, _) => {
-            error.as_database_error().and_then(|e| e.code())
+pub(crate) fn classify(error: MigrateError) -> MigrationFailure {
+    match error {
+        MigrateError::Execute(source) | MigrateError::ExecuteMigration(source, _) => {
+            match source.as_database_error() {
+                None => MigrationFailure::Unknown,
+                Some(database) => {
+                    if database.code().as_deref() == Some("55P03") {
+                        MigrationFailure::LockTimeout
+                    } else {
+                        MigrationFailure::Statement
+                    }
+                }
+            }
         }
-        _ => None,
-    };
-    if code.as_deref() == Some("55P03") {
-        MigrationFailure::LockTimeout
-    } else {
-        match error {
-            MigrateError::VersionMissing(_) => MigrationFailure::MissingAppliedVersion,
-            MigrateError::VersionMismatch(_) => MigrationFailure::ChecksumMismatch,
-            MigrateError::Dirty(_) => MigrationFailure::HistoryIntegrity,
-            _ => MigrationFailure::Statement,
-        }
+        MigrateError::VersionMissing(_) => MigrationFailure::MissingAppliedVersion,
+        MigrateError::VersionMismatch(_) => MigrationFailure::ChecksumMismatch,
+        MigrateError::Dirty(_) => MigrationFailure::HistoryIntegrity,
+        _ => MigrationFailure::Statement,
     }
+}
+
+fn history_result<T>(result: Result<T, sqlx::Error>) -> Result<T, MigrationFailure> {
+    result.map_err(|_| MigrationFailure::HistoryIntegrity)
 }
 
 async fn prefix(
     connection: &mut PgConnection,
     migrations: &[Migration],
 ) -> Result<(), MigrationFailure> {
-    let exists: Option<String> =
+    let exists: Option<String> = history_result(
         sqlx::query_scalar("SELECT to_regclass('public._sqlx_migrations')::text")
             .fetch_one(&mut *connection)
-            .await
-            .map_err(|_| MigrationFailure::HistoryIntegrity)?;
+            .await,
+    )?;
     if exists.is_none() {
         return Ok(());
     }
-    let history = sqlx::query(
-        "SELECT version,success,checksum FROM public._sqlx_migrations ORDER BY version LIMIT 4",
+    let history = history_result(sqlx::query(
+        "SELECT version,success,checksum FROM public._sqlx_migrations ORDER BY version LIMIT $1",
     )
+    .bind(if migrations.len() == 4 { 5_i64 } else { 4 })
     .fetch_all(&mut *connection)
-    .await
-    .map_err(|_| MigrationFailure::HistoryIntegrity)?;
+    .await)?;
     for (index, row) in history.iter().enumerate() {
-        let version = row
-            .try_get::<i64, _>("version")
-            .map_err(|_| MigrationFailure::HistoryIntegrity)?;
+        let version = history_result(row.try_get::<i64, _>("version"))?;
         let Some(expected) = migrations.get(index) else {
             return Err(MigrationFailure::MissingAppliedVersion);
         };
-        if version != expected.version
-            || !row
-                .try_get::<bool, _>("success")
-                .map_err(|_| MigrationFailure::HistoryIntegrity)?
-        {
+        if version != expected.version || !history_result(row.try_get::<bool, _>("success"))? {
             return Err(MigrationFailure::HistoryIntegrity);
         }
-        let checksum: Vec<u8> = row
-            .try_get("checksum")
-            .map_err(|_| MigrationFailure::HistoryIntegrity)?;
+        let checksum: Vec<u8> = history_result(row.try_get("checksum"))?;
         if checksum.as_slice() != expected.checksum.as_ref() {
             return Err(MigrationFailure::ChecksumMismatch);
         }

@@ -108,9 +108,54 @@
       "role": "measured"
     },
     {
+      "path": "crates/arboresce-postgres/authority_current.rs",
+      "package": "arboresce-postgres",
+      "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-postgres/authority_races.rs",
+      "package": "arboresce-postgres",
+      "role": "assertion"
+    },
+    {
       "path": "crates/arboresce-postgres/qualification.rs",
       "package": "arboresce-postgres",
       "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/authority/catalogue.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/authority/catalogue_policy.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/authority/decision.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/authority/mod.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/authority/permission.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/authority/read.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/authority/rows.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
     },
     {
       "path": "crates/arboresce-postgres/src/lib.rs",
@@ -124,6 +169,26 @@
     },
     {
       "path": "crates/arboresce-postgres/src/tenant.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/authority_probes.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/authority_races.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/authority_service.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/current_authority.rs",
       "package": "arboresce-postgres",
       "role": "measured"
     },
@@ -512,6 +577,13 @@
       "kind": "library",
       "name": "arboresce_postgres",
       "sources": [
+        "crates/arboresce-postgres/src/authority/catalogue.rs",
+        "crates/arboresce-postgres/src/authority/catalogue_policy.rs",
+        "crates/arboresce-postgres/src/authority/decision.rs",
+        "crates/arboresce-postgres/src/authority/mod.rs",
+        "crates/arboresce-postgres/src/authority/permission.rs",
+        "crates/arboresce-postgres/src/authority/read.rs",
+        "crates/arboresce-postgres/src/authority/rows.rs",
         "crates/arboresce-postgres/src/lib.rs",
         "crates/arboresce-postgres/src/migration.rs",
         "crates/arboresce-postgres/src/tenant.rs"

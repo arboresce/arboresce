@@ -1,5 +1,5 @@
 #[path = "src/lib.rs"]
-mod implementation;
+pub mod implementation;
 use arboresce_application::{MigrationStore, WriteOutcome};
 use implementation::{Harness, MigrationFailure, SchemaVersion, migration};
 use sqlx::Connection;

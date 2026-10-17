@@ -16,6 +16,11 @@ pub(crate) mod migration;
 pub use migration::{MigrationFailure, SchemaVersion};
 pub(crate) mod tenant;
 pub use tenant::{TenantFailure, TenantSession, TenantTransaction};
+pub(crate) mod authority;
+pub use authority::{
+    AdmissionFence, AuthorityFailure, AuthoritySession, AuthoritySessions, PermissionChange,
+    PermissionFence, PermissionSession,
+};
 
 /// An input-independent configuration rejection, without paths or credentials.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

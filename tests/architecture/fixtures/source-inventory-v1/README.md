@@ -12,14 +12,16 @@ source strings are syntax/data inputs, not fake Cargo executions or runtime proo
 The native positive instead runs actual prepared offline Cargo metadata against
 the current public checkout. Its retained output includes a bounded process trace.
 
-The current-checkout positive names 67 Rust sources: 58 measured, eight assertion
+The current-checkout positive names 80 Rust sources: 69 measured, ten assertion
 sources and the one frozen declaration. Its ten actual targets are unchanged.
 The earlier count of 57 increased to 60 for the measured tenant selection,
 PostgreSQL tenant adapter and qualification support modules. The principal
 directory value/port and its measured input-only qualification support add two
 more sources. The four disjoint tool test drivers added three assertion
 entrypoints. Canonical authority evaluation and its input-only qualification
-support add two measured sources. All model answers, license/declaration hashes, source-discovery
+support add two measured sources. Current SQL authority adds seven measured
+authority modules, four measured native support modules and two assertion
+entrypoints. All model answers, license/declaration hashes, source-discovery
 bounds and complete role/target comparisons retain their meanings; no maintained
 source is excluded.
 
