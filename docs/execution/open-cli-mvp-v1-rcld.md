@@ -904,6 +904,53 @@ with whole E205 and its authentication, authentic lifecycle, pooling, human,
 recovery, native, user and production gates. No product or bootstrap writer is
 enabled.
 
+The subsequently qualified bounded bootstrap-scope component is locally committed
+at `5da3dff78590c4db68c1906799ea670e13384bba`. Its borrowed
+`policy::bootstrap::check_scope` compares independently supplied registered
+namespace and policy, authenticated operator context, canonical one-use grant,
+normalized request and trusted time. All six names have a nonempty ASCII token
+bound of 96 bytes. Stored lifetime, inclusive issuance, exclusive expiry,
+tenant, consumed and retired state are checked without heap allocation, I/O or
+mutation. Success returns only a scope match.
+
+Two complete application tests compare every original ten bootstrap-scope
+observation and 33 separately admitted boundary observations, including the
+complete unchanged typed grant. The measured helper receives inputs and trusted
+configuration only. Expected objects and case names remain in the thin
+assertions. The independently committed inventory fixture preserves its
+original 80-source baseline and selects the current 82-source count by the
+exact frozen raw-input hash before native execution; all 23 original native
+inventory assertions remain.
+
+Fresh Rust 1.99.0 owning and public-only standalone lanes each pass 126 tests,
+5,686 complete registered events and all 92 strict scopes across 71 measured
+sources. Each conserves 25 objects, 212 fresh main profiles, 714 physical process
+pairs, five native scopes and 14,945 retained runtime files. Owning policy
+coverage is 20,354/20,885 executable lines and 36,636/39,484 regions; standalone
+coverage is 20,351/20,885 lines and 36,637/39,484 regions. Every required scope
+independently exceeds 90% for both standard line and region coverage.
+
+Separate source/public/completeness and expected/qualification reviewers and a
+distinct delivery witness accept the exact eight-path component and all 359
+qualified public inputs. Actual source postcommit review is complete. Both exact
+emitted images retain independently reconciled conditional resource models.
+Four separate default/1 MiB stack probes each execute all 41 source-JSON cases,
+with complete profile decoding outside whole coverage. Requested payload and
+stack estimates remain distinct from observed RSS and operating-system memory.
+Both owned database controllers complete bounded cleanup within their original
+unextended leases, including actual restart successors. Retained failures and
+unknown causes keep their original results.
+
+This historical annotation changes only this plan; all 358 other qualified
+inputs remain unchanged. No fresh complete executable run on the annotated plan
+bytes is claimed. The original ten bootstrap-scope cases are delivered, bringing
+the original admitted total to 119 of 142. The 23 shared-admission cases and whole
+E205 acceptance remain open. Authentication, grant consumption, owner insertion and the actual command and
+effect boundaries remain separately unqualified. Independently retained lifecycle
+continuity and the required authentication/command qualification must pass before
+any product or bootstrap writer is enabled. Actual pooling, human, live-model,
+native release, recovery, user and production gates retain their own requirements.
+
 Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
