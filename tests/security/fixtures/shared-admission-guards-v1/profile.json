@@ -1,0 +1,294 @@
+{
+  "fixture_version": "shared-admission-guards-profile-v1",
+  "source_revision": "50886edcac44296b28f14e7db6428de9a004a82b",
+  "rights": {
+    "license": "MIT OR Apache-2.0",
+    "classification": "original public synthetic protocol literals"
+  },
+  "sources": [
+    {
+      "path": "docs/requirements/resource-profiles.md",
+      "sha256": "ef633a39322bb6afd549771a79d81330d56734bcf4bb4f96a329bdde5590fa73",
+      "bytes": 28687
+    },
+    {
+      "path": "docs/requirements/storage-and-search.md",
+      "sha256": "1f372f8c4be991856dfbe9c7fe1c72a128aa8eb608bc939592382b6aa29e4c38",
+      "bytes": 33742
+    },
+    {
+      "path": "docs/requirements/api.md",
+      "sha256": "0e0ba3d0652a19c523e0e8ec63dd6a36780508079136756970f56473d1efef5d",
+      "bytes": 48714
+    },
+    {
+      "path": "docs/requirements/security-and-privacy.md",
+      "sha256": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
+      "bytes": 21546
+    },
+    {
+      "path": "docs/requirements/project-fixtures.md",
+      "sha256": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
+      "bytes": 10925
+    },
+    {
+      "path": "docs/requirements/identity-contract.md",
+      "sha256": "2c90ffe583dc51b6e032b0571f651c6550b04edfda3688844076016cb3efff12",
+      "bytes": 12461
+    },
+    {
+      "path": "docs/requirements/data-model.md",
+      "sha256": "d3caa22d11b9587715e29c360e2c33119a21dfc9042affdfae50c717c98ce289",
+      "bytes": 25667
+    },
+    {
+      "path": "docs/requirements/testing-and-coverage.md",
+      "sha256": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531",
+      "bytes": 44903
+    },
+    {
+      "path": "tests/security/fixtures/authority-v1/cases.json",
+      "sha256": "e5178ccfa200f32bd2928b039de55a6e9774ace48c8b36b1ac3ffa377e2d5911",
+      "bytes": 4143051
+    },
+    {
+      "path": "tests/security/fixtures/authority-v1/sources.json",
+      "sha256": "8b83c65acc101c77322a6724bf871bcece9cf9ac3b878bcc05bf85b1d72b0078",
+      "bytes": 22082
+    },
+    {
+      "path": "tests/security/fixtures/authority-v1/README.md",
+      "sha256": "15b331e159e95d5060dbf201455f02cbc82fa5d6d33c457b679e9bd443e24fbb",
+      "bytes": 7685
+    },
+    {
+      "path": "crates/arboresce-postgres/migrations/1_records.sql",
+      "sha256": "34f36106937fee8e45db31a6e26e537ceeace7411c91fd2c603781a96291af7c",
+      "bytes": 815
+    },
+    {
+      "path": "crates/arboresce-postgres/migrations/2_annotation.sql",
+      "sha256": "9c6f8d35f2f575176b13428a62895858c943b8b3974ca4ca07de26ad600d76a4",
+      "bytes": 134
+    },
+    {
+      "path": "crates/arboresce-postgres/migrations/3_tenant_authority.sql",
+      "sha256": "504f3d72b2bad515423d0e7bfee4ac756aab1d97a3cb698b8d91103bec3d4e4f",
+      "bytes": 4106
+    },
+    {
+      "path": "crates/arboresce-postgres/migrations/4_current_authority.sql",
+      "sha256": "3fea1e5402bdb6e713efbb879d01171607f140a7e3eb511753b6c551ad26d9c6",
+      "bytes": 24820
+    },
+    {
+      "path": "tests/security/fixtures/shared-admission-v1/README.md",
+      "sha256": "304a8760d68791bbaa47ec29007e1924ee5201500c367deefc2a6579ec0406e8",
+      "bytes": 4262
+    },
+    {
+      "path": "tests/security/fixtures/shared-admission-v1/cases.json",
+      "sha256": "c268e70e947c8d47c69e18f6ee9b8cc6ede046ab1d2c2a7e2ba2720b034c73bd",
+      "bytes": 3096159
+    },
+    {
+      "path": "tests/security/fixtures/shared-admission-v1/schema.json",
+      "sha256": "0a1e8e84cc969d6d311414d37df1e3456db8425338cd269c213e55d7300b6960",
+      "bytes": 34651
+    },
+    {
+      "path": "tests/security/fixtures/shared-admission-v1/profile.json",
+      "sha256": "2fab895e55c7e976b9ded068166b17163002ec6a55a13c2f63851f8da2be7de3",
+      "bytes": 21614
+    }
+  ],
+  "files": {
+    "README.md": {
+      "sha256": "ae9d1b8c2a082033d0f94ab7bcfca60e6c76b37ba30cd42a98321f3bcb19a409",
+      "bytes": 5002
+    },
+    "cases.json": {
+      "sha256": "43652b3c558aa751e393bcf4d2cb298a2e1cbd8cb4ce1b8f2d952e3c958913d1",
+      "bytes": 516297
+    }
+  },
+  "required_groups": {
+    "native_preparation": [
+      "shared-guard-preparation-caller-malformed-organization_id",
+      "shared-guard-preparation-caller-malformed-domain_id",
+      "shared-guard-preparation-caller-malformed-principal_id",
+      "shared-guard-preparation-claim-malformed-reservation_id",
+      "shared-guard-preparation-claim-malformed-organization_id",
+      "shared-guard-preparation-claim-malformed-principal_id",
+      "shared-guard-preparation-claim-malformed-expires_at",
+      "shared-guard-preparation-claim-malformed-total_deadline",
+      "shared-guard-preparation-command-unknown-operation",
+      "shared-guard-preparation-command-malformed-reservation",
+      "shared-guard-preparation-renew-malformed-expiry",
+      "shared-guard-preparation-renew-missing-expiry",
+      "shared-guard-preparation-dispatch-unknown-token",
+      "shared-guard-preparation-dispatch-wrong-type",
+      "shared-guard-preparation-dispatch-accepted_running",
+      "shared-guard-preparation-dispatch-completed",
+      "shared-guard-preparation-command-begin-attempt",
+      "shared-guard-preparation-command-renew",
+      "shared-guard-preparation-policy-signed-overflow-max_attempt_limit",
+      "shared-guard-preparation-policy-signed-overflow-max_lease_ms",
+      "shared-guard-preparation-policy-signed-overflow-max_total_ms",
+      "shared-guard-preparation-policy-exact-signed-maximum",
+      "shared-guard-preparation-owned-command-missing-reservation_id",
+      "shared-guard-preparation-owned-command-missing-owner",
+      "shared-guard-preparation-owned-command-missing-fence",
+      "shared-guard-preparation-owned-command-complete",
+      "shared-guard-preparation-optional-ordinal-absent",
+      "shared-guard-preparation-optional-ordinal-one",
+      "shared-guard-preparation-optional-ordinal-maximum",
+      "shared-guard-preparation-optional-ordinal-zero",
+      "shared-guard-preparation-optional-ordinal-negative",
+      "shared-guard-preparation-optional-ordinal-null",
+      "shared-guard-preparation-optional-ordinal-string",
+      "shared-guard-preparation-optional-ordinal-overflow",
+      "shared-guard-preparation-optional-ordinal-boolean",
+      "shared-guard-preparation-optional-ordinal-fractional",
+      "shared-guard-preparation-caller-complete",
+      "shared-guard-preparation-claim-complete",
+      "shared-guard-preparation-clock-malformed-timestamp",
+      "shared-guard-preparation-unregistered-helper",
+      "shared-guard-preparation-missing-helper"
+    ],
+    "race_preparation": [
+      "shared-guard-permission-preparation-expense-representation",
+      "shared-guard-permission-preparation-unknown-resource-kind",
+      "shared-guard-permission-preparation-resource-wrong-revision-kind",
+      "shared-guard-permission-preparation-resource-missing-revision-kind",
+      "shared-guard-permission-preparation-resource-zero-revision",
+      "shared-guard-permission-preparation-resource-malformed-revision",
+      "shared-guard-permission-preparation-resource-malformed-identity",
+      "shared-guard-permission-preparation-membership-wrong-revision-kind",
+      "shared-guard-permission-preparation-membership-missing-revision-kind",
+      "shared-guard-permission-preparation-membership-zero-revision",
+      "shared-guard-permission-preparation-membership-malformed-revision",
+      "shared-guard-permission-preparation-unknown-schedule",
+      "shared-guard-permission-preparation-missing-schedule"
+    ],
+    "native_controls": [
+      "shared-guard-native-valid-update-rollback",
+      "shared-guard-native-open-connection-reset-refused"
+    ],
+    "native_races": [
+      "shared-guard-native-claim-commits-before-permission-revoke"
+    ]
+  },
+  "group_counts": {
+    "native_preparation": 41,
+    "race_preparation": 13,
+    "native_controls": 2,
+    "native_races": 1
+  },
+  "total_cases": 57,
+  "runtime_projection": {
+    "allowed": [
+      "common_inputs",
+      "case.input"
+    ],
+    "excluded": [
+      "case.id",
+      "case.expected",
+      "required_groups",
+      "group_counts",
+      "total_cases",
+      "rights",
+      "sources",
+      "files",
+      "source_revision",
+      "selected_policy",
+      "native_profile"
+    ],
+    "rule": "Admission and thin assertions may reconcile metadata. Only the literal common_inputs and case.input reach typed preparation, clocks, adapters, SQL binds or scheduling helpers. No case identity, expected value or declared count may select a runtime decision."
+  },
+  "reading_limits": {
+    "package_files": [
+      "README.md",
+      "cases.json",
+      "profile.json"
+    ],
+    "regular_files_only": true,
+    "symlinks": false,
+    "hardlinks": false,
+    "ancestor_symlinks": false,
+    "max_readme_bytes": 16384,
+    "max_profile_bytes": 65536,
+    "max_cases_bytes": 4194304,
+    "max_source_file_bytes": 8388608,
+    "max_native_observation_bytes": 2097152,
+    "max_cases": 256,
+    "max_json_depth": 32,
+    "max_native_rows": 128,
+    "max_clock_samples": 3
+  },
+  "selected_policy": {
+    "counter_max": "9223372036854775807",
+    "fence_max": "999999999999999999",
+    "token_max_bytes": 96,
+    "max_attempt_limit": 8,
+    "max_lease_ms": 1800000,
+    "max_total_ms": 3600000,
+    "membership_policy": "authority_fixture_v1",
+    "scope": "Synthetic qualification configuration only; no production policy, authentication, clock-health, external receipt or spending authority"
+  },
+  "native_profile": {
+    "rust": "1.99.0",
+    "postgres": "17.11",
+    "transport": "prepared private Unix socket only",
+    "role": "harness_authority_admission",
+    "database": "arboresce_migration_harness",
+    "statement_timeout_ms": 2000,
+    "transaction_timeout_ms": 2000,
+    "lock_timeout_ms": 500,
+    "physical_connection_limit": 2,
+    "actual_nonowner": true,
+    "forced_tenant_rls": true,
+    "ambient_pg_environment": false,
+    "new_dependency": false,
+    "mock_database": false,
+    "source_and_compiler_conservation": true,
+    "actual_process_native_retention_and_bounded_cleanup": true,
+    "os": "macOS",
+    "architecture": "aarch64",
+    "features": "default",
+    "cohort": "current schema shared-admission generation",
+    "new_dependency_features": false
+  },
+  "native_requirements": {
+    "groups": [
+      "native_controls",
+      "native_races"
+    ],
+    "original_fixture_packages_unchanged": true,
+    "actual_valid_update_and_positive_rollback": true,
+    "actual_open_connection_census_reset_refusal": true,
+    "complete_canonical_thirteen_relations_and_migration_history": true,
+    "actual_distinct_backends_and_waiting_revoke": true,
+    "all_native_cases_before_terminal_current_restart": true,
+    "both_owned_cleanups": true,
+    "whole_owning_and_fresh_public_only_standalone": true,
+    "no_synthetic_substitute_for_real_consuming_qualification": true
+  },
+  "measured_scope": {
+    "raw_role_profile_sha256": "6fb755e769b17c568f42858337c22acf77c2f20031310122b4d04c5ed81e5879",
+    "raw_role_profile_bytes": 21384,
+    "rust_sources": 93,
+    "measured_sources": 82,
+    "assertion_sources": 10,
+    "declaration_sources": 1,
+    "llvm_report_rows": 92,
+    "target_count": 10,
+    "new_rust_sources": false,
+    "new_dependencies": false,
+    "new_role_exclusions": false,
+    "qualifies_runtime_or_future_consumer": false,
+    "rule": "The role-profile pin and source counts declare the required future consumer target; they do not assert those bytes are committed or qualified. Retain all measured source, library, package, typed-target and repository denominators and their existing strict coverage floors. These fixture declarations are not observed executable coverage or qualification.",
+    "role_profile_is_future_consumer_target": true,
+    "observed_committed_source_count": false
+  }
+}
