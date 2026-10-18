@@ -1,0 +1,391 @@
+{
+  "version": "native-collector-export-zero-literals-v1",
+  "rights": {
+    "license": "MIT OR Apache-2.0",
+    "classification": "original public synthetic protocol literals"
+  },
+  "runtime_projection": {
+    "allowed": [
+      "case.input"
+    ],
+    "excluded": [
+      "case.id",
+      "case.expected_utf8",
+      "rights",
+      "version"
+    ]
+  },
+  "bounds": {
+    "parts": 2,
+    "stream_bytes": 8388608,
+    "aggregate_capture_bytes": 16777216,
+    "whole_format_bytes": 67108864,
+    "export_phase_seconds": 180
+  },
+  "cases": [
+    {
+      "id": "export-zero-reject-lines-count-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":1e-999,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-lines-covered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":-1e-999,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-lines-percent-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":1E-999},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-functions-count-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":-10E-999,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-functions-covered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":9.9e-999,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-functions-percent-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":-0.001e-999},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-instantiations-count-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":123456789e-999,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-instantiations-covered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":1e-999,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-instantiations-percent-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":-1e-999},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-regions-count-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":1E-999,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-regions-covered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":-10E-999,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-regions-notcovered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":9.9e-999,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-regions-percent-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":-0.001e-999},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-branches-count-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":123456789e-999,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-branches-covered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":1e-999,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-branches-notcovered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":-1e-999,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-branches-percent-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":1E-999},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-mcdc-count-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":-10E-999,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-mcdc-covered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":9.9e-999,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-mcdc-notcovered-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":-0.001e-999,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-reject-mcdc-percent-underflow",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":123456789e-999}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-zero-accept-signed-fractional-exponent-zeros",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":-0,\"percent\":0.0},\"functions\":{\"count\":-0.0,\"covered\":0e-999,\"percent\":-0E-999},\"instantiations\":{\"count\":0.000e-999,\"covered\":0E+12,\"percent\":-0.000E-123},\"regions\":{\"count\":0,\"covered\":-0,\"notcovered\":0.0,\"percent\":-0.0},\"branches\":{\"count\":0e-999,\"covered\":-0E-999,\"notcovered\":0.000e-999,\"percent\":0E+12},\"mcdc\":{\"count\":-0.000E-123,\"covered\":0,\"notcovered\":-0,\"percent\":0.0}}}]}"
+          }
+        ]
+      },
+      "expected_utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[99.637023593466424]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}},\"functions\":[]}]}"
+    },
+    {
+      "id": "export-zero-preserve-nonzero-tiny-file-and-function-values",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[1e-999,-1e-999]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"tiny-values\",\"literal_values\":[1e-999,-1e-999]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected_utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"summary\":{\"regions\":{\"count\":551,\"covered\":549,\"notcovered\":2,\"percent\":99.637023593466424}},\"literal_values\":[1e-999,-1e-999]}],\"totals\":{\"regions\":{\"count\":62187,\"covered\":58585,\"notcovered\":3602,\"percent\":94.207792625468343}},\"functions\":[{\"name\":\"tiny-values\",\"literal_values\":[1e-999,-1e-999]}]}]}"
+    }
+  ]
+}
