@@ -1,0 +1,187 @@
+{
+  "fixture_version": "owned-transport-close-cases-v1",
+  "rights": {
+    "license": "MIT OR Apache-2.0",
+    "classification": "original public synthetic close-boundary literals"
+  },
+  "common_inputs": {
+    "close_budget_ms": 1000,
+    "census_budget_ms": 1000
+  },
+  "groups": {
+    "completion": [
+      {
+        "id": "sql-close-task-completed",
+        "input": {
+          "operation": "completed"
+        },
+        "expected": {
+          "closed": true,
+          "failure": null,
+          "task_finished": true,
+          "destruction_completed": true,
+          "later_cleanup_completed": false
+        }
+      },
+      {
+        "id": "sql-close-task-panicked",
+        "input": {
+          "operation": "panicked"
+        },
+        "expected": {
+          "closed": false,
+          "failure": "task_panic",
+          "task_finished": true,
+          "destruction_completed": true,
+          "later_cleanup_completed": false
+        }
+      },
+      {
+        "id": "sql-close-task-cancelled",
+        "input": {
+          "operation": "cancelled"
+        },
+        "expected": {
+          "closed": false,
+          "failure": "task_cancelled",
+          "task_finished": true,
+          "destruction_completed": true,
+          "later_cleanup_completed": false
+        }
+      },
+      {
+        "id": "sql-close-task-pending-at-deadline",
+        "input": {
+          "operation": "pending_at_deadline"
+        },
+        "expected": {
+          "closed": false,
+          "failure": "deadline",
+          "task_finished": false,
+          "destruction_completed": false,
+          "later_cleanup_completed": true
+        }
+      },
+      {
+        "id": "sql-close-task-ready-after-deadline",
+        "input": {
+          "operation": "ready_after_deadline"
+        },
+        "expected": {
+          "closed": false,
+          "failure": "deadline",
+          "task_finished": true,
+          "destruction_completed": true,
+          "later_cleanup_completed": false
+        }
+      }
+    ],
+    "native": [
+      {
+        "id": "sql-native-close-raw-value",
+        "input": {
+          "operation": "raw_value",
+          "value": 17
+        },
+        "expected": {
+          "operation_value": 17,
+          "operation_failure": null,
+          "close": "complete",
+          "owned_backend_present_before": true,
+          "owned_backend_absent_after": true,
+          "peer_termination_acknowledged": null,
+          "slots_before_close": null,
+          "slots_after_close": null
+        }
+      },
+      {
+        "id": "sql-native-close-raw-operation-error",
+        "input": {
+          "operation": "raw_operation_error"
+        },
+        "expected": {
+          "operation_value": null,
+          "operation_failure": {
+            "kind": "sqlx",
+            "sqlstate": "22012",
+            "original_allocation": true
+          },
+          "close": "complete",
+          "owned_backend_present_before": true,
+          "owned_backend_absent_after": true,
+          "peer_termination_acknowledged": null,
+          "slots_before_close": null,
+          "slots_after_close": null
+        }
+      },
+      {
+        "id": "sql-native-close-raw-peer-terminated",
+        "input": {
+          "operation": "raw_peer_terminated",
+          "value": 17
+        },
+        "expected": {
+          "operation_value": 17,
+          "operation_failure": null,
+          "close": "complete",
+          "owned_backend_present_before": true,
+          "owned_backend_absent_after": true,
+          "peer_termination_acknowledged": true,
+          "slots_before_close": null,
+          "slots_after_close": null
+        }
+      },
+      {
+        "id": "sql-native-close-authority-value",
+        "input": {
+          "operation": "authority_value"
+        },
+        "expected": {
+          "operation_value": null,
+          "operation_failure": null,
+          "close": "complete",
+          "owned_backend_present_before": true,
+          "owned_backend_absent_after": true,
+          "peer_termination_acknowledged": null,
+          "slots_before_close": 1,
+          "slots_after_close": 2
+        }
+      },
+      {
+        "id": "sql-native-close-authority-peer-terminated",
+        "input": {
+          "operation": "authority_peer_terminated"
+        },
+        "expected": {
+          "operation_value": null,
+          "operation_failure": null,
+          "close": "complete",
+          "owned_backend_present_before": true,
+          "owned_backend_absent_after": true,
+          "peer_termination_acknowledged": true,
+          "slots_before_close": 1,
+          "slots_after_close": 2
+        }
+      },
+      {
+        "id": "sql-native-close-authority-peer-poisoned",
+        "input": {
+          "operation": "authority_peer_poisoned"
+        },
+        "expected": {
+          "operation_value": null,
+          "operation_failure": {
+            "kind": "authority",
+            "variant": "Unavailable"
+          },
+          "close": "complete",
+          "owned_backend_present_before": true,
+          "owned_backend_absent_after": true,
+          "peer_termination_acknowledged": true,
+          "slots_before_close": 1,
+          "slots_after_close": 2
+        }
+      }
+    ]
+  }
+}

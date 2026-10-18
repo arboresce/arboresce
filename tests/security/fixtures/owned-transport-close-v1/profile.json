@@ -1,0 +1,127 @@
+{
+  "fixture_version": "owned-transport-close-profile-v1",
+  "source_revision": "a334f56e69bc87ac2ae7c6c8ed9b8fda2b5d16dc",
+  "rights": {
+    "license": "MIT OR Apache-2.0",
+    "classification": "original public synthetic close-boundary literals"
+  },
+  "sources": [
+    {
+      "path": "docs/requirements/resource-profiles.md",
+      "sha256": "ef633a39322bb6afd549771a79d81330d56734bcf4bb4f96a329bdde5590fa73",
+      "bytes": 28687
+    },
+    {
+      "path": "docs/requirements/storage-and-search.md",
+      "sha256": "1f372f8c4be991856dfbe9c7fe1c72a128aa8eb608bc939592382b6aa29e4c38",
+      "bytes": 33742
+    },
+    {
+      "path": "docs/requirements/security-and-privacy.md",
+      "sha256": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
+      "bytes": 21546
+    },
+    {
+      "path": "docs/requirements/testing-and-coverage.md",
+      "sha256": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531",
+      "bytes": 44903
+    },
+    {
+      "path": "tests/security/fixtures/current-sql-authority-v1/cases.json",
+      "sha256": "1c6740ef926c23febf565b9b22474913e997690ee6ed79c0dfa1da940f5145ff",
+      "bytes": 207341
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+      "bytes": 34458
+    }
+  ],
+  "files": {
+    "README.md": {
+      "sha256": "99660354546a5135b0e2d687238a5d097b948bc2073ad611abb6a2753df66d3d",
+      "bytes": 4083
+    },
+    "cases.json": {
+      "sha256": "998918cabe956e40de8031072334de2cd601009f65bf857bd6985b1868af770a",
+      "bytes": 5237
+    }
+  },
+  "required_groups": {
+    "completion": [
+      "sql-close-task-completed",
+      "sql-close-task-panicked",
+      "sql-close-task-cancelled",
+      "sql-close-task-pending-at-deadline",
+      "sql-close-task-ready-after-deadline"
+    ],
+    "native": [
+      "sql-native-close-raw-value",
+      "sql-native-close-raw-operation-error",
+      "sql-native-close-raw-peer-terminated",
+      "sql-native-close-authority-value",
+      "sql-native-close-authority-peer-terminated",
+      "sql-native-close-authority-peer-poisoned"
+    ]
+  },
+  "group_counts": {
+    "completion": 5,
+    "native": 6
+  },
+  "total_cases": 11,
+  "runtime_projection": {
+    "allowed": [
+      "common_inputs",
+      "case.input"
+    ],
+    "excluded": [
+      "case.id",
+      "case.expected",
+      "profile",
+      "rights",
+      "sources",
+      "files",
+      "required_groups",
+      "group_counts",
+      "total_cases"
+    ],
+    "native_service": "Independently verified exclusively owned service, injected outside fixture decisions; no fixture-selected path, PID, DSN or cleanup target."
+  },
+  "reading_limits": {
+    "package_files": [
+      "README.md",
+      "cases.json",
+      "profile.json"
+    ],
+    "regular_files_only": true,
+    "symlinks": false,
+    "hardlinks": false,
+    "ancestor_symlinks": false,
+    "max_readme_bytes": 16384,
+    "max_profile_bytes": 65536,
+    "max_cases_bytes": 65536,
+    "max_cases": 16,
+    "max_json_depth": 12,
+    "max_native_observation_bytes": 131072
+  },
+  "selected_dependencies": {
+    "sqlx": "0.9.0",
+    "tokio": "1.53.3",
+    "rust": "1.99.0"
+  },
+  "measured_scope": {
+    "rust_sources": 93,
+    "measured_sources": 82,
+    "assertion_sources": 10,
+    "declaration_sources": 1,
+    "llvm_report_rows": 92,
+    "target_count": 10,
+    "new_rust_sources": false,
+    "new_dependencies": false,
+    "new_role_exclusions": false,
+    "additional_registered_test_bodies": 1,
+    "additional_case_events": 11,
+    "qualifies_future_consumer": false
+  },
+  "scope": "Five controlled task completion cases plus six actual owned PostgreSQL transport cases. No first-error reconstruction or OS-specific oracle. All existing typed cleanup, migration/no-write, physical uncertainty, poisoned no-driver-I/O, no-adoption, original deadlines/charged slots and all qualification requirements remain."
+}
