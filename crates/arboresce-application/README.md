@@ -68,3 +68,20 @@ lifecycle continuity and its separately qualified command and effect boundary.
 
 Use the workspace's Rust 1.99.0 checks and complete native/source collection,
 following the repository guidance and the independently frozen migration fixtures.
+
+# Shared reservation boundaries
+
+The admission policy module provides checked quota, claim, lease, owner/fence,
+attempt and total-deadline decisions. It accepts typed trusted configuration and
+time values; it performs no storage, dispatch or authentication. Shared budgets
+and the current canonical membership must be checked by the owning transaction
+before a reservation can support a later worker operation. An uncertain external
+outcome retains resource responsibility until positive reconciliation.
+
+The independently admitted shared-admission fixtures cover complete boundary
+observations and input failures. These pure results do not qualify the actual
+PostgreSQL transaction, a product writer, a provider or recovery.
+
+The [supplemental shared fixtures](../../tests/security/fixtures/shared-admission-additional-v1/README.md)
+add 41 malformed preparation observations through the same typed input helpers.
+Their complete finite errors stay separate from product admission decisions.

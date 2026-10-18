@@ -109,6 +109,18 @@ service tests fail when input is absent. Prepared pg_ctl/postgres process
 identities are separately recognized external tools, never Rust coverage objects;
 their launch/exit receipts and indirect daemon observations remain required.
 Each public-only standalone qualification receives a fresh isolated service.
+
+The PostgreSQL input position also accepts the separately versioned
+[two-cohort manifest](../../tests/architecture/fixtures/native-collector-cohorts-v1/README.md).
+It binds two complete independently prepared service descriptors. The complete
+`arboresce-postgres/test/authority_current` harness selects `current`; the legacy
+race and migration harnesses select `legacy`. List and whole execution share
+that selection. Both immutable vectors, physical ownership and exact allocation
+enter the run identity and final unchanged-input check. Native tool bindings
+match across cohorts; each service retains its original lease, one bounded
+restart, separate owned cleanup and every existing per-service bound. Each full
+owning or public-only standalone run needs its own fresh pair. Protocol fixture
+tests alone establish no actual readiness, persistence or complete qualification.
 The original collector preparation and help/usage meanings remain unchanged;
 `arboresce-verify postgres --help` describes the new variant.
 
@@ -197,6 +209,36 @@ inventory, declaration-only N/A, exact source/tool/run identity, fresh complete
 native process profiles and required test execution. Full raw region/function
 data remains with the original report. The summary adapter neither attests
 those facts nor establishes whole verification.
+
+## Complete native coverage exports
+
+The collector retains two complete complementary LLVM captures for each export.
+Both use the same selected tool, complete ordered object set and indexed profile.
+The first adds `-skip-functions`; the second adds `-ignore-filename-regex=.*`.
+Complete files and whole totals come from the first capture. The entire global
+function vector comes from the second, preserving every nested value, array
+order and repeated function record. The
+[independent export literals](../../tests/architecture/fixtures/native-collector-export-v1/README.md)
+define exact assembly and rejection boundaries before this consumer.
+The [lossless numeric literals](../../tests/architecture/fixtures/native-collector-export-literals-v1/README.md)
+also compare complete raw UTF-8 renderings. Strict parsing validates the documents;
+assembly copies the first document and the entire raw functions array without
+reconstructing numeric tokens through binary64. Escaped keys, strings and nested
+values are located with the existing JSON deserializer.
+The [exact-zero literals](../../tests/architecture/fixtures/native-collector-export-zero-literals-v1/README.md)
+require every second zero-file metric to have a genuinely zero decimal
+coefficient. Numeric underflow to binary64 zero does not satisfy that rule.
+Signed, fractional and exponent forms of zero remain valid. Tiny nonzero values
+in first-part file data or second-part functions retain their original bytes.
+
+Each stream retains its existing 8 MiB ceiling. Both actual invocations, input
+hashing, parsing, assembly and writing share one original 180-second export
+budget, also limited by the enclosing collection phase. All profile and object
+hash/size bindings are retained before, between and after captures. Each launch
+retains selected-tool verification. Either over-limit or late capture fails;
+there is no omitted-function, summary-only or larger-stream fallback. The full
+format ceiling, raw/static-module/counter/source/native/strict and final-object
+checks remain unchanged. Assembly alone supplies no coverage qualification.
 
 ## Actual source inventory
 

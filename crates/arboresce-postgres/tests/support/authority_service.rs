@@ -1,4 +1,7 @@
-//! Exact owned service preparation for cohorts that never restart PostgreSQL.
+//! Exact owned service preparation and verified successor tracking.
+
+#[path = "service.rs"]
+pub mod owned_restart;
 
 use crate::implementation::Harness;
 use arboresce_xtask::collection_services;
@@ -50,11 +53,25 @@ pub async fn with_connection<T>(
     operation: impl AsyncFnOnce(&mut PgConnection) -> Result<T>,
 ) -> Result<T> {
     let result = operation(&mut connection).await;
-    let cleanup = match timeout(Duration::from_secs(1), connection.close()).await {
-        Ok(result) => result.map_err(Into::into),
-        Err(error) => Err(error.into()),
-    };
+    let cleanup = close_connection(connection).await;
+    if result.is_err() || cleanup.is_err() {
+        eprintln!(
+            "postgres owned_connection operation_failed={} close_failed={}",
+            result.is_err(),
+            cleanup.is_err()
+        );
+    }
     preserve_cleanup(result, cleanup)
+}
+
+/// Every raw operation shares this bounded positive owned transport close.
+async fn close_connection(connection: PgConnection) -> Result<()> {
+    crate::implementation::authority::close_transport(
+        connection,
+        Instant::now() + Duration::from_secs(1),
+    )
+    .await
+    .map_err(Into::into)
 }
 
 /// Ordinary raw probes already own one transaction and require rollback.
@@ -116,11 +133,106 @@ impl std::fmt::Display for DatabaseCensusFailure {
 
 impl std::error::Error for DatabaseCensusFailure {}
 
+/// Both the owned SQL census and controlled futures use this exact deadline loop.
+async fn database_census(end: Instant, mut count: impl AsyncFnMut() -> Result<i64>) -> Result<()> {
+    let mut observed_backends = 0;
+    loop {
+        let count = match timeout_at(end, count()).await {
+            Ok(count) => count?,
+            Err(error) => {
+                return Err(Box::new(DatabaseCensusFailure {
+                    observed_backends,
+                    timeout: Some(error),
+                }));
+            }
+        };
+        observed_backends = count;
+        if count == 0 {
+            break;
+        }
+        if Instant::now() >= end {
+            return Err(Box::new(DatabaseCensusFailure {
+                observed_backends,
+                timeout: None,
+            }));
+        }
+        tokio::task::yield_now().await;
+    }
+    Ok(())
+}
+
+/// Fixed completion probes share the owned census without creating a connection.
+pub async fn controlled_census(input: &Value) -> Result<Value> {
+    use std::cell::Cell;
+
+    struct PendingDrop<'a>(&'a Cell<bool>);
+    impl Drop for PendingDrop<'_> {
+        fn drop(&mut self) {
+            self.0.set(true);
+        }
+    }
+
+    let (pending, expired) = match input["operation"].as_str() {
+        Some("ready_empty") => (false, false),
+        Some("pending_query") => (true, false),
+        Some("ready_busy_after_deadline") => (false, true),
+        _ => return Err("unsupported controlled census operation".into()),
+    };
+    let started = Instant::now();
+    let end = if expired {
+        started - Duration::from_millis(1)
+    } else {
+        started + Duration::from_secs(1)
+    };
+    let probes_started = Cell::new(0_u64);
+    let probes_completed = Cell::new(0_u64);
+    let pending_started = Cell::new(false);
+    let pending_dropped = Cell::new(false);
+    let result = database_census(end, async || {
+        probes_started.set(probes_started.get() + 1);
+        if pending {
+            pending_started.set(true);
+            let _drop = PendingDrop(&pending_dropped);
+            std::future::pending::<()>().await;
+        }
+        probes_completed.set(probes_completed.get() + 1);
+        Ok(i64::from(expired))
+    })
+    .await;
+    let accepted = result.is_ok();
+    let failure = match result {
+        Ok(()) => None,
+        Err(error) => Some(error.downcast::<DatabaseCensusFailure>()?),
+    };
+    Ok(json!({
+        "semantic":{
+            "accepted":accepted,
+            "failure":failure.as_ref().map(|failure|json!({
+                "observed_backends":failure.observed_backends,
+                "query_timeout":failure.timeout.is_some()
+            })),
+            "probes_started":probes_started.get(),
+            "probes_completed":probes_completed.get(),
+            "pending_probe_started":pending_started.get(),
+            "pending_probe_dropped":pending_dropped.get()
+        },
+        "evidence":{
+            "kind":"controlled_census",
+            "diagnostic":failure.as_ref().map(ToString::to_string),
+            "actual_timeout":failure.as_ref().map(|failure|format!("{:?}",failure.timeout)),
+            "elapsed_seconds":started.elapsed().as_secs_f64(),
+            "original_deadline_elapsed":Instant::now() >= end
+        }
+    }))
+}
+
 pub struct Service {
     pub harness: Harness,
     record: Value,
     data: PathBuf,
     server_pid: u64,
+    current_start: Value,
+    original_input: Option<(PathBuf, String)>,
 }
 
 #[derive(Clone, Copy)]
@@ -270,6 +382,176 @@ pub fn helper_guard(input: &Value) -> Result<Value> {
     Ok(json!({"accepted":result.is_ok(),"failure":result.err().map(|e|e.to_string())}))
 }
 
+/// Complete bounded images of the producer-owned disposable package entries.
+fn close_package_image(base: &Path) -> Result<Value> {
+    use arboresce_xtask::collection_prepared;
+    let mut entries = serde_json::Map::new();
+    for entry in std::fs::read_dir(base)? {
+        let entry = entry?;
+        let name = entry
+            .file_name()
+            .into_string()
+            .map_err(|_| "invalid owned package name")?;
+        let kind = entry.file_type()?;
+        let image = if kind.is_dir() {
+            json!({"kind":"directory"})
+        } else if kind.is_file() {
+            let cap = if name == "README.md" { 16384 } else { 65536 };
+            let (bytes, _) = collection_prepared::read_text(
+                &entry.path(),
+                cap,
+                std::time::Instant::now() + Duration::from_secs(10),
+            )?;
+            json!({"kind":"regular","bytes":bytes})
+        } else {
+            return Err("unexpected owned package entry kind".into());
+        };
+        entries.insert(name, image);
+    }
+    Ok(Value::Object(entries))
+}
+
+fn remove_close_field(value: &mut Value, name: &str) -> Result<()> {
+    value
+        .as_object_mut()
+        .ok_or("invalid copied close object")?
+        .remove(name)
+        .ok_or("missing copied close field")?;
+    Ok(())
+}
+
+/// Mutate only literal entries in an exclusively created package copy.
+fn mutate_close_package(base: &Path, fault: &str) -> Result<()> {
+    use arboresce_xtask::collection_prepared;
+    use std::fs;
+    match fault {
+        "unchanged" => return Ok(()),
+        "nonregular_entry" => {
+            fs::create_dir(base.join("guard-extra"))?;
+            return Ok(());
+        }
+        "additional_file" => {
+            fs::write(base.join("guard-extra"), b"owned extra\n")?;
+            return Ok(());
+        }
+        "missing_readme" => {
+            fs::remove_file(base.join("README.md"))?;
+            return Ok(());
+        }
+        "file_hash" => {
+            let (mut bytes, _) = collection_prepared::read_bytes(
+                &base.join("README.md"),
+                16384,
+                std::time::Instant::now() + Duration::from_secs(10),
+            )?;
+            *bytes.first_mut().ok_or("empty copied close README")? ^= 1;
+            fs::write(base.join("README.md"), bytes)?;
+            return Ok(());
+        }
+        _ => {}
+    }
+    let (mut profile, _) = collection_prepared::read_json(&base.join("profile.json"), 65536)?;
+    match fault {
+        "source_hash" => profile["sources"][0]["sha256"] = json!("0".repeat(64)),
+        "source_length" => {
+            let bytes = profile["sources"][0]["bytes"]
+                .as_u64()
+                .ok_or("invalid copied source length")?;
+            profile["sources"][0]["bytes"] = json!(bytes + 1);
+        }
+        "missing_source_path" => remove_close_field(&mut profile["sources"][0], "path")?,
+        "missing_source_pins" => remove_close_field(&mut profile, "sources")?,
+        "unregistered_file_pin" => profile["files"]["guard-extra"] = json!({}),
+        "file_length" => {
+            let bytes = profile["files"]["README.md"]["bytes"]
+                .as_u64()
+                .ok_or("invalid copied file length")?;
+            profile["files"]["README.md"]["bytes"] = json!(bytes + 1);
+        }
+        "missing_file_pins" => remove_close_field(&mut profile, "files")?,
+        "profile_version" => profile["fixture_version"] = json!("unsupported"),
+        "cases_version" => {
+            let path = base.join("cases.json");
+            let (mut cases, _) = collection_prepared::read_json(&path, 65536)?;
+            cases["fixture_version"] = json!("unsupported");
+            fs::write(&path, serde_json::to_vec_pretty(&cases)?)?;
+            let actual = collection_prepared::fingerprint(
+                &path,
+                65536,
+                std::time::Instant::now() + Duration::from_secs(10),
+            )?;
+            profile["files"]["cases.json"] =
+                json!({"sha256":actual["sha256"],"bytes":actual["size"]});
+        }
+        "missing_projection" => remove_close_field(&mut profile["runtime_projection"], "allowed")?,
+        "unsupported_projection" => {
+            profile["runtime_projection"]["allowed"] = json!(["case.input"])
+        }
+        _ => return Err("unadmitted close package fault".into()),
+    }
+    fs::write(
+        base.join("profile.json"),
+        serde_json::to_vec_pretty(&profile)?,
+    )?;
+    Ok(())
+}
+
+/// Constructor and cleanup errors remain separate from actual loader rejection.
+pub fn close_package_guard(
+    input: &Value,
+    loader: impl FnOnce(&Path) -> Result<Value>,
+) -> Result<Value> {
+    use arboresce_xtask::collection_prepared;
+    use std::{
+        fs,
+        sync::atomic::{AtomicU64, Ordering},
+    };
+    static NEXT_PACKAGE: AtomicU64 = AtomicU64::new(0);
+    let fault = input["fault"]
+        .as_str()
+        .ok_or("missing close package fault")?;
+    let parent = Path::new(env!("CARGO_TARGET_TMPDIR"));
+    fs::create_dir_all(parent)?;
+    let owned = parent.join(format!(
+        "authority-close-package-guard-{}-{}",
+        std::process::id(),
+        NEXT_PACKAGE.fetch_add(1, Ordering::Relaxed),
+    ));
+    fs::create_dir(&owned)?;
+    let operation = (|| -> Result<Value> {
+        let source = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../tests/security/fixtures/owned-transport-close-v1");
+        for (name, cap) in [
+            ("README.md", 16384),
+            ("cases.json", 65536),
+            ("profile.json", 65536),
+        ] {
+            let (bytes, _) = collection_prepared::read_bytes(
+                &source.join(name),
+                cap,
+                std::time::Instant::now() + Duration::from_secs(10),
+            )?;
+            fs::write(owned.join(name), bytes)?;
+        }
+        let before = close_package_image(&owned)?;
+        mutate_close_package(&owned, fault)?;
+        let after = close_package_image(&owned)?;
+        let (semantic, loaded_cases) = match loader(&owned) {
+            Ok(cases) => (json!({"accepted":true,"failure":null}), Some(cases)),
+            Err(error) => (json!({"accepted":false,"failure":error.to_string()}), None),
+        };
+        Ok(json!({"semantic":semantic,"evidence":{
+            "owned_directory":owned,"before":before,"after":after,"loaded_cases":loaded_cases,
+        }}))
+    })();
+    let mut observed = preserve_cleanup(operation, fs::remove_dir_all(&owned).map_err(Into::into))?;
+    observed["evidence"]["cleanup_completed"] = json!(true);
+    if serde_json::to_vec(&observed)?.len() > 131072 {
+        return Err("owned close package observation bound exceeded".into());
+    }
+    Ok(observed)
+}
+
 impl Service {
     pub fn from_record(record: Value) -> Result<Self> {
         let (socket, data, server_pid): (PathBuf, PathBuf, u64) = serde_json::from_value(json!([
@@ -280,6 +562,8 @@ impl Service {
         let harness = Harness::new(socket).map_err(|_| "invalid owned harness target")?;
         Ok(Self {
             harness,
+            current_start: record["postmaster_start"].clone(),
+            original_input: None,
             record,
             data,
             server_pid,
@@ -339,7 +623,14 @@ impl Service {
             &input,
             std::time::Instant::now() + Duration::from_secs(30),
         )?;
-        let service = Self::from_record(bound["record"].clone())?;
+        let mut service = Self::from_record(bound["record"].clone())?;
+        service.original_input = Some((
+            input,
+            bound["sha256"]
+                .as_str()
+                .ok_or("missing owned input hash")?
+                .to_owned(),
+        ));
         service.identity().await?;
         service.empty_database().await?;
         service.require_fresh_roles().await?;
@@ -381,6 +672,10 @@ impl Service {
     }
 
     pub async fn identity(&self) -> Result<()> {
+        self.identity_at(self.server_pid, &self.current_start).await
+    }
+
+    async fn identity_at(&self, pid: u64, start: &Value) -> Result<()> {
         self.with_admin(true, async |connection| {
         let actual=timeout(Duration::from_secs(2),query_json(connection,
             "SELECT json_build_object('system_identifier',(SELECT system_identifier::text FROM pg_control_system()),\
@@ -389,37 +684,119 @@ impl Service {
              'listen',current_setting('listen_addresses'),'connections',current_setting('max_connections')::integer,\
              'encoding',current_setting('server_encoding'),'fsync',current_setting('fsync'),\
              'synchronous_commit',current_setting('synchronous_commit'),'address',inet_server_addr())::text", &[], 16384)).await??;
-        profile(&actual, &self.record)?;
-        pid_file(&self.data.join("postmaster.pid"), self.server_pid)
+        let mut expected=self.record.clone();
+        expected["postmaster_start"]=start.clone();
+        profile(&actual, &expected)?;
+        pid_file(&self.data.join("postmaster.pid"), pid)
         }).await
     }
 
+    /// Reuse the original one-restart transport with a separately observed full
+    /// shared-state oracle. The descriptor stays immutable; only verified current
+    /// generation state advances after the controller's positive adoption.
+    pub async fn restart<S>(
+        &mut self,
+        prepare: impl AsyncFnOnce(&Self) -> Result<S>,
+        outage: impl AsyncFnOnce(&Self),
+        verify: impl AsyncFnOnce(&Self, &S) -> Result<()>,
+    ) -> std::result::Result<Value, Box<dyn std::error::Error>> {
+        let mut transport = owned_restart::Service::open().await?;
+        let input = self
+            .original_input
+            .as_ref()
+            .ok_or("restart lacks original owned input observation")?;
+        {
+            let binding = transport.immutable_binding();
+            if binding["path"] != json!(input.0)
+                || binding["sha256"] != input.1
+                || binding["record"] != self.record
+            {
+                return Err("restart transport selected a different immutable input".into());
+            }
+        }
+        let service: &Self = self;
+        let proof = transport
+            .restart_with(
+                async |_| {
+                    prepare(service)
+                        .await
+                        .map_err(|error| error as Box<dyn std::error::Error>)
+                },
+                async |_| outage(service).await,
+                async |_, before| {
+                    verify(service, before)
+                        .await
+                        .map_err(|error| error as Box<dyn std::error::Error>)
+                },
+            )
+            .await?;
+        let (initial, pid, start, adopted) = proof.binding();
+        if initial["path"] != json!(input.0)
+            || initial["sha256"] != input.1
+            || initial["record"] != self.record
+            || adopted["new_pid"] != pid
+            || adopted["postmaster_start"] != start
+        {
+            return Err("verified successor binding differs from original input".into());
+        }
+        let start = json!(start);
+        self.identity_at(u64::from(pid), &start)
+            .await
+            .map_err(|error| error as Box<dyn std::error::Error>)?;
+        self.server_pid = u64::from(pid);
+        self.current_start = start;
+        if let Some(error) = transport.stopped_probe_error {
+            return Err(error.into());
+        }
+        Ok(
+            json!({"initial_input":{"path":initial["path"],"sha256":initial["sha256"]},
+            "initial_pid":self.record["server_pid"],"current_pid":pid,
+            "system_identifier":self.record["system_identifier"],"current_start":self.current_start,
+            "adopted":adopted,"outage_elapsed_ms":transport.stopped_elapsed.as_millis()}),
+        )
+    }
+
     /// Actual zero-backend census, not a delay or permission to terminate peers.
-    async fn empty_database(&self) -> Result<()> {
+    pub async fn empty_database(&self) -> Result<()> {
         let end = Instant::now() + Duration::from_secs(1);
         self.with_admin(true, async |connection| -> Result<()> {
-        let mut observed_backends = 0;
-        loop {
-            let count = match timeout_at(end,sqlx::query_scalar::<_, i64>(
-                "SELECT count(*) FROM pg_stat_activity WHERE datname='arboresce_migration_harness'")
-                .fetch_one(&mut *connection)).await {
-                Ok(count) => count?,
-                Err(error) => return Err(Box::<dyn std::error::Error + Send + Sync>::from(DatabaseCensusFailure { observed_backends, timeout:Some(error) })),
+            database_census(end, async || {
+                Ok(sqlx::query_scalar::<_, i64>(
+                    "SELECT count(*) FROM pg_stat_activity WHERE datname='arboresce_migration_harness'",
+                )
+                .fetch_one(&mut *connection)
+                .await?)
+            })
+            .await
+        })
+        .await
+    }
+
+    /// Hold one real database connection while the actual reset census refuses it.
+    /// Every path awaits that physical close before returning the original error.
+    pub async fn refuse_reset_with_owned_connection(&self) -> Result<Value> {
+        let started = Instant::now();
+        let mut observed = with_connection(self.admin(false).await?, async |connection| {
+            let backend: i32 = sqlx::query_scalar("SELECT pg_backend_pid()")
+                .fetch_one(connection)
+                .await?;
+            let census = match self.reset().await {
+                Ok(()) => return Err("reset unexpectedly accepted a live owned connection".into()),
+                Err(error) => error.downcast::<DatabaseCensusFailure>()?,
             };
-            observed_backends = count;
-            if count == 0 {
-                break;
-            }
-            if Instant::now() >= end {
-                return Err(Box::<dyn std::error::Error + Send + Sync>::from(DatabaseCensusFailure {
-                    observed_backends,
-                    timeout: None,
-                }));
-            }
-            tokio::task::yield_now().await;
-        }
-        Ok(())
-        }).await
+            Ok(json!({
+                "observed_backends":census.observed_backends,
+                "diagnostic":census.to_string(),
+                "actual_timeout":format!("{:?}",census.timeout),
+                "backend_id":backend,
+                "elapsed_seconds":started.elapsed().as_secs_f64()
+            }))
+        })
+        .await?;
+        self.empty_database().await?;
+        observed["owned_connection_closed"] = json!(true);
+        observed["empty_database_after_close"] = json!(true);
+        Ok(observed)
     }
 
     pub async fn reset(&self) -> Result<()> {
@@ -462,7 +839,7 @@ impl Service {
         .await
     }
 
-    /// Restore the unchanged initial database/roles before the old final cohort.
+    /// Restore the prepared database/roles after the identity-checked cohort.
     pub async fn finish(self) -> Result<()> {
         self.restore(true).await
     }

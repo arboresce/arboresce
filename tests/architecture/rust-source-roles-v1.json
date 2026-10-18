@@ -7,6 +7,11 @@
       "role": "measured"
     },
     {
+      "path": "crates/arboresce-application/src/policy/admission.rs",
+      "package": "arboresce-application",
+      "role": "measured"
+    },
+    {
       "path": "crates/arboresce-application/src/policy/authority.rs",
       "package": "arboresce-application",
       "role": "measured"
@@ -30,6 +35,11 @@
       "path": "crates/arboresce-application/tests/contract.rs",
       "package": "arboresce-application",
       "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-application/tests/support/admission.rs",
+      "package": "arboresce-application",
+      "role": "measured"
     },
     {
       "path": "crates/arboresce-application/tests/support/authority.rs",
@@ -178,6 +188,31 @@
       "role": "measured"
     },
     {
+      "path": "crates/arboresce-postgres/src/shared/catalogue.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/shared/claim.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/shared/control.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/shared/mod.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/src/shared/rows.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
       "path": "crates/arboresce-postgres/src/tenant.rs",
       "package": "arboresce-postgres",
       "role": "measured"
@@ -214,6 +249,26 @@
     },
     {
       "path": "crates/arboresce-postgres/tests/support/service.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/shared_admission.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/shared_probes.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/shared_races.rs",
+      "package": "arboresce-postgres",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-postgres/tests/support/shared_seed.rs",
       "package": "arboresce-postgres",
       "role": "measured"
     },
@@ -561,6 +616,7 @@
       "name": "arboresce_application",
       "sources": [
         "crates/arboresce-application/src/lib.rs",
+        "crates/arboresce-application/src/policy/admission.rs",
         "crates/arboresce-application/src/policy/authority.rs",
         "crates/arboresce-application/src/policy/bootstrap.rs",
         "crates/arboresce-application/src/policy/mod.rs",
@@ -597,6 +653,11 @@
         "crates/arboresce-postgres/src/authority/rows.rs",
         "crates/arboresce-postgres/src/lib.rs",
         "crates/arboresce-postgres/src/migration.rs",
+        "crates/arboresce-postgres/src/shared/catalogue.rs",
+        "crates/arboresce-postgres/src/shared/claim.rs",
+        "crates/arboresce-postgres/src/shared/control.rs",
+        "crates/arboresce-postgres/src/shared/mod.rs",
+        "crates/arboresce-postgres/src/shared/rows.rs",
         "crates/arboresce-postgres/src/tenant.rs"
       ]
     },

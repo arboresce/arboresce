@@ -21,6 +21,8 @@ pub use authority::{
     AdmissionFence, AuthorityFailure, AuthoritySession, AuthoritySessions, PermissionChange,
     PermissionFence, PermissionSession,
 };
+pub(crate) mod shared;
+pub use shared::ReservationFence;
 
 /// An input-independent configuration rejection, without paths or credentials.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

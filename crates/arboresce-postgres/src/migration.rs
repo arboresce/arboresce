@@ -15,6 +15,7 @@ pub enum SchemaVersion {
     Annotation,
     TenantAuthority,
     CurrentAuthority,
+    SharedAdmission,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -41,6 +42,7 @@ pub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {
         SchemaVersion::Annotation
             | SchemaVersion::TenantAuthority
             | SchemaVersion::CurrentAuthority
+            | SchemaVersion::SharedAdmission
     ) {
         result.push(Migration::new(
             2,
@@ -52,7 +54,9 @@ pub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {
     }
     if matches!(
         version,
-        SchemaVersion::TenantAuthority | SchemaVersion::CurrentAuthority
+        SchemaVersion::TenantAuthority
+            | SchemaVersion::CurrentAuthority
+            | SchemaVersion::SharedAdmission
     ) {
         result.push(Migration::new(
             3,
@@ -62,12 +66,24 @@ pub(crate) fn selected(version: SchemaVersion) -> Vec<Migration> {
             false,
         ));
     }
-    if version == SchemaVersion::CurrentAuthority {
+    if matches!(
+        version,
+        SchemaVersion::CurrentAuthority | SchemaVersion::SharedAdmission
+    ) {
         result.push(Migration::new(
             4,
             "current authority and isolated final fences".into(),
             MigrationType::Simple,
             include_str!("../migrations/4_current_authority.sql").into_sql_str(),
+            false,
+        ));
+    }
+    if version == SchemaVersion::SharedAdmission {
+        result.push(Migration::new(
+            5,
+            "shared admission reservations".into(),
+            MigrationType::Simple,
+            include_str!("../migrations/5_shared_admission.sql").into_sql_str(),
             false,
         ));
     }
@@ -114,7 +130,7 @@ async fn prefix(
     let history = history_result(sqlx::query(
         "SELECT version,success,checksum FROM public._sqlx_migrations ORDER BY version LIMIT $1",
     )
-    .bind(if migrations.len() == 4 { 5_i64 } else { 4 })
+    .bind(migrations.len() as i64 + 1)
     .fetch_all(&mut *connection)
     .await)?;
     for (index, row) in history.iter().enumerate() {

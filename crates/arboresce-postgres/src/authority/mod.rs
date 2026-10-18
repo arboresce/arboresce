@@ -12,8 +12,8 @@ use tokio::{
 };
 
 use crate::Harness;
-use arboresce_application::policy::authority::EvaluationRequest;
-use arboresce_domain::ControlRevision;
+use arboresce_application::policy::{TenantContext, authority::EvaluationRequest};
+use arboresce_domain::{ControlRevision, Identifier};
 
 pub(crate) mod catalogue;
 pub(crate) mod catalogue_policy;
@@ -94,6 +94,54 @@ impl Drop for Slot {
     }
 }
 
+/// A finite failure at the owned transport completion boundary.
+#[derive(Debug)]
+pub(crate) enum TransportCloseFailure {
+    Deadline,
+    Task(tokio::task::JoinError),
+}
+
+impl std::fmt::Display for TransportCloseFailure {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter.write_str(match self {
+            Self::Deadline => "owned transport close deadline exceeded",
+            Self::Task(_) => "owned transport close task failed",
+        })
+    }
+}
+
+impl std::error::Error for TransportCloseFailure {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Deadline => None,
+            Self::Task(error) => Some(error),
+        }
+    }
+}
+
+/// Await the actual owned destructor task and recheck its original deadline.
+/// A ready JoinHandle alone cannot prove timely completion.
+pub(crate) async fn close_completion(
+    task: &mut tokio::task::JoinHandle<()>,
+    deadline: Instant,
+) -> Result<(), TransportCloseFailure> {
+    match timeout_at(deadline, task).await {
+        Ok(Ok(())) if Instant::now() <= deadline => Ok(()),
+        Ok(Ok(())) | Err(_) => Err(TransportCloseFailure::Deadline),
+        Ok(Err(error)) => Err(TransportCloseFailure::Task(error)),
+    }
+}
+
+/// Destroy this physical transport without polling further driver I/O.
+/// In particular, do not flush a rollback queued after an uncertain terminal.
+pub(crate) async fn close_transport(
+    connection: PgConnection,
+    deadline: Instant,
+) -> Result<(), TransportCloseFailure> {
+    let mut task = tokio::task::spawn_blocking(move || drop(connection));
+    close_completion(&mut task, deadline).await
+}
+
 impl Harness {
     pub fn authority_sessions(&self) -> AuthoritySessions {
         AuthoritySessions {
@@ -159,20 +207,41 @@ impl AuthoritySessions {
 }
 
 impl AuthoritySession {
-    async fn begin<'a>(
-        &'a mut self,
-        request: &EvaluationRequest,
-        permission: bool,
-    ) -> Result<Guard<'a>, AuthorityFailure> {
+    fn usable(&self, permission: bool) -> Result<(), AuthorityFailure> {
         if self.poisoned {
             return Err(AuthorityFailure::UnknownCompletion);
         }
         if (self.role == Role::Permission) != permission {
             return Err(AuthorityFailure::UnsafeRole);
         }
+        Ok(())
+    }
+
+    async fn begin<'a>(
+        &'a mut self,
+        request: &EvaluationRequest,
+        permission: bool,
+    ) -> Result<Guard<'a>, AuthorityFailure> {
+        self.usable(permission)?;
         let workspace = request
             .selected_workspace
             .ok_or(AuthorityFailure::InvalidRequest)?;
+        self.begin_context(
+            TenantContext::new(workspace, request.executor),
+            request.selected_chain,
+            permission,
+        )
+        .await
+    }
+
+    pub(crate) async fn begin_context<'a>(
+        &'a mut self,
+        context: TenantContext,
+        chain: Option<Identifier>,
+        permission: bool,
+    ) -> Result<Guard<'a>, AuthorityFailure> {
+        self.usable(permission)?;
+        let workspace = context.workspace();
         self.poisoned = true;
         let deadline = Instant::now() + BUDGET;
         let role = self.role;
@@ -211,13 +280,8 @@ impl AuthoritySession {
             )
             .bind(workspace.organization().to_string())
             .bind(workspace.domain().to_string())
-            .bind(request.executor.to_string())
-            .bind(
-                request
-                    .selected_chain
-                    .map(|id| id.to_string())
-                    .unwrap_or_default(),
-            )
+            .bind(context.principal().to_string())
+            .bind(chain.map(|id| id.to_string()).unwrap_or_default())
             .execute(&mut *transaction)
             .await
             .map_err(|_| AuthorityFailure::Unavailable)?;
@@ -275,23 +339,10 @@ impl AuthoritySession {
             .take()
             .ok_or(AuthorityFailure::UnknownCompletion)?;
         let deadline = Instant::now() + CONNECT;
-        let closed = if self.poisoned {
-            // SQLx transaction drop can queue a rollback after an uncertain
-            // terminal. Its shutdown flushes that queue, so destroy the owned
-            // transport without polling any more driver I/O. Keep the permit
-            // here: cancellation or a missing task completion retains charge.
-            timeout_at(
-                deadline,
-                tokio::task::spawn_blocking(move || drop(connection)),
-            )
-            .await
-            .is_ok_and(|joined| joined.is_ok())
-        } else {
-            timeout_at(deadline, connection.close())
-                .await
-                .is_ok_and(|result| result.is_ok())
-        };
-        if closed && Instant::now() <= deadline {
+        // Both ordinary and poisoned sessions share positive owned destruction.
+        // Keep the permit here: cancellation, failure or late completion retains
+        // charge, and no additional protocol write can change a known terminal.
+        if close_transport(connection, deadline).await.is_ok() {
             self.slot.0.take();
             Ok(())
         } else {
@@ -303,7 +354,7 @@ impl AuthoritySession {
 pub(crate) struct Guard<'a> {
     transaction: Transaction<'a, Postgres>,
     poisoned: &'a mut bool,
-    deadline: Instant,
+    pub(crate) deadline: Instant,
 }
 
 impl Guard<'_> {

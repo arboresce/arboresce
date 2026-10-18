@@ -3,6 +3,160 @@ use std::{collections::BTreeSet, process::Command};
 pub mod support;
 
 #[test]
+fn complete_independent_export_assembly() {
+    use arboresce_xtask::collection;
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-export-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    let mut seen = BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let parts = support::collection_inputs::export_parts(&case["input"]);
+        let actual = match collection::complete_export(&parts) {
+            Ok(report) => json!({"report":serde_json::from_str::<Value>(&report).unwrap()}),
+            Err(error) => json!({"error":error.to_string()}),
+        };
+        let expected = if let Some(raw) = case["expected_utf8"].as_str() {
+            // The independent literal was checked for duplicate keys and numeric types.
+            json!({"report":serde_json::from_str::<Value>(raw).unwrap()})
+        } else {
+            case["expected"].clone()
+        };
+        assert_eq!(actual, expected, "{id}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 57);
+}
+
+#[test]
+fn complete_lossless_export_literals() {
+    use arboresce_xtask::collection;
+    use serde_json::Value;
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-export-literals-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 12);
+    let mut seen = BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let parts = support::collection_inputs::export_parts(&case["input"]);
+        let actual = collection::complete_export(&parts).unwrap();
+        assert_eq!(
+            actual.as_bytes(),
+            case["expected_utf8"].as_str().unwrap().as_bytes(),
+            "{id}"
+        );
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 12);
+}
+
+#[test]
+fn complete_exact_zero_export_literals() {
+    use arboresce_xtask::collection;
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-export-zero-literals-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 23);
+    let mut seen = BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let parts = support::collection_inputs::export_parts(&case["input"]);
+        if let Some(expected) = case["expected_utf8"].as_str() {
+            let actual = collection::complete_export(&parts).unwrap();
+            assert_eq!(actual.as_bytes(), expected.as_bytes(), "{id}");
+        } else {
+            let actual = match collection::complete_export(&parts) {
+                Ok(report) => json!({"report":report}),
+                Err(error) => json!({"error":error.to_string()}),
+            };
+            assert_eq!(actual, case["expected"], "{id}");
+        }
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 23);
+}
+
+#[test]
+fn cohort_manifest_requires_single_link() {
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-cohorts-v1/cases.json"
+    ))
+    .unwrap();
+    let actual = support::collection_inputs::cohorts(
+        &support::PreparedRoot::new().unwrap(),
+        &fixture["base_manifest"],
+        &fixture["base_observations"],
+        &json!({"recipe":"manifest-link-cycle"}),
+    )
+    .unwrap();
+    assert_eq!(
+        actual,
+        json!({"accepted":[true,false,true],"link_counts":[1,2,1],
+            "same_inode":true,"same_bytes":true})
+    );
+    println!(
+        "xtask case=cohort-manifest-link-cycle pid={}",
+        std::process::id()
+    );
+}
+
+#[test]
+fn complete_explicit_postgres_cohort_contract() {
+    use arboresce_xtask::collection_services;
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-collector-cohorts-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for group in [
+        "manifest_cases",
+        "separation_cases",
+        "routing_cases",
+        "intake_cases",
+    ] {
+        for case in fixture[group].as_array().unwrap() {
+            let id = case["id"].as_str().unwrap();
+            assert!(seen.insert(id));
+            let input = &case["input"];
+            let actual = match group {
+                "manifest_cases" => {
+                    json!({"accepted":collection_services::validate_cohorts(input).is_ok()})
+                }
+                "separation_cases" => {
+                    json!({"accepted":collection_services::validate_cohort_separation(input).is_ok()})
+                }
+                "routing_cases" => json!({"service":collection_services::cohort_route(input)}),
+                "intake_cases" => support::collection_inputs::cohorts(
+                    &support::PreparedRoot::new().unwrap(),
+                    &fixture["base_manifest"],
+                    &fixture["base_observations"],
+                    input,
+                )
+                .unwrap(),
+                _ => panic!("unregistered cohort fixture group"),
+            };
+            assert_eq!(actual, case["expected"], "{id}");
+            println!("xtask case={id} pid={}", std::process::id());
+        }
+    }
+    assert_eq!(seen.len(), 50);
+}
+
+#[test]
 fn independently_approved_collector_version_text() {
     use arboresce_xtask::collection;
     use serde_json::{Value, json};

@@ -45,6 +45,7 @@ fn metadata(root: &Path, trace: &mut impl Write) -> io::Result<Output> {
     let mut command = crate::measurement::command("cargo", Some(root))?;
     command
         .args(Action::Architecture.cargo_args())
+        .arg("--quiet")
         .current_dir(root)
         .stdout(Stdio::from(fs::File::create_new(&stdout)?))
         .stderr(Stdio::from(fs::File::create_new(&stderr)?));

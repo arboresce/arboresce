@@ -118,6 +118,186 @@ fn invalid() -> io::Error {
     io::Error::other("collector fixture preparation failed")
 }
 
+/// Two inert filesystem namespaces exercise selection, never database readiness.
+pub fn cohorts(
+    owner: &PreparedRoot,
+    manifest_input: &Value,
+    observations: &Value,
+    input: &Value,
+) -> io::Result<Value> {
+    use arboresce_xtask::{collection_services, inventory::sha256};
+    use std::{
+        os::unix::fs::{DirBuilderExt, MetadataExt},
+        sync::atomic::Ordering,
+        time::{SystemTime, UNIX_EPOCH},
+    };
+    struct Sockets(Vec<PathBuf>);
+    impl Drop for Sockets {
+        fn drop(&mut self) {
+            for path in &self.0 {
+                let _ = fs::remove_dir(path);
+            }
+        }
+    }
+    let root = owner.path.canonicalize()?;
+    let native = root.join("native");
+    fs::create_dir(&native)?;
+    let mut native_files = Map::new();
+    let mut tools = json!({});
+    for name in ["postgres", "pg_ctl"] {
+        let path = native.join(name);
+        fs::write(&path, b"inert fixture tool\n")?;
+        let hash = sha256(b"inert fixture tool\n");
+        native_files.insert(
+            path.to_str().ok_or_else(invalid)?.to_owned(),
+            json!({"sha256":hash,"size":19}),
+        );
+        tools[name] = json!({"path":path,"sha256":hash});
+    }
+    let mut sockets = Sockets(Vec::new());
+    let now: u64 = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(io::Error::other)?
+        .as_millis()
+        .try_into()
+        .map_err(io::Error::other)?;
+    let mut manifest = manifest_input.clone();
+    let mut descriptor_paths = Map::new();
+    for name in ["legacy", "current"] {
+        let base = root.join(name);
+        fs::DirBuilder::new().mode(0o700).create(&base)?;
+        let data = base.join("data");
+        fs::DirBuilder::new().mode(0o700).create(&data)?;
+        let socket = PathBuf::from(format!(
+            "/private/tmp/cohort-{}-{}",
+            std::process::id(),
+            super::NEXT.fetch_add(1, Ordering::Relaxed)
+        ));
+        fs::DirBuilder::new().mode(0o700).create(&socket)?;
+        sockets.0.push(socket.clone());
+        let readiness = base.join("readiness.json");
+        fs::write(&readiness, b"{}")?;
+        let mut files = native_files.clone();
+        for file in ["postgresql.conf", "pg_hba.conf", "postgresql.auto.conf"] {
+            let path = data.join(file);
+            fs::write(&path, b"inert configuration\n")?;
+            files.insert(
+                path.to_str().ok_or_else(invalid)?.to_owned(),
+                json!({"sha256":sha256(b"inert configuration\n"),"size":20}),
+            );
+        }
+        let mut record = observations[name]["record"].clone();
+        record["socket"] = json!(socket);
+        record["data"] = json!(data);
+        record["lease_deadline_unix_ms"] = json!(now + 60000);
+        record["readiness"] = json!({"path":readiness,"sha256":sha256(b"{}")});
+        record["tools"] = tools.clone();
+        record["files"] = json!(files);
+        let descriptor = base.join("service.json");
+        fs::write(&descriptor, serde_json::to_vec(&record)?)?;
+        manifest["services"][name] = json!(descriptor);
+        descriptor_paths.insert(name.to_owned(), json!(descriptor));
+    }
+    let selected = root.join("cohorts.json");
+    let recipe = input["recipe"].as_str().ok_or_else(invalid)?;
+    if recipe == "service-alias" {
+        manifest["services"]["current"] = manifest["services"]["legacy"].clone();
+    }
+    fs::write(&selected, serde_json::to_vec(&manifest)?)?;
+    if recipe == "manifest-link-cycle" {
+        let original = fs::metadata(&selected)?;
+        let bytes = fs::read(&selected)?;
+        let before = collection_services::observe_selection(
+            &selected,
+            Instant::now() + Duration::from_secs(2),
+        );
+        let alias = root.join("manifest-alias.json");
+        fs::hard_link(&selected, &alias)?;
+        let linked = fs::metadata(&selected)?;
+        let alias_metadata = fs::metadata(&alias)?;
+        let during = collection_services::observe_selection(
+            &selected,
+            Instant::now() + Duration::from_secs(2),
+        );
+        let linked_bytes = fs::read(&selected)?;
+        let alias_bytes = fs::read(&alias)?;
+        fs::remove_file(&alias)?;
+        let restored = fs::metadata(&selected)?;
+        let after = collection_services::observe_selection(
+            &selected,
+            Instant::now() + Duration::from_secs(2),
+        );
+        let identity = |m: &fs::Metadata| (m.dev(), m.ino());
+        return Ok(json!({
+            "accepted":[before.is_ok(),during.is_ok(),after.is_ok()],
+            "link_counts":[original.nlink(),linked.nlink(),restored.nlink()],
+            "same_inode":identity(&original)==identity(&linked)
+                &&identity(&linked)==identity(&alias_metadata)
+                &&identity(&alias_metadata)==identity(&restored),
+            "same_bytes":bytes==linked_bytes&&bytes==alias_bytes&&bytes==fs::read(&selected)?
+        }));
+    }
+    match recipe {
+        "manifest-symlink" => {
+            let target = root.join("manifest-target.json");
+            fs::rename(&selected, &target)?;
+            symlink(target, &selected)?;
+        }
+        "manifest-directory" => {
+            fs::remove_file(&selected)?;
+            fs::create_dir(&selected)?;
+        }
+        "manifest-one-over" => {
+            let mut bytes = fs::read(&selected)?;
+            bytes.resize(4097, b' ');
+            fs::write(&selected, bytes)?;
+        }
+        "regular"
+        | "service-alias"
+        | "service-byte-change"
+        | "secondary-config-change"
+        | "manifest-byte-change" => (),
+        _ => return Err(invalid()),
+    }
+    let changed = matches!(
+        recipe,
+        "service-byte-change" | "secondary-config-change" | "manifest-byte-change"
+    );
+    let before = if changed {
+        Some(
+            collection_services::observe_selection(
+                &selected,
+                Instant::now() + Duration::from_secs(2),
+            )
+            .map_err(io::Error::other)?,
+        )
+    } else {
+        None
+    };
+    match recipe {
+        "service-byte-change" => fs::OpenOptions::new()
+            .append(true)
+            .open(descriptor_paths["current"].as_str().ok_or_else(invalid)?)?
+            .write_all(b" ")?,
+        "secondary-config-change" => {
+            fs::write(root.join("current/data/postgresql.conf"), b"changed\n")?
+        }
+        "manifest-byte-change" => fs::OpenOptions::new()
+            .append(true)
+            .open(&selected)?
+            .write_all(b" ")?,
+        _ => (),
+    }
+    let after =
+        collection_services::observe_selection(&selected, Instant::now() + Duration::from_secs(2));
+    let same = after.as_ref().is_ok_and(|a| {
+        before
+            .as_ref()
+            .is_none_or(|b| a.legacy == b.legacy && a.cohorts == b.cohorts)
+    });
+    Ok(json!({"accepted":same,"changed_after_initial":before.is_some() &&!same}))
+}
+
 pub fn prepared(base: &Value, case: &Value) -> io::Result<Value> {
     if case["action"] == "prepared" {
         return report_inputs::replace(base, &case["patch"]).map_err(|_| invalid());
@@ -196,6 +376,31 @@ pub fn literal_bytes(value: &Value) -> Vec<u8> {
             .map(|byte| u8::try_from(byte.as_u64().unwrap()).unwrap())
             .collect()
     }
+}
+
+/// Expand only independently admitted finite capture recipes, without an oracle.
+pub fn export_parts(input: &Value) -> Vec<Vec<u8>> {
+    let parts = input["parts"].as_array().unwrap();
+    assert!(parts.len() <= 3);
+    parts
+        .iter()
+        .map(|part| {
+            let mut bytes = literal_bytes(&part["utf8"]);
+            if let Some(size) = part["pad_to_bytes"].as_u64() {
+                let size = usize::try_from(size).unwrap();
+                assert!(size >= bytes.len() && size <= 8_388_609);
+                bytes.resize(size, b' ');
+            }
+            if let Some(suffix) = part["suffix_bytes"].as_array() {
+                bytes.extend(
+                    suffix
+                        .iter()
+                        .map(|byte| u8::try_from(byte.as_u64().unwrap()).unwrap()),
+                );
+            }
+            bytes
+        })
+        .collect()
 }
 
 /// Prepare physical component inputs; never execute the literal image payloads.

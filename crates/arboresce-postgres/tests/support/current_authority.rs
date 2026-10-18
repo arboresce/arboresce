@@ -11,7 +11,7 @@ use arboresce_application::policy::{
 use arboresce_domain::{Clock, ControlRevision, Identifier, UtcTimestamp};
 use arboresce_xtask::{collection_prepared, inventory};
 use serde_json::{Value, json};
-use sqlx::{Connection, PgConnection, Row};
+use sqlx::{PgConnection, Row};
 use std::{
     io::Write,
     os::unix::fs::OpenOptionsExt,
@@ -582,43 +582,44 @@ pub async fn seed(service: &Service, snapshot: &Value, recipe: &Value) -> Result
         .migrate(SchemaVersion::TenantAuthority)
         .await
         .map_err(|e| format!("tenant migration failed: {e:?}"))?;
-    let mut connection = service.admin(false).await?;
-    let v3_normal = retain_observation(&constraints(&mut connection).await?)?;
+    let (v3_normal, old_faults) = service.with_admin(false, async |connection| {
+    let v3_normal = retain_observation(&constraints(&mut *connection).await?)?;
     let old_faults = faults(
-        &mut connection,
+        &mut *connection,
         &recipe["controlled_constraint_faults"],
         true,
     )
     .await?;
     for v in snapshot["organizations"].as_array().unwrap() {
         sqlx::query("INSERT INTO arboresce_authority.organizations (organization_id,state) VALUES ($1::uuid,$2)")
-            .bind(text(&v["organization_id"])).bind(text(&v["state"])).execute(&mut connection).await?;
+            .bind(text(&v["organization_id"])).bind(text(&v["state"])).execute(&mut *connection).await?;
     }
     for v in snapshot["domains"].as_array().unwrap() {
         sqlx::query("INSERT INTO arboresce_authority.domains (organization_id,domain_id,state) VALUES ($1::uuid,$2::uuid,$3)")
-            .bind(text(&v["organization_id"])).bind(text(&v["domain_id"])).bind(text(&v["state"])).execute(&mut connection).await?;
+            .bind(text(&v["organization_id"])).bind(text(&v["domain_id"])).bind(text(&v["state"])).execute(&mut *connection).await?;
     }
     for v in snapshot["principals"].as_array().unwrap() {
         let p = &v["identity_profile"];
         sqlx::query("INSERT INTO arboresce_authority.principals (principal_id,identity_profile,identity_version,public_key,state) VALUES ($1::uuid,$2,$3,decode($4,'hex'),$5)")
             .bind(text(&v["principal_id"])).bind(text(&p["profile"])).bind(text(&p["version"])).bind(text(&p["public_key"])).bind(text(&v["state"]))
-            .execute(&mut connection).await?;
+            .execute(&mut *connection).await?;
     }
     for v in snapshot["memberships"].as_array().unwrap() {
         sqlx::query("INSERT INTO arboresce_authority.memberships (organization_id,domain_id,principal_id,membership_id,state) VALUES ($1::uuid,$2::uuid,$3::uuid,$4::uuid,$5)")
             .bind(text(&v["workspace"]["organization_id"])).bind(text(&v["workspace"]["domain_id"])).bind(text(&v["principal"]["principal_id"]))
-            .bind(text(&v["membership_id"])).bind(text(&v["state"])).execute(&mut connection).await?;
+            .bind(text(&v["membership_id"])).bind(text(&v["state"])).execute(&mut *connection).await?;
     }
-    connection.close().await?;
+    Ok((v3_normal, old_faults))
+    }).await?;
     service
         .harness
         .migrate(SchemaVersion::CurrentAuthority)
         .await
         .map_err(|e| format!("current migration failed: {e:?}"))?;
-    let mut connection = service.admin(false).await?;
-    let normal_constraints = constraints(&mut connection).await?;
+    service.with_admin(false, async |connection| {
+    let normal_constraints = constraints(&mut *connection).await?;
     let new_faults = faults(
-        &mut connection,
+        &mut *connection,
         &recipe["controlled_constraint_faults"],
         false,
     )
@@ -629,12 +630,12 @@ pub async fn seed(service: &Service, snapshot: &Value, recipe: &Value) -> Result
         )
         .bind(text(&v["organization_id"]))
         .bind(text(&v["name"]))
-        .execute(&mut connection)
+        .execute(&mut *connection)
         .await?;
     }
     for v in snapshot["domains"].as_array().unwrap() {
         sqlx::query("UPDATE arboresce_authority.domains SET name=$3 WHERE organization_id=$1::uuid AND domain_id=$2::uuid")
-            .bind(text(&v["organization_id"])).bind(text(&v["domain_id"])).bind(text(&v["name"])).execute(&mut connection).await?;
+            .bind(text(&v["organization_id"])).bind(text(&v["domain_id"])).bind(text(&v["name"])).execute(&mut *connection).await?;
     }
     for v in snapshot["principals"].as_array().unwrap() {
         let p = &v["identity_profile"]["standard_revisions"]["nip01"];
@@ -654,7 +655,7 @@ pub async fn seed(service: &Service, snapshot: &Value, recipe: &Value) -> Result
             .bind(optional_text(&v["revoked_at"]))
             .bind((!missing("identity_standard")).then(|| text(&p["standard"])))
             .bind((!missing("identity_standard_revision")).then(|| text(&p["revision"])))
-            .execute(&mut connection).await?;
+            .execute(&mut *connection).await?;
     }
     for v in snapshot["memberships"].as_array().unwrap() {
         let legacy = &recipe["legacy_input"];
@@ -687,28 +688,28 @@ pub async fn seed(service: &Service, snapshot: &Value, recipe: &Value) -> Result
             .bind((!missing("roles")).then(|| strings(&v["roles"])))
             .bind((!missing("policy")).then(|| text(&v["policy"])))
             .bind((!missing("control_revision")).then(|| revision_number(&v["revision"])))
-            .execute(&mut connection).await?;
+            .execute(&mut *connection).await?;
     }
     for v in snapshot["policies"].as_array().unwrap() {
         sqlx::query("INSERT INTO arboresce_authority.workspace_policies (organization_id,domain_id,policy,epoch,state,read_roles,direct_review_roles,purposes,grant_root_actions,source_policy_ids) VALUES ($1::uuid,$2::uuid,$3,$4,$5,$6,$7,$8,$9,$10)")
             .bind(text(&v["workspace"]["organization_id"])).bind(text(&v["workspace"]["domain_id"])).bind(text(&v["policy"]))
             .bind(revision_number(&v["epoch"])).bind(text(&v["state"])).bind(strings(&v["read_roles"])).bind(strings(&v["direct_review_roles"]))
-            .bind(strings(&v["purposes"])).bind(strings(&v["grant_root_actions"])).bind(strings(&v["source_policy_ids"])).execute(&mut connection).await?;
+            .bind(strings(&v["purposes"])).bind(strings(&v["grant_root_actions"])).bind(strings(&v["source_policy_ids"])).execute(&mut *connection).await?;
     }
     for v in snapshot["source_policies"].as_array().unwrap() {
         sqlx::query("INSERT INTO arboresce_authority.source_policies (policy_id,state,expires_at,permitted_principals,permitted_purposes) VALUES ($1,$2,$3::timestamptz,$4::text[]::arboresce_authority.identifier[],$5)")
             .bind(text(&v["policy_id"])).bind(text(&v["state"])).bind(text(&v["expires_at"]))
-            .bind(strings(&v["permitted_principals"])).bind(strings(&v["permitted_purposes"])).execute(&mut connection).await?;
+            .bind(strings(&v["permitted_principals"])).bind(strings(&v["permitted_purposes"])).execute(&mut *connection).await?;
     }
     for v in snapshot["resources"].as_array().unwrap() {
         sqlx::query("INSERT INTO arboresce_authority.resources (organization_id,domain_id,resource_kind,resource_id,name,control_revision,state) VALUES ($1::uuid,$2::uuid,$3,$4::uuid,$5,$6,$7)")
             .bind(text(&v["workspace"]["organization_id"])).bind(text(&v["workspace"]["domain_id"])).bind(text(&v["kind"])).bind(text(&v["id"]))
-            .bind(text(&v["name"])).bind(revision_number(&v["control_revision"])).bind(text(&v["state"])).execute(&mut connection).await?;
+            .bind(text(&v["name"])).bind(revision_number(&v["control_revision"])).bind(text(&v["state"])).execute(&mut *connection).await?;
     }
     for v in snapshot["party_aliases"].as_array().unwrap() {
         sqlx::query("INSERT INTO arboresce_authority.party_aliases (organization_id,domain_id,party_id,alias,principal_id) VALUES ($1::uuid,$2::uuid,$3::uuid,$4,$5::uuid)")
             .bind(text(&v["workspace"]["organization_id"])).bind(text(&v["workspace"]["domain_id"])).bind(text(&v["party_id"]))
-            .bind(text(&v["alias"])).bind(optional_text(&v["principal_id"])).execute(&mut connection).await?;
+            .bind(text(&v["alias"])).bind(optional_text(&v["principal_id"])).execute(&mut *connection).await?;
     }
     let owner = workspace(&recipe["authority_owner"]);
     let omitted = |relation: &str| {
@@ -720,7 +721,7 @@ pub async fn seed(service: &Service, snapshot: &Value, recipe: &Value) -> Result
         if omitted("grants") {
             continue;
         }
-        seed_grant(&mut connection, v, owner, None).await?;
+        seed_grant(&mut *connection, v, owner, None).await?;
     }
     for v in snapshot["immutable_chains"].as_array().unwrap() {
         if omitted("immutable_chains") {
@@ -728,10 +729,10 @@ pub async fn seed(service: &Service, snapshot: &Value, recipe: &Value) -> Result
         }
         sqlx::query("INSERT INTO arboresce_authority.immutable_chains (organization_id,domain_id,chain_id,scope_interpretation) VALUES ($1::uuid,$2::uuid,$3::uuid,$4)")
             .bind(owner.organization().to_string()).bind(owner.domain().to_string()).bind(text(&v["chain_id"])).bind(text(&v["scope_interpretation"]))
-            .execute(&mut connection).await?;
+            .execute(&mut *connection).await?;
         for (ordinal, member) in v["members"].as_array().unwrap().iter().enumerate() {
             seed_grant(
-                &mut connection,
+                &mut *connection,
                 member,
                 owner,
                 Some((text(&v["chain_id"]), ordinal as i16)),
@@ -739,13 +740,13 @@ pub async fn seed(service: &Service, snapshot: &Value, recipe: &Value) -> Result
             .await?;
         }
     }
-    let seeded_constraints = constraints(&mut connection).await?;
-    connection.close().await?;
+    let seeded_constraints = constraints(&mut *connection).await?;
     Ok(
         json!({"v3_normal_constraints":v3_normal,"old_faults":old_faults,
         "normal_constraints":normal_constraints,"new_faults":new_faults,
         "seeded_constraints":seeded_constraints}),
     )
+    }).await
 }
 
 async fn seed_grant(
@@ -962,7 +963,7 @@ pub async fn snapshot(
     financial_null: bool,
 ) -> Result<Value> {
     let now = clock.now()?;
-    let mut connection = service.admin(false).await?;
+    service.with_admin(false, async |connection| {
     let mut result = json!({"now":now.to_string()});
     for (name, projection) in STATE_QUERIES {
         // Both framing and projection are compiled constants, with no fixture SQL.
@@ -970,7 +971,7 @@ pub async fn snapshot(
             "SELECT coalesce(jsonb_agg(value ORDER BY key),'[]'::jsonb)::text FROM ({projection}) rows"
         );
         let raw: String = sqlx::query_scalar(sqlx::AssertSqlSafe(sql))
-            .fetch_one(&mut connection)
+            .fetch_one(&mut *connection)
             .await?;
         if raw.len() > 131072 {
             return Err("canonical SQL observation exceeds bound".into());
@@ -1003,7 +1004,7 @@ pub async fn snapshot(
     }
     if financial_null {
         let families:Vec<String>=sqlx::query_scalar("SELECT table_name FROM information_schema.tables WHERE table_schema='arboresce_authority' ORDER BY table_name")
-            .fetch_all(&mut connection).await?;
+            .fetch_all(&mut *connection).await?;
         if families
             .iter()
             .any(|s| s.contains("financial") || s.contains("review_event"))
@@ -1012,8 +1013,8 @@ pub async fn snapshot(
         }
         result["financial_review_event"] = Value::Null;
     }
-    connection.close().await?;
     Ok(result)
+    }).await
 }
 
 /// Compare unordered relations by their actual complete keys; ordered sealed
@@ -1041,11 +1042,7 @@ pub fn relation_order(v: &Value) -> Value {
 }
 
 pub async fn census(service: &Service) -> Result<Value> {
-    let mut connection = service.admin(true).await?;
-    let raw:String=sqlx::query_scalar("SELECT jsonb_build_object('writers',count(*) FILTER (WHERE datname='arboresce_migration_harness' AND usename IN ('harness_writer','harness_authority_admission','harness_authority_permission')),'controls',count(*) FILTER (WHERE usename IN ('harness_admin','harness_migrator')),'backends',coalesce(jsonb_agg(jsonb_build_object('pid',pid,'role',usename,'state',state) ORDER BY pid) FILTER (WHERE datname='arboresce_migration_harness'),'[]'::jsonb))::text FROM pg_stat_activity WHERE backend_type='client backend'")
-        .fetch_one(&mut connection).await?;
-    connection.close().await?;
-    Ok(serde_json::from_str(&raw)?)
+    service.json(true, "SELECT jsonb_build_object('writers',count(*) FILTER (WHERE datname='arboresce_migration_harness' AND usename IN ('harness_writer','harness_authority_admission','harness_authority_permission')),'controls',count(*) FILTER (WHERE usename IN ('harness_admin','harness_migrator')),'backends',coalesce(jsonb_agg(jsonb_build_object('pid',pid,'role',usename,'state',state) ORDER BY pid) FILTER (WHERE datname='arboresce_migration_harness'),'[]'::jsonb))::text FROM pg_stat_activity WHERE backend_type='client backend'", &[], 131072).await
 }
 
 pub async fn accounting(service: &Service) -> Result<Value> {
@@ -1104,11 +1101,7 @@ async fn accounting_with_versions(service: &Service, controlled_shape: bool) -> 
 }
 
 pub async fn markers(service: &Service) -> Result<Value> {
-    let mut connection = service.admin(false).await?;
-    let raw:String=sqlx::query_scalar("SELECT coalesce(jsonb_agg(to_jsonb(m) ORDER BY marker_id),'[]'::jsonb)::text FROM arboresce_authority.qualification_markers m")
-        .fetch_one(&mut connection).await?;
-    connection.close().await?;
-    Ok(serde_json::from_str(&raw)?)
+    service.json(false, "SELECT coalesce(jsonb_agg(to_jsonb(m) ORDER BY marker_id),'[]'::jsonb)::text FROM arboresce_authority.qualification_markers m", &[], 131072).await
 }
 
 pub async fn current(service: &Service, input: &Value, recipe: &Value) -> Result<Value> {
@@ -1260,14 +1253,16 @@ pub async fn held_effect(
     };
     let adapter_calls = clock.calls;
     let same_backend = session.backend_id().await? == backend;
-    let mut control = service.admin(true).await?;
-    let idle: bool = sqlx::query_scalar(
-        "SELECT state='idle' AND xact_start IS NULL FROM pg_stat_activity WHERE pid=$1",
-    )
-    .bind(backend)
-    .fetch_one(&mut control)
-    .await?;
-    control.close().await?;
+    let idle = service
+        .with_admin(true, async |connection| {
+            Ok(sqlx::query_scalar::<_, bool>(
+                "SELECT state='idle' AND xact_start IS NULL FROM pg_stat_activity WHERE pid=$1",
+            )
+            .bind(backend)
+            .fetch_one(connection)
+            .await?)
+        })
+        .await?;
     if !idle {
         return Err("final effect has no actual positive terminal".into());
     }

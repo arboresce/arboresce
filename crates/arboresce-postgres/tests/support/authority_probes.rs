@@ -465,7 +465,7 @@ async fn slots(service: &Service, input: &Value) -> Result<Value> {
                 .and_then(|e| e.code())
                 .map(|v| v.to_string()),
             Ok(connection) => {
-                connection.close().await?;
+                with_connection(connection, async |_| Ok(())).await?;
                 None
             }
         };
@@ -2021,4 +2021,386 @@ pub async fn observe(
     observed["markers_after"] = after_markers;
     observed["census"] = shared::census(service).await?;
     Ok(observed)
+}
+
+/// Read only the independently admitted finite package and public source pins.
+pub fn close_fixtures() -> Result<Value> {
+    let base = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../../tests/security/fixtures/owned-transport-close-v1");
+    close_fixture_package(
+        &base,
+        "owned-transport-close-profile-v1",
+        "owned-transport-close-cases-v1",
+    )
+}
+
+pub fn close_guard_fixtures() -> Result<Value> {
+    let base = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../../tests/security/fixtures/owned-transport-close-guards-v1");
+    close_fixture_package(
+        &base,
+        "owned-transport-close-guards-profile-v1",
+        "owned-transport-close-guards-cases-v1",
+    )
+}
+
+pub fn census_fixtures() -> Result<Value> {
+    let base = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../../tests/security/fixtures/owned-database-census-v1");
+    close_fixture_package(
+        &base,
+        "owned-database-census-profile-v1",
+        "owned-database-census-cases-v1",
+    )
+}
+
+pub fn helper_input_error_fixtures() -> Result<Value> {
+    let base = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../../tests/security/fixtures/owned-helper-input-errors-v1");
+    close_fixture_package(
+        &base,
+        "owned-helper-input-errors-profile-v1",
+        "owned-helper-input-errors-cases-v1",
+    )
+}
+
+/// Read only the fixed missing PID path inside the existing owned package copy.
+pub fn missing_owned_pid_guard(input: &Value) -> Result<Value> {
+    crate::authority_service::close_package_guard(input, |base| {
+        crate::authority_service::pid_file(&base.join("postmaster.pid"), 17).map(|()| Value::Null)
+    })
+}
+
+/// Only the finite input reaches the owned-copy producer and actual loader.
+pub fn close_package_guard(input: &Value) -> Result<Value> {
+    crate::authority_service::close_package_guard(input, |base| {
+        close_fixture_package(
+            base,
+            "owned-transport-close-profile-v1",
+            "owned-transport-close-cases-v1",
+        )
+    })
+}
+
+fn close_fixture_package(
+    base: &std::path::Path,
+    profile_version: &str,
+    cases_version: &str,
+) -> Result<Value> {
+    use arboresce_xtask::{collection_prepared, inventory};
+    use std::{path::Path, time::Instant};
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let mut names = std::fs::read_dir(base)?
+        .map(|entry| {
+            let entry = entry?;
+            if !entry.file_type()?.is_file() {
+                return Err("nonregular owned close package entry".into());
+            }
+            Ok(entry.file_name())
+        })
+        .collect::<Result<Vec<_>>>()?;
+    names.sort();
+    if names != ["README.md", "cases.json", "profile.json"].map(std::ffi::OsString::from) {
+        return Err("owned close package paths differ".into());
+    }
+    let (profile, _) = collection_prepared::read_json(&base.join("profile.json"), 65536)?;
+    for row in profile["sources"]
+        .as_array()
+        .ok_or("missing owned close source pins")?
+    {
+        let path = row["path"]
+            .as_str()
+            .ok_or("missing owned close source path")?;
+        inventory::portable_path(Path::new(path))?;
+        let actual = collection_prepared::fingerprint(
+            &root.join(path),
+            8 << 20,
+            Instant::now() + Duration::from_secs(10),
+        )?;
+        if actual["sha256"] != row["sha256"] || actual["size"] != row["bytes"] {
+            return Err("owned close source pin mismatch".into());
+        }
+    }
+    for (name, row) in profile["files"]
+        .as_object()
+        .ok_or("missing owned close file pins")?
+    {
+        let cap = match name.as_str() {
+            "README.md" => 16384,
+            "cases.json" => 65536,
+            _ => return Err("unregistered owned close fixture file".into()),
+        };
+        let actual = collection_prepared::fingerprint(
+            &base.join(name),
+            cap,
+            Instant::now() + Duration::from_secs(10),
+        )?;
+        if actual["sha256"] != row["sha256"] || actual["size"] != row["bytes"] {
+            return Err("owned close fixture pin mismatch".into());
+        }
+    }
+    let (cases, _) = collection_prepared::read_json(&base.join("cases.json"), 65536)?;
+    if profile["fixture_version"] != profile_version
+        || cases["fixture_version"] != cases_version
+        || profile["runtime_projection"]["allowed"] != json!(["common_inputs", "case.input"])
+    {
+        return Err("unsupported owned close fixture projection".into());
+    }
+    Ok(cases)
+}
+
+/// Controlled completion observations; no PostgreSQL or socket is constructed.
+pub async fn controlled_close(input: &Value) -> Result<Value> {
+    use crate::implementation::authority::{TransportCloseFailure, close_completion};
+    use std::sync::{
+        Arc,
+        atomic::{AtomicBool, Ordering},
+    };
+    use tokio::{sync::oneshot, time::Instant};
+
+    struct Destruction(Arc<AtomicBool>);
+    impl Drop for Destruction {
+        fn drop(&mut self) {
+            self.0.store(true, Ordering::SeqCst);
+        }
+    }
+
+    let operation = input["operation"]
+        .as_str()
+        .ok_or("missing close operation")?;
+    let deadline = if matches!(operation, "ready_after_deadline" | "pending_at_deadline") {
+        Instant::now() - Duration::from_millis(1)
+    } else {
+        Instant::now() + Duration::from_secs(1)
+    };
+    let destroyed = Arc::new(AtomicBool::new(false));
+    let marker = Destruction(destroyed.clone());
+    let (started, ready) = oneshot::channel();
+    let (release, waiting) = oneshot::channel();
+    let (pending, panic) = match operation {
+        "completed" | "ready_after_deadline" => (false, false),
+        "panicked" => (false, true),
+        "cancelled" | "pending_at_deadline" => (true, false),
+        _ => return Err("unadmitted controlled close operation".into()),
+    };
+    let mut task = tokio::spawn(async move {
+        let marker = marker;
+        let _ = started.send(());
+        if pending {
+            let _ = waiting.await;
+        }
+        if panic {
+            panic!("controlled owned-close task panic");
+        }
+        drop(marker);
+    });
+    tokio::time::timeout(Duration::from_secs(1), ready).await??;
+    if operation == "cancelled" {
+        task.abort();
+    }
+    if operation != "pending_at_deadline" {
+        tokio::time::timeout(Duration::from_secs(1), async {
+            while !task.is_finished() {
+                tokio::task::yield_now().await;
+            }
+        })
+        .await?;
+    }
+    let result = close_completion(&mut task, deadline).await;
+    let failure = result.as_ref().err().map(|failure| match failure {
+        TransportCloseFailure::Deadline => "deadline",
+        TransportCloseFailure::Task(error) if error.is_cancelled() => "task_cancelled",
+        TransportCloseFailure::Task(_) => "task_panic",
+    });
+    let mut semantic = json!({
+        "closed":result.is_ok(),
+        "failure":failure,
+        "task_finished":task.is_finished(),
+        "destruction_completed":destroyed.load(Ordering::SeqCst),
+        "later_cleanup_completed":false,
+    });
+    let evidence = json!({
+        "kind":"controlled_task",
+        "diagnostic":result.as_ref().err().map(ToString::to_string),
+        "source":result.as_ref().err().and_then(|error| std::error::Error::source(error)).map(ToString::to_string),
+        "original_deadline_elapsed":Instant::now() > deadline,
+    });
+    if operation == "pending_at_deadline" {
+        release
+            .send(())
+            .map_err(|_| "controlled task release failed")?;
+        tokio::time::timeout(Duration::from_secs(1), &mut task).await??;
+        semantic["later_cleanup_completed"] = json!(destroyed.load(Ordering::SeqCst));
+    }
+    Ok(json!({"semantic":semantic,"evidence":evidence}))
+}
+
+/// Actual owned-backend observations; no expected object reaches this producer.
+pub async fn native_close(service: &Service, common: &Value, input: &Value) -> Result<Value> {
+    if common["close_budget_ms"] != 1000 || common["census_budget_ms"] != 1000 {
+        return Err("unsupported owned close budgets".into());
+    }
+    let operation = input["operation"]
+        .as_str()
+        .ok_or("missing native close operation")?;
+    let peer = matches!(
+        operation,
+        "raw_peer_terminated" | "authority_peer_terminated" | "authority_peer_poisoned"
+    );
+    let mut backend = 0;
+    let mut before = Value::Null;
+    let mut terminated = Value::Null;
+    let mut semantic = json!({
+        "operation_value":null,"operation_failure":null,"close":"complete",
+        "owned_backend_present_before":false,"owned_backend_absent_after":false,
+        "peer_termination_acknowledged":null,"slots_before_close":null,"slots_after_close":null,
+    });
+    let close_observation;
+    if matches!(
+        operation,
+        "raw_value" | "raw_operation_error" | "raw_peer_terminated"
+    ) {
+        let mut error_address = 0usize;
+        let mut raw_close_started = None;
+        let result = with_connection(service.admin(false).await?, async |connection| {
+            let outcome: Result<i64> = async {
+                backend = timeout(
+                    Duration::from_secs(1),
+                    sqlx::query_scalar("SELECT pg_backend_pid()").fetch_one(&mut *connection),
+                )
+                .await??;
+                before = shared::census(service).await?;
+                if operation == "raw_operation_error" {
+                    let result = timeout(
+                        Duration::from_secs(1),
+                        sqlx::query_scalar::<_, i32>("SELECT 1/0").fetch_one(&mut *connection),
+                    )
+                    .await?;
+                    result.map(i64::from).map_err(|error| {
+                        let boxed: Box<dyn std::error::Error + Send + Sync> = Box::new(error);
+                        error_address = std::ptr::from_ref(boxed.as_ref()) as *const () as usize;
+                        boxed
+                    })
+                } else {
+                    let supplied = input["value"].as_i64().ok_or("missing raw close value")?;
+                    let value = timeout(
+                        Duration::from_secs(1),
+                        sqlx::query_scalar::<_, i64>("SELECT $1::bigint")
+                            .bind(supplied)
+                            .fetch_one(&mut *connection),
+                    )
+                    .await??;
+                    if peer {
+                        terminated = terminate_owned_backend(service, backend).await?;
+                    }
+                    Ok(value)
+                }
+            }
+            .await;
+            raw_close_started = Some(tokio::time::Instant::now());
+            outcome
+        })
+        .await;
+        let elapsed = raw_close_started
+            .ok_or("raw close lacks operation completion")?
+            .elapsed();
+        if elapsed > Duration::from_secs(1) {
+            return Err("raw owned close exceeded deadline".into());
+        }
+        match result {
+            Ok(value) => semantic["operation_value"] = json!(value),
+            Err(error) if operation == "raw_operation_error" => {
+                let Some(actual) = error.downcast_ref::<sqlx::Error>() else {
+                    return Err(error);
+                };
+                semantic["operation_failure"] = json!({
+                    "kind":"sqlx",
+                    "sqlstate":actual.as_database_error().and_then(|error|error.code()).map(|code|code.into_owned()),
+                    "original_allocation":std::ptr::from_ref(actual) as usize == error_address,
+                });
+            }
+            Err(error) => return Err(error),
+        }
+        close_observation = json!({"kind":"raw","elapsed_seconds":elapsed.as_secs_f64()});
+    } else if matches!(
+        operation,
+        "authority_value" | "authority_peer_terminated" | "authority_peer_poisoned"
+    ) {
+        let sessions = service.harness.authority_sessions();
+        let mut session = sessions.admission().await?;
+        let outcome: Result<()> = async {
+            backend = session.backend_id().await?;
+            before = shared::census(service).await?;
+            if peer {
+                terminated = terminate_owned_backend(service, backend).await?;
+            }
+            if operation == "authority_peer_poisoned" {
+                let failure = session.backend_id().await.err();
+                semantic["operation_failure"] = failure
+                    .map(|failure| json!({"kind":"authority","variant":failure.to_string()}))
+                    .unwrap_or(Value::Null);
+            }
+            Ok(())
+        }
+        .await;
+        semantic["slots_before_close"] = json!(sessions.available_slots());
+        let started = tokio::time::Instant::now();
+        let closed = session.close().await.map_err(Into::into);
+        let elapsed = started.elapsed();
+        crate::authority_service::preserve_cleanup(outcome, closed)?;
+        if elapsed > Duration::from_secs(1) {
+            return Err("authority owned close exceeded deadline".into());
+        }
+        close_observation = json!({"kind":"authority","elapsed_seconds":elapsed.as_secs_f64()});
+        semantic["slots_after_close"] = json!(sessions.available_slots());
+    } else {
+        return Err("unadmitted native close operation".into());
+    }
+    service.empty_database().await?;
+    let after = shared::census(service).await?;
+    semantic["owned_backend_present_before"] = json!(census_contains_backend(&before, backend)?);
+    semantic["owned_backend_absent_after"] = json!(!census_contains_backend(&after, backend)?);
+    if peer {
+        semantic["peer_termination_acknowledged"] = terminated["acknowledged"].clone();
+    }
+    Ok(json!({"semantic":semantic,"evidence":{
+        "backend":backend,"before":before,"after":after,"termination":terminated,"close":close_observation,
+    }}))
+}
+
+async fn terminate_owned_backend(service: &Service, backend: i32) -> Result<Value> {
+    // This PID was read from the exact owned handle, never supplied by a fixture.
+    let acknowledged = service
+        .with_admin(true, async |connection| {
+            Ok(timeout(
+                Duration::from_secs(1),
+                sqlx::query_scalar::<_, bool>("SELECT pg_terminate_backend($1)")
+                    .bind(backend)
+                    .fetch_one(connection),
+            )
+            .await??)
+        })
+        .await?;
+    if !acknowledged {
+        return Err("owned backend termination was not acknowledged".into());
+    }
+    service.empty_database().await?;
+    let absent = shared::census(service).await?;
+    if census_contains_backend(&absent, backend)? {
+        return Err("terminated owned backend remains present".into());
+    }
+    Ok(json!({"acknowledged":acknowledged,"backend":backend,"census_before_close":absent}))
+}
+
+fn census_contains_backend(observation: &Value, backend: i32) -> Result<bool> {
+    let rows = observation["backends"]
+        .as_array()
+        .ok_or("invalid close backend census")?;
+    rows.iter().try_fold(false, |found, row| {
+        let pid = row["pid"]
+            .as_i64()
+            .filter(|pid| *pid > 0)
+            .ok_or("invalid close census backend identity")?;
+        Ok(found || pid == i64::from(backend))
+    })
 }

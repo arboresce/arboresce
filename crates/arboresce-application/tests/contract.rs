@@ -9,9 +9,116 @@ use std::{
 use serde_json::{Value, json};
 
 mod support {
+    pub mod admission;
     pub mod authority;
     pub mod bootstrap;
     pub mod principal;
+}
+
+#[test]
+fn complete_additional_shared_preparation() {
+    let fixture = support::admission::additional_fixtures().unwrap();
+    let cases = fixture["groups"]["app_preparation"].as_array().unwrap();
+    assert_eq!(cases.len(), 41);
+    for case in cases {
+        let error = support::admission::preparation(&case["input"]).unwrap_err();
+        assert_eq!(
+            json!({"preparation_error":error.to_string()}),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_shared_claim_boundaries() {
+    let fixture = support::admission::fixtures().unwrap();
+    let cases = fixture["groups"]["claim_boundaries"].as_array().unwrap();
+    assert_eq!(cases.len(), 51);
+    for case in cases {
+        let observed = support::admission::claim_observation(&case["input"]).unwrap();
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_shared_quota_boundaries() {
+    let fixture = support::admission::fixtures().unwrap();
+    let cases = fixture["groups"]["quota_boundaries"].as_array().unwrap();
+    assert_eq!(cases.len(), 25);
+    for case in cases {
+        let observed = support::admission::quota_observation(&case["input"]).unwrap();
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_shared_control_boundaries() {
+    let fixture = support::admission::fixtures().unwrap();
+    let cases = fixture["groups"]["control_boundaries"].as_array().unwrap();
+    assert_eq!(cases.len(), 54);
+    for case in cases {
+        let observed = support::admission::control_observation(&case["input"]).unwrap();
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_shared_finite_errors() {
+    let fixture = support::admission::fixtures().unwrap();
+    let cases = fixture["groups"]["finite_errors"].as_array().unwrap();
+    assert_eq!(cases.len(), 17);
+    for case in cases {
+        let observed = support::admission::finite_observation(&case["input"]).unwrap();
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_shared_preparation_failures() {
+    let fixture = support::admission::fixtures().unwrap();
+    let cases = fixture["groups"]["preparation"].as_array().unwrap();
+    assert_eq!(cases.len(), 10);
+    for case in cases {
+        let error = support::admission::preparation(&case["input"]).unwrap_err();
+        assert_eq!(
+            json!({"preparation_error":error.to_string()}),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
 }
 
 #[test]

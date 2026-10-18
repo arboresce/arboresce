@@ -145,6 +145,19 @@ pub struct Service {
     pub stopped_elapsed: Duration,
 }
 
+/// Constructed only after actual disappearance, persistence and controller adoption.
+pub struct VerifiedGeneration {
+    initial: Value,
+    pid: u32,
+    start: String,
+    adopted: Value,
+}
+impl VerifiedGeneration {
+    pub(super) fn binding(&self) -> (&Value, u32, &str, &Value) {
+        (&self.initial, self.pid, &self.start, &self.adopted)
+    }
+}
+
 /// Parse each frozen record once, before scenario effects begin.
 pub struct Records(BTreeMap<String, MigrationRecord>);
 
@@ -638,12 +651,66 @@ impl Service {
         Ok(now)
     }
 
-    /// One measured restart, last in this service run; the initial input stays immutable.
+    /// Preserve every original record, annotation and stopped-service observation.
     pub async fn restart(&mut self, record: MigrationRecord, annotation: &str) -> Result<()> {
+        let mut observations = Vec::new();
+        let outcome = self
+            .restart_with(
+                async |service| service.snapshot().await,
+                async |service| {
+                    observations.push(("admin", service.admin(false).await.map(|_| ())));
+                    observations.push(("snapshot", service.snapshot().await.map(|_| ())));
+                    observations.push(("schema", service.schema().await.map(|_| ())));
+                    observations.push(("annotate", service.annotate(record, annotation).await));
+                    observations.push(("identity", service.identity().await));
+                    observations.push(("writer", service.writer_identity(true).await));
+                },
+                async |service, before| {
+                    let fresh =
+                        Harness::new(service.socket()).map_err(|_| "invalid restart reader")?;
+                    if fresh
+                        .read(record.organization(), record.record())
+                        .await
+                        .map_err(|_| "restart read failed")?
+                        != Some(record)
+                        || service.snapshot().await? != *before
+                    {
+                        return Err("owned restart changed exact stored data".into());
+                    }
+                    Ok(())
+                },
+            )
+            .await;
+        // Keep partial real outage observations even if recovery or adoption fails.
+        self.stopped_observations = observations;
+        let proof = outcome?;
+        let (initial, pid, start, adopted) = proof.binding();
+        if initial != self.immutable_binding()
+            || pid != self.current_pid
+            || start != self.current_start
+            || adopted["new_pid"] != pid
+            || adopted["postmaster_start"] != start
+        {
+            return Err("legacy restart successor binding mismatch".into());
+        }
+        Ok(())
+    }
+
+    pub(super) fn immutable_binding(&self) -> &Value {
+        &self.bound
+    }
+
+    /// One measured restart, last in this service run; the initial input stays immutable.
+    pub async fn restart_with<S>(
+        &mut self,
+        prepare: impl AsyncFnOnce(&Self) -> Result<S>,
+        outage: impl AsyncFnOnce(&Self),
+        verify: impl AsyncFnOnce(&Self, &S) -> Result<()>,
+    ) -> Result<VerifiedGeneration> {
         // Refuse a known-insufficient budget before expensive immutable-input intake.
         self.restart_time()?;
         self.unchanged().await?;
-        let before = self.snapshot().await?;
+        let before = prepare(self).await?;
         let old_pid = self.current_pid;
         // Intake consumes time; recheck immediately before any control/native effect.
         let now = self.restart_time()?;
@@ -651,7 +718,7 @@ impl Service {
         let request = self.control(ControlKind::Request, &serde_json::json!({
             "version":"postgres-harness-restart-request-v1", "input_sha256":self.bound["sha256"],
             "old_pid":old_pid, "old_start":self.current_start, "deadline_unix_ms":u64::try_from(now + 25000)? }))?;
-        let (new_pid, new_start) = tokio::time::timeout_at(end.into(), async {
+        let (new_pid, new_start, adopted) = tokio::time::timeout_at(end.into(), async {
             let ack = self
                 .control_wait(
                     ControlKind::Ack,
@@ -691,22 +758,13 @@ impl Service {
             // Keep actual results, including unexpected failures, until restart/adoption.
             // The independent driver classifies them only after persistence succeeds.
             let started = Instant::now();
-            let mut observations = Vec::new();
-            let outage = tokio::time::timeout_at(
+            let result = tokio::time::timeout_at(
                 (started + Duration::from_secs(2)).min(end).into(),
-                async {
-                    observations.push(("admin", self.admin(false).await.map(|_| ())));
-                    observations.push(("snapshot", self.snapshot().await.map(|_| ())));
-                    observations.push(("schema", self.schema().await.map(|_| ())));
-                    observations.push(("annotate", self.annotate(record, annotation).await));
-                    observations.push(("identity", self.identity().await));
-                    observations.push(("writer", self.writer_identity(true).await));
-                },
+                outage(self),
             )
             .await;
             self.stopped_elapsed = started.elapsed();
-            self.stopped_observations = observations;
-            self.stopped_probe_error = outage.err();
+            self.stopped_probe_error = result.err();
             self.native(true, end)?;
             let new_pid: u32 = fs::read_to_string(data.join("postmaster.pid"))?
                 .lines()
@@ -722,16 +780,7 @@ impl Service {
                 return Err("server generation did not advance".into());
             }
             self.identity_at(new_pid, &new_start).await?;
-            let fresh = Harness::new(self.socket()).map_err(|_| "invalid restart reader")?;
-            if fresh
-                .read(record.organization(), record.record())
-                .await
-                .map_err(|_| "restart read failed")?
-                != Some(record)
-                || self.snapshot().await? != before
-            {
-                return Err("owned restart changed exact stored data".into());
-            }
+            verify(self, &before).await?;
             let completion_hash = self.control(
                 ControlKind::Complete,
                 &serde_json::json!({
@@ -749,13 +798,18 @@ impl Service {
             {
                 return Err("successor adoption mismatch".into());
             }
-            Ok::<_, Box<dyn std::error::Error>>((new_pid, new_start))
+            Ok::<_, Box<dyn std::error::Error>>((new_pid, new_start, adopted))
         })
         .await??;
         self.current_pid = new_pid;
         self.current_start = new_start;
         self.unchanged().await?;
-        Ok(())
+        Ok(VerifiedGeneration {
+            initial: self.bound.clone(),
+            pid: new_pid,
+            start: self.current_start.clone(),
+            adopted,
+        })
     }
 
     /// Verify effective current grants, including the recreated namespace.

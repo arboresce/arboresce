@@ -2,6 +2,7 @@
 
 use arboresce_domain::Identifier;
 
+pub mod admission;
 pub mod authority;
 pub mod bootstrap;
 pub mod principal;

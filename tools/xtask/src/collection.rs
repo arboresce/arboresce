@@ -345,26 +345,223 @@ fn merge_one(commands: &mut Runner, profiles: &[PathBuf], output: &Path) -> Resu
     Ok(())
 }
 
-fn export(commands: &mut Runner, objects: &[Value], profile: &Path, path: &Path) -> Result<String> {
-    let mut args = vec![
-        "export".to_owned(),
-        "-format=text".to_owned(),
-        format!(
-            "-instr-profile={}",
-            profile.to_str().ok_or(CollectError::Input)?
-        ),
+/// Reassemble complete native file and function captures without filtering data.
+pub fn complete_export(parts: &[Vec<u8>]) -> Result<String> {
+    let bad = CollectError::Conservation;
+    let [files, functions] = parts else {
+        return Err(bad);
+    };
+    let (files_text, files) = export_part(files)?;
+    let (functions_text, functions) = export_part(functions)?;
+    let data = |value: &Value, fields: &[&str]| -> Result<()> {
+        let root = value.as_object().ok_or(bad)?;
+        if root.len() != 3
+            || value["type"] != "llvm.coverage.json.export"
+            || value["version"] != "3.1.0"
+        {
+            return Err(bad);
+        }
+        let rows = value["data"]
+            .as_array()
+            .filter(|rows| rows.len() == 1)
+            .ok_or(bad)?;
+        let row = rows[0].as_object().ok_or(bad)?;
+        if row.len() != fields.len() || fields.iter().any(|key| !row.contains_key(*key)) {
+            return Err(bad);
+        }
+        Ok(())
+    };
+    data(&files, &["files", "totals"])?;
+    data(&functions, &["files", "functions", "totals"])?;
+    let mut names = BTreeSet::new();
+    for file in files["data"][0]["files"].as_array().ok_or(bad)? {
+        let name = file
+            .as_object()
+            .and_then(|file| file.get("filename"))
+            .and_then(Value::as_str)
+            .filter(|name| !name.is_empty())
+            .ok_or(bad)?;
+        if !names.insert(name.to_owned()) {
+            return Err(bad);
+        }
+    }
+    if !files["data"][0]["totals"].is_object()
+        || functions["data"][0]["files"]
+            .as_array()
+            .is_none_or(|files| !files.is_empty())
+        || !functions["data"][0]["functions"].is_array()
+    {
+        return Err(bad);
+    }
+    let totals = functions["data"][0]["totals"].as_object().ok_or(bad)?;
+    let ordinary = &["count", "covered", "percent"][..];
+    let with_uncovered = &["count", "covered", "notcovered", "percent"][..];
+    let metrics = [
+        ("lines", ordinary),
+        ("functions", ordinary),
+        ("instantiations", ordinary),
+        ("regions", with_uncovered),
+        ("branches", with_uncovered),
+        ("mcdc", with_uncovered),
     ];
+    if totals.len() != metrics.len() {
+        return Err(bad);
+    }
+    let functions_row = export_data_object(functions_text)?;
+    let totals_tail = export_member_tail(functions_row, "totals")?;
+    for (name, fields) in metrics {
+        let metric = totals.get(name).and_then(Value::as_object).ok_or(bad)?;
+        if metric.len() != fields.len()
+            || fields
+                .iter()
+                .any(|field| !metric.get(*field).is_some_and(Value::is_number))
+        {
+            return Err(bad);
+        }
+        let metric_tail = export_member_tail(totals_tail, name)?;
+        for field in fields {
+            let tail = export_member_tail(metric_tail, field)?;
+            let (_, end) = export_token::<serde::de::IgnoredAny>(tail)?;
+            if tail[..end]
+                .bytes()
+                .take_while(|byte| !matches!(*byte, b'e' | b'E'))
+                .any(|byte| matches!(byte, b'1'..=b'9'))
+            {
+                return Err(bad);
+            }
+        }
+    }
+    // Only original bytes enter the report after complete strict validation.
+    let files_row = export_data_object(files_text)?;
+    let (_, files_end) = export_token::<serde::de::IgnoredAny>(files_row)?;
+    let functions_tail = export_member_tail(functions_row, "functions")?;
+    let (_, functions_end) = export_token::<serde::de::IgnoredAny>(functions_tail)?;
+    let insert = files_text.len() - files_row.len() + files_end - 1;
+    let mut report = String::with_capacity(files_text.len() + functions_end + 13);
+    report.push_str(&files_text[..insert]);
+    report.push_str(",\"functions\":");
+    report.push_str(&functions_tail[..functions_end]);
+    report.push_str(&files_text[insert..]);
+    if report.len() > strict_json::MAX_BYTES {
+        return Err(bad);
+    }
+    Ok(report)
+}
+
+// These spans are taken only after the complete strict schema checks above.
+// IgnoredAny locates a complete token without reconstructing its numeric values.
+fn export_part(bytes: &[u8]) -> Result<(&str, Value)> {
+    let bad = CollectError::Conservation;
+    if bytes.len() > collection_inputs::MAX_PROTOCOL_BYTES {
+        return Err(bad);
+    }
+    let text = std::str::from_utf8(bytes).map_err(|_| bad)?;
+    let value = strict_json::parse(text).ok_or(bad)?;
+    Ok((text, value))
+}
+
+fn export_token<T: serde::de::DeserializeOwned>(text: &str) -> Result<(T, usize)> {
+    let mut tokens = serde_json::Deserializer::from_str(text).into_iter::<T>();
+    let value = tokens
+        .next()
+        .ok_or(CollectError::Conservation)?
+        .map_err(|_| CollectError::Conservation)?;
+    Ok((value, tokens.byte_offset()))
+}
+
+fn export_member_tail<'a>(text: &'a str, name: &str) -> Result<&'a str> {
+    let bad = CollectError::Conservation;
+    let mut tail = text.trim_start().strip_prefix('{').ok_or(bad)?;
+    loop {
+        let (key, end) = export_token::<String>(tail)?;
+        tail = tail[end..]
+            .trim_start()
+            .strip_prefix(':')
+            .ok_or(bad)?
+            .trim_start();
+        if key == name {
+            return Ok(tail);
+        }
+        let (_, end) = export_token::<serde::de::IgnoredAny>(tail)?;
+        tail = tail[end..].trim_start().strip_prefix(',').ok_or(bad)?;
+    }
+}
+
+fn export_data_object(text: &str) -> Result<&str> {
+    export_member_tail(text, "data")?
+        .trim_start()
+        .strip_prefix('[')
+        .map(str::trim_start)
+        .ok_or(CollectError::Conservation)
+}
+
+fn export_inputs(objects: &[Value], profile: &Path, deadline: Instant) -> Result<Value> {
+    let mut selected = Vec::new();
     for object in objects {
-        args.extend(["-object".to_owned(), text(object, "path")?]);
+        let path = text(object, "path")?;
+        let identity = prepared::fingerprint(Path::new(&path), 64 << 20, deadline)?;
+        if identity["sha256"] != object["sha256"] {
+            return Err(CollectError::Changed);
+        }
+        selected.push(json!({"path":path,"identity":identity}));
     }
-    let tool = commands.program("llvm-cov")?;
-    let target = commands.target.clone();
-    let actual = commands.run(&tool, &args, 180, &values(), &target)?;
-    if !actual.output.status.success() {
-        return Err(CollectError::Command);
-    }
-    runner::write(path, &actual.output.stdout)?;
-    Ok(utf8(&actual.output.stdout)?.to_owned())
+    let identity = prepared::fingerprint(profile, 64 << 20, deadline)?;
+    Ok(json!({"profile":{"path":profile,"identity":identity},"objects":selected}))
+}
+
+fn export(commands: &mut Runner, objects: &[Value], profile: &Path, path: &Path) -> Result<String> {
+    let maximum = Instant::now() + Duration::from_secs(180);
+    let enclosing = commands.deadline;
+    let deadline = enclosing.map_or(maximum, |phase| phase.min(maximum));
+    commands.deadline = Some(deadline);
+    let result = (|| {
+        let mut args = vec![
+            "export".to_owned(),
+            "-format=text".to_owned(),
+            format!(
+                "-instr-profile={}",
+                profile.to_str().ok_or(CollectError::Input)?
+            ),
+        ];
+        for object in objects {
+            args.extend(["-object".to_owned(), text(object, "path")?]);
+        }
+        let tool = commands.program("llvm-cov")?;
+        let target = commands.target.clone();
+        let before = export_inputs(objects, profile, deadline)?;
+        let sidecar = |phase: &str| {
+            let mut name = path.as_os_str().to_owned();
+            name.push(format!(".inputs-{phase}.json"));
+            PathBuf::from(name)
+        };
+        runner::record(&sidecar("before"), &before)?;
+        let mut parts = Vec::new();
+        for (flag, phase) in [
+            ("-skip-functions", "between"),
+            ("-ignore-filename-regex=.*", "after"),
+        ] {
+            let mut selected_args = args.clone();
+            selected_args.push(flag.to_owned());
+            let actual = commands.run(&tool, &selected_args, 180, &values(), &target)?;
+            if !actual.output.status.success() {
+                return Err(CollectError::Command);
+            }
+            let observed = export_inputs(objects, profile, deadline)?;
+            runner::record(&sidecar(phase), &observed)?;
+            if observed != before {
+                return Err(CollectError::Changed);
+            }
+            parts.push(actual.output.stdout);
+        }
+        prepared::check_time(deadline)?;
+        let report = complete_export(&parts)?;
+        prepared::check_time(deadline)?;
+        runner::write(path, report.as_bytes())?;
+        prepared::check_time(deadline)?;
+        Ok(report)
+    })();
+    commands.deadline = enclosing;
+    result
 }
 
 /// Resolve one same-byte Cargo dependency image and its bounded dependency file.
@@ -598,14 +795,18 @@ fn collect(args: &[&str], service_input: Option<&str>) -> Result<(Value, Instant
     prepared::validate(&base)?;
     prepared::outer_until(&base, input_deadline)?;
     let ambient = prepared::environment()?;
-    let service = service_input
-        .map(|p| crate::collection_services::observe(Path::new(p), input_deadline))
+    let service_selection = service_input
+        .map(|p| crate::collection_services::observe_selection(Path::new(p), input_deadline))
         .transpose()?;
+    let service = service_selection.as_ref().map(|s| s.legacy.clone());
     let output = fresh(&root, output)?;
     let raw = output.join("raw");
     fs::create_dir(&raw).map_err(|_| CollectError::Intake)?;
     let mut commands = Runner::new(&root, &output, &base)?;
-    commands.service_input = service_input.map(PathBuf::from);
+    commands.service_input = service_selection
+        .as_ref()
+        .map(|s| s.path_for(&Value::Null))
+        .transpose()?;
     commands.deadline = Some(input_deadline);
     let observed = observe(&root, &base, &mut commands, input_deadline)?;
     if observed != base {
@@ -630,6 +831,9 @@ fn collect(args: &[&str], service_input: Option<&str>) -> Result<(Value, Instant
         {
             before["tools"][format!("postgres-{name}")] = row["sha256"].clone();
         }
+    }
+    if let Some(cohorts) = service_selection.as_ref().and_then(|s| s.cohorts.as_ref()) {
+        before["native"]["postgres_cohorts"] = cohorts.clone();
     }
     runner::record(&output.join("source-before.json"), &before)?;
     runner::record(&output.join("source-inventory.json"), &snapshot)?;
@@ -755,6 +959,10 @@ fn collect(args: &[&str], service_input: Option<&str>) -> Result<(Value, Instant
     let mut command_roles = Vec::new();
     let mut test_count = 0;
     for object in objects.iter().filter(|o| o["role"] == "harness") {
+        commands.service_input = service_selection
+            .as_ref()
+            .map(|s| s.path_for(object))
+            .transpose()?;
         let program = PathBuf::from(text(object, "path")?);
         let args = ["--list", "--format=terse"].map(str::to_owned);
         let listed = commands.run(&program, &args, 30, &instrumentation, &target)?;
@@ -780,6 +988,13 @@ fn collect(args: &[&str], service_input: Option<&str>) -> Result<(Value, Instant
         let events =
             collection_tests::execution(utf8(&run.output.stdout)?, &object["tests"], run.pid)?;
         test_count += events.len();
+        let mut harness_record = json!({"pid":run.pid,"events":events});
+        if service_selection
+            .as_ref()
+            .is_some_and(|s| s.cohorts.is_some())
+        {
+            harness_record["service_input"] = json!(commands.service_input);
+        }
         runner::record(
             &output.join(format!(
                 "harness-{}-{}-{}.json",
@@ -787,10 +1002,14 @@ fn collect(args: &[&str], service_input: Option<&str>) -> Result<(Value, Instant
                 text(object, "kind")?,
                 text(object, "name")?
             )),
-            &json!({"pid":run.pid,"events":events}),
+            &harness_record,
         )?;
         command_roles.push(json!({"pid":run.pid,"role":"run","object_sha256":object["sha256"]}));
     }
+    commands.service_input = service_selection
+        .as_ref()
+        .map(|s| s.path_for(&Value::Null))
+        .transpose()?;
     let exercise_deadline = Instant::now() + Duration::from_secs(180);
     commands.deadline = Some(exercise_deadline);
     let mut exercised = Vec::new();
@@ -944,8 +1163,12 @@ fn collect(args: &[&str], service_input: Option<&str>) -> Result<(Value, Instant
         "tests":prepared::read_json_until(&tests_path,64<<20,final_deadline)?.1,"prepared":prepared::read_json_until(&manifest_path,64<<20,final_deadline)?.1});
     after["native"]["metadata_sha256"] = sha256(final_metadata.as_bytes()).into();
     if let Some(service_path) = service_input {
-        let observed =
-            crate::collection_services::observe(Path::new(service_path), final_deadline)?;
+        let selected =
+            crate::collection_services::observe_selection(Path::new(service_path), final_deadline)?;
+        let observed = selected.legacy;
+        if let Some(cohorts) = selected.cohorts {
+            after["native"]["postgres_cohorts"] = cohorts;
+        }
         for (name, row) in observed["record"]["tools"]
             .as_object()
             .ok_or(CollectError::Prepared)?
