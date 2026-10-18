@@ -1,0 +1,2208 @@
+{
+  "version": "native-collector-cohorts-fixtures-v1",
+  "classification": "Original synthetic MIT OR Apache-2.0 protocol fixtures. Structural values and inert files do not establish PostgreSQL readiness or a running service. Expected observations are independent of consumers.",
+  "manifest_cases": [
+    {
+      "id": "cohort-manifest-complete",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": true
+      }
+    },
+    {
+      "id": "cohort-manifest-version",
+      "input": {
+        "version": "postgres-harness-cohorts-v2",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-missing-services",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-unknown-field",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ],
+        "extra": true
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-missing-allocation",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-services-null",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": null,
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-third-service",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json",
+          "extra": "/prepared/extra/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-missing-current",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-alias-descriptor",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/legacy/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-relative-descriptor",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-parent-descriptor",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/../current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-dot-descriptor",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/./current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-nul-descriptor",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/\u0000service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-nontext-descriptor",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": 17
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-missing-target",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-duplicate-target",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-unknown-target",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "shared",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-unknown-package",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "other",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-unknown-kind",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "bin",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-crossed-current-route",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-crossed-races-route",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-crossed-qualification-route",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "current"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-route-extra-field",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current",
+            "extra": true
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-allocation-null",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": null
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-allocation-object",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": {
+          "authority_current": "current"
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-manifest-allocation-extra",
+      "input": {
+        "version": "postgres-harness-cohorts-v1",
+        "services": {
+          "legacy": "/prepared/legacy/service.json",
+          "current": "/prepared/current/service.json"
+        },
+        "allocation": [
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_current",
+            "service": "current"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "authority_races",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          },
+          {
+            "package": "arboresce-postgres",
+            "kind": "test",
+            "name": "qualification",
+            "service": "legacy"
+          }
+        ]
+      },
+      "expected": {
+        "accepted": false
+      }
+    }
+  ],
+  "separation_cases": [
+    {
+      "id": "cohort-separation-complete",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/current/data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": true
+      }
+    },
+    {
+      "id": "cohort-separation-same-pid",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/current/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-same-system",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/current/data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-same-socket",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/current/data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-same-data",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/legacy/data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-nested-data",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/legacy/data/nested",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-same-control-root",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/legacy/other-data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-same-readiness",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/current/data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-different-tool-path",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/current/data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/other/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "cohort-separation-different-tool-hash",
+      "input": {
+        "legacy": {
+          "path": "/prepared/legacy/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-legacy",
+            "data": "/prepared/legacy/data",
+            "server_pid": 41,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242424",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/legacy/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "files": {
+              "/prepared/legacy/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/legacy/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        },
+        "current": {
+          "path": "/prepared/current/service.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "record": {
+            "version": "postgres-harness-service-v1",
+            "socket": "/private/tmp/cohort-current",
+            "data": "/prepared/current/data",
+            "server_pid": 42,
+            "postmaster_start": "2026-10-18 00:00:00+00",
+            "system_identifier": "4242424242424242425",
+            "server_version_num": 170011,
+            "os_build": "25F71",
+            "architecture": "arm64",
+            "lease_deadline_unix_ms": 9999999999999,
+            "readiness": {
+              "path": "/prepared/current/readiness.json",
+              "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "tools": {
+              "postgres": {
+                "path": "/prepared/native/postgres",
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "pg_ctl": {
+                "path": "/prepared/native/pg_ctl",
+                "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+              }
+            },
+            "files": {
+              "/prepared/current/data/postgresql.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/pg_hba.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/current/data/postgresql.auto.conf": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/postgres": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              },
+              "/prepared/native/pg_ctl": {
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "size": 1
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    }
+  ],
+  "routing_cases": [
+    {
+      "id": "cohort-route-arboresce-postgres-test-authority_current",
+      "input": {
+        "package": "arboresce-postgres",
+        "kind": "test",
+        "name": "authority_current"
+      },
+      "expected": {
+        "service": "current"
+      }
+    },
+    {
+      "id": "cohort-route-arboresce-postgres-test-authority_races",
+      "input": {
+        "package": "arboresce-postgres",
+        "kind": "test",
+        "name": "authority_races"
+      },
+      "expected": {
+        "service": "legacy"
+      }
+    },
+    {
+      "id": "cohort-route-arboresce-postgres-test-qualification",
+      "input": {
+        "package": "arboresce-postgres",
+        "kind": "test",
+        "name": "qualification"
+      },
+      "expected": {
+        "service": "legacy"
+      }
+    },
+    {
+      "id": "cohort-route-arboresce-postgres-lib-arboresce_postgres",
+      "input": {
+        "package": "arboresce-postgres",
+        "kind": "lib",
+        "name": "arboresce_postgres"
+      },
+      "expected": {
+        "service": "legacy"
+      }
+    },
+    {
+      "id": "cohort-route-arboresce-xtask-test-collector_contract",
+      "input": {
+        "package": "arboresce-xtask",
+        "kind": "test",
+        "name": "collector_contract"
+      },
+      "expected": {
+        "service": "legacy"
+      }
+    },
+    {
+      "id": "cohort-route-other-test-authority_current",
+      "input": {
+        "package": "other",
+        "kind": "test",
+        "name": "authority_current"
+      },
+      "expected": {
+        "service": "legacy"
+      }
+    }
+  ],
+  "intake_cases": [
+    {
+      "id": "cohort-intake-regular",
+      "input": {
+        "recipe": "regular"
+      },
+      "expected": {
+        "accepted": true,
+        "changed_after_initial": false
+      }
+    },
+    {
+      "id": "cohort-intake-manifest-symlink",
+      "input": {
+        "recipe": "manifest-symlink"
+      },
+      "expected": {
+        "accepted": false,
+        "changed_after_initial": false
+      }
+    },
+    {
+      "id": "cohort-intake-manifest-directory",
+      "input": {
+        "recipe": "manifest-directory"
+      },
+      "expected": {
+        "accepted": false,
+        "changed_after_initial": false
+      }
+    },
+    {
+      "id": "cohort-intake-manifest-one-over",
+      "input": {
+        "recipe": "manifest-one-over"
+      },
+      "expected": {
+        "accepted": false,
+        "changed_after_initial": false
+      }
+    },
+    {
+      "id": "cohort-intake-service-alias",
+      "input": {
+        "recipe": "service-alias"
+      },
+      "expected": {
+        "accepted": false,
+        "changed_after_initial": false
+      }
+    },
+    {
+      "id": "cohort-intake-service-byte-change",
+      "input": {
+        "recipe": "service-byte-change"
+      },
+      "expected": {
+        "accepted": false,
+        "changed_after_initial": true
+      }
+    },
+    {
+      "id": "cohort-intake-secondary-config-change",
+      "input": {
+        "recipe": "secondary-config-change"
+      },
+      "expected": {
+        "accepted": false,
+        "changed_after_initial": true
+      }
+    },
+    {
+      "id": "cohort-intake-manifest-byte-change",
+      "input": {
+        "recipe": "manifest-byte-change"
+      },
+      "expected": {
+        "accepted": false,
+        "changed_after_initial": true
+      }
+    }
+  ],
+  "base_manifest": {
+    "version": "postgres-harness-cohorts-v1",
+    "services": {
+      "legacy": "/prepared/legacy/service.json",
+      "current": "/prepared/current/service.json"
+    },
+    "allocation": [
+      {
+        "package": "arboresce-postgres",
+        "kind": "test",
+        "name": "authority_current",
+        "service": "current"
+      },
+      {
+        "package": "arboresce-postgres",
+        "kind": "test",
+        "name": "authority_races",
+        "service": "legacy"
+      },
+      {
+        "package": "arboresce-postgres",
+        "kind": "test",
+        "name": "qualification",
+        "service": "legacy"
+      }
+    ]
+  },
+  "base_observations": {
+    "legacy": {
+      "path": "/prepared/legacy/service.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "record": {
+        "version": "postgres-harness-service-v1",
+        "socket": "/private/tmp/cohort-legacy",
+        "data": "/prepared/legacy/data",
+        "server_pid": 41,
+        "postmaster_start": "2026-10-18 00:00:00+00",
+        "system_identifier": "4242424242424242424",
+        "server_version_num": 170011,
+        "os_build": "25F71",
+        "architecture": "arm64",
+        "lease_deadline_unix_ms": 9999999999999,
+        "readiness": {
+          "path": "/prepared/legacy/readiness.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "tools": {
+          "postgres": {
+            "path": "/prepared/native/postgres",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "pg_ctl": {
+            "path": "/prepared/native/pg_ctl",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "files": {
+          "/prepared/legacy/data/postgresql.conf": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/legacy/data/pg_hba.conf": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/legacy/data/postgresql.auto.conf": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/native/postgres": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/native/pg_ctl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          }
+        }
+      }
+    },
+    "current": {
+      "path": "/prepared/current/service.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "record": {
+        "version": "postgres-harness-service-v1",
+        "socket": "/private/tmp/cohort-current",
+        "data": "/prepared/current/data",
+        "server_pid": 42,
+        "postmaster_start": "2026-10-18 00:00:00+00",
+        "system_identifier": "4242424242424242425",
+        "server_version_num": 170011,
+        "os_build": "25F71",
+        "architecture": "arm64",
+        "lease_deadline_unix_ms": 9999999999999,
+        "readiness": {
+          "path": "/prepared/current/readiness.json",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "tools": {
+          "postgres": {
+            "path": "/prepared/native/postgres",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "pg_ctl": {
+            "path": "/prepared/native/pg_ctl",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "files": {
+          "/prepared/current/data/postgresql.conf": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/current/data/pg_hba.conf": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/current/data/postgresql.auto.conf": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/native/postgres": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          },
+          "/prepared/native/pg_ctl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "size": 1
+          }
+        }
+      }
+    }
+  }
+}

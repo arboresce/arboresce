@@ -96,3 +96,12 @@ bounded cleanup records. A daemon's indirect observations never become a
 fabricated Child exit status. Failure to verify current ownership prohibits
 signaling a cached PID. A completed restart consumes that initial service
 generation; another qualifying run requires a fresh prepared service and input.
+
+## Separately prepared cohorts
+
+The additive [two-cohort contract](../../../../architecture/fixtures/native-collector-cohorts-v1/README.md)
+defines an explicit finite allocation when one complete collection must preserve
+both the original schema2 restart and a shared SQL5 restart. Each independently
+owned namespace retains this original one-restart handoff unchanged. Complete
+descriptor/allocation conservation and actual successor-aware ownership are
+required; the extra service cannot be selected through ambient state.
