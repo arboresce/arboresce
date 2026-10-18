@@ -1,0 +1,54 @@
+{
+  "fixture_version": "owned-database-census-cases-v1",
+  "common_inputs": {},
+  "census": [
+    {
+      "id": "sql-helper-census-ready-empty",
+      "input": {
+        "operation": "ready_empty"
+      },
+      "expected": {
+        "accepted": true,
+        "failure": null,
+        "probes_started": 1,
+        "probes_completed": 1,
+        "pending_probe_started": false,
+        "pending_probe_dropped": false
+      }
+    },
+    {
+      "id": "sql-helper-census-pending-query-at-deadline",
+      "input": {
+        "operation": "pending_query"
+      },
+      "expected": {
+        "accepted": false,
+        "failure": {
+          "observed_backends": 0,
+          "query_timeout": true
+        },
+        "probes_started": 1,
+        "probes_completed": 0,
+        "pending_probe_started": true,
+        "pending_probe_dropped": true
+      }
+    },
+    {
+      "id": "sql-helper-census-ready-busy-after-deadline",
+      "input": {
+        "operation": "ready_busy_after_deadline"
+      },
+      "expected": {
+        "accepted": false,
+        "failure": {
+          "observed_backends": 1,
+          "query_timeout": false
+        },
+        "probes_started": 1,
+        "probes_completed": 1,
+        "pending_probe_started": false,
+        "pending_probe_dropped": false
+      }
+    }
+  ]
+}
