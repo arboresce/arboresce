@@ -1,0 +1,168 @@
+{
+  "fixture_version": "owned-transport-close-guards-cases-v1",
+  "common_inputs": {},
+  "groups": {
+    "package_guards": [
+      {
+        "id": "sql-close-package-unchanged",
+        "input": {
+          "fault": "unchanged"
+        },
+        "expected": {
+          "accepted": true,
+          "failure": null
+        }
+      },
+      {
+        "id": "sql-close-package-nonregular-entry",
+        "input": {
+          "fault": "nonregular_entry"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "nonregular owned close package entry"
+        }
+      },
+      {
+        "id": "sql-close-package-additional-file",
+        "input": {
+          "fault": "additional_file"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "owned close package paths differ"
+        }
+      },
+      {
+        "id": "sql-close-package-missing-readme",
+        "input": {
+          "fault": "missing_readme"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "owned close package paths differ"
+        }
+      },
+      {
+        "id": "sql-close-package-source-hash",
+        "input": {
+          "fault": "source_hash"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "owned close source pin mismatch"
+        }
+      },
+      {
+        "id": "sql-close-package-source-length",
+        "input": {
+          "fault": "source_length"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "owned close source pin mismatch"
+        }
+      },
+      {
+        "id": "sql-close-package-missing-source-path",
+        "input": {
+          "fault": "missing_source_path"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "missing owned close source path"
+        }
+      },
+      {
+        "id": "sql-close-package-missing-source-pins",
+        "input": {
+          "fault": "missing_source_pins"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "missing owned close source pins"
+        }
+      },
+      {
+        "id": "sql-close-package-unregistered-file-pin",
+        "input": {
+          "fault": "unregistered_file_pin"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "unregistered owned close fixture file"
+        }
+      },
+      {
+        "id": "sql-close-package-file-hash",
+        "input": {
+          "fault": "file_hash"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "owned close fixture pin mismatch"
+        }
+      },
+      {
+        "id": "sql-close-package-file-length",
+        "input": {
+          "fault": "file_length"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "owned close fixture pin mismatch"
+        }
+      },
+      {
+        "id": "sql-close-package-missing-file-pins",
+        "input": {
+          "fault": "missing_file_pins"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "missing owned close file pins"
+        }
+      },
+      {
+        "id": "sql-close-package-profile-version",
+        "input": {
+          "fault": "profile_version"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "unsupported owned close fixture projection"
+        }
+      },
+      {
+        "id": "sql-close-package-cases-version",
+        "input": {
+          "fault": "cases_version"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "unsupported owned close fixture projection"
+        }
+      },
+      {
+        "id": "sql-close-package-missing-projection",
+        "input": {
+          "fault": "missing_projection"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "unsupported owned close fixture projection"
+        }
+      },
+      {
+        "id": "sql-close-package-unsupported-projection",
+        "input": {
+          "fault": "unsupported_projection"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "unsupported owned close fixture projection"
+        }
+      }
+    ]
+  }
+}

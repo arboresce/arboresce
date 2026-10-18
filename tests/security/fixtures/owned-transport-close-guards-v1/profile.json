@@ -1,0 +1,146 @@
+{
+  "fixture_version": "owned-transport-close-guards-profile-v1",
+  "source_revision": "cf26c5ce6ceb5ff48b2c820f45931b6b064bd558",
+  "rights": {
+    "license": "MIT OR Apache-2.0",
+    "classification": "original public synthetic owned fixture-package guard literals"
+  },
+  "sources": [
+    {
+      "path": "docs/requirements/resource-profiles.md",
+      "sha256": "ef633a39322bb6afd549771a79d81330d56734bcf4bb4f96a329bdde5590fa73",
+      "bytes": 28687
+    },
+    {
+      "path": "docs/requirements/storage-and-search.md",
+      "sha256": "1f372f8c4be991856dfbe9c7fe1c72a128aa8eb608bc939592382b6aa29e4c38",
+      "bytes": 33742
+    },
+    {
+      "path": "docs/requirements/security-and-privacy.md",
+      "sha256": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
+      "bytes": 21546
+    },
+    {
+      "path": "docs/requirements/testing-and-coverage.md",
+      "sha256": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531",
+      "bytes": 44903
+    },
+    {
+      "path": "tests/security/fixtures/current-sql-authority-v1/cases.json",
+      "sha256": "1c6740ef926c23febf565b9b22474913e997690ee6ed79c0dfa1da940f5145ff",
+      "bytes": 207341
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+      "bytes": 34458
+    },
+    {
+      "path": "tests/security/fixtures/owned-transport-close-v1/README.md",
+      "sha256": "99660354546a5135b0e2d687238a5d097b948bc2073ad611abb6a2753df66d3d",
+      "bytes": 4083
+    },
+    {
+      "path": "tests/security/fixtures/owned-transport-close-v1/cases.json",
+      "sha256": "998918cabe956e40de8031072334de2cd601009f65bf857bd6985b1868af770a",
+      "bytes": 5237
+    },
+    {
+      "path": "tests/security/fixtures/owned-transport-close-v1/profile.json",
+      "sha256": "7e7042c70a350fa9ca268c2382cb4c6cdf580cc5d1f3e825fc60fc21ce79e176",
+      "bytes": 3925
+    }
+  ],
+  "files": {
+    "README.md": {
+      "sha256": "901a8f829f5a985780d09ced30e67a80a3235614b3ebeb86577a529e20ff2e73",
+      "bytes": 4267
+    },
+    "cases.json": {
+      "sha256": "4fba3251b168350182552f50e2147dff59dad501aa8a138c7a873b7882e37708",
+      "bytes": 4183
+    }
+  },
+  "required_groups": {
+    "package_guards": [
+      "sql-close-package-unchanged",
+      "sql-close-package-nonregular-entry",
+      "sql-close-package-additional-file",
+      "sql-close-package-missing-readme",
+      "sql-close-package-source-hash",
+      "sql-close-package-source-length",
+      "sql-close-package-missing-source-path",
+      "sql-close-package-missing-source-pins",
+      "sql-close-package-unregistered-file-pin",
+      "sql-close-package-file-hash",
+      "sql-close-package-file-length",
+      "sql-close-package-missing-file-pins",
+      "sql-close-package-profile-version",
+      "sql-close-package-cases-version",
+      "sql-close-package-missing-projection",
+      "sql-close-package-unsupported-projection"
+    ]
+  },
+  "group_counts": {
+    "package_guards": 16
+  },
+  "total_cases": 16,
+  "runtime_projection": {
+    "allowed": [
+      "common_inputs",
+      "case.input"
+    ],
+    "excluded": [
+      "case.id",
+      "case.expected",
+      "profile",
+      "rights",
+      "sources",
+      "files",
+      "required_groups",
+      "group_counts",
+      "total_cases"
+    ],
+    "common_inputs": "Empty object; only the finite case.input.fault selector reaches the guard producer.",
+    "package_under_test": "Independent owned copy of the fixed public owned-transport-close-v1 package; copied metadata is DUT input, never the outer execution profile or oracle.",
+    "ownership": "No fixture-selected source/output/cleanup path, process, PID, DSN or service. Constructor/mutation/evidence/cleanup errors remain execution failures, separate from actual loader rejection."
+  },
+  "reading_limits": {
+    "package_files": [
+      "README.md",
+      "cases.json",
+      "profile.json"
+    ],
+    "regular_files_only": true,
+    "symlinks": false,
+    "hardlinks": false,
+    "ancestor_symlinks": false,
+    "max_readme_bytes": 16384,
+    "max_profile_bytes": 65536,
+    "max_cases_bytes": 65536,
+    "max_cases": 16,
+    "max_json_depth": 12,
+    "max_guard_observation_bytes": 131072
+  },
+  "selected_dependencies": {
+    "sqlx": "0.9.0",
+    "tokio": "1.53.3",
+    "rust": "1.99.0"
+  },
+  "measured_scope": {
+    "rust_sources": 93,
+    "measured_sources": 82,
+    "assertion_sources": 10,
+    "declaration_sources": 1,
+    "llvm_report_rows": 92,
+    "target_count": 10,
+    "new_rust_sources": false,
+    "new_dependencies": false,
+    "new_role_exclusions": false,
+    "additional_registered_test_bodies": 0,
+    "additional_case_events": 16,
+    "qualifies_future_consumer": false
+  },
+  "scope": "One unchanged control and fifteen finite mutations of an exclusively owned package copy. Original eleven close-case expected bytes and actual task/native close, typed cleanup, migration/no-write, physical uncertainty, poisoned no-driver-I/O, no-adoption, deadlines/charged slots and every original qualification/source-control requirement remain. No actual PostgreSQL/model/full/strict/WHOLE qualification follows from these filesystem guard literals."
+}
