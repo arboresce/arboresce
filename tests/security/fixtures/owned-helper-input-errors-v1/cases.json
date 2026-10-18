@@ -1,0 +1,45 @@
+{
+  "fixture_version": "owned-helper-input-errors-cases-v1",
+  "common_inputs": {},
+  "groups": {
+    "close_faults": [
+      {
+        "id": "sql-helper-input-close-missing-fault",
+        "input": {},
+        "expected": {
+          "Err": "missing close package fault"
+        }
+      },
+      {
+        "id": "sql-helper-input-close-nontext-fault",
+        "input": {
+          "fault": 17
+        },
+        "expected": {
+          "Err": "missing close package fault"
+        }
+      },
+      {
+        "id": "sql-helper-input-close-unadmitted-fault",
+        "input": {
+          "fault": "outside_registered_fault_set"
+        },
+        "expected": {
+          "Err": "unadmitted close package fault"
+        }
+      }
+    ],
+    "owned_pid_files": [
+      {
+        "id": "sql-helper-input-missing-owned-pid-file",
+        "input": {
+          "fault": "unchanged"
+        },
+        "expected": {
+          "accepted": false,
+          "failure": "No such file or directory (os error 2)"
+        }
+      }
+    ]
+  }
+}
