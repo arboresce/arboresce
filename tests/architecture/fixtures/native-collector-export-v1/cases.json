@@ -1,0 +1,2186 @@
+{
+  "version": "native-collector-complete-export-v1",
+  "rights": {
+    "origin": "Original public synthetic literals",
+    "license": "MIT OR Apache-2.0",
+    "personal_records": false,
+    "credentials": false,
+    "external_provider_use": false
+  },
+  "bounds": {
+    "parts": 2,
+    "stream_bytes": 8388608,
+    "aggregate_capture_bytes": 16777216,
+    "whole_format_bytes": 67108864,
+    "export_phase_seconds": 180
+  },
+  "runtime_projection": "case.input only; expected and expected_utf8 remain assertion inputs",
+  "selected_format": {
+    "type": "llvm.coverage.json.export",
+    "version": "3.1.0"
+  },
+  "zero_file_totals": {
+    "lines": {
+      "count": 0,
+      "covered": 0,
+      "percent": 0
+    },
+    "functions": {
+      "count": 0,
+      "covered": 0,
+      "percent": 0
+    },
+    "instantiations": {
+      "count": 0,
+      "covered": 0,
+      "percent": 0
+    },
+    "regions": {
+      "count": 0,
+      "covered": 0,
+      "notcovered": 0,
+      "percent": 0
+    },
+    "branches": {
+      "count": 0,
+      "covered": 0,
+      "notcovered": 0,
+      "percent": 0
+    },
+    "mcdc": {
+      "count": 0,
+      "covered": 0,
+      "notcovered": 0,
+      "percent": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "export-complete-nested-multiplicity",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "report": {
+          "type": "llvm.coverage.json.export",
+          "version": "3.1.0",
+          "data": [
+            {
+              "files": [
+                {
+                  "filename": "/workspace/src/main.rs",
+                  "segments": [
+                    [
+                      1,
+                      1,
+                      7,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      2,
+                      1,
+                      0,
+                      false,
+                      false,
+                      false
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "expansions": [
+                    {
+                      "source_region": [
+                        1,
+                        1,
+                        1,
+                        10,
+                        7,
+                        0,
+                        1,
+                        1
+                      ],
+                      "filenames": [
+                        "/workspace/src/main.rs",
+                        "/workspace/src/macros.rs"
+                      ],
+                      "target_regions": [
+                        [
+                          1,
+                          1,
+                          1,
+                          8,
+                          7,
+                          1,
+                          0,
+                          0
+                        ]
+                      ]
+                    }
+                  ],
+                  "mcdc_records": [],
+                  "summary": {
+                    "lines": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "functions": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "instantiations": {
+                      "count": 2,
+                      "covered": 2,
+                      "percent": 100
+                    },
+                    "regions": {
+                      "count": 1,
+                      "covered": 1,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "branches": {
+                      "count": 2,
+                      "covered": 2,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "mcdc": {
+                      "count": 0,
+                      "covered": 0,
+                      "notcovered": 0,
+                      "percent": 0
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                },
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                }
+              ],
+              "totals": {
+                "lines": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "functions": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "instantiations": {
+                  "count": 2,
+                  "covered": 2,
+                  "percent": 100
+                },
+                "regions": {
+                  "count": 1,
+                  "covered": 1,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "branches": {
+                  "count": 2,
+                  "covered": 2,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "mcdc": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "export-files-stream-exact8mib",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}",
+            "pad_to_bytes": 8388608
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "report": {
+          "type": "llvm.coverage.json.export",
+          "version": "3.1.0",
+          "data": [
+            {
+              "files": [
+                {
+                  "filename": "/workspace/src/main.rs",
+                  "segments": [
+                    [
+                      1,
+                      1,
+                      7,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      2,
+                      1,
+                      0,
+                      false,
+                      false,
+                      false
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "expansions": [
+                    {
+                      "source_region": [
+                        1,
+                        1,
+                        1,
+                        10,
+                        7,
+                        0,
+                        1,
+                        1
+                      ],
+                      "filenames": [
+                        "/workspace/src/main.rs",
+                        "/workspace/src/macros.rs"
+                      ],
+                      "target_regions": [
+                        [
+                          1,
+                          1,
+                          1,
+                          8,
+                          7,
+                          1,
+                          0,
+                          0
+                        ]
+                      ]
+                    }
+                  ],
+                  "mcdc_records": [],
+                  "summary": {
+                    "lines": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "functions": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "instantiations": {
+                      "count": 2,
+                      "covered": 2,
+                      "percent": 100
+                    },
+                    "regions": {
+                      "count": 1,
+                      "covered": 1,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "branches": {
+                      "count": 2,
+                      "covered": 2,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "mcdc": {
+                      "count": 0,
+                      "covered": 0,
+                      "notcovered": 0,
+                      "percent": 0
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                },
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                }
+              ],
+              "totals": {
+                "lines": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "functions": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "instantiations": {
+                  "count": 2,
+                  "covered": 2,
+                  "percent": 100
+                },
+                "regions": {
+                  "count": 1,
+                  "covered": 1,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "branches": {
+                  "count": 2,
+                  "covered": 2,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "mcdc": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "export-functions-stream-exact8mib",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}",
+            "pad_to_bytes": 8388608
+          }
+        ]
+      },
+      "expected": {
+        "report": {
+          "type": "llvm.coverage.json.export",
+          "version": "3.1.0",
+          "data": [
+            {
+              "files": [
+                {
+                  "filename": "/workspace/src/main.rs",
+                  "segments": [
+                    [
+                      1,
+                      1,
+                      7,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      2,
+                      1,
+                      0,
+                      false,
+                      false,
+                      false
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "expansions": [
+                    {
+                      "source_region": [
+                        1,
+                        1,
+                        1,
+                        10,
+                        7,
+                        0,
+                        1,
+                        1
+                      ],
+                      "filenames": [
+                        "/workspace/src/main.rs",
+                        "/workspace/src/macros.rs"
+                      ],
+                      "target_regions": [
+                        [
+                          1,
+                          1,
+                          1,
+                          8,
+                          7,
+                          1,
+                          0,
+                          0
+                        ]
+                      ]
+                    }
+                  ],
+                  "mcdc_records": [],
+                  "summary": {
+                    "lines": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "functions": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "instantiations": {
+                      "count": 2,
+                      "covered": 2,
+                      "percent": 100
+                    },
+                    "regions": {
+                      "count": 1,
+                      "covered": 1,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "branches": {
+                      "count": 2,
+                      "covered": 2,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "mcdc": {
+                      "count": 0,
+                      "covered": 0,
+                      "notcovered": 0,
+                      "percent": 0
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                },
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                }
+              ],
+              "totals": {
+                "lines": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "functions": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "instantiations": {
+                  "count": 2,
+                  "covered": 2,
+                  "percent": 100
+                },
+                "regions": {
+                  "count": 1,
+                  "covered": 1,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "branches": {
+                  "count": 2,
+                  "covered": 2,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "mcdc": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "export-empty-complete-export",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "report": {
+          "type": "llvm.coverage.json.export",
+          "version": "3.1.0",
+          "data": [
+            {
+              "files": [],
+              "functions": [],
+              "totals": {
+                "lines": {
+                  "count": 0,
+                  "covered": 0,
+                  "percent": 0
+                },
+                "functions": {
+                  "count": 0,
+                  "covered": 0,
+                  "percent": 0
+                },
+                "instantiations": {
+                  "count": 0,
+                  "covered": 0,
+                  "percent": 0
+                },
+                "regions": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                },
+                "branches": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                },
+                "mcdc": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "export-file-and-function-order",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/z.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}},{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "report": {
+          "type": "llvm.coverage.json.export",
+          "version": "3.1.0",
+          "data": [
+            {
+              "files": [
+                {
+                  "filename": "/workspace/src/z.rs",
+                  "segments": [
+                    [
+                      1,
+                      1,
+                      7,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      2,
+                      1,
+                      0,
+                      false,
+                      false,
+                      false
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "expansions": [
+                    {
+                      "source_region": [
+                        1,
+                        1,
+                        1,
+                        10,
+                        7,
+                        0,
+                        1,
+                        1
+                      ],
+                      "filenames": [
+                        "/workspace/src/main.rs",
+                        "/workspace/src/macros.rs"
+                      ],
+                      "target_regions": [
+                        [
+                          1,
+                          1,
+                          1,
+                          8,
+                          7,
+                          1,
+                          0,
+                          0
+                        ]
+                      ]
+                    }
+                  ],
+                  "mcdc_records": [],
+                  "summary": {
+                    "lines": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "functions": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "instantiations": {
+                      "count": 2,
+                      "covered": 2,
+                      "percent": 100
+                    },
+                    "regions": {
+                      "count": 1,
+                      "covered": 1,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "branches": {
+                      "count": 2,
+                      "covered": 2,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "mcdc": {
+                      "count": 0,
+                      "covered": 0,
+                      "notcovered": 0,
+                      "percent": 0
+                    }
+                  }
+                },
+                {
+                  "filename": "/workspace/src/main.rs",
+                  "segments": [
+                    [
+                      1,
+                      1,
+                      7,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      2,
+                      1,
+                      0,
+                      false,
+                      false,
+                      false
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "expansions": [
+                    {
+                      "source_region": [
+                        1,
+                        1,
+                        1,
+                        10,
+                        7,
+                        0,
+                        1,
+                        1
+                      ],
+                      "filenames": [
+                        "/workspace/src/main.rs",
+                        "/workspace/src/macros.rs"
+                      ],
+                      "target_regions": [
+                        [
+                          1,
+                          1,
+                          1,
+                          8,
+                          7,
+                          1,
+                          0,
+                          0
+                        ]
+                      ]
+                    }
+                  ],
+                  "mcdc_records": [],
+                  "summary": {
+                    "lines": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "functions": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "instantiations": {
+                      "count": 2,
+                      "covered": 2,
+                      "percent": 100
+                    },
+                    "regions": {
+                      "count": 1,
+                      "covered": 1,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "branches": {
+                      "count": 2,
+                      "covered": 2,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "mcdc": {
+                      "count": 0,
+                      "covered": 0,
+                      "notcovered": 0,
+                      "percent": 0
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                },
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                }
+              ],
+              "totals": {
+                "lines": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "functions": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "instantiations": {
+                  "count": 2,
+                  "covered": 2,
+                  "percent": 100
+                },
+                "regions": {
+                  "count": 1,
+                  "covered": 1,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "branches": {
+                  "count": 2,
+                  "covered": 2,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "mcdc": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "export-exact-integer-and-float-values",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100.0},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100.0},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100.0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100.0},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100.0},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100.0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":18446744073709551615,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected_utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100.0},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100.0},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100.0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"functions\":[{\"name\":\"same_instantiation\",\"count\":18446744073709551615,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100.0},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100.0},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100.0},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100.0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+    },
+    {
+      "id": "export-missing-parts",
+      "input": {
+        "parts": []
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-missing-functions",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-extra-part",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-reversed-roles",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-duplicate-files-role",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-duplicate-functions-role",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-has-functions",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}},\"functions\":[]}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-carries-files",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-wrong-root-type",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"summary\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-wrong-version",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.2.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-extra-root-field",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"extra\":true}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-missing-totals",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-extra-data-field",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}},\"extra\":[]}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-data-not-array",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":{}}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-data-empty",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-multiple-data-records",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}},{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-stream-one-over8mib",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}",
+            "pad_to_bytes": 8388609
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-invalid-utf8",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{}",
+            "suffix_bytes": [
+              255
+            ]
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-duplicate-json-key",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-nonfinite-number",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":1e9999}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-wrong-root-type",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"summary\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-wrong-version",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.2.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-extra-root-field",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"extra\":true}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-missing-totals",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}]}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-extra-data-field",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}},\"extra\":[]}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-data-not-array",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":{}}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-data-empty",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-multiple-data-records",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}},{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-stream-one-over8mib",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}",
+            "pad_to_bytes": 8388609
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-invalid-utf8",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{}",
+            "suffix_bytes": [
+              255
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-duplicate-json-key",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonfinite-number",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":1e9999},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-not-array",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":{},\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-duplicate-file-record",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}},{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-file-missing-name",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-file-empty-name",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-not-array",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":{},\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-missing",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-files-not-array",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":null,\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonzero-lines",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":1,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonzero-functions",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":1,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonzero-instantiations",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":1,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonzero-regions",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":1,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonzero-branches",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":1,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonzero-mcdc",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":1,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-extra-total-metric",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"extra\":{\"count\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-missing-total-metric",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-nonzero-total-percent",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0.01},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-functions-extra-total-field",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0,\"extra\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-files-totals-not-object",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":[]}]}"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}"
+          }
+        ]
+      },
+      "expected": {
+        "error": "collector process/profile mismatch"
+      }
+    },
+    {
+      "id": "export-native-final-newlines",
+      "input": {
+        "parts": [
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[{\"filename\":\"/workspace/src/main.rs\",\"segments\":[[1,1,7,true,true,false],[2,1,0,false,false,false]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"expansions\":[{\"source_region\":[1,1,1,10,7,0,1,1],\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"target_regions\":[[1,1,1,8,7,1,0,0]]}],\"mcdc_records\":[],\"summary\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}],\"totals\":{\"lines\":{\"count\":1,\"covered\":1,\"percent\":100},\"functions\":{\"count\":1,\"covered\":1,\"percent\":100},\"instantiations\":{\"count\":2,\"covered\":2,\"percent\":100},\"regions\":{\"count\":1,\"covered\":1,\"notcovered\":0,\"percent\":100},\"branches\":{\"count\":2,\"covered\":2,\"notcovered\":0,\"percent\":100},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}\n"
+          },
+          {
+            "utf8": "{\"type\":\"llvm.coverage.json.export\",\"version\":\"3.1.0\",\"data\":[{\"files\":[],\"functions\":[{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]},{\"name\":\"same_instantiation\",\"count\":7,\"filenames\":[\"/workspace/src/main.rs\",\"/workspace/src/macros.rs\"],\"regions\":[[1,1,1,10,7,0,1,0]],\"branches\":[[1,1,1,10,2,5,0,0,4]],\"mcdc_records\":[]}],\"totals\":{\"lines\":{\"count\":0,\"covered\":0,\"percent\":0},\"functions\":{\"count\":0,\"covered\":0,\"percent\":0},\"instantiations\":{\"count\":0,\"covered\":0,\"percent\":0},\"regions\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"branches\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0},\"mcdc\":{\"count\":0,\"covered\":0,\"notcovered\":0,\"percent\":0}}}]}\n"
+          }
+        ]
+      },
+      "expected": {
+        "report": {
+          "type": "llvm.coverage.json.export",
+          "version": "3.1.0",
+          "data": [
+            {
+              "files": [
+                {
+                  "filename": "/workspace/src/main.rs",
+                  "segments": [
+                    [
+                      1,
+                      1,
+                      7,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      2,
+                      1,
+                      0,
+                      false,
+                      false,
+                      false
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "expansions": [
+                    {
+                      "source_region": [
+                        1,
+                        1,
+                        1,
+                        10,
+                        7,
+                        0,
+                        1,
+                        1
+                      ],
+                      "filenames": [
+                        "/workspace/src/main.rs",
+                        "/workspace/src/macros.rs"
+                      ],
+                      "target_regions": [
+                        [
+                          1,
+                          1,
+                          1,
+                          8,
+                          7,
+                          1,
+                          0,
+                          0
+                        ]
+                      ]
+                    }
+                  ],
+                  "mcdc_records": [],
+                  "summary": {
+                    "lines": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "functions": {
+                      "count": 1,
+                      "covered": 1,
+                      "percent": 100
+                    },
+                    "instantiations": {
+                      "count": 2,
+                      "covered": 2,
+                      "percent": 100
+                    },
+                    "regions": {
+                      "count": 1,
+                      "covered": 1,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "branches": {
+                      "count": 2,
+                      "covered": 2,
+                      "notcovered": 0,
+                      "percent": 100
+                    },
+                    "mcdc": {
+                      "count": 0,
+                      "covered": 0,
+                      "notcovered": 0,
+                      "percent": 0
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                },
+                {
+                  "name": "same_instantiation",
+                  "count": 7,
+                  "filenames": [
+                    "/workspace/src/main.rs",
+                    "/workspace/src/macros.rs"
+                  ],
+                  "regions": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      7,
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "branches": [
+                    [
+                      1,
+                      1,
+                      1,
+                      10,
+                      2,
+                      5,
+                      0,
+                      0,
+                      4
+                    ]
+                  ],
+                  "mcdc_records": []
+                }
+              ],
+              "totals": {
+                "lines": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "functions": {
+                  "count": 1,
+                  "covered": 1,
+                  "percent": 100
+                },
+                "instantiations": {
+                  "count": 2,
+                  "covered": 2,
+                  "percent": 100
+                },
+                "regions": {
+                  "count": 1,
+                  "covered": 1,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "branches": {
+                  "count": 2,
+                  "covered": 2,
+                  "notcovered": 0,
+                  "percent": 100
+                },
+                "mcdc": {
+                  "count": 0,
+                  "covered": 0,
+                  "notcovered": 0,
+                  "percent": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
