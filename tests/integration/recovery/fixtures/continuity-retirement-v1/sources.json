@@ -1,0 +1,94 @@
+{
+  "version": "continuity-retirement-source-inputs-v1",
+  "rights": "MIT OR Apache-2.0",
+  "governing_sources": [
+    {
+      "path": "docs/requirements/lifecycle-contract.md",
+      "sha256": "919b743231fdc38ac0b2e3658a956b45e524daaeb26bae378a9c1cb0f2bd91d1",
+      "byte_length": 122390
+    },
+    {
+      "path": "contracts/internal/v1/lifecycle-continuity.schema.json",
+      "sha256": "761ac02635efecd7b27e7bbd1b2571908c738ca437b7801a9a134fd9cf01069e",
+      "byte_length": 39675
+    },
+    {
+      "path": "contracts/public/v1/common.schema.json",
+      "sha256": "61e94a0e646b2e992e662c7f5b3c30a17551936bfee3f87c7f3ae773302ff3b1",
+      "byte_length": 15311
+    },
+    {
+      "path": "contracts/public/v1/lifecycle.schema.json",
+      "sha256": "21a06ac3b04ef194eb75f6c3367cec20bdbdc370638704ea1b7416506e7c11b6",
+      "byte_length": 431455
+    },
+    {
+      "path": "contracts/public/v1/context.schema.json",
+      "sha256": "d56e740553d4e405d79ea48765c3c9c19e9229e5fb54219b33083bd2d7c651c7",
+      "byte_length": 52163
+    }
+  ],
+  "existing_qualified_consumer_inputs": [
+    {
+      "path": "crates/arboresce-domain/src/source_json.rs",
+      "sha256": "159aa86efffd99b6e01c4a1c1f5d878f3686e51e2fdd08abb46e2ea649031c19",
+      "byte_length": 17002
+    },
+    {
+      "path": "crates/arboresce-domain/src/time.rs",
+      "sha256": "07d079047de7b40ba7eb42bbc52d6f9d3545fb8787a3f0de79201549c60548bc",
+      "byte_length": 6795
+    },
+    {
+      "path": "crates/arboresce-domain/src/wire.rs",
+      "sha256": "66e1f49e42e288e1d4dcb324af327be6ddd08d723919bdf2a83eb3379bf04cd3",
+      "byte_length": 6833
+    },
+    {
+      "path": "crates/arboresce-application/src/lifecycle/wire.rs",
+      "sha256": "5b7992593956eaecb88be7681f9ccf148efb551713687817e05f5e1cb8f4440e",
+      "byte_length": 25688
+    },
+    {
+      "path": "crates/arboresce-application/tests/support/continuity_wire.rs",
+      "sha256": "2a12465f58c738951bcb48fc206805ccdb5c3ff0e52b8afe0f57ea1487feaccc",
+      "byte_length": 6374
+    },
+    {
+      "path": "tests/architecture/rust-source-roles-v1.json",
+      "sha256": "a4fcc8be3afa4cfc54305abc391e2681b621c002a8ae70bdc59921b4e939767d",
+      "byte_length": 22497
+    },
+    {
+      "path": "tests/architecture/rust-test-suites-v1.json",
+      "sha256": "ba83fb3dba1e20f8f291d156e2202e70208041f95015ef378e0ae23204628833",
+      "byte_length": 461367
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "b827037a5ad0c14c1b106daf285b7b5dd84403b99e980bb01a44448c0339ad66",
+      "byte_length": 34484
+    }
+  ],
+  "synthetic_structural_seed": {
+    "path": "tests/integration/recovery/fixtures/continuity-wire-v1/cases.json",
+    "sha256": "571ab02f7057cd18f681b8d41f004e2a4ac7f9a45565ef102359e270d823f41a",
+    "byte_length": 3414828
+  },
+  "case_counts": {
+    "cores": 48,
+    "records": 33,
+    "joins": 53
+  },
+  "prospective_native_counts": {
+    "rust_sources": 99,
+    "measured_sources": 88,
+    "assertion_sources": 10,
+    "declaration_sources": 1,
+    "llvm_rows": 98,
+    "targets": 10
+  },
+  "unchanged_dependency_graph_sha256": "369e106ee5138d242b2107874452c52ac0319cb2e770bf61dbf194728cd3e8d9",
+  "unchanged_cargo_lock_sha256": "b827037a5ad0c14c1b106daf285b7b5dd84403b99e980bb01a44448c0339ad66",
+  "scope": "Independent original synthetic retirement JCS/hash/projection and local committed association inputs only. No operational, authenticity, storage, barrier, recovery or writer qualification. Exact literal admission and committed delivery precede consumer."
+}

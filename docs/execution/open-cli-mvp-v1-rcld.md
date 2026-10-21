@@ -1061,6 +1061,16 @@ gates, independent reviews and genuine committed delivery remain mandatory.
 This bounded mathematical component supplies none of the whole-continuity
 definition of green or any first-writer permission.
 
+The [retirement record and local association inputs](../../tests/integration/recovery/fixtures/continuity-retirement-v1/README.md)
+select complete canonical core hashes, immutable scoped projections and exact
+prepared-intent/record/committed-resolution joins under the existing shapes.
+They preserve the current dependency graph, source-role membership and every
+prior expectation. Independent literal admission and committed delivery precede
+the measured consumer. Synthetic historical causes do not select a permanent
+retirement trigger; no authentic profile/store, clock proof, legal barrier/GC,
+recovery or first-writer permission is inferred. Full consumer/native/strict/
+original-owner MODEL/probe and actual delivery requirements remain mandatory.
+
 Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
