@@ -1040,6 +1040,17 @@ Independent exact input admission and committed delivery precede their measured
 observer and thin assertion. All fresh source, strict coverage, native and
 delivery duties remain; authentic continuity and writer permission are not inferred.
 
+The [exact recognition digest inputs](../../tests/integration/recovery/fixtures/continuity-recognition-digest-v1/README.md)
+freeze opaque-key SHA-256 and the domain-separated four-string JCS recognition
+reference mathematics. Their separate closed application dependency, directed
+historical source-lock context and prospective 99-source native input retain all
+earlier policy contexts and oracles. These are syntactic/mathematical constructors,
+including explicit format-valid but unregistered examples; actual registered
+admission and key association remain mandatory at first use. Independent exact
+input admission and committed delivery precede any consumer. No authentic journal,
+independent acknowledgement, complete binding/abort/inventory/cutoff, canonical
+recognition/retirement barrier, recovery or writer permission is inferred.
+
 Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.

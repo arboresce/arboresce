@@ -1,0 +1,87 @@
+{
+  "version": "owned-recognition-lock-context-v1",
+  "source_path": "Cargo.lock",
+  "baseline": {
+    "snapshot": "baseline.lock",
+    "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+    "bytes": 34458
+  },
+  "candidate": {
+    "snapshot": "candidate.lock",
+    "sha256": "2d28653b3ad70b618b785090ca86ceddea30738877b337bea494fa4d591bb62b",
+    "bytes": 34477
+  },
+  "source_authority": {
+    "base_revision": "6802030e84aa354ef3edbf5128bc75c31f6d4a04",
+    "candidate_is_prospective": true,
+    "dependency_profile": "continuity-recognition-v1",
+    "dependency_input": {
+      "path": "tests/architecture/fixtures/qualified-continuity-recognition-dependencies-v1/cases.json",
+      "sha256": "cede9063db7a4f52e24785c822da92c9db476613c2c38f4bdc67d735030c7192",
+      "bytes": 483630
+    },
+    "exact_dependency_graph_sha256": "369e106ee5138d242b2107874452c52ac0319cb2e770bf61dbf194728cd3e8d9"
+  },
+  "actual_future_edit": {
+    "from_sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+    "from_bytes": 34468,
+    "to_sha256": "2d28653b3ad70b618b785090ca86ceddea30738877b337bea494fa4d591bb62b",
+    "to_bytes": 34477,
+    "raw_added_line": " \"sha2\",\n",
+    "raw_added_bytes": 9,
+    "total_package_identities": 146,
+    "other_complete_package_rows_equal": 145
+  },
+  "preserved_historical_profiles": [
+    {
+      "path": "tests/security/fixtures/owned-database-census-v1/profile.json",
+      "sha256": "908c5e53331079371835352d351abadd441569538c3503a20974a0ed8177724b",
+      "bytes": 5084
+    },
+    {
+      "path": "tests/security/fixtures/owned-helper-input-errors-v1/profile.json",
+      "sha256": "363d00bb582a4c1886abc8acd0fba502f9e862bf6205b7a6e8e8ac6173b5f66b",
+      "bytes": 5161
+    },
+    {
+      "path": "tests/security/fixtures/owned-transport-close-guards-v1/profile.json",
+      "sha256": "3cc97da8480fd9d21a622764a2f58c973a76f65c5bb281249bcc23d7da382571",
+      "bytes": 5186
+    },
+    {
+      "path": "tests/security/fixtures/owned-transport-close-v1/profile.json",
+      "sha256": "7e7042c70a350fa9ca268c2382cb4c6cdf580cc5d1f3e825fc60fc21ce79e176",
+      "bytes": 3925
+    }
+  ],
+  "preserved_original_wire_context": {
+    "path": "tests/security/fixtures/owned-source-lock-context-v1/context.json",
+    "sha256": "f493ed2864d25fbeec5014344837e51a51b8a435408a59fe787595e7af8f206a",
+    "bytes": 3163
+  },
+  "comparison": {
+    "ordinary_well_formed_exact_equality": true,
+    "additional_unequal_transition": "only exact directed historical baseline to prospective recognition candidate at literal Cargo.lock",
+    "existing_wire_bridge_unchanged": true,
+    "source_bytes": "unsigned JSON integer; zero permitted",
+    "source_sha256": "64 lowercase hexadecimal characters",
+    "portable_path_and_actual_fingerprint_before_comparison": true,
+    "actual_source_read_cap_bytes": 8388608,
+    "caller_supplied_context": false
+  },
+  "reading_limits": {
+    "package_files": [
+      "README.md",
+      "context.json",
+      "cases.json",
+      "baseline.lock",
+      "candidate.lock"
+    ],
+    "readme_bytes": 16384,
+    "context_bytes": 65536,
+    "cases_bytes": 65536,
+    "snapshot_bytes": 65536,
+    "cases": 64
+  },
+  "scope": "Additional exact fixed source context only, preserving original wire context and all historical profiles/guard oracles. No general lock transition, authority, service/lease/coverage/MODEL/recovery or writer exception."
+}

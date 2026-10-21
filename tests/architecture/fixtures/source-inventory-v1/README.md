@@ -238,3 +238,6 @@ This static count entry precedes any consumer or profile activation. The active
 95-source file remains unchanged here. Select by its actual raw hash; no observed
 result supplies an expected count. Full vectors, source/helper/native/strict
 coverage, fresh owning/standalone qualification and independent delivery remain.
+
+Recognition adds two measured paths: 99 Rust sources, 88 measured, ten assertion,
+one declaration, 98 LLVM rows and ten targets.

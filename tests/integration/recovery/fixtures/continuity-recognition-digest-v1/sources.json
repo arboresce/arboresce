@@ -1,0 +1,168 @@
+{
+  "version": "continuity-recognition-digest-sources-v1",
+  "classification": "Original public synthetic mathematical constructor expectations; not admission or continuity evidence",
+  "rights": {
+    "license": "MIT OR Apache-2.0",
+    "existing_rights_unchanged": true
+  },
+  "sources": [
+    {
+      "path": "docs/requirements/lifecycle-contract.md",
+      "sha256": "919b743231fdc38ac0b2e3658a956b45e524daaeb26bae378a9c1cb0f2bd91d1",
+      "bytes": 122390
+    },
+    {
+      "path": "docs/requirements/common-contract.md",
+      "sha256": "64ce5e000773f23dfcad41d4883fbb5fa70e5954dcb137167f3e3d168afca9ac",
+      "bytes": 32887
+    },
+    {
+      "path": "docs/requirements/data-model.md",
+      "sha256": "d3caa22d11b9587715e29c360e2c33119a21dfc9042affdfae50c717c98ce289",
+      "bytes": 25667
+    },
+    {
+      "path": "docs/requirements/testing-and-coverage.md",
+      "sha256": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531",
+      "bytes": 44903
+    },
+    {
+      "path": "contracts/public/v1/common.schema.json",
+      "sha256": "61e94a0e646b2e992e662c7f5b3c30a17551936bfee3f87c7f3ae773302ff3b1",
+      "bytes": 15311
+    },
+    {
+      "path": "contracts/internal/v1/lifecycle-continuity.schema.json",
+      "sha256": "761ac02635efecd7b27e7bbd1b2571908c738ca437b7801a9a134fd9cf01069e",
+      "bytes": 39675
+    }
+  ],
+  "case_ids": {
+    "keys": [
+      "recognition-key-minimum",
+      "recognition-key-maximum",
+      "recognition-key-digits",
+      "recognition-key-mixed",
+      "recognition-key-lowercase",
+      "recognition-key-different-case",
+      "recognition-key-underscore",
+      "recognition-key-hyphen",
+      "recognition-key-empty",
+      "recognition-key-short",
+      "recognition-key-long",
+      "recognition-key-space",
+      "recognition-key-newline",
+      "recognition-key-nul",
+      "recognition-key-plus",
+      "recognition-key-slash",
+      "recognition-key-equals",
+      "recognition-key-non-ascii",
+      "recognition-key-supplementary",
+      "recognition-key-protected-canary-reject"
+    ],
+    "references": [
+      "recognition-reference-registered-project",
+      "recognition-reference-minimum-command",
+      "recognition-reference-maximum-command",
+      "recognition-reference-many-components",
+      "recognition-reference-wellformed-unregistered-math-only",
+      "recognition-reference-different-command",
+      "recognition-reference-different-organization",
+      "recognition-reference-different-principal",
+      "recognition-reference-different-key-digest",
+      "recognition-reference-zero-digest-format-only",
+      "recognition-reference-ff-digest-format-only",
+      "recognition-reference-empty-command",
+      "recognition-reference-one-component",
+      "recognition-reference-short-command",
+      "recognition-reference-long-command",
+      "recognition-reference-leading-dot",
+      "recognition-reference-trailing-dot",
+      "recognition-reference-empty-component",
+      "recognition-reference-uppercase-first",
+      "recognition-reference-uppercase-component",
+      "recognition-reference-digit-first",
+      "recognition-reference-digit-component",
+      "recognition-reference-underscore-first",
+      "recognition-reference-underscore-component",
+      "recognition-reference-hyphen-command",
+      "recognition-reference-slash-command",
+      "recognition-reference-space-command",
+      "recognition-reference-newline-command",
+      "recognition-reference-nul-command",
+      "recognition-reference-unicode-command",
+      "recognition-reference-quote-command",
+      "recognition-reference-backslash-command"
+    ]
+  },
+  "case_counts": {
+    "keys": 20,
+    "references": 32
+  },
+  "bounds": {
+    "case_file_bytes": 131072,
+    "descriptor_bytes": 65536,
+    "cases": 128,
+    "key_input_bytes": 1024,
+    "command_input_bytes": 1024,
+    "command_admitted_bytes": [
+      3,
+      64
+    ],
+    "key_admitted_bytes": [
+      32,
+      128
+    ]
+  },
+  "case_file": {
+    "sha256": "6bdb91d596cee18bf4b5cbbef8c586ff891bbc9e4fbc4cc39410b4eb8519264a",
+    "bytes": 41383
+  },
+  "dependency_profile": {
+    "name": "continuity-recognition-v1",
+    "owner": "arboresce-application",
+    "normal_roots": [
+      "arboresce-domain@0.0.0",
+      "serde@1.0.229",
+      "serde_json@1.0.151",
+      "sha2@0.10.9"
+    ],
+    "transitive_package_count": 24,
+    "graph_sha256": "369e106ee5138d242b2107874452c52ac0319cb2e770bf61dbf194728cd3e8d9",
+    "existing23_external_archive_rights_features_unchanged": true,
+    "case_input": {
+      "path": "tests/architecture/fixtures/qualified-continuity-recognition-dependencies-v1/cases.json",
+      "sha256": "cede9063db7a4f52e24785c822da92c9db476613c2c38f4bdc67d735030c7192",
+      "bytes": 483630
+    }
+  },
+  "prospective_native_profile": {
+    "profile_sha256": "a4fcc8be3afa4cfc54305abc391e2681b621c002a8ae70bdc59921b4e939767d",
+    "sources": 99,
+    "measured": 88,
+    "assertion": 10,
+    "declaration": 1,
+    "LLVM_rows": 98,
+    "targets": 10,
+    "new_measured_paths": [
+      "crates/arboresce-application/src/lifecycle/recognition.rs",
+      "crates/arboresce-application/tests/support/continuity_recognition.rs"
+    ],
+    "active_profile_unchanged_until_separate_consumer": true
+  },
+  "oracle_isolation": "Only input reaches the consumer and measured helper. Expected values, independent canonical/preimage encodings, IDs and metadata remain in thin assertions. Observe actual computed digests/reference/errors/Debug and unchanged input. Literal outputs were frozen before Rust implementation.",
+  "semantics": {
+    "key": "Exact common ASCII opaque key to SHA256, without normalization or domain.",
+    "reference": "Checked typed IDs/key digest and lexical command format yield only a mathematical recognition reference; actual registration/admission and real key association remain first-consumer obligations.",
+    "preimage": "Exact object of four strings JCS and actual NUL separator; no domain/purpose/credential fields. Constant redacted Debug and generic error retain no raw key/preimage."
+  },
+  "excluded_qualification": [
+    "actual command registration/current authority or admitted key relation",
+    "authentication/signatures/trust/operational credential selection",
+    "independent durable acknowledgement and authenticated beginning/tail/cutoff",
+    "complete binding/abort/inventory producer-verifier interpretation",
+    "canonical recognition/retirement barriers and actual recovery",
+    "human/live-model/other-native/user/production and writer enablement"
+  ],
+  "consumer_gate": "Separate independent exact input admission, normal local commit, distinct actual delivery and both genuine original-owner ROOT receipts precede consumer. All fresh Rust 1.99.0 owning/public-only source/helper/process/native/strict coverage/MODEL/probe gates remain."
+}

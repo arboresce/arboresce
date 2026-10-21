@@ -1,0 +1,1006 @@
+{
+  "fixture_version": "continuity-recognition-digest-cases-v1",
+  "rights": "Original public synthetic literals: MIT OR Apache-2.0. No customer records, operational credentials or live key selection.",
+  "key_cases": [
+    {
+      "id": "recognition-key-minimum",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-maximum",
+      "input": {
+        "key": "aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ09_-aZ"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "fe4679aa632c35a59277b178dad30e93d4079e0abc1ac6d7ea8de19a21686577",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-digits",
+      "input": {
+        "key": "01234567890123456789012345678901"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "861009ec4d599fab1f40abc76e6f89880cff5833c79c548c99f9045f191cd90b",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-mixed",
+      "input": {
+        "key": "Arboresce_Recognition-Key_0000001"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "0adf795b00a4f7704f69e883785bc3474cf89639680aadc3b997827685c4d7f3",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-lowercase",
+      "input": {
+        "key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "3ba3f5f43b92602683c19aee62a20342b084dd5971ddd33808d81a328879a547",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-different-case",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "bf3f3d563ba87f0082bb5282f937e912c8360055731684403071048da22498c1",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-underscore",
+      "input": {
+        "key": "________________________________"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "0ebe2fe703bb2c4235a5946026926bd4abe8ae48ad5920981ceb5d6df4bbe37a",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-hyphen",
+      "input": {
+        "key": "--------------------------------"
+      },
+      "expected": {
+        "accepted": true,
+        "key_digest": "5a85c86f7cdc5faa8740aebaf25413ceaf1bd7ff7b96082be96759b1d2e90952",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-empty",
+      "input": {
+        "key": ""
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-short",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-long",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-space",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA "
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-newline",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-nul",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\u0000"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-plus",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-slash",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-equals",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-non-ascii",
+      "input": {
+        "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAé"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-supplementary",
+      "input": {
+        "key": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    },
+    {
+      "id": "recognition-key-protected-canary-reject",
+      "input": {
+        "key": "RECOGNITION_KEY_CANARY_0123456789!"
+      },
+      "expected": {
+        "accepted": false,
+        "key_digest": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      }
+    }
+  ],
+  "reference_cases": [
+    {
+      "id": "recognition-reference-registered-project",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "project.create",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "c96d1fcdfae5aedc331780b3e075d5d079f7f4168546908c2d1fd3b0726d1731"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"project.create\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a2270726f6a6563742e637265617465222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-minimum-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "5567642fa9bb260aca4b524df510eb2b7ab2c037918a0e345c0ca5b668d7cc2b"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"a.b\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a22612e62222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-maximum-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "fe2e679d73eeee1e5c2c0e3b79150b8e6e24ffe21790922464f2725d46981d49"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"a.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a22612e6262626262626262626262626262626262626262626262626262626262626262626262626262626262626262626262626262626262626262626262626262222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-many-components",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b_0.c12",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "557b30942ea483632cd6989bf47f7df0716ebd4f698d68a74ec50f2db8f208c4"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"a.b_0.c12\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a22612e625f302e633132222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-wellformed-unregistered-math-only",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "unregistered.command",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "b002f5747c6b8fff573a736ed27f946f3eae5d6d92ca8942025cd7e90ff3c27c"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"unregistered.command\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a22756e726567697374657265642e636f6d6d616e64222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-different-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "project.revise",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "61b6b8c653bdfd9e95b402d2ca3db62f1371e6089eb5158d44c5b096a9fdc22b"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"project.revise\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a2270726f6a6563742e726576697365222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-different-organization",
+      "input": {
+        "organization_id": "33333333-3333-4333-8333-333333333333",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "project.create",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "33333333-3333-4333-8333-333333333333",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "32ae200e9418201b512b810da6ccb4d7bc559079d98c98212c8e7f1a729feb5d"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"project.create\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"33333333-3333-4333-8333-333333333333\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a2270726f6a6563742e637265617465222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2233333333333333332d333333332d343333332d383333332d333333333333333333333333222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-different-principal",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "44444444-4444-4444-8444-444444444444",
+        "command": "project.create",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "44444444-4444-4444-8444-444444444444"
+          },
+          "recognition_sha256": "737502e3bce9f8616d9551a1dd1b501c194eac41b0a630cc4839f62d64e07b2b"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"project.create\",\"key_digest\":\"22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"44444444-4444-4444-8444-444444444444\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a2270726f6a6563742e637265617465222c226b65795f646967657374223a2232326134383035313539346331393439646565643730343038353063316630663837363435333766353139316265353637333264313661353463316438313533222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2234343434343434342d343434342d343434342d383434342d343434343434343434343434227d"
+      }
+    },
+    {
+      "id": "recognition-reference-different-key-digest",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "project.create",
+        "key_digest": "3ba3f5f43b92602683c19aee62a20342b084dd5971ddd33808d81a328879a547"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "6650a0811c1c8b2608d41c68c7a59cf57d139fec0b089f4bc8cd3714dba02247"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"project.create\",\"key_digest\":\"3ba3f5f43b92602683c19aee62a20342b084dd5971ddd33808d81a328879a547\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a2270726f6a6563742e637265617465222c226b65795f646967657374223a2233626133663566343362393236303236383363313961656536326132303334326230383464643539373164646433333830386438316133323838373961353437222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-zero-digest-format-only",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "project.create",
+        "key_digest": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "e126654cf0d8851b5fe1ae4cf8c84e2d10ddfe3b7a5f4819cba730914cc837ec"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"project.create\",\"key_digest\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a2270726f6a6563742e637265617465222c226b65795f646967657374223a2230303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-ff-digest-format-only",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "project.create",
+        "key_digest": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "expected": {
+        "accepted": true,
+        "reference": {
+          "scope": {
+            "organization_id": "11111111-1111-4111-8111-111111111111",
+            "principal_id": "22222222-2222-4222-8222-222222222222"
+          },
+          "recognition_sha256": "e58f732f526a065ac533c7d4048516def374a3fd86237a3a4e48de551935f62e"
+        },
+        "reference_debug": "RecognitionReference(<redacted>)",
+        "error_display": null,
+        "error_debug": null,
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": "{\"command\":\"project.create\",\"key_digest\":\"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"organization_id\":\"11111111-1111-4111-8111-111111111111\",\"principal_id\":\"22222222-2222-4222-8222-222222222222\"}",
+        "preimage_hex": "6172626f72657363652e636f6d6d616e642d7265636f676e6974696f6e2e7631007b22636f6d6d616e64223a2270726f6a6563742e637265617465222c226b65795f646967657374223a2266666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666222c226f7267616e697a6174696f6e5f6964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c227072696e636970616c5f6964223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232227d"
+      }
+    },
+    {
+      "id": "recognition-reference-empty-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-one-component",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "project",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-short-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "ab",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-long-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-leading-dot",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": ".a",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-trailing-dot",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-empty-component",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a..b",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-uppercase-first",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "A.b",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-uppercase-component",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.B",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-digit-first",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "1a.b",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-digit-component",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.1b",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-underscore-first",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "_a.b",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-underscore-component",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a._b",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-hyphen-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b-c",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-slash-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b/c",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-space-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b ",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-newline-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b\n",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-nul-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b\u0000",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-unicode-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.é",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-quote-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b\"",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    },
+    {
+      "id": "recognition-reference-backslash-command",
+      "input": {
+        "organization_id": "11111111-1111-4111-8111-111111111111",
+        "principal_id": "22222222-2222-4222-8222-222222222222",
+        "command": "a.b\\",
+        "key_digest": "22a48051594c1949deed7040850c1f0f8764537f5191be56732d16a54c1d8153"
+      },
+      "expected": {
+        "accepted": false,
+        "reference": null,
+        "reference_debug": null,
+        "error_display": "invalid recognition input",
+        "error_debug": "InvalidRecognitionInput",
+        "input_unchanged": true
+      },
+      "independent_encoding": {
+        "canonical_identity_utf8": null,
+        "preimage_hex": null
+      }
+    }
+  ]
+}
