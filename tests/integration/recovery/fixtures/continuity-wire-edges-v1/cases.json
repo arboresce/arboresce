@@ -1,0 +1,183 @@
+{
+  "version": "continuity-wire-edges-v1",
+  "classification": "Controlled public diagnostic and wire/projection observations only",
+  "rights": {
+    "license": "MIT OR Apache-2.0",
+    "personal_records": false,
+    "operational_credentials": false
+  },
+  "runtime_projection": {
+    "DUT": [
+      "case.input.operation",
+      "case.input.definition",
+      "exact expansion of case.input.fragments"
+    ],
+    "observation_only": [
+      "case.input.protected_markers"
+    ],
+    "excluded": [
+      "case.id",
+      "case.expected",
+      "sources",
+      "provenance",
+      "prospective_scope"
+    ]
+  },
+  "cases": [
+    {
+      "id": "continuity-wire-edge-document-diagnostic-canary",
+      "input": {
+        "operation": "diagnostic_document",
+        "definition": "recognition_scope",
+        "fragments": [
+          {
+            "utf8": "{\"private_note\":\"controlled-document-canary\"}"
+          }
+        ],
+        "protected_markers": [
+          "controlled-document-canary"
+        ]
+      },
+      "expected": {
+        "available": true,
+        "nonempty": true,
+        "leaked_markers": []
+      }
+    },
+    {
+      "id": "continuity-wire-edge-record-diagnostic-tenant-identities",
+      "input": {
+        "operation": "diagnostic_record",
+        "definition": "recognition_scope",
+        "fragments": [
+          {
+            "utf8": "{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"principal_id\":\"10000000-0000-4000-8000-000000000006\"}"
+          }
+        ],
+        "protected_markers": [
+          "10000000-0000-4000-8000-000000000001",
+          "10000000-0000-4000-8000-000000000006"
+        ]
+      },
+      "expected": {
+        "available": true,
+        "nonempty": true,
+        "leaked_markers": []
+      }
+    },
+    {
+      "id": "continuity-wire-edge-batch-diagnostic-tenant-identities",
+      "input": {
+        "operation": "diagnostic_batch",
+        "definition": "continuity_batch",
+        "fragments": [
+          {
+            "utf8": "{\"entries\":[{\"ordinal\":\"1\",\"record\":{\"kind\":\"lifecycle_intent\",\"value\":{\"intent_id\":\"10000000-0000-4000-8000-000000000034\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"origin\":{\"kind\":\"command\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"prepared_at\":\"2026-09-08T12:00:00.000Z\",\"prepare_expires_at\":\"2026-09-08T12:00:02.000Z\",\"policy\":{\"policy_scope\":\"domain\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"policy_id\":\"10000000-0000-4000-8000-000000000005\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"payloads\":[{\"kind\":\"material_event\",\"core\":{\"kind\":\"arboresce.lifecycle-event.v1\",\"event_id\":\"10000000-0000-4000-8000-00000000000b\",\"subject\":{\"kind\":\"original_version\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"artifact_id\":\"10000000-0000-4000-8000-00000000002d\",\"version_id\":\"10000000-0000-4000-8000-00000000002e\"},\"previous_control_revision\":null,\"control_revision\":{\"kind\":\"control\",\"value\":\"1\"},\"action\":\"initialize\",\"restriction\":\"unrestricted\",\"bytes_state\":\"available\",\"hold_state\":\"none\",\"purge_state\":\"none\",\"hold_id\":null,\"purge_id\":null,\"policy\":{\"policy_scope\":\"organization\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"policy_id\":\"10000000-0000-4000-8000-000000000005\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"execution\":{\"kind\":\"command\",\"command\":\"lifecycle.revoke\",\"context\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"purpose\":\"preserve\"},\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000006\",\"kind\":\"human\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"}},\"reason\":\"Retain the exact material decision.\",\"recorded_at\":\"2026-09-08T12:00:00.000Z\",\"journal_intent_id\":\"10000000-0000-4000-8000-000000000034\"},\"propagation\":null}],\"prepared_binding\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"binding_id\":\"10000000-0000-4000-8000-00000000005d\",\"profile\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"profile_id\":\"10000000-0000-4000-8000-000000000004\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"byte_length\":1}}}},{\"ordinal\":\"2\",\"record\":{\"kind\":\"lifecycle_resolution\",\"value\":{\"intent_id\":\"10000000-0000-4000-8000-000000000034\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"resolved_at\":\"2026-09-08T12:00:02.000Z\",\"outcome\":{\"kind\":\"committed\",\"admitted_at\":\"2026-09-08T12:00:01.000Z\",\"payloads\":[{\"kind\":\"material_event\",\"event\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"event_id\":\"10000000-0000-4000-8000-00000000000b\",\"event_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"admission\":{\"core\":{\"kind\":\"arboresce.event-admission.v1\",\"event\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"event_id\":\"10000000-0000-4000-8000-00000000000b\",\"event_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"admitted_at\":\"2026-09-08T12:00:01.000Z\",\"execution\":{\"kind\":\"command\",\"cause\":{\"kind\":\"command\",\"command\":\"lifecycle.revoke\",\"context\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"purpose\":\"preserve\"},\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000006\",\"kind\":\"human\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"admitted_at\":\"2026-09-08T12:00:01.000Z\"}}},\"admission_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}],\"committed_binding\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"binding_id\":\"10000000-0000-4000-8000-00000000005d\",\"profile\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"profile_id\":\"10000000-0000-4000-8000-000000000004\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"byte_length\":1}}}}},{\"ordinal\":\"3\",\"record\":{\"kind\":\"recognition_intent\",\"value\":{\"intent_id\":\"10000000-0000-4000-8000-000000000034\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"prepared_at\":\"2026-09-08T12:00:00.000Z\",\"origin\":{\"kind\":\"command\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"recognition\":{\"scope\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"principal_id\":\"10000000-0000-4000-8000-000000000006\"},\"recognition_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"policy\":{\"policy_scope\":\"organization\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"policy_id\":\"10000000-0000-4000-8000-000000000005\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}}},{\"ordinal\":\"4\",\"record\":{\"kind\":\"recognition_resolution\",\"value\":{\"intent_id\":\"10000000-0000-4000-8000-000000000034\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"resolved_at\":\"2026-09-08T12:00:02.000Z\",\"outcome\":{\"kind\":\"committed\",\"recognition\":{\"scope\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"principal_id\":\"10000000-0000-4000-8000-000000000006\"},\"recognition_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"admission\":{\"kind\":\"command\",\"command\":\"lifecycle.revoke\",\"context\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"purpose\":\"preserve\"},\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000006\",\"kind\":\"human\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"admitted_at\":\"2026-09-08T12:00:01.000Z\"}}}}},{\"ordinal\":\"5\",\"record\":{\"kind\":\"scope_retirement_intent\",\"value\":{\"intent_id\":\"10000000-0000-4000-8000-000000000034\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"prepared_at\":\"2026-09-08T12:00:00.000Z\",\"origin\":{\"kind\":\"command\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"retirement_id\":\"10000000-0000-4000-8000-00000000005b\",\"scope\":{\"kind\":\"organization\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\"},\"policy\":{\"policy_scope\":\"organization\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"policy_id\":\"10000000-0000-4000-8000-000000000005\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}}},{\"ordinal\":\"6\",\"record\":{\"kind\":\"scope_retirement_resolution\",\"value\":{\"intent_id\":\"10000000-0000-4000-8000-000000000034\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"resolved_at\":\"2026-09-08T12:00:02.000Z\",\"outcome\":{\"kind\":\"committed\",\"retirement\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"retirement_id\":\"10000000-0000-4000-8000-00000000005b\",\"retirement_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}}}}],\"checkpoint\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"stream_id\":\"10000000-0000-4000-8000-00000000005e\",\"checkpoint_id\":\"10000000-0000-4000-8000-00000000005f\",\"first_ordinal\":\"1\",\"last_ordinal\":\"6\",\"previous_checkpoint_sha256\":null,\"records_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"integrity_profile\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"profile_id\":\"10000000-0000-4000-8000-000000000004\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"proof_reference\":{\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"byte_length\":1}}}"
+          }
+        ],
+        "protected_markers": [
+          "10000000-0000-4000-8000-000000000001",
+          "10000000-0000-4000-8000-00000000005e"
+        ]
+      },
+      "expected": {
+        "available": true,
+        "nonempty": true,
+        "leaked_markers": []
+      }
+    },
+    {
+      "id": "continuity-wire-edge-error-diagnostic-canary",
+      "input": {
+        "operation": "diagnostic_error",
+        "definition": "recognition_scope",
+        "fragments": [
+          {
+            "utf8": "{\"private_note\":\"controlled-error-canary\""
+          }
+        ],
+        "protected_markers": [
+          "controlled-error-canary"
+        ]
+      },
+      "expected": {
+        "available": true,
+        "nonempty": true,
+        "leaked_markers": []
+      }
+    },
+    {
+      "id": "continuity-wire-edge-valid-nonbatch-no-projection",
+      "input": {
+        "operation": "non_batch_projection",
+        "definition": "recognition_scope",
+        "fragments": [
+          {
+            "utf8": "{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"principal_id\":\"10000000-0000-4000-8000-000000000006\"}"
+          }
+        ]
+      },
+      "expected": {
+        "raw_valid": true,
+        "shape_valid": true,
+        "wire_valid": true,
+        "retained_exact": true,
+        "projection_available": false
+      }
+    },
+    {
+      "id": "continuity-wire-edge-problem-instance-valid",
+      "input": {
+        "operation": "raw",
+        "definition": "upload_session_event_core",
+        "fragments": [
+          {
+            "utf8": "{\"kind\":\"arboresce.upload-session-terminal.v1\",\"event_id\":\"10000000-0000-4000-8000-00000000000b\",\"subject\":{\"kind\":\"upload_session\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"upload_id\":\"10000000-0000-4000-8000-00000000005c\",\"generation\":{\"kind\":\"upload_generation\",\"value\":\"1\"}},\"previous_control_revision\":{\"kind\":\"control\",\"value\":\"1\"},\"control_revision\":{\"kind\":\"control\",\"value\":\"2\"},\"action\":\"reject\",\"state\":\"rejected\",\"problem\":{\"type\":\"urn:arboresce:problem:v1:conflict\",\"title\":\"Operation stopped\",\"status\":409,\"detail\":\"The work could not complete.\",\"code\":\"conflict\",\"request_id\":\"10000000-0000-4000-8000-000000000014\",\"instance\":\"urn:uuid:10000000-0000-4000-8000-000000000014\"},\"policy\":{\"policy_scope\":\"domain\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"policy_id\":\"10000000-0000-4000-8000-000000000005\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"execution\":{\"kind\":\"worker\",\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000007\",\"kind\":\"service\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\"},\"cause\":{\"kind\":\"command\",\"command\":\"lifecycle.revoke\",\"context\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"purpose\":\"preserve\"},\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000006\",\"kind\":\"human\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"admitted_at\":\"2026-09-08T12:00:01.000Z\"}},\"recorded_at\":\"2026-09-08T12:00:00.000Z\",\"journal_intent_id\":\"10000000-0000-4000-8000-000000000034\"}"
+          }
+        ]
+      },
+      "expected": {
+        "raw_valid": true,
+        "shape_valid": true,
+        "wire_valid": true,
+        "retained_exact": true
+      }
+    },
+    {
+      "id": "continuity-wire-edge-problem-instance-wrong-prefix",
+      "input": {
+        "operation": "raw",
+        "definition": "upload_session_event_core",
+        "fragments": [
+          {
+            "utf8": "{\"kind\":\"arboresce.upload-session-terminal.v1\",\"event_id\":\"10000000-0000-4000-8000-00000000000b\",\"subject\":{\"kind\":\"upload_session\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"upload_id\":\"10000000-0000-4000-8000-00000000005c\",\"generation\":{\"kind\":\"upload_generation\",\"value\":\"1\"}},\"previous_control_revision\":{\"kind\":\"control\",\"value\":\"1\"},\"control_revision\":{\"kind\":\"control\",\"value\":\"2\"},\"action\":\"reject\",\"state\":\"rejected\",\"problem\":{\"type\":\"urn:arboresce:problem:v1:conflict\",\"title\":\"Operation stopped\",\"status\":409,\"detail\":\"The work could not complete.\",\"code\":\"conflict\",\"request_id\":\"10000000-0000-4000-8000-000000000014\",\"instance\":\"URN:uuid:10000000-0000-4000-8000-000000000014\"},\"policy\":{\"policy_scope\":\"domain\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"policy_id\":\"10000000-0000-4000-8000-000000000005\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"execution\":{\"kind\":\"worker\",\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000007\",\"kind\":\"service\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\"},\"cause\":{\"kind\":\"command\",\"command\":\"lifecycle.revoke\",\"context\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"purpose\":\"preserve\"},\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000006\",\"kind\":\"human\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"admitted_at\":\"2026-09-08T12:00:01.000Z\"}},\"recorded_at\":\"2026-09-08T12:00:00.000Z\",\"journal_intent_id\":\"10000000-0000-4000-8000-000000000034\"}"
+          }
+        ]
+      },
+      "expected": {
+        "raw_valid": true,
+        "shape_valid": false,
+        "wire_valid": false,
+        "retained_exact": null
+      }
+    },
+    {
+      "id": "continuity-wire-edge-problem-instance-wrong-variant",
+      "input": {
+        "operation": "raw",
+        "definition": "upload_session_event_core",
+        "fragments": [
+          {
+            "utf8": "{\"kind\":\"arboresce.upload-session-terminal.v1\",\"event_id\":\"10000000-0000-4000-8000-00000000000b\",\"subject\":{\"kind\":\"upload_session\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"upload_id\":\"10000000-0000-4000-8000-00000000005c\",\"generation\":{\"kind\":\"upload_generation\",\"value\":\"1\"}},\"previous_control_revision\":{\"kind\":\"control\",\"value\":\"1\"},\"control_revision\":{\"kind\":\"control\",\"value\":\"2\"},\"action\":\"reject\",\"state\":\"rejected\",\"problem\":{\"type\":\"urn:arboresce:problem:v1:conflict\",\"title\":\"Operation stopped\",\"status\":409,\"detail\":\"The work could not complete.\",\"code\":\"conflict\",\"request_id\":\"10000000-0000-4000-8000-000000000014\",\"instance\":\"urn:uuid:10000000-0000-4000-7000-000000000014\"},\"policy\":{\"policy_scope\":\"domain\",\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"policy_id\":\"10000000-0000-4000-8000-000000000005\",\"version\":{\"kind\":\"content\",\"value\":\"1\"},\"content_sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"execution\":{\"kind\":\"worker\",\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000007\",\"kind\":\"service\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\"},\"cause\":{\"kind\":\"command\",\"command\":\"lifecycle.revoke\",\"context\":{\"organization_id\":\"10000000-0000-4000-8000-000000000001\",\"domain_id\":\"10000000-0000-4000-8000-000000000002\",\"purpose\":\"preserve\"},\"execution\":{\"executor\":{\"principal_id\":\"10000000-0000-4000-8000-000000000006\",\"kind\":\"human\"},\"delegation_id\":null,\"authority_audit_event_id\":\"10000000-0000-4000-8000-000000000008\",\"command_id\":\"10000000-0000-4000-8000-000000000009\"},\"admitted_at\":\"2026-09-08T12:00:01.000Z\"}},\"recorded_at\":\"2026-09-08T12:00:00.000Z\",\"journal_intent_id\":\"10000000-0000-4000-8000-000000000034\"}"
+          }
+        ]
+      },
+      "expected": {
+        "raw_valid": true,
+        "shape_valid": false,
+        "wire_valid": false,
+        "retained_exact": null
+      }
+    }
+  ]
+}

@@ -1031,6 +1031,15 @@ delivery precede any consumer. It establishes no authenticity, retained binding,
 abort/inventory interpretation, durable storage, cutoff, recovery or writer
 permission; every remaining whole-continuity requirement remains mandatory.
 
+The separate [bounded wire edge observations](../../tests/integration/recovery/fixtures/continuity-wire-edges-v1/README.md)
+exercise the already required diagnostic non-disclosure, non-batch projection
+and complete common-problem instance constraints. Their eight controlled units
+preserve every earlier fixture byte and expected object. Literal marker
+observations do not certify arbitrary encodings or production privacy.
+Independent exact input admission and committed delivery precede their measured
+observer and thin assertion. All fresh source, strict coverage, native and
+delivery duties remain; authentic continuity and writer permission are not inferred.
+
 Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.

@@ -1,0 +1,120 @@
+{
+  "version": "continuity-wire-edges-v1",
+  "source_revision": "f13a678ee53dd95f33aa7ec8a40d77505654a93b",
+  "sources": {
+    "LICENSE-APACHE": {
+      "sha256": "ce9bbc740fe67ed46479d83d56f8d8866455c368046d8b9607dbc5d65f65e428",
+      "bytes": 11342
+    },
+    "LICENSE-MIT": {
+      "sha256": "1434e89c553388e6b12b6c2c992beb5f3c6be2b5f0998d13e61dfe348c388f39",
+      "bytes": 1068
+    },
+    "contracts/internal/v1/lifecycle-continuity.schema.json": {
+      "sha256": "761ac02635efecd7b27e7bbd1b2571908c738ca437b7801a9a134fd9cf01069e",
+      "bytes": 39675
+    },
+    "contracts/public/v1/common.schema.json": {
+      "sha256": "61e94a0e646b2e992e662c7f5b3c30a17551936bfee3f87c7f3ae773302ff3b1",
+      "bytes": 15311
+    },
+    "contracts/public/v1/lifecycle.schema.json": {
+      "sha256": "21a06ac3b04ef194eb75f6c3367cec20bdbdc370638704ea1b7416506e7c11b6",
+      "bytes": 431455
+    },
+    "contracts/validation/lifecycle-v1.cases.json": {
+      "sha256": "bada3df24ca8670c460162195604e2f7a80eb6518f2d9597e9d941ab5b2ecd71",
+      "bytes": 27208787
+    },
+    "docs/requirements/lifecycle-contract.md": {
+      "sha256": "919b743231fdc38ac0b2e3658a956b45e524daaeb26bae378a9c1cb0f2bd91d1",
+      "bytes": 122390
+    },
+    "docs/requirements/security-and-privacy.md": {
+      "sha256": "0c971eb57fc66dd473fcaf8633836bb45e85ebf72aaf46e53a2f8a6f38e7e8cd",
+      "bytes": 21546
+    },
+    "docs/requirements/testing-and-coverage.md": {
+      "sha256": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531",
+      "bytes": 44903
+    },
+    "tests/integration/recovery/fixtures/continuity-wire-v1/README.md": {
+      "sha256": "ccb18723c92b5b5d3bc39521a992c9d0a0de85cd2793448b3ed3e490765c3d93",
+      "bytes": 4647
+    },
+    "tests/integration/recovery/fixtures/continuity-wire-v1/cases.json": {
+      "sha256": "571ab02f7057cd18f681b8d41f004e2a4ac7f9a45565ef102359e270d823f41a",
+      "bytes": 3414828
+    },
+    "tests/integration/recovery/fixtures/continuity-wire-v1/sources.json": {
+      "sha256": "86a603c3b6e8b8b420205b754e6858139bfd3445412d62760e2997f8b208b944",
+      "bytes": 104799
+    }
+  },
+  "case_file": {
+    "sha256": "595b24f194122dc996ff274cd819d83b35eb685793daa4ea735f7b62281c0e86",
+    "bytes": 19567
+  },
+  "case_ids": [
+    "continuity-wire-edge-document-diagnostic-canary",
+    "continuity-wire-edge-record-diagnostic-tenant-identities",
+    "continuity-wire-edge-batch-diagnostic-tenant-identities",
+    "continuity-wire-edge-error-diagnostic-canary",
+    "continuity-wire-edge-valid-nonbatch-no-projection",
+    "continuity-wire-edge-problem-instance-valid",
+    "continuity-wire-edge-problem-instance-wrong-prefix",
+    "continuity-wire-edge-problem-instance-wrong-variant"
+  ],
+  "case_counts": {
+    "diagnostics": 4,
+    "non_batch_projection": 1,
+    "problem_instances": 3,
+    "total": 8
+  },
+  "reading_limits": {
+    "files": [
+      "README.md",
+      "cases.json",
+      "sources.json"
+    ],
+    "readme_bytes": 16384,
+    "cases_bytes": 65536,
+    "descriptor_bytes": 65536,
+    "cases": 8,
+    "raw_bytes": 1048576,
+    "fragments": 16,
+    "fragment_repetitions": 1048577,
+    "markers": 16,
+    "marker_bytes": 128,
+    "source_file_bytes": 67108864,
+    "sources": 16
+  },
+  "oracle_authority": {
+    "diagnostics": "Unchanged wire-v1 sources.json semantics.record requires errors/Debug to exclude protected input; controlled literal canaries must be absent and actual diagnostic nonempty. No implementation message is an oracle.",
+    "non_batch": "A complete recognition_scope is not a continuity_batch and grants no batch projection.",
+    "problem_instance": "Existing common.problem.instance has exact45byte lower-case urn:uuid prefix and UUIDv4 variant. Complete original reject input remains otherwise identical."
+  },
+  "input_origins": {
+    "recognition_scope": "contracts/validation/lifecycle-v1.cases.json#internal-recognition-scope-complete",
+    "reject": "contracts/validation/lifecycle-v1.cases.json#internal-upload-session-event-core-reject",
+    "batch": "tests/integration/recovery/fixtures/continuity-wire-v1/cases.json#continuity-wire-compose-complete-six-families",
+    "new_canaries": "Original public synthetic literal text; no actual protected or credential input."
+  },
+  "prospective_scope": {
+    "prior_bodies": 154,
+    "prior_events": 7446,
+    "additional_bodies": 1,
+    "additional_events": 8,
+    "bodies": 155,
+    "events": 7454,
+    "rust_sources": 97,
+    "measured": 86,
+    "assertion": 10,
+    "declaration": 1,
+    "LLVM_rows": 96,
+    "targets": 10,
+    "dependency_profile": "continuity-wire-v1",
+    "dependency_graph_sha256": "40e6539778730e8fd9648190c7fc05c527fbeda5ca66611f811bce692310a2da"
+  },
+  "qualification": "Static additional controlled inputs only. Preserve all existing source/expected/profile/coverage/native/process/cleanup/model/probe/standalone/delivery gates. No arbitrary-encoding or production privacy proof, authentic journal/store/key/binding/abort/inventory/cutoff/recovery or writer/whole acceptance."
+}
