@@ -85,3 +85,27 @@ PostgreSQL transaction, a product writer, a provider or recovery.
 The [supplemental shared fixtures](../../tests/security/fixtures/shared-admission-additional-v1/README.md)
 add 41 malformed preparation observations through the same typed input helpers.
 Their complete finite errors stay separate from product admission decisions.
+
+# Continuity scope projections
+
+The lifecycle module provides checked six-family names, positive 18-digit
+ordinals and organization/stream namespaces. Its pure `match_scope` checks a
+supplied beginning or predecessor, a checkpoint range and one through 256 entry
+scopes. Namespace mismatches, gaps, duplicate/reversed ordinals, invalid ranges,
+broken predecessor links and ordinal exhaustion return finite failures. It
+borrows typed inputs, performs no I/O or allocation, and returns only a projected
+range. Repeated families are permitted; complete record validation is separate.
+
+The independently committed [continuity literals](../../tests/integration/recovery/fixtures/continuity-ordinal-v1/README.md)
+provide 16 family, 13 ordinal and 36 scope observations, including exact values
+above 2^53 and the positive maximum 999999999999999999. Measured test support
+receives only a case's input and serializes the actual typed values after the
+call. Expected objects and case IDs stay in the thin assertions.
+
+These projections authenticate neither a beginning nor a complete tail. Equal
+supplied digests do not qualify actual encoded bytes, signatures/trust, complete
+binding/abort/inventory, independently durable acknowledgement, cutoff,
+recognition/retirement, recovery or serving. All remain mandatory at their
+consumers; this API grants no product/bootstrap writing permission. Source,
+helper, strict coverage and owning/public-only native qualification remain
+required under the declared source-inventory profile.

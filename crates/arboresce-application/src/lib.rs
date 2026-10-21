@@ -4,6 +4,7 @@ use std::future::Future;
 
 use arboresce_domain::{CalendarDate, ContentRevision, Identifier};
 
+pub mod lifecycle;
 pub mod policy;
 
 /// An immutable synthetic record for isolated migration qualification only.

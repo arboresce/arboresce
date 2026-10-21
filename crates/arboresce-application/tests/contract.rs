@@ -12,7 +12,65 @@ mod support {
     pub mod admission;
     pub mod authority;
     pub mod bootstrap;
+    pub mod continuity;
     pub mod principal;
+}
+
+#[test]
+fn complete_continuity_families() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-ordinal-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["groups"]["family_values"].as_array().unwrap();
+    assert_eq!(cases.len(), 16);
+    for case in cases {
+        let observed = support::continuity::observe_family(&case["input"]);
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_continuity_ordinals() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-ordinal-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["groups"]["ordinal_values"].as_array().unwrap();
+    assert_eq!(cases.len(), 13);
+    for case in cases {
+        let observed = support::continuity::observe_ordinal(&case["input"]);
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_continuity_scope() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-ordinal-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["groups"]["scope_values"].as_array().unwrap();
+    assert_eq!(cases.len(), 36);
+    for case in cases {
+        let observed = support::continuity::observe_scope(&case["input"]);
+        assert_eq!(observed, case["expected"], "{}", case["id"]);
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
 }
 
 #[test]
