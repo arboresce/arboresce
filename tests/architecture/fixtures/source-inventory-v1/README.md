@@ -209,3 +209,18 @@ consumer selects one exact input hash before invocation; no observed output
 supplies an expectation. This declaration qualifies no future executable,
 native process, target membership or source count. The ten target identities
 remain; their actual complete source memberships require fresh qualification.
+
+The prospective continuity input declares 95 Rust sources: the exact 93-source
+declaration plus measured `crates/arboresce-application/src/lifecycle.rs` and
+`crates/arboresce-application/tests/support/continuity.rs`. It has 84 measured,
+ten assertion and one frozen declaration source. Its exact raw role-profile hash
+is `90cd8bbdec5d7f3bb038370ed17e1dfa772dfcd48e3cd623978add7980af83d3`.
+Only the existing application library's measured source membership adds the
+production lifecycle module; the continuity observation helper stays measured
+test support. All 93 old rows retain their exact fields and order; all ten target
+identities and the 80/82/93 bindings remain unchanged. The expected count comes
+from these declared paths before implementation, never from observed native
+output. Independent committed fixture delivery must precede the changed profile's
+consumer. This declaration qualifies no future source, native execution or whole
+continuity behavior; complete source/target vectors and all required coverage
+and actual owning/public-only native lanes still require fresh qualification.
