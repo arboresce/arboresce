@@ -8,8 +8,8 @@
   },
   "candidate": {
     "snapshot": "candidate.lock",
-    "sha256": "2d28653b3ad70b618b785090ca86ceddea30738877b337bea494fa4d591bb62b",
-    "bytes": 34477
+    "sha256": "b827037a5ad0c14c1b106daf285b7b5dd84403b99e980bb01a44448c0339ad66",
+    "bytes": 34484
   },
   "source_authority": {
     "base_revision": "6802030e84aa354ef3edbf5128bc75c31f6d4a04",
@@ -25,10 +25,10 @@
   "actual_future_edit": {
     "from_sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
     "from_bytes": 34468,
-    "to_sha256": "2d28653b3ad70b618b785090ca86ceddea30738877b337bea494fa4d591bb62b",
-    "to_bytes": 34477,
-    "raw_added_line": " \"sha2\",\n",
-    "raw_added_bytes": 9,
+    "to_sha256": "b827037a5ad0c14c1b106daf285b7b5dd84403b99e980bb01a44448c0339ad66",
+    "to_bytes": 34484,
+    "raw_added_line": " \"sha2 0.10.9\",\n",
+    "raw_added_bytes": 16,
     "total_package_identities": 146,
     "other_complete_package_rows_equal": 145
   },
@@ -83,5 +83,12 @@
     "snapshot_bytes": 65536,
     "cases": 64
   },
-  "scope": "Additional exact fixed source context only, preserving original wire context and all historical profiles/guard oracles. No general lock transition, authority, service/lease/coverage/MODEL/recovery or writer exception."
+  "scope": "Additional exact fixed source context only, preserving original wire context and all historical profiles/guard oracles. No general lock transition, authority, service/lease/coverage/MODEL/recovery or writer exception.",
+  "lock_snapshot_correction": {
+    "previous_static_revision": "31a7ae739323082df065e91c683d898d97afe577",
+    "previous_candidate_sha256": "2d28653b3ad70b618b785090ca86ceddea30738877b337bea494fa4d591bb62b",
+    "previous_candidate_bytes": 34477,
+    "reason": "Two sha2 versions require the exact Cargo dependency identity sha2 0.10.9. Offline Cargo resolution and a subsequent locked metadata run selected the corrected snapshot. All 146 identities, 145 other package rows and the exact qualified graph remain unchanged.",
+    "scope": "Cargo metadata and static correction only; no executable, native, MODEL, operational continuity or writer qualification."
+  }
 }
