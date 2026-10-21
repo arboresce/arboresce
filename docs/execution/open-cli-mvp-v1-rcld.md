@@ -1004,7 +1004,7 @@ Checkpoint: 9d308761ac89069b0a6ebf4f2a678f35f18567ab; Evidence: [Tenant and admi
 
 ### E206 — Implement independent lifecycle continuity before first writers
 
-Status: `not_started`. Prerequisites: E205. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E205. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -1013,6 +1013,15 @@ Scope: Implement independent lifecycle continuity before first writers; implemen
 Planned paths: `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-application/src/lifecycle/`, `tests/integration/recovery/`
 
 External prerequisite capabilities: None beyond the owning prerequisites.. Require independently accepted exact consumed contracts/fixtures/profile evidence before use; partial gates do not qualify unrelated capabilities.
+
+The first bounded input package, [continuity ordinal and family literals](../../tests/integration/recovery/fixtures/continuity-ordinal-v1/README.md),
+defines independent expectations for a pure application projection: exact six-family
+names, positive ordinal bounds, finite contiguous ranges, namespace equality and
+predecessor linkage. Independent exact literal admission and committed delivery
+precede any consumer. The package supplies no executable, complete journal wire
+validation, authentic retained bytes, binding/abort proof, storage authority,
+cutoff, recovery or writer permission. Its source/helper/native qualification and
+all remaining continuity obligations stay mandatory; whole E206 is unaccepted.
 
 Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 

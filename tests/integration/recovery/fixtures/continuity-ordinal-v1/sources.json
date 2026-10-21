@@ -1,0 +1,212 @@
+{
+  "version": "continuity-ordinal-v1",
+  "classification": "pure_typed_continuity_ordinal_family_namespace_and_link_observation_only",
+  "source_revision": "ab6e2b9d3e835b1a6e7de5e31924b9ccdec3a4f6",
+  "rights": {
+    "origin": "Original independently specified public synthetic literal inputs and outcomes; no product consumer supplied expected answers",
+    "license": "MIT OR Apache-2.0",
+    "personal_records": false,
+    "operational_credentials": false
+  },
+  "sources": {
+    "docs/requirements/lifecycle-contract.md": {
+      "sha256": "919b743231fdc38ac0b2e3658a956b45e524daaeb26bae378a9c1cb0f2bd91d1",
+      "bytes": 122390
+    },
+    "docs/requirements/common-contract.md": {
+      "sha256": "64ce5e000773f23dfcad41d4883fbb5fa70e5954dcb137167f3e3d168afca9ac",
+      "bytes": 32887
+    },
+    "contracts/public/v1/common.schema.json": {
+      "sha256": "61e94a0e646b2e992e662c7f5b3c30a17551936bfee3f87c7f3ae773302ff3b1",
+      "bytes": 15311
+    },
+    "contracts/internal/v1/lifecycle-continuity.schema.json": {
+      "sha256": "761ac02635efecd7b27e7bbd1b2571908c738ca437b7801a9a134fd9cf01069e",
+      "bytes": 39675
+    },
+    "docs/requirements/recovery.md": {
+      "sha256": "032d7f666c73b6d9a0989d07c724ea40eb03c9516931a6c2ddfb6e7d044044a1",
+      "bytes": 18342
+    },
+    "docs/requirements/project-fixtures.md": {
+      "sha256": "c05454473cab0fadbb727f4c4ee15beb4aa448e7e15ac768d3df87ba01f7b72b",
+      "bytes": 10925
+    },
+    "docs/requirements/testing-and-coverage.md": {
+      "sha256": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531",
+      "bytes": 44903
+    },
+    "docs/requirements/architecture.md": {
+      "sha256": "d414bd5cc9a4dfd6c8100d48f2b847085daad9440125809653945b08200eae74",
+      "bytes": 15246
+    },
+    "LICENSE-MIT": {
+      "sha256": "1434e89c553388e6b12b6c2c992beb5f3c6be2b5f0998d13e61dfe348c388f39",
+      "bytes": 1068
+    },
+    "LICENSE-APACHE": {
+      "sha256": "ce9bbc740fe67ed46479d83d56f8d8866455c368046d8b9607dbc5d65f65e428",
+      "bytes": 11342
+    }
+  },
+  "package_files": {
+    "README.md": {
+      "sha256": "e374b76a4ccbb9199056fea6b80d3cd11615e99ab03499be9e867d9dbf323bca",
+      "bytes": 5226
+    },
+    "cases.json": {
+      "sha256": "11ccb290e8a49936d6ad12c6644f44d14ca10169fcdd84ff4e1031f563ff207a",
+      "bytes": 490315
+    }
+  },
+  "required_case_ids": {
+    "family_values": [
+      "continuity-family-lifecycle-intent",
+      "continuity-family-lifecycle-resolution",
+      "continuity-family-recognition-intent",
+      "continuity-family-recognition-resolution",
+      "continuity-family-retirement-intent",
+      "continuity-family-retirement-resolution",
+      "continuity-family-empty",
+      "continuity-family-uppercase",
+      "continuity-family-hyphen-alias",
+      "continuity-family-leading-space",
+      "continuity-family-trailing-space",
+      "continuity-family-seventh",
+      "continuity-family-version-suffix",
+      "continuity-family-control",
+      "continuity-family-non-ascii",
+      "continuity-family-long-unknown"
+    ],
+    "ordinal_values": [
+      "continuity-ordinal-zero",
+      "continuity-ordinal-one",
+      "continuity-ordinal-two",
+      "continuity-ordinal-256",
+      "continuity-ordinal-before-max",
+      "continuity-ordinal-max",
+      "continuity-ordinal-one-over",
+      "continuity-ordinal-i64-max",
+      "continuity-ordinal-i64-one-over",
+      "continuity-ordinal-u64-max",
+      "continuity-ordinal-json-safe-maximum",
+      "continuity-ordinal-two-to-53",
+      "continuity-ordinal-two-to-53-plus-one"
+    ],
+    "scope_values": [
+      "continuity-scope-beginning-one",
+      "continuity-scope-beginning-six-families",
+      "continuity-scope-beginning-256",
+      "continuity-scope-linked-one",
+      "continuity-scope-linked-six",
+      "continuity-scope-last-ordinal",
+      "continuity-scope-empty",
+      "continuity-scope-257",
+      "continuity-scope-range-longer-than-entries",
+      "continuity-scope-range-shorter-than-entries",
+      "continuity-scope-reversed-range",
+      "continuity-scope-gap",
+      "continuity-scope-duplicate-ordinal",
+      "continuity-scope-reordered-entries",
+      "continuity-scope-first-entry-disagrees",
+      "continuity-scope-checkpoint-cross-organization",
+      "continuity-scope-checkpoint-cross-stream",
+      "continuity-scope-first-entry-cross-organization",
+      "continuity-scope-later-entry-cross-organization",
+      "continuity-scope-beginning-late-start",
+      "continuity-scope-beginning-nonnull-predecessor",
+      "continuity-scope-linked-missing-predecessor",
+      "continuity-scope-linked-wrong-digest",
+      "continuity-scope-linked-gap",
+      "continuity-scope-prior-cross-organization",
+      "continuity-scope-prior-cross-stream",
+      "continuity-scope-prior-exhausted",
+      "continuity-scope-gap-near-maximum",
+      "continuity-scope-256-with-257-range",
+      "continuity-scope-extreme-range",
+      "continuity-scope-explicit-other-organization",
+      "continuity-scope-explicit-other-stream",
+      "continuity-scope-equal-zero-digest-projection",
+      "continuity-scope-repeated-family",
+      "continuity-scope-256-ending-at-maximum",
+      "continuity-scope-adjacent-above-two-to-53"
+    ]
+  },
+  "case_counts": {
+    "family_values": 16,
+    "ordinal_values": 13,
+    "scope_values": 36,
+    "total": 65
+  },
+  "bounds": {
+    "case_file_bytes": 1048576,
+    "descriptor_bytes": 65536,
+    "readme_bytes": 16384,
+    "cases": 128,
+    "json_depth": 32,
+    "projection_entries": 256,
+    "negative_projection_entries": 257,
+    "positive_ordinal_maximum_decimal": "999999999999999999",
+    "constructor_input_maximum_decimal": "18446744073709551615",
+    "source_file_bytes": 4194304,
+    "sources": 16
+  },
+  "family_names": [
+    "lifecycle_intent",
+    "lifecycle_resolution",
+    "recognition_intent",
+    "recognition_resolution",
+    "scope_retirement_intent",
+    "scope_retirement_resolution"
+  ],
+  "finite_scope_failures": [
+    "EmptyBatch",
+    "BatchTooLarge",
+    "InvalidRange",
+    "CheckpointScopeMismatch",
+    "PredecessorScopeMismatch",
+    "PredecessorLinkMismatch",
+    "OrdinalExhausted",
+    "EntryScopeMismatch",
+    "OrdinalMismatch"
+  ],
+  "allowed_consumer": {
+    "owner": "arboresce-application",
+    "scope": "Borrowed typed family/ordinal/namespace/predecessor/checkpoint-entry scope observation; no complete record or wire decoder",
+    "source_implementation": "Not supplied by this static package; exact independent admission and committed delivery precede implementation"
+  },
+  "runtime_projection": {
+    "permit": "Only the complete case input. Namespace and predecessor are separately supplied injected test context, never a request authentication claim.",
+    "exclude": [
+      "expected",
+      "case IDs",
+      "required_case_ids",
+      "rights",
+      "source pins",
+      "purposes",
+      "recovery answers"
+    ],
+    "after_state": "Serialize actual typed namespace/predecessor/checkpoint/entries after the call; every complete projected input stays unchanged. No expected object reaches the helper or production consumer."
+  },
+  "semantics": {
+    "ordinal": "Checked unsigned domain integer in1..999999999999999999. Fixture native-constructor inputs and projected observations are exact decimal strings, converted directly to u64 without binary64 or signed wrap; no complete wire-parser qualification.",
+    "family": "Exactly six case-sensitive complete names, with no aliases, trimming, normalization or seventh family.",
+    "scope": "Actual entry count1..256; checkpoint namespace equals expected; increasing inclusive range length equals count; each entry organization equals the checkpoint organization and each ordinal equals first+index.",
+    "predecessor": "Beginning requires first1/previousnull. After requires exact expected namespace, a last ordinal with a representable successor, first=priorlast+1 and the exact previous digest.",
+    "observation": "Finite internal match/failure and complete unchanged projected inputs. Not an authentication capability, wire response or public error-order contract.",
+    "authenticity": "Matching supplied metadata, null or digest proves no signature, authenticated beginning/tail/cutoff, retained full binding/inventory/abort proof or recovery."
+  },
+  "excluded_qualification": [
+    "actual complete encoded journal bytes and1MiB limit",
+    "complete six-family payload schemas and cross-record joins",
+    "hash/signature/trust or actual integrity/service authority",
+    "independent durable storage or acknowledgement",
+    "complete prepared/committed binding bytes and canonical associations",
+    "authentic abort fence",
+    "actual admitted-key recognition and irreversible retirement",
+    "unknown tail/cutoff recovery and serving",
+    "authentication, bootstrap, human, live-model, other-native, users, production"
+  ],
+  "consumer_gate": "Independently accept exact literal meanings and committed source before any consumer. All maintained intake/projection/observation support joins source qualification. Complete fresh owning/public-only standalone Rust1.99, every strict/source/helper/process/native scope, actual distinct delivery and whole independent lifecycle acceptance remain mandatory; writers disabled."
+}
