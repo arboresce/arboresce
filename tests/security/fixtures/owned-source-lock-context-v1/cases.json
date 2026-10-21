@@ -1,0 +1,474 @@
+{
+  "fixture_version": "owned-source-lock-context-cases-v1",
+  "classification": "controlled original public source-pin representation and exact-context units",
+  "rights": {
+    "license": "MIT OR Apache-2.0"
+  },
+  "runtime_projection": {
+    "allowed": [
+      "case.input.source_pin",
+      "case.input.actual"
+    ],
+    "fixed_committed_context": "context.json",
+    "excluded": [
+      "case.id",
+      "case.expected",
+      "case.input.context",
+      "rights",
+      "counts",
+      "source_authority",
+      "snapshots"
+    ]
+  },
+  "groups": {
+    "positive": 5,
+    "negative": 20
+  },
+  "cases": [
+    {
+      "id": "sql-source-pin-exact-empty-non-lock",
+      "input": {
+        "source_pin": {
+          "path": "empty.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "actual": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0
+        }
+      },
+      "expected": {
+        "accepted": true
+      }
+    },
+    {
+      "id": "sql-source-pin-exact-baseline-lock",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "size": 34458
+        }
+      },
+      "expected": {
+        "accepted": true
+      }
+    },
+    {
+      "id": "sql-source-pin-exact-candidate-lock",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "bytes": 34468
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": true
+      }
+    },
+    {
+      "id": "sql-source-pin-exact-other-well-formed-lock",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "bytes": 40000
+        },
+        "actual": {
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "size": 40000
+        }
+      },
+      "expected": {
+        "accepted": true
+      }
+    },
+    {
+      "id": "sql-source-pin-admitted-forward-lock",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": true
+      }
+    },
+    {
+      "id": "sql-source-pin-no-reverse-lock",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "bytes": 34468
+        },
+        "actual": {
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "size": 34458
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-unknown-unequal-lock",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "size": 40000
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-other-path-transition",
+      "input": {
+        "source_pin": {
+          "path": "other.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-alias-path-transition",
+      "input": {
+        "source_pin": {
+          "path": "./Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-altered-baseline-hash",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "156989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-altered-baseline-size",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34459
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-altered-candidate-hash",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "d64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-altered-candidate-size",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34469
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-missing-source-path",
+      "input": {
+        "source_pin": {
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-missing-source-hash",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-source-size-text",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": "34458"
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-missing-actual-hash",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-actual-size-boolean",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": true
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-equal-nonhex-hashes",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+          "size": 34458
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-equal-uppercase-hashes",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989B3FA5D879967232062C5D46B8A9E9ED58DE061D26C16A2EED387FCEDDA",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "056989B3FA5D879967232062C5D46B8A9E9ED58DE061D26C16A2EED387FCEDDA",
+          "size": 34458
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-equal-negative-lengths",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": -1
+        },
+        "actual": {
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "size": -1
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-equal-floating-lengths",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 1.0
+        },
+        "actual": {
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "size": 1.0
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-missing-source-size",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda"
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+          "size": 34468
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-missing-actual-size",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d"
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    },
+    {
+      "id": "sql-source-pin-no-caller-context-transition",
+      "input": {
+        "source_pin": {
+          "path": "Cargo.lock",
+          "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+          "bytes": 34458
+        },
+        "actual": {
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "size": 40000
+        },
+        "context": {
+          "version": "owned-source-lock-context-v1",
+          "source_path": "Cargo.lock",
+          "baseline": {
+            "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+            "bytes": 34458
+          },
+          "candidate": {
+            "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "bytes": 40000
+          }
+        }
+      },
+      "expected": {
+        "accepted": false
+      }
+    }
+  ],
+  "prospective_scope": {
+    "additional_assertion_bodies": 1,
+    "additional_case_events": 25,
+    "rust_sources": 97,
+    "measured_sources": 86,
+    "assertion_sources": 10,
+    "declaration_sources": 1,
+    "llvm_report_rows": 96,
+    "target_count": 10,
+    "full_test_bodies": 154,
+    "full_case_events": 7446
+  },
+  "scope": "Pin-comparison units only. No native file/PG/transport/recovery result; all original required cases and gates remain."
+}

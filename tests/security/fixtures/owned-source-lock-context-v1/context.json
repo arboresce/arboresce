@@ -1,0 +1,88 @@
+{
+  "version": "owned-source-lock-context-v1",
+  "source_path": "Cargo.lock",
+  "baseline": {
+    "snapshot": "baseline.lock",
+    "sha256": "056989b3fa5d879967232062c5d46b8a9e9ed58de061d26c16a2eed387fcedda",
+    "bytes": 34458
+  },
+  "candidate": {
+    "snapshot": "candidate.lock",
+    "sha256": "c64814edec7a57c42c5d7af436ee4e0d1933333bbc2e5a4c0fb81a893aa7db3d",
+    "bytes": 34468
+  },
+  "source_authority": {
+    "base_revision": "2e1009c3ba51356c073312a3bd064a4e565412cb",
+    "candidate_is_prospective": true,
+    "dependency_profile": "continuity-wire-v1",
+    "dependency_input": {
+      "path": "tests/architecture/fixtures/qualified-continuity-wire-dependencies-v1/cases.json",
+      "sha256": "5590c3449f6d72f3ba43ce547595bade2f37368df86b4392c3f6d48cdf80ac3d",
+      "bytes": 117447
+    },
+    "exact_dependency_graph_sha256": "40e6539778730e8fd9648190c7fc05c527fbeda5ca66611f811bce692310a2da"
+  },
+  "lock_change": {
+    "package": "arboresce-application",
+    "version": "0.0.0",
+    "from_dependencies": [
+      "arboresce-domain",
+      "serde_json"
+    ],
+    "to_dependencies": [
+      "arboresce-domain",
+      "serde",
+      "serde_json"
+    ],
+    "total_package_identities": 146,
+    "other_complete_package_rows_equal": 145,
+    "raw_added_line": " \"serde\",\n",
+    "raw_added_bytes": 10
+  },
+  "preserved_historical_profiles": [
+    {
+      "path": "tests/security/fixtures/owned-database-census-v1/profile.json",
+      "sha256": "908c5e53331079371835352d351abadd441569538c3503a20974a0ed8177724b",
+      "bytes": 5084
+    },
+    {
+      "path": "tests/security/fixtures/owned-helper-input-errors-v1/profile.json",
+      "sha256": "363d00bb582a4c1886abc8acd0fba502f9e862bf6205b7a6e8e8ac6173b5f66b",
+      "bytes": 5161
+    },
+    {
+      "path": "tests/security/fixtures/owned-transport-close-guards-v1/profile.json",
+      "sha256": "3cc97da8480fd9d21a622764a2f58c973a76f65c5bb281249bcc23d7da382571",
+      "bytes": 5186
+    },
+    {
+      "path": "tests/security/fixtures/owned-transport-close-v1/profile.json",
+      "sha256": "7e7042c70a350fa9ca268c2382cb4c6cdf580cc5d1f3e825fc60fc21ce79e176",
+      "bytes": 3925
+    }
+  ],
+  "comparison": {
+    "ordinary_well_formed_exact_equality": true,
+    "only_unequal_transition": "the exact directed baseline-to-candidate tuple at literal Cargo.lock",
+    "source_bytes": "unsigned JSON integer; zero permitted",
+    "source_sha256": "64 lowercase hexadecimal characters",
+    "portable_path_and_actual_fingerprint_before_comparison": true,
+    "actual_source_read_cap_bytes": 8388608,
+    "caller_supplied_context": false
+  },
+  "reading_limits": {
+    "package_files": [
+      "README.md",
+      "context.json",
+      "cases.json",
+      "baseline.lock",
+      "candidate.lock"
+    ],
+    "readme_bytes": 16384,
+    "context_bytes": 65536,
+    "cases_bytes": 65536,
+    "snapshot_bytes": 65536,
+    "cases": 32
+  },
+  "scope": "Fixed source-context compatibility input only. Historical files/oracles and every native/process/coverage/model/cleanup/delivery gate remain. No full source, authentic continuity, durable storage, key authority, operational recovery or writer qualification."
+}
