@@ -5,6 +5,44 @@ use arboresce_xtask::workspace::check_workspace;
 pub mod support;
 
 #[test]
+fn qualified_continuity_recognition_profiles() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/qualified-continuity-recognition-dependencies-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for row in fixture["cases"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let mut input = fixture["base_input"].clone();
+        for patch in row["patches"].as_array().unwrap() {
+            *input.pointer_mut(patch["path"].as_str().unwrap()).unwrap() = patch["value"].clone();
+        }
+        let root = support::PreparedRoot::new().unwrap();
+        let metadata = support::qualified_continuity_wire::metadata(&root, &input, None).unwrap();
+        let actual = check_workspace(&root.path, &metadata.to_string());
+        assert_eq!(actual.is_ok(), row["accepted"], "{id}: {actual:?}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 46);
+    for row in fixture["source_cases"].as_array().unwrap() {
+        let id = row["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let root = support::PreparedRoot::new().unwrap();
+        let metadata = support::qualified_continuity_wire::metadata(
+            &root,
+            &fixture["base_input"],
+            Some(row["source"].as_str().unwrap()),
+        )
+        .unwrap();
+        let actual = check_workspace(&root.path, &metadata.to_string());
+        assert_eq!(actual.is_ok(), row["accepted"], "{id}: {actual:?}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 55);
+}
+
+#[test]
 fn qualified_continuity_wire_dependency_profiles() {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(
         "../../../tests/architecture/fixtures/qualified-continuity-wire-dependencies-v1/cases.json"

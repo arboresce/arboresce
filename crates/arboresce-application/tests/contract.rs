@@ -13,8 +13,51 @@ mod support {
     pub mod authority;
     pub mod bootstrap;
     pub mod continuity;
+    pub mod continuity_recognition;
     pub mod continuity_wire;
     pub mod principal;
+}
+
+#[test]
+fn complete_continuity_recognition_keys() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-recognition-digest-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["key_cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 20);
+    let mut seen = std::collections::BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(
+            support::continuity_recognition::observe_key(&case["input"]),
+            case["expected"],
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
+fn complete_continuity_recognition_references() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-recognition-digest-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["reference_cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 32);
+    let mut seen = std::collections::BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(
+            support::continuity_recognition::observe_reference(&case["input"]),
+            case["expected"],
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
+    }
 }
 
 #[test]

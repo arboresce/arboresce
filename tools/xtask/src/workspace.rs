@@ -84,6 +84,7 @@ enum DependencyProfile {
     JcsSourceV1,
     JcsSourcePostgresV1,
     ContinuityWireV1,
+    ContinuityRecognitionV1,
 }
 
 impl DependencyProfile {
@@ -117,6 +118,13 @@ impl DependencyProfile {
                 Ok(Self::ContinuityWireV1)
             }
             Some(Value::String(name))
+                if name == "continuity-recognition-v1"
+                    && text(package, "name")? == "arboresce-application"
+                    && text(package, "version")? == "0.0.0" =>
+            {
+                Ok(Self::ContinuityRecognitionV1)
+            }
+            Some(Value::String(name))
                 if name == "jcs-source-postgres-v1"
                     && text(package, "name")? == "arboresce-domain"
                     && text(package, "version")? == "0.0.0" =>
@@ -136,11 +144,12 @@ impl DependencyProfile {
                 kind,
             );
         }
-        if self == Self::ContinuityWireV1 {
+        if matches!(self, Self::ContinuityWireV1 | Self::ContinuityRecognitionV1) {
             return match (kind, text(package, "name")?, text(package, "version")?) {
                 ("normal", "arboresce-domain", "0.0.0")
                 | ("normal", "serde", "1.0.229")
                 | ("normal", "serde_json", "1.0.151") => Ok(()),
+                ("normal", "sha2", "0.10.9") if self == Self::ContinuityRecognitionV1 => Ok(()),
                 _ => Err(GuardError::Dependency),
             };
         }
@@ -238,6 +247,9 @@ fn check_qualified_graph(
         DependencyProfile::ContinuityWireV1 => {
             "40e6539778730e8fd9648190c7fc05c527fbeda5ca66611f811bce692310a2da"
         }
+        DependencyProfile::ContinuityRecognitionV1 => {
+            "369e106ee5138d242b2107874452c52ac0319cb2e770bf61dbf194728cd3e8d9"
+        }
         DependencyProfile::Initial => return Err(GuardError::Dependency),
     };
     let (roots, mut pending) = selected_edges(owner, packages, true)?;
@@ -247,7 +259,10 @@ fn check_qualified_graph(
         if !seen.insert(id) {
             continue;
         }
-        let maximum = if profile == DependencyProfile::ContinuityWireV1 {
+        let maximum = if matches!(
+            profile,
+            DependencyProfile::ContinuityWireV1 | DependencyProfile::ContinuityRecognitionV1
+        ) {
             24
         } else {
             23

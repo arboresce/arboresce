@@ -1051,6 +1051,16 @@ input admission and committed delivery precede any consumer. No authentic journa
 independent acknowledgement, complete binding/abort/inventory/cutoff, canonical
 recognition/retirement barrier, recovery or writer permission is inferred.
 
+The pure recognition consumer adds the exact key and reference constructors,
+input-only measured support, a separate closed dependency profile and a second
+fixed directed historical lock context. Its declared inventory has 99 Rust
+sources and adds four assertion bodies with 135 independent cases, preserving
+every earlier body and expected value. Source/helper/process/native/strict
+owning/public-only qualification, original-owner current-image MODEL/probe
+gates, independent reviews and genuine committed delivery remain mandatory.
+This bounded mathematical component supplies none of the whole-continuity
+definition of green or any first-writer permission.
+
 Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.

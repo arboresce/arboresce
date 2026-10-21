@@ -138,8 +138,8 @@ existing pure matcher. A raw/shape-valid batch can still fail that scope match.
 The [wire fixtures](../../tests/integration/recovery/fixtures/continuity-wire-v1/README.md)
 keep 569 original parsed oracles separate from exact encoded inputs and complete
 typed observations. Input-only maintained helpers are measured source. The exact
-`continuity-wire-v1` dependency profile admits the owned domain and already
-qualified serde/serde_json graph only, without framework, I/O or new features.
+`continuity-wire-v1` dependency profile remains closed to the owned domain and
+qualified serde/serde_json graph, without framework, I/O or new features.
 The declared native inventory includes both new measured Rust paths.
 
 Slice intake does not implement streaming or HTTP byte enforcement. This
@@ -149,3 +149,31 @@ trusted beginning/tail/cutoff, recognition/retirement barriers nor recovery.
 All remain required before product/bootstrap writers or serving. Exact source,
 helper, process, native and strict owning/public-only qualification is separate
 from static fixture admission and is not established merely by these APIs.
+
+# Recognition digest
+
+`lifecycle::recognition::key_digest` checks 32..128 ASCII characters from A-Z,
+a-z, 0-9, underscore and hyphen, then hashes the exact bytes with SHA-256.
+`recognition_reference` takes checked organization/principal identifiers and
+key digest, and checks the common 3..64-byte dotted command-name syntax.
+It hashes the actual NUL-separated recognition domain followed by the complete
+four-string canonical identity, with sorted keys and no escaping needed for
+these checked ASCII values. This fixed serializer has no general JSON API.
+
+The immutable result retains only organization/principal scope and recognition
+digest. Error Display and reference Debug are fixed, input-independent text;
+these observations establish neither general privacy nor secure memory erasure.
+Format-valid unregistered commands and arbitrary typed digests have mathematical
+meaning only. The first effect still requires its real registered admitted
+command/key relation, current authorization and all canonical admission fences.
+
+The selected `continuity-recognition-v1` application profile adds only the
+already qualified sha2 0.10.9 force-soft root. All 24 transitive rows and 23
+external archive/rights/feature facts remain unchanged. The exact additional
+historical lock context preserves the original bridge without transitivity.
+The declared inventory contains 99 Rust sources, including measured input-only
+recognition support. All 52 mathematical, 55 policy and 28 lock cases retain
+their independently committed expected values. Complete fresh owning/public-only
+source/helper/process/native/strict qualification and independent committed
+delivery remain required. These APIs grant no authentic journal, independent
+acknowledgement, recognition barrier, recovery, serving or writer capability.

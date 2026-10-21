@@ -410,6 +410,27 @@ fn authority_failure_contract() {
 }
 
 #[test]
+fn owned_recognition_lock_context() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../tests/security/fixtures/owned-recognition-lock-context-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 28);
+    let mut ids = std::collections::BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(ids.insert(id));
+        let input = &case["input"];
+        let observed = json!({
+            "accepted": authority_probes::source_pin_matches(&input["source_pin"], &input["actual"])
+        });
+        assert_eq!(observed, case["expected"], "{id}");
+        println!("collector case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
 fn owned_source_lock_context() {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(
         "../../tests/security/fixtures/owned-source-lock-context-v1/cases.json"

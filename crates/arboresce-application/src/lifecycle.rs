@@ -1,5 +1,6 @@
 //! Pure checked continuity projections, without retained-byte or authenticity proof.
 
+pub mod recognition;
 pub mod wire;
 
 use arboresce_domain::{ContentRevision, Identifier, RevisionError, Sha256Digest};

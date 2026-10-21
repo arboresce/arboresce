@@ -2082,7 +2082,7 @@ pub fn close_package_guard(input: &Value) -> Result<Value> {
     })
 }
 
-/// Preserve exact pins or the single fixed directed lock-source context.
+/// Preserve exact pins or either separately fixed directed lock-source context.
 pub fn source_pin_matches(source_pin: &Value, actual: &Value) -> bool {
     let (
         Some(path),
@@ -2115,11 +2115,27 @@ pub fn source_pin_matches(source_pin: &Value, actual: &Value) -> bool {
         "../../../../tests/security/fixtures/owned-source-lock-context-v1/context.json"
     ))
     .expect("fixed source-lock context must be valid JSON");
-    path == "Cargo.lock"
+    let wire_context_matches = path == "Cargo.lock"
         && context["version"] == "owned-source-lock-context-v1"
         && context["source_path"] == path
         && context["source_authority"]["exact_dependency_graph_sha256"]
             == "40e6539778730e8fd9648190c7fc05c527fbeda5ca66611f811bce692310a2da"
+        && context["baseline"]["sha256"] == expected_hash
+        && context["baseline"]["bytes"].as_u64() == Some(expected_bytes)
+        && context["candidate"]["sha256"] == actual_hash
+        && context["candidate"]["bytes"].as_u64() == Some(actual_bytes);
+    if wire_context_matches {
+        return true;
+    }
+    let context: Value = serde_json::from_str(include_str!(
+        "../../../../tests/security/fixtures/owned-recognition-lock-context-v1/context.json"
+    ))
+    .expect("fixed recognition-lock context must be valid JSON");
+    path == "Cargo.lock"
+        && context["version"] == "owned-recognition-lock-context-v1"
+        && context["source_path"] == path
+        && context["source_authority"]["exact_dependency_graph_sha256"]
+            == "369e106ee5138d242b2107874452c52ac0319cb2e770bf61dbf194728cd3e8d9"
         && context["baseline"]["sha256"] == expected_hash
         && context["baseline"]["bytes"].as_u64() == Some(expected_bytes)
         && context["candidate"]["sha256"] == actual_hash
