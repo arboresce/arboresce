@@ -27,7 +27,7 @@ fn digest(value: &Value) -> Sha256Digest {
     text(value).parse().unwrap()
 }
 
-fn namespace(value: &Value) -> Namespace {
+pub(super) fn namespace(value: &Value) -> Namespace {
     Namespace::new(
         identifier(&value["organization_id"]),
         identifier(&value["stream_id"]),
@@ -41,7 +41,7 @@ fn namespace_view(value: Namespace) -> Value {
     })
 }
 
-fn predecessor(value: &Value) -> Predecessor {
+pub(super) fn predecessor(value: &Value) -> Predecessor {
     match text(&value["kind"]) {
         "beginning" => Predecessor::Beginning,
         "after" => Predecessor::After {
@@ -83,7 +83,7 @@ fn checkpoint(value: &Value) -> CheckpointScope {
     }
 }
 
-fn checkpoint_view(value: &CheckpointScope) -> Value {
+pub(super) fn checkpoint_view(value: &CheckpointScope) -> Value {
     json!({
         "namespace": namespace_view(value.namespace),
         "first_ordinal": value.first.value().to_string(),
@@ -100,7 +100,7 @@ fn entry(value: &Value) -> EntryScope {
     }
 }
 
-fn entry_view(value: EntryScope) -> Value {
+pub(super) fn entry_view(value: EntryScope) -> Value {
     json!({
         "organization_id": value.organization.to_string(),
         "ordinal": value.ordinal.value().to_string(),

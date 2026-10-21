@@ -13,7 +13,105 @@ mod support {
     pub mod authority;
     pub mod bootstrap;
     pub mod continuity;
+    pub mod continuity_wire;
     pub mod principal;
+}
+
+#[test]
+fn complete_continuity_wire_definitions() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-wire-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["groups"]["definitions"].as_array().unwrap();
+    assert_eq!(cases.len(), 37);
+    for case in cases {
+        assert_eq!(
+            support::continuity_wire::observe_definition(&case["input"]),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_continuity_wire_parsed_shapes() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../contracts/validation/lifecycle-v1.cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|case| case["target"].as_str().unwrap().starts_with("internal."));
+    let mut seen = std::collections::BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(
+            support::continuity_wire::observe_parsed(
+                case["target"].as_str().unwrap(),
+                &case["value"]
+            ),
+            case["valid"],
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen.len(), 569);
+}
+
+#[test]
+fn complete_continuity_wire_raw_values() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-wire-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["groups"]["raw_values"].as_array().unwrap();
+    assert_eq!(cases.len(), 176);
+    for case in cases {
+        assert_eq!(
+            support::continuity_wire::observe_raw(&case["input"]),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
+}
+
+#[test]
+fn complete_continuity_wire_scope_compositions() {
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-wire-v1/cases.json"
+    ))
+    .unwrap();
+    let cases = fixture["groups"]["compositions"].as_array().unwrap();
+    assert_eq!(cases.len(), 4);
+    for case in cases {
+        assert_eq!(
+            support::continuity_wire::observe_composition(&case["input"]),
+            case["expected"],
+            "{}",
+            case["id"]
+        );
+        println!(
+            "collector case={} pid={}",
+            case["id"].as_str().unwrap(),
+            std::process::id()
+        );
+    }
 }
 
 #[test]
@@ -561,5 +659,27 @@ fn complete_bounded_bootstrap_scope_profile() {
             case["id"].as_str().unwrap(),
             std::process::id()
         );
+    }
+}
+
+#[test]
+fn complete_continuity_wire_edges() {
+    let raw = include_str!(
+        "../../../tests/integration/recovery/fixtures/continuity-wire-edges-v1/cases.json"
+    );
+    assert!(raw.len() <= 65_536);
+    let fixture: Value = serde_json::from_str(raw).unwrap();
+    let cases = fixture["cases"].as_array().unwrap();
+    assert_eq!(cases.len(), 8);
+    let mut seen = std::collections::BTreeSet::new();
+    for case in cases {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        assert_eq!(
+            support::continuity_wire::observe_edge(&case["input"]),
+            case["expected"],
+            "{id}"
+        );
+        println!("collector case={id} pid={}", std::process::id());
     }
 }

@@ -83,6 +83,7 @@ enum DependencyProfile {
     JcsNumberV1,
     JcsSourceV1,
     JcsSourcePostgresV1,
+    ContinuityWireV1,
 }
 
 impl DependencyProfile {
@@ -109,6 +110,13 @@ impl DependencyProfile {
                 Ok(Self::JcsSourceV1)
             }
             Some(Value::String(name))
+                if name == "continuity-wire-v1"
+                    && text(package, "name")? == "arboresce-application"
+                    && text(package, "version")? == "0.0.0" =>
+            {
+                Ok(Self::ContinuityWireV1)
+            }
+            Some(Value::String(name))
                 if name == "jcs-source-postgres-v1"
                     && text(package, "name")? == "arboresce-domain"
                     && text(package, "version")? == "0.0.0" =>
@@ -127,6 +135,14 @@ impl DependencyProfile {
                 text(package, "version")?,
                 kind,
             );
+        }
+        if self == Self::ContinuityWireV1 {
+            return match (kind, text(package, "name")?, text(package, "version")?) {
+                ("normal", "arboresce-domain", "0.0.0")
+                | ("normal", "serde", "1.0.229")
+                | ("normal", "serde_json", "1.0.151") => Ok(()),
+                _ => Err(GuardError::Dependency),
+            };
         }
         match (kind, text(package, "name")?, text(package, "version")?) {
             ("normal", "serde_json_canonicalizer", "0.4.1") | ("normal", "sha2", "0.10.9") => {
@@ -219,6 +235,9 @@ fn check_qualified_graph(
         DependencyProfile::JcsSourcePostgresV1 => {
             "cea739f5ca926bf0c0b53244c3063d2052d11020cfa889007f619b41e4d1b776"
         }
+        DependencyProfile::ContinuityWireV1 => {
+            "40e6539778730e8fd9648190c7fc05c527fbeda5ca66611f811bce692310a2da"
+        }
         DependencyProfile::Initial => return Err(GuardError::Dependency),
     };
     let (roots, mut pending) = selected_edges(owner, packages, true)?;
@@ -228,7 +247,12 @@ fn check_qualified_graph(
         if !seen.insert(id) {
             continue;
         }
-        if seen.len() > 23 {
+        let maximum = if profile == DependencyProfile::ContinuityWireV1 {
+            24
+        } else {
+            23
+        };
+        if seen.len() > maximum {
             return Err(GuardError::Dependency);
         }
         let package = packages.get(id).ok_or(GuardError::InvalidInput)?;

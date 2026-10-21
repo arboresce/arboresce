@@ -89,6 +89,17 @@ bind the reviewed shared features and derive edge while preserving every older
 profile fingerprint and source meaning. Current compiled/native/resource and
 strict qualification remains separate from admitting those graph intentions.
 
+The pure application selects `continuity-wire-v1` for its fixed journal decoder.
+Its [literal dependency profile](../../tests/architecture/fixtures/qualified-continuity-wire-dependencies-v1/README.md)
+admits exactly the owned domain, serde 1.0.229 and serde_json 1.0.151 normal roots
+and their complete 24-row closure. All 23 previously qualified external rows,
+features, archives and rights remain unchanged. The domain retains its existing
+profile; Initial behavior and every older fingerprint are preserved. The
+application retains its pure source policy and receives no domain-only writer
+exception. Missing/unknown selection, wrong ownership and any graph drift fail.
+Actual Cargo, full source/helper/process/native/strict and standalone evidence
+remain required before accepting the consumer.
+
 For actual migration-service qualification, use the explicit service variant:
 
 ```sh

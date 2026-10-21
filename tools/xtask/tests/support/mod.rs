@@ -584,6 +584,133 @@ pub mod native_trace {
     }
 }
 
+pub mod qualified_continuity_wire {
+    use super::PreparedRoot;
+    use serde_json::{Value, json};
+    use std::{fs, io};
+
+    /// Materialize supplied graph/source facts only, without expected decisions.
+    pub fn metadata(root: &PreparedRoot, input: &Value, source: Option<&str>) -> io::Result<Value> {
+        let mut metadata = root.metadata()?;
+        let owners = [
+            "arboresce",
+            "arboresce-domain",
+            "arboresce-application",
+            "arboresce-xtask",
+        ];
+        for name in ["arboresce-application", "arboresce-xtask"] {
+            let directory = root.path.join(if name == "arboresce-xtask" {
+                "tools/xtask".to_owned()
+            } else {
+                format!("crates/{name}")
+            });
+            fs::create_dir_all(directory.join("src"))?;
+            fs::write(
+                directory.join("Cargo.toml"),
+                format!("[package]\nname=\"{name}\"\nversion=\"0.0.0\"\n"),
+            )?;
+            fs::write(
+                directory.join("src/lib.rs"),
+                if name == "arboresce-application" {
+                    source.unwrap_or("pub fn value() -> u8 { 1 }\n")
+                } else {
+                    "pub fn value() -> u8 { 1 }\n"
+                },
+            )?;
+            metadata["packages"].as_array_mut().unwrap().push(json!({
+                "id":name,"name":name,"version":"0.0.0","source":null,
+                "manifest_path":directory.join("Cargo.toml"),
+                "targets":[{"name":name,"kind":["lib"],"src_path":directory.join("src/lib.rs")}]
+            }));
+            metadata["workspace_members"]
+                .as_array_mut()
+                .unwrap()
+                .push(json!(name));
+            metadata["resolve"]["nodes"]
+                .as_array_mut()
+                .unwrap()
+                .push(json!({"id":name,"features":[],"deps":[]}));
+        }
+        let id = |identity: &str| {
+            let name = identity.split('@').next().unwrap();
+            if owners.contains(&name) {
+                name.to_owned()
+            } else {
+                identity.to_owned()
+            }
+        };
+        let edges = |values: &Value| {
+            values.as_array().unwrap().iter().map(|edge| json!({
+            "name":edge["name"],"pkg":id(edge["package"].as_str().unwrap()),"dep_kinds":edge["kinds"],
+        })).collect::<Vec<_>>()
+        };
+        let mut owned_seen = std::collections::BTreeSet::new();
+        for row in input["graph"]["packages"].as_array().unwrap() {
+            let identity = row["package"].as_str().unwrap();
+            let declared = &input["declared_packages"][identity];
+            let package_id = id(identity);
+            let is_owned = owners.contains(&package_id.as_str());
+            if is_owned && owned_seen.insert(package_id.clone()) {
+                let package = metadata["packages"]
+                    .as_array_mut()
+                    .unwrap()
+                    .iter_mut()
+                    .find(|p| p["id"] == package_id)
+                    .unwrap();
+                package["name"] = declared["name"].clone();
+                package["version"] = declared["version"].clone();
+                package["source"] = row["source"].clone();
+                let node = metadata["resolve"]["nodes"]
+                    .as_array_mut()
+                    .unwrap()
+                    .iter_mut()
+                    .find(|p| p["id"] == package_id)
+                    .unwrap();
+                node["features"] = row["features"].clone();
+                node["deps"] = json!(edges(&row["dependencies"]));
+            } else {
+                metadata["packages"].as_array_mut().unwrap().push(json!({
+                    "id":package_id,"name":declared["name"],"version":declared["version"],"source":row["source"],
+                }));
+                metadata["resolve"]["nodes"].as_array_mut().unwrap().push(json!({
+                    "id":package_id,"features":row["features"],"deps":edges(&row["dependencies"]),
+                }));
+            }
+        }
+        for (name, profile) in input["workspace_profiles"].as_object().unwrap() {
+            let package = metadata["packages"]
+                .as_array_mut()
+                .unwrap()
+                .iter_mut()
+                .find(|p| p["id"] == *name)
+                .unwrap();
+            package["metadata"] = json!({"arboresce":{"architecture-profile":profile}});
+        }
+        // The selected owner's explicit input selection is applied last, including
+        // deliberate wrong-owner and absent-selection policy contexts.
+        let owner = input["owner"].as_str().unwrap();
+        let package = metadata["packages"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|p| p["id"] == owner)
+            .unwrap();
+        package.as_object_mut().unwrap().remove("metadata");
+        if input["profile_present"] == true {
+            package["metadata"] = json!({"arboresce":{"architecture-profile":input["profile"]}});
+        }
+        let node = metadata["resolve"]["nodes"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|p| p["id"] == owner)
+            .unwrap();
+        node["features"] = input["graph"]["owner_features"].clone();
+        node["deps"] = json!(edges(&input["graph"]["roots"]));
+        Ok(metadata)
+    }
+}
+
 pub mod qualified_source {
     use super::{PreparedRoot, qualified_number};
     use serde_json::Value;

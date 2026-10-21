@@ -1,5 +1,7 @@
 //! Pure checked continuity projections, without retained-byte or authenticity proof.
 
+pub mod wire;
+
 use arboresce_domain::{ContentRevision, Identifier, RevisionError, Sha256Digest};
 
 pub const MAX_BATCH_ENTRIES: usize = 256;

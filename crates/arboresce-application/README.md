@@ -109,3 +109,43 @@ recognition/retirement, recovery or serving. All remain mandatory at their
 consumers; this API grants no product/bootstrap writing permission. Source,
 helper, strict coverage and owning/public-only native qualification remain
 required under the declared source-inventory profile.
+
+# Fixed continuity wire
+
+`lifecycle::wire` selects exactly the 30 named internal journal definitions and
+their committed local schema imports. `Definition::matches_parsed` is a structural
+diagnostic for already parsed values. It preserves mathematical schema integers
+and structural uniqueness; it supplies no raw admission or historical proof.
+The fixed interpreter supports only the admitted keyword/pattern vocabulary,
+closed local references and a finite schema traversal. It cannot load a caller's
+schema, choose a URI or validate against a bare library root.
+
+`ControlDocument::parse` checks the complete slice's 1 MiB bound before parsing,
+valid UTF-8, at most 16 containers, 128 members, 256 elements, 65536 string scalars
+and valid 1..128-scalar keys. It rejects decoded duplicate keys, malformed JSON,
+invalid Unicode, trailing data, nonfinite/out-of-range numbers and nonzero
+underflow. Original numeric tokens select finite binary64 values without losing
+unsigned-token distinctions. General fractions, exponents and negative zero
+remain permitted in their declared general-value positions.
+
+`ControlDocument::check` separately enforces the selected complete shape and
+canonical unsigned protocol tokens. Its immutable `WireRecord` retains the exact
+original bytes; it exposes no mutable decoded object. Errors and document/record
+debug output do not contain supplied input. `WireRecord::project_batch` constructs
+the complete checked checkpoint and six-family entry scope projections for the
+existing pure matcher. A raw/shape-valid batch can still fail that scope match.
+
+The [wire fixtures](../../tests/integration/recovery/fixtures/continuity-wire-v1/README.md)
+keep 569 original parsed oracles separate from exact encoded inputs and complete
+typed observations. Input-only maintained helpers are measured source. The exact
+`continuity-wire-v1` dependency profile admits the owned domain and already
+qualified serde/serde_json graph only, without framework, I/O or new features.
+The declared native inventory includes both new measured Rust paths.
+
+Slice intake does not implement streaming or HTTP byte enforcement. This
+component qualifies neither canonical hashes, complete causal/authority joins,
+authentic binding/abort/inventory records, independent storage/acknowledgement,
+trusted beginning/tail/cutoff, recognition/retirement barriers nor recovery.
+All remain required before product/bootstrap writers or serving. Exact source,
+helper, process, native and strict owning/public-only qualification is separate
+from static fixture admission and is not established merely by these APIs.

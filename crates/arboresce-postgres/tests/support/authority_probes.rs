@@ -2082,6 +2082,50 @@ pub fn close_package_guard(input: &Value) -> Result<Value> {
     })
 }
 
+/// Preserve exact pins or the single fixed directed lock-source context.
+pub fn source_pin_matches(source_pin: &Value, actual: &Value) -> bool {
+    let (
+        Some(path),
+        Some(expected_hash),
+        Some(expected_bytes),
+        Some(actual_hash),
+        Some(actual_bytes),
+    ) = (
+        source_pin["path"].as_str(),
+        source_pin["sha256"].as_str(),
+        source_pin["bytes"].as_u64(),
+        actual["sha256"].as_str(),
+        actual["size"].as_u64(),
+    )
+    else {
+        return false;
+    };
+    if ![expected_hash, actual_hash].into_iter().all(|hash| {
+        hash.len() == 64
+            && hash
+                .bytes()
+                .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
+    }) {
+        return false;
+    }
+    if (expected_hash, expected_bytes) == (actual_hash, actual_bytes) {
+        return true;
+    }
+    let context: Value = serde_json::from_str(include_str!(
+        "../../../../tests/security/fixtures/owned-source-lock-context-v1/context.json"
+    ))
+    .expect("fixed source-lock context must be valid JSON");
+    path == "Cargo.lock"
+        && context["version"] == "owned-source-lock-context-v1"
+        && context["source_path"] == path
+        && context["source_authority"]["exact_dependency_graph_sha256"]
+            == "40e6539778730e8fd9648190c7fc05c527fbeda5ca66611f811bce692310a2da"
+        && context["baseline"]["sha256"] == expected_hash
+        && context["baseline"]["bytes"].as_u64() == Some(expected_bytes)
+        && context["candidate"]["sha256"] == actual_hash
+        && context["candidate"]["bytes"].as_u64() == Some(actual_bytes)
+}
+
 fn close_fixture_package(
     base: &std::path::Path,
     profile_version: &str,
@@ -2117,7 +2161,7 @@ fn close_fixture_package(
             8 << 20,
             Instant::now() + Duration::from_secs(10),
         )?;
-        if actual["sha256"] != row["sha256"] || actual["size"] != row["bytes"] {
+        if !source_pin_matches(row, &actual) {
             return Err("owned close source pin mismatch".into());
         }
     }
