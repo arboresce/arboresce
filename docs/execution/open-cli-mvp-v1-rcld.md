@@ -707,7 +707,7 @@ Verification: Independent literal contract/fixture oracles, owning language chec
 
 ### E205 — Enforce tenant roles, RLS and first-adapter admission
 
-Status: `in_progress`. Prerequisites: E204. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `complete`. Prerequisites: E204. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
@@ -951,9 +951,56 @@ continuity and the required authentication/command qualification must pass befor
 any product or bootstrap writer is enabled. Actual pooling, human, live-model,
 native release, recovery, user and production gates retain their own requirements.
 
+The canonical shared-reservation component is independently accepted at
+`9d308761ac89069b0a6ebf4f2a678f35f18567ab`. Its fifth forward migration
+preserves canonical ownership, scoped non-owner privileges and forced row
+security. Parent-first current membership locks precede organization and global
+capacity locks and exact reservation ownership. Atomic claims, bounded renewal,
+attempt and lease fences retain unresolved responsibility after cancellation,
+death, timeout or uncertain completion. Cleanup cannot grant new authority.
+Positive transaction completion and bounded owned transport destruction remain
+separate requirements.
+
+The source checkpoint's owning and independent public-only qualification lanes
+each pass 144 tests, 6,466 complete registered case events and all 103 strict
+scopes across 82 measured sources. Each conserves 351 commands, 20 whole harness
+executions, 25 objects, 212 main raw profiles, 722 physical launch/exit pairs,
+five native scopes and six complete lossless coverage exports. Measured-file
+sums in each lane are 24,675/25,319 executable lines and 44,560/48,074 regions;
+every required source, package, repository, target and native scope exceeds
+90% under its original gate. These file sums do not replace individual gates.
+Auxiliary probes remain outside whole coverage.
+
+Both exact emitted images retain their independently accepted conditional
+resource models and separate default/1 MiB-stack probes, each executing all 41
+selected source-JSON cases with complete raw-profile decoding. Requested payload
+and stack estimates are not process RSS or operating-system memory bounds.
+Both original service cohorts and adopted restart successors complete positive
+owned cleanup inside their original unextended leases. Failed and held attempts
+retain their actual outcomes and unknown causes.
+
+Whole checkpoint review reconciles all 142 admitted original cases: five
+principal-port, ten bootstrap-scope, 25 tenant-relationship, 72 current-SQL
+authority, seven permission-race and 23 shared-admission inputs. The additional
+72 original pure-policy observations also remain exercised. Exact source,
+current complete qualification and independent source/public, expected-value
+and distinct delivery acceptance reconcile at the committed source above.
+The other 43 original authentication/replay cases remain later-consumer inputs.
+
+This historical annotation changes only this plan. All 403 other qualified
+public inputs remain unchanged; it claims no new executable qualification on
+annotated bytes. E205 is complete for the isolated tenant and admission
+foundation. E206's authentic independent lifecycle continuity remains the next
+consumer before canonical or bootstrap writers. Actual authentication, grant
+consumption, first-owner insertion, general pooling, human assurance, live
+processing, packaged recovery, other native profiles, users and production
+retain their separate gates. Product and bootstrap writers remain disabled.
+
 Definition of green: Actual non-owner roles and concurrent current-authority/admission fences prevent tenant bleed and quota bypass; bootstrap namespace and all relationship references are scoped.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
+
+Checkpoint: 9d308761ac89069b0a6ebf4f2a678f35f18567ab; Evidence: [Tenant and admission checkpoint](open-cli-mvp-v1-rcld.md)
 
 ### E206 — Implement independent lifecycle continuity before first writers
 
