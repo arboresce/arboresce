@@ -1023,6 +1023,14 @@ validation, authentic retained bytes, binding/abort proof, storage authority,
 cutoff, recovery or writer permission. Its source/helper/native qualification and
 all remaining continuity obligations stay mandatory; whole E206 is unaccepted.
 
+The next bounded input package, [fixed continuity wire fixtures](../../tests/integration/recovery/fixtures/continuity-wire-v1/README.md),
+selects all unchanged internal parsed-shape oracles, separate exact raw controls
+and typed scope compositions, plus an exact pure application dependency profile
+and prospective native source count. Independent literal admission and committed
+delivery precede any consumer. It establishes no authenticity, retained binding,
+abort/inventory interpretation, durable storage, cutoff, recovery or writer
+permission; every remaining whole-continuity requirement remains mandatory.
+
 Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.

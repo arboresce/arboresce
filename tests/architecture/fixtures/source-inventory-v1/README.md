@@ -224,3 +224,17 @@ output. Independent committed fixture delivery must precede the changed profile'
 consumer. This declaration qualifies no future source, native execution or whole
 continuity behavior; complete source/target vectors and all required coverage
 and actual owning/public-only native lanes still require fresh qualification.
+
+## Continuity wire prospective native count
+
+The independently frozen97-source profile has raw role-profile SHA-256
+`1ce34d2c9efd1da4fe93539290eb3065b14924b1d7449e97cee6caeed300469e`. It adds exactly two measured application paths:
+`crates/arboresce-application/src/lifecycle/wire.rs` and
+`crates/arboresce-application/tests/support/continuity_wire.rs`.
+Its86 measured, ten assertion and one declaration sources retain ten actual
+targets and require96 LLVM rows. All old80/82/93/95 literal entries remain exact.
+
+This static count entry precedes any consumer or profile activation. The active
+95-source file remains unchanged here. Select by its actual raw hash; no observed
+result supplies an expected count. Full vectors, source/helper/native/strict
+coverage, fresh owning/standalone qualification and independent delivery remain.
