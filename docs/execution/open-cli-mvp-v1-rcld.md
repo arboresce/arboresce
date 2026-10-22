@@ -1071,6 +1071,15 @@ retirement trigger; no authentic profile/store, clock proof, legal barrier/GC,
 recovery or first-writer permission is inferred. Full consumer/native/strict/
 original-owner MODEL/probe and actual delivery requirements remain mandatory.
 
+The [native invocation identity inputs](../../tests/architecture/fixtures/native-invocation-v2/README.md)
+define a separately selected measurement protocol for process lifetimes. Actual
+PID reuse must preserve distinct immutable launch/exit, parent and raw-profile
+identities. Historical PID-unique profiles and literal meanings remain intact.
+Independent complete input admission and committed delivery precede this tooling
+consumer. Its implementation and complete owning/public-only qualification are
+prerequisites for affected source delivery; no deadline, test, coverage, native,
+cleanup, review or lifecycle-continuity requirement is waived.
+
 Definition of green: Existing six-family prepared/committed/abort continuity, inventory interpretation, admission recognition and scope-retirement barriers qualify against independently retained authentic bytes; unknown tail/cutoff keeps affected serving closed.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
