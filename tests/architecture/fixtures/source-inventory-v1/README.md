@@ -241,3 +241,19 @@ coverage, fresh owning/standalone qualification and independent delivery remain.
 
 Recognition adds two measured paths: 99 Rust sources, 88 measured, ten assertion,
 one declaration, 98 LLVM rows and ten targets.
+
+## Shared fixture support prospective native count
+
+The prospective role-profile raw SHA-256 is
+2e8e32874357b36f65b1459f388bbb4a6ef41a2d8ab2e50abfe35c6aedf8ae8a.
+It adds exactly one measured path, tools/xtask/tests/support/fixture_io.rs.
+The declared count is 100 Rust sources: 89 measured, ten assertion and one
+declaration, with 99 LLVM report rows and the same ten targets. Both actual peer
+inventory closures include the shared module. Every historical profile binding
+and complete expected vector remains unchanged.
+
+This additive static declaration must receive independent committed delivery
+before the changed profile's native inventory consumer. It does not accept that
+source implementation or supply a runtime result. Fresh complete owning and
+public-only qualification, measured support and native source closures, strict
+coverage and independent source acceptance remain required.
