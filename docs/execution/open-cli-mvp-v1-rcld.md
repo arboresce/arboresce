@@ -1267,7 +1267,7 @@ Verification: Independent literal contract/fixture oracles, owning language chec
 
 ### E218 — Freeze typed intelligence and durable stage messages
 
-Status: `in_progress`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `blocked`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P4.
 
@@ -1321,9 +1321,37 @@ actual delivery, both original-owner receipts and their finite closing exchange
 are complete. The earlier input-preimage hold, authoring-route, static-check and
 freezer failures remain retained. These are historical qualifications of the
 exact source commits; this annotation does not claim a fresh executable run.
-Complete StageRequest/StageResponse examples and cross-record validation remain
-unfinished. No complete E218, generated service, model, writer or recovery
+Complete StageRequest/StageResponse literal inputs are independently admitted
+at `620473251dabfbf672e0c5965fb59c652225d96f`. Cross-record consumer qualification
+remains blocked. No complete E218, generated service, model, writer or recovery
 acceptance follows.
+
+The [complete-stage examples](../../tests/contract/intelligence/v1/stage-vectors.json)
+retain 359 complete exchanges: 250 request admits and 109 refusals, with 103
+response admits, 147 refusals and 109 unconsumed responses. All 718 frame
+occurrences, 709 distinct protobuf frames and 493 supplied material keys retain
+their independently admitted bytes and answers. Owning comparison facts preserve
+typed values, current and historical source/provenance joins, exact identities,
+fixed clocks and whole-operation accounting. Protobuf literals are explicitly
+binary Git assets so text handling cannot alter their bytes.
+
+Independent input/requirements/public review, normal local commit, distinct
+actual delivery, both original-owner receipts and their finite paired exchange
+are complete for that input checkpoint. The acceptance covers recorded inputs
+and their owning comparison facts. It accepts no complete-stage comparator.
+
+An unaccepted semantic-consumer prototype is recoverably held outside committed
+source. An earlier full property test recorded a failure whose detailed report
+was lost when its session timed out. Its cause remains unresolved; later green
+runs do not resolve that unknown failure. Earlier framing and fixed-record source
+retain their accepted versions and historical evidence.
+
+Complete current-source owning and public-only qualification, all applicable
+process/profile/raw and strict coverage gates, independent source/expected/public
+review, normal commit and actual delivery remain required before the semantic
+consumer and whole E218 can be accepted. Synthetic literals supply no actual
+authority, clock, media/model, human, storage, recovery or installed-command
+qualification. Dependent consumers retain their prerequisites.
 
 The framing component now has a separate
 [conformance project](../../contracts/intelligence-validation/README.md).
