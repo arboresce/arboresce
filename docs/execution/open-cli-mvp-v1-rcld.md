@@ -1290,11 +1290,40 @@ branches; measured support covers 35/35 and 2/2. Both projects' formatting, lint
 and strict typing pass. Independent source/public/qualification review, normal
 commit, distinct actual delivery and both genuine owner receipts are complete.
 The first exactly-90% diagnostic, earlier shared-profile hold, transitive drift
-and unscoped-node attempt remain retained failures or holds. Complete semantic
-examples, fixed record codecs and cross-record validation remain unfinished.
-This is historical qualification of the exact source commit; this annotation
-does not claim a fresh executable run. No complete E218, generated service,
-model, writer or recovery acceptance follows.
+and unscoped-node attempt remain retained failures or holds.
+
+The bounded fixed-record consumer is independently accepted and normally
+committed at `bbc9abe589b27d1bc442c0ef69ab6eb9b5e51b08`. Eighty literal record
+inputs, twelve explicit-limit configurations and six intake forms were admitted
+independently before implementation. The fourteen fixed targets enforce exact
+immutable JCS bytes, selected byte/depth limits, complete schemas, own identities,
+intrinsic quote conditions and profile limits. Candidate and financial content
+retain their existing public envelope preimages and declared set normalization;
+the financial preimage retains its separate 131,072-byte ceiling. The transport
+reader does not inherit unrelated source-JSON node quotas.
+
+Both fresh owning/public-only lanes pass 2,832 ordered tests and 101 subtests,
+preserving all 2,729 earlier node identities and adding 103 record nodes. Each
+reconciles ninety-six reaped children, all ninety-seven raw profiles and their
+exact combined arc union. All twenty-one strict scopes pass. Record source
+covers 182/184 lines and 71/74 branches; measured support covers 31/31 lines with
+instrumenter-confirmed zero branches. The complete Python profile covers
+3,806/3,875 lines and 1,708/1,762 branches. Both projects' formatting, lint and
+strict typing pass with zero typing diagnostics. Complete before/after closures
+are exact at 21,729 owning and 21,730 standalone entries. All 21,175 earlier
+external files remain exact; one additional intelligence-environment bytecode
+cache was reconciled to the unchanged source and consumed unchanged in both runs.
+The separate accepted primary environment remains unchanged. No new primary
+121-command protocol pass is claimed.
+
+Independent source/public/qualification review, normal local commit, distinct
+actual delivery, both original-owner receipts and their finite closing exchange
+are complete. The earlier input-preimage hold, authoring-route, static-check and
+freezer failures remain retained. These are historical qualifications of the
+exact source commits; this annotation does not claim a fresh executable run.
+Complete StageRequest/StageResponse examples and cross-record validation remain
+unfinished. No complete E218, generated service, model, writer or recovery
+acceptance follows.
 
 The framing component now has a separate
 [conformance project](../../contracts/intelligence-validation/README.md).
@@ -1302,8 +1331,8 @@ The primary validator's project, lock, thirteen-module configuration, source,
 coverage and commands retain their accepted bytes. The intelligence project owns
 protobuf and the new package without shadowing the primary package. Its combined
 profile must freshly qualify both source/helper trees and all thirteen prior
-modules plus the framing module. Earlier shared-profile runs remain historical
-evidence; they do not qualify moved paths. Exact primary reuse requires its actual
+modules plus the framing and record modules. Earlier shared-profile runs remain
+historical evidence; they do not qualify moved paths. Exact primary reuse requires its actual
 accepted input/tool/environment closure, and a changed primary profile retains
 the full 121-command requirement. No primary protocol gate is waived.
 
