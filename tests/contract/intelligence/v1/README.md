@@ -44,6 +44,39 @@ integer maxima and arbitrary bytes without relaxing ordinal, fence or JCS
 semantics. These examples require independent admission before consumption;
 their expected answers do not come from the decoder.
 
+[Record inputs](record-codecs.json) separately draft complete JCS values for
+all fourteen fixed record fields. They contain real computed profile/core,
+source, plan, result and proposed initial-content preimages; they do not reuse
+placeholder digests as semantic evidence. Candidate and expense examples retain
+their complete owning public preimage envelopes and normalize only the declared
+sets. Literal permutations preserve their content identity; duplicate identities
+and bare-content hashes are refused. Their selected codec is
+`intelligence-jcs-v1`. Independent literal admission remains required before
+any maintained record consumer executes.
+
+The record scope is canonical bytes, the fixed complete target, own identity/
+digest preimages, intrinsic quote fractions/validity and a profile's own limits.
+It is not complete StageRequest/StageResponse admission. Cross-record source,
+context, allocation, stage, deadline, dependency, locator and exposure/cost joins,
+authenticated authority and actual processing remain separate required gates.
+The SuccessfulStage and FailedStage labels select their named complete JCS
+fields, not the containing protobuf messages.
+
+All payload paths identify literal bytes. Negative files deliberately include
+invalid UTF-8, an unpaired Unicode escape, duplicate members, noncanonical
+spellings, partial records and shape-valid wrong digests. Expected fields stay
+in thin assertions, outside measured decoders and support inputs. The authoring
+recipe uses independently declared UTF-16 ordering and standard JSON for its
+integer/string/bool/null examples. Numeric boundary spellings were selected
+literally from JCS. No prospective consumer supplied those expectations.
+
+The two large additive records have 65,536 and 262,144 scalar elements plus
+their containers, all within the transport's byte/depth/collection limits.
+They exceed the unrelated source-JSON profile's node quotas. Depth 64 is legal;
+depth 65 is refused. Selected byte/depth boundaries reuse the same complete
+record. Configuration inputs require explicit integer limits within the declared
+ranges; mutable byte views and text are not exact immutable byte intake.
+
 These are synthetic conformance bytes. They qualify no running RPC, model,
 provider, pricing authority, persistence, recovery, canonical writer or user
 journey. Complete semantic examples and applicable source/generation/process

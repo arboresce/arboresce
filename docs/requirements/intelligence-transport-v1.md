@@ -42,6 +42,9 @@ wrapper carries complete JCS bytes for exactly one fixed target:
 
 No caller-selected schema URI, generic JSON or Any fallback exists. A fixed
 wrapper does not permit partial record decoding or an alternate public preimage.
+This version names that fixed UTF-8/JCS record codec `intelligence-jcs-v1` in
+the selected processing profile. An unknown codec name remains unsupported;
+its presence or a valid profile digest cannot enable a fallback.
 Expense content supplies no confirmation/voiding authority. Project output cannot
 manufacture an accepted resource, mapping or second approval ledger.
 
@@ -63,6 +66,8 @@ The mandatory profile field max_json_depth selects a narrower limit from 1..64,
 and every complete record, including the profile itself, must fit that selection.
 Missing limits or a profile too small to hold its own required records fail;
 there is no library-default fallback.
+Use these declared transport limits. The separate source-JSON selection
+profile's narrower node quotas do not apply to this record codec.
 
 Enforce the selected profile's message/record/collection limits and complete
 combined headroom. Check whole UTF-8/JCS values, Unicode, duplicate keys, numbers
@@ -109,7 +114,16 @@ Accepted dependency results cannot be overwritten through another output.
 CandidateProposalRecord carries a complete candidate_reference and unchanged
 candidate_content. ExpenseProposalRecord carries a complete expense_reference
 and unchanged financial_content. These are proposed initial references: content
-revision kind content, value 1, and content_sha256 equals SHA256(JCS(content)).
+revision kind content, value 1. Their content_sha256 retains the complete owning
+public preimage. Candidate identity uses the exact context and normalized content
+inside the four-field candidate_content envelope defined by the
+[candidate contract](candidate-review-contract.md#canonical-candidate-identity).
+Expense identity uses the exact organization/domain and normalized content inside
+the arboresce.financial-content.v1 envelope, including its 131,072-byte bound,
+defined by the [financial contract](financial-records.md#canonical-financial-identity).
+Normalize only the declared evidence, binding and basis sets after rejecting
+duplicate identities. Retain all other values and array order. Bare content
+hashes do not identify either proposal family.
 Scope and the explicit own ID must match the source and the corresponding
 allocated candidate/expense ID. Neither envelope supplies recorded_at, audit,
 acceptance, confirmation or other server-owned fields.

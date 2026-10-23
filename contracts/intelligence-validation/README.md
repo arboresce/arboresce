@@ -1,6 +1,6 @@
 # Intelligence transport conformance
 
-This project owns closed protobuf framing for the
+This project owns closed protobuf framing and fixed JCS record reads for the
 [intelligence transport](../../docs/requirements/intelligence-transport-v1.md).
 Its package is `arboresce_intelligence_validation`. Its own project, lock and
 environment select protobuf 7.36.2 without adding that dependency to the
@@ -25,8 +25,23 @@ protobuf declaration files describe only consumed interfaces of the pinned
 runtime; actual descriptor loading and decoding must verify their coupling.
 The [generation contract](../internal/proto/README.md) owns reproducible inputs.
 
-Complete fixed JCS codecs, selected profile limits, request/response identities,
-clocks, exposure history and cost joins remain separate required consumers.
+`record_codec.decode_record` selects one of fourteen fixed `RecordCodec` targets
+and requires explicit `RecordLimits`. It accepts exact immutable UTF-8/JCS bytes
+within the selected record/depth limits, validates the complete owning schema,
+and checks own identity/preimage, intrinsic quote and profile-limit conditions.
+The pinned RFC 8785 writer has a bounded output sink. Candidate and expense
+identities retain their public envelope preimages and normalize only their
+declared sets; financial preimages retain their separate 131,072-byte ceiling.
+The transport codec has no source-JSON node quota. A success returns immutable
+canonical bytes and their digest with a redacted representation; failures return
+only `RecordFailure.RECORD`. Configuration is program-selected, never a schema URI.
+
+The eighty independently admitted literal record cases, twelve explicit-limit
+cases and six intake forms keep expected answers in thin assertions.
+`tests/record_support.py` is measured support. Record admission does not establish
+full request/response joins or grant authority.
+Selected combined profile limits, request/response identities, clocks, exposure
+history and cost joins remain separate required consumers.
 Generated service bindings, authenticated workers/providers, resource containment,
 canonical storage, recovery and actual processing retain their qualification
 gates. This component does not establish a running RPC or a usable product journey.
@@ -51,6 +66,9 @@ Run the primary project's unchanged formatting, lint and strict typing too.
 Use the prepared Node 26.8.1 and Pyright 1.1.411 direct entrypoint described in
 the primary guidance, selecting this project's `pyproject.toml` and interpreter
 for the separate intelligence check. Require zero diagnostics in both checks.
+The intelligence type-check search includes its own source and the primary
+source/interface declarations. Both runtime import paths are explicit; the
+primary project, configuration and declarations remain unchanged.
 Verification never installs or fetches tools.
 The isolated project's constraints preserve the accepted primary external
 dependency versions, including transitive packages. Compare complete selected
@@ -59,8 +77,8 @@ insufficient. Dependency changes require their affected qualification.
 
 ## Complete combined source qualification
 
-The complete profile selects all thirteen primary modules plus the sole registered
-module in `contracts/intelligence-validation/tests/`. Its configuration
+The complete profile selects all thirteen primary modules plus the two registered
+modules in `contracts/intelligence-validation/tests/`. Its configuration
 adds both public source directories to pytest's import path. Keep primary
 `--rootdir` so the thirteen existing modules preserve their node identities.
 Both packages have distinct import names; neither shadows the other.
@@ -74,12 +92,13 @@ only these explicit selection substitutions in both collection and measurement:
 - Select this project's `pyproject.toml` with `-c`; keep the primary project's
   absolute path as `--rootdir`.
 - Keep all thirteen primary test-file arguments. Prove this project's test
-  directory contains exactly the registered `test_intelligence.py`, then append
+  directory contains exactly `test_intelligence.py` and `test_records.py`, then append
   that directory exactly once. Directory selection gives the moved module its
   file prefix; selecting an individual file outside `rootdir` loses that prefix
   in the pinned pytest release. Require the resulting 62 framing node identities
-  to start with `test_intelligence.py::` and all 2,667 primary identities to match
-  their retained ordered collection exactly.
+  to start with `test_intelligence.py::`, the record identities to start with
+  `test_records.py::`, and all 2,667 primary identities and 62 framing identities
+  to match their retained ordered collections exactly.
 - Select this project's `tests/coverage.ini` for the combined parent measurement.
   It includes both packages and both maintained-helper trees without exclusions.
 
