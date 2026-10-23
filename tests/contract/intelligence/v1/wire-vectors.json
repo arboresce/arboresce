@@ -1,0 +1,300 @@
+{
+  "version": "arboresce.intelligence-wire-v1",
+  "validation_scope": "closed-protobuf-framing-only",
+  "cases": [
+    {
+      "id": "wire-scope-empty",
+      "message": "Scope",
+      "bytes_hex": "",
+      "valid": true,
+      "reason": "Framing alone does not require consequential fields."
+    },
+    {
+      "id": "wire-scope-organization",
+      "message": "Scope",
+      "bytes_hex": "0a036f7267",
+      "valid": true,
+      "reason": "Known string field with a minimal length."
+    },
+    {
+      "id": "wire-scope-field-order-forward",
+      "message": "Scope",
+      "bytes_hex": "0a01611201621a0163",
+      "valid": true,
+      "reason": "Distinct known fields in ascending order."
+    },
+    {
+      "id": "wire-scope-field-order-reversed",
+      "message": "Scope",
+      "bytes_hex": "1a01631201620a0161",
+      "valid": true,
+      "reason": "Protobuf field order is not a canonical preimage."
+    },
+    {
+      "id": "wire-scope-unicode",
+      "message": "Scope",
+      "bytes_hex": "0a02c3a9",
+      "valid": true,
+      "reason": "Well-formed UTF-8 string."
+    },
+    {
+      "id": "wire-binding-ordinal-zero-present",
+      "message": "Binding",
+      "bytes_hex": "2800",
+      "valid": true,
+      "reason": "Explicit optional ordinal zero is present."
+    },
+    {
+      "id": "wire-binding-ordinal-absent",
+      "message": "Binding",
+      "bytes_hex": "",
+      "valid": true,
+      "reason": "Missing optional ordinal remains absent at this layer."
+    },
+    {
+      "id": "wire-binding-ordinal-63",
+      "message": "Binding",
+      "bytes_hex": "283f",
+      "valid": true,
+      "reason": "Highest declared stage ordinal."
+    },
+    {
+      "id": "wire-binding-attempt-one",
+      "message": "Binding",
+      "bytes_hex": "3801",
+      "valid": true,
+      "reason": "First attempt ordinal."
+    },
+    {
+      "id": "wire-binding-worker-fence",
+      "message": "Binding",
+      "bytes_hex": "5801",
+      "valid": true,
+      "reason": "Positive worker fence."
+    },
+    {
+      "id": "wire-binding-stage-normalize",
+      "message": "Binding",
+      "bytes_hex": "6001",
+      "valid": true,
+      "reason": "Declared non-sentinel enum value."
+    },
+    {
+      "id": "wire-binding-output-representation",
+      "message": "Binding",
+      "bytes_hex": "6801",
+      "valid": true,
+      "reason": "Declared non-sentinel enum value."
+    },
+    {
+      "id": "wire-request-repeated-prior-results",
+      "message": "StageRequest",
+      "bytes_hex": "42040a027b7d42040a027b7d",
+      "valid": true,
+      "reason": "Repeated messages permit separate occurrences; complete record meaning is checked later."
+    },
+    {
+      "id": "wire-response-success-oneof",
+      "message": "StageResponse",
+      "bytes_hex": "2200",
+      "valid": true,
+      "reason": "A single success member; complete result validation remains separate."
+    },
+    {
+      "id": "wire-response-failure-oneof",
+      "message": "StageResponse",
+      "bytes_hex": "2a00",
+      "valid": true,
+      "reason": "A single failure member; complete failure validation remains separate."
+    },
+    {
+      "id": "wire-field-zero",
+      "message": "Scope",
+      "bytes_hex": "00",
+      "valid": false,
+      "reason": "Field number zero is forbidden."
+    },
+    {
+      "id": "wire-unknown-scope-field",
+      "message": "Scope",
+      "bytes_hex": "220178",
+      "valid": false,
+      "reason": "The selected version rejects an unknown field."
+    },
+    {
+      "id": "wire-duplicate-string",
+      "message": "Scope",
+      "bytes_hex": "0a01610a0162",
+      "valid": false,
+      "reason": "The selected version rejects duplicate singular values."
+    },
+    {
+      "id": "wire-string-wrong-type",
+      "message": "Scope",
+      "bytes_hex": "0801",
+      "valid": false,
+      "reason": "String field encoded as a varint."
+    },
+    {
+      "id": "wire-string-invalid-utf8",
+      "message": "Scope",
+      "bytes_hex": "0a01ff",
+      "valid": false,
+      "reason": "String bytes are invalid UTF-8."
+    },
+    {
+      "id": "wire-string-surrogate",
+      "message": "Scope",
+      "bytes_hex": "0a03eda080",
+      "valid": false,
+      "reason": "A surrogate is not a Unicode scalar."
+    },
+    {
+      "id": "wire-string-overlong-utf8",
+      "message": "Scope",
+      "bytes_hex": "0a02c080",
+      "valid": false,
+      "reason": "Overlong UTF-8 is invalid."
+    },
+    {
+      "id": "wire-truncated-string",
+      "message": "Scope",
+      "bytes_hex": "0a0261",
+      "valid": false,
+      "reason": "Length exceeds the available bytes."
+    },
+    {
+      "id": "wire-truncated-length",
+      "message": "Scope",
+      "bytes_hex": "0a80",
+      "valid": false,
+      "reason": "Length varint never terminates."
+    },
+    {
+      "id": "wire-overlong-length",
+      "message": "Scope",
+      "bytes_hex": "0a810061",
+      "valid": false,
+      "reason": "The selected version requires shortest varints."
+    },
+    {
+      "id": "wire-overlong-tag",
+      "message": "Binding",
+      "bytes_hex": "a80000",
+      "valid": false,
+      "reason": "Field tag is not shortest-form encoded."
+    },
+    {
+      "id": "wire-overlong-value",
+      "message": "Binding",
+      "bytes_hex": "288000",
+      "valid": false,
+      "reason": "Zero value is not shortest-form encoded."
+    },
+    {
+      "id": "wire-truncated-value",
+      "message": "Binding",
+      "bytes_hex": "2880",
+      "valid": false,
+      "reason": "Scalar varint never terminates."
+    },
+    {
+      "id": "wire-uint32-overflow",
+      "message": "Binding",
+      "bytes_hex": "288080808010",
+      "valid": false,
+      "reason": "A uint32 field cannot contain 2^32."
+    },
+    {
+      "id": "wire-uint64-overflow",
+      "message": "Binding",
+      "bytes_hex": "5880808080808080808002",
+      "valid": false,
+      "reason": "A uint64 field cannot exceed 2^64 minus one."
+    },
+    {
+      "id": "wire-stage-enum-unspecified",
+      "message": "Binding",
+      "bytes_hex": "6000",
+      "valid": false,
+      "reason": "The selected version rejects the unspecified stage sentinel."
+    },
+    {
+      "id": "wire-stage-enum-unknown",
+      "message": "Binding",
+      "bytes_hex": "60ff01",
+      "valid": false,
+      "reason": "Stage enum 255 is outside the declared inventory."
+    },
+    {
+      "id": "wire-output-enum-unspecified",
+      "message": "Binding",
+      "bytes_hex": "6800",
+      "valid": false,
+      "reason": "The selected version rejects the unspecified output sentinel."
+    },
+    {
+      "id": "wire-output-enum-unknown",
+      "message": "Binding",
+      "bytes_hex": "6805",
+      "valid": false,
+      "reason": "Output enum 5 is outside the declared inventory."
+    },
+    {
+      "id": "wire-start-group",
+      "message": "Scope",
+      "bytes_hex": "0b0c",
+      "valid": false,
+      "reason": "Groups are not a supported wire type."
+    },
+    {
+      "id": "wire-fixed64-wrong-type",
+      "message": "Scope",
+      "bytes_hex": "090000000000000000",
+      "valid": false,
+      "reason": "No fixed64 field exists at this position."
+    },
+    {
+      "id": "wire-fixed32-wrong-type",
+      "message": "Scope",
+      "bytes_hex": "0d00000000",
+      "valid": false,
+      "reason": "No fixed32 field exists at this position."
+    },
+    {
+      "id": "wire-reserved-wire-type",
+      "message": "Scope",
+      "bytes_hex": "0e",
+      "valid": false,
+      "reason": "Wire type 6 is unsupported."
+    },
+    {
+      "id": "wire-duplicate-nested-message",
+      "message": "StageRequest",
+      "bytes_hex": "12001200",
+      "valid": false,
+      "reason": "Duplicate singular nested messages cannot merge silently."
+    },
+    {
+      "id": "wire-unknown-nested-field",
+      "message": "StageRequest",
+      "bytes_hex": "12022200",
+      "valid": false,
+      "reason": "Unknown-field rejection applies recursively."
+    },
+    {
+      "id": "wire-oneof-conflicting-members",
+      "message": "StageResponse",
+      "bytes_hex": "22002a00",
+      "valid": false,
+      "reason": "Both outcome members cannot be supplied."
+    },
+    {
+      "id": "wire-oneof-repeated-member",
+      "message": "StageResponse",
+      "bytes_hex": "22002200",
+      "valid": false,
+      "reason": "Repeating the same outcome is also a duplicate singular member."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "arboresce.intelligence-wire-boundaries-v1",
+  "validation_scope": "closed-protobuf-framing-only",
+  "cases": [
+    {
+      "id": "wire-frame-exact-one-mib",
+      "message": "Scope",
+      "prefix_hex": "0afcff3f",
+      "repeat_ascii": "x",
+      "repeat_count": 1048572,
+      "frame_bytes": 1048576,
+      "valid": true,
+      "reason": "Known string tag and shortest length 1048572 occupy four bytes; the complete frame equals the hard cap. This is not a semantic UUID."
+    },
+    {
+      "id": "wire-frame-one-byte-above-one-mib",
+      "message": "Scope",
+      "prefix_hex": "0afdff3f",
+      "repeat_ascii": "x",
+      "repeat_count": 1048573,
+      "frame_bytes": 1048577,
+      "valid": false,
+      "reason": "A correctly framed string would exceed the complete-frame hard cap by one byte; refuse it before protobuf decoding."
+    }
+  ]
+}

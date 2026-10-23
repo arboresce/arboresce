@@ -34,6 +34,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | [Lifecycle and operation contract](lifecycle-contract.md) | Exact operations/plans, cancellation, explicit capture analysis, subject controls, action/propagation/repair obligations, sealed financial delivery, immutable feedback and internal recognition/retirement/continuity records |
 | [Listing and selection contract](selection-contract.md) | Finite bodyless listing/exact companion reads, normalized filters and authenticated cursors, complete asset/supersession resources and bounded synchronous search with unsigned selection receipts |
 | [Processing](processing.md) | Grounded extraction, supported processing, deterministic orchestration and model gateway behavior |
+| [Intelligence transport candidate](intelligence-transport-v1.md) | Typed internal stage messages, fixed record codecs and pending independent transport qualification |
 | [Storage and search](storage-and-search.md) | Persistence invariants, outbox/projections, sealing and bounded retrieval mechanics |
 | [Security and privacy](security-and-privacy.md) | Identity, authorization, human assurance, acquisition, egress and lifecycle protection |
 | [Resource profiles](resource-profiles.md) | Resource envelopes, workload profiles, shared admission and measurement budgets |

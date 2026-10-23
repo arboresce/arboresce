@@ -1262,11 +1262,39 @@ Verification: Independent literal contract/fixture oracles, owning language chec
 
 ### E218 — Freeze typed intelligence and durable stage messages
 
-Status: `not_started`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P4.
 
-Scope: Freeze typed intelligence and durable stage messages; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
+Scope: Freeze typed intelligence and durable stage messages; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation. The [stage transport candidate](../requirements/intelligence-transport-v1.md) pairs fixed complete-record codecs with a bounded structural/semantic consumer, explicit profiles, complete evidence and reproducible protobuf inputs. Its existence supplies no acceptance or runtime permission.
+
+Current candidate: twenty protobuf messages retain fixed complete-record codecs,
+explicit workspace/project context, stage-scoped output allocations and proposed
+initial candidate/expense references. Admitted complete quotes, selected JSON
+depth, exact receipt identities and prior exposure history retain their owning
+joins. Two fresh pinned native compiler runs produced identical descriptor bytes;
+this establishes descriptor reproduction only. Independent input review admitted
+forty-two original raw framing vectors, two frame-cap recipes and eight additional
+scalar/Unicode boundary vectors before their consumption. The maintained framing
+consumer and measured helper now exist. Its first 54-case diagnostic passed and
+strict typing reported no diagnostics, but branch coverage was exactly 90% and
+failed the strict gate. The additive scalar wrong-wire cases address that missing
+behavior without changing the admitted expectations or threshold. Fresh complete
+owning/public-only source/helper/process qualification and independent delivery
+remain required before a green source checkpoint. Complete semantic examples,
+fixed record codecs and cross-record validation remain unfinished. No complete
+E218, generated service, model, writer or recovery acceptance follows.
+
+The framing component now has a separate
+[conformance project](../../contracts/intelligence-validation/README.md).
+The primary validator's project, lock, thirteen-module configuration, source,
+coverage and commands retain their accepted bytes. The intelligence project owns
+protobuf and the new package without shadowing the primary package. Its combined
+profile must freshly qualify both source/helper trees and all thirteen prior
+modules plus the framing module. Earlier shared-profile runs remain historical
+evidence; they do not qualify moved paths. Exact primary reuse requires its actual
+accepted input/tool/environment closure, and a changed primary profile retains
+the full 121-command requirement. No primary protocol gate is waived.
 
 Planned paths: `contracts/internal/proto/`, `contracts/internal/`, `tests/contract/intelligence/`
 

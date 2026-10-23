@@ -1,0 +1,79 @@
+[project]
+name = "arboresce-intelligence-validation"
+version = "0.1.0"
+description = "Closed intelligence transport conformance"
+requires-python = "==3.14.7"
+license = "MIT OR Apache-2.0"
+dependencies = [
+  "check-jsonschema==0.38.0",
+  "jsonschema==4.26.0",
+  "rfc3986-validator==0.1.1",
+  "rfc8785==0.1.4",
+  "protobuf==7.36.2",
+]
+
+[tool.uv]
+package = false
+required-version = "==0.12.10"
+# Preserve the primary profile's complete external version closure.
+constraint-dependencies = [
+  "attrs==26.1.0",
+  "certifi==2026.7.22",
+  "charset-normalizer==3.5.1",
+  "check-jsonschema==0.38.0",
+  "click==8.5.0",
+  "colorama==0.4.6",
+  "coverage==7.16.0",
+  "hypothesis==6.167.1",
+  "idna==3.19",
+  "iniconfig==2.3.0",
+  "jsonschema==4.26.0",
+  "jsonschema-specifications==2025.9.1",
+  "nodeenv==1.10.0",
+  "packaging==26.3",
+  "pluggy==1.6.0",
+  "pygments==2.21.0",
+  "pyright==1.1.411",
+  "pytest==9.1.1",
+  "referencing==0.37.0",
+  "regress==2026.9.1",
+  "requests==2.34.2",
+  "rfc3986-validator==0.1.1",
+  "rfc8785==0.1.4",
+  "rpds-py==2026.6.3",
+  "ruamel-yaml==0.19.1",
+  "ruff==0.16.6",
+  "sortedcontainers==2.4.0",
+  "typing-extensions==4.16.0",
+  "urllib3==2.7.0",
+]
+
+[tool.uv.sources]
+protobuf = { url = "https://files.pythonhosted.org/packages/e4/04/d52c7016b04b6c5108f26691f9d33ec82a9b65d041f1a9c771137693d618/protobuf-7.36.2-py3-none-any.whl" }
+
+[dependency-groups]
+dev = [
+  "coverage==7.16.0",
+  "hypothesis==6.167.1",
+  "pyright==1.1.411",
+  "pytest==9.1.1",
+  "ruff==0.16.6",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "../validation/tests"]
+pythonpath = ["src", "../validation/src"]
+addopts = "--strict-config --strict-markers -ra"
+filterwarnings = ["error"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
+
+[tool.pyright]
+include = ["src", "tests/intelligence_support.py"]
+pythonVersion = "3.14"
+typeCheckingMode = "strict"

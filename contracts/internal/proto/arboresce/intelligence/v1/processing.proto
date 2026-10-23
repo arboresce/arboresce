@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+package arboresce.intelligence.v1;
+
+// This contract carries proposals and observations. It grants no authority to
+// write canonical state. The complete record codec and admission rules are in
+// docs/requirements/intelligence-transport-v1.md.
+service Processing {
+  rpc RunStage(StageRequest) returns (StageResponse);
+}
+
+enum StageKind {
+  STAGE_KIND_UNSPECIFIED = 0;
+  NORMALIZE = 1;
+  EXTRACT = 2;
+  TRANSCRIBE = 3;
+  VALIDATE_OUTPUT = 4;
+  SYNTHESIZE = 5;
+}
+
+enum OutputKind {
+  OUTPUT_KIND_UNSPECIFIED = 0;
+  REPRESENTATION = 1;
+  OBSERVATION_SET = 2;
+  CANDIDATE_SET = 3;
+  EXPENSE_PROPOSAL_SET = 4;
+}
+
+message Scope {
+  string organization_id = 1;
+  string domain_id = 2;
+  string purpose = 3;
+}
+
+// Values are admitted/preallocated by Rust. An echo from a processor does not
+// authenticate these identities, establish ownership, or renew a worker fence.
+message Binding {
+  string operation_id = 1;
+  string plan_id = 2;
+  string plan_sha256 = 3;
+  string stage_id = 4;
+  optional uint32 stage_ordinal = 5;
+  string attempt_id = 6;
+  optional uint32 attempt_ordinal = 7;
+  string input_sha256 = 8;
+  string profile_sha256 = 9;
+  string stage_result_id = 10;
+  optional uint64 worker_fence = 11;
+  StageKind stage_kind = 12;
+  OutputKind output_kind = 13;
+}
+
+message Deadlines {
+  string admitted_at = 1;
+  string work_deadline = 2;
+  string reconciliation_deadline = 3;
+  string stage_started_at = 4;
+  string stage_deadline = 5;
+  string attempt_started_at = 6;
+  string attempt_deadline = 7;
+  optional uint64 remaining_attempt_ms = 8;
+}
+
+// Each bytes field below is the complete JCS encoding of exactly one named
+// target. There is no caller-selected schema, URI, generic JSON or Any fallback.
+message SourceInput {
+  bytes canonical_jcs = 1;
+}
+
+message ProcessingProfile {
+  bytes canonical_jcs = 1;
+}
+
+message OperationPlan {
+  bytes canonical_jcs = 1;
+}
+
+message PriorStageResult {
+  bytes canonical_jcs = 1;
+}
+
+message OperationExecution {
+  bytes canonical_jcs = 1;
+}
+
+message CostQuoteRecord {
+  bytes canonical_jcs = 1;
+}
+
+message PriorExposureLedger {
+  bytes canonical_jcs = 1;
+}
+
+message RepresentationRecord {
+  bytes canonical_jcs = 1;
+}
+
+message ObservationRecord {
+  bytes canonical_jcs = 1;
+}
+
+message ProjectChangeItemRecord {
+  bytes canonical_jcs = 1;
+}
+
+message CandidateProposalRecord {
+  bytes canonical_jcs = 1;
+}
+
+message ExpenseProposalRecord {
+  bytes canonical_jcs = 1;
+}
+
+message TypedOutput {
+  oneof record {
+    RepresentationRecord representation = 1;
+    ObservationRecord observation = 2;
+    ProjectChangeItemRecord project_change = 3;
+    CandidateProposalRecord candidate = 4;
+    ExpenseProposalRecord expense_proposal = 5;
+  }
+}
+
+message StageRequest {
+  string contract_version = 1;
+  Scope scope = 2;
+  Binding binding = 3;
+  Deadlines deadlines = 4;
+  SourceInput source = 5;
+  ProcessingProfile profile = 6;
+  OperationPlan plan = 7;
+  repeated PriorStageResult prior_results = 8;
+  OperationExecution execution = 9;
+  repeated CostQuoteRecord cost_quotes = 10;
+  PriorExposureLedger prior_exposures = 11;
+}
+
+// The complete result and evidence records remain available to the Rust
+// verifier. Typed outputs must equal their complete retained result entries.
+message SuccessfulStage {
+  bytes complete_result_jcs = 1;
+  repeated TypedOutput outputs = 2;
+}
+
+message FailedStage {
+  bytes complete_failure_jcs = 1;
+}
+
+message StageResponse {
+  string contract_version = 1;
+  Scope scope = 2;
+  Binding binding = 3;
+  oneof outcome {
+    SuccessfulStage succeeded = 4;
+    FailedStage failed = 5;
+  }
+}

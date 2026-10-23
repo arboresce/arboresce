@@ -1,0 +1,1460 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Intelligence processing record codecs v1",
+  "description": "Named complete record definitions for versioned internal processing transport. Parsed validity grants no authority or permission to persist proposals.",
+  "not": {},
+  "$defs": {
+    "scope": {
+      "$ref": "../../public/v1/common.schema.json#/$defs/command_context"
+    },
+    "usd_fraction": {
+      "type": "object",
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "properties": {
+        "numerator": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,127})$"
+        },
+        "denominator": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]{0,127}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "blob_reference": {
+      "type": "object",
+      "required": [
+        "blob_id",
+        "original",
+        "bytes"
+      ],
+      "properties": {
+        "blob_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "original": {
+          "$ref": "../../public/v1/acquisition.schema.json#/$defs/original_reference"
+        },
+        "bytes": {
+          "$ref": "../../public/v1/acquisition.schema.json#/$defs/byte_identity"
+        }
+      },
+      "additionalProperties": false
+    },
+    "output_identities": {
+      "type": "object",
+      "required": [
+        "stage_id",
+        "representations",
+        "observations",
+        "candidates",
+        "expense_proposals",
+        "project_items"
+      ],
+      "properties": {
+        "representations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "candidates": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "expense_proposals": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "stage_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "project_items": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "type": "object",
+            "required": [
+              "item_id",
+              "candidate_id"
+            ],
+            "properties": {
+              "item_id": {
+                "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+              },
+              "candidate_id": {
+                "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+              }
+            },
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_input": {
+      "type": "object",
+      "required": [
+        "kind",
+        "scope",
+        "capture",
+        "analysis_input",
+        "submission",
+        "context",
+        "representations",
+        "blobs",
+        "dependency_stages",
+        "output_identities"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.intelligence-source-input.v1"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "capture": {
+          "$ref": "../../public/v1/acquisition.schema.json#/$defs/capture_resource"
+        },
+        "analysis_input": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/capture_analysis_input"
+        },
+        "submission": {
+          "allOf": [
+            {
+              "$ref": "../../public/v1/lifecycle.schema.json#/$defs/historical_command_cause"
+            },
+            {
+              "properties": {
+                "command": {
+                  "const": "capture.submit"
+                }
+              }
+            }
+          ]
+        },
+        "context": {
+          "$ref": "#/$defs/processing_context"
+        },
+        "representations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "../../public/v1/observation.schema.json#/$defs/representation_reference"
+          },
+          "uniqueItems": true
+        },
+        "blobs": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/blob_reference"
+          },
+          "uniqueItems": true
+        },
+        "dependency_stages": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 64,
+          "items": {
+            "$ref": "../../public/v1/lifecycle.schema.json#/$defs/stage_declaration"
+          },
+          "uniqueItems": true
+        },
+        "output_identities": {
+          "$ref": "#/$defs/output_identities"
+        }
+      },
+      "additionalProperties": false
+    },
+    "resource_identity": {
+      "type": "object",
+      "required": [
+        "role",
+        "name",
+        "version",
+        "content_sha256",
+        "configuration_sha256"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9._:-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9._:-]+$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9._:-]+$"
+        },
+        "content_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "configuration_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "processing_limits": {
+      "type": "object",
+      "required": [
+        "max_json_depth",
+        "max_message_bytes",
+        "max_record_bytes",
+        "max_context_records",
+        "max_output_records",
+        "max_dependencies_per_item",
+        "max_lineage_per_field",
+        "max_chunks",
+        "max_transcript_segments",
+        "max_warning_records",
+        "max_attachments",
+        "max_capture_bytes",
+        "max_text_bytes",
+        "max_image_bytes",
+        "max_image_pixels",
+        "max_audio_bytes",
+        "max_audio_duration_ms",
+        "max_stage_count",
+        "max_total_attempts",
+        "max_exposures",
+        "max_scratch_bytes",
+        "max_scratch_inodes",
+        "max_memory_bytes",
+        "cpu_time_ms",
+        "operation_lifetime_ms",
+        "stage_lifetime_ms",
+        "attempt_lifetime_ms",
+        "reconciliation_lifetime_ms",
+        "cancellation_observation_ms",
+        "max_active_per_organization",
+        "max_active_global",
+        "max_pending_per_organization"
+      ],
+      "properties": {
+        "max_message_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "max_record_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "max_context_records": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "max_output_records": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "max_dependencies_per_item": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "max_lineage_per_field": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "max_chunks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "max_transcript_segments": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65536
+        },
+        "max_warning_records": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "max_attachments": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "max_capture_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 104857600
+        },
+        "max_text_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10485760
+        },
+        "max_image_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 26214400
+        },
+        "max_image_pixels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 40000000
+        },
+        "max_audio_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20971520
+        },
+        "max_audio_duration_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 300000
+        },
+        "max_stage_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "max_total_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "max_exposures": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "max_scratch_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "max_scratch_inodes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "max_memory_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "cpu_time_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "operation_lifetime_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "stage_lifetime_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "attempt_lifetime_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "reconciliation_lifetime_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "cancellation_observation_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "max_active_per_organization": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "max_active_global": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "max_pending_per_organization": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "max_json_depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      },
+      "additionalProperties": false
+    },
+    "profile_core": {
+      "type": "object",
+      "required": [
+        "kind",
+        "scope",
+        "profile_id",
+        "version",
+        "contract_version",
+        "mode",
+        "stages",
+        "output_kinds",
+        "media_types",
+        "codec_profiles",
+        "resources",
+        "limits",
+        "maximum_reserved_usd",
+        "policy"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.intelligence-processing-profile.v1"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "profile_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "version": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/content_revision"
+        },
+        "contract_version": {
+          "const": "arboresce.intelligence.v1"
+        },
+        "mode": {
+          "enum": [
+            "synthetic_conformance",
+            "qualified_processing"
+          ]
+        },
+        "stages": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "enum": [
+              "normalize",
+              "extract",
+              "transcribe",
+              "validate_output",
+              "synthesize"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "output_kinds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "enum": [
+              "representation",
+              "observation_set",
+              "candidate_set",
+              "expense_proposal_set"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "media_types": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 7,
+          "items": {
+            "enum": [
+              "text/plain",
+              "text/markdown",
+              "application/json",
+              "image/jpeg",
+              "image/png",
+              "audio/wav",
+              "audio/mp4"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "codec_profiles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9._:-]+$"
+          },
+          "uniqueItems": true
+        },
+        "resources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/resource_identity"
+          },
+          "uniqueItems": true
+        },
+        "limits": {
+          "$ref": "#/$defs/processing_limits"
+        },
+        "maximum_reserved_usd": {
+          "$ref": "#/$defs/usd_fraction"
+        },
+        "policy": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/policy_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "processing_profile_record": {
+      "type": "object",
+      "required": [
+        "reference",
+        "core"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/profile_reference"
+        },
+        "core": {
+          "$ref": "#/$defs/profile_core"
+        }
+      },
+      "additionalProperties": false
+    },
+    "cost_quote": {
+      "type": "object",
+      "required": [
+        "quote_id",
+        "profile",
+        "policy",
+        "input_unit",
+        "output_unit",
+        "input_price_usd",
+        "output_price_usd",
+        "request_price_usd",
+        "valid_from",
+        "expires_at"
+      ],
+      "properties": {
+        "quote_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "profile": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/profile_reference"
+        },
+        "policy": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/policy_reference"
+        },
+        "input_unit": {
+          "const": "input_token"
+        },
+        "output_unit": {
+          "const": "output_token"
+        },
+        "input_price_usd": {
+          "$ref": "#/$defs/usd_fraction"
+        },
+        "output_price_usd": {
+          "$ref": "#/$defs/usd_fraction"
+        },
+        "request_price_usd": {
+          "$ref": "#/$defs/usd_fraction"
+        },
+        "valid_from": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        }
+      },
+      "additionalProperties": false
+    },
+    "known_cost": {
+      "type": "object",
+      "required": [
+        "kind",
+        "input_units",
+        "output_units",
+        "amount_usd",
+        "quote"
+      ],
+      "properties": {
+        "kind": {
+          "const": "known"
+        },
+        "input_units": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "output_units": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "amount_usd": {
+          "$ref": "#/$defs/usd_fraction"
+        },
+        "quote": {
+          "$ref": "#/$defs/cost_quote"
+        }
+      },
+      "additionalProperties": false
+    },
+    "unknown_cost": {
+      "type": "object",
+      "required": [
+        "kind",
+        "retained_liability_usd"
+      ],
+      "properties": {
+        "kind": {
+          "const": "unknown"
+        },
+        "retained_liability_usd": {
+          "$ref": "#/$defs/usd_fraction"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provider_request": {
+      "type": "object",
+      "required": [
+        "kind",
+        "scope",
+        "operation",
+        "stage_id",
+        "attempt_id",
+        "profile",
+        "policy",
+        "input_sha256",
+        "request_id",
+        "source",
+        "resources",
+        "reservation_usd",
+        "deadline",
+        "quote"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.intelligence-provider-request.v1"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "operation": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "stage_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "attempt_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "profile": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/profile_reference"
+        },
+        "policy": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/policy_reference"
+        },
+        "input_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9._:-]+$"
+        },
+        "source": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/blob_reference"
+          },
+          "uniqueItems": true
+        },
+        "resources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/resource_identity"
+          },
+          "uniqueItems": true
+        },
+        "reservation_usd": {
+          "$ref": "#/$defs/usd_fraction"
+        },
+        "deadline": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "quote": {
+          "$ref": "#/$defs/cost_quote"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provider_receipt": {
+      "type": "object",
+      "required": [
+        "kind",
+        "receipt_id",
+        "evidence_profile",
+        "issuer",
+        "exposure",
+        "attempt_id",
+        "request_sha256",
+        "profile",
+        "policy",
+        "observed_at",
+        "request_id",
+        "outcome",
+        "cost",
+        "evidence"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.intelligence-provider-receipt.v1"
+        },
+        "evidence_profile": {
+          "const": "intelligence-gateway-observation-v1"
+        },
+        "issuer": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/principal_reference"
+        },
+        "exposure": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/exposure_reference"
+        },
+        "attempt_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "request_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "profile": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/profile_reference"
+        },
+        "policy": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/policy_reference"
+        },
+        "observed_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9._:-]+$"
+        },
+        "outcome": {
+          "enum": [
+            "performed",
+            "not_performed",
+            "unknown"
+          ]
+        },
+        "cost": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/known_cost"
+            },
+            {
+              "$ref": "#/$defs/unknown_cost"
+            }
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/provider_observation"
+        },
+        "receipt_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "exposure_record": {
+      "type": "object",
+      "required": [
+        "entry",
+        "request",
+        "receipt"
+      ],
+      "properties": {
+        "entry": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/exposure_entry"
+        },
+        "request": {
+          "$ref": "#/$defs/provider_request"
+        },
+        "receipt": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/provider_receipt"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "exposure_records": {
+      "type": "object",
+      "required": [
+        "kind",
+        "scope",
+        "operation",
+        "stage_id",
+        "attempt_id",
+        "entries"
+      ],
+      "properties": {
+        "kind": {
+          "const": "attempt_complete"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "operation": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "stage_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "attempt_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/exposure_record"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "warning": {
+      "type": "object",
+      "required": [
+        "code",
+        "source_id"
+      ],
+      "properties": {
+        "code": {
+          "enum": [
+            "unsupported_optional_input",
+            "partial_optional_output",
+            "unresolved_context",
+            "uncalibrated_score",
+            "reported_attribution",
+            "abstained"
+          ]
+        },
+        "source_id": {
+          "oneOf": [
+            {
+              "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "typed_output": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "representation"
+            },
+            "record": {
+              "$ref": "../../public/v1/acquisition.schema.json#/$defs/representation"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "observation"
+            },
+            "record": {
+              "$ref": "../../public/v1/observation.schema.json#/$defs/observation"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "project_change"
+            },
+            "record": {
+              "$ref": "../../public/v1/project-workflow.schema.json#/$defs/project_change_item"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "candidate"
+            },
+            "record": {
+              "$ref": "#/$defs/candidate_proposal"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "record"
+          ],
+          "properties": {
+            "kind": {
+              "const": "expense_proposal"
+            },
+            "record": {
+              "$ref": "#/$defs/expense_proposal"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "result_core": {
+      "type": "object",
+      "required": [
+        "kind",
+        "scope",
+        "operation",
+        "stage_id",
+        "attempt_id",
+        "stage_result_id",
+        "input_sha256",
+        "profile_sha256",
+        "output_kind",
+        "reported_started_at",
+        "reported_finished_at",
+        "outputs",
+        "warnings",
+        "abstention",
+        "exposures"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.intelligence-stage-result.v1"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "operation": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "stage_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "attempt_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "stage_result_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "input_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "profile_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "output_kind": {
+          "enum": [
+            "representation",
+            "observation_set",
+            "candidate_set",
+            "expense_proposal_set"
+          ]
+        },
+        "reported_started_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "reported_finished_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "outputs": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/typed_output"
+          },
+          "uniqueItems": true
+        },
+        "warnings": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/warning"
+          },
+          "uniqueItems": true
+        },
+        "abstention": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "kind"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "none"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "reason"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "abstained"
+                },
+                "reason": {
+                  "enum": [
+                    "noise",
+                    "unsupported_input",
+                    "insufficient_grounding",
+                    "ambiguous_context",
+                    "no_proposal"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "exposures": {
+          "$ref": "#/$defs/exposure_records"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stage_result_record": {
+      "type": "object",
+      "required": [
+        "reference",
+        "core"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/stage_result_reference"
+        },
+        "core": {
+          "$ref": "#/$defs/result_core"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stage_failure": {
+      "type": "object",
+      "required": [
+        "kind",
+        "scope",
+        "operation",
+        "stage_id",
+        "attempt_id",
+        "input_sha256",
+        "profile_sha256",
+        "class",
+        "code",
+        "reported_started_at",
+        "reported_finished_at",
+        "exposures"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.intelligence-stage-failure.v1"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "operation": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "stage_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "attempt_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "input_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "profile_sha256": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/sha256"
+        },
+        "class": {
+          "enum": [
+            "transient",
+            "permanent",
+            "uncertain"
+          ]
+        },
+        "code": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/stage_diagnostic"
+        },
+        "reported_started_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "reported_finished_at": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+        },
+        "exposures": {
+          "$ref": "#/$defs/exposure_records"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provider_observation": {
+      "type": "object",
+      "required": [
+        "kind",
+        "observation_id",
+        "issuer",
+        "request",
+        "response"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "synthetic_conformance",
+            "gateway_observation"
+          ]
+        },
+        "observation_id": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/identifier"
+        },
+        "issuer": {
+          "$ref": "../../public/v1/context.schema.json#/$defs/principal_reference"
+        },
+        "request": {
+          "$ref": "#/$defs/provider_request"
+        },
+        "response": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "outputs",
+                "input_units",
+                "output_units",
+                "amount_usd",
+                "recorded_at"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "performed"
+                },
+                "outputs": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 256,
+                  "items": {
+                    "$ref": "#/$defs/typed_output"
+                  }
+                },
+                "input_units": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "output_units": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "amount_usd": {
+                  "$ref": "#/$defs/usd_fraction"
+                },
+                "recorded_at": {
+                  "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "reason",
+                "recorded_at"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "not_performed"
+                },
+                "reason": {
+                  "enum": [
+                    "declined_before_dispatch",
+                    "affirmatively_not_performed"
+                  ]
+                },
+                "recorded_at": {
+                  "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "reason",
+                "retained_liability_usd",
+                "recorded_at"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "enum": [
+                    "timeout",
+                    "cancelled",
+                    "transport_loss"
+                  ]
+                },
+                "retained_liability_usd": {
+                  "$ref": "#/$defs/usd_fraction"
+                },
+                "recorded_at": {
+                  "$ref": "../../public/v1/common.schema.json#/$defs/timestamp"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_input_context": {
+      "type": "object",
+      "required": [
+        "kind",
+        "project",
+        "proposal_origin",
+        "records"
+      ],
+      "properties": {
+        "kind": {
+          "const": "project"
+        },
+        "project": {
+          "$ref": "../../public/v1/project-workflow.schema.json#/$defs/project_reference"
+        },
+        "proposal_origin": {
+          "oneOf": [
+            {
+              "$ref": "../../public/v1/project-workflow.schema.json#/$defs/proposal_origin"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "records": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "../../public/v1/project-workflow.schema.json#/$defs/project_resource_record"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "workspace_input_context": {
+      "type": "object",
+      "required": [
+        "kind",
+        "assets"
+      ],
+      "properties": {
+        "kind": {
+          "const": "workspace"
+        },
+        "assets": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 100,
+          "items": {
+            "$ref": "../../public/v1/context.schema.json#/$defs/asset_snapshot"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "processing_context": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/project_input_context"
+        },
+        {
+          "$ref": "#/$defs/workspace_input_context"
+        }
+      ]
+    },
+    "candidate_proposal": {
+      "type": "object",
+      "required": [
+        "reference",
+        "content"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "../../public/v1/candidate-review.schema.json#/$defs/candidate_reference"
+        },
+        "content": {
+          "$ref": "../../public/v1/candidate-review.schema.json#/$defs/candidate_content"
+        }
+      },
+      "additionalProperties": false
+    },
+    "expense_proposal": {
+      "type": "object",
+      "required": [
+        "reference",
+        "content"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "../../public/v1/financial-records.schema.json#/$defs/expense_reference"
+        },
+        "content": {
+          "$ref": "../../public/v1/financial-records.schema.json#/$defs/financial_content"
+        }
+      },
+      "additionalProperties": false
+    },
+    "prior_exposure_ledger": {
+      "type": "object",
+      "required": [
+        "kind",
+        "scope",
+        "operation",
+        "control_revision",
+        "entries"
+      ],
+      "properties": {
+        "kind": {
+          "const": "arboresce.intelligence-prior-exposure-ledger.v1"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "operation": {
+          "$ref": "../../public/v1/lifecycle.schema.json#/$defs/operation_reference"
+        },
+        "control_revision": {
+          "$ref": "../../public/v1/common.schema.json#/$defs/control_revision"
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/exposure_record"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

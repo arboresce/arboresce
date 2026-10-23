@@ -134,6 +134,10 @@ comparison. Output cardinality and content bounds are explicit.
 
 ## Typed internal transport
 
+The [concrete stage transport candidate](intelligence-transport-v1.md) defines
+fixed record codecs and bounded validation. Its independent input, source,
+generation and consuming qualification gates remain open.
+
 Version internal Protobuf under the engine's internal contract boundary.
 The request/response contract identifies organization and authorized scope,
 operation, stage, exact source revision, input digest, processing-profile

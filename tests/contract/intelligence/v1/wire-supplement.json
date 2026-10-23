@@ -1,0 +1,62 @@
+{
+  "version": "arboresce.intelligence-wire-supplement-v1",
+  "validation_scope": "closed-protobuf-framing-only",
+  "cases": [
+    {
+      "id": "wire-uint32-length-delimited",
+      "message": "Binding",
+      "bytes_hex": "2a00",
+      "valid": false,
+      "reason": "Field 5 is uint32 and requires wire type 0, not a length-delimited payload."
+    },
+    {
+      "id": "wire-uint64-fixed64",
+      "message": "Binding",
+      "bytes_hex": "590000000000000000",
+      "valid": false,
+      "reason": "Field 11 is uint64 and requires a varint, not fixed64."
+    },
+    {
+      "id": "wire-enum-length-delimited",
+      "message": "Binding",
+      "bytes_hex": "6200",
+      "valid": false,
+      "reason": "Field 12 is an enum and requires a varint, not a length-delimited payload."
+    },
+    {
+      "id": "wire-uint32-maximum",
+      "message": "Binding",
+      "bytes_hex": "28ffffffff0f",
+      "valid": true,
+      "reason": "The shortest varint for 2^32 minus one fits the framing type; stage ordinal semantic bounds remain separate."
+    },
+    {
+      "id": "wire-uint64-maximum",
+      "message": "Binding",
+      "bytes_hex": "58ffffffffffffffffff01",
+      "valid": true,
+      "reason": "The shortest varint for 2^64 minus one fits the framing type; the positive safe-integer worker-fence bound remains semantic."
+    },
+    {
+      "id": "wire-eleven-byte-varint",
+      "message": "Binding",
+      "bytes_hex": "588080808080808080808000",
+      "valid": false,
+      "reason": "Ten continuation bytes followed by a terminator exceed the maximum uint64 varint width."
+    },
+    {
+      "id": "wire-opaque-non-utf8-bytes",
+      "message": "SourceInput",
+      "bytes_hex": "0a01ff",
+      "valid": true,
+      "reason": "A bytes field admits arbitrary octets at framing only; complete JCS codec validation must reject this payload later."
+    },
+    {
+      "id": "wire-valid-multibyte-string",
+      "message": "Scope",
+      "bytes_hex": "0a06c3a9f09f9982",
+      "valid": true,
+      "reason": "Six UTF-8 bytes encode two valid Unicode scalars; semantic organization identity is checked separately."
+    }
+  ]
+}

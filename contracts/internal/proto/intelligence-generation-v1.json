@@ -1,0 +1,523 @@
+{
+  "version": "intelligence-generation-v1",
+  "source": "arboresce/intelligence/v1/processing.proto",
+  "source_sha256": "5830d981093427600416b2018b88c646e4bcdfb4f8b2f5e7713a78bdc62a48ef",
+  "descriptor": "arboresce/intelligence/v1/processing.pb",
+  "descriptor_sha256": "7927d1c5d788b0d87558c4b821357482b9fbfe999b9a2088258494707f84ee88",
+  "compiler": {
+    "name": "protoc",
+    "version": "36.2",
+    "generation_target": "aarch64-apple-darwin",
+    "sha256": "5ffdd8c0d2ec4494aa5a3b55164e71b6f39866b37d9b699d26bea77e110ac325",
+    "bytes": 138016,
+    "libraries": [
+      {
+        "name": "libabsl_base_cpu_detect.2608.0.0.dylib",
+        "sha256": "40004034f363e6649269c9ecc88aa8ab4be94c528434fb14f4cd90af65b271fc",
+        "bytes": 34688
+      },
+      {
+        "name": "libabsl_base.2608.0.0.dylib",
+        "sha256": "9375f0a888e642b904fe3650d33a901529f361163a7fdb269f2869881a61f8fb",
+        "bytes": 57104
+      },
+      {
+        "name": "libabsl_city.2608.0.0.dylib",
+        "sha256": "6378d401843f3b7ebc8297ea6e88db4afd29c69ee57f146867f7ed2662d71d6d",
+        "bytes": 17312
+      },
+      {
+        "name": "libabsl_civil_time.2608.0.0.dylib",
+        "sha256": "d44e2c2f4f4f479ba1b3f4717e2a896b303096a7f0d507972e72e625de535750",
+        "bytes": 39856
+      },
+      {
+        "name": "libabsl_cord_internal.2608.0.0.dylib",
+        "sha256": "dd11ec6d26a3bef6ae56e732add0ad94b6b4a498599f7b361b45d7239d7a193a",
+        "bytes": 100752
+      },
+      {
+        "name": "libabsl_cord.2608.0.0.dylib",
+        "sha256": "6d1b41a0a9f9cd6d3f47452d6afe9427fb0e457c29093e426db07fd17d6bea3a",
+        "bytes": 147232
+      },
+      {
+        "name": "libabsl_cordz_functions.2608.0.0.dylib",
+        "sha256": "5aa0f143cffdab249833a76fa6c3731bf13785378870c7e37a1f670ecf490a08",
+        "bytes": 33760
+      },
+      {
+        "name": "libabsl_cordz_handle.2608.0.0.dylib",
+        "sha256": "7a8276e1ed0f2eb629b8d326dc2ec429b4d87254d2dc254e28cebefc111d4448",
+        "bytes": 71520
+      },
+      {
+        "name": "libabsl_cordz_info.2608.0.0.dylib",
+        "sha256": "03ce4fb8ff4913f54fcf426f7a0ff1d5bad8a39cbe5294f7bb6427a48ab8d605",
+        "bytes": 89120
+      },
+      {
+        "name": "libabsl_crc_cord_state.2608.0.0.dylib",
+        "sha256": "554c8a81c9c7c7a07bde0095f1b5fc9711561a1489f3556fd82e57e50a32528e",
+        "bytes": 56848
+      },
+      {
+        "name": "libabsl_crc_internal.2608.0.0.dylib",
+        "sha256": "4340bcdd787f9d086ef4aa74d0c01368393675362ba34c959e71477a62412483",
+        "bytes": 61712
+      },
+      {
+        "name": "libabsl_crc32c.2608.0.0.dylib",
+        "sha256": "e67f10b791f0b32a670792c9017d983249cd65fad8cad7253176579f2d0e41f8",
+        "bytes": 74096
+      },
+      {
+        "name": "libabsl_debugging_internal.2608.0.0.dylib",
+        "sha256": "014714cd2ad9173c9db60213deaa9e0a65262170de39047a6ce5c311629a9aaf",
+        "bytes": 17024
+      },
+      {
+        "name": "libabsl_decode_rust_punycode.2608.0.0.dylib",
+        "sha256": "574ba91bf156937fc4dc1ad6833b6bcfadf25969395d03f10a0975d8456a97e4",
+        "bytes": 34016
+      },
+      {
+        "name": "libabsl_demangle_internal.2608.0.0.dylib",
+        "sha256": "fc0e01f38f27757e2afb4bac191a97faaa0aeab3f06e68b50f030ee2032f31fa",
+        "bytes": 73408
+      },
+      {
+        "name": "libabsl_demangle_rust.2608.0.0.dylib",
+        "sha256": "3e59c1875a507a8c900356b5a15915480d85c54c2118b2745ac5f198c20862d8",
+        "bytes": 51456
+      },
+      {
+        "name": "libabsl_die_if_null.2608.0.0.dylib",
+        "sha256": "0275370e19a90371009483a7348d5160757c8312e18d1c410ef2d343786e4a55",
+        "bytes": 84672
+      },
+      {
+        "name": "libabsl_examine_stack.2608.0.0.dylib",
+        "sha256": "b12eef962f1a986ed031d61b62c9fa62efebd93b819378eec608028b1ebc0ccf",
+        "bytes": 51424
+      },
+      {
+        "name": "libabsl_exponential_biased.2608.0.0.dylib",
+        "sha256": "879a00b1437013bb55a7a54f60307e2c776fb36181e1d5ef937add8e59836e62",
+        "bytes": 33984
+      },
+      {
+        "name": "libabsl_flags_commandlineflag_internal.2608.0.0.dylib",
+        "sha256": "1a90a430a02893a71c312cf25abd3c15b1127097a5affe1a2d5e65a2660d8440",
+        "bytes": 34352
+      },
+      {
+        "name": "libabsl_flags_commandlineflag.2608.0.0.dylib",
+        "sha256": "b6ffea01ddcd47fa7a6ae1d8964deec648fe79f017cad7c801d4facdcc372766",
+        "bytes": 50960
+      },
+      {
+        "name": "libabsl_flags_config.2608.0.0.dylib",
+        "sha256": "ec8ce870416357fbbae8381e2e7a2829b771da4d491dee6ed09f47bd34a1c9b3",
+        "bytes": 82128
+      },
+      {
+        "name": "libabsl_flags_internal.2608.0.0.dylib",
+        "sha256": "6682944682aeb2a76241c31d3a1dc4ecfc8b9a66e31908494be962e7b098d61f",
+        "bytes": 100352
+      },
+      {
+        "name": "libabsl_flags_marshalling.2608.0.0.dylib",
+        "sha256": "26de3eedff3c30a111d4273cae082dff84415ffe12106c673bb4a061183b517e",
+        "bytes": 72144
+      },
+      {
+        "name": "libabsl_flags_private_handle_accessor.2608.0.0.dylib",
+        "sha256": "aa85fefd92ef84fd2698b80b152977d828b8166954c7c211983d2cabd5c065fd",
+        "bytes": 35024
+      },
+      {
+        "name": "libabsl_flags_program_name.2608.0.0.dylib",
+        "sha256": "1666191cb60067ae1e47f793cbef31662b0863dcff75f00e80541344d7bf0bfd",
+        "bytes": 69968
+      },
+      {
+        "name": "libabsl_flags_reflection.2608.0.0.dylib",
+        "sha256": "e41a1915283ef3a208266d9a7b60514567d7ca0cc3523fb04d52edee4c04a950",
+        "bytes": 122224
+      },
+      {
+        "name": "libabsl_graphcycles_internal.2608.0.0.dylib",
+        "sha256": "b4c0ad5c79f8e9ceaa61568ed1c5f093a8b4435b6f77db2f2b70872a688081c0",
+        "bytes": 56368
+      },
+      {
+        "name": "libabsl_hardening.2608.0.0.dylib",
+        "sha256": "232e5aa6f0ad4109edc57aa5f86152f278290030d118e881f5fd1c24e2df2020",
+        "bytes": 17008
+      },
+      {
+        "name": "libabsl_hash.2608.0.0.dylib",
+        "sha256": "ae38554101cdce65c3471a449acf1997411b5e1e9f07e70000f4fe4cb2f1ddf1",
+        "bytes": 51152
+      },
+      {
+        "name": "libabsl_hashtablez_sampler.2608.0.0.dylib",
+        "sha256": "92315be32b893b239f188a11ee08ce3bef737bee39049e685285d6d7ec65b1db",
+        "bytes": 89712
+      },
+      {
+        "name": "libabsl_int128.2608.0.0.dylib",
+        "sha256": "c9b9a31bdee2b70ba6434cb85c8ae3d289de554f3b81060829e41df50cbd20c3",
+        "bytes": 40240
+      },
+      {
+        "name": "libabsl_kernel_timeout_internal.2608.0.0.dylib",
+        "sha256": "c84e6e220544faf63fae49e07b4b611de31ad8c51dd541018acacfbd2b826302",
+        "bytes": 53216
+      },
+      {
+        "name": "libabsl_leak_check.2608.0.0.dylib",
+        "sha256": "97dce3e7137cf6df6c03653b8af3182fd81552e7c43b4306584fe32397f26a44",
+        "bytes": 17696
+      },
+      {
+        "name": "libabsl_log_entry.2608.0.0.dylib",
+        "sha256": "948841336bd3da61fd7a9a6238d8efff57f682c238d67d2bbb57b35c8acaf5e2",
+        "bytes": 54496
+      },
+      {
+        "name": "libabsl_log_globals.2608.0.0.dylib",
+        "sha256": "f82e96f8f54357aff361bdd6cad92178a861498e3d5d56c38b5d08fcdb26fe39",
+        "bytes": 89168
+      },
+      {
+        "name": "libabsl_log_initialize.2608.0.0.dylib",
+        "sha256": "030964b8b27174c92edb581454b7f184a891c56bac933bd1f6877f260c8c5d83",
+        "bytes": 66976
+      },
+      {
+        "name": "libabsl_log_internal_check_op.2608.0.0.dylib",
+        "sha256": "28e12bf31d25cbdfeabc600d7ec0a617579a5d14c22d9d56ca2a08862f1cac2c",
+        "bytes": 95088
+      },
+      {
+        "name": "libabsl_log_internal_conditions.2608.0.0.dylib",
+        "sha256": "0bd29169a52ce9d164abcb880db55546faaffbf8bdb6b2e590a915177c6834c2",
+        "bytes": 34224
+      },
+      {
+        "name": "libabsl_log_internal_fnmatch.2608.0.0.dylib",
+        "sha256": "79e61c46c1825291ecbe9d59c16afcc57eaa1c5a61cd107c7adcb70c33371b4b",
+        "bytes": 33968
+      },
+      {
+        "name": "libabsl_log_internal_format.2608.0.0.dylib",
+        "sha256": "3f66fb51ded366962df7beeabf4df7fa0b39fcec7bdcc2c8682f3e7b81e506ea",
+        "bytes": 54240
+      },
+      {
+        "name": "libabsl_log_internal_globals.2608.0.0.dylib",
+        "sha256": "bf5f10661c46033ab49a503500777d97401624b574f04e26f7bf5c894b3ba1cd",
+        "bytes": 69024
+      },
+      {
+        "name": "libabsl_log_internal_log_sink_set.2608.0.0.dylib",
+        "sha256": "d867270923f5e939962511e9e6b9fa86e99036ce9d430ad26a2efbd290f3769e",
+        "bytes": 91568
+      },
+      {
+        "name": "libabsl_log_internal_message.2608.0.0.dylib",
+        "sha256": "eadb5b8b7424b3e5b701262016a33372e317bcb2dc7b239fe09147f4118f3eaa",
+        "bytes": 130800
+      },
+      {
+        "name": "libabsl_log_internal_nullguard.2608.0.0.dylib",
+        "sha256": "c8e2340c79646a95c82006225db3bb6ef05346f106aecd0fb154650e7095139a",
+        "bytes": 17200
+      },
+      {
+        "name": "libabsl_log_internal_proto.2608.0.0.dylib",
+        "sha256": "a98c2018e6840c3faab7867f12fbdbc4e9f9177bace14df7ba8f3ba6d58072ca",
+        "bytes": 51072
+      },
+      {
+        "name": "libabsl_log_internal_structured_proto.2608.0.0.dylib",
+        "sha256": "560193e67aac58152890142c9b0fe40e336153650c09975a63fe6eb96cbf6cac",
+        "bytes": 55552
+      },
+      {
+        "name": "libabsl_log_severity.2608.0.0.dylib",
+        "sha256": "6c055cd4d49dc57c6a2dc6467f2ffbb3e2edde947b299149bd5e7694cf830a11",
+        "bytes": 36640
+      },
+      {
+        "name": "libabsl_log_sink.2608.0.0.dylib",
+        "sha256": "19cd121f5d779e55bc03f557b71a2420c86db09632e6e6bbd07d83b9b67c5f22",
+        "bytes": 50624
+      },
+      {
+        "name": "libabsl_malloc_internal.2608.0.0.dylib",
+        "sha256": "a3bcd539b4f5ec9ddb1961b3b30bb774868983d605b54eac80ab50e9d3913205",
+        "bytes": 39952
+      },
+      {
+        "name": "libabsl_random_distributions.2608.0.0.dylib",
+        "sha256": "c7c730f0486843cad739e269705cc65f8658bcdac89550631ef717802ea87edd",
+        "bytes": 52304
+      },
+      {
+        "name": "libabsl_random_internal_entropy_pool.2608.0.0.dylib",
+        "sha256": "64fd8cbbbaa53b6256f31881093ddc722fa16eccd13b4e15b4f394e601ca1b0b",
+        "bytes": 87232
+      },
+      {
+        "name": "libabsl_random_internal_platform.2608.0.0.dylib",
+        "sha256": "75a54b4ef6fa63544b222cb115fc18f07b1ec77e93f2bf8905d99cea55219c82",
+        "bytes": 17120
+      },
+      {
+        "name": "libabsl_random_internal_randen_hwaes_impl.2608.0.0.dylib",
+        "sha256": "55f13df6d21a5ffdec490611970e302b7a85cc8f2ae0cb8821b2a67a973c4d23",
+        "bytes": 34080
+      },
+      {
+        "name": "libabsl_random_internal_randen_hwaes.2608.0.0.dylib",
+        "sha256": "a283f5cda345a6fc8a02b47e477c642d08a89ac42d6bc18da83b38b94a3039f4",
+        "bytes": 34704
+      },
+      {
+        "name": "libabsl_random_internal_randen_slow.2608.0.0.dylib",
+        "sha256": "d32f7d2840f1516c1e586bb7dc784cc0da3082556199b353dae5bcafd8fb3a20",
+        "bytes": 34096
+      },
+      {
+        "name": "libabsl_random_internal_randen.2608.0.0.dylib",
+        "sha256": "2e8ba5db30ee581f54f7dfeb520cc91104e070c11a5d8d713dd6bf814a881a52",
+        "bytes": 34944
+      },
+      {
+        "name": "libabsl_random_internal_seed_material.2608.0.0.dylib",
+        "sha256": "9e492eeb4f4316f9078a3af28cb51d2a5fc498e419126cfa31ffc9f4f0a15ac4",
+        "bytes": 51424
+      },
+      {
+        "name": "libabsl_random_seed_gen_exception.2608.0.0.dylib",
+        "sha256": "8309b5e78727bb89272878e839c4a46ce2479de111672255bd05c31114e8e0d3",
+        "bytes": 34752
+      },
+      {
+        "name": "libabsl_random_seed_sequences.2608.0.0.dylib",
+        "sha256": "2f4fec150fee6bc388e8e207770c3f33d751d4a595271e99998c252a3d04b1ce",
+        "bytes": 68624
+      },
+      {
+        "name": "libabsl_raw_hash_set.2608.0.0.dylib",
+        "sha256": "af8f05c217ca1e6ed1447822f8d89e4a338dfa4da31f76a16a279000cb437cd8",
+        "bytes": 115168
+      },
+      {
+        "name": "libabsl_raw_logging_internal.2608.0.0.dylib",
+        "sha256": "0cff48f2a0a36c3116d2d90d70a368591669a919d1de4d6bc5e92547bc389f63",
+        "bytes": 52768
+      },
+      {
+        "name": "libabsl_source_location.2608.0.0.dylib",
+        "sha256": "ff821ad289dce5a14076d6ab756e73bc974bfe85d5eb74427e923f80ef7ac7e6",
+        "bytes": 16880
+      },
+      {
+        "name": "libabsl_spinlock_wait.2608.0.0.dylib",
+        "sha256": "d69b4ce2f4953ece42f0126f64485580fccf84df297d888797cebc6122c1b7ae",
+        "bytes": 34608
+      },
+      {
+        "name": "libabsl_stacktrace.2608.0.0.dylib",
+        "sha256": "8b55702e448b15f5cb9ee4470ce64a8b990b0ade31444e65260bebdbedffcab7",
+        "bytes": 52080
+      },
+      {
+        "name": "libabsl_status.2608.0.0.dylib",
+        "sha256": "065a90fd5cf893b6b854a2c3b3f12629d967df61c711ce0d7062290688a96b24",
+        "bytes": 141616
+      },
+      {
+        "name": "libabsl_statusor.2608.0.0.dylib",
+        "sha256": "12d1df685406a203c87e18851d31c722b8e31625d281d6af83f32ac89d61f38f",
+        "bytes": 89440
+      },
+      {
+        "name": "libabsl_str_format_internal.2608.0.0.dylib",
+        "sha256": "0b4daf203209a8a73c50a32093303d6be88fa8c82ee6a3a55d5773f4a50f78e4",
+        "bytes": 124864
+      },
+      {
+        "name": "libabsl_strerror.2608.0.0.dylib",
+        "sha256": "3648f22d467be8b1c2e04fbe7a10fc403f6797c2aa8998d9cccbd89f5ecf3f99",
+        "bytes": 35872
+      },
+      {
+        "name": "libabsl_strings_internal.2608.0.0.dylib",
+        "sha256": "e43a06406fbbca1928356143fec57902e87bf347a1bc72b8d2e540e44d241cf6",
+        "bytes": 38512
+      },
+      {
+        "name": "libabsl_strings.2608.0.0.dylib",
+        "sha256": "f2099d0fcb283d473483c7dd736c6933f1ca7d262a5ba31d74f4b4241db38e05",
+        "bytes": 156064
+      },
+      {
+        "name": "libabsl_symbolize.2608.0.0.dylib",
+        "sha256": "f74d52731d1aa923d747258f0746d38226fa7398c3e56bc02f6841ee08ab9bb6",
+        "bytes": 52784
+      },
+      {
+        "name": "libabsl_synchronization.2608.0.0.dylib",
+        "sha256": "7ea4c06fa127e3eaf3af98f99ce1613696130713b40d541dca82ee302992b67d",
+        "bytes": 123904
+      },
+      {
+        "name": "libabsl_throw_delegate.2608.0.0.dylib",
+        "sha256": "8438db6f3f9bb6fef27232963ea74b5d3cfc0b892cbb47bd4aa3c0c8ea9bbe1c",
+        "bytes": 42464
+      },
+      {
+        "name": "libabsl_time_zone.2608.0.0.dylib",
+        "sha256": "a44dbfe629b2e26a88890c44a136c4ffd3eec130db5b9fb4b0ddbc29f4609ad0",
+        "bytes": 148032
+      },
+      {
+        "name": "libabsl_time.2608.0.0.dylib",
+        "sha256": "db06136dc3e7f74c7caa1871f2be1f4efd0342b40a4990f2830ec2d63fa7b26f",
+        "bytes": 94464
+      },
+      {
+        "name": "libabsl_tracing_internal.2608.0.0.dylib",
+        "sha256": "76cf6e733f5e5f6ed0140e9f299d7919a2e82f7034a54a026f2de2705956e447",
+        "bytes": 17216
+      },
+      {
+        "name": "libabsl_utf8_for_code_point.2608.0.0.dylib",
+        "sha256": "40c07a92a4cc6d38cfe13372f602fc562fdd042d5c7e512ad6a66dbe7dba70dd",
+        "bytes": 17120
+      },
+      {
+        "name": "libabsl_vlog_config_internal.2608.0.0.dylib",
+        "sha256": "6866be4a9f158035c08b997f1f83d0c3bbafe8ba3aaacdcc080ff6dd03407b99",
+        "bytes": 77392
+      },
+      {
+        "name": "libprotobuf.36.2.0.dylib",
+        "sha256": "6922760a25d855b76f45974f3754f7689cbb74b29de54064e739da441c12603f",
+        "bytes": 3066704
+      },
+      {
+        "name": "libprotoc.36.2.0.dylib",
+        "sha256": "b4bd905c661b93416078655e1aa7c01ed04b135568386afde2ff033961e55c53",
+        "bytes": 6577984
+      },
+      {
+        "name": "libutf8_range.36.2.0.dylib",
+        "sha256": "a0b8d112e96e6719279f6191ddaf670c3724560a05fab2c267aae4c759199365",
+        "bytes": 33696
+      },
+      {
+        "name": "libutf8_validity.36.2.0.dylib",
+        "sha256": "513a54c31d9fdc422d6a9cbfc0d7aca6ec628b2a8ac21e851af4645267edd58a",
+        "bytes": 33696
+      }
+    ]
+  },
+  "runtime": {
+    "name": "protobuf",
+    "version": "7.36.2",
+    "implementation": "python",
+    "wheel": {
+      "url": "https://files.pythonhosted.org/packages/e4/04/d52c7016b04b6c5108f26691f9d33ec82a9b65d041f1a9c771137693d618/protobuf-7.36.2-py3-none-any.whl",
+      "sha256": "bdb3a345d48db958e6ce1f18e508beb0cc981d64f24088427549c866cd039f1e"
+    }
+  },
+  "arguments": [
+    "--proto_path=contracts/internal/proto",
+    "--include_imports",
+    "--descriptor_set_out={output_root}/processing.pb",
+    "arboresce/intelligence/v1/processing.proto"
+  ],
+  "imports": [],
+  "plugins": [],
+  "codecs": {
+    "SourceInput": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "source_input"
+    },
+    "ProcessingProfile": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "processing_profile_record"
+    },
+    "OperationPlan": {
+      "schema": "public/v1/lifecycle.schema.json",
+      "definition": "execution_plan_record"
+    },
+    "PriorStageResult": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "stage_result_record"
+    },
+    "RepresentationRecord": {
+      "schema": "public/v1/acquisition.schema.json",
+      "definition": "representation"
+    },
+    "ObservationRecord": {
+      "schema": "public/v1/observation.schema.json",
+      "definition": "observation"
+    },
+    "ProjectChangeItemRecord": {
+      "schema": "public/v1/project-workflow.schema.json",
+      "definition": "project_change_item"
+    },
+    "ExpenseProposalRecord": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "expense_proposal"
+    },
+    "SuccessfulStage.complete_result_jcs": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "stage_result_record"
+    },
+    "FailedStage.complete_failure_jcs": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "stage_failure"
+    },
+    "OperationExecution": {
+      "schema": "public/v1/lifecycle.schema.json",
+      "definition": "operation_execution"
+    },
+    "CostQuoteRecord": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "cost_quote"
+    },
+    "PriorExposureLedger": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "prior_exposure_ledger"
+    },
+    "CandidateProposalRecord": {
+      "schema": "internal/v1/intelligence.schema.json",
+      "definition": "candidate_proposal"
+    }
+  },
+  "working_directory": "repository-root",
+  "output_root": "fresh-owned-empty-directory",
+  "promised_outputs": [
+    {
+      "kind": "file-descriptor-set",
+      "generated_path": "processing.pb",
+      "consumer_path": "arboresce/intelligence/v1/processing.pb"
+    }
+  ],
+  "service_bindings": {
+    "status": "pending-first-consumer-qualification",
+    "languages": [
+      "Rust",
+      "Python"
+    ],
+    "requirement": "Pin complete local generators, plugins and promised outputs and verify reproducibility before generated-service consumption."
+  }
+}
