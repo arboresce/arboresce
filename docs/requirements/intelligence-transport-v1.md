@@ -77,6 +77,107 @@ and bounded-additive rules. Bulk bytes use immutable authorized blob references;
 credentials, original media and reusable signed URLs have no transport slot.
 Unsupported codec, resource or billing envelopes remain explicitly unsupported.
 
+## Independent observations
+
+Complete-message conformance compares supplied records with independent
+Rust-admitted state. The Rust side of the verifier supplies and retains the exact
+admitted scope, source/profile/plan identities, execution/control snapshot,
+allocations, accepted dependencies, worker attribution and fence/cancellation
+observations. Dispatch and response checking have separately retained clock
+observations. Message echoes and profile-mode or receipt-kind labels do not
+authenticate any of these facts.
+
+At the response-check checkpoint, Rust independently obtains and retains the
+canonical observations for returned representations and observations. Each binds
+the exact allocated identity/reference, complete immutable JCS bytes and server
+recorded_at to the admitted context and bound allocation. The processor response
+cannot supply its own trusted observation. Allocation grants no creation,
+timestamp or reuse authority; any reuse needs its owning Rust admission evidence.
+The public server/canonical meanings of recorded_at remain unchanged.
+
+Returned records must equal those observed complete bytes. Missing or conflicting
+observations fail this conformance comparison. Do not substitute a processor
+clock, restamp a record, or reconstruct different record bytes after result
+hashing. Preserve the fixed targets, public preimages, result-core digest and
+exact retained-result/protobuf output agreement.
+
+Literal observations used for conformance are explicitly synthetic inputs and
+prove agreement only with the supplied observations. They qualify no actual
+Rust issuance, clock, authorization or persistence. Before the first real
+consumer, qualify the fenced Rust issuance boundary, authoritative clock,
+ownership/cancellation races and producer ordering that supply final immutable
+records before their result bytes and digest are frozen. This comparison neither
+defines an additional service nor grants a canonical writer permission.
+
+### Complete comparison facts for observation provenance
+
+Comparison-input objects and collections must have their declared JSON shapes.
+Integer facts remain integers: booleans and floating-point values do not stand
+for ordinals, fences, indices, counts or dimensions. Structured comparisons
+preserve scalar types as well as values; canonical JCS spelling alone cannot
+repair a mistyped independent fact. Malformed comparison inputs refuse through
+the static message result, while missing required fixture/tool files remain
+fatal outside that invalid-value comparison.
+
+A current model inference uses the selected creation profile. Its ordered basis
+resolves exact complete immutable observations from returned outputs, accepted
+dependencies or Rust's additional basis_observation_records. Each additional row
+supplies scope, reference and canonical_jcs. Only a retained model_inference row
+also requires creation_profile_digest; that field is absent for other kinds,
+including user assertions without a processing-profile association. canonical_jcs
+is an opaque supplied-material key, not a path the comparator opens. Rust obtains
+those exact bytes through the separately qualified current-authorized read.
+
+The selected max_context_records separately bounds both the number of additional
+basis rows and the distinct reachable basis-target union across current, prior
+and additional observations. The source context's existing count bound remains
+separate. Count an immutable identity once in the reachable union even when
+present in multiple sources; conflicting complete bytes refuse. Current inference
+roots count only if another reachable basis names them. All reachable basis
+records must be supplied, and the graph must be acyclic; self-edges refuse.
+Each complete record obeys max_record_bytes/max_json_depth. The comparison-input
+encoded footprint, observations_json plus supplied material bytes counted once
+per opaque material key, must fit max_memory_bytes. This byte preflight does not
+qualify actual process RSS, decoded media memory or worker containment.
+Missing, foreign or substituted facts refuse.
+A prior or externally read inference retains its own admitted creation profile;
+it does not acquire the current stage's profile. The empty basis remains explicit.
+
+User assertions require an independently supplied assertion_attributions row
+with scope, audit_event_id, capture, source, principal, role, recorded_at and
+supplied_sha256. source is the exact assertion-source value; principal uses the
+existing context principal_reference. role is user_supplied_assertion. The row
+binds the exact immutable capture revision and the genuine source-supplier audit
+association, not necessarily the later capture submitter. Its canonical audit
+time cannot follow the resulting observation's canonical recorded_at.
+For an assertion about the exact capture already carried by SourceInput, use
+that complete capture only after matching the full immutable capture reference.
+An attribution for another same-workspace capture additionally supplies
+capture_snapshot: the complete acquisition.capture_resource JSON object,
+not a new capture_view target or a current-head substitution. Its revision must
+match the assertion's exact capture reference, and its workspace must match
+the independent scope. When a supplied snapshot names the current capture,
+its immutable revision must also equal the admitted SourceInput revision.
+Each snapshot obeys max_record_bytes/max_json_depth; its encoded bytes are
+included in the existing observation/material footprint bound. Relevant
+historical representation records/material and geometry/alignment remain
+independently supplied; do not force them into the current capture's blob set.
+Missing or substituted historical source facts refuse. This snapshot grants
+no actual read, audit, supplier or human authority.
+
+For capture_context, supplied_sha256 identifies the exact captured user_context
+UTF-8 bytes, and grounding stays context_only. For supplied_representation, it
+identifies the exact supplied representation bytes; that representation's
+original must resolve through a ready sealed user_note attachment in that capture.
+Its locators must use that same supplied representation. An evidence attachment
+or a claimed role/audit ID alone establishes no supplier assertion.
+
+These rows are independent recorded comparison facts, not new public audit
+responses or authentication proofs. Their absence supplies no implicit authority.
+Synthetic fixtures qualify agreement only. The actual Rust read, creation-profile
+association, audit/role/principal attribution and producer ordering remain
+mandatory real-consumer gates, without substituting human or live evidence.
+
 ## Source and context selection
 
 Source input retains the submitted capture's exact ordered attachments, roles,
@@ -109,6 +210,8 @@ the actual allocation for that stage before dispatch. All allocated IDs and
 project item/candidate pairs are distinct in that allocation; an output may use
 an allocated identity once, without positional assignment. Unused allocations
 remain unused and do not establish canonical creation or a reuse permission.
+max_output_records bounds returned typed records; unused prospective identities
+retain their separate allocation-array schema bounds.
 Accepted dependency results cannot be overwritten through another output.
 
 CandidateProposalRecord carries a complete candidate_reference and unchanged
@@ -147,6 +250,12 @@ kinds. Unrelated project changes do not invalidate every item. Complete retained
 result outputs and protobuf outputs must agree in exact order and content.
 Empty outputs require explicit admissible abstention, never hidden failure.
 
+A declared pending-item DAG may name exact other returned items, exact available
+prior-result items or supplied committed-record snapshots. An accepted stage
+result grants no proposal review acceptance or accepted mapping. Actual review
+eligibility, current authorization and final dependency/version fences remain
+with the project workflow's canonical transaction owner.
+
 ## Plans, attempts and deadlines
 
 The complete OperationExecution snapshot joins the immutable plan, original
@@ -157,6 +266,22 @@ dependencies and output kind. Attempts do not replace accepted-result uniqueness
 by organization/operation/stage/input/profile. No retry, response or poll renews
 a fence, counter or fixed deadline. Check UTC arithmetic and remaining monotonic
 bounds. Actual clocks, leases and authenticated workers retain their runtime gates.
+
+remaining_attempt_ms is sampled by Rust at the dispatch checkpoint, using an
+independently retained paired UTC/monotonic observation. It is the whole
+millisecond floor of the smaller of the nonnegative monotonic attempt remainder
+and the time to the fixed UTC attempt_deadline. Never round up. Unknown,
+unrepresentable or expired observations deny new dispatch; a zero floor supplies
+no new work authority. The message must equal that retained dispatch value.
+Response checking uses its own current observations against the original fixed
+deadlines; echoing or resampling a larger value cannot renew the budget. Qualify
+the actual clock adapter and its observation pairing at the real consumer.
+
+Attempt ordinals use the operation-wide scope defined by the
+[lifecycle owner](lifecycle-contract.md#3-shared-operation-plan-clocks-and-evidence).
+The selected attempt's ordinal is distinct from a stage's matching-attempt count.
+Declared output kind/context select the output family; this contract supplies
+no additional universal stage-kind/output-kind or failure-code/class matrix.
 
 ## Admitted quotes and receipts
 
@@ -217,6 +342,26 @@ response supplies no authority to replace it. Keep uncertain liability and the
 fixed reconciliation deadline, with no return to attempted or settled-to-reserved
 transition. Complete operation projections still require the entire actual ledger,
 including entries absent from the current processor's work.
+
+The plan-selected processing profile's maximum_reserved_usd is the fixed
+whole-operation accounting allowance for this comparison. It is not renewed by
+another stage, attempt, invocation or provider profile. Join it to the exact
+admitted plan/profile; a processor cannot select a replacement allowance.
+Across the complete operation, count each exposure identity once. A verified
+settled known receipt contributes its exact amount_usd; otherwise retain the
+original reservation or the greater authenticated retained liability. Neither
+completed work nor a known-but-unsettled receipt releases that reservation.
+Check both the complete prior snapshot and its union with the current attempt.
+Keep original requests, receipts and contradictory evidence unchanged.
+A verified settled actual amount may exceed its original estimate; compare that
+actual amount with the operation allowance without discarding truthful evidence.
+
+This operation comparison does not establish shared per-capture admission.
+The actual Rust/gateway owner must reserve and reconcile all work sharing that
+capture, including other operations, under the existing USD 1 qualification
+ceiling and shared policy/slot limits. An operation or profile change cannot
+reset that ceiling. Qualification of those authoritative joins and atomic claims
+remains mandatory before any real invocation.
 
 ## Remaining consuming gates
 

@@ -183,6 +183,14 @@ Zero attempts requires null last_attempt_id; positive requires the exact last ma
 
 Attempt ordinals are contiguous public counters and IDs distinct, independent of Temporal run/attempt IDs. running has null finish/failure; succeeded has finish and null failure; failed has finish and transient/permanent failure; uncertain has finish and uncertain failure; cancelled has finish and null failure. Every engine attempt records its actual service/audit attribution.
 
+The counter is operation-wide: the complete execution.attempts array retains
+admission order and ordinals 1 through its length across both stage and
+exposure_reconciliation subjects. A stage, retry or reconciliation subject does
+not restart that counter. A stage's attempts_started counts only its own matching
+stage-subject records, and last_attempt_id names the last such record in admission
+order. Reconciliation counts match their exact exposure subject separately.
+Neither per-subject count is the selected attempt's operation-wide ordinal.
+
 ```text
 effect_entry = {
   effect_id, stage_id:identifier|null, committed_at,

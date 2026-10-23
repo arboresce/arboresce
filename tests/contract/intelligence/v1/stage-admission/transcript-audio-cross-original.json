@@ -1,0 +1,442 @@
+{
+  "version": "intelligence-stage-observations-v1",
+  "provenance": "Synthetic independent comparison inputs; no actual Rust issuance, authenticated gateway, authorization, clock, resource or recovery qualification. Canonical record observations are a separate response-check cut after the dispatch cut; their synthetic declaration grants no real issuance or work authority.",
+  "admission": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "binding": {
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "plan_id": "10000000-0000-4000-8000-00000000000c",
+      "plan_sha256": "768877ecd7276efa9576da5c9ea4694d3d0a601e8842507044eff6701f74c26c",
+      "stage_id": "10000000-0000-4000-8000-000000000050",
+      "stage_ordinal": 0,
+      "attempt_id": "10000000-0000-4000-8000-000000000070",
+      "attempt_ordinal": 1,
+      "input_sha256": "1c18e1eff4deafc872cbe378fc8abd5fedd62089b2e2eb235b62f299be949298",
+      "profile_sha256": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6",
+      "stage_result_id": "10000000-0000-4000-8000-000000000073",
+      "worker_fence": 7,
+      "stage_kind": "transcribe",
+      "output_kind": "observation_set"
+    },
+    "deadlines": {
+      "admitted_at": "2026-09-08T12:00:00.000Z",
+      "work_deadline": "2026-09-08T12:00:10.000Z",
+      "reconciliation_deadline": "2026-09-08T12:00:15.000Z",
+      "stage_started_at": "2026-09-08T12:00:00.000Z",
+      "stage_deadline": "2026-09-08T12:00:05.000Z",
+      "attempt_started_at": "2026-09-08T12:00:00.000Z",
+      "attempt_deadline": "2026-09-08T12:00:01.000Z",
+      "remaining_attempt_ms": 1000
+    },
+    "source_sha256": "1c18e1eff4deafc872cbe378fc8abd5fedd62089b2e2eb235b62f299be949298",
+    "profile_reference": {
+      "content_sha256": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6",
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "profile_id": "10000000-0000-4000-8000-000000000004",
+      "version": {
+        "kind": "content",
+        "value": "1"
+      }
+    },
+    "plan_reference": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "plan_id": "10000000-0000-4000-8000-00000000000c",
+      "plan_sha256": "768877ecd7276efa9576da5c9ea4694d3d0a601e8842507044eff6701f74c26c"
+    },
+    "execution_sha256": "8767499e96009f2b29af1c363bc96f752b28d4ddadd72fd87b31144f4a84c308",
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "1"
+    },
+    "output_allocations": {
+      "candidates": [],
+      "expense_proposals": [],
+      "observations": [
+        "10000000-0000-4000-8000-000000000061"
+      ],
+      "project_items": [],
+      "representations": [],
+      "stage_id": "10000000-0000-4000-8000-000000000050"
+    },
+    "accepted_dependency_results": [],
+    "admitted_quotes": [
+      {
+        "quote_id": "10000000-0000-4000-8000-0000000000d0",
+        "quote_sha256": "f5f39b73955a1bf1ea2911af4edd3f78563f4a5fd136f55744e2a5258e95460d"
+      }
+    ],
+    "prior_ledger_control_revision": {
+      "kind": "control",
+      "value": "1"
+    },
+    "prior_ledger_sha256": "8f8277fe97df4fef519bc95a9a94e536722f1fb7e75f418301febd3f2da43941",
+    "worker_execution": {
+      "authority_audit_event_id": "10000000-0000-4000-8000-000000000072",
+      "delegation_id": null,
+      "executor": {
+        "kind": "service",
+        "principal_id": "10000000-0000-4000-8000-000000000071"
+      }
+    }
+  },
+  "dispatch_clock": {
+    "utc": "2026-09-08T12:00:00.000Z",
+    "work_remaining_ns": "10000000000",
+    "stage_remaining_ns": "5000000000",
+    "attempt_remaining_ns": "1000000000",
+    "reconciliation_remaining_ns": "15000000000"
+  },
+  "response_clock": {
+    "utc": "2026-09-08T12:00:00.600Z",
+    "work_remaining_ns": "9400000000",
+    "stage_remaining_ns": "4400000000",
+    "attempt_remaining_ns": "400000000",
+    "reconciliation_remaining_ns": "14400000000"
+  },
+  "clock_units": {
+    "utc": "exact UTC milliseconds",
+    "remaining": "canonical unsigned decimal nanoseconds"
+  },
+  "current_state": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "2"
+    },
+    "worker_fence": 7,
+    "cancellation": "none",
+    "operation_state": "running"
+  },
+  "source_resolutions": [
+    {
+      "kind": "original",
+      "reference": {
+        "artifact_id": "10000000-0000-4000-8000-000000000080",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "source": {
+          "format": "wav",
+          "media_type": "audio/wav",
+          "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+          "byte_length": 16044
+        },
+        "version_id": "10000000-0000-4000-8000-000000000081"
+      },
+      "blob_id": "10000000-0000-4000-8000-000000000090",
+      "payload": "stage-sources/synthetic-one-second.wav"
+    },
+    {
+      "kind": "representation",
+      "reference": {
+        "representation_id": "10000000-0000-4000-8000-000000000060",
+        "original": {
+          "artifact_id": "10000000-0000-4000-8000-000000000080",
+          "organization_id": "10000000-0000-4000-8000-000000000001",
+          "source": {
+            "format": "wav",
+            "media_type": "audio/wav",
+            "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+            "byte_length": 16044
+          },
+          "version_id": "10000000-0000-4000-8000-000000000081"
+        },
+        "bytes": {
+          "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+          "byte_length": 16044
+        },
+        "profile_digest": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6"
+      },
+      "payload": "stage-sources/synthetic-one-second.wav",
+      "canonical_jcs": "stages/audio-exact-transcript-alignment/independent-source-1.jcs"
+    },
+    {
+      "kind": "representation",
+      "reference": {
+        "representation_id": "10000000-0000-4000-8000-000000000065",
+        "original": {
+          "artifact_id": "10000000-0000-4000-8000-000000000180",
+          "organization_id": "10000000-0000-4000-8000-000000000001",
+          "source": {
+            "byte_length": 16044,
+            "format": "wav",
+            "media_type": "audio/wav",
+            "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9"
+          },
+          "version_id": "10000000-0000-4000-8000-000000000181"
+        },
+        "bytes": {
+          "byte_length": 51,
+          "sha256": "0a75012dcbb0a30cbb8b9b453073abbb0831dd375c85b08ca03fa55d83f97729"
+        },
+        "profile_digest": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6"
+      },
+      "payload": "stage-sources/synthetic-aligned-transcript.txt",
+      "canonical_jcs": "stages/transcript-audio-cross-original/independent-transcript-source.jcs"
+    },
+    {
+      "kind": "original",
+      "reference": {
+        "artifact_id": "10000000-0000-4000-8000-000000000180",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "source": {
+          "byte_length": 16044,
+          "format": "wav",
+          "media_type": "audio/wav",
+          "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9"
+        },
+        "version_id": "10000000-0000-4000-8000-000000000181"
+      },
+      "blob_id": "10000000-0000-4000-8000-000000000190",
+      "payload": "stage-sources/synthetic-one-second.wav"
+    }
+  ],
+  "canonical_record_observations": [
+    {
+      "kind": "observation",
+      "scope": {
+        "domain_id": "10000000-0000-4000-8000-000000000002",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "purpose": "recordkeeping"
+      },
+      "binding": {
+        "operation_id": "10000000-0000-4000-8000-00000000000a",
+        "plan_id": "10000000-0000-4000-8000-00000000000c",
+        "plan_sha256": "768877ecd7276efa9576da5c9ea4694d3d0a601e8842507044eff6701f74c26c",
+        "stage_id": "10000000-0000-4000-8000-000000000050",
+        "stage_ordinal": 0,
+        "attempt_id": "10000000-0000-4000-8000-000000000070",
+        "attempt_ordinal": 1,
+        "input_sha256": "1c18e1eff4deafc872cbe378fc8abd5fedd62089b2e2eb235b62f299be949298",
+        "profile_sha256": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6",
+        "stage_result_id": "10000000-0000-4000-8000-000000000073",
+        "worker_fence": 7,
+        "stage_kind": "transcribe",
+        "output_kind": "observation_set"
+      },
+      "allocation_id": "10000000-0000-4000-8000-000000000061",
+      "reference": {
+        "observation_id": "10000000-0000-4000-8000-000000000061",
+        "organization_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "recorded_at": "2026-09-08T12:00:00.250Z",
+      "canonical_jcs": "stages/transcript-audio-cross-original/independent-canonical-0.jcs",
+      "observation_control_revision": {
+        "kind": "control",
+        "value": "2"
+      }
+    }
+  ],
+  "supported_profiles": {
+    "codec_profiles": [
+      "intelligence-jcs-v1"
+    ],
+    "resources": [
+      {
+        "configuration_sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516",
+        "content_sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7",
+        "name": "synthetic-normalizer",
+        "role": "normalizer",
+        "version": "1"
+      }
+    ],
+    "resource_bytes": [
+      {
+        "payload": "stage-sources/synthetic-resource.txt",
+        "sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7"
+      },
+      {
+        "payload": "stage-sources/synthetic-resource-config.jcs",
+        "sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516"
+      }
+    ],
+    "billing_units": [
+      "input_token",
+      "output_token"
+    ]
+  },
+  "gateway_observations": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "ledger_control_revision": {
+      "kind": "control",
+      "value": "1"
+    },
+    "complete_prior_entries": [],
+    "complete_current_attempt_invocations": [],
+    "receipt_associations": [],
+    "response_control_revision": {
+      "kind": "control",
+      "value": "2"
+    }
+  },
+  "representation_audio": [
+    {
+      "reference": {
+        "representation_id": "10000000-0000-4000-8000-000000000060",
+        "original": {
+          "artifact_id": "10000000-0000-4000-8000-000000000080",
+          "organization_id": "10000000-0000-4000-8000-000000000001",
+          "source": {
+            "format": "wav",
+            "media_type": "audio/wav",
+            "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+            "byte_length": 16044
+          },
+          "version_id": "10000000-0000-4000-8000-000000000081"
+        },
+        "bytes": {
+          "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+          "byte_length": 16044
+        },
+        "profile_digest": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6"
+      },
+      "sample_rate_hz": 8000,
+      "sample_frames": 8000,
+      "channel_count": 1,
+      "duration_ms": 1000,
+      "time_origin_ms": 0,
+      "conversion": "integer_samples_exact_milliseconds_v1",
+      "transcript_segments": [
+        {
+          "transcript": {
+            "representation_id": "10000000-0000-4000-8000-000000000065",
+            "original": {
+              "artifact_id": "10000000-0000-4000-8000-000000000180",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "source": {
+                "byte_length": 16044,
+                "format": "wav",
+                "media_type": "audio/wav",
+                "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9"
+              },
+              "version_id": "10000000-0000-4000-8000-000000000181"
+            },
+            "bytes": {
+              "byte_length": 51,
+              "sha256": "0a75012dcbb0a30cbb8b9b453073abbb0831dd375c85b08ca03fa55d83f97729"
+            },
+            "profile_digest": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6"
+          },
+          "segment_index": 0,
+          "audio": {
+            "representation_id": "10000000-0000-4000-8000-000000000060",
+            "original": {
+              "artifact_id": "10000000-0000-4000-8000-000000000080",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "source": {
+                "format": "wav",
+                "media_type": "audio/wav",
+                "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+                "byte_length": 16044
+              },
+              "version_id": "10000000-0000-4000-8000-000000000081"
+            },
+            "bytes": {
+              "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+              "byte_length": 16044
+            },
+            "profile_digest": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6"
+          },
+          "channel_index": 0,
+          "start_ms": 0,
+          "end_ms": 500,
+          "text_utf8_range": {
+            "start_byte": 0,
+            "end_byte": 25
+          },
+          "text_sha256": "c77d5241ccb30534b32913b259f1451fdb43c91aff7b6c73198f4d5157a6c240"
+        },
+        {
+          "transcript": {
+            "representation_id": "10000000-0000-4000-8000-000000000065",
+            "original": {
+              "artifact_id": "10000000-0000-4000-8000-000000000180",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "source": {
+                "byte_length": 16044,
+                "format": "wav",
+                "media_type": "audio/wav",
+                "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9"
+              },
+              "version_id": "10000000-0000-4000-8000-000000000181"
+            },
+            "bytes": {
+              "byte_length": 51,
+              "sha256": "0a75012dcbb0a30cbb8b9b453073abbb0831dd375c85b08ca03fa55d83f97729"
+            },
+            "profile_digest": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6"
+          },
+          "segment_index": 1,
+          "audio": {
+            "representation_id": "10000000-0000-4000-8000-000000000060",
+            "original": {
+              "artifact_id": "10000000-0000-4000-8000-000000000080",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "source": {
+                "format": "wav",
+                "media_type": "audio/wav",
+                "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+                "byte_length": 16044
+              },
+              "version_id": "10000000-0000-4000-8000-000000000081"
+            },
+            "bytes": {
+              "sha256": "56d4af65701c26df20bd4021eda95b6e830348ce3a746086079fe89285548dc9",
+              "byte_length": 16044
+            },
+            "profile_digest": "74e8b3a1c36992f017ee430bbfe706fe255af064e4d7bc60ca41a5586bced8c6"
+          },
+          "channel_index": 0,
+          "start_ms": 500,
+          "end_ms": 1000,
+          "text_utf8_range": {
+            "start_byte": 25,
+            "end_byte": 51
+          },
+          "text_sha256": "97bec1f0ad3b6dc8babfa8f8de661205841a5c75302c2e57e5331a820b6ae904"
+        }
+      ]
+    }
+  ],
+  "dispatch_state": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "1"
+    },
+    "worker_fence": 7,
+    "cancellation": "none",
+    "operation_state": "running"
+  }
+}

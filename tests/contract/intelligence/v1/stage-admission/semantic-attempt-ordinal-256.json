@@ -1,0 +1,270 @@
+{
+  "version": "intelligence-stage-observations-v1",
+  "provenance": "Synthetic independent comparison inputs; no actual Rust issuance, authenticated gateway, authorization, clock, resource or recovery qualification. Canonical record observations are a separate response-check cut after the dispatch cut; their synthetic declaration grants no real issuance or work authority.",
+  "admission": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "binding": {
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "plan_id": "10000000-0000-4000-8000-00000000000c",
+      "plan_sha256": "982b8dacaaea5a6f10e2ddf4c39375258f8cb1e9c7d03ded9d0a2ed9ac230e7e",
+      "stage_id": "10000000-0000-4000-8000-000000000050",
+      "stage_ordinal": 0,
+      "attempt_id": "10000000-0000-4000-8000-000000000070",
+      "attempt_ordinal": 256,
+      "input_sha256": "1cd989ffa27f891c313dc5817e0beda50b1cb0d0766f9ab3fc8379c48cd2bce0",
+      "profile_sha256": "cfd4c576fd174c4f5ae7be0e049ffd9e88abeda67c9f685e120fbbf2ad2aa7d1",
+      "stage_result_id": "10000000-0000-4000-8000-000000000073",
+      "worker_fence": 7,
+      "stage_kind": "normalize",
+      "output_kind": "representation"
+    },
+    "deadlines": {
+      "admitted_at": "2026-09-08T12:00:00.000Z",
+      "work_deadline": "2026-09-08T12:00:10.000Z",
+      "reconciliation_deadline": "2026-09-08T12:00:15.000Z",
+      "stage_started_at": "2026-09-08T12:00:00.000Z",
+      "stage_deadline": "2026-09-08T12:00:05.000Z",
+      "attempt_started_at": "2026-09-08T12:00:00.255Z",
+      "attempt_deadline": "2026-09-08T12:00:01.255Z",
+      "remaining_attempt_ms": 1000
+    },
+    "source_sha256": "1cd989ffa27f891c313dc5817e0beda50b1cb0d0766f9ab3fc8379c48cd2bce0",
+    "profile_reference": {
+      "content_sha256": "cfd4c576fd174c4f5ae7be0e049ffd9e88abeda67c9f685e120fbbf2ad2aa7d1",
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "profile_id": "10000000-0000-4000-8000-000000000004",
+      "version": {
+        "kind": "content",
+        "value": "1"
+      }
+    },
+    "plan_reference": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "plan_id": "10000000-0000-4000-8000-00000000000c",
+      "plan_sha256": "982b8dacaaea5a6f10e2ddf4c39375258f8cb1e9c7d03ded9d0a2ed9ac230e7e"
+    },
+    "execution_sha256": "d61ebb8f7a7ff408e9681a4f67dad982c3b94b3fead8c592822bbaf39e11c4f1",
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "512"
+    },
+    "output_allocations": {
+      "candidates": [
+        "10000000-0000-4000-8000-000000000062"
+      ],
+      "expense_proposals": [
+        "10000000-0000-4000-8000-000000000063"
+      ],
+      "observations": [
+        "10000000-0000-4000-8000-000000000061"
+      ],
+      "project_items": [],
+      "representations": [
+        "10000000-0000-4000-8000-000000000060"
+      ],
+      "stage_id": "10000000-0000-4000-8000-000000000050"
+    },
+    "accepted_dependency_results": [],
+    "admitted_quotes": [
+      {
+        "quote_id": "10000000-0000-4000-8000-0000000000d0",
+        "quote_sha256": "396af1fe8a3f2295144e401c99f7047898599f903157c563bacd48a0b85f65e9"
+      }
+    ],
+    "prior_ledger_control_revision": {
+      "kind": "control",
+      "value": "512"
+    },
+    "prior_ledger_sha256": "b4ec67ef706506b56716330037f044641615105d1d5d64016fb2a0af14d4085e",
+    "worker_execution": {
+      "authority_audit_event_id": "10000000-0000-4000-8000-000000000072",
+      "delegation_id": null,
+      "executor": {
+        "kind": "service",
+        "principal_id": "10000000-0000-4000-8000-000000000071"
+      }
+    }
+  },
+  "dispatch_clock": {
+    "utc": "2026-09-08T12:00:00.255Z",
+    "work_remaining_ns": "9745000000",
+    "stage_remaining_ns": "4745000000",
+    "attempt_remaining_ns": "1000000000",
+    "reconciliation_remaining_ns": "14745000000"
+  },
+  "response_clock": {
+    "utc": "2026-09-08T12:00:00.855Z",
+    "work_remaining_ns": "9145000000",
+    "stage_remaining_ns": "4145000000",
+    "attempt_remaining_ns": "400000000",
+    "reconciliation_remaining_ns": "14145000000"
+  },
+  "clock_units": {
+    "utc": "exact UTC milliseconds",
+    "remaining": "canonical unsigned decimal nanoseconds"
+  },
+  "current_state": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "513"
+    },
+    "worker_fence": 7,
+    "cancellation": "none",
+    "operation_state": "running"
+  },
+  "source_resolutions": [
+    {
+      "kind": "original",
+      "reference": {
+        "artifact_id": "10000000-0000-4000-8000-000000000080",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "source": {
+          "byte_length": 3,
+          "format": "plain_text",
+          "media_type": "text/plain",
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        },
+        "version_id": "10000000-0000-4000-8000-000000000081"
+      },
+      "blob_id": "10000000-0000-4000-8000-000000000090",
+      "payload": "stage-sources/plain-abc.txt"
+    }
+  ],
+  "canonical_record_observations": [
+    {
+      "kind": "representation",
+      "scope": {
+        "domain_id": "10000000-0000-4000-8000-000000000002",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "purpose": "recordkeeping"
+      },
+      "binding": {
+        "operation_id": "10000000-0000-4000-8000-00000000000a",
+        "plan_id": "10000000-0000-4000-8000-00000000000c",
+        "plan_sha256": "982b8dacaaea5a6f10e2ddf4c39375258f8cb1e9c7d03ded9d0a2ed9ac230e7e",
+        "stage_id": "10000000-0000-4000-8000-000000000050",
+        "stage_ordinal": 0,
+        "attempt_id": "10000000-0000-4000-8000-000000000070",
+        "attempt_ordinal": 256,
+        "input_sha256": "1cd989ffa27f891c313dc5817e0beda50b1cb0d0766f9ab3fc8379c48cd2bce0",
+        "profile_sha256": "cfd4c576fd174c4f5ae7be0e049ffd9e88abeda67c9f685e120fbbf2ad2aa7d1",
+        "stage_result_id": "10000000-0000-4000-8000-000000000073",
+        "worker_fence": 7,
+        "stage_kind": "normalize",
+        "output_kind": "representation"
+      },
+      "allocation_id": "10000000-0000-4000-8000-000000000060",
+      "reference": {
+        "representation_id": "10000000-0000-4000-8000-000000000060",
+        "original": {
+          "artifact_id": "10000000-0000-4000-8000-000000000080",
+          "organization_id": "10000000-0000-4000-8000-000000000001",
+          "source": {
+            "byte_length": 3,
+            "format": "plain_text",
+            "media_type": "text/plain",
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+          },
+          "version_id": "10000000-0000-4000-8000-000000000081"
+        },
+        "bytes": {
+          "byte_length": 3,
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        },
+        "profile_digest": "cfd4c576fd174c4f5ae7be0e049ffd9e88abeda67c9f685e120fbbf2ad2aa7d1"
+      },
+      "recorded_at": "2026-09-08T12:00:00.500Z",
+      "canonical_jcs": "stages/semantic-attempt-ordinal-256/independent-canonical-0.jcs",
+      "observation_control_revision": {
+        "kind": "control",
+        "value": "513"
+      }
+    }
+  ],
+  "supported_profiles": {
+    "codec_profiles": [
+      "intelligence-jcs-v1"
+    ],
+    "resources": [
+      {
+        "configuration_sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516",
+        "content_sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7",
+        "name": "synthetic-normalizer",
+        "role": "normalizer",
+        "version": "1"
+      }
+    ],
+    "resource_bytes": [
+      {
+        "payload": "stage-sources/synthetic-resource.txt",
+        "sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7"
+      },
+      {
+        "payload": "stage-sources/synthetic-resource-config.jcs",
+        "sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516"
+      }
+    ],
+    "billing_units": [
+      "input_token",
+      "output_token"
+    ]
+  },
+  "gateway_observations": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "ledger_control_revision": {
+      "kind": "control",
+      "value": "512"
+    },
+    "complete_prior_entries": [],
+    "complete_current_attempt_invocations": [],
+    "receipt_associations": [],
+    "response_control_revision": {
+      "kind": "control",
+      "value": "513"
+    }
+  },
+  "dispatch_state": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "512"
+    },
+    "worker_fence": 7,
+    "cancellation": "none",
+    "operation_state": "running"
+  }
+}

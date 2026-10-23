@@ -81,3 +81,110 @@ These are synthetic conformance bytes. They qualify no running RPC, model,
 provider, pricing authority, persistence, recovery, canonical writer or user
 journey. Complete semantic examples and applicable source/generation/process
 qualification remain required.
+
+[Complete stage inputs](stage-vectors.json) separately freeze literal request
+and response frames, complete readable records and independent comparison inputs
+under `stages/`, `stage-admission/` and `stage-sources/`. The four output families
+include both workspace candidates and project changes. Examples retain exact
+accepted dependencies, project origins and four distinct lineage categories,
+global stage/reconciliation attempt ordinals, source and locator bytes, finite
+quotes, complete earlier/current exposure records and reduced rational costs.
+Selected message/record/material boundaries and contradictions retain their
+independently chosen answers. Independent admission remains a consuming gate.
+
+The observation files are separate synthetic fixture inputs. `dispatch_state`
+and `dispatch_clock` describe the dispatch cut; `current_state` and
+`response_clock` describe the later response-check cut. Canonical record bytes,
+server timestamps, accepted dependencies, actual invocation sets and receipt
+associations are separately supplied observations. No response or profile label
+establishes those facts. The text, JSON, two-pixel PNG and one-second PCM WAV
+are literal conformance material, without actual media/clock/authority/resource
+qualification. The source manifest records their exact identities and envelopes.
+
+The byte author uses literal protobuf field numbers and shortest primitive
+varints/lengths, standard-library SHA256 and explicit UTF-16 JSON key ordering.
+It imports no protobuf serializer, framing decoder or prospective stage consumer.
+Each case pins its exact request and response byte count and digest. Expected
+fields belong only to thin assertions. A refused request has a null response
+expectation: no response consumer is executed for that request. Late failure
+and uncertainty examples preserve already incurred evidence within the original
+reconciliation deadline; they authorize neither new work nor a renewed budget.
+
+The boundary literals retain all sixty-four stage declarations and their exact
+source preimages, and a complete 256-attempt execution with fixed stage clocks.
+They distinguish semantic ordinals and safe worker fences from protobuf integer
+capacity. Selected output, warning, context, dependency, lineage, stage, attempt,
+attachment, exposure and transcript counts have explicit inclusive/one-over cases.
+Pending proposal DAGs preserve exact available item and committed-record versions
+without supplying review acceptance or application authority. Transcript examples
+retain complete synthetic text bytes and separately supplied audio alignment.
+
+Eleven additive literal budget comparisons distinguish the fixed whole-operation
+allowance across stages: verified settlement, prior-over-allowance dispatch,
+uncertain and known-but-unsettled reservation floors, greater retained liability,
+and identical/conflicting exposure overlap. Equality is inclusive; exact rational
+overflow refuses. These synthetic inputs qualify no actual shared admission,
+authenticated issuer, gateway invocation or per-capture spending authority.
+
+The complete-stage inventory also retains sixty-four additive semantic literals.
+They cover exact snapshot scalar types, malformed comparison containers, counted
+progress and reconciliation counters, complete prior-result attempt/history
+joins, preserved later settlement, nested proposal identities, document and
+transcript originals, all observation provenance branches, reachable inference
+basis bounds and attributable supplied context/representations. Those additions brought the inventory to 299 exchanges; the earlier 235 case
+rows remain unchanged.
+
+New semantic rows explicitly declare comparison_materials: complete supplied
+material keys loaded by the fixture driver, without expected-answer values.
+This permits malformed-observation intake without making the loader fabricate
+missing files or infer validity from the maintained comparison implementation.
+Every listed file must exist. Original rows retain their earlier material
+selection. All new literals still require independent admission before semantic
+consumption; their presence claims no real model, human, audit or service result.
+
+Fifty further additive literals cover the remaining complete-consumer review
+findings. Typed Boolean defaults distinguish Boolean values from equal-looking
+integers/floats; declared billing-unit arrays cannot be supplied as objects.
+Current optional failed parts retain exact sealed-binding correspondence.
+Historical supplied-representation assertions preserve complete ordered capture
+intents/readiness and every retained binding, including valid historical drafts.
+
+Every consumed proposal evidence role, expense field basis and project
+source-observation lineage is a provenance root. The literals include complete
+versus missing supplier attribution, unavailable or cyclic retained inference
+bases, and historical document/model locator checks. Historical representations
+remain independently resolved outside the current capture/blob/representation
+list, with their own conversion and creation profiles. Same content bytes cannot
+replace exact original identities. No additional authority flag or assertion
+processing profile is introduced.
+
+The aggregate inventory is 359 exchanges: 250 request admits and 109 refusals;
+103 response admits, 147 refusals and 109 unconsumed responses. All earlier 299
+complete case rows and answers remain unchanged. These new literals also require
+independent admission before consumer changes. Canonical-byte/schema self-checks
+are author evidence, not independent acceptance or real human/model/read/runtime
+qualification.
+
+Four additional counter literals preserve the acquisition state invariant in
+current and historical captures. A content revision advances both counters and
+leaves a draft; submission advances control again. Submitted content two/control
+three is consistent; submitted two/two and draft two/one are not. The seven
+submitted historical correspondence snapshots use control three; the valid draft
+two/two remains distinct. All preceding 349 complete case rows, answers and frame
+pins remain unchanged. These facts model possible recorded states without
+inventing event histories or actual service qualification.
+
+Six further literals isolate capture upload-ID uniqueness and the inclusive
+100-MiB declared-intent aggregate in current and historical captures. Distinct
+upload IDs for equal byte identities remain valid; roles, generations or whole
+object uniqueness cannot conceal a repeated upload ID. Every declared part
+counts before eligibility and storage deduplication, including unavailable
+optional parts retaining earlier sealed bindings.
+
+The aggregate-boundary controls declare one three-byte ready note and four
+unavailable optional PNG sources. Each PNG declaration fits its individual
+25-MiB envelope; the combined declaration is exactly 100 MiB or one byte over.
+Only the ready three-byte material is supplied to processing, within its
+unchanged selected limits. These are synthetic metadata comparisons, without
+actual 100-MiB media, storage, decoding or resource qualification. The earlier
+353 complete case rows, answers and frame pins remain unchanged.

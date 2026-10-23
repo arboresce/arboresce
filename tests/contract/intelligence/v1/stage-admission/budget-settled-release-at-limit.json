@@ -1,0 +1,1039 @@
+{
+  "version": "intelligence-stage-observations-v1",
+  "provenance": "Synthetic independent comparison inputs; no actual Rust issuance, authenticated gateway, authorization, clock, resource or recovery qualification. Canonical record observations are a separate response-check cut after the dispatch cut; their synthetic declaration grants no real issuance or work authority.",
+  "admission": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "binding": {
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "plan_id": "10000000-0000-4000-8000-00000000000c",
+      "plan_sha256": "1b959dfb0ef05df42c1a7c7a651deea0124af3966eb6f5758984b7703859638d",
+      "stage_id": "10000000-0000-4000-8000-000000000051",
+      "stage_ordinal": 1,
+      "attempt_id": "10000000-0000-4000-8000-000000000170",
+      "attempt_ordinal": 2,
+      "input_sha256": "78fb5cd867de52e93a249b17f806baae5d86354bd9aab9424ca592af6ef8640a",
+      "profile_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+      "stage_result_id": "10000000-0000-4000-8000-000000000173",
+      "worker_fence": 7,
+      "stage_kind": "synthesize",
+      "output_kind": "candidate_set"
+    },
+    "deadlines": {
+      "admitted_at": "2026-09-08T12:00:00.000Z",
+      "work_deadline": "2026-09-08T12:00:10.000Z",
+      "reconciliation_deadline": "2026-09-08T12:00:15.000Z",
+      "stage_started_at": "2026-09-08T12:00:00.300Z",
+      "stage_deadline": "2026-09-08T12:00:05.300Z",
+      "attempt_started_at": "2026-09-08T12:00:00.300Z",
+      "attempt_deadline": "2026-09-08T12:00:01.300Z",
+      "remaining_attempt_ms": 1000
+    },
+    "source_sha256": "78fb5cd867de52e93a249b17f806baae5d86354bd9aab9424ca592af6ef8640a",
+    "profile_reference": {
+      "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "profile_id": "10000000-0000-4000-8000-000000000004",
+      "version": {
+        "kind": "content",
+        "value": "1"
+      }
+    },
+    "plan_reference": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "plan_id": "10000000-0000-4000-8000-00000000000c",
+      "plan_sha256": "1b959dfb0ef05df42c1a7c7a651deea0124af3966eb6f5758984b7703859638d"
+    },
+    "execution_sha256": "5fff38c9c8d89f389a7d17813fc7e1e8ce0dfb14fac15da5b27dfa110f3c32fe",
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "4"
+    },
+    "output_allocations": {
+      "stage_id": "10000000-0000-4000-8000-000000000051",
+      "representations": [],
+      "observations": [],
+      "candidates": [
+        "10000000-0000-4000-8000-000000000062"
+      ],
+      "expense_proposals": [],
+      "project_items": []
+    },
+    "accepted_dependency_results": [
+      {
+        "domain_id": "10000000-0000-4000-8000-000000000002",
+        "input_sha256": "83b0a26a30c051a0b050060efc661ced44cda372e6b8ffb9fab1e6725e79604f",
+        "kind": "observation_set",
+        "operation_id": "10000000-0000-4000-8000-00000000000a",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "profile_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+        "result_sha256": "0ba305a107873b4b3eeb7267f3bc1aa2f847914ab105a1f8cf05ed85b003e9f9",
+        "stage_id": "10000000-0000-4000-8000-000000000050",
+        "stage_result_id": "10000000-0000-4000-8000-000000000073"
+      }
+    ],
+    "admitted_quotes": [
+      {
+        "quote_id": "10000000-0000-4000-8000-0000000000d0",
+        "quote_sha256": "5a863aee323c5039acc4d752c90a0355df3a51bc7ca394c735c432dff31a5663"
+      }
+    ],
+    "prior_ledger_control_revision": {
+      "kind": "control",
+      "value": "4"
+    },
+    "prior_ledger_sha256": "deb3eb051673c20580d4ae5e9df3fa8b2dbe049cf1dd9e8f771672fa6fbe2dee",
+    "worker_execution": {
+      "authority_audit_event_id": "10000000-0000-4000-8000-000000000172",
+      "delegation_id": null,
+      "executor": {
+        "kind": "service",
+        "principal_id": "10000000-0000-4000-8000-000000000071"
+      }
+    }
+  },
+  "dispatch_clock": {
+    "utc": "2026-09-08T12:00:00.300Z",
+    "work_remaining_ns": "9700000000",
+    "stage_remaining_ns": "5000000000",
+    "attempt_remaining_ns": "1000000000",
+    "reconciliation_remaining_ns": "14700000000"
+  },
+  "response_clock": {
+    "utc": "2026-09-08T12:00:00.900Z",
+    "work_remaining_ns": "9100000000",
+    "stage_remaining_ns": "4400000000",
+    "attempt_remaining_ns": "400000000",
+    "reconciliation_remaining_ns": "14100000000"
+  },
+  "clock_units": {
+    "utc": "exact UTC milliseconds",
+    "remaining": "canonical unsigned decimal nanoseconds"
+  },
+  "current_state": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "5"
+    },
+    "worker_fence": 7,
+    "cancellation": "none",
+    "operation_state": "running"
+  },
+  "source_resolutions": [
+    {
+      "kind": "original",
+      "reference": {
+        "artifact_id": "10000000-0000-4000-8000-000000000080",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "source": {
+          "format": "plain_text",
+          "media_type": "text/plain",
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "byte_length": 3
+        },
+        "version_id": "10000000-0000-4000-8000-000000000081"
+      },
+      "blob_id": "10000000-0000-4000-8000-000000000090",
+      "payload": "stage-sources/plain-abc.txt"
+    },
+    {
+      "kind": "representation",
+      "reference": {
+        "representation_id": "10000000-0000-4000-8000-000000000060",
+        "original": {
+          "artifact_id": "10000000-0000-4000-8000-000000000080",
+          "organization_id": "10000000-0000-4000-8000-000000000001",
+          "source": {
+            "format": "plain_text",
+            "media_type": "text/plain",
+            "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+            "byte_length": 3
+          },
+          "version_id": "10000000-0000-4000-8000-000000000081"
+        },
+        "bytes": {
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "byte_length": 3
+        },
+        "profile_digest": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece"
+      },
+      "payload": "stage-sources/plain-abc.txt",
+      "canonical_jcs": "stages/workspace-candidate/canonical-representation.jcs"
+    }
+  ],
+  "canonical_record_observations": [],
+  "supported_profiles": {
+    "codec_profiles": [
+      "intelligence-jcs-v1"
+    ],
+    "resources": [
+      {
+        "configuration_sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516",
+        "content_sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7",
+        "name": "synthetic-normalizer",
+        "role": "normalizer",
+        "version": "1"
+      }
+    ],
+    "resource_bytes": [
+      {
+        "payload": "stage-sources/synthetic-resource.txt",
+        "sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7"
+      },
+      {
+        "payload": "stage-sources/synthetic-resource-config.jcs",
+        "sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516"
+      }
+    ],
+    "billing_units": [
+      "input_token",
+      "output_token"
+    ]
+  },
+  "gateway_observations": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "ledger_control_revision": {
+      "kind": "control",
+      "value": "4"
+    },
+    "complete_prior_entries": [
+      {
+        "entry": {
+          "admitted_at": "2026-09-08T12:00:00.050Z",
+          "attempt_id": "10000000-0000-4000-8000-000000000070",
+          "authority_audit_event_id": "10000000-0000-4000-8000-0000000000e3",
+          "exposure_id": "10000000-0000-4000-8000-0000000000e0",
+          "finished_at": "2026-09-08T12:00:00.150Z",
+          "input_sha256": "83b0a26a30c051a0b050060efc661ced44cda372e6b8ffb9fab1e6725e79604f",
+          "policy": {
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "policy_id": "00000000-0000-4000-8000-000000000015",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "profile": {
+            "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "profile_id": "10000000-0000-4000-8000-000000000004",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "receipt": {
+            "kind": "retained",
+            "receipt_id": "10000000-0000-4000-8000-0000000000e1",
+            "receipt_sha256": "74e32b0ff37219a972e3c4e81269394e28c69f99001cfc4f841aae845f65f760"
+          },
+          "reconciliation": {
+            "state": "not_required",
+            "attempts_started": 0,
+            "last_checked_at": null,
+            "next_attempt_at": null,
+            "deadline": null,
+            "diagnostic": null
+          },
+          "settlement": "settled",
+          "stage_id": "10000000-0000-4000-8000-000000000050",
+          "state": "completed"
+        },
+        "receipt": {
+          "attempt_id": "10000000-0000-4000-8000-000000000070",
+          "cost": {
+            "kind": "known",
+            "input_units": 2,
+            "output_units": 3,
+            "amount_usd": {
+              "numerator": "1",
+              "denominator": "2"
+            },
+            "quote": {
+              "expires_at": "2026-09-08T13:00:00.000Z",
+              "input_price_usd": {
+                "numerator": "1",
+                "denominator": "4"
+              },
+              "input_unit": "input_token",
+              "output_price_usd": {
+                "numerator": "0",
+                "denominator": "1"
+              },
+              "output_unit": "output_token",
+              "policy": {
+                "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "policy_id": "00000000-0000-4000-8000-000000000015",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "profile": {
+                "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "profile_id": "10000000-0000-4000-8000-000000000004",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "quote_id": "10000000-0000-4000-8000-0000000000d0",
+              "request_price_usd": {
+                "numerator": "0",
+                "denominator": "1"
+              },
+              "valid_from": "2026-09-08T11:00:00.000Z"
+            }
+          },
+          "evidence": {
+            "issuer": {
+              "kind": "service",
+              "principal_id": "10000000-0000-4000-8000-0000000000d1"
+            },
+            "kind": "synthetic_conformance",
+            "observation_id": "10000000-0000-4000-8000-0000000000e2",
+            "request": {
+              "attempt_id": "10000000-0000-4000-8000-000000000070",
+              "deadline": "2026-09-08T12:00:01.000Z",
+              "input_sha256": "83b0a26a30c051a0b050060efc661ced44cda372e6b8ffb9fab1e6725e79604f",
+              "kind": "arboresce.intelligence-provider-request.v1",
+              "operation": {
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "operation_id": "10000000-0000-4000-8000-00000000000a",
+                "organization_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "policy": {
+                "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "policy_id": "00000000-0000-4000-8000-000000000015",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "profile": {
+                "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "profile_id": "10000000-0000-4000-8000-000000000004",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "quote": {
+                "expires_at": "2026-09-08T13:00:00.000Z",
+                "input_price_usd": {
+                  "numerator": "1",
+                  "denominator": "4"
+                },
+                "input_unit": "input_token",
+                "output_price_usd": {
+                  "numerator": "0",
+                  "denominator": "1"
+                },
+                "output_unit": "output_token",
+                "policy": {
+                  "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "domain_id": "10000000-0000-4000-8000-000000000002",
+                  "organization_id": "10000000-0000-4000-8000-000000000001",
+                  "policy_id": "00000000-0000-4000-8000-000000000015",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  }
+                },
+                "profile": {
+                  "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+                  "domain_id": "10000000-0000-4000-8000-000000000002",
+                  "organization_id": "10000000-0000-4000-8000-000000000001",
+                  "profile_id": "10000000-0000-4000-8000-000000000004",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  }
+                },
+                "quote_id": "10000000-0000-4000-8000-0000000000d0",
+                "request_price_usd": {
+                  "numerator": "0",
+                  "denominator": "1"
+                },
+                "valid_from": "2026-09-08T11:00:00.000Z"
+              },
+              "request_id": "synthetic-request-1",
+              "reservation_usd": {
+                "numerator": "1",
+                "denominator": "1"
+              },
+              "resources": [
+                {
+                  "configuration_sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516",
+                  "content_sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7",
+                  "name": "synthetic-normalizer",
+                  "role": "normalizer",
+                  "version": "1"
+                }
+              ],
+              "scope": {
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "purpose": "recordkeeping"
+              },
+              "source": [
+                {
+                  "blob_id": "10000000-0000-4000-8000-000000000090",
+                  "bytes": {
+                    "byte_length": 3,
+                    "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                  },
+                  "original": {
+                    "artifact_id": "10000000-0000-4000-8000-000000000080",
+                    "organization_id": "10000000-0000-4000-8000-000000000001",
+                    "source": {
+                      "byte_length": 3,
+                      "format": "plain_text",
+                      "media_type": "text/plain",
+                      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                    },
+                    "version_id": "10000000-0000-4000-8000-000000000081"
+                  }
+                }
+              ],
+              "stage_id": "10000000-0000-4000-8000-000000000050"
+            },
+            "response": {
+              "kind": "performed",
+              "outputs": [
+                {
+                  "kind": "observation",
+                  "record": {
+                    "grounding": {
+                      "kind": "located",
+                      "locators": [
+                        {
+                          "end_byte": 3,
+                          "kind": "utf8_range",
+                          "representation": {
+                            "bytes": {
+                              "byte_length": 3,
+                              "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                            },
+                            "original": {
+                              "artifact_id": "10000000-0000-4000-8000-000000000080",
+                              "organization_id": "10000000-0000-4000-8000-000000000001",
+                              "source": {
+                                "byte_length": 3,
+                                "format": "plain_text",
+                                "media_type": "text/plain",
+                                "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                              },
+                              "version_id": "10000000-0000-4000-8000-000000000081"
+                            },
+                            "profile_digest": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+                            "representation_id": "10000000-0000-4000-8000-000000000060"
+                          },
+                          "start_byte": 0
+                        }
+                      ]
+                    },
+                    "kind": "document_observation",
+                    "observation_id": "10000000-0000-4000-8000-000000000061",
+                    "organization_id": "10000000-0000-4000-8000-000000000001",
+                    "recorded_at": "2026-09-08T12:00:00.150Z",
+                    "source": {
+                      "extractor_profile_digest": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+                      "original": {
+                        "artifact_id": "10000000-0000-4000-8000-000000000080",
+                        "organization_id": "10000000-0000-4000-8000-000000000001",
+                        "source": {
+                          "byte_length": 3,
+                          "format": "plain_text",
+                          "media_type": "text/plain",
+                          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                        },
+                        "version_id": "10000000-0000-4000-8000-000000000081"
+                      }
+                    },
+                    "statement": "The supplied text is abc."
+                  }
+                }
+              ],
+              "input_units": 2,
+              "output_units": 3,
+              "amount_usd": {
+                "numerator": "1",
+                "denominator": "2"
+              },
+              "recorded_at": "2026-09-08T12:00:00.150Z"
+            }
+          },
+          "evidence_profile": "intelligence-gateway-observation-v1",
+          "exposure": {
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "exposure_id": "10000000-0000-4000-8000-0000000000e0",
+            "organization_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "issuer": {
+            "kind": "service",
+            "principal_id": "10000000-0000-4000-8000-0000000000d1"
+          },
+          "kind": "arboresce.intelligence-provider-receipt.v1",
+          "observed_at": "2026-09-08T12:00:00.150Z",
+          "outcome": "performed",
+          "policy": {
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "policy_id": "00000000-0000-4000-8000-000000000015",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "profile": {
+            "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "profile_id": "10000000-0000-4000-8000-000000000004",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "receipt_id": "10000000-0000-4000-8000-0000000000e1",
+          "request_id": "synthetic-request-1",
+          "request_sha256": "69995d465a9a347d5f0a99c898b8485ec34cd77f2ccd32651699e5ea2c7ab728"
+        },
+        "request": {
+          "attempt_id": "10000000-0000-4000-8000-000000000070",
+          "deadline": "2026-09-08T12:00:01.000Z",
+          "input_sha256": "83b0a26a30c051a0b050060efc661ced44cda372e6b8ffb9fab1e6725e79604f",
+          "kind": "arboresce.intelligence-provider-request.v1",
+          "operation": {
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "operation_id": "10000000-0000-4000-8000-00000000000a",
+            "organization_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "policy": {
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "policy_id": "00000000-0000-4000-8000-000000000015",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "profile": {
+            "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "profile_id": "10000000-0000-4000-8000-000000000004",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "quote": {
+            "expires_at": "2026-09-08T13:00:00.000Z",
+            "input_price_usd": {
+              "numerator": "1",
+              "denominator": "4"
+            },
+            "input_unit": "input_token",
+            "output_price_usd": {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            "output_unit": "output_token",
+            "policy": {
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "domain_id": "10000000-0000-4000-8000-000000000002",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "policy_id": "00000000-0000-4000-8000-000000000015",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "profile": {
+              "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+              "domain_id": "10000000-0000-4000-8000-000000000002",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "profile_id": "10000000-0000-4000-8000-000000000004",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "quote_id": "10000000-0000-4000-8000-0000000000d0",
+            "request_price_usd": {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            "valid_from": "2026-09-08T11:00:00.000Z"
+          },
+          "request_id": "synthetic-request-1",
+          "reservation_usd": {
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "resources": [
+            {
+              "configuration_sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516",
+              "content_sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7",
+              "name": "synthetic-normalizer",
+              "role": "normalizer",
+              "version": "1"
+            }
+          ],
+          "scope": {
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "purpose": "recordkeeping"
+          },
+          "source": [
+            {
+              "blob_id": "10000000-0000-4000-8000-000000000090",
+              "bytes": {
+                "byte_length": 3,
+                "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+              },
+              "original": {
+                "artifact_id": "10000000-0000-4000-8000-000000000080",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "source": {
+                  "byte_length": 3,
+                  "format": "plain_text",
+                  "media_type": "text/plain",
+                  "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                },
+                "version_id": "10000000-0000-4000-8000-000000000081"
+              }
+            }
+          ],
+          "stage_id": "10000000-0000-4000-8000-000000000050"
+        }
+      }
+    ],
+    "complete_current_attempt_invocations": [
+      {
+        "entry": {
+          "exposure_id": "10000000-0000-4000-8000-0000000000f0",
+          "stage_id": "10000000-0000-4000-8000-000000000051",
+          "attempt_id": "10000000-0000-4000-8000-000000000170",
+          "profile": {
+            "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "profile_id": "10000000-0000-4000-8000-000000000004",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "policy": {
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "policy_id": "00000000-0000-4000-8000-000000000015",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "input_sha256": "78fb5cd867de52e93a249b17f806baae5d86354bd9aab9424ca592af6ef8640a",
+          "authority_audit_event_id": "10000000-0000-4000-8000-0000000000f3",
+          "admitted_at": "2026-09-08T12:00:00.350Z",
+          "state": "uncertain",
+          "finished_at": "2026-09-08T12:00:00.600Z",
+          "receipt": {
+            "kind": "retained",
+            "receipt_id": "10000000-0000-4000-8000-0000000000f1",
+            "receipt_sha256": "8a00f0163cc6684f45d43692b333d129adb724aea122d840824360efef56975f"
+          },
+          "settlement": "reserved",
+          "reconciliation": {
+            "state": "pending",
+            "attempts_started": 0,
+            "last_checked_at": null,
+            "next_attempt_at": "2026-09-08T12:00:01.000Z",
+            "deadline": "2026-09-08T12:00:15.000Z",
+            "diagnostic": null
+          }
+        },
+        "request": {
+          "kind": "arboresce.intelligence-provider-request.v1",
+          "scope": {
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "purpose": "recordkeeping"
+          },
+          "operation": {
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "operation_id": "10000000-0000-4000-8000-00000000000a",
+            "organization_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "stage_id": "10000000-0000-4000-8000-000000000051",
+          "attempt_id": "10000000-0000-4000-8000-000000000170",
+          "profile": {
+            "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "profile_id": "10000000-0000-4000-8000-000000000004",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "policy": {
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "policy_id": "00000000-0000-4000-8000-000000000015",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "input_sha256": "78fb5cd867de52e93a249b17f806baae5d86354bd9aab9424ca592af6ef8640a",
+          "request_id": "synthetic-budget-current",
+          "source": [
+            {
+              "blob_id": "10000000-0000-4000-8000-000000000090",
+              "bytes": {
+                "byte_length": 3,
+                "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+              },
+              "original": {
+                "artifact_id": "10000000-0000-4000-8000-000000000080",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "source": {
+                  "byte_length": 3,
+                  "format": "plain_text",
+                  "media_type": "text/plain",
+                  "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                },
+                "version_id": "10000000-0000-4000-8000-000000000081"
+              }
+            }
+          ],
+          "resources": [
+            {
+              "configuration_sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516",
+              "content_sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7",
+              "name": "synthetic-normalizer",
+              "role": "normalizer",
+              "version": "1"
+            }
+          ],
+          "reservation_usd": {
+            "numerator": "1",
+            "denominator": "2"
+          },
+          "deadline": "2026-09-08T12:00:01.300Z",
+          "quote": {
+            "expires_at": "2026-09-08T13:00:00.000Z",
+            "input_price_usd": {
+              "denominator": "1000000",
+              "numerator": "1"
+            },
+            "input_unit": "input_token",
+            "output_price_usd": {
+              "denominator": "500000",
+              "numerator": "1"
+            },
+            "output_unit": "output_token",
+            "policy": {
+              "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "domain_id": "10000000-0000-4000-8000-000000000002",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "policy_id": "00000000-0000-4000-8000-000000000015",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "profile": {
+              "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+              "domain_id": "10000000-0000-4000-8000-000000000002",
+              "organization_id": "10000000-0000-4000-8000-000000000001",
+              "profile_id": "10000000-0000-4000-8000-000000000004",
+              "version": {
+                "kind": "content",
+                "value": "1"
+              }
+            },
+            "quote_id": "10000000-0000-4000-8000-0000000000d0",
+            "request_price_usd": {
+              "denominator": "1",
+              "numerator": "0"
+            },
+            "valid_from": "2026-09-08T11:00:00.000Z"
+          }
+        },
+        "receipt": {
+          "kind": "arboresce.intelligence-provider-receipt.v1",
+          "receipt_id": "10000000-0000-4000-8000-0000000000f1",
+          "evidence_profile": "intelligence-gateway-observation-v1",
+          "issuer": {
+            "principal_id": "10000000-0000-4000-8000-0000000000d1",
+            "kind": "service"
+          },
+          "exposure": {
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "exposure_id": "10000000-0000-4000-8000-0000000000f0"
+          },
+          "attempt_id": "10000000-0000-4000-8000-000000000170",
+          "request_sha256": "9a55000ae30bed1a505489e64d64e94bfa806946033ce9f788352b9fc6765418",
+          "profile": {
+            "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "profile_id": "10000000-0000-4000-8000-000000000004",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "policy": {
+            "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "domain_id": "10000000-0000-4000-8000-000000000002",
+            "organization_id": "10000000-0000-4000-8000-000000000001",
+            "policy_id": "00000000-0000-4000-8000-000000000015",
+            "version": {
+              "kind": "content",
+              "value": "1"
+            }
+          },
+          "observed_at": "2026-09-08T12:00:00.600Z",
+          "request_id": "synthetic-budget-current",
+          "outcome": "unknown",
+          "cost": {
+            "kind": "unknown",
+            "retained_liability_usd": {
+              "numerator": "1",
+              "denominator": "2"
+            }
+          },
+          "evidence": {
+            "kind": "synthetic_conformance",
+            "observation_id": "10000000-0000-4000-8000-0000000000f2",
+            "issuer": {
+              "principal_id": "10000000-0000-4000-8000-0000000000d1",
+              "kind": "service"
+            },
+            "request": {
+              "kind": "arboresce.intelligence-provider-request.v1",
+              "scope": {
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "purpose": "recordkeeping"
+              },
+              "operation": {
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "operation_id": "10000000-0000-4000-8000-00000000000a",
+                "organization_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "stage_id": "10000000-0000-4000-8000-000000000051",
+              "attempt_id": "10000000-0000-4000-8000-000000000170",
+              "profile": {
+                "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "profile_id": "10000000-0000-4000-8000-000000000004",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "policy": {
+                "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "domain_id": "10000000-0000-4000-8000-000000000002",
+                "organization_id": "10000000-0000-4000-8000-000000000001",
+                "policy_id": "00000000-0000-4000-8000-000000000015",
+                "version": {
+                  "kind": "content",
+                  "value": "1"
+                }
+              },
+              "input_sha256": "78fb5cd867de52e93a249b17f806baae5d86354bd9aab9424ca592af6ef8640a",
+              "request_id": "synthetic-budget-current",
+              "source": [
+                {
+                  "blob_id": "10000000-0000-4000-8000-000000000090",
+                  "bytes": {
+                    "byte_length": 3,
+                    "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                  },
+                  "original": {
+                    "artifact_id": "10000000-0000-4000-8000-000000000080",
+                    "organization_id": "10000000-0000-4000-8000-000000000001",
+                    "source": {
+                      "byte_length": 3,
+                      "format": "plain_text",
+                      "media_type": "text/plain",
+                      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+                    },
+                    "version_id": "10000000-0000-4000-8000-000000000081"
+                  }
+                }
+              ],
+              "resources": [
+                {
+                  "configuration_sha256": "e1597907b21cecc0cc29c672600dee2fd56825b1201eefb01a725ba429076516",
+                  "content_sha256": "89f946b7f56897f9f304c8958fac05a348b0f3ebc9fb6fc02275ba0fd74f74e7",
+                  "name": "synthetic-normalizer",
+                  "role": "normalizer",
+                  "version": "1"
+                }
+              ],
+              "reservation_usd": {
+                "numerator": "1",
+                "denominator": "2"
+              },
+              "deadline": "2026-09-08T12:00:01.300Z",
+              "quote": {
+                "expires_at": "2026-09-08T13:00:00.000Z",
+                "input_price_usd": {
+                  "denominator": "1000000",
+                  "numerator": "1"
+                },
+                "input_unit": "input_token",
+                "output_price_usd": {
+                  "denominator": "500000",
+                  "numerator": "1"
+                },
+                "output_unit": "output_token",
+                "policy": {
+                  "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "domain_id": "10000000-0000-4000-8000-000000000002",
+                  "organization_id": "10000000-0000-4000-8000-000000000001",
+                  "policy_id": "00000000-0000-4000-8000-000000000015",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  }
+                },
+                "profile": {
+                  "content_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+                  "domain_id": "10000000-0000-4000-8000-000000000002",
+                  "organization_id": "10000000-0000-4000-8000-000000000001",
+                  "profile_id": "10000000-0000-4000-8000-000000000004",
+                  "version": {
+                    "kind": "content",
+                    "value": "1"
+                  }
+                },
+                "quote_id": "10000000-0000-4000-8000-0000000000d0",
+                "request_price_usd": {
+                  "denominator": "1",
+                  "numerator": "0"
+                },
+                "valid_from": "2026-09-08T11:00:00.000Z"
+              }
+            },
+            "response": {
+              "kind": "unknown",
+              "reason": "timeout",
+              "retained_liability_usd": {
+                "numerator": "1",
+                "denominator": "2"
+              },
+              "recorded_at": "2026-09-08T12:00:00.600Z"
+            }
+          }
+        }
+      }
+    ],
+    "receipt_associations": [
+      {
+        "exposure": {
+          "organization_id": "10000000-0000-4000-8000-000000000001",
+          "domain_id": "10000000-0000-4000-8000-000000000002",
+          "exposure_id": "10000000-0000-4000-8000-0000000000f0"
+        },
+        "receipt_id": "10000000-0000-4000-8000-0000000000f1",
+        "receipt_sha256": "8a00f0163cc6684f45d43692b333d129adb724aea122d840824360efef56975f",
+        "issuer": {
+          "principal_id": "10000000-0000-4000-8000-0000000000d1",
+          "kind": "service"
+        },
+        "request_sha256": "9a55000ae30bed1a505489e64d64e94bfa806946033ce9f788352b9fc6765418",
+        "observation_id": "10000000-0000-4000-8000-0000000000f2"
+      }
+    ],
+    "response_control_revision": {
+      "kind": "control",
+      "value": "5"
+    }
+  },
+  "accepted_dependency_records": [
+    {
+      "reference": {
+        "domain_id": "10000000-0000-4000-8000-000000000002",
+        "input_sha256": "83b0a26a30c051a0b050060efc661ced44cda372e6b8ffb9fab1e6725e79604f",
+        "kind": "observation_set",
+        "operation_id": "10000000-0000-4000-8000-00000000000a",
+        "organization_id": "10000000-0000-4000-8000-000000000001",
+        "profile_sha256": "9367da7544196ba1d76476e64c001dcefdc2848130404ba6f62d6f0d12dfaece",
+        "result_sha256": "0ba305a107873b4b3eeb7267f3bc1aa2f847914ab105a1f8cf05ed85b003e9f9",
+        "stage_id": "10000000-0000-4000-8000-000000000050",
+        "stage_result_id": "10000000-0000-4000-8000-000000000073"
+      },
+      "complete_result_jcs": "stages/budget-settled-release-at-limit/independent-prior-0.jcs"
+    }
+  ],
+  "dispatch_state": {
+    "scope": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "organization_id": "10000000-0000-4000-8000-000000000001",
+      "purpose": "recordkeeping"
+    },
+    "operation": {
+      "domain_id": "10000000-0000-4000-8000-000000000002",
+      "operation_id": "10000000-0000-4000-8000-00000000000a",
+      "organization_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "operation_control_revision": {
+      "kind": "control",
+      "value": "4"
+    },
+    "worker_fence": 7,
+    "cancellation": "none",
+    "operation_state": "running"
+  }
+}
