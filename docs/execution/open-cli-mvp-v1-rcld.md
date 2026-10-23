@@ -1004,11 +1004,16 @@ Checkpoint: 9d308761ac89069b0a6ebf4f2a678f35f18567ab; Evidence: [Tenant and admi
 
 ### E206 — Implement independent lifecycle continuity before first writers
 
-Status: `in_progress`. Prerequisites: E205. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `blocked`. Prerequisites: E205. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P1.
 
 Scope: Implement independent lifecycle continuity before first writers; implement only the owning behavior described by this slice and its linked requirements. Split a red or oversized increment into independently green consumer checkpoints while preserving every obligation.
+
+The unaccepted native measurement consumer is isolated while native startup
+timeouts and incomplete strict coverage are resolved. All failed attempts and
+remaining continuity gates remain open. Product/bootstrap writers stay disabled.
+Independent eligible processing-contract work continues under E218.
 
 Planned paths: `crates/arboresce-postgres/src/lifecycle/`, `crates/arboresce-application/src/lifecycle/`, `tests/integration/recovery/`
 
@@ -1275,15 +1280,21 @@ depth, exact receipt identities and prior exposure history retain their owning
 joins. Two fresh pinned native compiler runs produced identical descriptor bytes;
 this establishes descriptor reproduction only. Independent input review admitted
 forty-two original raw framing vectors, two frame-cap recipes and eight additional
-scalar/Unicode boundary vectors before their consumption. The maintained framing
-consumer and measured helper now exist. Its first 54-case diagnostic passed and
-strict typing reported no diagnostics, but branch coverage was exactly 90% and
-failed the strict gate. The additive scalar wrong-wire cases address that missing
-behavior without changing the admitted expectations or threshold. Fresh complete
-owning/public-only source/helper/process qualification and independent delivery
-remain required before a green source checkpoint. Complete semantic examples,
-fixed record codecs and cross-record validation remain unfinished. No complete
-E218, generated service, model, writer or recovery acceptance follows.
+scalar/Unicode boundary vectors before their consumption. The bounded isolated
+framing consumer is independently accepted and normally committed at
+`d23b29e342059610a7b0eb8d04e26b43e5d5aa92`. Both fresh owning/public-only lanes
+pass 2,729 ordered tests, 101 subtests and nineteen strict scopes. Each reconciles
+ninety-six actual children, all ninety-seven raw profiles and the exact complete
+21,642-file before/after closure. Framing source covers 72/75 lines and 37/40
+branches; measured support covers 35/35 and 2/2. Both projects' formatting, lint
+and strict typing pass. Independent source/public/qualification review, normal
+commit, distinct actual delivery and both genuine owner receipts are complete.
+The first exactly-90% diagnostic, earlier shared-profile hold, transitive drift
+and unscoped-node attempt remain retained failures or holds. Complete semantic
+examples, fixed record codecs and cross-record validation remain unfinished.
+This is historical qualification of the exact source commit; this annotation
+does not claim a fresh executable run. No complete E218, generated service,
+model, writer or recovery acceptance follows.
 
 The framing component now has a separate
 [conformance project](../../contracts/intelligence-validation/README.md).
