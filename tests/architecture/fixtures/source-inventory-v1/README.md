@@ -257,3 +257,30 @@ before the changed profile's native inventory consumer. It does not accept that
 source implementation or supply a runtime result. Fresh complete owning and
 public-only qualification, measured support and native source closures, strict
 coverage and independent source acceptance remain required.
+
+## Expanded complete-input profile
+
+The separately selected `rust-source-roles-v2` profile admits at most 8192
+included files. The original `rust-source-roles-v1` profile retains its exact
+4096-file ceiling and every original literal answer. Unknown versions still
+fail. Both profiles retain the same 64 MiB per-file, 256 MiB complete-input and
+32-directory depth limits, exact cache boundaries, generated-file reopening,
+source-role reconciliation, declaration proof and actual Cargo target checks.
+No ordinary input or maintained source is omitted to fit the selected bound.
+
+The additive `inventory-v2-*` model cases freeze complete expected files,
+source/target projections and refusal categories before their consumer changes.
+They include five-file and 4097-file positives, the exact 8192-file boundary and
+8193-file refusal, together with unchanged byte, total, depth, symlink, generated,
+role and declaration boundaries. The recipe-only 8194-file request fails input
+preparation before any inventory call. The builder's larger finite preparation
+allowance is selected only by the final v2 profile; original v1 recipes and their
+failures remain unchanged. Empty generated filler bytes have the independently
+known SHA-256 of the empty string; their count includes all five base files.
+
+The native count table adds one prospective 105-source v2 role-profile digest,
+derived from the complete authored role declarations before observed inventory
+output. All older rows and answers remain unchanged. This data declares intent.
+Its committed delivery, current consumer implementation, full source/helper/native
+collection, strict coverage, public-only standalone qualification and independent
+source review remain separate requirements.

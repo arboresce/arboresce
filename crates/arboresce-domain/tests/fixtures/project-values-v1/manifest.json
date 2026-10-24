@@ -1,0 +1,1479 @@
+{
+  "version": "project-values-v1",
+  "classification": "synthetic",
+  "rights": "MIT OR Apache-2.0",
+  "scope": "Party and all nine project record-content parsed values; complete change preimages, provenance and actual consumers retain their own gates.",
+  "case_count": 352,
+  "literal_answer_counts": {
+    "valid": 92,
+    "refused": 260
+  },
+  "ordered_cases": [
+    {
+      "id": "party-person",
+      "api": "party"
+    },
+    {
+      "id": "party-external-business",
+      "api": "party"
+    },
+    {
+      "id": "content-description",
+      "api": "content"
+    },
+    {
+      "id": "content-context",
+      "api": "content"
+    },
+    {
+      "id": "content-participant",
+      "api": "content"
+    },
+    {
+      "id": "content-decision",
+      "api": "content"
+    },
+    {
+      "id": "content-work_item",
+      "api": "content"
+    },
+    {
+      "id": "content-responsibility",
+      "api": "content"
+    },
+    {
+      "id": "content-due_date",
+      "api": "content"
+    },
+    {
+      "id": "content-status",
+      "api": "content"
+    },
+    {
+      "id": "content-fact",
+      "api": "content"
+    },
+    {
+      "id": "party-missing-workspace",
+      "api": "party"
+    },
+    {
+      "id": "party-null-workspace",
+      "api": "party"
+    },
+    {
+      "id": "party-missing-party_id",
+      "api": "party"
+    },
+    {
+      "id": "party-null-party_id",
+      "api": "party"
+    },
+    {
+      "id": "party-missing-content_revision",
+      "api": "party"
+    },
+    {
+      "id": "party-null-content_revision",
+      "api": "party"
+    },
+    {
+      "id": "party-missing-kind",
+      "api": "party"
+    },
+    {
+      "id": "party-null-kind",
+      "api": "party"
+    },
+    {
+      "id": "party-missing-aliases",
+      "api": "party"
+    },
+    {
+      "id": "party-null-aliases",
+      "api": "party"
+    },
+    {
+      "id": "party-missing-details",
+      "api": "party"
+    },
+    {
+      "id": "party-null-details",
+      "api": "party"
+    },
+    {
+      "id": "party-extra-field",
+      "api": "party"
+    },
+    {
+      "id": "description-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "description-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "description-missing-statement",
+      "api": "content"
+    },
+    {
+      "id": "description-null-statement",
+      "api": "content"
+    },
+    {
+      "id": "description-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "context-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "context-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "context-missing-summary",
+      "api": "content"
+    },
+    {
+      "id": "context-null-summary",
+      "api": "content"
+    },
+    {
+      "id": "context-missing-established",
+      "api": "content"
+    },
+    {
+      "id": "context-null-established",
+      "api": "content"
+    },
+    {
+      "id": "context-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "participant-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "participant-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "participant-missing-party",
+      "api": "content"
+    },
+    {
+      "id": "participant-null-party",
+      "api": "content"
+    },
+    {
+      "id": "participant-missing-role",
+      "api": "content"
+    },
+    {
+      "id": "participant-null-role",
+      "api": "content"
+    },
+    {
+      "id": "participant-missing-assent_reported",
+      "api": "content"
+    },
+    {
+      "id": "participant-null-assent_reported",
+      "api": "content"
+    },
+    {
+      "id": "participant-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "decision-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "decision-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "decision-missing-statement",
+      "api": "content"
+    },
+    {
+      "id": "decision-null-statement",
+      "api": "content"
+    },
+    {
+      "id": "decision-missing-state",
+      "api": "content"
+    },
+    {
+      "id": "decision-null-state",
+      "api": "content"
+    },
+    {
+      "id": "decision-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "work_item-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "work_item-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "work_item-missing-statement",
+      "api": "content"
+    },
+    {
+      "id": "work_item-null-statement",
+      "api": "content"
+    },
+    {
+      "id": "work_item-missing-state",
+      "api": "content"
+    },
+    {
+      "id": "work_item-null-state",
+      "api": "content"
+    },
+    {
+      "id": "work_item-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-missing-party",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-null-party",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-missing-role",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-null-role",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-missing-state",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-null-state",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-missing-subject",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-null-subject",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "due_date-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "due_date-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "due_date-missing-due",
+      "api": "content"
+    },
+    {
+      "id": "due_date-null-due",
+      "api": "content"
+    },
+    {
+      "id": "due_date-missing-subject",
+      "api": "content"
+    },
+    {
+      "id": "due_date-null-subject",
+      "api": "content"
+    },
+    {
+      "id": "due_date-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "status-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "status-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "status-missing-value",
+      "api": "content"
+    },
+    {
+      "id": "status-null-value",
+      "api": "content"
+    },
+    {
+      "id": "status-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "fact-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "fact-null-kind",
+      "api": "content"
+    },
+    {
+      "id": "fact-missing-name",
+      "api": "content"
+    },
+    {
+      "id": "fact-null-name",
+      "api": "content"
+    },
+    {
+      "id": "fact-missing-value",
+      "api": "content"
+    },
+    {
+      "id": "fact-null-value",
+      "api": "content"
+    },
+    {
+      "id": "fact-extra-field",
+      "api": "content"
+    },
+    {
+      "id": "party-root-null",
+      "api": "party"
+    },
+    {
+      "id": "party-root-boolean",
+      "api": "party"
+    },
+    {
+      "id": "party-root-number",
+      "api": "party"
+    },
+    {
+      "id": "party-root-string",
+      "api": "party"
+    },
+    {
+      "id": "party-root-array",
+      "api": "party"
+    },
+    {
+      "id": "party-root-empty-object",
+      "api": "party"
+    },
+    {
+      "id": "content-root-null",
+      "api": "content"
+    },
+    {
+      "id": "content-root-boolean",
+      "api": "content"
+    },
+    {
+      "id": "content-root-number",
+      "api": "content"
+    },
+    {
+      "id": "content-root-string",
+      "api": "content"
+    },
+    {
+      "id": "content-root-array",
+      "api": "content"
+    },
+    {
+      "id": "content-root-empty-object",
+      "api": "content"
+    },
+    {
+      "id": "party-kind-principal",
+      "api": "party"
+    },
+    {
+      "id": "party-kind-membership",
+      "api": "party"
+    },
+    {
+      "id": "party-kind-organization",
+      "api": "party"
+    },
+    {
+      "id": "party-kind-grant",
+      "api": "party"
+    },
+    {
+      "id": "party-kind-Person",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-status-known",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-status-ambiguous",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-status-unverified",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-status-invalid-verified",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-status-invalid-unknown",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-status-invalid-KNOWN",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-status-invalid-empty",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-one",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-unicode-256",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-unicode-257",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-empty",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-nul",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-lf",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-del",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-sentinel-words",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-composed",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-decomposed",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-count-0",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-count-1",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-count-32",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-count-33",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-count-0",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-count-32",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-count-33",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-value-unicode-1024",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-value-unicode-1025",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-value-empty",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-value-nul",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-value-del",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-kind-slug-64",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-kind-slug-65",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-kind-uppercase",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-kind-hyphen",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-kind-leading-digit",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-kind-empty",
+      "api": "party"
+    },
+    {
+      "id": "party-workspace-wrong-container",
+      "api": "party"
+    },
+    {
+      "id": "party-aliases-wrong-container",
+      "api": "party"
+    },
+    {
+      "id": "party-details-wrong-container",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-extra-field",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-null-element",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-extra-field",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-null-element",
+      "api": "party"
+    },
+    {
+      "id": "workspace-missing-organization_id",
+      "api": "party"
+    },
+    {
+      "id": "workspace-missing-domain_id",
+      "api": "party"
+    },
+    {
+      "id": "workspace-extra-principal",
+      "api": "party"
+    },
+    {
+      "id": "party-id-uppercase",
+      "api": "party"
+    },
+    {
+      "id": "party-id-wrong-version",
+      "api": "party"
+    },
+    {
+      "id": "party-id-wrong-variant",
+      "api": "party"
+    },
+    {
+      "id": "party-id-short",
+      "api": "party"
+    },
+    {
+      "id": "party-id-line-end",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-maximum",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-zero",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-leading-zero",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-plus",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-decimal",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-exponent",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-nineteen",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-whitespace",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-number",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-tag-control",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-tag-generation",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-tag-Content",
+      "api": "party"
+    },
+    {
+      "id": "party-revision-extra",
+      "api": "party"
+    },
+    {
+      "id": "participant-role-supplier",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-supplier",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-speaker",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-speaker",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-participant",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-participant",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-assignee",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-assignee",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-reviewer",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-reviewer",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-executor",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-executor",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-invalid-owner",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-invalid-Speaker",
+      "api": "content"
+    },
+    {
+      "id": "participant-role-invalid-empty",
+      "api": "content"
+    },
+    {
+      "id": "participant-party-missing-party_id",
+      "api": "content"
+    },
+    {
+      "id": "participant-party-missing-content_revision",
+      "api": "content"
+    },
+    {
+      "id": "participant-principal-not-party",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-invalid-owner",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-invalid-Speaker",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-role-invalid-empty",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-party-missing-party_id",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-party-missing-content_revision",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-principal-not-party",
+      "api": "content"
+    },
+    {
+      "id": "decision-state-proposed",
+      "api": "content"
+    },
+    {
+      "id": "decision-state-conditional",
+      "api": "content"
+    },
+    {
+      "id": "decision-state-agreed",
+      "api": "content"
+    },
+    {
+      "id": "decision-state-rejected",
+      "api": "content"
+    },
+    {
+      "id": "decision-state-unknown",
+      "api": "content"
+    },
+    {
+      "id": "decision-state-invalid",
+      "api": "content"
+    },
+    {
+      "id": "work_item-state-planned",
+      "api": "content"
+    },
+    {
+      "id": "work_item-state-in_progress",
+      "api": "content"
+    },
+    {
+      "id": "work_item-state-completed",
+      "api": "content"
+    },
+    {
+      "id": "work_item-state-cancelled",
+      "api": "content"
+    },
+    {
+      "id": "work_item-state-unknown",
+      "api": "content"
+    },
+    {
+      "id": "work_item-state-invalid",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-state-reported",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-state-product_update",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-state-agreed",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-state-invalid",
+      "api": "content"
+    },
+    {
+      "id": "description-text-minimum",
+      "api": "content"
+    },
+    {
+      "id": "description-text-unicode-maximum",
+      "api": "content"
+    },
+    {
+      "id": "description-text-over",
+      "api": "content"
+    },
+    {
+      "id": "description-text-empty",
+      "api": "content"
+    },
+    {
+      "id": "description-text-nul",
+      "api": "content"
+    },
+    {
+      "id": "description-text-lf",
+      "api": "content"
+    },
+    {
+      "id": "description-text-del",
+      "api": "content"
+    },
+    {
+      "id": "context-text-minimum",
+      "api": "content"
+    },
+    {
+      "id": "context-text-unicode-maximum",
+      "api": "content"
+    },
+    {
+      "id": "context-text-over",
+      "api": "content"
+    },
+    {
+      "id": "context-text-empty",
+      "api": "content"
+    },
+    {
+      "id": "context-text-nul",
+      "api": "content"
+    },
+    {
+      "id": "context-text-lf",
+      "api": "content"
+    },
+    {
+      "id": "context-text-del",
+      "api": "content"
+    },
+    {
+      "id": "decision-text-minimum",
+      "api": "content"
+    },
+    {
+      "id": "decision-text-unicode-maximum",
+      "api": "content"
+    },
+    {
+      "id": "decision-text-over",
+      "api": "content"
+    },
+    {
+      "id": "decision-text-empty",
+      "api": "content"
+    },
+    {
+      "id": "decision-text-nul",
+      "api": "content"
+    },
+    {
+      "id": "decision-text-lf",
+      "api": "content"
+    },
+    {
+      "id": "decision-text-del",
+      "api": "content"
+    },
+    {
+      "id": "work_item-text-minimum",
+      "api": "content"
+    },
+    {
+      "id": "work_item-text-unicode-maximum",
+      "api": "content"
+    },
+    {
+      "id": "work_item-text-over",
+      "api": "content"
+    },
+    {
+      "id": "work_item-text-empty",
+      "api": "content"
+    },
+    {
+      "id": "work_item-text-nul",
+      "api": "content"
+    },
+    {
+      "id": "work_item-text-lf",
+      "api": "content"
+    },
+    {
+      "id": "work_item-text-del",
+      "api": "content"
+    },
+    {
+      "id": "fact-text-minimum",
+      "api": "content"
+    },
+    {
+      "id": "fact-text-unicode-maximum",
+      "api": "content"
+    },
+    {
+      "id": "fact-text-over",
+      "api": "content"
+    },
+    {
+      "id": "fact-text-empty",
+      "api": "content"
+    },
+    {
+      "id": "fact-text-nul",
+      "api": "content"
+    },
+    {
+      "id": "fact-text-lf",
+      "api": "content"
+    },
+    {
+      "id": "fact-text-del",
+      "api": "content"
+    },
+    {
+      "id": "status-slug-64",
+      "api": "content"
+    },
+    {
+      "id": "status-slug-65",
+      "api": "content"
+    },
+    {
+      "id": "status-uppercase",
+      "api": "content"
+    },
+    {
+      "id": "status-hyphen",
+      "api": "content"
+    },
+    {
+      "id": "status-digit",
+      "api": "content"
+    },
+    {
+      "id": "status-nonascii",
+      "api": "content"
+    },
+    {
+      "id": "status-line-end",
+      "api": "content"
+    },
+    {
+      "id": "status-empty",
+      "api": "content"
+    },
+    {
+      "id": "fact-slug-64",
+      "api": "content"
+    },
+    {
+      "id": "fact-slug-65",
+      "api": "content"
+    },
+    {
+      "id": "fact-uppercase",
+      "api": "content"
+    },
+    {
+      "id": "fact-hyphen",
+      "api": "content"
+    },
+    {
+      "id": "fact-digit",
+      "api": "content"
+    },
+    {
+      "id": "fact-nonascii",
+      "api": "content"
+    },
+    {
+      "id": "fact-line-end",
+      "api": "content"
+    },
+    {
+      "id": "fact-empty",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-project-subject",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-description",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-context",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-participant",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-decision",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-work_item",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-responsibility",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-due_date",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-status",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-record-subject-fact",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-both",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-empty",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-wrong-scope",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-extra",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-null",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-missing-record_id",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-subject-missing-content_revision",
+      "api": "content"
+    },
+    {
+      "id": "due_date-project-subject",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-description",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-context",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-participant",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-decision",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-work_item",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-responsibility",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-due_date",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-status",
+      "api": "content"
+    },
+    {
+      "id": "due_date-record-subject-fact",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-both",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-empty",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-wrong-scope",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-extra",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-null",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-missing-kind",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-missing-record_id",
+      "api": "content"
+    },
+    {
+      "id": "due_date-subject-missing-content_revision",
+      "api": "content"
+    },
+    {
+      "id": "due-date-instant",
+      "api": "content"
+    },
+    {
+      "id": "due-date-leap",
+      "api": "content"
+    },
+    {
+      "id": "due-date-minimum",
+      "api": "content"
+    },
+    {
+      "id": "due-date-maximum",
+      "api": "content"
+    },
+    {
+      "id": "due-date-bad-leap",
+      "api": "content"
+    },
+    {
+      "id": "due-date-zero-year",
+      "api": "content"
+    },
+    {
+      "id": "due-date-month",
+      "api": "content"
+    },
+    {
+      "id": "due-date-date-instant",
+      "api": "content"
+    },
+    {
+      "id": "due-date-instant-date",
+      "api": "content"
+    },
+    {
+      "id": "due-date-offset",
+      "api": "content"
+    },
+    {
+      "id": "due-date-no-millis",
+      "api": "content"
+    },
+    {
+      "id": "due-date-leap-second",
+      "api": "content"
+    },
+    {
+      "id": "due-date-unknown-precision",
+      "api": "content"
+    },
+    {
+      "id": "due-date-missing-precision",
+      "api": "content"
+    },
+    {
+      "id": "due-date-missing-value",
+      "api": "content"
+    },
+    {
+      "id": "due-date-extra-timezone",
+      "api": "content"
+    },
+    {
+      "id": "content-kind-invalid-expense",
+      "api": "content"
+    },
+    {
+      "id": "content-kind-invalid-principal",
+      "api": "content"
+    },
+    {
+      "id": "content-kind-invalid-permission_change",
+      "api": "content"
+    },
+    {
+      "id": "content-kind-invalid-Description",
+      "api": "content"
+    },
+    {
+      "id": "content-kind-invalid-empty",
+      "api": "content"
+    },
+    {
+      "id": "context-established-true",
+      "api": "content"
+    },
+    {
+      "id": "participant-assent-reported-true",
+      "api": "content"
+    },
+    {
+      "id": "context-boolean-wrong-number",
+      "api": "content"
+    },
+    {
+      "id": "context-boolean-wrong-string",
+      "api": "content"
+    },
+    {
+      "id": "participant-boolean-wrong-number",
+      "api": "content"
+    },
+    {
+      "id": "participant-boolean-wrong-string",
+      "api": "content"
+    },
+    {
+      "id": "party-alias-missing-value",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-null-value",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-missing-status",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-null-status",
+      "api": "party"
+    },
+    {
+      "id": "party-alias-invalid-status",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-missing-kind",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-null-kind",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-missing-value",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-null-value",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-missing-status",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-null-status",
+      "api": "party"
+    },
+    {
+      "id": "party-detail-invalid-status",
+      "api": "party"
+    },
+    {
+      "id": "workspace-invalid-organization_id",
+      "api": "party"
+    },
+    {
+      "id": "workspace-null-organization_id",
+      "api": "party"
+    },
+    {
+      "id": "workspace-invalid-domain_id",
+      "api": "party"
+    },
+    {
+      "id": "workspace-null-domain_id",
+      "api": "party"
+    },
+    {
+      "id": "participant-reference-invalid-id",
+      "api": "content"
+    },
+    {
+      "id": "participant-reference-null-id",
+      "api": "content"
+    },
+    {
+      "id": "participant-reference-wrong-revision-tag",
+      "api": "content"
+    },
+    {
+      "id": "participant-reference-extra",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-reference-kind-invalid",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-reference-id-invalid",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-reference-revision-control",
+      "api": "content"
+    },
+    {
+      "id": "responsibility-reference-extra",
+      "api": "content"
+    },
+    {
+      "id": "due-date-value-null",
+      "api": "content"
+    },
+    {
+      "id": "due-date-value-number",
+      "api": "content"
+    },
+    {
+      "id": "party-alias-quote-backslash",
+      "api": "party"
+    },
+    {
+      "id": "fact-quote-backslash",
+      "api": "content"
+    },
+    {
+      "id": "party-complete-maximum",
+      "api": "party"
+    }
+  ],
+  "ordered_trait_cases": [
+    "project-traits-person-self",
+    "project-traits-party-kind-distinct",
+    "project-traits-no-unicode-normalization",
+    "project-traits-content-self",
+    "project-traits-work-state-distinct",
+    "project-traits-date-precision-distinct"
+  ],
+  "bounds": {
+    "case_count_max": 512,
+    "file_bytes_max": 4194304,
+    "container_depth_max": 16
+  },
+  "files": {
+    "README.md": {
+      "bytes": 2027,
+      "sha256": "6b5d4713bae4026deef28b645793c208d585bb57a65bf3c2046ffdb8568e6795"
+    },
+    "inputs.json": {
+      "bytes": 432655,
+      "sha256": "204215dfbad2e04661471488b4cd350eba5f67c266bb55e9444b005f61f2295e"
+    },
+    "oracle.json": {
+      "bytes": 638290,
+      "sha256": "5197b682d80a83214a15307a392d72fea244610f67507ba3a96df9829158a0c5"
+    }
+  },
+  "public_contracts": {
+    "docs/requirements/project-workflow.md": {
+      "bytes": 48991,
+      "sha256": "292da94c2e5dcf6234aa40b7dd2d5a219d8cd3c25ffdd8b6609bcc9f4b176b05"
+    },
+    "docs/requirements/common-contract.md": {
+      "bytes": 32887,
+      "sha256": "64ce5e000773f23dfcad41d4883fbb5fa70e5954dcb137167f3e3d168afca9ac"
+    },
+    "docs/requirements/data-model.md": {
+      "bytes": 25667,
+      "sha256": "d3caa22d11b9587715e29c360e2c33119a21dfc9042affdfae50c717c98ce289"
+    },
+    "docs/requirements/resource-profiles.md": {
+      "bytes": 28687,
+      "sha256": "ef633a39322bb6afd549771a79d81330d56734bcf4bb4f96a329bdde5590fa73"
+    },
+    "docs/requirements/testing-and-coverage.md": {
+      "bytes": 44903,
+      "sha256": "611d4a884f5ec43e712f582ba8cb9edfc3eca96190721bd5ea8711c26d406531"
+    },
+    "contracts/public/v1/project-workflow.schema.json": {
+      "bytes": 496538,
+      "sha256": "644ed6e64e604d84179b8a225a68aa975afabc52aeb531edd13337fc316f88ef"
+    },
+    "contracts/public/v1/common.schema.json": {
+      "bytes": 15311,
+      "sha256": "61e94a0e646b2e992e662c7f5b3c30a17551936bfee3f87c7f3ae773302ff3b1"
+    }
+  },
+  "expected_source": "Independent authored literal decisions; no DUT, validator, maintained fixture generator, helper output or live service."
+}

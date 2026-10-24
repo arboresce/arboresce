@@ -1,5 +1,5 @@
 {
-  "version": "rust-source-roles-v1",
+  "version": "rust-source-roles-v2",
   "sources": [
     {
       "path": "crates/arboresce-application/src/lib.rs",
@@ -496,6 +496,36 @@
       "path": "tools/xtask/tests/support/report_inputs.rs",
       "package": "arboresce-xtask",
       "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/src/project/mod.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/src/project/parsed.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/src/project/party.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/src/project/records.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/tests/project_values/support.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/tests/project_values/main.rs",
+      "package": "arboresce-domain",
+      "role": "assertion"
     }
   ],
   "targets": [
@@ -670,7 +700,11 @@
         "crates/arboresce-domain/src/locator_wire.rs",
         "crates/arboresce-domain/src/event_time.rs",
         "crates/arboresce-domain/src/canonical_number.rs",
-        "crates/arboresce-domain/src/source_json.rs"
+        "crates/arboresce-domain/src/source_json.rs",
+        "crates/arboresce-domain/src/project/mod.rs",
+        "crates/arboresce-domain/src/project/parsed.rs",
+        "crates/arboresce-domain/src/project/party.rs",
+        "crates/arboresce-domain/src/project/records.rs"
       ]
     },
     {

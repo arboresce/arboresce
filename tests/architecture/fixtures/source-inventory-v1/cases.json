@@ -2679,6 +2679,893 @@
       "expected": {
         "error": "Declaration"
       }
+    },
+    {
+      "id": "inventory-v2-complete",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-v2-file-boundary",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "largest-valid.bin",
+          "size": 67108864
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "largest-valid.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-v2-file-first-invalid",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "too-large.bin",
+          "size": 67108865
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-total-size-boundary",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "total-0.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-1.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-2.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-3.bin",
+          "size": 67108605
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "total-0.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          },
+          "total-1.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          },
+          "total-2.bin": {
+            "sha256": "3b6a07d0d404fab4e23b6d34bc6696a6a312dd92821332385e5af7c01c421351",
+            "size": 67108864
+          },
+          "total-3.bin": {
+            "sha256": "dd4db970efd7e59c01bb61e41d50c949f7f3f13e92da3e0b7b9c72f8c1f0618d",
+            "size": 67108605
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-v2-total-size-first-invalid",
+      "file_operations": [
+        {
+          "op": "sparse",
+          "path": "total-0.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-1.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-2.bin",
+          "size": 67108864
+        },
+        {
+          "op": "sparse",
+          "path": "total-3.bin",
+          "size": 67108606
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-depth-boundary",
+      "file_operations": [
+        {
+          "op": "deep_directory",
+          "depth": 32
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/deep/data": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 0
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-v2-depth-first-invalid",
+      "file_operations": [
+        {
+          "op": "deep_directory",
+          "depth": 33
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-symlink-source",
+      "file_operations": [
+        {
+          "op": "symlink",
+          "path": "pkg/src/link.rs",
+          "target": "lib.rs"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-omitted-rust-source",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/src/new.rs",
+          "text": "pub fn extra() {}\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Roles"
+      }
+    },
+    {
+      "id": "inventory-v2-missing-generated-output",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        },
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/generated/missing.rs"
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-generated-depth-32",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        },
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs": {
+            "sha256": "80a913cc4b9639d6be01994a14a218f3438e4243d9c77b3723b5111ab786cec8",
+            "size": 31
+          }
+        },
+        "source_paths": [
+          "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-v2-generated-depth-33",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        },
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/target/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/nested/out.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-generated-symlink-ancestor",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/target/out.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        },
+        {
+          "op": "symlink",
+          "path": "pkg/.venv",
+          "target": "target"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        },
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/.venv/out.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/.venv/out.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-runtime-boundaries",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "target/cache.rs",
+          "text": "not source"
+        },
+        {
+          "op": "write",
+          "path": ".git/config",
+          "text": "host git state"
+        },
+        {
+          "op": "write",
+          "path": "pkg/.venv/site.py",
+          "text": "runtime cache"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-v2-generated-output",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/.venv/generated.rs",
+          "text": "pub fn generated() -> u8 { 9 }\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        },
+        {
+          "pointer": "/generated_sources",
+          "value": [
+            "pkg/.venv/generated.rs"
+          ]
+        },
+        {
+          "pointer": "/sources",
+          "value": [
+            {
+              "path": "pkg/src/lib.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            },
+            {
+              "path": "pkg/tests/suite.rs",
+              "package": "arboresce-domain",
+              "role": "assertion"
+            },
+            {
+              "path": "pkg/tests/literals.rs",
+              "package": "arboresce-domain",
+              "role": "declaration",
+              "declaration_sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6"
+            },
+            {
+              "path": "pkg/.venv/generated.rs",
+              "package": "arboresce-domain",
+              "role": "measured"
+            }
+          ]
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          },
+          "pkg/.venv/generated.rs": {
+            "sha256": "80a913cc4b9639d6be01994a14a218f3438e4243d9c77b3723b5111ab786cec8",
+            "size": 31
+          }
+        },
+        "source_paths": [
+          "pkg/.venv/generated.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/.venv/generated.rs",
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1
+      }
+    },
+    {
+      "id": "inventory-v2-declaration-function",
+      "file_operations": [
+        {
+          "op": "write",
+          "path": "pkg/tests/literals.rs",
+          "text": "pub fn hidden() {}\n"
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        },
+        {
+          "pointer": "/sources/2/declaration_sha256",
+          "value": "84b91410f867940c7d84b0864f1e6884d7b8401f48cf886bab49b8c1be267d04"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Declaration"
+      }
+    },
+    {
+      "id": "inventory-v2-file-count-between",
+      "file_operations": [
+        {
+          "op": "many_files",
+          "count": 4092
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1,
+        "generated_empty_files": {
+          "count": 4092,
+          "prefix": "extras/item-",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "file_count": 4097
+      }
+    },
+    {
+      "id": "inventory-v2-file-count-boundary",
+      "file_operations": [
+        {
+          "op": "many_files",
+          "count": 8187
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "files": {
+          "Cargo.toml": {
+            "sha256": "62e93b235541bac7e439911e705d10aeb03a58e96072684e12914ec728132171",
+            "size": 45
+          },
+          "pkg/Cargo.toml": {
+            "sha256": "5af21cb567c401b22ad981aa23a365dadf8c3b0ba18b67c6121950afd49c19ed",
+            "size": 71
+          },
+          "pkg/src/lib.rs": {
+            "sha256": "83487d893117eacd0f9d6f4bb0a6d594e83d2dc4df79d9a1658836ad897d9562",
+            "size": 27
+          },
+          "pkg/tests/suite.rs": {
+            "sha256": "7d0f035947f8221f7f24598b9af8f779086877c2d63d248f525043f3386da899",
+            "size": 41
+          },
+          "pkg/tests/literals.rs": {
+            "sha256": "e9b957181dcb99609a3ee230430888e62849fdac9495e0cc03649fe3df590dd6",
+            "size": 75
+          }
+        },
+        "source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/literals.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "coverage_source_paths": [
+          "pkg/src/lib.rs",
+          "pkg/tests/suite.rs"
+        ],
+        "target_count": 1,
+        "generated_empty_files": {
+          "count": 8187,
+          "prefix": "extras/item-",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "file_count": 8192
+      }
+    },
+    {
+      "id": "inventory-v2-file-count-first-invalid",
+      "file_operations": [
+        {
+          "op": "many_files",
+          "count": 8188
+        }
+      ],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v2"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Files"
+      }
+    },
+    {
+      "id": "inventory-v2-unknown-next-profile",
+      "file_operations": [],
+      "profile_patch": [
+        {
+          "pointer": "/version",
+          "value": "rust-source-roles-v3"
+        }
+      ],
+      "metadata_patch": [],
+      "expected": {
+        "error": "Input"
+      }
     }
   ],
   "native_cases": [
@@ -3404,6 +4291,25 @@
         "metadata_raw": 1
       },
       "expected_error": "InvalidInput"
+    },
+    {
+      "id": "inventory-recipe-v2-count-limit",
+      "fixture_changes": {},
+      "case_changes": {
+        "profile_patch": [
+          {
+            "pointer": "/version",
+            "value": "rust-source-roles-v2"
+          }
+        ],
+        "file_operations": [
+          {
+            "op": "many_files",
+            "count": 8194
+          }
+        ]
+      },
+      "expected_error": "InvalidInput"
     }
   ],
   "process_cases": [
@@ -3519,6 +4425,10 @@
       {
         "profile_sha256": "2e8e32874357b36f65b1459f388bbb4a6ef41a2d8ab2e50abfe35c6aedf8ae8a",
         "source_count": 100
+      },
+      {
+        "profile_sha256": "99001a88055b55965c188e838c7f0cd0f3d5dd717be3af27a3963c3ba4ea0cd7",
+        "source_count": 105
       }
     ]
   }
