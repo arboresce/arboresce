@@ -169,8 +169,35 @@ own positive/negative, canonical and trait expectations.
 Callers separately qualify raw UTF-8/JSON transport, duplicate keys, original
 protocol tokens, current canonical relationships and authorization before using
 parsed values. This foundation does not resolve names, grant authority, establish
-agreement or persist effects. Complete typed change preimages and provenance
-retain their separate implementation and qualification before dependent use.
+agreement or persist effects.
+
+ProjectChangeContent and ProjectChangeItem add complete owned typed proposal
+preimages, exact candidate tuples, operation-specific target predicates and
+field-level provenance. ProjectFieldPath checks the finite dotted syntax;
+semantic resolution remains separate. Canonical evidence-role sets reject
+duplicate references and sort exact identities. Other arrays and all text retain
+their order and content. Optional supplied preimages must agree with the complete
+canonical value. Preimages and encoded items each have an independent inclusive
+1048576-byte ceiling.
+
+compare_content and compare_item perform pure supplied-fact comparison under the
+[project-change profile](../../docs/requirements/project-change-values.md).
+They check consequential field coverage, source/default/inference/retained joins,
+exact dependency fences and the selected reachable graph. Reports distinguish
+lineage, graph and dependency-readiness stages. Unrelated cycles do not block an
+independent item. Historical provenance is retained without guessed equality to
+the proposal origin. The bounded graph uses deterministic finite collections.
+
+The [independent change literals](tests/fixtures/project-changes-v1/README.md)
+contain 516 parsed outcomes, 15 identity traits and 302 semantic outcomes.
+Supplemental controls cover general JSON scalar/key limits, removed fields,
+exact retained project references and compatible/conflicting default aliases.
+Five required harness bodies also check ownership and fixed-error formatting.
+Full owning, standalone, native and resource qualification belongs
+to the owning execution checkpoint. Supplied facts and ready reports establish
+neither actual canonical reads, authenticated attribution, human acceptance,
+current authorization, final target/dependency CAS nor persistence. Those remain
+mandatory application gates.
 
 Validation proves format. Resource existence, ownership, authenticated principal
 identity, random generation and ordering belong to their actual consumers.

@@ -1256,7 +1256,28 @@ ambient completion under the original budgets. These post-exit controls do not
 qualify active-child signals. Focused checks and fresh complete qualification
 remain required; prior failed coverage retains its failing result.
 
-This is a partial foundation. This local slice remains in progress until complete
+The typed-change increment adds owned complete preimages, exact candidate
+references, typed target predicates and field lineage, unresolved values and
+dependencies. A separately admitted project-changes-v1 package fixes 516 parsed
+outcomes, 15 identity traits and 302 supplied-fact comparisons. Supplemental
+controls precede their corrective consumption while retaining every earlier
+literal. Comparison includes removed members in changed-field coverage, enforces
+generic scalar/key limits, joins exact retained project references and checks
+alias-equivalent default facts without rewriting their raw spellings.
+Its owning pure profile distinguishes parsed representation, complete field
+comparison, reachable dependency graphs and current dependency observations.
+Compatible historical source/profile facts remain supported; no caller authority
+flag or guessed equality can replace canonical provenance. All former source
+roles, suites and native-count expectations remain preserved. The five new Rust
+files, required harness and literal events are registered explicitly.
+
+Focused package checks exercise the new consumer. Complete fresh owning and
+public-only source/helper/native/resource qualification, strict coverage and
+independent acceptance remain required before this whole local slice is green.
+Supplied-fact readiness never establishes actual authorization, authenticated
+attribution, human acceptance, target absence/CAS or persistence.
+
+This local slice remains in progress until complete
 typed create/revise/associate changes, origin/field lineage/unknown/dependency
 variants and all remaining criteria independently qualify. Raw transport,
 canonical lookup/current authority, application/persistence and whole workflow

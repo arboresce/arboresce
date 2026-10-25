@@ -1,19 +1,37 @@
-//! Checked, owned Party and project-record values from parsed public values.
+//! Checked, owned project values and pure supplied-fact comparisons.
 
 use std::{error::Error, fmt, str::FromStr};
 
 use crate::{CalendarDate, ContentRevision, Identifier, UtcTimestamp};
 
+mod change;
+mod comparison;
 mod parsed;
 mod party;
+mod provenance;
 mod records;
 
+pub use change::{
+    ProjectCandidateReference, ProjectChangeContent, ProjectChangeItem, ProjectChangeTarget,
+};
+pub use comparison::{
+    ProjectComparisonReason, ProjectComparisonReport, ProjectDependencyReadiness,
+    ProjectGraphStatus, ProjectLineageStatus, compare_content, compare_item,
+};
 pub use party::{PartyAlias, PartyDetail, PartyRecord};
+pub use provenance::{
+    ProjectCaptureReference, ProjectChangeOrigin, ProjectDependency, ProjectEvidence,
+    ProjectFieldLineage, ProjectFieldPath, ProjectLineage, ProjectLineageView,
+    ProjectObservationReference, ProjectReviewScope, ProjectTemporalBasis, ProjectUnresolved,
+};
 pub use records::{ProjectContentView, ProjectRecordContent};
 
 /// Conservative complete encoded bounds for the closed supported shapes.
 pub const MAX_PARTY_VALUE_BYTES: usize = 262_144;
 pub const MAX_PROJECT_CONTENT_BYTES: usize = 32_768;
+pub const MAX_PROJECT_CHANGE_BYTES: usize = 1_048_576;
+pub const MAX_PROJECT_CHANGE_ITEM_BYTES: usize = 1_048_576;
+pub const MAX_PROJECT_COMPARISON_BYTES: usize = 1_048_576;
 
 /// A rejected parsed value. No supplied data is retained.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -74,6 +92,14 @@ value_enum!(WorkItemState {
 });
 value_enum!(ResponsibilityState {
     Reported => "reported", ProductUpdate => "product_update", Agreed => "agreed"
+});
+value_enum!(ProjectChangeOperation { Create => "create", Revise => "revise", Associate => "associate" });
+value_enum!(ProjectObservationKind {
+    DocumentObservation => "document_observation", UserAssertion => "user_assertion",
+    ModelInference => "model_inference"
+});
+value_enum!(ProjectUnresolvedRequirement {
+    Clarification => "clarification", Unknown => "unknown", Conflict => "conflict"
 });
 
 /// A supplied reference tuple, without an existence or authorization claim.
