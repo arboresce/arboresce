@@ -28,8 +28,11 @@ manifest and expected diagnostics never enter the operation.
 
 A comparison object carries its explicit profile version, selected workspace,
 project reference and complete origin. These must match the selected change's
-stable scope and retained origin. A later unrelated project-head observation is
-not a whole-project stale fence.
+stable scope and retained origin. The retained project reference matches in
+both stable ID and exact content revision. context_projects includes that exact
+selected reference; an ID with a different revision cannot replace it. A later
+unrelated project-head observation remains separate and is not a whole-project
+stale fence.
 
 The selected item revision is a tagged content revision. For an item it equals
 the candidate reference version; a content preimage receives that revision
@@ -43,6 +46,11 @@ workspace/project, complete needed content and any separately supplied current
 head/state observation. Conflicting observations for the same exact identity
 are refused. The whole comparison object is at most 1048576 encoded UTF-8 bytes
 and 16 nested containers. General object/array bounds remain128/256.
+General strings contain at most65536 Unicode scalar values. General object keys
+contain1 through128 Unicode scalar values and no C0 control or DEL. These scalar
+bounds apply independently of UTF-8/encoded byte length, including unused generic
+projections. Ordinary string values retain permitted controls and exact Unicode
+content under the common JSON contract.
 The encoded-byte ceiling is the length of compact common-JCS encoding of the
 complete supplied parsed comparison value, not original wire bytes or a
 pretty-printed fixture. Strings keep their exact Unicode content; only required
@@ -95,7 +103,10 @@ target content determines changes. Every declared changed path must denote a
 genuine change, and declared paths together cover every changed consequential
 leaf. A changed structured parent may cover descendants even when some of those
 descendants are unchanged. A path to an unchanged value is not a positive
-change control.
+change control. Removed object members are consequential changes too. If an
+old member is absent from the proposed value, an existing changed enclosing
+structured path must cover that removal; declaring only a newly added sibling
+does not cover the removed branch. This applies to revise and associate.
 
 Source-observation lineage resolves the exact supplied Observation reference.
 Its fact preserves the actual public kind: document_observation, user_assertion
@@ -240,7 +251,11 @@ duplicates preserve complete supplied order. The same qualified exact identity
 or selected binding has one complete closed fact view in a comparison. Identical
 complete copies are compatible; divergent views for that same identity/binding
 are refused, including differences in capture association, kind, typed value or
-current observation. This consistency check covers the whole supplied context,
+current observation. Default-binding identity uses the resolved selected field
+and rule version: supported alias spellings name the same binding. Compatible
+alias copies agree in every other member; conflicting applies_to descriptions
+are refused regardless of ordering or use by lineage. This comparison does not
+rewrite raw field spellings or deduplicate supplied arrays. This consistency check covers the whole supplied context,
 including unused facts. A repeated observed-field spelling may retain identical
 typed values; conflicting values for that same binding are refused. Typed
 record content agrees with its record reference kind. Closed wrappers reject

@@ -51,3 +51,10 @@ MIT OR Apache-2.0 terms. It contains no real customer data or private checkout,
 issue, session or credential metadata. The manifest freezes all literal IDs,
 file hashes and owning public inputs. Expected errors and reports contain fixed
 typed reasons, not supplied protected content.
+
+Supplemental semantic controls enforce the common scalar/key limits in unused
+projections, complete removed-member coverage in both subject branches and both
+non-create operations, exact retained project selection separate from later
+heads, and order-independent consistency of alias-equivalent default bindings.
+Compatible aliases and ordinary string controls remain supported. All earlier
+parsed/trait and semantic literals are retained unchanged.
