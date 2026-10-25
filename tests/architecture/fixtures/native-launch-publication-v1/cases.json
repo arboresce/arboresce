@@ -1,0 +1,636 @@
+{
+  "version": "native-launch-publication-v1",
+  "profile": {
+    "maximum_publication_wait_ms": 1000,
+    "maximum_receipt_bytes": 65536,
+    "poll_ms": 1,
+    "native_observer_budget_ms": 3000,
+    "parent_handshake_budget_ms": 2000,
+    "cleanup_budget_ms": 2000,
+    "caller_deadline": "single endpoint fixed before selection; effective endpoint is min(original caller deadline, outer entry+1000ms)",
+    "ready_frame": "one complete strict JSON value followed by LF; publication only, never attestation",
+    "selected_descriptor": "same actual regular descriptor and path identity through complete read and all acceptance rechecks",
+    "original_receipt": "actual PreparedLaunch.record_diagnosed bytes for the real child, preserved separately before controlled owned mutation",
+    "ambient": "unchanged real ambient context; ordinary main launch/completion/raw profile still conserved"
+  },
+  "required_proofs": [
+    "actual_parent_and_child_identity",
+    "genuine_original_receipt_preserved",
+    "complete_actual_streams_and_trace_retained",
+    "actual_peer_exit_and_signal",
+    "owning_ambient_environment_unchanged",
+    "same_context_launch_and_completion",
+    "selected_ack_before_controlled_selected_path_mutation",
+    "context_original_and_mutated_bytes_retained",
+    "original_context_and_receipt_restored_only_after_child_completion",
+    "no_readiness_token_substitutes_for_exact_admission"
+  ],
+  "cases": [
+    {
+      "id": "launch-publication-ordinary-complete-no-op",
+      "recipe": {
+        "initial": "complete",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": false
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-observed-complete",
+      "recipe": {
+        "initial": "complete",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-missing-then-complete",
+      "recipe": {
+        "initial": "missing",
+        "action": "publish",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-empty-then-complete",
+      "recipe": {
+        "initial": "empty",
+        "action": "publish",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-partial-then-complete",
+      "recipe": {
+        "initial": "partial",
+        "action": "append",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-json-then-final-lf",
+      "recipe": {
+        "initial": "without-lf",
+        "action": "append-lf",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-missing-remains",
+      "recipe": {
+        "initial": "missing",
+        "action": "none",
+        "caller_budget_ms": 2000,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-empty-remains",
+      "recipe": {
+        "initial": "empty",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-partial-remains",
+      "recipe": {
+        "initial": "partial",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-json-without-lf-remains",
+      "recipe": {
+        "initial": "without-lf",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-malformed",
+      "recipe": {
+        "initial": "malformed",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-pid",
+      "recipe": {
+        "initial": "wrong-pid",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-context-hash",
+      "recipe": {
+        "initial": "wrong-context-hash",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-run",
+      "recipe": {
+        "initial": "wrong-run",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-source",
+      "recipe": {
+        "initial": "wrong-source",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-image-hash",
+      "recipe": {
+        "initial": "wrong-image-hash",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-program",
+      "recipe": {
+        "initial": "wrong-program",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-argv",
+      "recipe": {
+        "initial": "wrong-argv",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-wrong-cwd",
+      "recipe": {
+        "initial": "wrong-cwd",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-trailing-value",
+      "recipe": {
+        "initial": "trailing-value",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-complete-invalid-utf8",
+      "recipe": {
+        "initial": "invalid-utf8",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-malformed-cannot-be-repaired",
+      "recipe": {
+        "initial": "malformed",
+        "action": "repair-after-child-exit",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "child-exit"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-context-changes-while-pending",
+      "recipe": {
+        "initial": "partial",
+        "action": "context-and-append",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-pending-path-replaced",
+      "recipe": {
+        "initial": "partial",
+        "action": "replace-complete",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-selected-path-unlinked",
+      "recipe": {
+        "initial": "partial",
+        "action": "unlink",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-selected-path-becomes-symlink",
+      "recipe": {
+        "initial": "partial",
+        "action": "replace-symlink",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-selected-path-becomes-directory",
+      "recipe": {
+        "initial": "partial",
+        "action": "replace-directory",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-initial-symlink",
+      "recipe": {
+        "initial": "symlink",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-initial-directory",
+      "recipe": {
+        "initial": "directory",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-initial-fifo",
+      "recipe": {
+        "initial": "fifo",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-receipt-exact-64k",
+      "recipe": {
+        "initial": "exact-64k",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": true,
+        "error": null,
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-receipt-over-64k",
+      "recipe": {
+        "initial": "over-64k",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-valid-publication-after-original-deadline",
+      "recipe": {
+        "initial": "empty",
+        "action": "publish",
+        "caller_budget_ms": 25,
+        "publication_delay_ms": 100,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-already-expired-caller",
+      "recipe": {
+        "initial": "complete",
+        "action": "none",
+        "caller_budget_ms": 0,
+        "publication_delay_ms": 50,
+        "selection_observer": true
+      },
+      "expected": {
+        "accepted": false,
+        "error": "collector file intake failed",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-selection-observer-error",
+      "recipe": {
+        "initial": "complete",
+        "action": "none",
+        "caller_budget_ms": 250,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "observer_behavior": "error"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-selection-observer-consumes-deadline",
+      "recipe": {
+        "initial": "complete",
+        "action": "none",
+        "caller_budget_ms": 25,
+        "publication_delay_ms": 50,
+        "selection_observer": true,
+        "observer_behavior": "delay",
+        "observer_delay_ms": 100
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    },
+    {
+      "id": "launch-publication-valid-after-maximum-before-live-caller-deadline",
+      "recipe": {
+        "initial": "empty",
+        "action": "publish",
+        "caller_budget_ms": 2000,
+        "publication_delay_ms": 1250,
+        "selection_observer": true,
+        "parent_wait_for": "selected"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid collector nesting",
+        "actual_peer_exit": 0,
+        "actual_peer_signal": null
+      }
+    }
+  ]
+}

@@ -590,6 +590,39 @@ remove the two raw sets. Without explicit nesting, inherited measurement and
 instrumentation overrides fail. A running collector cannot attest its own final
 exit/profile; actual outer owning/standalone qualification closes that evidence.
 
+Nested launch-receipt publication uses the existing writer's single UTF-8 JSON
+object followed by LF. LF marks a complete publication candidate, never validity,
+successful flush, durability or operating-system attestation. An absent, empty
+or unfinished own-PID receipt may be pending for at most 1000 milliseconds. The
+effective endpoint is fixed once at entry to outer admission as the earlier of
+that endpoint and the original passed caller deadline. Waiting, bounded reads,
+identity hashes, context rechecks and any observation callback all count inside
+that endpoint; no successful late frame, deadline renewal or retry into a
+different completed frame is admitted.
+
+Keep at most one selected regular receipt descriptor and at most 64 KiB of
+complete receipt bytes. Before selection, absence alone may be pending. Reject
+symlinks, special files, unreadable files and more than 64 KiB immediately.
+After selection, retain the same descriptor and path identity while waiting,
+reading and validating; unlink, replacement or inconsistent complete-file
+observations fail. Use the final LF and strict single-value JSON from those same
+bounded bytes. A complete malformed or identity-conflicting frame fails
+immediately; later replacement bytes cannot repair it. Snapshot the exact context
+bytes before waiting and require them unchanged afterward. Preserve every
+existing actual PID, context/run/source, executable/hash, program/argv and cwd
+check before any nested work.
+
+An optional explicit descriptor-selection observer receives no descriptor,
+parsed data, admission result or deadline. Invoke it at most once after actual
+regular-file selection, with the endpoint already fixed. Its errors and elapsed
+time fail admission; it cannot supply or authorize a receipt. The ordinary route
+uses a no-op observer. Native controlled-input cases may use an acknowledgement
+from this seam to mutate only an owned test receipt after actual selection.
+Preserve original parent-created receipt bytes, actual child status, complete
+raw evidence, unchanged ambient context and the existing full qualification
+requirements. These controlled mutations do not attest a historical race or
+replace the unfiltered owning/public qualification.
+
 Use phase-specific budgets: metadata/version/instrumentation/list/profile inspection
 30 seconds; format 60; check/Clippy 180; instrumented build/required suite 300;
 incidental empty run 30; doctest/merge/export 180. Input/resource/finalization
