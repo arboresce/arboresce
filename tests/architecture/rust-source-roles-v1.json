@@ -526,6 +526,31 @@
       "path": "crates/arboresce-domain/tests/project_values/main.rs",
       "package": "arboresce-domain",
       "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-domain/src/project/change.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/src/project/provenance.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/src/project/comparison.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
+    },
+    {
+      "path": "crates/arboresce-domain/tests/project_changes/main.rs",
+      "package": "arboresce-domain",
+      "role": "assertion"
+    },
+    {
+      "path": "crates/arboresce-domain/tests/project_changes/support.rs",
+      "package": "arboresce-domain",
+      "role": "measured"
     }
   ],
   "targets": [
@@ -704,7 +729,10 @@
         "crates/arboresce-domain/src/project/mod.rs",
         "crates/arboresce-domain/src/project/parsed.rs",
         "crates/arboresce-domain/src/project/party.rs",
-        "crates/arboresce-domain/src/project/records.rs"
+        "crates/arboresce-domain/src/project/records.rs",
+        "crates/arboresce-domain/src/project/change.rs",
+        "crates/arboresce-domain/src/project/provenance.rs",
+        "crates/arboresce-domain/src/project/comparison.rs"
       ]
     },
     {

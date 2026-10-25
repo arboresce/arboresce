@@ -19,6 +19,7 @@ contradiction through a reviewed owning-contract amendment before dependent work
 | --- | --- |
 | [Product and scope](product-and-scope.md) | Focused CLI project MVP, retained complete knowledge/production milestones, public capability parity and exclusions |
 | [Workspace and contextual project workflow](project-workflow.md) | Server workspace/project/party meaning, exact context and field lineage, independently reviewable typed changes, application and revision |
+| [Project-change value comparison](project-change-values.md) | Pure parsed-change and bounded supplied-fact comparison stages, complete field lineage, applicable defaults, exact dependency graphs and distinct readiness results; no runtime authority or effects |
 | [Nostr identity and scoped execution](identity-contract.md) | Signup-free first identity profile, signed HTTP authentication, key lifecycle, own-key agent grants and trusted financial review-event issuance |
 | [Contextual project fixtures](project-fixtures.md) | Canonical photo/short-audio/context corpus, deterministic review trace, independent truth and focused integration scenarios |
 | [Architecture](architecture.md) | Component boundaries, dependency direction and canonical versus derived responsibilities |
