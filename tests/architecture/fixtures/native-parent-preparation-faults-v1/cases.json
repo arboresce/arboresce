@@ -1,0 +1,83 @@
+{
+  "version": "native-parent-preparation-faults-v1",
+  "profile": {
+    "native_observer_budget_ms": 3000,
+    "parent_handshake_budget_ms": 2000,
+    "cleanup_budget_ms": 2000,
+    "peer_mode": "pass",
+    "phase": "actual normal child exit precedes injected parent fault",
+    "expected_objects_are_parent_test_oracles_only": true
+  },
+  "required_proofs": [
+    "actual built peer and actual normal exit0 before fault",
+    "actual stdout/stderr and PID-bearing capture setup trace",
+    "common capture cleanup and both local/ambient completion attempts",
+    "genuine local launch bytes and context bytes conserved",
+    "conflicting local exit bytes retained without substituting them for evidence",
+    "actual ambient completion remains valid in full native collection",
+    "all original observer/handshake/cleanup budgets unchanged",
+    "full unfiltered owning/public qualification and strict scopes remain required"
+  ],
+  "cases": [
+    {
+      "id": "parent-preparation-callback-error-after-exit",
+      "fault": "callback-error",
+      "expected": {
+        "child_exit": 0,
+        "child_signal": null,
+        "reaped": true,
+        "local_completion": true,
+        "ambient_completion": true,
+        "launch_unchanged": true,
+        "context_unchanged": true,
+        "ambient_unchanged": true,
+        "local_exit_state": "native",
+        "stdout_utf8": "child stdout\n",
+        "stderr_utf8": "child stderr\n",
+        "within_original_budget": true,
+        "parent_error_kind": "Other",
+        "setup_error_kind": "Other"
+      }
+    },
+    {
+      "id": "parent-preparation-missing-acknowledgement-after-exit",
+      "fault": "missing-acknowledgement",
+      "expected": {
+        "child_exit": 0,
+        "child_signal": null,
+        "reaped": true,
+        "local_completion": true,
+        "ambient_completion": true,
+        "launch_unchanged": true,
+        "context_unchanged": true,
+        "ambient_unchanged": true,
+        "local_exit_state": "native",
+        "stdout_utf8": "child stdout\n",
+        "stderr_utf8": "child stderr\n",
+        "within_original_budget": true,
+        "parent_error_kind": "TimedOut",
+        "setup_error_kind": "TimedOut"
+      }
+    },
+    {
+      "id": "parent-preparation-conflicting-local-exit-after-exit",
+      "fault": "conflicting-local-exit",
+      "expected": {
+        "child_exit": 0,
+        "child_signal": null,
+        "reaped": true,
+        "local_completion": false,
+        "ambient_completion": true,
+        "launch_unchanged": true,
+        "context_unchanged": true,
+        "ambient_unchanged": true,
+        "local_exit_state": "conflicting-file",
+        "stdout_utf8": "child stdout\n",
+        "stderr_utf8": "child stderr\n",
+        "within_original_budget": true,
+        "parent_error_kind": "AlreadyExists",
+        "setup_error_kind": "Other"
+      }
+    }
+  ]
+}
