@@ -1039,7 +1039,7 @@ fn independently_approved_actual_inventory_models() {
         );
         println!("xtask case={id} pid={}", std::process::id());
     }
-    assert_eq!(seen.len(), 101);
+    assert_eq!(seen.len(), 121);
 }
 
 #[cfg(unix)]
@@ -1353,7 +1353,7 @@ fn independently_approved_inventory_preparation_failures() {
         );
         println!("xtask case={id} pid={}", std::process::id());
     }
-    assert_eq!(seen.len(), 40);
+    assert_eq!(seen.len(), 41);
 }
 
 #[cfg(unix)]

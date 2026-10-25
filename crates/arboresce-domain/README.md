@@ -139,6 +139,39 @@ literal, boundary, property, mutation, trait and original pointer expectations.
 These APIs do not establish acquisition retention, shared Python identity,
 signature validity or an operational processing service.
 
+The project module adds owned checked Party and project-record values through
+PartyRecord::from_value and ProjectRecordContent::from_value. These constructors
+borrow a complete parsed serde_json value. They reject extra or missing fields,
+wrong types and tags, and out-of-capacity collections/text before returning
+owned immutable data. Subsequent caller mutation cannot change a returned value.
+
+Party values preserve both person and external-business kinds, every alias/detail
+and its known/ambiguous/unverified status, exact workspace identifiers and the
+content revision. A Party is a separate type from a principal. The six relationship
+roles retain their distinct meanings. No alias is silently selected or normalized.
+
+ProjectRecordContent preserves all nine closed content kinds. ProjectContentView
+borrows the complete typed fields. Work, decision and responsibility states remain
+distinct; reported assent and assignment are preserved as data. References retain
+typed identities and content revisions. RelationshipSubject distinguishes explicit
+project scope from a record revision. ProjectDate retains a CalendarDate or exact
+UtcTimestamp without assigning midnight or interpreting a timezone.
+
+Successful values expose complete canonical UTF-8 as_bytes, byte_length and
+sha256 using the qualified source/JCS and software hash primitives. Conservative
+encoded ceilings of 262144 Party bytes and 32768 content bytes contain every
+valid shape; finite field/collection capacities derive at most 256/32 value nodes
+and four container levels. Errors retain no input and emit a fixed diagnostic;
+resource Debug omits content. Clone/equality/hashing retain the complete checked
+canonical value. The [independent literals](tests/fixtures/project-values-v1/README.md)
+own positive/negative, canonical and trait expectations.
+
+Callers separately qualify raw UTF-8/JSON transport, duplicate keys, original
+protocol tokens, current canonical relationships and authorization before using
+parsed values. This foundation does not resolve names, grant authority, establish
+agreement or persist effects. Complete typed change preimages and provenance
+retain their separate implementation and qualification before dependent use.
+
 Validation proves format. Resource existence, ownership, authenticated principal
 identity, random generation and ordering belong to their actual consumers.
 The library has no transport, storage, ambient clock or random source.

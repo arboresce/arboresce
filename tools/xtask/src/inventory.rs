@@ -12,6 +12,7 @@ use sha2::{Digest, Sha256};
 use crate::strict_json;
 
 const MAX_FILES: usize = 4096;
+const MAX_EXPANDED_FILES: usize = 8192;
 const MAX_FILE_BYTES: u64 = 64 * 1024 * 1024;
 const MAX_TOTAL_BYTES: u64 = 256 * 1024 * 1024;
 const MAX_DEPTH: usize = 32;
@@ -115,6 +116,7 @@ fn read(path: &Path) -> Result<Vec<u8>, InventoryError> {
 struct Files {
     rows: BTreeMap<String, Value>,
     total: u64,
+    maximum_files: usize,
 }
 
 impl Files {
@@ -132,7 +134,7 @@ impl Files {
         };
         if size > MAX_FILE_BYTES
             || self.total + added > MAX_TOTAL_BYTES
-            || (!self.rows.contains_key(name) && self.rows.len() == MAX_FILES)
+            || (!self.rows.contains_key(name) && self.rows.len() == self.maximum_files)
         {
             return Err(InventoryError::Files);
         }
@@ -423,9 +425,11 @@ pub fn snapshot(
     }
     let profile = strict_json::parse(raw_profile).ok_or(InventoryError::Input)?;
     let metadata = strict_json::parse(raw_metadata).ok_or(InventoryError::Input)?;
-    if text(&profile, "version")? != "rust-source-roles-v1" {
-        return Err(InventoryError::Input);
-    }
+    let maximum_files = match text(&profile, "version")? {
+        "rust-source-roles-v1" => MAX_FILES,
+        "rust-source-roles-v2" => MAX_EXPANDED_FILES,
+        _ => return Err(InventoryError::Input),
+    };
     let sources = array(&profile, "sources")?;
     let targets = array(&profile, "targets")?;
     let mut generated = BTreeSet::new();
@@ -436,7 +440,10 @@ pub fn snapshot(
         }
     }
     let cargo = cargo_inventory(&root, &metadata)?;
-    let mut files = Files::default();
+    let mut files = Files {
+        maximum_files,
+        ..Files::default()
+    };
     walk(&root, Path::new(""), 0, &cargo, &mut files)?;
     for path in &generated {
         files.add(&root, path)?;

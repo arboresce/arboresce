@@ -291,6 +291,15 @@ role. Unknown or missing files/targets fail. Standard runtime paths cannot omit
 maintained source trees, and explicit generated paths are reopened without
 symlinked ancestors even inside a build boundary.
 
+The selected `rust-source-roles-v2` input profile admits at most 8192 included
+files. The original v1 profile retains its 4096-file ceiling. Both retain the
+same per-file, complete-byte, depth, source-role, declaration and target bounds;
+the [independent inventory literals](../../tests/architecture/fixtures/source-inventory-v1/README.md)
+preserve the old answers and define the additional complete-input boundaries.
+The inventory output schema remains `rust-source-inventory-v1` and binds the
+exact selected profile hash. A larger profile omits no ordinary input and grants
+no source or coverage exemption.
+
 Declaration-only N/A needs both its independently reviewed exact digest and a
 bounded value-only syntax proof, including nested type syntax. The record also
 contains `coverage_roles`, the measured/assertion projection accepted by the
@@ -336,6 +345,19 @@ An identical repeated completion preserves the existing bytes; a conflicting or
 symlinked receipt fails. Failed launch recording performs bounded kill/reap of
 only that owned child. Shared observation attempts completion recording after
 stream, trace and timeout cleanup errors as well as successful collection.
+
+Nested collector admission waits for the existing writer's final LF before
+parsing its own launch receipt. It fixes the earlier of the original caller
+deadline and one second at entry, retains the same regular descriptor through
+the bounded read and identity checks, and rechecks the selected path and exact
+context bytes before accepting. Missing or unfinished publication cannot renew
+the deadline; malformed or conflicting complete frames refuse immediately.
+LF does not attest validity, successful flush or durability. An explicit
+descriptor-selection observer can acknowledge selection for controlled native
+tests; its result supplies no admission authority and its work counts inside
+the same endpoint. The independently admitted
+[publication boundaries](../../tests/architecture/fixtures/native-launch-publication-v1/README.md)
+cover all 37 outcomes, both deadline limits and selected-path substitutions.
 
 Complete observation records stream borrowed byte slices through an 8 KiB
 buffer in the existing sorted-field JSON representation. The writer explicitly

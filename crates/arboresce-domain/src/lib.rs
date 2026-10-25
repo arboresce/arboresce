@@ -2,6 +2,8 @@
 
 use std::{error::Error, fmt, str::FromStr};
 
+pub mod project;
+
 mod canonical_number;
 pub use canonical_number::{
     CanonicalJsonNumber, InvalidCanonicalNumber, MAX_CANONICAL_NUMBER_BYTES,

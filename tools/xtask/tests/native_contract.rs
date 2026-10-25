@@ -5,6 +5,72 @@ use arboresce_xtask::Action;
 pub mod support;
 
 #[test]
+fn independently_approved_parent_preparation_failures() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-parent-preparation-faults-v1/cases.json"
+    ))
+    .unwrap();
+    assert_eq!(fixture["version"], "native-parent-preparation-faults-v1");
+    assert_eq!(fixture["profile"]["native_observer_budget_ms"], 3000);
+    assert_eq!(fixture["profile"]["parent_handshake_budget_ms"], 2000);
+    assert_eq!(fixture["profile"]["cleanup_budget_ms"], 2000);
+    assert_eq!(fixture["profile"]["peer_mode"], "pass");
+    let registry: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/rust-test-suites-v1.json"
+    ))
+    .unwrap();
+    let harness = registry["harnesses"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|harness| {
+            harness["package"] == "arboresce-xtask" && harness["name"] == "native_contract"
+        })
+        .unwrap();
+    let registered = harness["tests"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|body| body["name"] == "independently_approved_parent_preparation_failures")
+        .unwrap();
+    let expected_ids: BTreeSet<_> = registered["case_ids"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|id| id.as_str().unwrap())
+        .collect();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let actual = support::collection_native::parent_preparation_fault(
+            case["fault"].as_str().unwrap(),
+            &fixture["profile"],
+        )
+        .unwrap();
+        assert_eq!(actual, case["expected"], "{id}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+    assert_eq!(seen, expected_ids);
+}
+
+#[test]
+fn independently_approved_native_launch_publication() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/architecture/fixtures/native-launch-publication-v1/cases.json"
+    ))
+    .unwrap();
+    let mut seen = BTreeSet::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let id = case["id"].as_str().unwrap();
+        assert!(seen.insert(id));
+        let actual = support::collection_native::publication(case, &fixture["profile"]).unwrap();
+        assert_eq!(actual, case["expected"], "{id}");
+        println!("xtask case={id} pid={}", std::process::id());
+    }
+}
+
+#[test]
 fn independently_approved_native_launch_diagnostics() {
     use arboresce_xtask::{
         measurement::{self, DiagnosticScope, Request},

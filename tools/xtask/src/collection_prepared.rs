@@ -3,7 +3,7 @@
 use std::{
     collections::BTreeSet,
     fs,
-    io::Read,
+    io::{Read, Seek, SeekFrom},
     os::unix::{ffi::OsStrExt, fs::MetadataExt},
     path::{Path, PathBuf},
     time::{Duration, Instant},
@@ -424,7 +424,133 @@ pub fn outer(prepared: &Value) -> Result<()> {
 }
 
 pub fn outer_until(prepared: &Value, deadline: Instant) -> Result<()> {
+    outer_until_with(prepared, deadline, || Ok(()))
+}
+
+struct LaunchFrame {
+    path: PathBuf,
+    file: fs::File,
+    identity: fs::Metadata,
+}
+
+impl LaunchFrame {
+    fn current(&self, deadline: Instant) -> Result<fs::Metadata> {
+        let bad = CollectError::Nesting;
+        check_time(deadline).map_err(|_| bad)?;
+        for ancestor in self.path.ancestors().skip(1) {
+            if !fs::symlink_metadata(ancestor).is_ok_and(|metadata| metadata.is_dir()) {
+                return Err(bad);
+            }
+        }
+        let path = fs::symlink_metadata(&self.path).map_err(|_| bad)?;
+        let file = self.file.metadata().map_err(|_| bad)?;
+        if !path.is_file()
+            || !file.is_file()
+            || path.dev() != self.identity.dev()
+            || path.ino() != self.identity.ino()
+            || file.dev() != self.identity.dev()
+            || file.ino() != self.identity.ino()
+            || path.len() > 65536
+            || file.len() > 65536
+        {
+            return Err(bad);
+        }
+        check_time(deadline).map_err(|_| bad)?;
+        Ok(file)
+    }
+
+    fn unchanged(&self, deadline: Instant) -> Result<()> {
+        let bad = CollectError::Nesting;
+        let file = self.current(deadline)?;
+        let path = fs::symlink_metadata(&self.path).map_err(|_| bad)?;
+        if !path.is_file()
+            || path.dev() != self.identity.dev()
+            || path.ino() != self.identity.ino()
+            || file.len() != self.identity.len()
+            || path.len() != self.identity.len()
+            || file.modified().map_err(|_| bad)? != self.identity.modified().map_err(|_| bad)?
+            || path.modified().map_err(|_| bad)? != self.identity.modified().map_err(|_| bad)?
+        {
+            return Err(bad);
+        }
+        check_time(deadline).map_err(|_| bad)
+    }
+}
+
+fn publication_pause(deadline: Instant) -> Result<()> {
+    check_time(deadline).map_err(|_| CollectError::Nesting)?;
+    std::thread::sleep(
+        Duration::from_millis(1).min(deadline.saturating_duration_since(Instant::now())),
+    );
+    Ok(())
+}
+
+fn launch_frame(
+    path: PathBuf,
+    deadline: Instant,
+    selected: impl FnOnce() -> std::io::Result<()>,
+) -> Result<(Value, LaunchFrame)> {
+    let bad = CollectError::Nesting;
+    let (file, identity) = loop {
+        check_time(deadline).map_err(|_| bad)?;
+        match fs::symlink_metadata(&path) {
+            Ok(identity) => {
+                if !identity.is_file() || identity.len() > 65536 {
+                    return Err(bad);
+                }
+                let file = fs::File::open(&path).map_err(|_| bad)?;
+                break (file, identity);
+            }
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
+                publication_pause(deadline)?;
+            }
+            Err(_) => return Err(bad),
+        }
+    };
+    let mut frame = LaunchFrame {
+        path,
+        file,
+        identity,
+    };
+    frame.current(deadline)?;
+    selected().map_err(|_| bad)?;
+    loop {
+        let current = frame.current(deadline)?;
+        if current.len() != 0 {
+            frame.file.seek(SeekFrom::End(-1)).map_err(|_| bad)?;
+            let mut last = [0];
+            frame.file.read_exact(&mut last).map_err(|_| bad)?;
+            if last[0] == b'\n' {
+                frame.identity = frame.current(deadline)?;
+                frame.file.seek(SeekFrom::Start(0)).map_err(|_| bad)?;
+                let mut bytes = Vec::new();
+                Read::by_ref(&mut frame.file)
+                    .take(65536)
+                    .read_to_end(&mut bytes)
+                    .map_err(|_| bad)?;
+                frame.unchanged(deadline)?;
+                if bytes.len() as u64 != frame.identity.len() || bytes.last() != Some(&b'\n') {
+                    return Err(bad);
+                }
+                let text = std::str::from_utf8(&bytes).map_err(|_| bad)?;
+                let value = strict_json::parse(text).ok_or(bad)?;
+                check_time(deadline).map_err(|_| bad)?;
+                return Ok((value, frame));
+            }
+        }
+        publication_pause(deadline)?;
+    }
+}
+
+/// Observe selection only; the callback cannot supply bytes or authorize a launch.
+pub fn outer_until_with(
+    prepared: &Value,
+    deadline: Instant,
+    selected: impl FnOnce() -> std::io::Result<()>,
+) -> Result<()> {
+    let entered = Instant::now();
     check_time(deadline)?;
+    let deadline = deadline.min(entered + Duration::from_millis(1000));
     let bad = CollectError::Nesting;
     let actual = environment()?;
     let declared = &prepared["outer"];
@@ -443,14 +569,12 @@ pub fn outer_until(prepared: &Value, deadline: Instant) -> Result<()> {
     let path = path.canonicalize().map_err(|_| bad)?;
     let (context, hash) =
         read_json_until(&path.join("context.json"), 32768, deadline).map_err(|_| bad)?;
-    let (launch, _) = read_json_until(
-        &path
-            .join("launches")
+    let (launch, frame) = launch_frame(
+        path.join("launches")
             .join(format!("{}.json", std::process::id())),
-        65536,
         deadline,
-    )
-    .map_err(|_| bad)?;
+        selected,
+    )?;
     let executable = std::env::current_exe()
         .and_then(|p| p.canonicalize())
         .map_err(|_| bad)?;
@@ -480,7 +604,12 @@ pub fn outer_until(prepared: &Value, deadline: Instant) -> Result<()> {
     {
         return Err(bad);
     }
-    check_time(deadline)
+    let (_, current_hash) =
+        read_json_until(&path.join("context.json"), 32768, deadline).map_err(|_| bad)?;
+    if current_hash != hash {
+        return Err(bad);
+    }
+    frame.unchanged(deadline)
 }
 
 /// Discover every present config again so additions and removals are observable.

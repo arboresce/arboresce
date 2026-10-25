@@ -123,9 +123,127 @@ fn collector_probe() -> std::io::Result<serde_json::Value> {
     )
 }
 
+fn publication_probe() -> std::io::Result<serde_json::Value> {
+    use arboresce_xtask::{collection_prepared as prepared, measurement};
+    use serde_json::{Value, json};
+    use std::{
+        fs, io,
+        os::unix::fs::MetadataExt,
+        path::Path,
+        time::{Duration, Instant, SystemTime, UNIX_EPOCH},
+    };
+    let input: Value = serde_json::from_slice(&fs::read(
+        std::env::var_os("ARBORESCE_PUBLICATION_INPUT").unwrap_or_default(),
+    )?)?;
+    let root = Path::new(input["output"].as_str().unwrap());
+    let recipe = &input["recipe"];
+    let handshake = Duration::from_millis(
+        input["profile"]["parent_handshake_budget_ms"]
+            .as_u64()
+            .unwrap(),
+    );
+    let ready_deadline = Instant::now() + handshake;
+    while !root.join("release").exists() {
+        if Instant::now() >= ready_deadline {
+            return Err(io::Error::new(
+                io::ErrorKind::TimedOut,
+                "publication preparation missing",
+            ));
+        }
+        std::thread::sleep(Duration::from_millis(1));
+    }
+    let context = std::env::var_os(measurement::ENV).unwrap_or_default();
+    let context = Path::new(&context);
+    let ambient = prepared::environment().map_err(io::Error::other)?;
+    let declaration = json!({"outer":{"context":context,"environment":ambient}});
+    let started = Instant::now();
+    let deadline = started + Duration::from_millis(recipe["caller_budget_ms"].as_u64().unwrap());
+    let entered_ns = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(io::Error::other)?
+        .as_nanos();
+    fs::write(
+        root.join("entered.json"),
+        format!(
+            "{}\n",
+            json!({"pid":std::process::id(),"unix_ns":entered_ns})
+        ),
+    )?;
+    let mut selected = None;
+    let actual = if recipe["selection_observer"] == false {
+        prepared::outer_until(&declaration, deadline)
+    } else {
+        prepared::outer_until_with(&declaration, deadline, || {
+            let path = context
+                .join("launches")
+                .join(format!("{}.json", std::process::id()));
+            let metadata = fs::symlink_metadata(&path)?;
+            let at = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map_err(io::Error::other)?
+                .as_nanos();
+            let record = json!({"pid":std::process::id(),"unix_ns":at,"elapsed_ns":started.elapsed().as_nanos(),"device":metadata.dev(),"inode":metadata.ino(),"bytes":metadata.len()});
+            fs::write(root.join("selected.json"), format!("{record}\n"))?;
+            selected = Some(record);
+            if recipe["observer_behavior"] == "error" {
+                return Err(io::Error::new(
+                    io::ErrorKind::PermissionDenied,
+                    "controlled observer failure",
+                ));
+            }
+            if recipe["observer_behavior"] == "delay" {
+                std::thread::sleep(Duration::from_millis(
+                    recipe["observer_delay_ms"].as_u64().unwrap(),
+                ));
+            }
+            if recipe["parent_wait_for"] == "selected" {
+                let handoff_deadline = Instant::now() + handshake;
+                while !root.join("continue").exists() {
+                    if Instant::now() >= handoff_deadline {
+                        return Err(io::Error::new(
+                            io::ErrorKind::TimedOut,
+                            "publication mutation missing",
+                        ));
+                    }
+                    std::thread::sleep(Duration::from_millis(1));
+                }
+            }
+            Ok(())
+        })
+    };
+    let completed_ns = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(io::Error::other)?
+        .as_nanos();
+    Ok(
+        json!({"pid":std::process::id(),"observed":{"accepted":actual.is_ok(),"error":actual.err().map(|e|e.to_string())},"proof":{"entered_unix_ns":entered_ns,"completed_unix_ns":completed_ns,"elapsed_ns":started.elapsed().as_nanos(),"selected":selected,"ambient_before":ambient,"ambient_after":prepared::environment().map_err(io::Error::other)?}}),
+    )
+}
+
 fn main() -> ExitCode {
     let mode = std::env::var("ARBORESCE_XTASK_TEST_PEER").unwrap_or_default();
     let (stdout, stderr, exit) = match mode.as_str() {
+        "publication-probe" => {
+            return match publication_probe() {
+                Ok(value) => ExitCode::from(
+                    if emit(
+                        &mut std::io::stdout().lock(),
+                        format!("{value}\n").as_bytes(),
+                    ) {
+                        0
+                    } else {
+                        1
+                    },
+                ),
+                Err(error) => {
+                    emit(
+                        &mut std::io::stderr().lock(),
+                        format!("publication probe failed: {error}\n").as_bytes(),
+                    );
+                    ExitCode::from(1)
+                }
+            };
+        }
         "service-environment" => {
             use std::os::unix::ffi::OsStrExt;
             let mut keys: Vec<_> = std::env::vars_os()

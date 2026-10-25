@@ -1203,7 +1203,7 @@ Verification: Independent literal contract/fixture oracles, owning language chec
 
 ### E214 — Define typed Party and project changes
 
-Status: `not_started`. Prerequisites: E203, E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `in_progress`. Prerequisites: E203, E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P3.
 
@@ -1216,6 +1216,52 @@ External prerequisite capabilities: Approve independent project context fixtures
 Definition of green: Stable external Party/alias/principal distinctions and project participants/decision/work/assignment/date/status/fact create-revise-associate variants have exact bounds, versions, provenance and literal negative vectors.
 
 Verification: Independent literal contract/fixture oracles, owning language checks/strict coverage and the actual consumer/service/native/recovery lanes stated in the definition of green. Real-input or assurance requirements remain unavailable until supplied and qualified; mocks cannot close them.
+
+The first scoped increment supplies owned parsed-value Party and all nine
+project-record contents in arboresce-domain::project. Exact fields, scalar/count
+bounds, typed identities/revisions, roles/states and date precision are checked.
+Complete canonical bytes/digests and typed getters preserve the checked data.
+The independent public project-values-v1 package supplies 352 literal outcomes
+and six trait pairs before consumer execution. Its measured support and required
+Cargo target are explicitly registered without changing old suites or limits.
+
+The required qualification inventory selects the separate finite v2 profile
+with an 8192-file ceiling so the complete fixture input set remains discoverable.
+V1 retains its 4096-file ceiling; byte, depth, source and coverage obligations
+remain unchanged. Independent additional boundary and preparation literals
+precede that consumer. This does not qualify the source or the complete workflow.
+
+The native collector's prerequisite receipt-publication correction uses its
+existing JSON-plus-LF writer, one fixed bounded endpoint and one retained regular
+descriptor. Exact context, path and launch identities remain mandatory. The
+separately admitted publication package supplies 37 independent outcomes before
+corrective consumption, including valid publication after the one-second limit
+while the original caller deadline remains live. Fresh complete owning and
+public-only native qualification, compiler/resource companions and independent
+source/delivery acceptance remain required; an earlier failed run stays failed.
+
+The current security fixture profiles bind that admitted testing-document
+version. Their exact document hashes and dependent profile hashes advance
+together through a separately accepted input checkpoint. Original profile
+preimages and historical lock contexts retain their earlier identities; all
+cases, verdicts, limits, runtime projections and source matchers remain
+unchanged. This binding amendment still requires fresh complete qualification.
+
+Three separately admitted native parent-fault controls supplement the unchanged
+publication cases. Each observes the actual built peer's normal exit before a
+callback error, missing acknowledgement or conflicting regular local completion
+file. The common capture path must retain its setup cause, actual status and
+streams, preserve launch/context bytes and independently attempt local and
+ambient completion under the original budgets. These post-exit controls do not
+qualify active-child signals. Focused checks and fresh complete qualification
+remain required; prior failed coverage retains its failing result.
+
+This is a partial foundation. This local slice remains in progress until complete
+typed create/revise/associate changes, origin/field lineage/unknown/dependency
+variants and all remaining criteria independently qualify. Raw transport,
+canonical lookup/current authority, application/persistence and whole workflow
+qualification retain their consuming gates. No partial increment admits a
+consumer requiring this whole local slice.
 
 ### E215 — Persist authorized project records and revisions
 

@@ -98,6 +98,24 @@ pub fn prepare(fixture: &Value, case: &Value) -> io::Result<Prepared> {
             bytes.as_str().ok_or_else(invalid)?.as_bytes(),
         )?;
     }
+    let mut profile = fixture["base_profile"].clone();
+    patch(&mut profile, &case["profile_patch"])?;
+    if let Some(names) = case.get("remove_profile") {
+        for name in names.as_array().ok_or_else(invalid)? {
+            profile
+                .as_object_mut()
+                .and_then(|map| map.remove(name.as_str()?))
+                .ok_or_else(invalid)?;
+        }
+    }
+    result.profile = match case.get("profile_raw") {
+        Some(raw) => raw.as_str().ok_or_else(invalid)?.to_owned(),
+        None => profile.to_string(),
+    };
+    // This selects only a finite physical recipe allowance, never an answer.
+    let expanded = serde_json::from_str::<Value>(&result.profile)
+        .is_ok_and(|profile| profile["version"] == "rust-source-roles-v2");
+    let maximum_files = if expanded { 8193 } else { 4097 };
     for op in case["file_operations"].as_array().ok_or_else(invalid)? {
         match text(op, "op")? {
             "write" => write(
@@ -125,7 +143,7 @@ pub fn prepare(fixture: &Value, case: &Value) -> io::Result<Prepared> {
             "many_files" => {
                 let count = op["count"]
                     .as_u64()
-                    .filter(|n| *n <= 4097)
+                    .filter(|n| *n <= maximum_files)
                     .ok_or_else(invalid)?;
                 for index in 0..count {
                     write(&result.root, &format!("extras/item-{index}"), b"")?;
@@ -148,22 +166,8 @@ pub fn prepare(fixture: &Value, case: &Value) -> io::Result<Prepared> {
             _ => return Err(invalid()),
         }
     }
-    let mut profile = fixture["base_profile"].clone();
-    patch(&mut profile, &case["profile_patch"])?;
-    if let Some(names) = case.get("remove_profile") {
-        for name in names.as_array().ok_or_else(invalid)? {
-            profile
-                .as_object_mut()
-                .and_then(|map| map.remove(name.as_str()?))
-                .ok_or_else(invalid)?;
-        }
-    }
     let mut metadata = fixture["base_metadata"].clone();
     patch(&mut metadata, &case["metadata_patch"])?;
-    result.profile = match case.get("profile_raw") {
-        Some(raw) => raw.as_str().ok_or_else(invalid)?.to_owned(),
-        None => profile.to_string(),
-    };
     result.metadata = match case.get("metadata_raw") {
         Some(raw) => raw.as_str().ok_or_else(invalid)?.to_owned(),
         None => metadata.to_string(),
