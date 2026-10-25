@@ -1203,7 +1203,7 @@ Verification: Independent literal contract/fixture oracles, owning language chec
 
 ### E214 — Define typed Party and project changes
 
-Status: `in_progress`. Prerequisites: E203, E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
+Status: `complete`. Prerequisites: E203, E200. Verify lane: DOC + CONTRACT + RUST + PYTHON + SERVICE + E2E (only applicable changed sources and actual consumers; no waived required lane).
 
 Stage: P3.
 
@@ -1277,12 +1277,40 @@ independent acceptance remain required before this whole local slice is green.
 Supplied-fact readiness never establishes actual authorization, authenticated
 attribution, human acceptance, target absence/CAS or persistence.
 
-This local slice remains in progress until complete
-typed create/revise/associate changes, origin/field lineage/unknown/dependency
-variants and all remaining criteria independently qualify. Raw transport,
-canonical lookup/current authority, application/persistence and whole workflow
-qualification retain their consuming gates. No partial increment admits a
-consumer requiring this whole local slice.
+The complete typed-value increment is independently accepted at the source
+checkpoint below. Together with the accepted Party and all nine record-content
+values, it supplies every create/revise/associate form, complete immutable
+preimages, candidate identities, origin, field lineage, unresolved requirements
+and exact dependencies in this local slice. The supplied-fact comparator keeps
+field/provenance, reachable-graph and current-dependency observations separate.
+
+Both fresh owning and public-only Rust 1.99.0 macOS ARM64 default-feature
+qualifications pass 409 commands, 22 harnesses, 170 bodies and 8,841 events each.
+Each retains 821 launch/completion pairs, 256 raw profiles, 27 objects and
+118 strict scopes. All applicable measured file, package, repository and target
+line/region scopes exceed 90 percent, including maintained fixture support and
+actual exercised process boundaries. No threshold, denominator or old case was
+removed.
+
+Separate current-image source/compiler/resource reviews and eight supporting
+native runs pass: the complete 41-event source-JSON boundary body and all five
+project-change bodies with 833 events, each at default and 1 MiB thread-stack
+settings in both lanes. All eight fresh profiles decode individually and remain
+outside whole-suite coverage. These are selected-profile observations and
+conditional resource bounds, not universal allocator, host-OOM or latency claims.
+
+The normal source commit, distinct actual delivery, both original-owner receipts,
+whole-pair reads and terminal finite acknowledgements are complete. This later
+execution annotation changes documentation only. The qualified executable,
+test, fixture, role, dependency and tool bytes are unchanged; no fresh complete
+executable qualification on the changed annotation bytes is claimed.
+
+This completes the typed-value scope. Current authority, canonical lookup,
+authenticated attribution, IANA interpretation, raw transport, application and
+persistence, human assurance and complete workflows retain their owning
+consumer gates. Supplied-fact readiness does not authorize a committed effect.
+
+Checkpoint: bc83f48073f623f51211512297deb004ab609901; Evidence: [Typed project change qualification](open-cli-mvp-v1-rcld.md)
 
 ### E215 — Persist authorized project records and revisions
 
